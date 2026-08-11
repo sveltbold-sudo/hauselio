@@ -1,0 +1,313 @@
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
+import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import MiniCart from "@/components/layout/MiniCart";
+import SearchDropdown from "@/components/layout/SearchDropdown";
+import { navCategories } from "@/lib/navigation";
+
+export default function HeaderClient() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeMega, setActiveMega] = useState<string | null>(null);
+  const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMegaEnter = useCallback((href: string) => {
+    setActiveMega(href);
+  }, []);
+
+  const handleMegaLeave = useCallback(() => {
+    setActiveMega(null);
+  }, []);
+
+  const handleMegaFocus = useCallback((href: string) => {
+    setActiveMega(href);
+  }, []);
+
+  const handleMegaBlur = useCallback(() => {
+    setActiveMega(null);
+  }, []);
+
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !mobileMenuRef.current) return;
+      const focusable = mobileMenuRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    const firstFocusable = mobileMenuRef.current?.querySelector<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    firstFocusable?.focus();
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  return (
+    <header
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "glass border-b border-[var(--color-border-light)] shadow-[var(--shadow-md)]"
+          : "bg-white border-b border-[var(--color-border-light)]"
+      }`}
+    >
+      <div className="brand-stripe h-[2px]" />
+
+      <div className="container-hauselio">
+        <div className="flex items-center justify-between h-16 md:h-[72px]">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="relative">
+              <Image
+                src="/logos/logoprincipale.png"
+                alt="HAUSELIO"
+                width={140}
+                height={44}
+                priority
+                className="h-9 md:h-11 w-auto transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          </Link>
+
+          <nav
+            className="hidden lg:flex items-center gap-0.5"
+            onMouseLeave={handleMegaLeave}
+          >
+            {navCategories.map((cat) => (
+              <div
+                key={cat.href}
+                className="relative"
+                onMouseEnter={() => handleMegaEnter(cat.href)}
+              >
+                <Link
+                  href={cat.href}
+                  onFocus={() => handleMegaFocus(cat.href)}
+                  onBlur={handleMegaBlur}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      setActiveMega(null);
+                      (e.target as HTMLElement).blur();
+                    }
+                  }}
+                  aria-haspopup="true"
+                  aria-expanded={activeMega === cat.href}
+                  className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-all duration-300 ${
+                    activeMega === cat.href
+                      ? "text-[var(--color-primary)] bg-[var(--color-primary-50)]"
+                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-gray-50"
+                  }`}
+                >
+                  {cat.name}
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                      activeMega === cat.href ? "rotate-180" : ""
+                    }`}
+                  />
+                </Link>
+
+                {activeMega === cat.href && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 animate-fade-in-down z-50">
+                    <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px]">
+                      <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
+                        <div className="w-14 h-14 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
+                          <Image
+                            src={cat.image}
+                            alt={cat.name}
+                            width={32}
+                            height={32}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-[var(--color-text-primary)] text-sm">
+                            {cat.name}
+                          </h3>
+                          <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                            {cat.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-0.5">
+                        {cat.subcategories.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-all duration-200 group"
+                          >
+                            <span className="font-medium">{sub.name}</span>
+                            <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                          </Link>
+                        ))}
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+                        <Link
+                          href={cat.href}
+                          className="flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-lg transition-colors duration-200"
+                        >
+                          Alle {cat.name} ansehen
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              aria-label="Suche"
+              aria-expanded={searchOpen}
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
+            <MiniCart />
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              aria-label="Menü"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <SearchDropdown isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 top-0 z-50" role="dialog" aria-modal="true" aria-label="Menü">
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div ref={mobileMenuRef} className="absolute right-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] animate-slide-in-right overflow-y-auto">
+            <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
+              <h2 className="font-bold text-[var(--color-text-primary)]">Menü</h2>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Menü schließen"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-1">
+              {navCategories.map((cat, i) => {
+                const isExpanded = expandedMobileCat === cat.href;
+                return (
+                  <div
+                    key={cat.href}
+                    className="animate-fade-in-up"
+                    style={{ animationDelay: `${i * 40}ms` }}
+                  >
+                    <div className="flex items-center">
+                      <Link
+                        href={cat.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-3.5 px-3 py-3 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-all duration-200 flex-1"
+                      >
+                        <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center shrink-0">
+                          <Image
+                            src={cat.image}
+                            alt=""
+                            width={24}
+                            height={24}
+                            className="w-6 h-6 object-contain"
+                          />
+                        </div>
+                        <span className="font-medium text-sm">{cat.name}</span>
+                      </Link>
+                      {cat.subcategories.length > 0 && (
+                        <button
+                          onClick={() => setExpandedMobileCat(isExpanded ? null : cat.href)}
+                          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                          aria-label={`${cat.name} ${isExpanded ? "schließen" : "öffnen"}`}
+                          aria-expanded={isExpanded}
+                        >
+                          <ChevronRight
+                            className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
+                          />
+                        </button>
+                      )}
+                    </div>
+                    {isExpanded && cat.subcategories.length > 0 && (
+                      <div className="ml-[52px] mt-1 space-y-0.5 border-l-2 border-[var(--color-primary-50)] pl-3">
+                        {cat.subcategories.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block px-3 py-2 rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-all duration-200"
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="p-5 border-t border-[var(--color-border-light)] mt-2 space-y-1">
+              <Link
+                href="/kontakt"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
+              >
+                <Phone className="w-4 h-4" />
+                Kontakt
+              </Link>
+              <Link
+                href="/impressum"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
+              >
+                Impressum
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}

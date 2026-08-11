@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ═══════════════════════════════════════════
+// CATALOGUE
+// ═══════════════════════════════════════════
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  sortOrder   Int       @default(0)
+  parentId    String?
+  parent      Category? @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([sortOrder])
+}
+
+model Brand {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  logo        String?
+  description String?
+  website     String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  description   String
+  shortDesc     String?
+  price         Decimal       @db.Decimal(10, 2)
+  originalPrice Decimal?      @db.Decimal(10, 2)
+  sku           String?       @unique
+  barcode       String?
+  weight        Decimal?      @db.Decimal(8, 2)
+  inStock       Boolean       @default(true)
+  isFeatured    Boolean       @default(false)
+  isNew         Boolean       @default(false)
+  isPromo       Boolean       @default(false)
+  rating        Decimal       @default(0) @db.Decimal(3, 2)
+  reviewCount   Int           @default(0)
+  features      String[]      @default([])
+  tags          String[]      @default([])
+  seoTitle      String?
+  seoDesc       String?
+  categoryId    String
+  category      Category      @relation(fields: [categoryId], references: [id])
+  brandId       String?
+  brand         Brand?        @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  images        ProductImage[]
+  specs         ProductSpec[]
+  reviews       Review[]
+  orderItems    OrderItem[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([categoryId])
+  @@index([brandId])
+  @@index([isFeatured])
+  @@index([isNew])
+  @@index([isPromo])
+  @@index([price])
+  @@index([rating])
+  @@index([createdAt])
+  @@index([categoryId, isFeatured])
+  @@index([categoryId, isNew])
+  @@index([categoryId, isPromo])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  position  Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+model ProductSpec {
+  id        String  @id @default(cuid())
+  key       String
+  value     String
+  position  Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+// ═══════════════════════════════════════════
+// COMMANDES
+// ═══════════════════════════════════════════
+
+model Order {
+  id                String        @id @default(cuid())
+  orderNumber       String        @unique
+  status            OrderStatus   @default(PENDING_PAYMENT)
+  customerEmail     String
+  customerFirstName String
+  customerLastName  String
+  customerPhone     String?
+  customerAddress   String
+  customerZip       String
+  customerCity      String
+  customerCountry   String        @default("DE")
+  customerNotes     String?
+  adminNotes        String?
+  paymentMethod     String        @default("sepa_transfer")
+  paymentStatus     PaymentStatus @default(PENDING)
+  bankReference     String?
+  shippingMethod    String?
+  shippingCost      Decimal       @db.Decimal(10, 2) @default(0)
+  trackingNumber    String?
+  subtotal          Decimal       @db.Decimal(10, 2)
+  total             Decimal       @db.Decimal(10, 2)
+  items             OrderItem[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([customerEmail])
+  @@index([status])
+  @@index([createdAt])
+  @@index([status, createdAt])
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  price     Decimal @db.Decimal(10, 2)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAYMENT_CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  REFUNDED
+}
+
+// ═══════════════════════════════════════════
+// AVIS CLIENTS
+// ═══════════════════════════════════════════
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  title       String?
+  content     String?
+  authorName  String
+  authorEmail String
+  isApproved  Boolean  @default(false)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+  @@index([isApproved])
+  @@index([productId, isApproved])
+  @@unique([productId, authorEmail])
+}
+
+// ═══════════════════════════════════════════
+// NEWSLETTER
+// ═══════════════════════════════════════════
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  confirmed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isActive])
+}
+
+// ═══════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════
+
+enum AdminRole {
+  ADMIN
+  EDITOR
+}
+
+model AdminUser {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  password       String
+  name           String?
+  role           AdminRole @default(ADMIN)
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+  lastLogin      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+// ═══════════════════════════════════════════
+// CONFIGURATION SITE
+// ═══════════════════════════════════════════
+
+model SiteSettings {
+  id              String @id @default(cuid())
+  bankName        String?
+  bankIban        String?
+  bankBic         String?
+  bankAccountName String?
+  shippingInfo    String?
+  contactEmail    String?
+  contactPhone    String?
+  contactAddress  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

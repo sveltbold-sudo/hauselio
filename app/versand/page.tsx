@@ -1,0 +1,157 @@
+import type { Metadata } from "next";
+import { Truck, Package } from "lucide-react";
+
+export const revalidate = 86400;
+
+export const metadata: Metadata = {
+  title: "Versandinformationen",
+  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO",
+  robots: { index: false, follow: false },
+};
+
+const shippingMethods = [
+  {
+    name: "Standardversand",
+    price: "4,99 €",
+    freeAbove: "50 €",
+    duration: "2–5 Werktage",
+    icon: Truck,
+  },
+  {
+    name: "Expressversand",
+    price: "9,99 €",
+    freeAbove: null,
+    duration: "1–2 Werktage",
+    icon: Package,
+  },
+];
+
+export default function VersandPage() {
+  return (
+    <div className="container-hauselio py-16 max-w-3xl">
+      <h1 className="heading-1 mb-8">
+        Versandinformationen
+      </h1>
+
+      {/* Versandarten */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+          Versandarten & Kosten
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {shippingMethods.map((method) => (
+            <div
+              key={method.name}
+              className="bg-white rounded-xl border border-[var(--color-border-light)] p-6"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center">
+                  <method.icon className="w-5 h-5 text-[var(--color-primary)]" />
+                </div>
+                <h3 className="font-semibold text-[var(--color-text-primary)]">{method.name}</h3>
+              </div>
+              <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                <p>
+                  <span className="font-medium">Kosten:</span> {method.price}
+                </p>
+                {method.freeAbove && (
+                  <p className="text-[var(--color-success)] font-medium">
+                    Kostenlos ab {method.freeAbove} Bestellwert
+                  </p>
+                )}
+                <p>
+                  <span className="font-medium">Lieferzeit:</span>{" "}
+                  {method.duration}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lieferung */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+          Lieferung
+        </h2>
+        <div className="space-y-4">
+          <p className="text-[var(--color-text-secondary)] leading-relaxed">
+            Wir versenden Ihre Bestellung innerhalb Deutschlands an die von Ihnen
+            angegebene Lieferadresse. Alle Sendungen sind mit einer
+            Sendungsverfolgungsnummer ausgestattet, die Sie nach Versand der
+            Bestellung per E-Mail erhalten.
+          </p>
+          <p className="text-[var(--color-text-secondary)] leading-relaxed">
+            Die Lieferung erfolgt in der Regel innerhalb von <strong>2–5
+            Werktagen</strong> nach Eingang der Zahlung. Bei Expressversand
+            erhalten Sie Ihre Ware innerhalb von <strong>1–2 Werktagen</strong>.
+          </p>
+          <p className="text-[var(--color-text-secondary)] leading-relaxed">
+            Bitte stellen Sie sicher, dass bei Lieferung eine Person anwesend
+            ist, die die Ware entgegennehmen kann. Bei großen Geräten wird die
+            Lieferung bis zur Bordsteinkante (Kerbdienst) durchgeführt.
+          </p>
+        </div>
+      </section>
+
+      {/* Zahlung */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+          Zahlungsarten
+        </h2>
+        <div className="bg-[var(--color-bg)] rounded-xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <span className="text-lg">🏦</span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
+                Überweisung (SEPA)
+              </h3>
+              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                Nach Ihrer Bestellung erhalten Sie eine Bestätigungs-E-Mail mit
+                unseren Bankverbindungen. Bitte überweisen Sie den Gesamtbetrag
+                innerhalb von <strong>7 Tagen</strong> auf unser Konto. Nach
+                Eingang der Zahlung wird Ihre Bestellung umgehend versendet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sendungsverfolgung */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+          Sendungsverfolgung
+        </h2>
+        <p className="text-[var(--color-text-secondary)] leading-relaxed">
+          Nach Versand Ihrer Bestellung erhalten Sie eine E-Mail mit einem Link
+          zur Sendungsverfolgung. Über diesen Link können Sie den aktuellen
+          Status Ihrer Lieferung jederzeit verfolgen.
+        </p>
+      </section>
+
+      {/* Kontakt */}
+      <section>
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+          Fragen zum Versand?
+        </h2>
+        <p className="text-[var(--color-text-secondary)] leading-relaxed">
+          Bei Fragen zu Versand, Lieferung oder Zahlung stehen wir Ihnen gerne
+          zur Verfügung:
+        </p>
+        <div className="mt-4 bg-[var(--color-bg)] rounded-xl p-6">
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            <span className="font-medium">E-Mail:</span> support@hauselio.de
+          </p>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            <span className="font-medium">Telefon:</span> +49 (0)30 555 789 01
+          </p>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            <span className="font-medium">Mo–Fr:</span> 9:00–18:00 Uhr
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}

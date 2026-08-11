@@ -1,0 +1,95 @@
+import { Prisma } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
+import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
+import OrderTable from "@/components/admin/OrderTable";
+
+export default async function AdminOrdersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  await requireRole("ADMIN");
+  const params = await searchParams;
+  const status = typeof params.status === "string" ? params.status : undefined;
+  const q = typeof params.q === "string" ? params.q : undefined;
+  const page = Math.max(1, parseInt(typeof params.page === "string" ? params.page : "1", 10) || 1);
+  const limit = 20;
+  const skip = (page - 1) * limit;
+
+  const where: Prisma.OrderWhereInput = {};
+  if (status) where.status = status as never;
+  if (q) {
+    where.OR = [
+      { orderNumber: { contains: q, mode: "insensitive" } },
+      { customerEmail: { contains: q, mode: "insensitive" } },
+      { customerFirstName: { contains: q, mode: "insensitive" } },
+      { customerLastName: { contains: q, mode: "insensitive" } },
+    ];
+  }
+
+  const [orders, total] = await Promise.all([
+    prisma.order.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: limit,
+    }),
+    prisma.order.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(total / limit);
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
+        Bestellungen
+      </h1>
+
+      {/* Filters */}
+      <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4 mb-6">
+        <form className="flex flex-wrap gap-3">
+          <input
+            type="text"
+            name="q"
+            defaultValue={q}
+            placeholder="Suche (Nr., Name, E-Mail)..."
+            className="flex-1 min-w-[200px] px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+          />
+          <select
+            name="status"
+            defaultValue={status}
+            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+          >
+            <option value="">Alle Status</option>
+            {Object.entries(ORDER_STATUS_LABELS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+          >
+            Filtern
+          </button>
+        </form>
+      </div>
+
+      {/* Orders Table */}
+      <OrderTable
+        orders={orders.map((o) => ({
+          ...o,
+          createdAt: o.createdAt.toISOString(),
+          total: Number(o.total),
+        }))}
+        total={total}
+        totalPages={totalPages}
+        page={page}
+        status={status}
+        q={q}
+      />
+    </div>
+  );
+}
