@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import { algoliaAdminClient, PRODUCTS_INDEX } from "./algolia";
+import { getAlgoliaAdminClient, PRODUCTS_INDEX } from "./algolia";
 
 interface ProductRecord extends Record<string, unknown> {
   objectID: string;
@@ -58,7 +58,7 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
     }));
 
     try {
-      await algoliaAdminClient.saveObjects({
+      await getAlgoliaAdminClient().saveObjects({
         indexName: PRODUCTS_INDEX,
         objects: records,
       });
@@ -75,7 +75,7 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
 }
 
 export async function deleteProductFromAlgolia(productId: string): Promise<void> {
-  await algoliaAdminClient.deleteObject({
+  await getAlgoliaAdminClient().deleteObject({
     indexName: PRODUCTS_INDEX,
     objectID: productId,
   });
@@ -111,7 +111,7 @@ export async function updateProductInAlgolia(productId: string): Promise<void> {
     inStock: product.inStock,
   };
 
-  await algoliaAdminClient.saveObject({
+  await getAlgoliaAdminClient().saveObject({
     indexName: PRODUCTS_INDEX,
     body: record,
   });

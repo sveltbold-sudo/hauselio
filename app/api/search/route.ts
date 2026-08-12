@@ -30,8 +30,8 @@ export async function GET(request: NextRequest) {
 
   if (algoliaAvailable) {
     try {
-      const { algoliaClient, PRODUCTS_INDEX } = await import("@/lib/algolia");
-      const result = await algoliaClient.search({
+      const { getAlgoliaSearchClient, PRODUCTS_INDEX } = await import("@/lib/algolia");
+      const result = await getAlgoliaSearchClient().search({
         requests: [
           {
             indexName: PRODUCTS_INDEX,
