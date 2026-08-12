@@ -7,11 +7,15 @@ import ProductJsonLd from "@/components/seo/ProductJsonLd";
 export const revalidate = 300;
 
 export async function generateStaticParams() {
-  const products = await prisma.product.findMany({
-    select: { slug: true },
-    where: { inStock: true },
-  });
-  return products.map((p) => ({ slug: p.slug }));
+  try {
+    const products = await prisma.product.findMany({
+      select: { slug: true },
+      where: { inStock: true },
+    });
+    return products.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 interface PageProps {
