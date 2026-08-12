@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Phone, ArrowUp, Truck, Shield, CreditCard, Headphones } from "lucide-react";
 import Image from "next/image";
