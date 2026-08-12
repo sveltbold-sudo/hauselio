@@ -58,7 +58,8 @@ export async function POST(request: NextRequest) {
             quality: "auto",
             fetch_format: "auto",
           },
-          (error, result) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (error: any, result: any) => {
             if (error) reject(error);
             else resolve(result as { secure_url: string; public_id: string });
           }

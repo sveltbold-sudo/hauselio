@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL } from "@/lib/resend";
+import { getResendClient, FROM_EMAIL } from "@/lib/resend";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { createUnsubscribeToken } from "@/lib/auth";
@@ -161,7 +161,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
     </div>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: customerEmail,
     subject: `Bestellbestätigung ${safeOrderNumber} – HAUSELIO`,
@@ -187,7 +187,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
     </p>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Zahlung bestätigt ${safeOrderNumber} – HAUSELIO`,
@@ -221,7 +221,7 @@ export async function sendShippedConfirmation(
     </a>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} – HAUSELIO`,
@@ -255,7 +255,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
     </p>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Bestellung ${safeOrderNumber} storniert – HAUSELIO`,
@@ -300,7 +300,7 @@ export async function sendContactForward(data: {
     </div>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: "support@hauselio.de",
     subject: `Kontakt: ${safe.subject}`,
@@ -335,7 +335,7 @@ export async function sendContactAutoReply(data: {
     </p>
   `);
 
-  return resend.emails.send({
+  return getResendClient().emails.send({
     from: FROM_EMAIL,
     to: data.email,
     subject: "Ihre Nachricht bei HAUSELIO",
@@ -372,7 +372,7 @@ export async function sendNewsletterCampaign(data: {
             </p>
           </div>
         `);
-        return resend.emails.send({
+        return getResendClient().emails.send({
           from: FROM_EMAIL,
           to: email,
           subject: `${safeSubject} – HAUSELIO`,
