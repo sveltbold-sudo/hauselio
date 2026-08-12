@@ -4,6 +4,8 @@ import { useEffect, useState, useTransition } from "react";
 import { Save, Building2, Truck, Globe } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
+export const dynamic = "force-dynamic";
+
 interface Settings {
   bankIban: string;
   bankBic: string;

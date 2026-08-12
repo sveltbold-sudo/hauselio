@@ -3,6 +3,8 @@
 import { useMemo, useEffect, useState, useTransition } from "react";
 import { Search, Mail, Phone, MapPin } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface Customer {
   email: string;
   firstName: string;

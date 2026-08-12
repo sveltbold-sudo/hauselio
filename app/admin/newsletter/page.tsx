@@ -4,6 +4,8 @@ import { useEffect, useState, useTransition } from "react";
 import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
+export const dynamic = "force-dynamic";
+
 interface Subscriber {
   id: string;
   email: string;

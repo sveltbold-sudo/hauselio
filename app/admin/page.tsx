@@ -11,6 +11,8 @@ import { formatPrice } from "@/lib/utils";
 import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants";
 import AlgoliaSyncButton from "@/components/admin/AlgoliaSyncButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   await requireRole("ADMIN");
   const [

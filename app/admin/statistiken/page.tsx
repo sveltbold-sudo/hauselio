@@ -3,6 +3,8 @@
 import { useEffect, useState, useTransition } from "react";
 import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface Stats {
   totalRevenue: number;
   totalOrders: number;

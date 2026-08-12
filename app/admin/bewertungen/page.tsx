@@ -3,6 +3,8 @@
 import { useEffect, useState, useTransition } from "react";
 import { Star, Check, X, Trash2 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface Review {
   id: string;
   rating: number;

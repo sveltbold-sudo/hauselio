@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import ProductTable from "@/components/admin/ProductTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminProductsPage({
   searchParams,
 }: {

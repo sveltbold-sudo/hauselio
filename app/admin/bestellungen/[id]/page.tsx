@@ -8,6 +8,8 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminOrderDetailPage({
   params,
 }: {

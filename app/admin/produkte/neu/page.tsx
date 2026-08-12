@@ -7,6 +7,8 @@ import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
 import { useToast } from "@/components/ui/Toast";
 
+export const dynamic = "force-dynamic";
+
 interface Category {
   id: string;
   name: string;
