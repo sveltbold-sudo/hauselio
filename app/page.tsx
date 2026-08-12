@@ -9,13 +9,13 @@ import ProductCard from "@/components/product/ProductCard";
 import HeroCarousel from "@/components/product/HeroCarousel";
 import ValuePropsSection from "@/components/product/ValuePropsSection";
 
-const GuaranteeServiceSection = dynamic(() => import("@/components/product/GuaranteeServiceSection"), { ssr: false });
-const BuyingAdviceSection = dynamic(() => import("@/components/product/BuyingAdviceSection"), { ssr: false });
-const PressReviewsSection = dynamic(() => import("@/components/product/PressReviewsSection"), { ssr: false });
-const EditorialContentSection = dynamic(() => import("@/components/product/EditorialContentSection"), { ssr: false });
-const BrandsShowcaseSection = dynamic(() => import("@/components/product/BrandsShowcaseSection"), { ssr: false });
-const CustomerReviewsSection = dynamic(() => import("@/components/product/CustomerReviewsSection"), { ssr: false });
-const NewsletterSection = dynamic(() => import("@/components/home/NewsletterSection"), { ssr: false });
+const GuaranteeServiceSection = dynamic(() => import("@/components/product/GuaranteeServiceSection"));
+const BuyingAdviceSection = dynamic(() => import("@/components/product/BuyingAdviceSection"));
+const PressReviewsSection = dynamic(() => import("@/components/product/PressReviewsSection"));
+const EditorialContentSection = dynamic(() => import("@/components/product/EditorialContentSection"));
+const BrandsShowcaseSection = dynamic(() => import("@/components/product/BrandsShowcaseSection"));
+const CustomerReviewsSection = dynamic(() => import("@/components/product/CustomerReviewsSection"));
+const NewsletterSection = dynamic(() => import("@/components/home/NewsletterSection"));
 
 export const revalidate = 300;
 

@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
 
-const ShopFilterDrawer = dynamic(() => import("@/components/product/ShopFilterDrawer"), { ssr: false });
+const ShopFilterDrawer = dynamic(() => import("@/components/product/ShopFilterDrawer"));
 
 export const revalidate = 300;
 
