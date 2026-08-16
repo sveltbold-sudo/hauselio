@@ -1,5 +1,19 @@
 -- HAUSELIO — Seed Data
 -- Exécuter APRÈS schema.sql dans Supabase SQL Editor
+-- Supprime les anciennes données puis réinsère (idempotent)
+
+-- 0. Clear existing seed data
+DELETE FROM "Review";
+DELETE FROM "OrderItem";
+DELETE FROM "Order";
+DELETE FROM "Newsletter";
+DELETE FROM "ProductSpec";
+DELETE FROM "ProductImage";
+DELETE FROM "Product";
+DELETE FROM "Category";
+DELETE FROM "Brand";
+DELETE FROM "AdminUser";
+DELETE FROM "SiteSettings";
 
 -- 1. Admin User (password: admin123)
 DO $$ BEGIN
