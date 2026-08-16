@@ -9,6 +9,7 @@ import ProductCard from "@/components/product/ProductCard";
 
 const ShopFilterDrawer = dynamic(() => import("@/components/product/ShopFilterDrawer"));
 
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {

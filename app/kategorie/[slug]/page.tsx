@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export async function generateStaticParams() {

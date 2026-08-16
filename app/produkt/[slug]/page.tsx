@@ -5,6 +5,7 @@ import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export async function generateStaticParams() {

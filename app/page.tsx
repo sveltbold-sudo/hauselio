@@ -17,6 +17,7 @@ const BrandsShowcaseSection = dynamic(() => import("@/components/product/BrandsS
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 const NewsletterSection = dynamic(() => import("@/components/home/NewsletterSection"));
 
+export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
