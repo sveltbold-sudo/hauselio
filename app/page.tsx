@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -9,13 +9,13 @@ import ProductCard from "@/components/product/ProductCard";
 import HeroCarousel from "@/components/product/HeroCarousel";
 import ValuePropsSection from "@/components/product/ValuePropsSection";
 
-const GuaranteeServiceSection = dynamic(() => import("@/components/product/GuaranteeServiceSection"));
-const BuyingAdviceSection = dynamic(() => import("@/components/product/BuyingAdviceSection"));
-const PressReviewsSection = dynamic(() => import("@/components/product/PressReviewsSection"));
-const EditorialContentSection = dynamic(() => import("@/components/product/EditorialContentSection"));
-const BrandsShowcaseSection = dynamic(() => import("@/components/product/BrandsShowcaseSection"));
+const GuaranteeServiceSection = dynamicImport(() => import("@/components/product/GuaranteeServiceSection"));
+const BuyingAdviceSection = dynamicImport(() => import("@/components/product/BuyingAdviceSection"));
+const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"));
+const EditorialContentSection = dynamicImport(() => import("@/components/product/EditorialContentSection"));
+const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/BrandsShowcaseSection"));
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
-const NewsletterSection = dynamic(() => import("@/components/home/NewsletterSection"));
+const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;

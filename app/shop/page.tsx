@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import { SearchX, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
 
-const ShopFilterDrawer = dynamic(() => import("@/components/product/ShopFilterDrawer"));
+const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
