@@ -26,15 +26,21 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    select: {
-      name: true,
-      description: true,
-      price: true,
-      images: { take: 1, orderBy: { position: "asc" } },
-    },
-  });
+  let product;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+      select: {
+        name: true,
+        description: true,
+        price: true,
+        images: { take: 1, orderBy: { position: "asc" } },
+      },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in produkt/[slug]/generateMetadata:", error);
+    return { title: "Produkt nicht gefunden" };
+  }
 
   if (!product) {
     return { title: "Produkt nicht gefunden" };
@@ -69,15 +75,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: {
-      category: true,
-      brand: true,
-      images: { orderBy: { position: "asc" } },
-      specs: { orderBy: { position: "asc" } },
-    },
-  });
+  let product;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: true,
+        brand: true,
+        images: { orderBy: { position: "asc" } },
+        specs: { orderBy: { position: "asc" } },
+      },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in produkt/[slug]/page.tsx:", error);
+    notFound();
+  }
 
   if (!product) {
     notFound();

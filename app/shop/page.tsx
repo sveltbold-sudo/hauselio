@@ -95,22 +95,32 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (sort === "price_desc") orderBy = { price: "desc" };
   if (sort === "rating") orderBy = { rating: "desc" };
 
-  const [products, categories, brands, total] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      include: {
-        category: true,
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-      orderBy,
-      skip,
-      take: limit,
-    }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
-    prisma.brand.findMany({ orderBy: { name: "asc" } }),
-    prisma.product.count({ where }),
-  ]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let products: any[] = [];
+  let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
+  let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
+  let total = 0;
+
+  try {
+    [products, categories, brands, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: {
+          category: true,
+          brand: true,
+          images: { take: 1, orderBy: { position: "asc" } },
+        },
+        orderBy,
+        skip,
+        take: limit,
+      }),
+      prisma.category.findMany({ orderBy: { name: "asc" } }),
+      prisma.brand.findMany({ orderBy: { name: "asc" } }),
+      prisma.product.count({ where }),
+    ]);
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in shop/page.tsx:", error);
+  }
 
   const totalPages = Math.ceil(total / limit);
 

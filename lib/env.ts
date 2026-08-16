@@ -30,14 +30,22 @@ export function validateEnv() {
   }
 
   if (missing.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missing.join(", ")}. ` +
-        `Please add them to your .env file or environment configuration.`
-    );
+    if (process.env.NODE_ENV === "production") {
+      console.warn(`[HAUSELIO] Missing env vars: ${missing.join(", ")}. App may not function correctly.`);
+    } else {
+      throw new Error(
+        `Missing required environment variables: ${missing.join(", ")}. ` +
+          `Please add them to your .env file or environment configuration.`
+      );
+    }
   }
 
   if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
-    throw new Error("JWT_SECRET must be at least 32 characters long.");
+    if (process.env.NODE_ENV === "production") {
+      console.warn("[HAUSELIO] JWT_SECRET is missing or too short (<32 chars). Auth may not work.");
+    } else {
+      throw new Error("JWT_SECRET must be at least 32 characters long.");
+    }
   }
 
   _validated = true;

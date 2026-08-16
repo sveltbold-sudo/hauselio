@@ -24,10 +24,16 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = await prisma.category.findUnique({
-    where: { slug },
-    select: { name: true, description: true },
-  });
+  let category;
+  try {
+    category = await prisma.category.findUnique({
+      where: { slug },
+      select: { name: true, description: true },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in kategorie/[slug]/generateMetadata:", error);
+    return { title: "Kategorie nicht gefunden" };
+  }
 
   if (!category) {
     return { title: "Kategorie nicht gefunden" };
@@ -55,10 +61,16 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
-  const category = await prisma.category.findUnique({
-    where: { slug },
-    select: { name: true, description: true },
-  });
+  let category;
+  try {
+    category = await prisma.category.findUnique({
+      where: { slug },
+      select: { name: true, description: true },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in kategorie/[slug]/page.tsx:", error);
+    notFound();
+  }
 
   if (!category) {
     notFound();

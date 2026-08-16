@@ -9,19 +9,25 @@ interface CustomerReviewsSectionProps {
 export default async function CustomerReviewsSection({ productId }: CustomerReviewsSectionProps) {
   const where = productId ? { productId, isApproved: true } : { isApproved: true };
 
-  const reviews = await prisma.review.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      authorName: true,
-      rating: true,
-      title: true,
-      content: true,
-      createdAt: true,
-      product: { select: { name: true, slug: true } },
-    },
-  });
+  let reviews;
+  try {
+    reviews = await prisma.review.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        authorName: true,
+        rating: true,
+        title: true,
+        content: true,
+        createdAt: true,
+        product: { select: { name: true, slug: true } },
+      },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in CustomerReviewsSection:", error);
+    return null;
+  }
 
   if (reviews.length === 0) return null;
 
