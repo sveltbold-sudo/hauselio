@@ -2,6 +2,21 @@
 -- Exécuter APRÈS schema.sql dans Supabase SQL Editor
 
 -- 1. Admin User (password: admin123)
+DO $$ BEGIN
+  ALTER TABLE "AdminUser" ADD COLUMN "failedAttempts" INTEGER NOT NULL DEFAULT 0;
+EXCEPTION WHEN duplicate_column THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE "AdminUser" ADD COLUMN "lockedUntil" TIMESTAMP(3);
+EXCEPTION WHEN duplicate_column THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE "AdminUser" ADD COLUMN "lastLogin" TIMESTAMP(3);
+EXCEPTION WHEN duplicate_column THEN NULL;
+END $$;
+
 INSERT INTO "AdminUser" ("id", "email", "password", "name", "role", "failedAttempts", "createdAt", "updatedAt")
 VALUES ('admin-001', 'admin@hauselio.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW())
 ON CONFLICT ("email") DO NOTHING;
