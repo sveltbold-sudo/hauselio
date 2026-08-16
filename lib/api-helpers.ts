@@ -26,7 +26,7 @@ export function validateCsrfOrigin(request: NextRequest): boolean {
   try {
     const sourceUrl = new URL(source);
     const expectedUrl = new URL(expected);
-    return sourceUrl.hostname === expectedUrl.hostname;
+    return sourceUrl.origin === expectedUrl.origin;
   } catch {
     return false;
   }

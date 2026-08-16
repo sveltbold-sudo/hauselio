@@ -77,7 +77,7 @@ describe("middleware", () => {
       method: "POST",
       headers: {
         cookie: "admin_token=valid.jwt.token",
-        origin: "http://localhost:3000",
+        origin: "https://localhost:3000",
       },
     });
     const res = await middleware(req);

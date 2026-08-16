@@ -110,6 +110,7 @@ function makeRequest(url: string, init?: RequestInit) {
   if (method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH") {
     if (!headers.has("origin")) headers.set("origin", "http://localhost:3000");
     if (!headers.has("host")) headers.set("host", "localhost:3000");
+    if (!headers.has("x-forwarded-proto")) headers.set("x-forwarded-proto", "http");
   }
   if (!headers.has("x-forwarded-for")) headers.set("x-forwarded-for", "127.0.0.1");
   if (!headers.has("host")) headers.set("host", "localhost:3000");

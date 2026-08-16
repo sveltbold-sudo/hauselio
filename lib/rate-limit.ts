@@ -100,6 +100,9 @@ export async function getRemainingAttempts(
 
 if (typeof setInterval !== "undefined") {
   setInterval(() => {
+    if (rateLimitStore.size > 100_000) {
+      rateLimitStore.clear();
+    }
     const now = Date.now();
     for (const [key, entry] of rateLimitStore.entries()) {
       if (now > entry.resetAt) {

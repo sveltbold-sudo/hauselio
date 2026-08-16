@@ -72,6 +72,13 @@ export async function DELETE(request: NextRequest) {
   try {
     await requireAdmin();
 
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const email = searchParams.get("email");
 
