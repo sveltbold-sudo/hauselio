@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const revalidate = 300;
 
@@ -103,6 +104,13 @@ export default async function ProductPage({ params }: PageProps) {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Startseite", url: "/" },
+          { name: product.category?.name || "Shop", url: `/kategorie/${product.category?.slug || ""}` },
+          { name: product.name, url: `/produkt/${product.slug}` },
+        ]}
+      />
       <ProductJsonLd
         name={product.name}
         description={product.description}

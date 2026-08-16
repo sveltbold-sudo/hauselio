@@ -64,6 +64,14 @@ export async function DELETE(
 ) {
   try {
     await requireAdmin();
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const allowed = await checkRateLimit(`admin-bewertung-delete:${ip}`, 30, 60_000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
     const { id } = await params;
 
     const review = await prisma.review.findUnique({ where: { id }, select: { productId: true } });

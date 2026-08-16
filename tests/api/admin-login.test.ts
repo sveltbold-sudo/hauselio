@@ -78,7 +78,7 @@ describe("POST /api/admin/login", () => {
     const req = makeRequest("http://localhost:3000/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "admin@test.de", password: "wrong" }),
+      body: JSON.stringify({ email: "admin@test.de", password: "wrong-password" }),
     });
 
     const res = await POST(req);
@@ -107,7 +107,7 @@ describe("POST /api/admin/login", () => {
     const req = makeRequest("http://localhost:3000/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "admin@test.de", password: "any" }),
+      body: JSON.stringify({ email: "admin@test.de", password: "any-passw" }),
     });
 
     const res = await POST(req);
@@ -136,7 +136,7 @@ describe("POST /api/admin/login", () => {
     const req = makeRequest("http://localhost:3000/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "nonexistent@test.de", password: "any" }),
+      body: JSON.stringify({ email: "nonexistent@test.de", password: "any-passw" }),
     });
 
     const res = await POST(req);

@@ -18,7 +18,7 @@ export const CreateOrderSchema = z.object({
 
 export const LoginSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
-  password: z.string().min(1, "Passwort ist erforderlich").max(128, "Passwort darf maximal 128 Zeichen lang sein"),
+  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128, "Passwort darf maximal 128 Zeichen lang sein"),
 });
 
 export const ContactSchema = z.object({

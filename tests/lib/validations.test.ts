@@ -49,7 +49,7 @@ describe("CreateOrderSchema", () => {
 
 describe("LoginSchema", () => {
   it("accepts valid login", () => {
-    expect(LoginSchema.safeParse({ email: "a@b.de", password: "123" }).success).toBe(true);
+    expect(LoginSchema.safeParse({ email: "a@b.de", password: "12345678" }).success).toBe(true);
   });
 
   it("rejects empty email", () => {

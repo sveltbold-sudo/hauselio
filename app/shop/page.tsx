@@ -196,32 +196,34 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </div>
 
           {/* Products grid */}
-          {formattedProducts.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                <SearchX className="w-10 h-10 text-gray-300" />
+          <Suspense fallback={<ProductGridSkeleton />}>
+            {formattedProducts.length === 0 ? (
+              <div className="text-center py-20">
+                <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
+                  <SearchX className="w-10 h-10 text-gray-300" />
+                </div>
+                <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+                  Keine Produkte gefunden
+                </h2>
+                <p className="text-[var(--color-text-muted)] mb-6">
+                  Versuchen Sie, Ihre Filter anzupassen oder durchsuchen Sie unser gesamtes Sortiment.
+                </p>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  Alle Produkte ansehen
+                </Link>
               </div>
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
-                Keine Produkte gefunden
-              </h2>
-              <p className="text-[var(--color-text-muted)] mb-6">
-                Versuchen Sie, Ihre Filter anzupassen oder durchsuchen Sie unser gesamtes Sortiment.
-              </p>
-              <Link
-                href="/shop"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                Alle Produkte ansehen
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {formattedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {formattedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </Suspense>
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -266,6 +268,24 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function ProductGridSkeleton() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
+          <div className="aspect-square bg-gray-100" />
+          <div className="p-5 space-y-3">
+            <div className="h-3 bg-gray-100 rounded w-1/3" />
+            <div className="h-4 bg-gray-100 rounded w-3/4" />
+            <div className="h-3 bg-gray-100 rounded w-1/2" />
+            <div className="h-5 bg-gray-100 rounded w-1/4" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

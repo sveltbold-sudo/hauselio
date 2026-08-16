@@ -19,32 +19,42 @@ export async function GET(request: NextRequest) {
     const settings = await prisma.siteSettings.findFirst();
 
     if (!settings) {
-      return NextResponse.json({
-        settings: {
-          bankAccountName: "",
-          bankIban: "",
-          bankBic: "",
-          bankName: "",
-          contactEmail: "",
-          contactPhone: "",
-          contactAddress: "",
-          shippingInfo: "",
+      return NextResponse.json(
+        {
+          settings: {
+            bankAccountName: "",
+            bankIban: "",
+            bankBic: "",
+            bankName: "",
+            contactEmail: "",
+            contactPhone: "",
+            contactAddress: "",
+            shippingInfo: "",
+          },
         },
-      });
+        {
+          headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
+        }
+      );
     }
 
-    return NextResponse.json({
-      settings: {
-        bankAccountName: settings.bankAccountName,
-        bankIban: settings.bankIban,
-        bankBic: settings.bankBic,
-        bankName: settings.bankName,
-        contactEmail: settings.contactEmail,
-        contactPhone: settings.contactPhone,
-        contactAddress: settings.contactAddress,
-        shippingInfo: settings.shippingInfo,
+    return NextResponse.json(
+      {
+        settings: {
+          bankAccountName: settings.bankAccountName,
+          bankIban: settings.bankIban,
+          bankBic: settings.bankBic,
+          bankName: settings.bankName,
+          contactEmail: settings.contactEmail,
+          contactPhone: settings.contactPhone,
+          contactAddress: settings.contactAddress,
+          shippingInfo: settings.shippingInfo,
+        },
       },
-    });
+      {
+        headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
+      }
+    );
   } catch (error) {
     return handleApiError(error);
   }

@@ -14,7 +14,7 @@ const BuyingAdviceSection = dynamic(() => import("@/components/product/BuyingAdv
 const PressReviewsSection = dynamic(() => import("@/components/product/PressReviewsSection"));
 const EditorialContentSection = dynamic(() => import("@/components/product/EditorialContentSection"));
 const BrandsShowcaseSection = dynamic(() => import("@/components/product/BrandsShowcaseSection"));
-const CustomerReviewsSection = dynamic(() => import("@/components/product/CustomerReviewsSection"));
+import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 const NewsletterSection = dynamic(() => import("@/components/home/NewsletterSection"));
 
 export const revalidate = 300;

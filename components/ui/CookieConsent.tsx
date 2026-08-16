@@ -69,6 +69,7 @@ export default function CookieConsent() {
     <div
       ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Cookie-Einstellungen"
       onKeyDown={handleKeyDown}
       className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"

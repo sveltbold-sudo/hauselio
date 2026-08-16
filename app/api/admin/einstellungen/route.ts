@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateSettingsSchema } from "@/lib/validations";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function GET() {
   try {
@@ -33,6 +34,15 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const allowed = await checkRateLimit(`admin-einstellungen:${ip}`, 30, 60_000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
+import { slugify } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +34,6 @@ export default function KategorienPage() {
   useEffect(() => {
     loadCategories();
   }, []);
-
-  const slugify = (text: string) =>
-    text.toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

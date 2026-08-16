@@ -25,7 +25,9 @@ export async function GET(request: NextRequest) {
     : 10;
 
   if (!query || query.trim().length === 0) {
-    return NextResponse.json({ hits: [], nbHits: 0 });
+    return NextResponse.json({ hits: [], nbHits: 0 }, {
+      headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
+    });
   }
 
   if (algoliaAvailable) {
@@ -58,10 +60,15 @@ export async function GET(request: NextRequest) {
 
       const result0 = result.results[0] as { hits: unknown[]; nbHits: number };
 
-      return NextResponse.json({
-        hits: result0.hits,
-        nbHits: result0.nbHits,
-      });
+      return NextResponse.json(
+        {
+          hits: result0.hits,
+          nbHits: result0.nbHits,
+        },
+        {
+          headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
+        }
+      );
     } catch (error) {
       console.error("Algolia search error, falling back to Prisma:", error);
     }
