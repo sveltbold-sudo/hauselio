@@ -1,19 +1,23 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { PackageOpen, ShoppingBag } from "lucide-react";
+import { PackageOpen, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/product/ProductCard";
+
+const PAGE_SIZE = 20;
 
 interface CategoryPageProps {
   slug: string;
   title: string;
   description: string;
+  page?: number;
 }
 
 export default async function CategoryPage({
   slug,
   title,
   description,
+  page = 1,
 }: CategoryPageProps) {
   let category;
   try {
@@ -28,6 +32,9 @@ export default async function CategoryPage({
     notFound();
   }
 
+  const currentPage = Math.max(1, page);
+  const skip = (currentPage - 1) * PAGE_SIZE;
+
   let products: {
     id: string;
     name: string;
@@ -41,16 +48,23 @@ export default async function CategoryPage({
     brand: { name: string } | null;
     images: { url: string }[];
   }[] = [];
+  let total = 0;
+
   try {
-    const raw = await prisma.product.findMany({
-      where: { categoryId: category.id },
-      include: {
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-    // Map Decimal fields to numbers
+    const [raw, count] = await Promise.all([
+      prisma.product.findMany({
+        where: { categoryId: category.id },
+        include: {
+          brand: { select: { name: true } },
+          images: { take: 1, orderBy: { position: "asc" } },
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.product.count({ where: { categoryId: category.id } }),
+    ]);
+    total = count;
     products = raw.map((p) => ({
       ...p,
       price: Number(p.price),
@@ -59,7 +73,10 @@ export default async function CategoryPage({
     }));
   } catch {
     products = [];
+    total = 0;
   }
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const formattedProducts = products.map((product) => ({
     id: product.id,
@@ -74,6 +91,10 @@ export default async function CategoryPage({
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
   }));
+
+  function pageUrl(p: number) {
+    return `/kategorie/${slug}?page=${p}`;
+  }
 
   return (
     <div className="container-hauselio py-8">
@@ -104,17 +125,73 @@ export default async function CategoryPage({
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {formattedProducts.map((product, i) => (
-            <div
-              key={product.id}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {formattedProducts.map((product, i) => (
+              <div
+                key={product.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <nav className="flex items-center justify-between mt-12 pt-8 border-t border-[var(--color-border-light)]" aria-label="Seitennavigation">
+              <p className="text-sm text-[var(--color-text-muted)]">
+                {total} Produkte — Seite {currentPage} von {totalPages}
+              </p>
+              <div className="flex gap-1">
+                {currentPage > 1 && (
+                  <Link
+                    href={pageUrl(currentPage - 1)}
+                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-colors"
+                    aria-label="Vorherige Seite"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </Link>
+                )}
+                {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                  let pageNum: number;
+                  if (totalPages <= 7) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 4) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 3) {
+                    pageNum = totalPages - 6 + i;
+                  } else {
+                    pageNum = currentPage - 3 + i;
+                  }
+                  return pageNum;
+                }).map((p) => (
+                  <Link
+                    key={p}
+                    href={pageUrl(p)}
+                    aria-current={p === currentPage ? "page" : undefined}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      p === currentPage
+                        ? "bg-[var(--color-primary)] text-white"
+                        : "text-[var(--color-text-secondary)] hover:bg-gray-100"
+                    }`}
+                  >
+                    {p}
+                  </Link>
+                ))}
+                {currentPage < totalPages && (
+                  <Link
+                    href={pageUrl(currentPage + 1)}
+                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-colors"
+                    aria-label="Nächste Seite"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </div>
+            </nav>
+          )}
+        </>
       )}
     </div>
   );

@@ -18,6 +18,7 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -48,8 +49,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function CategorySlugPage({ params }: PageProps) {
+export default async function CategorySlugPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
   const category = await prisma.category.findUnique({
     where: { slug },
@@ -65,6 +68,7 @@ export default async function CategorySlugPage({ params }: PageProps) {
       slug={slug}
       title={category.name}
       description={category.description || ""}
+      page={page}
     />
   );
 }

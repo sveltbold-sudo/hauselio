@@ -1,12 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-import { ShoppingBag, Star, Check } from "lucide-react";
+import { Star } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
+import AddToCartButton from "@/components/product/AddToCartButton";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/lib/store";
 
 interface ProductCardProps {
   product: {
@@ -26,34 +23,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const addItem = useCartStore((state) => state.addItem);
-  const [added, setAdded] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.price,
-      image: product.image,
-    });
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setAdded(true);
-    timeoutRef.current = setTimeout(() => setAdded(false), 2000);
-  };
 
   return (
     <Link
@@ -92,26 +64,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
           className="absolute bottom-3 left-3 right-3 flex gap-2 z-10 transition-all duration-400 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
         >
-          <button
-            onClick={handleAdd}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-              added
-                ? "bg-[var(--color-success)] text-white"
-                : "bg-[var(--color-secondary)] text-white hover:bg-[var(--color-primary)] active:scale-[0.97]"
-            }`}
-          >
-            {added ? (
-              <>
-                <Check className="w-4 h-4" />
-                Hinzugefügt!
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="w-4 h-4" />
-                In den Warenkorb
-              </>
-            )}
-          </button>
+          <AddToCartButton
+            product={{
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              price: product.price,
+              image: product.image,
+            }}
+          />
         </div>
       </div>
 

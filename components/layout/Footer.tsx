@@ -1,10 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { Mail, Phone, ArrowUp, Truck, Shield, CreditCard, Headphones } from "lucide-react";
+import { Mail, Phone, Truck, Shield, CreditCard, Headphones } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
 import NewsletterForm from "@/components/layout/NewsletterForm";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 const service = [
   { name: "Kontakt", href: "/kontakt" },
@@ -165,14 +164,7 @@ export default function Footer() {
             <p className="text-sm text-white/70">
               © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
             </p>
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                aria-label="Nach oben scrollen"
-                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/60 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300 group"
-              >
-              Nach oben
-              <ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" />
-            </button>
+            <ScrollToTop />
           </div>
         </div>
       </div>
