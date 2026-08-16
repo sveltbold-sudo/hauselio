@@ -66,7 +66,7 @@ async function getFeaturedProducts() {
     slug: p.slug,
     price: Number(p.price),
     originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    image: p.images[0]?.url || "/images/products/placeholder.jpg",
+    image: p.images[0]?.url || "/images/placeholder-product.svg",
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
@@ -85,10 +85,10 @@ const fallbackCategories = [
 ];
 
 const fallbackProducts = [
-  { id: "1", name: "Thermomix TM7", slug: "thermomix-tm7", price: 1499, originalPrice: 1599, image: "/images/products/thermomix-tm7.jpg", rating: 4.9, reviewCount: 127, isNew: true, brand: "KitchenAid" },
-  { id: "2", name: "Dyson V15 Detect Absolute", slug: "dyson-v15-detect-absolute", price: 749, originalPrice: null, image: "/images/products/dyson-v15.jpg", rating: 4.7, reviewCount: 89, isNew: true, brand: "Dyson" },
-  { id: "3", name: "Jura E8 Platinum", slug: "jura-e8-platinum", price: 1199, originalPrice: 1299, image: "/images/products/jura-e8.jpg", rating: 4.8, reviewCount: 156, isPromo: true, brand: "Jura" },
-  { id: "4", name: "Miele W1 Waschmaschine", slug: "miele-w1-waschmaschine", price: 1899, originalPrice: null, image: "/images/products/miele-w1.jpg", rating: 4.9, reviewCount: 203, isNew: false, brand: "Miele" },
+  { id: "1", name: "Thermomix TM7", slug: "thermomix-tm7", price: 1499, originalPrice: 1599, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 127, isNew: true, brand: "KitchenAid" },
+  { id: "2", name: "Dyson V15 Detect Absolute", slug: "dyson-v15-detect-absolute", price: 749, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.7, reviewCount: 89, isNew: true, brand: "Dyson" },
+  { id: "3", name: "Jura E8 Platinum", slug: "jura-e8-platinum", price: 1199, originalPrice: 1299, image: "/images/placeholder-product.svg", rating: 4.8, reviewCount: 156, isPromo: true, brand: "Jura" },
+  { id: "4", name: "Miele W1 Waschmaschine", slug: "miele-w1-waschmaschine", price: 1899, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 203, isNew: false, brand: "Miele" },
 ];
 
 function CategoriesSkeleton() {
