@@ -1,19 +1,8 @@
 import { MetadataRoute } from "next";
-import { prisma } from "@/lib/prisma";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [products, categories] = await Promise.all([
-    prisma.product.findMany({
-      select: { slug: true, updatedAt: true },
-      orderBy: { updatedAt: "desc" },
-    }),
-    prisma.category.findMany({
-      select: { slug: true, updatedAt: true },
-    }),
-  ]);
-
   const staticPages = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${BASE_URL}/shop`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
@@ -26,19 +15,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/widerruf`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.2 },
   ];
 
-  const categoryPages = categories.map((cat) => ({
-    url: `${BASE_URL}/kategorie/${cat.slug}`,
-    lastModified: cat.updatedAt,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  try {
+    const { prisma } = await import("@/lib/prisma");
 
-  const productPages = products.map((product) => ({
-    url: `${BASE_URL}/produkt/${product.slug}`,
-    lastModified: product.updatedAt,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+    const [products, categories] = await Promise.all([
+      prisma.product.findMany({
+        select: { slug: true, updatedAt: true },
+        orderBy: { updatedAt: "desc" },
+      }),
+      prisma.category.findMany({
+        select: { slug: true, updatedAt: true },
+      }),
+    ]);
 
-  return [...staticPages, ...categoryPages, ...productPages];
+    const categoryPages = categories.map((cat) => ({
+      url: `${BASE_URL}/kategorie/${cat.slug}`,
+      lastModified: cat.updatedAt,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
+
+    const productPages = products.map((product) => ({
+      url: `${BASE_URL}/produkt/${product.slug}`,
+      lastModified: product.updatedAt,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
+    return [...staticPages, ...categoryPages, ...productPages];
+  } catch {
+    return staticPages;
+  }
 }
