@@ -32,13 +32,11 @@ EXCEPTION WHEN duplicate_column THEN NULL;
 END $$;
 
 INSERT INTO "AdminUser" ("id", "email", "password", "name", "role", "failedAttempts", "createdAt", "updatedAt")
-VALUES ('admin-001', 'admin@hauselio.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW())
-ON CONFLICT ("email") DO NOTHING;
+VALUES ('admin-001', 'admin@hauselio.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW());
 
 -- 2. Site Settings
 INSERT INTO "SiteSettings" ("id", "bankName", "bankIban", "bankBic", "bankAccountName", "shippingInfo", "contactEmail", "contactPhone", "contactAddress", "createdAt", "updatedAt")
-VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSELIO GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hauselio.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW())
-ON CONFLICT ("id") DO NOTHING;
+VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSELIO GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hauselio.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW());
 
 -- 3. Categories
 INSERT INTO "Category" ("id", "name", "slug", "description", "image", "sortOrder", "createdAt", "updatedAt") VALUES
@@ -47,8 +45,7 @@ INSERT INTO "Category" ("id", "name", "slug", "description", "image", "sortOrder
 ('cat-reinigung', 'Reinigung', 'reinigung', 'Effiziente Reinigungsgeräte für Ihr Zuhause', '/images/categories/reinigung.jpg', 2, NOW(), NOW()),
 ('cat-klima', 'Klima & Luft', 'klima', 'Klimaanlagen und Luftreiniger für jedes Raumklima', '/images/categories/klima.jpg', 3, NOW(), NOW()),
 ('cat-smart-home', 'Smart Home', 'smart-home', 'Intelligente Geräte für ein vernetztes Zuhause', '/images/categories/smart-home.jpg', 4, NOW(), NOW()),
-('cat-haushalt', 'Haushaltsgeräte', 'haushaltsgeraete', 'Waschmaschinen, Trockner, Kühlschränke & mehr', '/images/categories/haushaltsgeraete.jpg', 5, NOW(), NOW())
-ON CONFLICT ("slug") DO NOTHING;
+('cat-haushalt', 'Haushaltsgeräte', 'haushaltsgeraete', 'Waschmaschinen, Trockner, Kühlschränke & mehr', '/images/categories/haushaltsgeraete.jpg', 5, NOW(), NOW());
 
 -- 4. Brands
 INSERT INTO "Brand" ("id", "name", "slug", "logo", "createdAt", "updatedAt") VALUES
@@ -81,8 +78,7 @@ INSERT INTO "Brand" ("id", "name", "slug", "logo", "createdAt", "updatedAt") VAL
 ('br-stadler', 'Stadler Form', 'stadler-form', '/images/brands/stadler-form.svg', NOW(), NOW()),
 ('br-blueair', 'Blueair', 'blueair', '/images/brands/blueair.svg', NOW(), NOW()),
 ('br-nanoleaf', 'Nanoleaf', 'nanoleaf', '/images/brands/nanoleaf.svg', NOW(), NOW()),
-('br-ring', 'Ring', 'ring', '/images/brands/ring.svg', NOW(), NOW())
-ON CONFLICT ("slug") DO NOTHING;
+('br-ring', 'Ring', 'ring', '/images/brands/ring.svg', NOW(), NOW());
 
 -- 5. Products
 INSERT INTO "Product" ("id", "name", "slug", "description", "shortDesc", "price", "originalPrice", "sku", "inStock", "isFeatured", "isNew", "isPromo", "rating", "reviewCount", "features", "tags", "seoTitle", "seoDesc", "categoryId", "brandId", "weight", "createdAt", "updatedAt") VALUES
@@ -124,14 +120,12 @@ INSERT INTO "Product" ("id", "name", "slug", "description", "shortDesc", "price"
 ('prod-036', 'Liebherr Premium Comfort Kgn 36vi3', 'liebherr-premium-comfort-kgn36vi3', 'Der Liebherr Premium Comfort Kühlschrank - BioFresh, NoFrost und MagicEye.', 'Premium Kühlschrank mit BioFresh & NoFrost', 1499.00, NULL, 'LB-KGN36VI3', true, false, false, false, 4.8, 134, ARRAY['BioFresh', 'NoFrost', 'MagicEye', 'SuperCool'], ARRAY['premium', 'energieeffizient'], NULL, NULL, 'cat-haushalt', 'br-liebherr', 93, NOW(), NOW()),
 ('prod-037', 'Liebherr Mono SGNe 5226 Gefrierschrank', 'liebherr-mono-sgne5226', 'Der Liebherr Mono Gefrierschrank mit NoFrost, SmartFrost und VarioSpace.', 'Gefrierschrank mit NoFrost & VarioSpace', 1299.00, NULL, 'LB-SGNE5226', true, false, false, false, 4.7, 89, ARRAY['NoFrost', 'SmartFrost', 'VarioSpace'], ARRAY[]::TEXT[], NULL, NULL, 'cat-haushalt', 'br-liebherr', 85, NOW(), NOW()),
 ('prod-038', 'Samsung Family Hub Bespoke RB38B7735S9', 'samsung-family-hub-bespoke-rb38b7735s9', 'Der Samsung Family Hub Kühlschrank mit 21,5 Zoll Touchscreen und AI-Kamera.', 'Family Hub mit Touchscreen & AI-Kamera', 2499.00, NULL, 'SAM-FH-RB38B', true, false, true, false, 4.6, 67, ARRAY['21,5" Touchscreen', 'AI-Innenraumkamera', 'SmartThings'], ARRAY['premium', 'smart-home'], NULL, NULL, 'cat-haushalt', 'br-samsung', 115, NOW(), NOW()),
-('prod-039', 'Bosch Serie 6 KGN39VL3A', 'bosch-serie-6-kgn39vl3a', 'Der Bosch Serie 6 Kühlschrank mit NoFrost und VitaFresh Pro.', 'NoFrost Kühlschrank mit VitaFresh Pro', 1099.00, NULL, 'BSH-KGN39VL3A', true, false, false, false, 4.7, 234, ARRAY['NoFrost', 'VitaFresh Pro', 'Home Connect', 'MultiAirflow'], ARRAY[]::TEXT[], NULL, NULL, 'cat-haushalt', 'br-bosch', 82, NOW(), NOW())
-ON CONFLICT ("slug") DO NOTHING;
+('prod-039', 'Bosch Serie 6 KGN39VL3A', 'bosch-serie-6-kgn39vl3a', 'Der Bosch Serie 6 Kühlschrank mit NoFrost und VitaFresh Pro.', 'NoFrost Kühlschrank mit VitaFresh Pro', 1099.00, NULL, 'BSH-KGN39VL3A', true, false, false, false, 4.7, 234, ARRAY['NoFrost', 'VitaFresh Pro', 'Home Connect', 'MultiAirflow'], ARRAY[]::TEXT[], NULL, NULL, 'cat-haushalt', 'br-bosch', 82, NOW(), NOW());
 
 -- 6. Product Images
 INSERT INTO "ProductImage" ("id", "url", "alt", "position", "productId")
 SELECT 'img-' || p."id", '/images/products/' || p."slug" || '.jpg', p."slug", 0, p."id"
-FROM "Product" p
-ON CONFLICT DO NOTHING;
+FROM "Product" p;
 
 -- 7. Product Specs
 INSERT INTO "ProductSpec" ("id", "key", "value", "position", "productId") VALUES
@@ -218,8 +212,7 @@ INSERT INTO "ProductSpec" ("id", "key", "value", "position", "productId") VALUES
 ('spec-081', 'Nutzvolumen', '389 Liter', 0, 'prod-038'),
 ('spec-082', 'Display', '21,5 Zoll TFT', 1, 'prod-038'),
 ('spec-083', 'Nutzvolumen', '366 Liter', 0, 'prod-039'),
-('spec-084', 'Energieeffizienz', 'A+++', 1, 'prod-039')
-ON CONFLICT DO NOTHING;
+('spec-084', 'Energieeffizienz', 'A+++', 1, 'prod-039');
 
 -- 8. Sample Reviews
 INSERT INTO "Review" ("id", "rating", "title", "content", "authorName", "authorEmail", "isApproved", "productId", "createdAt", "updatedAt") VALUES
@@ -230,5 +223,4 @@ INSERT INTO "Review" ("id", "rating", "title", "content", "authorName", "authorE
 ('rev-005', 5, 'Perfekt', 'Genau das was ich gesucht habe. Funktioniert hervorragend.', 'Peter H.', 'peter@example.de', true, 'prod-022', NOW(), NOW()),
 ('rev-006', 3, 'Okay, aber nicht perfekt', 'Funktioniert grundsätzlich gut, aber es gibt ein paar Kleinigkeiten die stören.', 'Julia W.', 'julia@example.de', true, 'prod-003', NOW(), NOW()),
 ('rev-007', 5, 'Bestes Gerät in seiner Klasse', 'Habe lange verglichen und mich für dieses Gerät entschieden. Keine bereute Entscheidung.', 'Marcus S.', 'marcus@example.de', true, 'prod-027', NOW(), NOW()),
-('rev-008', 4, 'Solide Qualität', 'Verarbeitung ist erstklassig. Die Bedienung ist intuitiv.', 'Laura F.', 'laura@example.de', true, 'prod-009', NOW(), NOW())
-ON CONFLICT ("productId", "authorEmail") DO NOTHING;
+('rev-008', 4, 'Solide Qualität', 'Verarbeitung ist erstklassig. Die Bedienung ist intuitiv.', 'Laura F.', 'laura@example.de', true, 'prod-009', NOW(), NOW());
