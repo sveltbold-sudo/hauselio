@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Widerrufsbelehrung – HAUSELIO",
+  title: "Widerrufsbelehrung",
   description: "Ihr Widerrufsrecht bei Einkäufen im HAUSELIO Online-Shop.",
   robots: { index: false, follow: false },
 };

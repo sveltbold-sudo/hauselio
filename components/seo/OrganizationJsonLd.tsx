@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
+import { SITE_URL } from "@/lib/constants";
 
 interface OrganizationJsonLdProps {
   name?: string;
@@ -10,7 +10,7 @@ interface OrganizationJsonLdProps {
 export default function OrganizationJsonLd({
   name = "HAUSELIO GmbH",
   url = SITE_URL,
-  logo = `${SITE_URL}/images/logo.svg`,
+  logo = `${SITE_URL}/logos/logoprincipale.png`,
   description = "Premium Haushaltsgeräte online kaufen. Miele, Bosch, Siemens, Dyson und weitere Top-Marken.",
 }: OrganizationJsonLdProps) {
   const jsonLd = {

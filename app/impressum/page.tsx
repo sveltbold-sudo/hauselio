@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Impressum – HAUSELIO",
+  title: "Impressum",
   description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
   robots: { index: false, follow: false },
 };

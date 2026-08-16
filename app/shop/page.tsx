@@ -6,6 +6,7 @@ import { SearchX, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
+import { SITE_URL } from "@/lib/constants";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
@@ -17,7 +18,7 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const category = params.category;
   const brand = params.brand;
   const q = params.q;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
+  const baseUrl = SITE_URL;
 
   let title = "Boutique";
   let desc = "Entdecken Sie unser gesamtes Sortiment an Haushaltsgeräten";

@@ -3,8 +3,9 @@ interface BreadcrumbItem {
   url: string;
 }
 
+import { SITE_URL } from "@/lib/constants";
+
 export default function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
   
   const jsonLd = {
     "@context": "https://schema.org",

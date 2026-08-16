@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300;
@@ -46,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: "Produkt nicht gefunden" };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
+  const baseUrl = SITE_URL;
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "..."

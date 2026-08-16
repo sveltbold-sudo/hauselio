@@ -7,6 +7,7 @@ import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsent from "@/components/ui/CookieConsent";
 import AnalyticsGate from "@/components/analytics/AnalyticsGate";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     template: "%s | HAUSELIO",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
-    url: "https://hauselio.de",
+    url: SITE_URL,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

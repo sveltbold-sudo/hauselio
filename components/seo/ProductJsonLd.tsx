@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/constants";
+
 interface ProductJsonLdProps {
   name: string;
   description: string;
@@ -25,8 +27,7 @@ export default function ProductJsonLd({
   availability = "InStock",
   url,
 }: ProductJsonLdProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
-  const productUrl = url || `${baseUrl}/produkt/${sku.toLowerCase()}`;
+  const productUrl = url || `${SITE_URL}/produkt/${sku.toLowerCase()}`;
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",

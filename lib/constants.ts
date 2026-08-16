@@ -1,3 +1,5 @@
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de").replace(/\/+$/, "");
+
 export const FREE_SHIPPING_THRESHOLD = 50;
 export const SHIPPING_COST = 4.99;
 

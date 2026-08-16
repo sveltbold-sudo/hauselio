@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
+import { SITE_URL } from "@/lib/constants";
 
 interface WebSiteJsonLdProps {
   name?: string;

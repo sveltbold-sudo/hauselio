@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { createUnsubscribeToken } from "@/lib/auth";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hauselio.de";
+import { SITE_URL } from "@/lib/constants";
 
 export function escapeHtml(str: string): string {
   return str

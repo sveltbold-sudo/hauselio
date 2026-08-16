@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Allgemeine Geschäftsbedingungen – HAUSELIO",
+  title: "Allgemeine Geschäftsbedingungen",
   description: "AGB der HAUSELIO GmbH. Geschäftsbedingungen für den Online-Shop.",
   robots: { index: false, follow: false },
 };
