@@ -9,20 +9,7 @@ import {
   resetFailedLogins,
 } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
-
-const ipAttempts = new Map<string, { count: number; resetAt: number }>();
-
-function checkIpRateLimit(ip: string, max = 10, windowMs = 60_000): boolean {
-  const now = Date.now();
-  const entry = ipAttempts.get(ip);
-  if (!entry || now > entry.resetAt) {
-    ipAttempts.set(ip, { count: 1, resetAt: now + windowMs });
-    return true;
-  }
-  if (entry.count >= max) return false;
-  entry.count++;
-  return true;
-}
+import { logger } from "@/lib/logger";
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -47,17 +34,6 @@ export async function POST(request: NextRequest) {
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
-
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-    if (!checkIpRateLimit(ip)) {
-      return NextResponse.json(
-        { error: "Zu viele Anmeldeversuche. Bitte warten Sie." },
-        { status: 429 }
-      );
-    }
 
     const body = await request.json();
     const parsed = LoginSchema.safeParse(body);
@@ -118,14 +94,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("[HAUSELIO] Login error:", error);
-    const isEnvError =
-      error instanceof Error &&
-      (error.message.includes("environment variable") ||
-        error.message.includes("JWT_SECRET"));
-    const message = isEnvError
-      ? "Server-Konfigurationsfehler"
-      : `Serverfehler: ${error instanceof Error ? error.message : "Unbekannt"}`;
-    return NextResponse.json({ error: message }, { status: 500 });
+    logger.error("login", error);
+    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }

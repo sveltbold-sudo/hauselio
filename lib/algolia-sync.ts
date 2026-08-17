@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 import { getAlgoliaAdminClient, PRODUCTS_INDEX } from "./algolia";
+import { logger } from "./logger";
 
 interface ProductRecord extends Record<string, unknown> {
   objectID: string;
@@ -64,7 +65,7 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
       });
       totalIndexed += records.length;
     } catch (error) {
-      console.error("Error indexing batch:", error);
+      logger.error("algolia-batch", error);
       totalErrors += records.length;
     }
 

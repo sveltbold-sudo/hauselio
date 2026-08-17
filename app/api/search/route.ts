@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { handleApiError } from "@/lib/api-helpers";
+import { logger } from "@/lib/logger";
 
 const algoliaAvailable = !!(
   process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_API_KEY
@@ -70,7 +71,7 @@ export async function GET(request: NextRequest) {
         }
       );
     } catch (error) {
-      console.error("Algolia search error, falling back to Prisma:", error);
+      logger.error("algolia-search", error);
     }
   }
 

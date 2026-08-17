@@ -5,6 +5,7 @@ import { updateProductInAlgolia, deleteProductFromAlgolia } from "@/lib/algolia-
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(
   request: NextRequest,
@@ -111,7 +112,7 @@ export async function PUT(
     try {
       await updateProductInAlgolia(id);
     } catch (algoliaError) {
-      console.error("Algolia sync error:", algoliaError);
+      logger.error("algolia-sync", algoliaError);
     }
 
     return NextResponse.json({ product });
@@ -139,7 +140,7 @@ export async function DELETE(
     try {
       await deleteProductFromAlgolia(id);
     } catch (algoliaError) {
-      console.error("Algolia delete error:", algoliaError);
+      logger.error("algolia-delete", algoliaError);
     }
 
     return NextResponse.json({ success: true });

@@ -128,7 +128,6 @@ export default function HeroCarousel() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Text Content */}
             <div className="text-white">
-              <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte</h1>
               {/* Brand badge */}
               <div
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-8 animate-fade-in-up"

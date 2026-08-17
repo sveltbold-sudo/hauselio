@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.redirect(new URL("/?newsletter=confirmed", request.url));
   } catch (error) {
-    console.error("[HAUSELIO] Newsletter confirm error:", error);
+    logger.error("newsletter-confirm", error);
     return NextResponse.redirect(new URL("/?newsletter=error", request.url));
   }
 }

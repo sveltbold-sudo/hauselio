@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { sendPaymentConfirmed, sendShippedConfirmation, sendOrderCancelled } from "@/lib/emails";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
 
@@ -80,7 +81,7 @@ export async function PUT(
         await sendOrderCancelled(emailData);
       }
     } catch (emailError) {
-      console.error("Failed to send status email:", emailError);
+      logger.error("order-status-email", emailError);
     }
 
     return NextResponse.json({ order });

@@ -5,6 +5,7 @@ import { updateProductInAlgolia } from "@/lib/algolia-sync";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
     try {
       await updateProductInAlgolia(product.id);
     } catch (algoliaError) {
-      console.error("Algolia sync error:", algoliaError);
+      logger.error("algolia-sync", algoliaError);
     }
 
     return NextResponse.json({ product }, { status: 201 });

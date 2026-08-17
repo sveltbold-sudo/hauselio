@@ -1,0 +1,58 @@
+/**
+ * Structured logger for HAUSELIO.
+ *
+ * In production: logs minimal info (no secrets, no internal details).
+ * In development: full error details for debugging.
+ */
+
+export const logger = {
+  error(context: string, error: unknown, extra?: Record<string, unknown>) {
+    const isProd = process.env.NODE_ENV === "production";
+    const entry = {
+      level: "error",
+      context,
+      timestamp: new Date().toISOString(),
+      ...extra,
+    };
+
+    if (isProd) {
+      console.error(JSON.stringify(entry));
+    } else {
+      console.error(`[HAUSELIO] ${context}:`, error, extra);
+    }
+  },
+
+  warn(context: string, message: string, extra?: Record<string, unknown>) {
+    const isProd = process.env.NODE_ENV === "production";
+    const entry = {
+      level: "warn",
+      context,
+      message,
+      timestamp: new Date().toISOString(),
+      ...extra,
+    };
+
+    if (isProd) {
+      console.warn(JSON.stringify(entry));
+    } else {
+      console.warn(`[HAUSELIO] ${context}: ${message}`, extra);
+    }
+  },
+
+  info(context: string, message: string, extra?: Record<string, unknown>) {
+    const isProd = process.env.NODE_ENV === "production";
+    const entry = {
+      level: "info",
+      context,
+      message,
+      timestamp: new Date().toISOString(),
+      ...extra,
+    };
+
+    if (isProd) {
+      console.log(JSON.stringify(entry));
+    } else {
+      console.log(`[HAUSELIO] ${context}: ${message}`, extra);
+    }
+  },
+};

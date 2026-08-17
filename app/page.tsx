@@ -202,6 +202,9 @@ export default async function HomePage() {
   return (
     <div>
       <HeroCarousel />
+      <h1 className="container-hauselio pt-8 pb-2 text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+        Moderne Haushaltsgeräte aus Deutschland
+      </h1>
       <ValuePropsSection />
 
       <section className="section-py">

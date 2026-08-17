@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { UnauthorizedError, NotFoundError, ValidationError } from "./errors";
+import { logger } from "./logger";
 
 export function getExpectedOrigin(request: NextRequest): string {
   const proto = request.headers.get("x-forwarded-proto") || "https";
@@ -68,13 +69,13 @@ export function handleApiError(error: unknown): NextResponse {
       case "P2014":
         return NextResponse.json({ error: "Referenziertes Feld fehlt" }, { status: 400 });
       default:
-        console.error("Prisma error:", error.code, error.message);
+        logger.error("prisma", error, { code: error.code });
         return NextResponse.json({ error: "Datenbankfehler" }, { status: 500 });
     }
   }
 
   if (error instanceof Prisma.PrismaClientValidationError) {
-    console.error("Prisma validation error:", error.message);
+    logger.error("prisma-validation", error);
     return NextResponse.json(
       { error: "Ungültige Daten für diese Operation" },
       { status: 400 }
@@ -82,13 +83,13 @@ export function handleApiError(error: unknown): NextResponse {
   }
 
   if (error instanceof Prisma.PrismaClientUnknownRequestError) {
-    console.error("Prisma unknown error:", error.message);
+    logger.error("prisma-unknown", error);
     return NextResponse.json(
       { error: "Datenbankfehler" },
       { status: 500 }
     );
   }
 
-  console.error("Unhandled error:", error);
+  logger.error("unhandled", error);
   return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
 }

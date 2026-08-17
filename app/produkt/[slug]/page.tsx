@@ -6,6 +6,7 @@ import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
+import { logger } from "@/lib/logger";
 
 export const revalidate = 300;
 
@@ -21,7 +22,7 @@ const getProduct = cache(async (slug: string) => {
       },
     });
   } catch (error) {
-    console.error("[HAUSELIO] DB error in produkt/[slug]:", error);
+    logger.error("produkt-slug", error);
     return null;
   }
 });

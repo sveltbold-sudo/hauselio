@@ -6,6 +6,7 @@ import { CreateOrderSchema } from "@/lib/validations";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { getShippingCost } from "@/lib/constants";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
+import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -127,7 +128,7 @@ export async function POST(request: NextRequest) {
         shippingCost,
       });
     } catch (emailError) {
-      console.error("Failed to send confirmation email:", emailError);
+      logger.error("order-email", emailError);
     }
 
     return NextResponse.json({
