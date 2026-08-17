@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     "Staubsauger",
     "Smart Home",
   ],
+  alternates: {
+    languages: {
+      "de": SITE_URL,
+    },
+  },
   openGraph: {
     title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:

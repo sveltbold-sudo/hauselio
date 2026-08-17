@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { logger } from "@/lib/logger";
 import ReviewFilters from "./ReviewFilters";
 
 interface CustomerReviewsSectionProps {
@@ -14,7 +15,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     reviews = await prisma.review.findMany({
       where,
       orderBy: { createdAt: "desc" },
-      take: 50,
+      take: 20,
       select: {
         id: true,
         authorName: true,
@@ -26,7 +27,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
       },
     });
   } catch (error) {
-    console.error("[HAUSELIO] DB error in CustomerReviewsSection:", error);
+    logger.error("customer-reviews", error);
     return null;
   }
 

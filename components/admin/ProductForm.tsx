@@ -270,7 +270,9 @@ export default function ProductForm({
                 Features
               </h2>
               <div className="flex gap-2 mb-3">
+                <label htmlFor="new-feature" className="sr-only">Neues Feature</label>
                 <input
+                  id="new-feature"
                   type="text"
                   value={formData.newFeature}
                   onChange={(e) =>
@@ -320,33 +322,41 @@ export default function ProductForm({
                 Technische Daten
               </h2>
               <div className="flex gap-2 mb-3">
-                <input
-                  type="text"
-                  value={formData.newSpecKey}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      newSpecKey: e.target.value,
-                    }))
-                  }
-                  placeholder="Key (z.B. Leistung)"
-                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
-                />
-                <input
-                  type="text"
-                  value={formData.newSpecValue}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      newSpecValue: e.target.value,
-                    }))
-                  }
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && (e.preventDefault(), addSpec())
-                  }
-                  placeholder="Wert"
-                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
-                />
+                <div className="flex-1">
+                  <label htmlFor="spec-key" className="sr-only">Spezifikation Key</label>
+                  <input
+                    id="spec-key"
+                    type="text"
+                    value={formData.newSpecKey}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        newSpecKey: e.target.value,
+                      }))
+                    }
+                    placeholder="Key (z.B. Leistung)"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label htmlFor="spec-value" className="sr-only">Spezifikation Wert</label>
+                  <input
+                    id="spec-value"
+                    type="text"
+                    value={formData.newSpecValue}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        newSpecValue: e.target.value,
+                      }))
+                    }
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && (e.preventDefault(), addSpec())
+                    }
+                    placeholder="Wert"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                  />
+                </div>
                 <button
                   type="button"
                   onClick={addSpec}

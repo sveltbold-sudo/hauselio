@@ -111,7 +111,7 @@ export default function BrandsShowcaseSection() {
         </div>
 
         {/* Marquee Brand Logos */}
-        <div className="mt-16 overflow-hidden">
+        <div className="mt-16 overflow-hidden" aria-hidden="true">
           <div className="animate-marquee flex gap-12 items-center">
             {[...brands, ...brands].map((brand, i) => (
               <div
@@ -120,9 +120,10 @@ export default function BrandsShowcaseSection() {
               >
                 <Image
                   src={brand.logo}
-                  alt={brand.name}
+                  alt=""
                   width={80}
                   height={40}
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>
