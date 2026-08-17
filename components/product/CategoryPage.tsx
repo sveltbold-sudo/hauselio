@@ -87,7 +87,7 @@ export default async function CategoryPage({
     <div className="container-hauselio py-8">
       {/* Header */}
       <div className="mb-10">
-        <p className="caption text-[var(--color-primary)] mb-3">Sortiment</p>
+        <p className="caption text-[var(--color-primary)] mb-3">{title}</p>
         <h1 className="heading-1">{title}</h1>
         <p className="body-large mt-2">{description}</p>
       </div>

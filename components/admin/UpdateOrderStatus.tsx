@@ -50,7 +50,7 @@ export default function UpdateOrderStatus({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2">
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}

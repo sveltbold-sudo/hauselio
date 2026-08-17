@@ -7,7 +7,7 @@ import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus } from "lu
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, calcDiscount } from "@/lib/utils";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
 
@@ -49,11 +49,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
     };
   }, []);
 
-  const discount = product.originalPrice
-    ? Math.round(
-        ((product.originalPrice - product.price) / product.originalPrice) * 100
-      )
-    : 0;
+  const discount = calcDiscount(product.price, product.originalPrice);
 
   const handleAddToCart = () => {
     addItem({
@@ -166,7 +162,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-6">
-            <div className="flex items-center">
+            <div className="flex items-center" role="img" aria-label={`${product.rating} von 5 Sternen`}>
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
@@ -294,6 +290,17 @@ export default function ProductPageClient({ product }: { product: Product }) {
         <div
           role="tablist"
           className="flex overflow-x-auto border-b border-[var(--color-border-light)] scrollbar-hide"
+          onKeyDown={(e) => {
+            const tabs = ["description", "specs", "shipping"] as const;
+            const currentIndex = tabs.indexOf(activeTab);
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              setActiveTab(tabs[(currentIndex + 1) % tabs.length]);
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              setActiveTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]);
+            }
+          }}
         >
           {[
             { key: "description" as const, label: "Beschreibung" },

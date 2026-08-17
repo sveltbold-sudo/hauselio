@@ -35,3 +35,8 @@ export function truncate(str: string, length: number): string {
   if (str.length <= length) return str;
   return str.slice(0, length) + "...";
 }
+
+export function calcDiscount(price: number, originalPrice: number | null): number {
+  if (!originalPrice || originalPrice <= price) return 0;
+  return Math.round(((originalPrice - price) / originalPrice) * 100);
+}

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, calcDiscount } from "@/lib/utils";
 
 interface Slide {
   id: string;
@@ -89,9 +89,7 @@ export default function HeroCarousel() {
   }, [isAutoPlaying, next]);
 
   const slide = slides[current];
-  const discount = slide.originalPrice
-    ? Math.round(((slide.originalPrice - slide.price) / slide.originalPrice) * 100)
-    : 0;
+  const discount = calcDiscount(slide.price, slide.originalPrice);
 
   return (
     <section

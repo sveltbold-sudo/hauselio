@@ -113,7 +113,7 @@ export default function CookieConsent() {
           </div>
           <button
             onClick={handleReject}
-            className="flex-shrink-0 p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+            className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             aria-label="Schließen"
           >
             <X className="w-5 h-5" />

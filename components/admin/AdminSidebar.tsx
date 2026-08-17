@@ -94,6 +94,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                   key={item.name}
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-white/15 text-white"
@@ -112,6 +113,8 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
+                aria-expanded={userMenuOpen}
+                aria-haspopup="true"
                 className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-white/80 hover:bg-white/10 transition-colors"
               >
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -123,14 +126,23 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                   <p className="text-sm font-medium truncate">{admin.email}</p>
                   <p className="text-xs text-white/50">{admin.role}</p>
                 </div>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className={`w-4 h-4 transition-transform ${userMenuOpen ? "rotate-180" : ""}`} />
               </button>
 
               {userMenuOpen && (
-                <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-xl shadow-lg border border-[var(--color-border-light)] overflow-hidden">
+                <div
+                  role="menu"
+                  className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-xl shadow-lg border border-[var(--color-border-light)] overflow-hidden"
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      setUserMenuOpen(false);
+                    }
+                  }}
+                >
                   <button
+                    role="menuitem"
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-gray-50"
+                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
                   >
                     <LogOut className="w-4 h-4" />
                     Abmelden

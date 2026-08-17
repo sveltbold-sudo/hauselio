@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, calcDiscount } from "@/lib/utils";
 
 interface ProductCardProps {
   product: {
@@ -23,9 +23,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
+  const discount = calcDiscount(product.price, product.originalPrice ?? null);
 
   return (
     <Link

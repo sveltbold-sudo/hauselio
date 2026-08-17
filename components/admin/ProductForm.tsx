@@ -413,6 +413,7 @@ export default function ProductForm({
                   <input
                     type="number"
                     step="0.01"
+                    min="0"
                     required
                     value={formData.price}
                     onChange={(e) =>
@@ -431,6 +432,7 @@ export default function ProductForm({
                   <input
                     type="number"
                     step="0.01"
+                    min="0"
                     value={formData.originalPrice}
                     onChange={(e) =>
                       setFormData((prev) => ({

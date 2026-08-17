@@ -58,33 +58,33 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
   };
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-2xl px-6 py-4 flex items-center gap-4 animate-slide-in-right">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-2xl px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 animate-slide-in-right max-w-[calc(100vw-2rem)]">
       <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
-      <div className="w-px h-6 bg-white/20" />
+      <div className="w-px h-6 bg-white/20 hidden sm:block" />
       <button
         onClick={() => handleBulkStock(true)}
         disabled={loading}
-        className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors"
       >
-        <Package className="w-4 h-4" /> Verfügbar
+        <Package className="w-4 h-4" /> <span className="hidden sm:inline">Verfügbar</span>
       </button>
       <button
         onClick={() => handleBulkStock(false)}
         disabled={loading}
-        className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors"
       >
-        <PackageX className="w-4 h-4" /> Nicht verfügbar
+        <PackageX className="w-4 h-4" /> <span className="hidden sm:inline">Nicht verfügbar</span>
       </button>
       <button
         onClick={handleBulkDelete}
         disabled={loading}
-        className="flex items-center gap-2 px-3 py-1.5 bg-red-500/80 hover:bg-red-500 rounded-lg text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-red-500/80 hover:bg-red-500 rounded-lg text-xs sm:text-sm font-medium transition-colors"
       >
         <Trash2 className="w-4 h-4" /> Löschen
       </button>
       <button
         onClick={onClearSelection}
-        className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors"
+        className="px-2.5 sm:px-3 py-1.5 text-white/60 hover:text-white text-xs sm:text-sm font-medium transition-colors"
       >
         Abbrechen
       </button>
