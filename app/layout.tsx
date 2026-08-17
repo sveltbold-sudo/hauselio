@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import dynamic from "next/dynamic";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsent from "@/components/ui/CookieConsent";
+import ClientProviders from "@/components/ui/ClientProviders";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
-
-const AnalyticsGate = dynamic(() => import("@/components/analytics/AnalyticsGate"), { ssr: false });
-const NewsletterToast = dynamic(() => import("@/components/ui/NewsletterToast"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -87,14 +84,13 @@ export default function RootLayout({
         </a>
         <Header />
         <ToastProvider>
-          <NewsletterToast />
           <main id="main-content" className="flex-1">
             {children}
           </main>
         </ToastProvider>
         <Footer />
         <CookieConsent />
-        <AnalyticsGate />
+        <ClientProviders />
       </body>
     </html>
   );
