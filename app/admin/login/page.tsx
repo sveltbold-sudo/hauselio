@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, Suspense } from "react";
+import { useState, useRef, useCallback, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 
@@ -14,20 +14,42 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [lockoutSeconds, setLockoutSeconds] = useState(0);
   const errorRef = useRef<HTMLDivElement>(null);
   const lastSubmitRef = useRef(0);
 
   const rawRedirect = searchParams.get("redirect") || "/admin";
   const redirect = rawRedirect.startsWith("/admin") ? rawRedirect : "/admin";
 
+  useEffect(() => {
+    document.title = "Admin-Anmeldung | HAUSELIO";
+  }, []);
+
+  useEffect(() => {
+    if (lockoutSeconds <= 0) return;
+    const timer = setInterval(() => {
+      setLockoutSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setError("");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [lockoutSeconds > 0]);
+
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+    if (lockoutSeconds > 0) return;
     const now = Date.now();
     if (now - lastSubmitRef.current < THROTTLE_MS) return;
     lastSubmitRef.current = now;
 
     setIsLoading(true);
     setError("");
+    setLockoutSeconds(0);
 
     try {
       const res = await fetch("/api/admin/login", {
@@ -39,6 +61,9 @@ function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
+        if (data.retryAfterSec) {
+          setLockoutSeconds(data.retryAfterSec);
+        }
         throw new Error(data.error || "Anmeldung fehlgeschlagen");
       }
 
@@ -51,7 +76,13 @@ function LoginForm() {
     } finally {
       setIsLoading(false);
     }
-  }, [email, password, redirect, router]);
+  }, [email, password, redirect, router, lockoutSeconds]);
+
+  const formatTime = (s: number) => {
+    const min = Math.floor(s / 60);
+    const sec = s % 60;
+    return min > 0 ? `${min}:${String(sec).padStart(2, "0")}` : `${sec}s`;
+  };
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center p-4">
@@ -81,7 +112,12 @@ function LoginForm() {
               role="alert"
               className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-danger)]/40"
             >
-              {error}
+              <p>{error}</p>
+              {lockoutSeconds > 0 && (
+                <p className="mt-2 font-mono text-base font-bold">
+                  Erneut versuchen in {formatTime(lockoutSeconds)}
+                </p>
+              )}
             </div>
           )}
 
@@ -103,7 +139,8 @@ function LoginForm() {
                   required
                   autoComplete="email"
                   maxLength={254}
-                  className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all"
+                  disabled={lockoutSeconds > 0}
+                  className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="admin@hauselio.de"
                 />
               </div>
@@ -126,14 +163,16 @@ function LoginForm() {
                   required
                   autoComplete="current-password"
                   maxLength={128}
-                  className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all"
+                  disabled={lockoutSeconds > 0}
+                  className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                  disabled={lockoutSeconds > 0}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -146,10 +185,10 @@ function LoginForm() {
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || lockoutSeconds > 0}
               className="w-full py-3 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Wird angemeldet..." : "Anmelden"}
+              {isLoading ? "Wird angemeldet..." : lockoutSeconds > 0 ? `Gesperrt (${formatTime(lockoutSeconds)})` : "Anmelden"}
             </button>
           </form>
         </div>

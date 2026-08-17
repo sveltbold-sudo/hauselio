@@ -116,16 +116,4 @@ export async function getRemainingAttempts(
   return { remaining, retryAfterMs };
 }
 
-if (typeof setInterval !== "undefined") {
-  setInterval(() => {
-    if (rateLimitStore.size > 100_000) {
-      rateLimitStore.clear();
-    }
-    const now = Date.now();
-    for (const [key, entry] of rateLimitStore.entries()) {
-      if (now > entry.resetAt) {
-        rateLimitStore.delete(key);
-      }
-    }
-  }, 5 * 60 * 1000);
-}
+
