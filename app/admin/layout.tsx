@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getAdminFromRequest } from "@/lib/auth";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 
@@ -14,13 +15,20 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const admin = await getAdminFromRequest();
+  const hdrs = await headers();
+  const pathname = hdrs.get("x-invoke-path") || hdrs.get("x-nextjs-url") || "";
 
-  if (!admin) {
-    redirect("/admin/login");
+  if (!pathname.includes("/admin/login")) {
+    const admin = await getAdminFromRequest();
+
+    if (!admin) {
+      redirect("/admin/login");
+    }
+
+    return (
+      <AdminLayoutClient admin={admin}>{children}</AdminLayoutClient>
+    );
   }
 
-  return (
-    <AdminLayoutClient admin={admin}>{children}</AdminLayoutClient>
-  );
+  return <>{children}</>;
 }
