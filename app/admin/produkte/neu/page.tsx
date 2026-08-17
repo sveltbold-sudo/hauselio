@@ -4,24 +4,16 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ProductForm, { emptyFormData } from "@/components/admin/ProductForm";
 import { useToast } from "@/components/ui/Toast";
+import { serializeProductBody } from "@/lib/admin-product-helpers";
+import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 
 export const dynamic = "force-dynamic";
-
-interface Category {
-  id: string;
-  name: string;
-}
-
-interface Brand {
-  id: string;
-  name: string;
-}
 
 export default function NewProductPage() {
   const router = useRouter();
   const toast = useToast();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [brands, setBrands] = useState<Brand[]>([]);
+  const [categories, setCategories] = useState<AdminCategory[]>([]);
+  const [brands, setBrands] = useState<AdminBrand[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -50,29 +42,7 @@ export default function NewProductPage() {
       const res = await fetch("/api/admin/produkte", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          slug: data.slug,
-          description: data.description,
-          shortDesc: data.shortDesc || undefined,
-          price: Number(data.price) || 0,
-          originalPrice: data.originalPrice
-            ? Number(data.originalPrice) || undefined
-            : undefined,
-          categoryId: data.categoryId,
-          brandId: data.brandId || undefined,
-          inStock: data.inStock,
-          isNew: data.isNew,
-          isFeatured: data.isFeatured,
-          weight: data.weight
-            ? Number(data.weight) || undefined
-            : undefined,
-          features: data.features,
-          specs: data.specs,
-          imageUrl: data.imageUrl || undefined,
-          seoTitle: data.seoTitle || undefined,
-          seoDesc: data.seoDesc || undefined,
-        }),
+        body: JSON.stringify(serializeProductBody(data)),
       });
 
       if (!res.ok) {

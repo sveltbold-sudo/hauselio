@@ -274,12 +274,13 @@ export default function HeroCarousel() {
           <button
             key={i}
             onClick={() => goTo(i)}
+            aria-current={i === current ? "true" : undefined}
+            aria-label={`Folie ${i + 1}`}
             className={`h-1 rounded-full transition-all duration-500 ${
               i === current
                 ? "w-10 bg-white"
                 : "w-3 bg-white/30 hover:bg-white/50"
             }`}
-            aria-label={`Folie ${i + 1}`}
           />
         ))}
       </div>

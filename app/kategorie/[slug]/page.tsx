@@ -4,6 +4,8 @@ import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { logger } from "@/lib/logger";
+import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 300;
 
@@ -14,7 +16,7 @@ const getCategory = cache(async (slug: string) => {
       select: { name: true, description: true },
     });
   } catch (error) {
-    console.error("[HAUSELIO] DB error in kategorie/[slug]:", error);
+    logger.error("kategorie-slug", error);
     return null;
   }
 });
@@ -56,6 +58,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "HAUSELIO",
       locale: "de_DE",
       type: "website",
+      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: category.name,
+      description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
+      images: [`${SITE_URL}/logos/logoprincipale.png`],
     },
   };
 }

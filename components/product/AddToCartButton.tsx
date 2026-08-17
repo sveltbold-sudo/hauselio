@@ -43,6 +43,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <button
       onClick={handleAdd}
+      aria-live="polite"
       className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
         added
           ? "bg-[var(--color-success)] text-white"

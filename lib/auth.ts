@@ -71,6 +71,8 @@ export async function generateToken(payload: AdminPayload): Promise<string> {
   return new SignJWT(payload as unknown as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
+    .setIssuer("hauselio-admin")
+    .setAudience("hauselio-admin")
     .setExpirationTime(TOKEN_EXPIRY)
     .sign(getJWTSecret());
 }
@@ -79,6 +81,8 @@ export async function verifyToken(token: string): Promise<AdminPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
+      issuer: "hauselio-admin",
+      audience: "hauselio-admin",
     });
     const p = payload as Record<string, unknown>;
     if (
@@ -128,6 +132,8 @@ export async function createUnsubscribeToken(email: string): Promise<string> {
   return new SignJWT({ email })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
+    .setIssuer("hauselio-newsletter")
+    .setAudience("hauselio-unsubscribe")
     .setExpirationTime("30d")
     .sign(getJWTSecret());
 }
@@ -136,6 +142,8 @@ export async function verifyUnsubscribeToken(token: string): Promise<string | nu
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
+      issuer: "hauselio-newsletter",
+      audience: "hauselio-unsubscribe",
     });
     const p = payload as Record<string, unknown>;
     if (typeof p === "object" && p !== null && "email" in p && typeof p.email === "string") {
@@ -148,17 +156,16 @@ export async function verifyUnsubscribeToken(token: string): Promise<string | nu
 }
 
 function isSecureRequest(request: { headers: Headers }): boolean {
+  if (process.env.NODE_ENV === "production") return true;
   const proto = request.headers.get("x-forwarded-proto");
   if (proto) return proto === "https";
-
   const host = request.headers.get("host");
   if (host) {
     if (host.startsWith("localhost")) return false;
     if (host.startsWith("127.")) return false;
     if (host.endsWith(".local")) return false;
   }
-
-  return process.env.NODE_ENV === "production";
+  return false;
 }
 
 export function setAuthCookie(token: string, request?: { headers: Headers }) {

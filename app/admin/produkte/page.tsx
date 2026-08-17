@@ -31,8 +31,10 @@ export default async function AdminProductsPage({
     ];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let products: any[] = [];
+  type ProductWithRelations = Prisma.ProductGetPayload<{
+    include: { category: true; brand: true; images: { take: 1; orderBy: { position: "asc" } } };
+  }>;
+  let products: ProductWithRelations[] = [];
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
   let total = 0;

@@ -180,10 +180,12 @@ export default function MiniCart() {
                     {formatPrice(total + getShippingCost(total))}
                   </span>
                 </div>
-                <Link href="/warenkorb" onClick={() => setIsOpen(false)}>
-                  <button className="w-full py-3 bg-[var(--color-secondary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-all duration-300 active:scale-[0.97]">
-                    Zur Kasse
-                  </button>
+                <Link
+                  href="/warenkorb"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full py-3 bg-[var(--color-secondary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-all duration-300 active:scale-[0.97] text-center"
+                >
+                  Zur Kasse
                 </Link>
                 <Link
                   href="/shop"

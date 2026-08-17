@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
 import ProductCard from "@/components/product/ProductCard";
-import HeroCarousel from "@/components/product/HeroCarousel";
+const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"));
 import ValuePropsSection from "@/components/product/ValuePropsSection";
 
 const GuaranteeServiceSection = dynamicImport(() => import("@/components/product/GuaranteeServiceSection"));

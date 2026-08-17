@@ -200,10 +200,11 @@ export default function ProductForm({
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-name" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Name *
                   </label>
                   <input
+                    id="product-name"
                     type="text"
                     required
                     value={formData.name}
@@ -212,10 +213,11 @@ export default function ProductForm({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-slug" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Slug
                   </label>
                   <input
+                    id="product-slug"
                     type="text"
                     value={formData.slug}
                     onChange={(e) =>
@@ -225,10 +227,11 @@ export default function ProductForm({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-desc" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Beschreibung *
                   </label>
                   <textarea
+                    id="product-desc"
                     required
                     rows={6}
                     value={formData.description}
@@ -242,10 +245,11 @@ export default function ProductForm({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-shortdesc" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Kurzbeschreibung
                   </label>
                   <textarea
+                    id="product-shortdesc"
                     rows={2}
                     value={formData.shortDesc}
                     onChange={(e) =>
@@ -300,6 +304,7 @@ export default function ProductForm({
                     <button
                       type="button"
                       onClick={() => removeFeature(i)}
+                      aria-label={`Feature "${feature}" entfernen`}
                       className="hover:text-red-600"
                     >
                       <X className="w-3 h-3" />
@@ -369,6 +374,7 @@ export default function ProductForm({
                           <button
                             type="button"
                             onClick={() => removeSpec(i)}
+                            aria-label={`Spezifikation "${spec.key}" entfernen`}
                             className="text-red-500 hover:text-red-700"
                           >
                             <X className="w-4 h-4" />

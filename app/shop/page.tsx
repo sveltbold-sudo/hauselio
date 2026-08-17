@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
 import { SITE_URL } from "@/lib/constants";
+import { logger } from "@/lib/logger";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
@@ -51,6 +52,13 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
       siteName: "HAUSELIO",
       locale: "de_DE",
       type: "website",
+      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: [`${SITE_URL}/logos/logoprincipale.png`],
     },
   };
 }
@@ -95,8 +103,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (sort === "price_desc") orderBy = { price: "desc" };
   if (sort === "rating") orderBy = { rating: "desc" };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let products: any[] = [];
+  type ProductWithRelations = Prisma.ProductGetPayload<{
+    include: { category: true; brand: true; images: { take: 1; orderBy: { position: "asc" } } };
+  }>;
+  let products: ProductWithRelations[] = [];
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
   let total = 0;
@@ -119,7 +129,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       prisma.product.count({ where }),
     ]);
   } catch (error) {
-    console.error("[HAUSELIO] DB error in shop/page.tsx:", error);
+    logger.error("shop-page", error);
   }
 
   const totalPages = Math.ceil(total / limit);
