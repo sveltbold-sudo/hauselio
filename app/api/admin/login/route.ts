@@ -9,7 +9,20 @@ import {
   resetFailedLogins,
 } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
-import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+
+const ipAttempts = new Map<string, { count: number; resetAt: number }>();
+
+function checkIpRateLimit(ip: string, max = 10, windowMs = 60_000): boolean {
+  const now = Date.now();
+  const entry = ipAttempts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    ipAttempts.set(ip, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  if (entry.count >= max) return false;
+  entry.count++;
+  return true;
+}
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -35,9 +48,11 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    const ip = getClientIp(request);
-    const ipAllowed = await checkRateLimit(`login:ip:${ip}`, 10, 60_000);
-    if (!ipAllowed) {
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+    if (!checkIpRateLimit(ip)) {
       return NextResponse.json(
         { error: "Zu viele Anmeldeversuche. Bitte warten Sie." },
         { status: 429 }
