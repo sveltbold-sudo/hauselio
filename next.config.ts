@@ -30,6 +30,7 @@ const securityHeaders = [
       "img-src 'self' https://res.cloudinary.com data: blob:",
       "font-src 'self'",
       "connect-src 'self' https://va.vercel-scripts.com",
+      "object-src 'none'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

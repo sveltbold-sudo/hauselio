@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/Toast";
@@ -9,6 +10,8 @@ import CookieConsent from "@/components/ui/CookieConsent";
 import AnalyticsGate from "@/components/analytics/AnalyticsGate";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
+
+const NewsletterToast = dynamic(() => import("@/components/ui/NewsletterToast"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -84,6 +87,7 @@ export default function RootLayout({
         </a>
         <Header />
         <ToastProvider>
+          <NewsletterToast />
           <main id="main-content" className="flex-1">
             {children}
           </main>

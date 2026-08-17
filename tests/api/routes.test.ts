@@ -25,6 +25,7 @@ vi.mock("@/lib/emails", () => ({
   sendOrderConfirmation: vi.fn().mockResolvedValue(undefined),
   sendContactForward: vi.fn().mockResolvedValue(undefined),
   sendContactAutoReply: vi.fn().mockResolvedValue(undefined),
+  sendNewsletterConfirmation: vi.fn().mockResolvedValue(undefined),
 }));
 
 const mockPrisma = {

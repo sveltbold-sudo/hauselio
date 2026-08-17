@@ -25,7 +25,15 @@ vi.mock("@/lib/rate-limit", () => ({
 }));
 
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {
-  return new NextRequest(url, init as any);
+  return new NextRequest(url, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      origin: "http://localhost:3000",
+      "x-forwarded-proto": "http",
+      "x-forwarded-host": "localhost:3000",
+    },
+  } as any);
 }
 
 beforeEach(() => {

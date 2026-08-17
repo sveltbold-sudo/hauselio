@@ -343,6 +343,30 @@ export async function sendContactAutoReply(data: {
   });
 }
 
+export async function sendNewsletterConfirmation(email: string, confirmToken: string) {
+  const confirmUrl = `${SITE_URL}/api/newsletter/confirm?token=${encodeURIComponent(confirmToken)}`;
+
+  const html = baseTemplate(`
+    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;"> Newsletter bestätigen</h2>
+    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
+      Vielen Dank für Ihre Anmeldung! Bitte bestätigen Sie Ihre E-Mail-Adresse, um den Newsletter zu erhalten.
+    </p>
+    <a href="${confirmUrl}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:12px;">
+      E-Mail bestätigen
+    </a>
+    <p style="color:#9CA3AF;font-size:12px;margin:24px 0 0 0;">
+      Dieser Link ist 24 Stunden gültig. Wenn Sie sich nicht für den HAUSELIO Newsletter angemeldet haben, können Sie diese E-Mail ignorieren.
+    </p>
+  `);
+
+  return getResendClient().emails.send({
+    from: FROM_EMAIL,
+    to: email,
+    subject: "Newsletter bestätigen – HAUSELIO",
+    html,
+  });
+}
+
 export async function sendNewsletterCampaign(data: {
   subject: string;
   content: string;

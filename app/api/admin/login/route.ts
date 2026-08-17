@@ -9,13 +9,20 @@ import {
   resetFailedLogins,
 } from "@/lib/auth";
 import { checkRateLimit, getRemainingAttempts } from "@/lib/rate-limit";
-import { validateContentType } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000;
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ip = request.headers.get("x-forwarded-for") || "unknown";
     const rateLimitKey = `login:${ip}`;
 

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { requireAdmin } from "@/lib/auth";
 import { handleApiError, validateCsrfOrigin, validateContentType } from "@/lib/api-helpers";
+import { sendNewsletterConfirmation } from "@/lib/emails";
 
 const NewsletterSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
@@ -46,17 +47,21 @@ export async function POST(request: NextRequest) {
     });
 
     if (existing) {
-      if (existing.isActive) {
+      if (existing.confirmed) {
         return NextResponse.json({ success: true });
       }
+      const confirmToken = crypto.randomUUID();
       await prisma.newsletter.update({
         where: { email },
-        data: { isActive: true },
+        data: { isActive: true, confirmToken },
       });
+      await sendNewsletterConfirmation(email, confirmToken);
     } else {
+      const confirmToken = crypto.randomUUID();
       await prisma.newsletter.create({
-        data: { email, isActive: true, confirmed: false },
+        data: { email, isActive: true, confirmed: false, confirmToken },
       });
+      await sendNewsletterConfirmation(email, confirmToken);
     }
 
     return NextResponse.json({ success: true });

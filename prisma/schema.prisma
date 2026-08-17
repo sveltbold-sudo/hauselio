@@ -200,13 +200,16 @@ model Review {
 // ═══════════════════════════════════════════
 
 model Newsletter {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  isActive  Boolean  @default(true)
-  confirmed Boolean  @default(false)
-  createdAt DateTime @default(now())
+  id          String    @id @default(cuid())
+  email       String    @unique
+  isActive    Boolean   @default(true)
+  confirmed   Boolean   @default(false)
+  confirmToken String?
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
 
   @@index([isActive])
+  @@index([confirmToken])
 }
 
 // ═══════════════════════════════════════════

@@ -11,6 +11,24 @@
 
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { NextRequest } from "next/server";
+
+/**
+ * Extract client IP from request.
+ *
+ * Trust model:
+ * - Vercel overwrites x-forwarded-for with the real client IP (trusted)
+ * - On self-hosted: requires a trusted reverse proxy that overwrites this header
+ * - x-real-ip is a common alternative header set by Nginx/Caddy
+ * - Falls back to "unknown" if no IP can be determined
+ */
+export function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
