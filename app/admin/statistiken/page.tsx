@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,7 @@ export default function StatistikenPage() {
     fetch("/api/admin/statistiken")
       .then((res) => res.json())
       .then((data) => startTransition(() => setStats(data)))
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
 

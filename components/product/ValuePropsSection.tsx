@@ -24,8 +24,8 @@ const valueProps = [
     title: "Garantie-Plus",
     description: "Kostenlose Garantieverlängerung",
     metric: "Bis zu 5 Jahre Garantie",
-    color: "text-purple-600",
-    bgColor: "bg-purple-50",
+    color: "text-[var(--color-primary)]",
+    bgColor: "bg-[var(--color-primary-50)]",
     highlight: false,
   },
   {
@@ -33,8 +33,8 @@ const valueProps = [
     title: "Sichere Zahlung",
     description: "SEPA-Überweisung auf Rechnung",
     metric: "Keine Vorkasse nötig",
-    color: "text-amber-600",
-    bgColor: "bg-amber-50",
+    color: "text-[var(--color-text-secondary)]",
+    bgColor: "bg-gray-100",
     highlight: false,
   },
   {
@@ -42,8 +42,8 @@ const valueProps = [
     title: "Gratis-Geschenk",
     description: "Zubehör-Wert bis 99€ gratis",
     metric: "Bei ausgewählten Geräten",
-    color: "text-rose-600",
-    bgColor: "bg-rose-50",
+    color: "text-[var(--color-success)]",
+    bgColor: "bg-[var(--color-success-light)]",
     highlight: false,
   },
   {
@@ -51,8 +51,8 @@ const valueProps = [
     title: "Schnelle Lieferung",
     description: "In 1-3 Werktagen bei Ihnen",
     metric: "Express-Lieferung verfügbar",
-    color: "text-teal-600",
-    bgColor: "bg-teal-50",
+    color: "text-[var(--color-primary)]",
+    bgColor: "bg-[var(--color-primary-50)]",
     highlight: false,
   },
 ];

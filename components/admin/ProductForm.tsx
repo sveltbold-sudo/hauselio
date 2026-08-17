@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import Button from "@/components/ui/Button";
 import { slugify } from "@/lib/utils";
 
 interface Category {
@@ -625,13 +626,13 @@ export default function ProductForm({
             </div>
 
             {/* Submit */}
-            <button
+            <Button
               type="submit"
               disabled={isDisabled}
-              className="w-full py-3 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50"
+              className="w-full"
             >
               {isDisabled ? loadingLabel : submitLabel}
-            </button>
+            </Button>
           </div>
         </div>
       </form>

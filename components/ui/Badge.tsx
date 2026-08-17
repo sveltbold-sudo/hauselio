@@ -14,7 +14,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       success:
         "bg-[var(--color-success-light)] text-[var(--color-success)] border border-[var(--color-success)]/20",
       warning:
-        "bg-amber-50 text-amber-700 border border-amber-200",
+        "bg-[var(--color-primary-50)] text-[var(--color-text-secondary)] border border-[var(--color-border)]",
       danger:
         "bg-[var(--color-danger-light)] text-[var(--color-danger)] border border-[var(--color-danger)]/20",
       promo:

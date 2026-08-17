@@ -2,6 +2,7 @@
 
 import { useMemo, useEffect, useState, useTransition } from "react";
 import { Search, Mail, Phone, MapPin } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,7 @@ export default function KundenPage() {
     fetch("/api/admin/kunden")
       .then((r) => r.json())
       .then((d: PaginatedResponse) => startTransition(() => setData(d)))
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
 

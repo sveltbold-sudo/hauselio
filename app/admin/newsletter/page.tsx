@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +29,7 @@ export default function NewsletterPage() {
     fetch("/api/admin/newsletter")
       .then((r) => r.json())
       .then((data) => startTransition(() => setSubscribers(data.subscribers || [])))
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
 

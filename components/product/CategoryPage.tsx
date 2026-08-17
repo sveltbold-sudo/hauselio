@@ -126,15 +126,12 @@ export default async function CategoryPage({
           </div>
 
           {totalPages > 1 && (
-            <nav className="flex items-center justify-between mt-12 pt-8 border-t border-[var(--color-border-light)]" aria-label="Seitennavigation">
-              <p className="text-sm text-[var(--color-text-muted)]">
-                {total} Produkte — Seite {currentPage} von {totalPages}
-              </p>
-              <div className="flex gap-1">
+            <div className="mt-10 flex justify-center">
+              <nav className="flex items-center gap-1 flex-wrap justify-center" aria-label="Seitennavigation">
                 {currentPage > 1 && (
                   <Link
                     href={pageUrl(currentPage - 1)}
-                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-colors"
+                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -157,9 +154,9 @@ export default async function CategoryPage({
                     key={p}
                     href={pageUrl(p)}
                     aria-current={p === currentPage ? "page" : undefined}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-3.5 py-2.5 text-sm rounded-xl font-medium transition-all duration-300 ${
                       p === currentPage
-                        ? "bg-[var(--color-primary)] text-white"
+                        ? "bg-[var(--color-primary)] text-white shadow-lg shadow-blue-500/20"
                         : "text-[var(--color-text-secondary)] hover:bg-gray-100"
                     }`}
                   >
@@ -169,14 +166,14 @@ export default async function CategoryPage({
                 {currentPage < totalPages && (
                   <Link
                     href={pageUrl(currentPage + 1)}
-                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-colors"
+                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </Link>
                 )}
-              </div>
-            </nav>
+              </nav>
+            </div>
           )}
         </>
       )}

@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Save, Building2, Truck, Globe } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +40,7 @@ export default function EinstellungenPage() {
       .then((data) => {
         if (data.settings) startTransition(() => setSettings(data.settings));
       })
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
 

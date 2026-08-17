@@ -27,7 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       primary:
         "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl",
       gradient:
-        "bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl",
+        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl",
       secondary:
         "bg-[var(--color-secondary)] text-white hover:bg-[var(--color-secondary-hover)] focus:ring-[var(--color-secondary)] shadow-lg shadow-slate-900/20",
       outline:
@@ -35,7 +35,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ghost:
         "text-[var(--color-text-secondary)] hover:bg-gray-100 focus:ring-gray-400",
       danger:
-        "bg-[var(--color-danger)] text-white hover:bg-red-700 focus:ring-[var(--color-danger)] shadow-lg shadow-red-500/20",
+        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 focus:ring-[var(--color-danger)] shadow-lg shadow-red-500/20",
     };
 
     const sizes = {

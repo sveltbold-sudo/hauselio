@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
 import { slugify } from "@/lib/utils";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,7 @@ export default function KategorienPage() {
     fetch("/api/admin/kategorien")
       .then((r) => r.json())
       .then((data) => startTransition(() => setCategories(data.categories || [])))
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   };
 

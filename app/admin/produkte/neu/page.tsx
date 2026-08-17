@@ -6,6 +6,7 @@ import ProductForm, { emptyFormData } from "@/components/admin/ProductForm";
 import { useToast } from "@/components/ui/Toast";
 import { serializeProductBody } from "@/lib/admin-product-helpers";
 import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,7 @@ export default function NewProductPage() {
         setCategories(cats.categories || []);
         setBrands(brs.brands || []);
       })
-      .catch(() => {});
+      .catch((err) => logger.error("Failed to load data", { error: err }));
   }, []);
 
   const handleSubmit = async (

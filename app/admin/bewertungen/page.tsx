@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { Star, Check, X, Trash2 } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,7 @@ export default function BewertungenPage() {
     fetch("/api/admin/bewertungen")
       .then((r) => r.json())
       .then((data) => startTransition(() => setReviews(data.reviews || [])))
-      .catch(() => {})
+      .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
 
