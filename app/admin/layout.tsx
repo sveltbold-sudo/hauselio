@@ -13,7 +13,13 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const admin = await getAdminFromRequest();
+  let admin = null;
+  try {
+    admin = await getAdminFromRequest();
+  } catch {
+    // Admin not authenticated — middleware should have caught this,
+    // but render gracefully anyway (login page or error boundary handles it)
+  }
 
   return (
     <AdminLayoutClient admin={admin}>{children}</AdminLayoutClient>

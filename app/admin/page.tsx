@@ -5,6 +5,7 @@ import {
   ShoppingCart,
   Package,
   Clock,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
@@ -13,8 +14,7 @@ import AlgoliaSyncButton from "@/components/admin/AlgoliaSyncButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDashboard() {
-  await requireRole("ADMIN");
+async function fetchDashboardData() {
   const [
     totalOrders,
     totalProducts,
@@ -38,6 +38,43 @@ export default async function AdminDashboard() {
       select: { id: true, name: true, slug: true, price: true },
     }),
   ]);
+
+  return { totalOrders, totalProducts, pendingOrders, totalRevenue, recentOrders, unavailableProducts };
+}
+
+export default async function AdminDashboard() {
+  await requireRole("ADMIN");
+
+  let data;
+  try {
+    data = await fetchDashboardData();
+  } catch (dbError) {
+    console.error("Dashboard DB error:", dbError);
+    return (
+      <div>
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
+          Dashboard
+        </h1>
+        <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-8 text-center">
+          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+            Datenbank nicht erreichbar
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)] mb-4">
+            Die Verbindung zur Datenbank konnte nicht hergestellt werden. Bitte versuchen Sie es später erneut.
+          </p>
+          <Link
+            href="/admin"
+            className="inline-flex px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+          >
+            Erneut versuchen
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const { totalOrders, totalProducts, pendingOrders, totalRevenue, recentOrders, unavailableProducts } = data;
 
   const stats = [
     {
