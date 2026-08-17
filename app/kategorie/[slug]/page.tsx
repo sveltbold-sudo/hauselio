@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 300;
 
@@ -76,11 +78,20 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   }
 
   return (
-    <CategoryPage
-      slug={slug}
-      title={category.name}
-      description={category.description || ""}
-      page={page}
-    />
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Startseite", url: "/" },
+          { name: "Shop", url: "/shop" },
+          { name: category.name, url: `/kategorie/${slug}` },
+        ]}
+      />
+      <CategoryPage
+        slug={slug}
+        title={category.name}
+        description={category.description || ""}
+        page={page}
+      />
+    </>
   );
 }

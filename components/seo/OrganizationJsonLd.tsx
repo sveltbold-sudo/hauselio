@@ -33,6 +33,11 @@ export default function OrganizationJsonLd({
       contactType: "customer service",
       availableLanguage: "German",
     },
+    sameAs: [
+      "https://www.instagram.com/hauselio",
+      "https://www.facebook.com/hauselio",
+      "https://www.pinterest.de/hauselio",
+    ],
   };
 
   return (

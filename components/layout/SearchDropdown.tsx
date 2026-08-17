@@ -29,6 +29,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [nbHits, setNbHits] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -105,7 +106,22 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                 ref={inputRef}
                 type="text"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setActiveIndex(-1); }}
+                onKeyDown={(e) => {
+                  if (!hasResults) return;
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setActiveIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0));
+                  } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    setActiveIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1));
+                  } else if (e.key === "Enter" && activeIndex >= 0) {
+                    e.preventDefault();
+                    handleSelect(results[activeIndex].slug);
+                  } else if (e.key === "Escape") {
+                    onClose();
+                  }
+                }}
                 placeholder="Suche nach Produkten, Marken..."
                 role="combobox"
                 aria-expanded={hasResults}
@@ -151,9 +167,11 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                         key={hit.objectID}
                         id={`search-result-${index}`}
                         role="option"
-                        aria-selected={false}
+                        aria-selected={index === activeIndex}
                         onClick={() => handleSelect(hit.slug)}
-                        className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors duration-200 text-left"
+                        className={`w-full flex items-center gap-4 p-3 rounded-xl transition-colors duration-200 text-left ${
+                          index === activeIndex ? "bg-gray-100" : "hover:bg-gray-50"
+                        }`}
                       >
                         <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 border border-[var(--color-border-light)]">
                           <ProductImage

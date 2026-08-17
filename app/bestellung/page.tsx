@@ -216,7 +216,12 @@ export default function BestellungPage() {
   }, [items.length, router]);
 
   if (items.length === 0) {
-    return null;
+    return (
+      <div className="container-hauselio py-20 text-center">
+        <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird weitergeleitet...</p>
+      </div>
+    );
   }
 
   return (

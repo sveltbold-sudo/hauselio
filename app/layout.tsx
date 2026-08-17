@@ -7,10 +7,10 @@ import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsent from "@/components/ui/CookieConsent";
-import AnalyticsGate from "@/components/analytics/AnalyticsGate";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
+const AnalyticsGate = dynamic(() => import("@/components/analytics/AnalyticsGate"), { ssr: false });
 const NewsletterToast = dynamic(() => import("@/components/ui/NewsletterToast"), { ssr: false });
 
 const inter = Inter({

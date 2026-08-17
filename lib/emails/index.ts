@@ -14,6 +14,29 @@ export function escapeHtml(str: string): string {
     .replace(/'/g, "&#039;");
 }
 
+function stripHtml(html: string): string {
+  return html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+async function sendEmail(params: { from: string; to: string; subject: string; html: string }) {
+  return getResendClient().emails.send({
+    from: params.from,
+    to: params.to,
+    subject: params.subject,
+    html: params.html,
+    text: stripHtml(params.html),
+  });
+}
+
 interface OrderEmailData {
   orderNumber: string;
   customerEmail: string;
@@ -161,7 +184,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
     </div>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: customerEmail,
     subject: `Bestellbestätigung ${safeOrderNumber} – HAUSELIO`,
@@ -187,7 +210,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
     </p>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Zahlung bestätigt ${safeOrderNumber} – HAUSELIO`,
@@ -221,7 +244,7 @@ export async function sendShippedConfirmation(
     </a>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} – HAUSELIO`,
@@ -255,7 +278,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
     </p>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Bestellung ${safeOrderNumber} storniert – HAUSELIO`,
@@ -300,7 +323,7 @@ export async function sendContactForward(data: {
     </div>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: "support@hauselio.de",
     subject: `Kontakt: ${safe.subject}`,
@@ -335,7 +358,7 @@ export async function sendContactAutoReply(data: {
     </p>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: data.email,
     subject: "Ihre Nachricht bei HAUSELIO",
@@ -359,7 +382,7 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
     </p>
   `);
 
-  return getResendClient().emails.send({
+  return sendEmail({
     from: FROM_EMAIL,
     to: email,
     subject: "Newsletter bestätigen – HAUSELIO",
@@ -396,7 +419,7 @@ export async function sendNewsletterCampaign(data: {
             </p>
           </div>
         `);
-        return getResendClient().emails.send({
+        return sendEmail({
           from: FROM_EMAIL,
           to: email,
           subject: `${safeSubject} – HAUSELIO`,

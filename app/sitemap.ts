@@ -5,6 +5,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${SITE_URL}/shop`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${SITE_URL}/kueche`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${SITE_URL}/kaffee`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${SITE_URL}/smart-home`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${SITE_URL}/klima`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${SITE_URL}/reinigung`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${SITE_URL}/haushaltsgeraete`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${SITE_URL}/versand`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.3 },
     { url: `${SITE_URL}/kontakt`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 },
     { url: `${SITE_URL}/ueber-uns`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 },
