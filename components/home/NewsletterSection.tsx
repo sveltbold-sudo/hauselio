@@ -16,7 +16,7 @@ export default function NewsletterSection() {
         <h2 className="heading-1 text-white mb-4">
           Bleiben Sie auf dem Laufenden
         </h2>
-        <p className="text-white/50 mb-10 max-w-xl mx-auto text-lg">
+        <p className="text-white/80 mb-10 max-w-xl mx-auto text-lg">
           Melden Sie sich für unseren Newsletter an und erhalten Sie exklusive
           Angebote und Neuigkeiten.
         </p>

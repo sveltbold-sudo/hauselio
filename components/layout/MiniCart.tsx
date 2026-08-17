@@ -61,7 +61,7 @@ export default function MiniCart() {
       {/* Cart button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+        className="relative w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
         aria-label="Warenkorb"
         aria-expanded={isOpen}
       >
@@ -88,7 +88,7 @@ export default function MiniCart() {
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Warenkorb schließen"
-              className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <X className="w-5 h-5" />
             </button>
@@ -132,11 +132,11 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.max(1, item.quantity - 1))
                         }
                         aria-label="Menge verringern"
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-l-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-l-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="px-2 text-sm font-medium tabular-nums" aria-live="polite">
+                      <span className="w-10 text-center text-sm font-medium tabular-nums" aria-live="polite">
                         {item.quantity}
                       </span>
                       <button
@@ -144,7 +144,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.min(99, item.quantity + 1))
                         }
                         aria-label="Menge erhöhen"
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-r-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-r-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -181,9 +181,9 @@ export default function MiniCart() {
                   </span>
                 </div>
                 <Link
-                  href="/warenkorb"
+                  href="/bestellung"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full py-3 bg-[var(--color-secondary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-all duration-300 active:scale-[0.97] text-center"
+                  className="block w-full py-3 bg-[var(--color-secondary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-all duration-300 active:scale-[0.97] text-center focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2"
                 >
                   Zur Kasse
                 </Link>

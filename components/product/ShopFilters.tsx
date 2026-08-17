@@ -66,8 +66,8 @@ export default function ShopFilters({
         <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
           Kategorie
         </h3>
-        <div className="space-y-2">
-          <label className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group">
+        <div className="space-y-1">
+          <label className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors">
             <input
               type="checkbox"
               checked={!selectedCategory}
@@ -81,7 +81,7 @@ export default function ShopFilters({
           {categories.map((cat) => (
             <label
               key={cat.slug}
-              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group"
+              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <input
                 type="checkbox"
@@ -107,11 +107,11 @@ export default function ShopFilters({
         <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
           Marke
         </h3>
-        <div className="space-y-2">
+        <div className="space-y-1">
           {brands.map((brand) => (
             <label
               key={brand}
-              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group"
+              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <input
                 type="checkbox"

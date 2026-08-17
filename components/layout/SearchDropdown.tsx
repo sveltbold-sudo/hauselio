@@ -137,7 +137,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                     setResults([]);
                   }}
                   aria-label="Suche löschen"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 >
                   <X className="w-4 h-4" />
                 </button>

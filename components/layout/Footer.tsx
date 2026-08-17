@@ -39,7 +39,7 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <badge.icon className="w-5 h-5 text-[var(--color-primary)]" />
                 </div>
-                <span className="text-sm text-white/70 font-medium">{badge.label}</span>
+                <span className="text-sm text-white/80 font-medium">{badge.label}</span>
               </div>
             ))}
           </div>
@@ -58,16 +58,16 @@ export default function Footer() {
                 className="h-9 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-sm text-white/70 leading-relaxed mb-8 max-w-sm">
+            <p className="text-sm text-white/80 leading-relaxed mb-8 max-w-sm">
               Moderne Haushaltsgeräte für ein komfortables Zuhause.
               Qualität, Innovation und Service — direkt aus Deutschland.
             </p>
 
             <div className="mb-8">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-3">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-3">
                 Newsletter
               </h2>
-              <p className="text-sm text-white/70 mb-4">
+              <p className="text-sm text-white/80 mb-4">
                 Exklusive Angebote und Neuigkeiten.
               </p>
               <NewsletterForm />
@@ -75,7 +75,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
               Kategorien
             </h2>
             <ul className="space-y-1" aria-label="Kategorien">
@@ -83,7 +83,7 @@ export default function Footer() {
                 <li key={cat.href}>
                   <Link
                     href={cat.href}
-                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
                   >
                     {cat.name}
                   </Link>
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
               Service
             </h2>
             <ul className="space-y-1" aria-label="Service">
@@ -111,7 +111,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
               Rechtliches
             </h2>
             <ul className="space-y-1 mb-8" aria-label="Rechtliches">
@@ -119,7 +119,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
                   >
                     {item.name}
                   </Link>
@@ -130,14 +130,14 @@ export default function Footer() {
             <div className="space-y-1">
               <a
                 href="mailto:support@hauselio.de"
-                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
               >
                 <Mail className="w-4 h-4" />
                 support@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"
-                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
               >
                 <Phone className="w-4 h-4" />
                 +49 (0)30 555 789 01
@@ -153,7 +153,7 @@ export default function Footer() {
             {["SEPA-Überweisung", "Vorkasse"].map((method) => (
               <div
                 key={method}
-                className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-white/60"
+                className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-white/70"
               >
                 {method}
               </div>
@@ -161,7 +161,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/80">
               © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
             </p>
             <ScrollToTop />

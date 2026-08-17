@@ -155,7 +155,7 @@ export default function HeroCarousel() {
               </p>
 
               {/* Description */}
-              <p className="text-base text-white/60 max-w-lg mb-8 leading-relaxed animate-fade-in-up delay-200">
+              <p className="text-base text-white/80 max-w-lg mb-8 leading-relaxed animate-fade-in-up delay-200">
                 {slide.subtitle}
               </p>
 
@@ -166,7 +166,7 @@ export default function HeroCarousel() {
                 </span>
                 {slide.originalPrice && (
                   <>
-                    <span className="text-lg text-white/40 line-through">
+                    <span className="text-lg text-white/70 line-through">
                       {formatPrice(slide.originalPrice)}
                     </span>
                     <span
@@ -269,19 +269,25 @@ export default function HeroCarousel() {
       </button>
 
       {/* Progress Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-current={i === current ? "true" : undefined}
             aria-label={`Folie ${i + 1}`}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              i === current
-                ? "w-10 bg-white"
-                : "w-3 bg-white/30 hover:bg-white/50"
+            className={`flex items-center justify-center min-w-[44px] h-[44px] transition-all duration-500 ${
+              i === current ? "" : ""
             }`}
-          />
+          >
+            <span
+              className={`block h-1 rounded-full transition-all duration-500 ${
+                i === current
+                  ? "w-10 bg-white"
+                  : "w-3 bg-white/30 hover:bg-white/50"
+              }`}
+            />
+          </button>
         ))}
       </div>
 

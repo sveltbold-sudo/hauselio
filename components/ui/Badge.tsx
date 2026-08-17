@@ -18,7 +18,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       danger:
         "bg-[var(--color-danger-light)] text-[var(--color-danger)] border border-[var(--color-danger)]/20",
       promo:
-        "bg-gradient-to-r from-amber-500 to-orange-500 text-[var(--color-text-primary)] shadow-sm",
+        "bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-sm",
     };
 
     return (

@@ -101,7 +101,7 @@ export default function ProductTable({
     <>
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full hidden md:table">
             <thead>
               <tr className="border-b border-[var(--color-border-light)] bg-gray-50">
                 <th className="px-5 py-3 w-10">
@@ -278,6 +278,92 @@ export default function ProductTable({
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="md:hidden divide-y divide-[var(--color-border-light)]">
+          {sorted.map((product) => (
+            <div
+              key={product.id}
+              className={`p-4 ${selected.includes(product.id) ? "bg-blue-50" : ""}`}
+            >
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={selected.includes(product.id)}
+                  onChange={() => toggle(product.id)}
+                  aria-label={`${product.name} auswählen`}
+                  className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)] mt-1"
+                />
+                <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                  {product.images[0] ? (
+                    <Image
+                      src={product.images[0].url}
+                      alt={product.name}
+                      width={56}
+                      height={56}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400">
+                      Kein Bild
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">
+                        {product.name}
+                      </p>
+                      <p className="text-xs text-[var(--color-text-muted)]">
+                        {product.category.name} · {product.brand?.name || "—"}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold shrink-0 ${
+                        product.inStock
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {product.inStock ? "Verfügbar" : "Nicht verfügbar"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <p className="text-sm font-bold text-[var(--color-text-primary)]">
+                      {formatPrice(Number(product.price))}
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <a
+                        href={`/produkt/${product.slug}`}
+                        target="_blank"
+                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
+                        title="Ansehen"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                      <Link
+                        href={`/admin/produkte/${product.id}/bearbeiten`}
+                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
+                        title="Bearbeiten"
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </Link>
+                      <DeleteProductButton
+                        productId={product.id}
+                        productName={product.name}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {products.length === 0 && (
+            <div className="px-5 py-12 text-center text-sm text-[var(--color-text-muted)]">
+              Keine Produkte gefunden.
+            </div>
+          )}
         </div>
 
         {totalPages > 1 && (

@@ -185,7 +185,7 @@ export default function HeaderClient() {
           <div className="flex items-center gap-1">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
               aria-label="Suche"
               aria-expanded={searchOpen}
             >
@@ -196,7 +196,7 @@ export default function HeaderClient() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
               aria-label="Menü"
               aria-expanded={mobileMenuOpen}
             >
@@ -224,7 +224,7 @@ export default function HeaderClient() {
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Menü schließen"
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -259,7 +259,7 @@ export default function HeaderClient() {
                       {cat.subcategories.length > 0 && (
                         <button
                           onClick={() => setExpandedMobileCat(isExpanded ? null : cat.href)}
-                          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                          className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                           aria-label={`${cat.name} ${isExpanded ? "schließen" : "öffnen"}`}
                           aria-expanded={isExpanded}
                         >

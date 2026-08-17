@@ -1,15 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/lib/store";
-import { getShippingCost } from "@/lib/constants";
+import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const total = getTotal();
   const shippingCost = getShippingCost(total);
   const finalTotal = total + shippingCost;
@@ -96,14 +98,38 @@ export default function WarenkorbPage() {
                   </div>
 
                   {/* Remove */}
-                  <button
-                    type="button"
-                    onClick={() => removeItem(item.id)}
-                    aria-label={`${item.name} entfernen`}
-                    className="p-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-all duration-300"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {confirmDelete === item.id ? (
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          removeItem(item.id);
+                          setConfirmDelete(null);
+                        }}
+                        aria-label={`${item.name} entfernen bestätigen`}
+                        className="px-3 py-1.5 text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-red-700 transition-colors"
+                      >
+                        Entfernen
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDelete(null)}
+                        aria-label="Abbrechen"
+                        className="px-3 py-1.5 text-xs font-semibold text-[var(--color-text-muted)] bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                      >
+                        Abbruch
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setConfirmDelete(item.id)}
+                      aria-label={`${item.name} entfernen`}
+                      className="p-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-all duration-300"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -144,14 +170,14 @@ export default function WarenkorbPage() {
                 </span>
               </div>
               {shippingCost > 0 && (
-                <div className="bg-[var(--color-primary-50)] rounded-xl p-3">
+                  <div className="bg-[var(--color-primary-50)] rounded-xl p-3">
                   <p className="text-xs text-[var(--color-primary)] font-medium">
-                    Noch {formatPrice(50 - total)} bis zum kostenlosen Versand
+                    Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand
                   </p>
                   <div className="mt-2 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-[var(--color-primary)] rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min((total / 50) * 100, 100)}%` }}
+                      style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
                     />
                   </div>
                 </div>

@@ -103,7 +103,7 @@ export default function OrderTable({
     <>
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full hidden md:table">
             <thead>
               <tr className="border-b border-[var(--color-border-light)] bg-gray-50">
                 <th className="px-5 py-3 w-10">
@@ -250,6 +250,73 @@ export default function OrderTable({
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="md:hidden divide-y divide-[var(--color-border-light)]">
+          {sorted.map((order) => (
+            <div
+              key={order.id}
+              className={`p-4 ${selected.includes(order.id) ? "bg-blue-50" : ""}`}
+            >
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={selected.includes(order.id)}
+                  onChange={() => toggle(order.id)}
+                  aria-label={`Bestellung ${order.orderNumber} auswählen`}
+                  className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)] mt-1"
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <Link
+                        href={`/admin/bestellungen/${order.id}`}
+                        className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+                      >
+                        {order.orderNumber}
+                      </Link>
+                      <p className="text-sm text-[var(--color-text-primary)]">
+                        {order.customerFirstName} {order.customerLastName}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-semibold shrink-0 ${
+                        ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {ORDER_STATUS_LABELS[order.status] || order.status}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <div>
+                      <p className="text-xs text-[var(--color-text-muted)]">
+                        {new Date(order.createdAt).toLocaleDateString("de-DE")}
+                      </p>
+                      <p className="text-xs text-[var(--color-text-muted)] truncate max-w-[200px]">
+                        {order.customerEmail}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-bold text-[var(--color-text-primary)]">
+                        {formatPrice(Number(order.total))}
+                      </p>
+                      <Link
+                        href={`/admin/bestellungen/${order.id}`}
+                        className="text-xs font-medium text-[var(--color-primary)] hover:underline"
+                      >
+                        Details
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {orders.length === 0 && (
+            <div className="px-5 py-12 text-center text-sm text-[var(--color-text-muted)]">
+              Keine Bestellungen gefunden.
+            </div>
+          )}
         </div>
 
         {totalPages > 1 && (
