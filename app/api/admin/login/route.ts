@@ -8,11 +8,19 @@ import {
   recordFailedLogin,
   resetFailedLogins,
 } from "@/lib/auth";
-import { checkRateLimit, getRemainingAttempts } from "@/lib/rate-limit";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000;
+async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === retries) throw error;
+      await new Promise((r) => setTimeout(r, 100 * (attempt + 1)));
+    }
+  }
+  throw new Error("unreachable");
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,26 +28,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "CSRF-Schutz: Ungültige Herkunft" },
         { status: 403 }
-      );
-    }
-
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
-    const rateLimitKey = `login:${ip}`;
-
-    if (!await checkRateLimit(rateLimitKey, MAX_ATTEMPTS, WINDOW_MS)) {
-      const { remaining, retryAfterMs } = await getRemainingAttempts(rateLimitKey, MAX_ATTEMPTS, WINDOW_MS);
-      const retryAfterSec = Math.ceil(retryAfterMs / 1000);
-
-      return NextResponse.json(
-        {
-          error: `Zu viele Versuche. Versuchen Sie es in ${retryAfterSec} Sekunden erneut.`,
-          remaining,
-          retryAfterSec,
-        },
-        {
-          status: 429,
-          headers: { "Retry-After": String(retryAfterSec) },
-        }
       );
     }
 
@@ -58,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     const { email, password } = parsed.data;
 
-    const lockout = await checkLoginLockout(email);
+    const lockout = await withRetry(() => checkLoginLockout(email));
     if (lockout.locked) {
       const retryAfterSec = Math.ceil(lockout.retryAfterMs / 1000);
       return NextResponse.json(
@@ -73,17 +61,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const admin = await authenticateAdmin(email, password);
+    const admin = await withRetry(() => authenticateAdmin(email, password));
 
     if (!admin) {
-      await recordFailedLogin(email);
+      await recordFailedLogin(email).catch(() => {});
       return NextResponse.json(
         { error: "Ungültige Anmeldedaten" },
         { status: 401 }
       );
     }
 
-    await resetFailedLogins(email);
+    await resetFailedLogins(email).catch(() => {});
 
     const token = await generateToken(admin);
     const cookieOptions = setAuthCookie(token, request);
@@ -106,9 +94,10 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.json(
-      { error: "Ein Fehler ist aufgetreten" },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error && error.message.includes("environment variable")
+        ? "Server-Konfigurationsfehler"
+        : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

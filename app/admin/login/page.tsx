@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useRef, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
+
+const THROTTLE_MS = 2000;
 
 function LoginForm() {
   const router = useRouter();
@@ -12,12 +14,18 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+  const lastSubmitRef = useRef(0);
 
   const rawRedirect = searchParams.get("redirect") || "/admin";
   const redirect = rawRedirect.startsWith("/admin") ? rawRedirect : "/admin";
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+    const now = Date.now();
+    if (now - lastSubmitRef.current < THROTTLE_MS) return;
+    lastSubmitRef.current = now;
+
     setIsLoading(true);
     setError("");
 
@@ -37,11 +45,13 @@ function LoginForm() {
       router.push(redirect);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Ein Fehler ist aufgetreten");
+      const message = err instanceof Error ? err.message : "Ein Fehler ist aufgetreten";
+      setError(message);
+      setTimeout(() => errorRef.current?.focus(), 100);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [email, password, redirect, router]);
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center p-4">
@@ -65,23 +75,34 @@ function LoginForm() {
           </h2>
 
           {error && (
-            <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6">
+            <div
+              ref={errorRef}
+              tabIndex={-1}
+              role="alert"
+              className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-danger)]/40"
+            >
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+              <label
+                htmlFor="admin-email"
+                className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5"
+              >
                 E-Mail
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="admin-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  autoComplete="email"
+                  maxLength={254}
                   className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all"
                   placeholder="admin@hauselio.de"
                 />
@@ -89,22 +110,29 @@ function LoginForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+              <label
+                htmlFor="admin-password"
+                className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5"
+              >
                 Passwort
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="admin-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  autoComplete="current-password"
+                  maxLength={128}
                   className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-all"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
                   {showPassword ? (
