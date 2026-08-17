@@ -18,14 +18,20 @@ export default async function AdminOrderDetailPage({
   await requireRole("ADMIN");
   const { id } = await params;
 
-  const order = await prisma.order.findUnique({
-    where: { id },
-    include: {
-      items: {
-        include: { product: true },
+  let order;
+  try {
+    order = await prisma.order.findUnique({
+      where: { id },
+      include: {
+        items: {
+          include: { product: true },
+        },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in bestellungen/[id]:", error);
+    notFound();
+  }
 
   if (!order) {
     notFound();

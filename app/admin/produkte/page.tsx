@@ -31,22 +31,32 @@ export default async function AdminProductsPage({
     ];
   }
 
-  const [products, categories, brands, total] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      include: {
-        category: true,
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-      orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
-    }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
-    prisma.brand.findMany({ orderBy: { name: "asc" } }),
-    prisma.product.count({ where }),
-  ]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let products: any[] = [];
+  let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
+  let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
+  let total = 0;
+
+  try {
+    [products, categories, brands, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: {
+          category: true,
+          brand: true,
+          images: { take: 1, orderBy: { position: "asc" } },
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+      prisma.category.findMany({ orderBy: { name: "asc" } }),
+      prisma.brand.findMany({ orderBy: { name: "asc" } }),
+      prisma.product.count({ where }),
+    ]);
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in admin/produkte:", error);
+  }
 
   const totalPages = Math.ceil(total / limit);
 
@@ -73,11 +83,13 @@ export default async function AdminProductsPage({
             name="q"
             defaultValue={q}
             placeholder="Suche..."
+            aria-label="Produkte suchen"
             className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           />
           <select
             name="category"
             defaultValue={category}
+            aria-label="Kategorie filtern"
             className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Kategorien</option>
@@ -90,6 +102,7 @@ export default async function AdminProductsPage({
           <select
             name="brand"
             defaultValue={brand}
+            aria-label="Marke filtern"
             className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Marken</option>
@@ -115,7 +128,7 @@ export default async function AdminProductsPage({
           price: Number(p.price),
           originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
           brand: p.brand ? { name: p.brand.name } : null,
-          images: p.images.map((img) => ({ url: img.url })),
+          images: p.images.map((img: { url: string }) => ({ url: img.url })),
         }))}
         total={total}
         totalPages={totalPages}

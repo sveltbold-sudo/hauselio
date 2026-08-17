@@ -9,6 +9,7 @@ import {
   resetFailedLogins,
 } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -33,6 +34,15 @@ export async function POST(request: NextRequest) {
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    const ip = getClientIp(request);
+    const ipAllowed = await checkRateLimit(`login:ip:${ip}`, 10, 60_000);
+    if (!ipAllowed) {
+      return NextResponse.json(
+        { error: "Zu viele Anmeldeversuche. Bitte warten Sie." },
+        { status: 429 }
+      );
+    }
 
     const body = await request.json();
     const parsed = LoginSchema.safeParse(body);

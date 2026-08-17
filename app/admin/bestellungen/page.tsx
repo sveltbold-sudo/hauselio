@@ -30,15 +30,22 @@ export default async function AdminOrdersPage({
     ];
   }
 
-  const [orders, total] = await Promise.all([
-    prisma.order.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
-    }),
-    prisma.order.count({ where }),
-  ]);
+  let orders: Awaited<ReturnType<typeof prisma.order.findMany>> = [];
+  let total = 0;
+
+  try {
+    [orders, total] = await Promise.all([
+      prisma.order.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+      prisma.order.count({ where }),
+    ]);
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in admin/bestellungen:", error);
+  }
 
   const totalPages = Math.ceil(total / limit);
 
@@ -56,11 +63,13 @@ export default async function AdminOrdersPage({
             name="q"
             defaultValue={q}
             placeholder="Suche (Nr., Name, E-Mail)..."
+            aria-label="Bestellungen suchen"
             className="flex-1 min-w-[200px] px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           />
           <select
             name="status"
             defaultValue={status}
+            aria-label="Status filtern"
             className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Status</option>

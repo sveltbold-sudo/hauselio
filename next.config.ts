@@ -54,6 +54,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "2mb",
     },
   },
+  redirects: async () => [
+    { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
+    { source: "/kaffee", destination: "/kategorie/kaffee", permanent: true },
+    { source: "/smart-home", destination: "/kategorie/smart-home", permanent: true },
+    { source: "/klima", destination: "/kategorie/klima", permanent: true },
+    { source: "/reinigung", destination: "/kategorie/reinigung", permanent: true },
+    { source: "/haushaltsgeraete", destination: "/kategorie/haushaltsgeraete", permanent: true },
+  ],
   async headers() {
     return [
       {

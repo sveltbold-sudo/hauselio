@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
@@ -7,6 +8,23 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 300;
+
+const getProduct = cache(async (slug: string) => {
+  try {
+    return await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: true,
+        brand: true,
+        images: { orderBy: { position: "asc" } },
+        specs: { orderBy: { position: "asc" } },
+      },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in produkt/[slug]:", error);
+    return null;
+  }
+});
 
 export async function generateStaticParams() {
   try {
@@ -26,21 +44,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  let product;
-  try {
-    product = await prisma.product.findUnique({
-      where: { slug },
-      select: {
-        name: true,
-        description: true,
-        price: true,
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-    });
-  } catch (error) {
-    console.error("[HAUSELIO] DB error in produkt/[slug]/generateMetadata:", error);
-    return { title: "Produkt nicht gefunden" };
-  }
+  const product = await getProduct(slug);
 
   if (!product) {
     return { title: "Produkt nicht gefunden" };
@@ -75,21 +79,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
-  let product;
-  try {
-    product = await prisma.product.findUnique({
-      where: { slug },
-      include: {
-        category: true,
-        brand: true,
-        images: { orderBy: { position: "asc" } },
-        specs: { orderBy: { position: "asc" } },
-      },
-    });
-  } catch (error) {
-    console.error("[HAUSELIO] DB error in produkt/[slug]/page.tsx:", error);
-    notFound();
-  }
+  const product = await getProduct(slug);
 
   if (!product) {
     notFound();

@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 300;
+
+const getCategory = cache(async (slug: string) => {
+  try {
+    return await prisma.category.findUnique({
+      where: { slug },
+      select: { name: true, description: true },
+    });
+  } catch (error) {
+    console.error("[HAUSELIO] DB error in kategorie/[slug]:", error);
+    return null;
+  }
+});
 
 export async function generateStaticParams() {
   try {
@@ -25,16 +37,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  let category;
-  try {
-    category = await prisma.category.findUnique({
-      where: { slug },
-      select: { name: true, description: true },
-    });
-  } catch (error) {
-    console.error("[HAUSELIO] DB error in kategorie/[slug]/generateMetadata:", error);
-    return { title: "Kategorie nicht gefunden" };
-  }
+  const category = await getCategory(slug);
 
   if (!category) {
     return { title: "Kategorie nicht gefunden" };
@@ -62,16 +65,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
-  let category;
-  try {
-    category = await prisma.category.findUnique({
-      where: { slug },
-      select: { name: true, description: true },
-    });
-  } catch (error) {
-    console.error("[HAUSELIO] DB error in kategorie/[slug]/page.tsx:", error);
-    notFound();
-  }
+  const category = await getCategory(slug);
 
   if (!category) {
     notFound();

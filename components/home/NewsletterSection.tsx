@@ -53,7 +53,7 @@ export default function NewsletterSection() {
         )}
 
         {error && (
-          <p className="text-sm text-red-300 mt-3">{error}</p>
+          <p className="text-sm text-red-300 mt-3" role="alert">{error}</p>
         )}
       </div>
     </section>

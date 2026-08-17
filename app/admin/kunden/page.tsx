@@ -97,6 +97,7 @@ export default function KundenPage() {
           placeholder="Kunden suchen (Name, E-Mail, Stadt)..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          aria-label="Kunden suchen"
           className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
         />
       </div>

@@ -1,4 +1,5 @@
 import { Truck, Shield, Headphones } from "lucide-react";
+import Link from "next/link";
 import HeaderClient from "@/components/layout/HeaderClient";
 
 export default function Header() {
@@ -21,12 +22,12 @@ export default function Header() {
             </span>
           </div>
           <div className="flex items-center gap-5">
-            <a href="/kontakt" className="hover:text-white transition-colors duration-200">
+            <Link href="/kontakt" className="hover:text-white transition-colors duration-200">
               Kontakt
-            </a>
-            <a href="/impressum" className="hover:text-white transition-colors duration-200">
+            </Link>
+            <Link href="/impressum" className="hover:text-white transition-colors duration-200">
               Impressum
-            </a>
+            </Link>
           </div>
         </div>
       </div>
