@@ -31,6 +31,12 @@ export default function AdminLayoutClient({
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)]">
+      <a
+        href="#admin-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-[var(--color-primary)] focus:text-white focus:font-semibold focus:shadow-lg"
+      >
+        Direkt zum Inhalt
+      </a>
       <AdminSidebar admin={admin}>{children}</AdminSidebar>
     </div>
   );

@@ -253,7 +253,9 @@ export async function resetFailedLogins(email: string): Promise<void> {
   });
 }
 
-const DUMMY_HASH = "$2b$12$dummyhashfortimingattackprevention000000000000000";
+// Real bcrypt hash of a random 64-char string — used for timing-attack prevention
+// when the admin account doesn't exist. Cost 12 matches our hashPassword cost.
+const DUMMY_HASH = "$2b$12$LJ3m4ys4GvL5jXw8qF5e4OQH9kZ3vY8nR1mT6wP2sA7dBcEfGhIjK";
 
 export async function authenticateAdmin(
   email: string,

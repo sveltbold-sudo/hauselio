@@ -58,7 +58,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  if (isAdminApiRoute && request.method === "GET") {
+    response.headers.set("Cache-Control", "private, no-store, no-cache, must-revalidate");
+  }
+
+  return response;
 }
 
 export const config = {

@@ -78,6 +78,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className={`${inter.variable} h-full`}>
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://GEXPVTXH78-dsn.algolia.net" />
+      </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
         <OrganizationJsonLd />
         <WebSiteJsonLd />
