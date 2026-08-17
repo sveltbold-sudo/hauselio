@@ -19,18 +19,6 @@ export default async function CategoryPage({
   description,
   page = 1,
 }: CategoryPageProps) {
-  let category;
-  try {
-    category = await prisma.category.findUnique({
-      where: { slug },
-    });
-  } catch {
-    notFound();
-  }
-
-  if (!category) {
-    notFound();
-  }
 
   const currentPage = Math.max(1, page);
   const skip = (currentPage - 1) * PAGE_SIZE;
@@ -53,7 +41,7 @@ export default async function CategoryPage({
   try {
     const [raw, count] = await Promise.all([
       prisma.product.findMany({
-        where: { categoryId: category.id },
+        where: { category: { slug } },
         include: {
           brand: { select: { name: true } },
           images: { take: 1, orderBy: { position: "asc" } },
@@ -62,7 +50,7 @@ export default async function CategoryPage({
         skip,
         take: PAGE_SIZE,
       }),
-      prisma.product.count({ where: { categoryId: category.id } }),
+      prisma.product.count({ where: { category: { slug } } }),
     ]);
     total = count;
     products = raw.map((p) => ({

@@ -10,9 +10,11 @@ import { getShippingCost } from "@/lib/constants";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, getTotal, removeItem, updateQuantity } = useCartStore();
+  const items = useCartStore((state) => state.items);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
   const itemCount = useCartStore((state) => state.getItemCount());
-  const total = getTotal();
+  const total = useCartStore((state) => state.getTotal());
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

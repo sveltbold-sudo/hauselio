@@ -78,7 +78,7 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
               Kategorien
             </h2>
-            <ul className="space-y-1" role="navigation" aria-label="Kategorien">
+            <ul className="space-y-1" aria-label="Kategorien">
               {footerCategories.map((cat) => (
                 <li key={cat.href}>
                   <Link
@@ -96,7 +96,7 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
               Service
             </h2>
-            <ul className="space-y-1" role="navigation" aria-label="Service">
+            <ul className="space-y-1" aria-label="Service">
               {service.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -114,7 +114,7 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/60 mb-5">
               Rechtliches
             </h2>
-            <ul className="space-y-1 mb-8" role="navigation" aria-label="Rechtliches">
+            <ul className="space-y-1 mb-8" aria-label="Rechtliches">
               {legal.map((item) => (
                 <li key={item.href}>
                   <Link

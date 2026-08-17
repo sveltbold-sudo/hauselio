@@ -27,9 +27,15 @@ export default function CookieConsent() {
   const firstButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (visible && firstButtonRef.current) {
-      firstButtonRef.current.focus();
+    if (visible) {
+      document.body.style.overflow = "hidden";
+      if (firstButtonRef.current) {
+        firstButtonRef.current.focus();
+      }
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [visible]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {

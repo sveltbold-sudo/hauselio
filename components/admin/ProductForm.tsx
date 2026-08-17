@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { slugify } from "@/lib/utils";
 
 interface Category {
   id: string;
@@ -99,22 +100,11 @@ export default function ProductForm({
     }
   }, [initialData]);
 
-  const generateSlug = (name: string) => {
-    return name
-      .toLowerCase()
-      .replace(/[ä]/g, "ae")
-      .replace(/[ö]/g, "oe")
-      .replace(/[ü]/g, "ue")
-      .replace(/[ß]/g, "ss")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  };
-
   const handleNameChange = (value: string) => {
     setFormData((prev) => ({
       ...prev,
       name: value,
-      slug: generateSlug(value),
+      slug: slugify(value),
     }));
   };
 

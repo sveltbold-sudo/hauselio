@@ -5,6 +5,7 @@ import dynamicImport from "next/dynamic";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { SITE_URL } from "@/lib/constants";
 import ProductCard from "@/components/product/ProductCard";
 import HeroCarousel from "@/components/product/HeroCarousel";
 import ValuePropsSection from "@/components/product/ValuePropsSection";
@@ -17,21 +18,24 @@ const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/B
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "HAUSELIO — Moderne Haushaltsgeräte aus Deutschland",
+  title: "Moderne Haushaltsgeräte aus Deutschland",
   description:
     "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. SEPA-Überweisung.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "HAUSELIO — Moderne Haushaltsgeräte aus Deutschland",
+    title: "Moderne Haushaltsgeräte aus Deutschland",
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
-    url: "/",
+    url: SITE_URL,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
   },
 };
 
@@ -244,7 +248,9 @@ export default async function HomePage() {
       <PressReviewsSection />
       <EditorialContentSection />
       <BrandsShowcaseSection />
-      <CustomerReviewsSection />
+      <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-gray-100 rounded-2xl" /></div></div>}>
+        <CustomerReviewsSection />
+      </Suspense>
       <NewsletterSection />
     </div>
   );

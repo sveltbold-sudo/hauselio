@@ -6,7 +6,6 @@ import ProductJsonLd from "@/components/seo/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export async function generateStaticParams() {

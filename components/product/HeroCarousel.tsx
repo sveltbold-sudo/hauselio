@@ -128,6 +128,7 @@ export default function HeroCarousel() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Text Content */}
             <div className="text-white">
+              <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte</h1>
               {/* Brand badge */}
               <div
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-8 animate-fade-in-up"
@@ -145,9 +146,9 @@ export default function HeroCarousel() {
               </div>
 
               {/* Headline */}
-              <h1 className="heading-display text-white mb-5 animate-fade-in-up delay-100">
+              <p className="heading-display text-white mb-5 animate-fade-in-up delay-100">
                 {slide.name}
-              </h1>
+              </p>
 
               {/* Tagline */}
               <p className="text-xl md:text-2xl font-semibold text-white/90 mb-3 animate-fade-in-up delay-150">

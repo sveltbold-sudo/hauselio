@@ -40,7 +40,14 @@ export const metadata: Metadata = {
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
-    images: ["/logos/logoprincipale.png"],
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
+    description:
+      "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
+    images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
   robots: {
     index: true,

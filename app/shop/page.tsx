@@ -10,7 +10,6 @@ import { SITE_URL } from "@/lib/constants";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300;
 
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
@@ -20,7 +19,7 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const q = params.q;
   const baseUrl = SITE_URL;
 
-  let title = "Boutique";
+  let title = "Alle Produkte";
   let desc = "Entdecken Sie unser gesamtes Sortiment an Haushaltsgeräten";
 
   if (q) {
@@ -147,7 +146,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <div className="mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Sortiment</p>
         <h1 className="heading-1">
-          {q ? `Suchergebnisse für "${q}"` : "Boutique"}
+          {q ? `Suchergebnisse für "${q}"` : "Alle Produkte"}
         </h1>
         <p className="body-large mt-2">
           {q
