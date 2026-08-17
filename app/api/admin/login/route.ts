@@ -118,11 +118,14 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    const message =
-      error instanceof Error && error.message.includes("environment variable")
-        ? "Server-Konfigurationsfehler"
-        : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+    console.error("[HAUSELIO] Login error:", error);
+    const isEnvError =
+      error instanceof Error &&
+      (error.message.includes("environment variable") ||
+        error.message.includes("JWT_SECRET"));
+    const message = isEnvError
+      ? "Server-Konfigurationsfehler"
+      : `Serverfehler: ${error instanceof Error ? error.message : "Unbekannt"}`;
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
