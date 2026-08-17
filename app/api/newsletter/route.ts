@@ -47,10 +47,7 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       if (existing.isActive) {
-        return NextResponse.json(
-          { error: "Diese E-Mail-Adresse ist bereits angemeldet." },
-          { status: 409 }
-        );
+        return NextResponse.json({ success: true });
       }
       await prisma.newsletter.update({
         where: { email },

@@ -14,6 +14,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     reviews = await prisma.review.findMany({
       where,
       orderBy: { createdAt: "desc" },
+      take: 50,
       select: {
         id: true,
         authorName: true,

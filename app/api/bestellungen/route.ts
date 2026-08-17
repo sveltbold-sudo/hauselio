@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
           },
         });
         break;
-      } catch (err: any) {
-        if (err?.code === "P2002" && attempt < MAX_RETRIES - 1) {
+      } catch (err: unknown) {
+        if (err instanceof Error && 'code' in err && err.code === "P2002" && attempt < MAX_RETRIES - 1) {
           continue;
         }
         throw err;
