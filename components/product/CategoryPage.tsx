@@ -31,6 +31,7 @@ export default async function CategoryPage({
     rating: number;
     reviewCount: number;
     isNew: boolean;
+    inStock: boolean;
     isPromo: boolean;
     brand: { name: string } | null;
     images: { url: string }[];
@@ -75,6 +76,7 @@ export default async function CategoryPage({
     rating: product.rating,
     reviewCount: product.reviewCount,
     isNew: product.isNew,
+    inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
   }));
@@ -85,11 +87,22 @@ export default async function CategoryPage({
 
   return (
     <div className="container-hauselio py-8">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] mb-6" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
+        <span>/</span>
+        <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors">Shop</Link>
+        <span>/</span>
+        <span className="text-[var(--color-text-primary)] font-medium">{title}</span>
+      </nav>
+
       {/* Header */}
-      <div className="mb-10">
-        <p className="caption text-[var(--color-primary)] mb-3">{title}</p>
+      <div className="mb-8">
         <h1 className="heading-1">{title}</h1>
         <p className="body-large mt-2">{description}</p>
+        <p className="text-sm text-[var(--color-text-muted)] mt-2">
+          {total} {total === 1 ? "Produkt" : "Produkte"} in dieser Kategorie
+        </p>
       </div>
 
       {formattedProducts.length === 0 ? (
@@ -113,12 +126,12 @@ export default async function CategoryPage({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {formattedProducts.map((product, i) => (
               <div
                 key={product.id}
                 className="animate-fade-in-up"
-                style={{ animationDelay: `${i * 80}ms` }}
+                style={{ animationDelay: `${i * 60}ms` }}
               >
                 <ProductCard product={product} />
               </div>
@@ -127,14 +140,15 @@ export default async function CategoryPage({
 
           {totalPages > 1 && (
             <div className="mt-10 flex justify-center">
-              <nav className="flex items-center gap-1 flex-wrap justify-center" aria-label="Seitennavigation">
+              <nav className="flex items-center gap-1.5 flex-wrap justify-center" aria-label="Seitennavigation">
                 {currentPage > 1 && (
                   <Link
                     href={pageUrl(currentPage - 1)}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
+                    Zurück
                   </Link>
                 )}
                 {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
@@ -154,10 +168,10 @@ export default async function CategoryPage({
                     key={p}
                     href={pageUrl(p)}
                     aria-current={p === currentPage ? "page" : undefined}
-                    className={`px-3.5 py-2.5 text-sm rounded-xl font-medium transition-all duration-300 ${
+                    className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-all duration-200 ${
                       p === currentPage
-                        ? "bg-[var(--color-primary)] text-white shadow-lg shadow-blue-500/20"
-                        : "text-[var(--color-text-secondary)] hover:bg-gray-100"
+                        ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
+                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
                     }`}
                   >
                     {p}
@@ -166,9 +180,10 @@ export default async function CategoryPage({
                 {currentPage < totalPages && (
                   <Link
                     href={pageUrl(currentPage + 1)}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
+                    Weiter
                     <ChevronRight className="w-4 h-4" />
                   </Link>
                 )}
