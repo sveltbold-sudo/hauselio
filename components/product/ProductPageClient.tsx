@@ -218,10 +218,10 @@ export default function ProductPageClient({ product }: { product: Product }) {
             )}
           </div>
 
-          {/* Stock */}
-          <div className="flex items-center gap-2 mb-5">
+          {/* Stock — like Coolblue */}
+          <div className="flex items-center gap-2 mb-4">
             <span
-              className={`w-2.5 h-2.5 rounded-full ${
+              className={`w-2 h-2 rounded-full ${
                 product.inStock ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"
               }`}
             />
@@ -234,9 +234,16 @@ export default function ProductPageClient({ product }: { product: Product }) {
             </span>
           </div>
 
+          {/* Delivery estimate — like AO */}
+          {product.inStock && (
+            <p className="text-xs text-[var(--color-text-muted)] mb-4">
+              Lieferung in 2-5 Werktagen · Kostenloser Versand ab 50€
+            </p>
+          )}
+
           {/* Quantity & Add to cart */}
           {product.inStock && (
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -258,7 +265,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
               </div>
               <Button
                 onClick={handleAddToCart}
-                className={`flex-1 transition-all duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
+                className={`flex-1 transition-all duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
                 size="lg"
               >
                 {added ? (
@@ -276,20 +283,20 @@ export default function ProductPageClient({ product }: { product: Product }) {
             </div>
           )}
 
-          {/* Quick trust badges — inline */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
-              <Truck className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
-              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">Kostenloser<br/>Versand</span>
-            </div>
-            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
-              <RotateCcw className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
-              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">30 Tage<br/>Rückgabe</span>
-            </div>
-            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
-              <Shield className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
-              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">Bis zu 5 J.<br/>Garantie</span>
-            </div>
+          {/* Trust badges — horizontal like AO/Coolblue, right next to CTA */}
+          <div className="flex items-center gap-4 mb-5 text-xs text-[var(--color-text-muted)]">
+            <span className="flex items-center gap-1.5">
+              <Truck className="w-4 h-4 text-[var(--color-success)]" />
+              Kostenloser Versand
+            </span>
+            <span className="flex items-center gap-1.5">
+              <RotateCcw className="w-4 h-4 text-[var(--color-success)]" />
+              30 Tage Rückgabe
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Shield className="w-4 h-4 text-[var(--color-success)]" />
+              Garantie bis 5 J.
+            </span>
           </div>
 
           {/* Actions */}

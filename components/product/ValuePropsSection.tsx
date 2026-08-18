@@ -4,69 +4,61 @@ const valueProps = [
   {
     icon: Truck,
     title: "Kostenloser Versand",
-    description: "Auf alle Bestellungen ab 50€",
+    description: "Ab 50€ Bestellwert",
     color: "text-[var(--color-primary)]",
-    bgColor: "bg-[var(--color-primary-50)]",
   },
   {
     icon: Euro,
     title: "Bis zu 40% sparen",
-    description: "Auf ausgewählte Markengeräte",
+    description: "Auf Markengeräte",
     color: "text-[var(--color-accent)]",
-    bgColor: "bg-[var(--color-accent-light)]",
   },
   {
     icon: Shield,
-    title: "Garantie bis 5 Jahre",
-    description: "Kostenlose Garantieverlängerung",
+    title: "Garantie bis 5 J.",
+    description: "Kostenlos verlängern",
     color: "text-[var(--color-success)]",
-    bgColor: "bg-[var(--color-success-light)]",
   },
   {
     icon: CreditCard,
     title: "Sichere Zahlung",
-    description: "SEPA-Überweisung auf Rechnung",
+    description: "SEPA-Überweisung",
     color: "text-[var(--color-text-secondary)]",
-    bgColor: "bg-gray-100",
   },
   {
     icon: Clock,
     title: "Schnelle Lieferung",
-    description: "In 1-3 Werktagen bei Ihnen",
+    description: "1-3 Werktage",
     color: "text-[var(--color-info)]",
-    bgColor: "bg-[var(--color-info-light)]",
   },
   {
     icon: Headphones,
     title: "Deutsche Beratung",
-    description: "Persönlich, telefonisch, per E-Mail",
+    description: "Telefonisch & E-Mail",
     color: "text-[var(--color-primary)]",
-    bgColor: "bg-[var(--color-primary-50)]",
   },
 ];
 
 export default function ValuePropsSection() {
   return (
-    <section aria-label="Unsere Vorteile" className="py-5 bg-white border-b border-[var(--color-border-light)]">
+    <section aria-label="Unsere Vorteile" className="py-4 bg-white border-b border-[var(--color-border-light)]">
       <div className="container-hauselio">
         <h2 className="sr-only">Ihre Vorteile bei HAUSELIO</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3">
           {valueProps.map((prop, i) => {
             const Icon = prop.icon;
             return (
               <div
                 key={i}
-                className="flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-bg-secondary)] transition-colors duration-200 animate-fade-in-up"
-                style={{ animationDelay: `${i * 60}ms` }}
+                className="flex items-center gap-2.5 py-2 animate-fade-in-up"
+                style={{ animationDelay: `${i * 50}ms` }}
               >
-                <div className={`w-10 h-10 rounded-lg ${prop.bgColor} flex items-center justify-center shrink-0`}>
-                  <Icon className={`w-5 h-5 ${prop.color}`} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xs text-[var(--color-text-primary)] leading-tight">
+                <Icon className={`w-5 h-5 ${prop.color} shrink-0`} />
+                <div className="min-w-0">
+                  <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight truncate">
                     {prop.title}
-                  </h3>
-                  <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5 leading-tight">
+                  </p>
+                  <p className="text-[10px] text-[var(--color-text-muted)] leading-tight truncate">
                     {prop.description}
                   </p>
                 </div>

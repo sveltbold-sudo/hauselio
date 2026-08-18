@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star, ShoppingCart, Heart } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
@@ -29,11 +29,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[var(--shadow-card-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
+      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
-      {/* Image Container */}
-      <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden">
+      {/* Image Container — clean like Coolblue */}
+      <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden p-4">
         <ProductImage
           src={product.image}
           alt={product.name}
@@ -41,17 +41,17 @@ export default function ProductCard({ product }: ProductCardProps) {
           size="md"
         />
 
-        {/* Badges */}
+        {/* Badges — top left like Coolblue */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
           {product.isPromo && discount > 0 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[10px] font-bold rounded-md">
+            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[10px] font-bold rounded">
               -{discount}%
             </span>
           )}
         </div>
 
-        {/* Wishlist button */}
+        {/* Wishlist button — top right, shows on hover */}
         <button
           className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-white transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100"
           aria-label="Zur Wunschliste hinzufügen"
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <Heart className="w-4 h-4" />
         </button>
 
-        {/* Add-to-cart button — always visible on mobile, hover on desktop */}
+        {/* Add-to-cart — bottom overlay like AO/Coolblue */}
         <div
           className="absolute bottom-3 left-3 right-3 z-10 transition-all duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
           aria-hidden="true"
@@ -81,23 +81,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content — clean like Coolblue */}
       <div className="p-4">
         {/* Brand */}
         {product.brand && (
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-primary)] mb-1.5 opacity-70">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
             {product.brand}
           </p>
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+        <h3 className="font-semibold text-[13px] text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 
-        {/* Rating */}
-        <div className="flex items-center gap-1.5 mb-3">
-          <div className="flex items-center gap-0.5">
+        {/* Rating — compact like Coolblue */}
+        <div className="flex items-center gap-1.5 mb-2.5">
+          <div className="flex items-center" role="img" aria-label={`${product.rating} von 5 Sternen`}>
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
@@ -109,36 +109,28 @@ export default function ProductCard({ product }: ProductCardProps) {
               />
             ))}
           </div>
-          <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
-            {product.rating.toFixed(1)}
-          </span>
-          <span className="text-[10px] text-[var(--color-text-muted)]">
+          <span className="text-[11px] text-[var(--color-text-muted)]">
             ({product.reviewCount})
           </span>
         </div>
 
-        {/* Price */}
+        {/* Price — prominent like all competitors */}
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-extrabold text-[var(--color-text-primary)]">
+          <span className="text-base font-extrabold text-[var(--color-text-primary)]">
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (
-            <>
-              <span className="text-sm text-[var(--color-text-muted)] line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-              <span className="text-[10px] font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-1.5 py-0.5 rounded">
-                -{discount}%
-              </span>
-            </>
+            <span className="text-xs text-[var(--color-text-muted)] line-through">
+              {formatPrice(product.originalPrice)}
+            </span>
           )}
         </div>
 
-        {/* Stock */}
-        <div className="flex items-center gap-1.5 mt-2.5">
+        {/* Stock — subtle like Coolblue */}
+        <div className="flex items-center gap-1.5 mt-2">
           <span className={`w-1.5 h-1.5 rounded-full ${product.inStock !== false ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"}`} />
-          <span className={`text-[10px] font-semibold ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
-            {product.inStock !== false ? "Sofort lieferbar" : "Nicht verfügbar"}
+          <span className={`text-[10px] font-medium ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
+            {product.inStock !== false ? "Lieferbar" : "Nicht verfügbar"}
           </span>
         </div>
       </div>
