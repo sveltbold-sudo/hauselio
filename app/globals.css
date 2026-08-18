@@ -450,6 +450,11 @@ body {
   }
 }
 
+/* ── Safe Area (mobile sticky bars) ── */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* ── Product Image Container ── */
 .product-image-container {
   position: relative;
@@ -534,6 +539,34 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.25rem;
+}
+
+/* ── Alternating Rows (spec tables) ── */
+.spec-row-even {
+  background: var(--color-bg-secondary);
+}
+.spec-row-odd {
+  background: var(--color-bg);
+}
+
+/* ── Sticky Bottom Bar ── */
+.sticky-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border-light);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Premium Glass (improved) ── */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 /* ═══════════════════════════════════════════════════

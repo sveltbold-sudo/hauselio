@@ -85,7 +85,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-4">
         {/* Brand */}
         {product.brand && (
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-primary)] mb-1.5 opacity-70">
             {product.brand}
           </p>
         )}
@@ -101,7 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-3 h-3 ${
+                className={`w-3.5 h-3.5 ${
                   i < fullStars
                     ? "text-amber-400 fill-amber-400"
                     : "text-gray-200 fill-gray-200"
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
             {product.rating.toFixed(1)}
           </span>
-          <span className="text-xs text-[var(--color-text-muted)]">
+          <span className="text-[10px] text-[var(--color-text-muted)]">
             ({product.reviewCount})
           </span>
         </div>
@@ -123,17 +123,22 @@ export default function ProductCard({ product }: ProductCardProps) {
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (
-            <span className="text-sm text-[var(--color-text-muted)] line-through">
-              {formatPrice(product.originalPrice)}
-            </span>
+            <>
+              <span className="text-sm text-[var(--color-text-muted)] line-through">
+                {formatPrice(product.originalPrice)}
+              </span>
+              <span className="text-[10px] font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-1.5 py-0.5 rounded">
+                -{discount}%
+              </span>
+            </>
           )}
         </div>
 
         {/* Stock */}
-        <div className="flex items-center gap-1.5 mt-2">
+        <div className="flex items-center gap-1.5 mt-2.5">
           <span className={`w-1.5 h-1.5 rounded-full ${product.inStock !== false ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"}`} />
           <span className={`text-[10px] font-semibold ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
-            {product.inStock !== false ? "Lieferbar" : "Nicht verfügbar"}
+            {product.inStock !== false ? "Sofort lieferbar" : "Nicht verfügbar"}
           </span>
         </div>
       </div>

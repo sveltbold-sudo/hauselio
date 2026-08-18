@@ -203,7 +203,7 @@ export default function HeroCarousel() {
             <div className="relative flex items-center justify-center animate-fade-in-up delay-200">
               <div className="relative w-full max-w-[420px] aspect-square">
                 {/* Background circle */}
-                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-gray-100 to-gray-50 border border-[var(--color-border-light)]" />
+                <div className="absolute inset-4 rounded-full bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)]" />
                 
                 {/* Product Image */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
@@ -212,7 +212,7 @@ export default function HeroCarousel() {
                     alt={slide.name}
                     width={380}
                     height={380}
-                    className="object-contain drop-shadow-2xl"
+                    className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-transform duration-700 hover:scale-105"
                     priority
                     sizes="(max-width: 768px) 80vw, 420px"
                   />
@@ -220,12 +220,19 @@ export default function HeroCarousel() {
 
                 {/* Floating price tag */}
                 <div className="absolute -bottom-2 -right-2 lg:bottom-4 lg:-right-4 bg-white rounded-2xl px-5 py-3 shadow-[var(--shadow-xl)] border border-[var(--color-border-light)] animate-float z-20">
-                  <p className="text-xl font-extrabold text-[var(--color-text-primary)]">
-                    {formatPrice(slide.price)}
-                  </p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-xl font-extrabold text-[var(--color-text-primary)]">
+                      {formatPrice(slide.price)}
+                    </p>
+                    {slide.originalPrice && (
+                      <p className="text-sm text-[var(--color-text-muted)] line-through">
+                        {formatPrice(slide.originalPrice)}
+                      </p>
+                    )}
+                  </div>
                   {discount > 0 && (
                     <p className="text-xs text-[var(--color-success)] font-bold mt-0.5">
-                      -{discount}% Ersparnis
+                      Sie sparen {formatPrice(slide.originalPrice! - slide.price)}
                     </p>
                   )}
                 </div>
@@ -238,14 +245,14 @@ export default function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={prev}
-        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-white hover:shadow-lg transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 glass-premium rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:shadow-lg transition-all duration-300 z-20 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Vorherige Folie"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-white hover:shadow-lg transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 glass-premium rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:shadow-lg transition-all duration-300 z-20 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Nächste Folie"
       >
         <ChevronRight className="w-5 h-5" />

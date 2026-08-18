@@ -98,13 +98,9 @@ const fallbackProducts = [
 
 function CategoriesSkeleton() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
       {[...Array(6)].map((_, i) => (
-        <div key={i} className="bg-white border border-[var(--color-border-light)] rounded-2xl p-6 text-center animate-pulse">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-2xl" />
-          <div className="h-4 w-24 bg-gray-200 rounded mx-auto mb-2" />
-          <div className="h-3 w-16 bg-gray-200 rounded mx-auto" />
-        </div>
+        <div key={i} className="rounded-2xl aspect-[4/3] bg-[var(--color-bg-secondary)] animate-pulse" />
       ))}
     </div>
   );
@@ -112,15 +108,15 @@ function CategoriesSkeleton() {
 
 function ProductsSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {[...Array(4)].map((_, i) => (
         <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
-          <div className="aspect-square bg-gray-200" />
-          <div className="p-5 space-y-3">
-            <div className="h-3 w-16 bg-gray-200 rounded" />
-            <div className="h-4 w-full bg-gray-200 rounded" />
-            <div className="h-4 w-3/4 bg-gray-200 rounded" />
-            <div className="h-6 w-24 bg-gray-200 rounded" />
+          <div className="aspect-square bg-[var(--color-bg-secondary)]" />
+          <div className="p-4 space-y-2.5">
+            <div className="h-2.5 w-16 bg-[var(--color-bg-secondary)] rounded" />
+            <div className="h-3.5 w-full bg-[var(--color-bg-secondary)] rounded" />
+            <div className="h-3.5 w-3/4 bg-[var(--color-bg-secondary)] rounded" />
+            <div className="h-5 w-24 bg-[var(--color-bg-secondary)] rounded" />
           </div>
         </div>
       ))}

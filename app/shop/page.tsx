@@ -215,9 +215,14 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         {/* Product grid */}
         <div className="flex-1 min-w-0">
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3.5">
+          <div className="flex items-center justify-between mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
             <p className="text-sm text-[var(--color-text-secondary)]">
               <span className="font-bold text-[var(--color-text-primary)]">{total}</span> {total === 1 ? "Produkt" : "Produkte"}
+              {category && (
+                <span className="text-[var(--color-text-muted)] ml-1">
+                  in {categories.find((c) => c.slug === category)?.name || category}
+                </span>
+              )}
             </p>
             <div className="flex items-center gap-3">
               <label htmlFor="shop-sort" className="sr-only">Sortierung</label>
@@ -225,13 +230,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 id="shop-sort"
                 value={sort}
                 onChange={undefined}
-                className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20"
+                className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 cursor-pointer"
                 aria-label="Sortierung"
               >
-                <option value="newest">Neueste</option>
-                <option value="price_asc">Preis ↑</option>
-                <option value="price_desc">Preis ↓</option>
-                <option value="rating">Bewertung</option>
+                <option value="newest">Neueste zuerst</option>
+                <option value="price_asc">Preis aufsteigend</option>
+                <option value="price_desc">Preis absteigend</option>
+                <option value="rating">Beste Bewertung</option>
               </select>
             </div>
           </div>
@@ -269,14 +274,15 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-10 flex justify-center">
-              <nav aria-label="Seitennavigation" className="flex items-center gap-1 flex-wrap justify-center">
+              <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
                 {page > 1 && (
                   <Link
                     href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
+                    Zurück
                   </Link>
                 )}
                 {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
@@ -295,10 +301,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                       key={p}
                       href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
                       aria-current={p === page ? "page" : undefined}
-                      className={`px-3.5 py-2.5 text-sm rounded-xl font-medium transition-all duration-300 ${
+                      className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-all duration-200 ${
                         p === page
-                          ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
-                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+                          ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
+                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
                       }`}
                     >
                       {p}
@@ -308,9 +314,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 {page < totalPages && (
                   <Link
                     href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
+                    Weiter
                     <ChevronRight className="w-4 h-4" />
                   </Link>
                 )}

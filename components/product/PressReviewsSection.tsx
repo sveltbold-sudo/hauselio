@@ -95,8 +95,8 @@ export default function PressReviewsSection() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   {/* Logo placeholder as text */}
-                  <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <span className="text-[8px] font-black text-gray-500 uppercase tracking-wider leading-tight text-center">
+                  <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center border border-[var(--color-border-light)]">
+                    <span className="text-[7px] font-black text-gray-400 uppercase tracking-wider leading-tight text-center">
                       {review.logoText}
                     </span>
                   </div>

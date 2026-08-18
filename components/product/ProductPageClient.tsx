@@ -43,7 +43,6 @@ export default function ProductPageClient({ product }: { product: Product }) {
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return () => {
@@ -387,7 +386,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
                     <div
                       key={spec.key}
                       className={`flex items-center px-5 py-3.5 ${
-                        i % 2 === 0 ? "bg-[var(--color-bg-secondary)]" : "bg-white"
+                        i % 2 === 0 ? "spec-row-even" : "spec-row-odd"
                       } ${i < product.specs.length - 1 ? "border-b border-[var(--color-border-light)]" : ""}`}
                     >
                       <span className="w-2/5 text-sm font-semibold text-[var(--color-text-primary)]">
@@ -448,14 +447,11 @@ export default function ProductPageClient({ product }: { product: Product }) {
 
       {/* Sticky mobile add-to-cart bar */}
       {product.inStock && (
-        <div
-          ref={stickyRef}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[var(--color-border-light)] px-4 py-3 lg:hidden safe-area-bottom"
-        >
-          <div className="flex items-center gap-3 max-w-lg mx-auto">
-            <div className="flex-1">
-              <p className="text-xs text-[var(--color-text-muted)]">{product.name}</p>
-              <p className="font-bold text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
+        <div className="sticky-bottom-bar lg:hidden">
+          <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] text-[var(--color-text-muted)] truncate">{product.name}</p>
+              <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
             </div>
             <Button
               onClick={handleAddToCart}
