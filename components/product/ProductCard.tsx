@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { Star, ShoppingCart, Heart } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
@@ -24,15 +24,16 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
+  const fullStars = Math.floor(product.rating);
 
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-500 hover:border-[var(--color-border)] hover:shadow-[var(--shadow-card-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
+      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[var(--shadow-card-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container */}
-      <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+      <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden">
         <ProductImage
           src={product.image}
           alt={product.name}
@@ -44,23 +45,29 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
           {product.isPromo && discount > 0 && (
-            <Badge variant="promo">-{discount}%</Badge>
+            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[10px] font-bold rounded-md">
+              -{discount}%
+            </span>
           )}
         </div>
 
-        {/* Stock indicator */}
-        <div className="absolute top-3 right-3 z-10">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-full">
-            <span className={`w-1.5 h-1.5 rounded-full ${product.inStock !== false ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"}`} />
-            <span className={`text-[10px] font-semibold ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
-              {product.inStock !== false ? "Lieferbar" : "Nicht verfügbar"}
-            </span>
-          </div>
-        </div>
+        {/* Wishlist button */}
+        <button
+          className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-white transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100"
+          aria-label="Zur Wunschliste hinzufügen"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
+          <Heart className="w-4 h-4" />
+        </button>
 
         {/* Add-to-cart button — always visible on mobile, hover on desktop */}
         <div
-          className="absolute bottom-3 left-3 right-3 flex gap-2 z-10 transition-all duration-400 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
+          className="absolute bottom-3 left-3 right-3 z-10 transition-all duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
+          aria-hidden="true"
+          tabIndex={-1}
         >
           <AddToCartButton
             product={{
@@ -75,42 +82,44 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-4">
         {/* Brand */}
         {product.brand && (
-          <p className="text-[11px] font-bold text-[var(--color-primary)] uppercase tracking-wider mb-1.5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">
             {product.brand}
           </p>
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors duration-300 mb-2 text-sm leading-snug">
+        <h3 className="font-semibold text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 
         {/* Rating */}
-        <div className="flex items-center gap-1.5 mb-3" aria-label={`${product.rating} von 5 Sternen, ${product.reviewCount} Bewertungen`}>
-          <div className="flex items-center">
+        <div className="flex items-center gap-1.5 mb-3">
+          <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                aria-hidden="true"
-                className={`w-3.5 h-3.5 ${
-                  i < Math.floor(product.rating)
+                className={`w-3 h-3 ${
+                  i < fullStars
                     ? "text-amber-400 fill-amber-400"
-                    : "text-gray-200"
+                    : "text-gray-200 fill-gray-200"
                 }`}
               />
             ))}
           </div>
-          <span className="text-xs text-[var(--color-text-muted)] font-medium">
+          <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
+            {product.rating.toFixed(1)}
+          </span>
+          <span className="text-xs text-[var(--color-text-muted)]">
             ({product.reviewCount})
           </span>
         </div>
 
         {/* Price */}
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-[var(--color-text-primary)]">
+          <span className="text-lg font-extrabold text-[var(--color-text-primary)]">
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (
@@ -118,6 +127,14 @@ export default function ProductCard({ product }: ProductCardProps) {
               {formatPrice(product.originalPrice)}
             </span>
           )}
+        </div>
+
+        {/* Stock */}
+        <div className="flex items-center gap-1.5 mt-2">
+          <span className={`w-1.5 h-1.5 rounded-full ${product.inStock !== false ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"}`} />
+          <span className={`text-[10px] font-semibold ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
+            {product.inStock !== false ? "Lieferbar" : "Nicht verfügbar"}
+          </span>
         </div>
       </div>
     </Link>

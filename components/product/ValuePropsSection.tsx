@@ -1,91 +1,75 @@
-import { Truck, Euro, Shield, CreditCard, Gift, Clock } from "lucide-react";
+import { Truck, Euro, Shield, CreditCard, Clock, Headphones } from "lucide-react";
 
 const valueProps = [
   {
     icon: Truck,
     title: "Kostenloser Versand",
     description: "Auf alle Bestellungen ab 50€",
-    metric: "Sparen Sie bis zu 12,99€",
     color: "text-[var(--color-primary)]",
     bgColor: "bg-[var(--color-primary-50)]",
-    highlight: true,
   },
   {
     icon: Euro,
     title: "Bis zu 40% sparen",
     description: "Auf ausgewählte Markengeräte",
-    metric: "Durchschnittlich 180€ Ersparnis",
-    color: "text-[var(--color-success)]",
-    bgColor: "bg-[var(--color-success-light)]",
-    highlight: true,
+    color: "text-[var(--color-accent)]",
+    bgColor: "bg-[var(--color-accent-light)]",
   },
   {
     icon: Shield,
-    title: "Garantie-Plus",
+    title: "Garantie bis 5 Jahre",
     description: "Kostenlose Garantieverlängerung",
-    metric: "Bis zu 5 Jahre Garantie",
-    color: "text-[var(--color-primary)]",
-    bgColor: "bg-[var(--color-primary-50)]",
-    highlight: false,
+    color: "text-[var(--color-success)]",
+    bgColor: "bg-[var(--color-success-light)]",
   },
   {
     icon: CreditCard,
     title: "Sichere Zahlung",
     description: "SEPA-Überweisung auf Rechnung",
-    metric: "Keine Vorkasse nötig",
     color: "text-[var(--color-text-secondary)]",
     bgColor: "bg-gray-100",
-    highlight: false,
-  },
-  {
-    icon: Gift,
-    title: "Gratis-Geschenk",
-    description: "Zubehör-Wert bis 99€ gratis",
-    metric: "Bei ausgewählten Geräten",
-    color: "text-[var(--color-success)]",
-    bgColor: "bg-[var(--color-success-light)]",
-    highlight: false,
   },
   {
     icon: Clock,
     title: "Schnelle Lieferung",
     description: "In 1-3 Werktagen bei Ihnen",
-    metric: "Express-Lieferung verfügbar",
+    color: "text-[var(--color-info)]",
+    bgColor: "bg-[var(--color-info-light)]",
+  },
+  {
+    icon: Headphones,
+    title: "Deutsche Beratung",
+    description: "Persönlich, telefonisch, per E-Mail",
     color: "text-[var(--color-primary)]",
     bgColor: "bg-[var(--color-primary-50)]",
-    highlight: false,
   },
 ];
 
 export default function ValuePropsSection() {
   return (
-    <section className="py-12 bg-white border-y border-[var(--color-border-light)]">
+    <section aria-label="Unsere Vorteile" className="py-5 bg-white border-b border-[var(--color-border-light)]">
       <div className="container-hauselio">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <h2 className="sr-only">Ihre Vorteile bei HAUSELIO</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {valueProps.map((prop, i) => {
             const Icon = prop.icon;
             return (
               <div
                 key={i}
-                className={`text-center p-4 rounded-2xl transition-all duration-500 ${
-                  prop.highlight
-                    ? "bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20"
-                    : "hover:bg-gray-50"
-                } animate-fade-in-up`}
-                style={{ animationDelay: `${i * 80}ms` }}
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-bg-secondary)] transition-colors duration-200 animate-fade-in-up"
+                style={{ animationDelay: `${i * 60}ms` }}
               >
-                <div className={`w-12 h-12 rounded-xl ${prop.bgColor} flex items-center justify-center mx-auto mb-3`}>
-                  <Icon className={`w-6 h-6 ${prop.color}`} />
+                <div className={`w-10 h-10 rounded-lg ${prop.bgColor} flex items-center justify-center shrink-0`}>
+                  <Icon className={`w-5 h-5 ${prop.color}`} />
                 </div>
-                <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1">
-                  {prop.title}
-                </h3>
-                <p className="text-xs text-[var(--color-text-muted)] mb-2">
-                  {prop.description}
-                </p>
-                <p className={`text-xs font-bold ${prop.highlight ? prop.color : "text-[var(--color-text-secondary)]"}`}>
-                  {prop.metric}
-                </p>
+                <div>
+                  <h3 className="font-bold text-xs text-[var(--color-text-primary)] leading-tight">
+                    {prop.title}
+                  </h3>
+                  <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5 leading-tight">
+                    {prop.description}
+                  </p>
+                </div>
               </div>
             );
           })}

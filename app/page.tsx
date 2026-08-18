@@ -74,18 +74,19 @@ async function getFeaturedProducts() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
+    inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || "HAUSELIO",
   }));
 }
 
 const fallbackCategories = [
-  { name: "Küche & Kochen", href: "/kategorie/kueche", image: "/images/categories/kueche.svg", count: "45+" },
-  { name: "Kaffee", href: "/kategorie/kaffee", image: "/images/categories/kaffee.svg", count: "30+" },
+  { name: "Küche & Kochen", href: "/kategorie/kueche", image: "/images/products/thermomix-tm7.jpg", count: "45+" },
+  { name: "Kaffee", href: "/kategorie/kaffee", image: "/images/products/jura-e8-platinum.jpg", count: "30+" },
   { name: "Reinigung", href: "/kategorie/reinigung", image: "/images/categories/reinigung.svg", count: "25+" },
   { name: "Klima", href: "/kategorie/klima", image: "/images/categories/klima.svg", count: "15+" },
   { name: "Smart Home", href: "/kategorie/smart-home", image: "/images/categories/smart-home.svg", count: "20+" },
-  { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", image: "/images/categories/haushaltsgeraete.svg", count: "50+" },
+  { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", image: "/images/products/kitchenaid-artisan-5ksm175pse.jpg", count: "50+" },
 ];
 
 const fallbackProducts = [
@@ -137,29 +138,35 @@ async function CategoriesSection() {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
       {categories.map((cat, i) => (
         <Link
           key={cat.href}
           href={cat.href}
-          className="group bg-white border border-[var(--color-border-light)] rounded-2xl p-6 text-center hover:border-[var(--color-primary)]/20 hover:shadow-[var(--shadow-card-hover)] transition-all duration-500 animate-fade-in-up"
+          className="group relative overflow-hidden rounded-2xl aspect-[4/3] animate-fade-in-up"
           style={{ animationDelay: `${i * 60}ms` }}
         >
-          <div className="w-16 h-16 mx-auto mb-4 bg-[var(--color-primary-50)] rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-primary)]/10 transition-colors duration-500 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 bg-[var(--color-bg-secondary)]">
             <Image
               src={cat.image}
               alt={cat.name}
-              width={40}
-              height={40}
-              className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-500"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           </div>
-          <h3 className="font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors duration-300 text-sm">
-            {cat.name}
-          </h3>
-          <p className="text-xs text-[var(--color-text-muted)] mt-1">
-            {cat.count} Produkte
-          </p>
+
+          {/* Content */}
+          <div className="absolute inset-0 flex flex-col justify-end p-4">
+            <h3 className="font-bold text-sm text-white mb-0.5 leading-tight">
+              {cat.name}
+            </h3>
+            <p className="text-[10px] text-white/70 font-medium">
+              {cat.count} Produkte
+            </p>
+          </div>
         </Link>
       ))}
     </div>
@@ -207,16 +214,13 @@ export default async function HomePage() {
   return (
     <div>
       <HeroCarousel />
-      <h1 className="container-hauselio pt-8 pb-2 text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
-        Moderne Haushaltsgeräte aus Deutschland
-      </h1>
       <ValuePropsSection />
 
       <section className="section-py">
         <div className="container-hauselio">
-          <div className="text-center mb-14">
-            <p className="caption text-[var(--color-primary)] mb-3">Sortiment</p>
-            <h2 className="heading-1 mb-4">Entdecken Sie unsere Kategorien</h2>
+          <div className="text-center mb-10">
+            <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
+            <h2 className="heading-2 mb-3">Entdecken Sie unsere Kategorien</h2>
             <p className="body-large max-w-2xl mx-auto">
               Finden Sie die perfekten Geräte für Ihr Zuhause
             </p>
@@ -227,19 +231,19 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section-py bg-white">
+      <section className="section-py bg-[var(--color-bg-secondary)]">
         <div className="container-hauselio">
-          <div className="flex items-end justify-between mb-12">
+          <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="caption text-[var(--color-primary)] mb-3">Highlights</p>
-              <h2 className="heading-1">Beliebte Produkte</h2>
+              <p className="caption text-[var(--color-accent)] mb-3">Highlights</p>
+              <h2 className="heading-2">Beliebte Produkte</h2>
               <p className="body-large mt-2">
                 Unsere meistverkauften Haushaltsgeräte
               </p>
             </div>
             <Link
               href="/shop"
-              className="hidden md:flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] font-semibold transition-colors duration-300 text-sm"
+              className="hidden md:flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors"
             >
               Alle ansehen
               <ArrowRight className="w-4 h-4" />
