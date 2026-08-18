@@ -28,62 +28,75 @@ const trustBadges = [
   { icon: Headphones, label: "Deutsche Kundenbetreuung" },
 ];
 
+const paymentMethods = [
+  { name: "Vorkasse", icon: "🏦" },
+  { name: "SEPA", icon: "💳" },
+  { name: "PayPal", icon: "🅿️" },
+  { name: "Klarna", icon: "🟠" },
+  { name: "Visa", icon: "💳" },
+  { name: "Mastercard", icon: "💳" },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-[var(--color-secondary)] text-white">
+      {/* Trust badges bar */}
       <div className="border-b border-white/10">
-        <div className="container-hauselio py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="container-hauselio py-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {trustBadges.map((badge) => (
-              <div key={badge.label} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                  <badge.icon className="w-5 h-5 text-[var(--color-primary)]" />
+              <div key={badge.label} className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                  <badge.icon className="w-4 h-4 text-[var(--color-primary)]" />
                 </div>
-                <span className="text-sm text-white/80 font-medium">{badge.label}</span>
+                <span className="text-[13px] text-white/80 font-medium">{badge.label}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="container-hauselio py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+      {/* Main footer content */}
+      <div className="container-hauselio py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          {/* Brand + Newsletter */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block mb-5">
+            <Link href="/" className="inline-block mb-4">
               <Image
                 src="/logos/logosecondaire.png"
                 alt="HAUSELIO"
-                width={120}
-                height={36}
-                className="h-9 w-auto brightness-0 invert"
+                width={110}
+                height={33}
+                className="h-8 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-sm text-white/80 leading-relaxed mb-8 max-w-sm">
+            <p className="text-sm text-white/70 leading-relaxed mb-6 max-w-xs">
               Moderne Haushaltsgeräte für ein komfortables Zuhause.
               Qualität, Innovation und Service — direkt aus Deutschland.
             </p>
 
-            <div className="mb-8">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-3">
+            <div>
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2.5">
                 Newsletter
               </h2>
-              <p className="text-sm text-white/80 mb-4">
+              <p className="text-xs text-white/60 mb-3">
                 Exklusive Angebote und Neuigkeiten.
               </p>
               <NewsletterForm />
             </div>
           </div>
 
+          {/* Kategorien */}
           <div className="lg:col-span-3">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
+            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
               Kategorien
             </h2>
-            <ul className="space-y-1" aria-label="Kategorien">
+            <ul className="space-y-0" aria-label="Kategorien">
               {footerCategories.map((cat) => (
                 <li key={cat.href}>
                   <Link
                     href={cat.href}
-                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {cat.name}
                   </Link>
@@ -92,16 +105,17 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Service */}
           <div className="lg:col-span-2">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
+            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
               Service
             </h2>
-            <ul className="space-y-1" aria-label="Service">
+            <ul className="space-y-0" aria-label="Service">
               {service.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -110,16 +124,17 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Rechtliches + Contact */}
           <div className="lg:col-span-3">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/70 mb-5">
+            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
               Rechtliches
             </h2>
-            <ul className="space-y-1 mb-8" aria-label="Rechtliches">
+            <ul className="space-y-0 mb-6" aria-label="Rechtliches">
               {legal.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-3 py-2.5 min-h-[44px] flex items-center text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -127,19 +142,19 @@ export default function Footer() {
               ))}
             </ul>
 
-            <div className="space-y-1">
+            <div className="space-y-0">
               <a
                 href="mailto:support@hauselio.de"
-                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[40px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-3.5 h-3.5" />
                 support@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"
-                className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-300"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[40px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3.5 h-3.5" />
                 +49 (0)30 555 789 01
               </a>
             </div>
@@ -147,21 +162,24 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Bottom bar — payment methods + copyright */}
       <div className="border-t border-white/10">
-        <div className="container-hauselio py-6">
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
-            {["SEPA-Überweisung", "Vorkasse"].map((method) => (
+        <div className="container-hauselio py-5">
+          {/* Payment methods */}
+          <div className="flex flex-wrap justify-center gap-2 mb-5">
+            {paymentMethods.map((method) => (
               <div
-                key={method}
-                className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-white/70"
+                key={method.name}
+                className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-md text-[11px] font-semibold text-white/60 flex items-center gap-1.5"
               >
-                {method}
+                <span>{method.icon}</span>
+                {method.name}
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-white/80">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-white/50">
               © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
             </p>
             <ScrollToTop />

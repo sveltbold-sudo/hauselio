@@ -40,6 +40,15 @@ export default function HeaderClient() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     if (!mobileMenuOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -71,7 +80,7 @@ export default function HeaderClient() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-50 transition-[background,box-shadow] duration-200 ${
         scrolled
           ? "glass border-b border-[var(--color-border-light)] shadow-[var(--shadow-md)]"
           : "bg-white border-b border-[var(--color-border-light)]"
@@ -116,7 +125,7 @@ export default function HeaderClient() {
                   }}
                   aria-haspopup="true"
                   aria-expanded={activeMega === cat.href}
-                  className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-all duration-300 ${
+                  className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-colors duration-200 ${
                     activeMega === cat.href
                       ? "text-[var(--color-primary)] bg-[var(--color-primary-50)]"
                       : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-gray-50"
@@ -153,11 +162,26 @@ export default function HeaderClient() {
                         </div>
                       </div>
 
-                      <div className="space-y-0.5">
-                        {cat.subcategories.map((sub) => (
+                      <div className="space-y-0.5" role="menu">
+                        {cat.subcategories.map((sub, subIdx) => (
                           <Link
                             key={sub.name}
                             href={sub.href}
+                            role="menuitem"
+                            tabIndex={activeMega === cat.href ? 0 : -1}
+                            onKeyDown={(e) => {
+                              const items = (e.currentTarget.closest('[role="menu"]') as HTMLElement)?.querySelectorAll('[role="menuitem"]') as NodeListOf<HTMLElement>;
+                              if (!items) return;
+                              if (e.key === "ArrowDown") {
+                                e.preventDefault();
+                                items[(subIdx + 1) % items.length].focus();
+                              } else if (e.key === "ArrowUp") {
+                                e.preventDefault();
+                                items[(subIdx - 1 + items.length) % items.length].focus();
+                              } else if (e.key === "Escape") {
+                                setActiveMega(null);
+                              }
+                            }}
                             className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-all duration-200 group"
                           >
                             <span className="font-medium">{sub.name}</span>
@@ -182,10 +206,23 @@ export default function HeaderClient() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1">
+          {/* Inline search bar on desktop (MediaMarkt/Coolblue pattern) */}
+          <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-all duration-200 cursor-text"
+              aria-label="Suche öffnen"
+            >
+              <Search className="w-4 h-4 shrink-0" />
+              <span className="truncate">Suche nach Produkten, Marken...</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-1">
+            {/* Mobile: icon only */}
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
               aria-label="Suche"
               aria-expanded={searchOpen}
             >

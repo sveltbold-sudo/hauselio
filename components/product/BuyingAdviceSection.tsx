@@ -100,7 +100,7 @@ export default function BuyingAdviceSection() {
     <section className="section-py bg-white">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kaufberatung</p>
           <h2 className="heading-2">Experten-Tipps für den richtigen Kauf</h2>
           <p className="body-large mt-2">
@@ -108,37 +108,35 @@ export default function BuyingAdviceSection() {
           </p>
         </div>
 
-        {/* Advice Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Advice Cards — tighter, more compact like Coolblue */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {buyingAdviceData.map((advice) => {
             const Icon = advice.icon;
             return (
               <div
                 key={advice.slug}
-                className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 group"
+                className="bg-[var(--color-bg-secondary)] rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 group"
               >
                 {/* Header */}
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-[var(--color-primary-50)] flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-[var(--color-primary)]" />
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Icon className="w-4.5 h-4.5 text-[var(--color-primary)]" />
                   </div>
                   <div>
                     <h3 className="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
                       {advice.title}
                     </h3>
-                    <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                    <p className="text-[11px] text-[var(--color-text-muted)] mt-0.5">
                       {advice.subtitle}
                     </p>
                   </div>
                 </div>
 
-                {/* Tips */}
-                <div className="grid grid-cols-2 gap-2 mb-4">
+                {/* Tips — 2-col with compact checkmarks */}
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 mb-3">
                   {advice.tips.map((tip, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <div className="w-4 h-4 rounded-full bg-[var(--color-success-light)] flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-2.5 h-2.5 text-[var(--color-success)]" />
-                      </div>
+                    <div key={i} className="flex items-start gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0 mt-0.5" />
                       <p className="text-[11px] text-[var(--color-text-secondary)] leading-tight">
                         {tip}
                       </p>
@@ -146,20 +144,20 @@ export default function BuyingAdviceSection() {
                   ))}
                 </div>
 
-                {/* Recommended Product */}
-                <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)]">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-2">
-                    Empfehlung
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-xs text-[var(--color-text-primary)]">
-                        {advice.recommendedProduct.name}
-                      </p>
-                      <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">
-                        {advice.recommendedProduct.highlight}
-                      </p>
-                    </div>
+                {/* Recommended Product — inline row like Coolblue recommendation */}
+                <div className="bg-white rounded-lg p-3 border border-[var(--color-border-light)] flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-0.5">
+                      Empfehlung
+                    </p>
+                    <p className="font-semibold text-xs text-[var(--color-text-primary)] truncate">
+                      {advice.recommendedProduct.name}
+                    </p>
+                    <p className="text-[10px] text-[var(--color-text-muted)]">
+                      {advice.recommendedProduct.highlight}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
                     <p className="font-bold text-sm text-[var(--color-primary)]">
                       {new Intl.NumberFormat("de-DE", {
                         style: "currency",
@@ -172,7 +170,7 @@ export default function BuyingAdviceSection() {
                 {/* CTA */}
                 <Link
                   href={`/kategorie/${advice.slug}`}
-                  className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors group/link"
+                  className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors group/link"
                 >
                   Alle {advice.category} ansehen
                   <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />

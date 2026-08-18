@@ -18,7 +18,7 @@ export default function BrandsShowcaseSection() {
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Marken</p>
           <h2 className="heading-2">Unsere Premium-Marken</h2>
           <p className="body-large mt-2">
@@ -26,33 +26,30 @@ export default function BrandsShowcaseSection() {
           </p>
         </div>
 
-        {/* Brands Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        {/* Brands Grid — compact 4-col like MediaMarkt */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {brands.map((brand, i) => (
             <Link
               key={brand.name}
               href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-              className="group bg-white rounded-2xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 text-center animate-fade-in-up"
-              style={{ animationDelay: `${i * 50}ms` }}
+              className="group bg-white rounded-xl p-4 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 text-center animate-fade-in-up"
+              style={{ animationDelay: `${i * 40}ms` }}
             >
               <div
-                className="w-14 h-14 mx-auto mb-3 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
+                className="w-12 h-12 mx-auto mb-2 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
                 style={{ backgroundColor: `${brand.color}08` }}
               >
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  width={44}
-                  height={44}
+                  width={36}
+                  height={36}
                   className="object-contain"
                 />
               </div>
-              <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
+              <h3 className="font-bold text-[13px] text-[var(--color-text-primary)] mb-0 group-hover:text-[var(--color-primary)] transition-colors">
                 {brand.name}
               </h3>
-              <p className="text-[10px] text-[var(--color-text-muted)]">
-                {brand.specialty}
-              </p>
             </Link>
           ))}
         </div>
@@ -61,32 +58,11 @@ export default function BrandsShowcaseSection() {
         <div className="text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[var(--color-border)] rounded-lg text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-300"
           >
             Alle Marken entdecken
             <ArrowRight className="w-4 h-4" />
           </Link>
-        </div>
-
-        {/* Marquee Brand Logos */}
-        <div className="mt-12 overflow-hidden" aria-hidden="true">
-          <div className="animate-marquee flex gap-10 items-center">
-            {[...brands, ...brands].map((brand, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 opacity-20 hover:opacity-100 transition-opacity duration-300"
-              >
-                <Image
-                  src={brand.logo}
-                  alt=""
-                  width={70}
-                  height={35}
-                  loading="lazy"
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
