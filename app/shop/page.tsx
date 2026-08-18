@@ -146,6 +146,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     rating: Number(product.rating),
     reviewCount: product.reviewCount,
     isNew: product.isNew,
+    inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
   }));
@@ -153,8 +154,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   return (
     <div className="container-hauselio py-8">
       {/* Header */}
-      <div className="mb-10">
-        <p className="caption text-[var(--color-primary)] mb-3">Sortiment</p>
+      <div className="mb-8">
+        <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
         <h1 className="heading-1">
           {q ? `Suchergebnisse für "${q}"` : "Alle Produkte"}
         </h1>
@@ -165,33 +166,37 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </p>
       </div>
 
-      {/* Category tabs */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        <Link
-          href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-          aria-current={!category ? "page" : undefined}
-          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-            !category
-              ? "bg-[var(--color-primary)] text-white shadow-lg shadow-blue-500/20"
-              : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-border)] hover:text-[var(--color-text-primary)]"
-          }`}
-        >
-          Alle
-        </Link>
-        {categories.map((cat) => (
+      {/* Category tabs — visual cards */}
+      <div className="mb-8">
+        <div className="flex flex-wrap gap-3" role="tablist" aria-label="Kategorien">
           <Link
-            key={cat.id}
-            href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-            aria-current={category === cat.slug ? "page" : undefined}
-            className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-              category === cat.slug
-                ? "bg-[var(--color-primary)] text-white shadow-lg shadow-blue-500/20"
-                : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-border)] hover:text-[var(--color-text-primary)]"
+            href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+            role="tab"
+            aria-selected={!category}
+            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              !category
+                ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
+                : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
             }`}
           >
-            {cat.name}
+            Alle Produkte
           </Link>
-        ))}
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+              role="tab"
+              aria-selected={category === cat.slug}
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                category === cat.slug
+                  ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
+                  : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
+              }`}
+            >
+              {cat.name}
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -208,25 +213,40 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         />
 
         {/* Product grid */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {/* Toolbar */}
           <div className="flex items-center justify-between mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3.5">
             <p className="text-sm text-[var(--color-text-secondary)]">
-              <span className="font-bold text-[var(--color-text-primary)]">{total}</span> Produkte
+              <span className="font-bold text-[var(--color-text-primary)]">{total}</span> {total === 1 ? "Produkt" : "Produkte"}
             </p>
+            <div className="flex items-center gap-3">
+              <label htmlFor="shop-sort" className="sr-only">Sortierung</label>
+              <select
+                id="shop-sort"
+                value={sort}
+                onChange={undefined}
+                className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20"
+                aria-label="Sortierung"
+              >
+                <option value="newest">Neueste</option>
+                <option value="price_asc">Preis ↑</option>
+                <option value="price_desc">Preis ↓</option>
+                <option value="rating">Bewertung</option>
+              </select>
+            </div>
           </div>
 
           {/* Products grid */}
           <Suspense fallback={<ProductGridSkeleton />}>
             {formattedProducts.length === 0 ? (
               <div className="text-center py-20">
-                <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                  <SearchX className="w-10 h-10 text-gray-300" />
+                <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
+                  <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" />
                 </div>
                 <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
                   Keine Produkte gefunden
                 </h2>
-                <p className="text-[var(--color-text-muted)] mb-6">
+                <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
                   Versuchen Sie, Ihre Filter anzupassen oder durchsuchen Sie unser gesamtes Sortiment.
                 </p>
                 <Link
@@ -238,7 +258,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {formattedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
@@ -253,32 +273,42 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 {page > 1 && (
                   <Link
                     href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
+                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </Link>
                 )}
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (p) => (
+                {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                  let p: number;
+                  if (totalPages <= 7) {
+                    p = i + 1;
+                  } else if (page <= 4) {
+                    p = i + 1;
+                  } else if (page >= totalPages - 3) {
+                    p = totalPages - 6 + i;
+                  } else {
+                    p = page - 3 + i;
+                  }
+                  return (
                     <Link
                       key={p}
                       href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
                       aria-current={p === page ? "page" : undefined}
                       className={`px-3.5 py-2.5 text-sm rounded-xl font-medium transition-all duration-300 ${
                         p === page
-                          ? "bg-[var(--color-primary)] text-white shadow-lg shadow-blue-500/20"
-                          : "text-[var(--color-text-secondary)] hover:bg-gray-100"
+                          ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
+                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
                       }`}
                     >
                       {p}
                     </Link>
-                  )
-                )}
+                  );
+                })}
                 {page < totalPages && (
                   <Link
                     href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-gray-100 transition-all duration-300 flex items-center gap-1"
+                    className="px-3 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -295,15 +325,15 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
-          <div className="aspect-square bg-gray-100" />
+          <div className="aspect-square bg-[var(--color-bg-secondary)]" />
           <div className="p-5 space-y-3">
-            <div className="h-3 bg-gray-100 rounded w-1/3" />
-            <div className="h-4 bg-gray-100 rounded w-3/4" />
-            <div className="h-3 bg-gray-100 rounded w-1/2" />
-            <div className="h-5 bg-gray-100 rounded w-1/4" />
+            <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/3" />
+            <div className="h-4 bg-[var(--color-bg-secondary)] rounded w-3/4" />
+            <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/2" />
+            <div className="h-5 bg-[var(--color-bg-secondary)] rounded w-1/4" />
           </div>
         </div>
       ))}

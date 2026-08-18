@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, X, Tag, Package } from "lucide-react";
 
 interface ShopFiltersProps {
   categories: { name: string; slug: string }[];
@@ -39,7 +39,7 @@ export default function ShopFilters({
   const hasActiveFilters = selectedCategory || selectedBrand;
 
   return (
-    <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+    <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5">
       <div className="flex items-center justify-between mb-5">
         <h2 className="font-bold text-[var(--color-text-primary)] flex items-center gap-2 text-sm">
           <SlidersHorizontal className="w-4 h-4" />
@@ -61,87 +61,112 @@ export default function ShopFilters({
         )}
       </div>
 
+      {/* Active filters */}
+      {hasActiveFilters && (
+        <div className="flex flex-wrap gap-2 mb-5">
+          {selectedCategory && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary)] rounded-lg text-xs font-semibold">
+              {categories.find((c) => c.slug === selectedCategory)?.name || selectedCategory}
+              <button
+                onClick={() => updateFilter("category", null)}
+                className="hover:bg-[var(--color-primary)]/10 rounded p-0.5 transition-colors"
+                aria-label="Filter entfernen"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          {selectedBrand && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary)] rounded-lg text-xs font-semibold">
+              {selectedBrand}
+              <button
+                onClick={() => updateFilter("brand", null)}
+                className="hover:bg-[var(--color-primary)]/10 rounded p-0.5 transition-colors"
+                aria-label="Filter entfernen"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Category filter */}
       <div className="mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
+        <h3 className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+          <Package className="w-3 h-3" />
           Kategorie
         </h3>
-        <div className="space-y-1">
-          <label className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors">
-            <input
-              type="checkbox"
-              checked={!selectedCategory}
-              onChange={() => updateFilter("category", null)}
-              className="rounded border-gray-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
-            />
-            <span className="group-hover:text-[var(--color-text-primary)] transition-colors">
-              Alle Kategorien
-            </span>
-          </label>
+        <div className="space-y-0.5">
+          <button
+            onClick={() => updateFilter("category", null)}
+            className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+              !selectedCategory
+                ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
+                : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+            }`}
+          >
+            Alle Kategorien
+          </button>
           {categories.map((cat) => (
-            <label
+            <button
               key={cat.slug}
-              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() =>
+                updateFilter(
+                  "category",
+                  selectedCategory === cat.slug ? null : cat.slug
+                )
+              }
+              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+                selectedCategory === cat.slug
+                  ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
+                  : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+              }`}
             >
-              <input
-                type="checkbox"
-                checked={selectedCategory === cat.slug}
-                onChange={() =>
-                  updateFilter(
-                    "category",
-                    selectedCategory === cat.slug ? null : cat.slug
-                  )
-                }
-                className="rounded border-gray-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
-              />
-              <span className="group-hover:text-[var(--color-text-primary)] transition-colors">
-                {cat.name}
-              </span>
-            </label>
+              {cat.name}
+            </button>
           ))}
         </div>
       </div>
 
       {/* Brand filter */}
       <div className="mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
+        <h3 className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+          <Tag className="w-3 h-3" />
           Marke
         </h3>
-        <div className="space-y-1">
+        <div className="space-y-0.5 max-h-48 overflow-y-auto">
           {brands.map((brand) => (
-            <label
+            <button
               key={brand}
-              className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)] cursor-pointer group min-h-[44px] px-2 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() =>
+                updateFilter(
+                  "brand",
+                  selectedBrand === brand ? null : brand
+                )
+              }
+              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+                selectedBrand === brand
+                  ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
+                  : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+              }`}
             >
-              <input
-                type="checkbox"
-                checked={selectedBrand === brand}
-                onChange={() =>
-                  updateFilter(
-                    "brand",
-                    selectedBrand === brand ? null : brand
-                  )
-                }
-                className="rounded border-gray-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
-              />
-              <span className="group-hover:text-[var(--color-text-primary)] transition-colors">
-                {brand}
-              </span>
-            </label>
+              {brand}
+            </button>
           ))}
         </div>
       </div>
 
       {/* Sort */}
       <div>
-        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
+        <h3 className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
           Sortierung
         </h3>
         <select
           value={selectedSort}
           onChange={(e) => updateSort(e.target.value)}
           aria-label="Sortierung"
-          className="w-full text-sm border border-[var(--color-border)] rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-all"
+          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-all"
         >
           <option value="newest">Neueste</option>
           <option value="price_asc">Preis aufsteigend</option>
