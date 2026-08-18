@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus } from "lucide-react";
+import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus, Heart, RotateCcw, Zap } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
@@ -39,9 +39,11 @@ export default function ProductPageClient({ product }: { product: Product }) {
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "shipping">("description");
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [added, setAdded] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return () => {
@@ -71,43 +73,45 @@ export default function ProductPageClient({ product }: { product: Product }) {
       try {
         await navigator.share({ title: product.name, url });
       } catch {
-        // User cancelled or error — silently ignore
+        // User cancelled
       }
     } else if (navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(url);
+        toast.success("Link kopiert!");
       } catch {
-        // Clipboard API unavailable
+        // Clipboard unavailable
       }
     }
   };
 
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-6 lg:py-10">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-8">
-        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[var(--color-text-muted)] mb-6 lg:mb-8 overflow-x-auto scrollbar-hide">
+        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap">
           Startseite
         </Link>
-        <span>/</span>
-        <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors">
-          Boutique
+        <span className="text-[var(--color-border)]">/</span>
+        <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap">
+          Shop
         </Link>
-        <span>/</span>
+        <span className="text-[var(--color-border)]">/</span>
         <Link
           href={`/kategorie/${product.categorySlug}`}
-          className="hover:text-[var(--color-primary)] transition-colors"
+          className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap"
         >
           {product.categoryName}
         </Link>
-        <span>/</span>
-        <span className="text-[var(--color-text-primary)] font-medium">{product.name}</span>
+        <span className="text-[var(--color-border)]">/</span>
+        <span className="text-[var(--color-text-primary)] font-medium truncate">{product.name}</span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
         {/* Images */}
         <div className="animate-fade-in-up">
-          <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)]">
+          {/* Main image */}
+          <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group">
             <ProductImage
               src={product.images[activeImageIndex] || product.images[0]}
               alt={product.name}
@@ -115,26 +119,41 @@ export default function ProductPageClient({ product }: { product: Product }) {
               size="lg"
               priority
             />
+            {/* Floating badges */}
+            <div className="absolute top-4 left-4 flex flex-col gap-2">
+              {product.isNew && <Badge variant="primary">Neu</Badge>}
+              {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
+            </div>
+            {/* Wishlist button */}
+            <button
+              onClick={() => setIsWishlisted(!isWishlisted)}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 opacity-0 group-hover:opacity-100"
+              aria-label={isWishlisted ? "Aus Wunschliste entfernen" : "Zur Wunschliste hinzufügen"}
+            >
+              <Heart className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : "text-[var(--color-text-muted)]"}`} />
+            </button>
           </div>
+
+          {/* Thumbnails */}
           {product.images.length > 1 && (
-            <div className="grid grid-cols-4 gap-3">
-              {product.images.slice(0, 4).map((img, i) => (
+            <div className="grid grid-cols-5 gap-2">
+              {product.images.slice(0, 5).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImageIndex(i)}
                   aria-label={`${product.name} Bild ${i + 1} anzeigen`}
-                  className={`aspect-square bg-gray-50 rounded-xl flex items-center border-2 overflow-hidden transition-colors ${
+                  className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-all duration-200 ${
                     activeImageIndex === i
-                      ? "border-[var(--color-primary)]"
+                      ? "border-[var(--color-primary)] shadow-sm"
                       : "border-transparent hover:border-[var(--color-border)]"
                   }`}
                 >
                   <Image
                     src={img}
                     alt={`${product.name} ${i + 1}`}
-                    width={96}
-                    height={96}
-                    className="w-full h-full object-contain p-2"
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-contain p-1.5"
                   />
                 </button>
               ))}
@@ -143,31 +162,30 @@ export default function ProductPageClient({ product }: { product: Product }) {
         </div>
 
         {/* Product info */}
-        <div className="animate-fade-in-up delay-100">
-          {/* Badges */}
-          <div className="flex items-center gap-2 mb-3">
-            {product.isNew && <Badge variant="primary">Neu</Badge>}
-            {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
-          </div>
-
+        <div className="animate-fade-in-up delay-100 lg:sticky lg:top-24 lg:self-start">
           {/* Brand */}
           {product.brand && (
-            <p className="text-sm font-semibold text-[var(--color-primary)] uppercase tracking-wider mb-2">
+            <Link
+              href={`/shop?brand=${encodeURIComponent(product.brand.toLowerCase())}`}
+              className="inline-block text-xs font-bold text-[var(--color-primary)] uppercase tracking-widest mb-2 hover:underline"
+            >
               {product.brand}
-            </p>
+            </Link>
           )}
 
           {/* Name */}
-          <h1 className="heading-2 mb-3">{product.name}</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-[var(--color-text-primary)] mb-3 leading-tight">
+            {product.name}
+          </h1>
 
           {/* Rating */}
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-5">
             <div className="flex items-center" role="img" aria-label={`${product.rating} von 5 Sternen`}>
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
                   aria-hidden="true"
-                  className={`w-5 h-5 ${
+                  className={`w-4 h-4 ${
                     i < Math.floor(product.rating)
                       ? "text-amber-400 fill-amber-400"
                       : "text-gray-200"
@@ -176,56 +194,65 @@ export default function ProductPageClient({ product }: { product: Product }) {
               ))}
             </div>
             <span className="text-sm text-[var(--color-text-secondary)]">
-              {product.rating} ({product.reviewCount} Bewertungen)
+              {product.rating}
+            </span>
+            <span className="text-[var(--color-border)]">·</span>
+            <span className="text-sm text-[var(--color-text-muted)]">
+              {product.reviewCount} Bewertungen
             </span>
           </div>
 
           {/* Price */}
-          <div className="flex items-baseline gap-3 mb-6">
-            <span className="text-3xl font-bold text-[var(--color-text-primary)]">
+          <div className="flex items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
+            <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)]">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="text-lg text-[var(--color-text-muted)] line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
+              <>
+                <span className="text-lg text-[var(--color-text-muted)] line-through">
+                  {formatPrice(product.originalPrice)}
+                </span>
+                <span className="text-sm font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-2 py-0.5 rounded-md">
+                  -{discount}%
+                </span>
+              </>
             )}
           </div>
 
           {/* Stock */}
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-5">
             <span
-              className={`w-2 h-2 rounded-full ${
+              className={`w-2.5 h-2.5 rounded-full ${
                 product.inStock ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"
               }`}
             />
             <span
-              className={`text-sm font-medium ${
+              className={`text-sm font-semibold ${
                 product.inStock ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"
               }`}
             >
-              {product.inStock ? "Auf Lager" : "Nicht verfügbar"}
+              {product.inStock ? "Auf Lager — sofort lieferbar" : "Nicht verfügbar"}
             </span>
           </div>
 
           {/* Quantity & Add to cart */}
           {product.inStock && (
-            <div className="flex items-center gap-4 mb-8">
-              <div className="flex items-center border border-[var(--color-border)] rounded-xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   aria-label="Menge verringern"
-                  className="p-3 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors rounded-l-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="px-5 py-3 font-semibold tabular-nums min-w-[48px] text-center" aria-live="polite">
+                <span className="px-4 py-3 font-bold tabular-nums min-w-[48px] text-center text-sm" aria-live="polite">
                   {quantity}
                 </span>
                 <button
                   onClick={() => setQuantity(Math.min(99, quantity + 1))}
                   aria-label="Menge erhöhen"
-                  className="p-3 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors rounded-r-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -250,43 +277,56 @@ export default function ProductPageClient({ product }: { product: Product }) {
             </div>
           )}
 
+          {/* Quick trust badges — inline */}
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
+              <Truck className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
+              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">Kostenloser<br/>Versand</span>
+            </div>
+            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
+              <RotateCcw className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
+              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">30 Tage<br/>Rückgabe</span>
+            </div>
+            <div className="flex flex-col items-center text-center p-3 bg-[var(--color-bg-secondary)] rounded-xl">
+              <Shield className="w-5 h-5 text-[var(--color-primary)] mb-1.5" />
+              <span className="text-[10px] font-semibold text-[var(--color-text-secondary)] leading-tight">Bis zu 5 J.<br/>Garantie</span>
+            </div>
+          </div>
+
           {/* Actions */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6">
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors"
+              className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
             >
               <Share2 className="w-4 h-4" />
               Teilen
             </button>
+            <button
+              onClick={() => setIsWishlisted(!isWishlisted)}
+              className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
+            >
+              <Heart className={`w-4 h-4 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
+              {isWishlisted ? "Gemerkt" : "Merken"}
+            </button>
           </div>
 
-          {/* Trust badges */}
-          <div className="bg-[var(--color-primary-50)] rounded-xl p-5 space-y-3">
-            <div className="flex items-center gap-3">
-              <Truck className="w-5 h-5 text-[var(--color-success)]" />
-              <span className="text-sm text-[var(--color-text-secondary)]">
-                Schneller Versand innerhalb Deutschlands
-              </span>
+          {/* Payment info */}
+          <div className="bg-[var(--color-bg-secondary)] rounded-xl p-4 text-xs text-[var(--color-text-muted)] space-y-1.5">
+            <div className="flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+              <span>Sichere Bezahlung per Überweisung (SEPA)</span>
             </div>
-            <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-[var(--color-success)]" />
-              <span className="text-sm text-[var(--color-text-secondary)]">
-                Sichere Zahlung per Überweisung
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Check className="w-5 h-5 text-[var(--color-success)]" />
-              <span className="text-sm text-[var(--color-text-secondary)]">
-                14 Tage Widerrufsrecht
-              </span>
+            <div className="flex items-center gap-2">
+              <Check className="w-3.5 h-3.5 text-[var(--color-success)]" />
+              <span>Artikel geprüft und versandfertig</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="mt-16">
+      <div className="mt-12 lg:mt-16">
         <div
           role="tablist"
           className="flex overflow-x-auto border-b border-[var(--color-border-light)] scrollbar-hide"
@@ -314,7 +354,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
               aria-controls={`tabpanel-${tab.key}`}
               id={`tab-${tab.key}`}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-all duration-300 whitespace-nowrap ${
+              className={`px-5 py-3.5 text-sm font-semibold border-b-2 transition-[border-color,color] duration-200 whitespace-nowrap ${
                 activeTab === tab.key
                   ? "border-[var(--color-primary)] text-[var(--color-primary)]"
                   : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
@@ -332,31 +372,33 @@ export default function ProductPageClient({ product }: { product: Product }) {
           className="py-8"
         >
           {activeTab === "description" && (
-            <div className="prose prose-gray max-w-none">
-              <p className="text-[var(--color-text-secondary)] leading-relaxed">
+            <div className="max-w-3xl">
+              <p className="text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
                 {product.description}
               </p>
             </div>
           )}
 
           {activeTab === "specs" && (
-            <div className="space-y-0">
+            <div className="max-w-3xl">
               {product.specs.length > 0 ? (
-                product.specs.map((spec, i) => (
-                  <div
-                    key={spec.key}
-                    className={`flex items-center py-3 ${
-                      i < product.specs.length - 1 ? "border-b border-[var(--color-border-light)]" : ""
-                    }`}
-                  >
-                    <span className="w-1/3 text-sm font-medium text-[var(--color-text-primary)]">
-                      {spec.key}
-                    </span>
-                    <span className="w-2/3 text-sm text-[var(--color-text-secondary)]">
-                      {spec.value}
-                    </span>
-                  </div>
-                ))
+                <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden">
+                  {product.specs.map((spec, i) => (
+                    <div
+                      key={spec.key}
+                      className={`flex items-center px-5 py-3.5 ${
+                        i % 2 === 0 ? "bg-[var(--color-bg-secondary)]" : "bg-white"
+                      } ${i < product.specs.length - 1 ? "border-b border-[var(--color-border-light)]" : ""}`}
+                    >
+                      <span className="w-2/5 text-sm font-semibold text-[var(--color-text-primary)]">
+                        {spec.key}
+                      </span>
+                      <span className="w-3/5 text-sm text-[var(--color-text-secondary)]">
+                        {spec.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <p className="text-[var(--color-text-muted)]">
                   Keine technischen Daten verfügbar.
@@ -366,26 +408,35 @@ export default function ProductPageClient({ product }: { product: Product }) {
           )}
 
           {activeTab === "shipping" && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">Versand</h3>
-                <p className="text-sm text-[var(--color-text-secondary)]">
+            <div className="max-w-3xl space-y-6">
+              <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+                <h3 className="font-bold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-[var(--color-primary)]" />
+                  Versand
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                   Kostenloser Versand innerhalb Deutschlands ab einem
                   Bestellwert von 50€. Unterhalb dieses Bestellwerts betragen
                   die Versandkosten 4,99€.
                 </p>
               </div>
-              <div>
-                <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">Zahlung</h3>
-                <p className="text-sm text-[var(--color-text-secondary)]">
+              <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+                <h3 className="font-bold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-[var(--color-primary)]" />
+                  Zahlung
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                   Die Zahlung erfolgt ausschließlich per Überweisung (SEPA). Nach
                   Ihrer Bestellung erhalten Sie eine E-Mail mit den
                   Bankverbindungen.
                 </p>
               </div>
-              <div>
-                <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">Lieferzeit</h3>
-                <p className="text-sm text-[var(--color-text-secondary)]">
+              <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+                <h3 className="font-bold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
+                  <RotateCcw className="w-4 h-4 text-[var(--color-primary)]" />
+                  Lieferzeit
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                   Die Lieferzeit beträgt in der Regel 2-5 Werktage nach Eingang
                   der Zahlung.
                 </p>
@@ -394,6 +445,32 @@ export default function ProductPageClient({ product }: { product: Product }) {
           )}
         </div>
       </div>
+
+      {/* Sticky mobile add-to-cart bar */}
+      {product.inStock && (
+        <div
+          ref={stickyRef}
+          className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[var(--color-border-light)] px-4 py-3 lg:hidden safe-area-bottom"
+        >
+          <div className="flex items-center gap-3 max-w-lg mx-auto">
+            <div className="flex-1">
+              <p className="text-xs text-[var(--color-text-muted)]">{product.name}</p>
+              <p className="font-bold text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
+            </div>
+            <Button
+              onClick={handleAddToCart}
+              className={`transition-all duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
+              size="sm"
+            >
+              {added ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <ShoppingBag className="w-4 h-4" />
+              )}
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
