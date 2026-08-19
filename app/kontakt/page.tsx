@@ -1,11 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import KontaktForm from "@/components/kontakt/KontaktForm";
 import FaqSection from "@/components/kontakt/FaqSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
+
+export const metadata: Metadata = {
+  title: "Kontakt — HAUSELIO",
+  description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
+  alternates: { canonical: "/kontakt" },
+};
 
 const fallbackSettings = {
   contactEmail: "info@hauselio.de",

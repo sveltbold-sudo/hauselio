@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
@@ -76,10 +77,12 @@ export default async function KategoriePage() {
             >
               <div className="aspect-[16/9] relative overflow-hidden bg-[var(--color-bg-secondary)]">
                 {cat.products[0]?.images[0] ? (
-                  <img
+                  <Image
                     src={cat.products[0].images[0].url}
                     alt={cat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">

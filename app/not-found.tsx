@@ -46,11 +46,9 @@ export default async function NotFound() {
           className="mx-auto mb-8"
         />
         <h1 className="heading-1 mb-4">Seite nicht gefunden</h1>
-        <p className="body-large mb-8">
+        <p className="body-large mb-4">
           Die gesuchte Seite existiert nicht oder wurde verschoben.
         </p>
-
-        <h1 className="heading-1 mb-4">Ups! Hier gibt&apos;s nichts zu finden</h1>
         <p className="text-lg text-[var(--color-text-secondary)] mb-8">
           Aber keine Sorge — wir haben <strong>Tausende hochwertige Haushaltsgeräte</strong> für Sie parat.
         </p>

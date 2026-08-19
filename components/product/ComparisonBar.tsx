@@ -32,6 +32,21 @@ export default function ComparisonBar() {
         if (Array.isArray(parsed)) setProducts(parsed as ComparisonProduct[]);
       } catch {}
     }
+
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem("hauselio-comparison");
+      if (updated) {
+        try {
+          const parsed: unknown = JSON.parse(updated);
+          if (Array.isArray(parsed)) setProducts(parsed as ComparisonProduct[]);
+        } catch {}
+      } else {
+        setProducts([]);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const removeProduct = (id: string) => {
