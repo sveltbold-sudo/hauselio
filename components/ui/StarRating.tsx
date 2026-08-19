@@ -46,14 +46,14 @@ function StarIcon({ filled, half, size }: { filled: boolean; half: boolean; size
 
 export default function StarRating({ rating, size = "md", showCount = false, count, className = "" }: StarRatingProps) {
   const starSize = sizeMap[size];
-  const fullStars = Math.floor(rating);
-  const hasHalf = rating % 1 >= 0.3 && rating % 1 <= 0.7;
-  const roundedUp = rating % 1 > 0.7;
+  const roundedRating = Math.round(rating * 2) / 2;
+  const fullStars = Math.floor(roundedRating);
+  const hasHalf = roundedRating % 1 === 0.5;
 
   return (
     <div className={`flex items-center ${gapMap[size]} ${className}`} role="img" aria-label={`${rating} von 5 Sternen`}>
       {[...Array(5)].map((_, i) => {
-        const isFull = i < fullStars || (roundedUp && i === fullStars);
+        const isFull = i < fullStars;
         const isHalf = !isFull && hasHalf && i === fullStars;
         return (
           <StarIcon

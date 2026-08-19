@@ -74,13 +74,25 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const TRANSITION_MS = 600;
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const goTo = useCallback((index: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
-    setTimeout(() => setIsTransitioning(false), TRANSITION_MS);
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current);
+    }
+    transitionTimeoutRef.current = setTimeout(() => setIsTransitioning(false), TRANSITION_MS);
   }, [isTransitioning]);
 
   const next = useCallback(() => {

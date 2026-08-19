@@ -65,35 +65,7 @@ const defaultPressReviews: PressReview[] = [
   },
 ];
 
-const defaultCustomerReviews: CustomerReview[] = [
-  {
-    name: "Thomas K.",
-    location: "Berlin",
-    rating: 5,
-    text: "Ausgezeichneter Service! Das Gerät wurde pünktlich geliefert und professionell installiert.",
-    product: "Miele Kühlschrank",
-    verified: true,
-    date: "vor 2 Wochen",
-  },
-  {
-    name: "Sandra M.",
-    location: "München",
-    rating: 5,
-    text: "Die Kaufberatung war hervorragend. Bin sehr zufrieden mit meinem neuen Kaffeevollautomaten.",
-    product: "Jura E8",
-    verified: true,
-    date: "vor 1 Monat",
-  },
-  {
-    name: "Michael R.",
-    location: "Hamburg",
-    rating: 5,
-    text: "Schneller Versand und Top Qualität. Gerne wieder!",
-    product: "Samsung Waschmaschine",
-    verified: true,
-    date: "vor 3 Wochen",
-  },
-];
+const defaultCustomerReviews: CustomerReview[] = [];
 
 interface PressReviewsSectionProps {
   pressReviews?: PressReview[];
