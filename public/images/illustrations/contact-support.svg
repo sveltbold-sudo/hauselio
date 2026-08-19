@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F8FAFC"/>
+  
+  <!-- Envelope -->
+  <rect x="100" y="80" width="200" height="140" rx="8" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M100 80 L200 170 L300 80" stroke="#E2E8F0" stroke-width="2" fill="none"/>
+  
+  <!-- Letter inside -->
+  <rect x="130" y="100" width="140" height="80" rx="4" fill="#EFF6FF"/>
+  <line x1="150" y1="120" x2="250" y2="120" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="150" y1="135" x2="230" y2="135" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="150" y1="150" x2="240" y2="150" stroke="#CBD5E1" stroke-width="2"/>
+  
+  <!-- Phone -->
+  <rect x="60" y="180" width="50" height="90" rx="8" fill="#0A2540"/>
+  <rect x="65" y="195" width="40" height="55" rx="2" fill="white"/>
+  <circle cx="85" cy="260" r="4" fill="#475569"/>
+  
+  <!-- Speech bubble -->
+  <rect x="280" y="120" width="80" height="50" rx="8" fill="#0A2540"/>
+  <path d="M290 170 L300 185 L310 170" fill="#0A2540"/>
+  <line x1="295" y1="140" x2="345" y2="140" stroke="white" stroke-width="2" opacity="0.5"/>
+  <line x1="295" y1="150" x2="330" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Headset -->
+  <path d="M320 220 Q320 200 340 200 Q360 200 360 220 L360 250 L350 250 L350 230 Q350 215 340 215 Q330 215 330 230 L330 250 L320 250 Z" fill="#CBD5E1"/>
+  <circle cx="315" cy="240" r="8" fill="#475569"/>
+  <circle cx="365" cy="240" r="8" fill="#475569"/>
+  
+  <!-- Sparkles -->
+  <path d="M50 60 L53 68 L61 68 L55 73 L57 81 L50 76 L43 81 L45 73 L39 68 L47 68 Z" fill="#FCD34D" opacity="0.6"/>
+  <path d="M350 80 L352 85 L357 85 L353 88 L355 93 L350 90 L345 93 L347 88 L343 85 L348 85 Z" fill="#FCD34D" opacity="0.5"/>
+</svg>

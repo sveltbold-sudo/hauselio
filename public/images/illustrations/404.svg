@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F8FAFC"/>
+  
+  <!-- Magnifying glass -->
+  <circle cx="180" cy="130" r="60" stroke="#CBD5E1" stroke-width="4" fill="white"/>
+  <line x1="225" y1="175" x2="270" y2="220" stroke="#CBD5E1" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Question mark inside magnifying glass -->
+  <text x="180" y="145" text-anchor="middle" font-family="system-ui, sans-serif" font-size="60" font-weight="700" fill="#E2E8F0">?</text>
+  
+  <!-- Floating elements -->
+  <rect x="80" y="80" width="20" height="28" rx="3" stroke="#E2E8F0" stroke-width="2" opacity="0.5" transform="rotate(-15 90 94)"/>
+  <rect x="280" y="100" width="18" height="24" rx="3" stroke="#E2E8F0" stroke-width="2" opacity="0.5" transform="rotate(10 289 112)"/>
+  <circle cx="300" cy="70" r="8" stroke="#E2E8F0" stroke-width="2" opacity="0.4"/>
+  <circle cx="100" cy="180" r="6" stroke="#E2E8F0" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Sparkles -->
+  <path d="M320 150 L323 158 L331 158 L325 163 L327 171 L320 166 L313 171 L315 163 L309 158 L317 158 Z" fill="#FCD34D" opacity="0.6"/>
+  <path d="M70 120 L72 125 L77 125 L73 128 L75 133 L70 130 L65 133 L67 128 L63 125 L68 125 Z" fill="#FCD34D" opacity="0.4"/>
+  
+  <!-- Text -->
+  <text x="200" y="240" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#94A3B8">Seite nicht gefunden</text>
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#CBD5E1">Die Seite existiert nicht oder wurde verschoben</text>
+</svg>

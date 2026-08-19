@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check } from "lucide-react";
 import { useNewsletter } from "@/hooks/useNewsletter";
 
@@ -7,8 +8,18 @@ export default function NewsletterSection() {
   const { email, setEmail, isSubmitting, isSubscribed, error, handleSubmit } = useNewsletter();
 
   return (
-    <section className="section-py bg-[var(--color-primary)]">
-      <div className="container-hauselio text-center">
+    <section className="relative section-py bg-[var(--color-primary)] overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <Image
+          src="/images/illustrations/newsletter-bg.svg"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+      
+      <div className="relative container-hauselio text-center">
         <p className="caption text-white/50 mb-3">Newsletter</p>
         <h2 className="heading-2 text-white mb-2">
           Bleiben Sie auf dem Laufenden

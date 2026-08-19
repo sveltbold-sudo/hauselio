@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F8FAFC"/>
+  
+  <!-- Cart body -->
+  <path d="M120 100 L140 100 L180 200 L280 200 L300 120 L160 120" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Cart handle -->
+  <path d="M100 100 L120 100" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Wheels -->
+  <circle cx="200" cy="220" r="12" stroke="#CBD5E1" stroke-width="3" fill="white"/>
+  <circle cx="260" cy="220" r="12" stroke="#CBD5E1" stroke-width="3" fill="white"/>
+  <circle cx="200" cy="220" r="4" fill="#CBD5E1"/>
+  <circle cx="260" cy="220" r="4" fill="#CBD5E1"/>
+  
+  <!-- Floating items (faded) -->
+  <rect x="170" y="140" width="30" height="40" rx="4" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+  <rect x="210" y="130" width="35" height="50" rx="4" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+  <rect x="250" y="145" width="25" height="35" rx="4" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+  
+  <!-- Sparkles -->
+  <path d="M320 80 L325 90 L335 90 L327 97 L330 107 L320 100 L310 107 L313 97 L305 90 L315 90 Z" fill="#E2E8F0" opacity="0.6"/>
+  <path d="M80 160 L83 166 L90 166 L85 170 L87 176 L80 172 L73 176 L75 170 L70 166 L77 166 Z" fill="#E2E8F0" opacity="0.4"/>
+  
+  <!-- Text -->
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#94A3B8">Ihr Warenkorb ist leer</text>
+</svg>

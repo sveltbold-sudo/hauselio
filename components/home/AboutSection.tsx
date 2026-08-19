@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Award, Users, Clock, Shield } from "lucide-react";
 
 const stats = [
@@ -50,28 +51,29 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Right: Stats grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat, i) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 animate-fade-in-up"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                >
-                  <div className="w-12 h-12 mx-auto mb-3 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-[var(--color-primary)]" />
-                  </div>
-                  <p className="text-2xl font-bold text-[var(--color-text-primary)]">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-[var(--color-text-muted)] mt-1">
-                    {stat.label}
-                  </p>
+          {/* Right: Office illustration */}
+          <div className="relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/illustrations/about-office.svg"
+                alt="HAUSELIO Büro"
+                width={500}
+                height={375}
+                className="w-full h-auto"
+              />
+            </div>
+            {/* Floating stat card */}
+            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg border border-[var(--color-border-light)] animate-fade-in-up">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[var(--color-success)]/10 rounded-lg flex items-center justify-center">
+                  <Award className="w-5 h-5 text-[var(--color-success)]" />
                 </div>
-              );
-            })}
+                <div>
+                  <p className="text-lg font-bold text-[var(--color-text-primary)]">Seit 2020</p>
+                  <p className="text-[10px] text-[var(--color-text-muted)]">In Deutschland</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

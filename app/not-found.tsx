@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Home, Search, SearchX, ShoppingBag, Star, Truck, ArrowRight, Shield } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
@@ -37,16 +38,17 @@ export default async function NotFound() {
     <div className="container-hauselio py-12 lg:py-20">
       {/* Hero section */}
       <div className="text-center max-w-2xl mx-auto mb-16">
-        <div className="relative mb-8">
-          <p className="text-[10rem] font-black leading-none text-gray-100 select-none">
-            404
-          </p>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center animate-bounce-in">
-              <SearchX className="w-10 h-10 text-[var(--color-accent)]" />
-            </div>
-          </div>
-        </div>
+        <Image
+          src="/images/illustrations/404.svg"
+          alt="Seite nicht gefunden"
+          width={300}
+          height={225}
+          className="mx-auto mb-8"
+        />
+        <h1 className="heading-1 mb-4">Seite nicht gefunden</h1>
+        <p className="body-large mb-8">
+          Die gesuchte Seite existiert nicht oder wurde verschoben.
+        </p>
 
         <h1 className="heading-1 mb-4">Ups! Hier gibt&apos;s nichts zu finden</h1>
         <p className="text-lg text-[var(--color-text-secondary)] mb-8">

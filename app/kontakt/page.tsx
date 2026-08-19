@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import KontaktForm from "@/components/kontakt/KontaktForm";
 import FaqSection from "@/components/kontakt/FaqSection";
@@ -37,10 +38,23 @@ export default async function KontaktPage() {
 
         {/* Header */}
         <div className="mb-12">
-          <h1 className="heading-1">So erreichen Sie uns</h1>
-          <p className="body-large mt-2">
-            Wir sind für Sie da — per E-Mail, Telefon oder persönlicher Nachricht.
-          </p>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div>
+              <h1 className="heading-1">So erreichen Sie uns</h1>
+              <p className="body-large mt-2">
+                Wir sind für Sie da — per E-Mail, Telefon oder persönlicher Nachricht.
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <Image
+                src="/images/illustrations/contact-support.svg"
+                alt="Kontakt Support"
+                width={200}
+                height={150}
+                className="w-full max-w-[200px] h-auto"
+              />
+            </div>
+          </div>
         </div>
 
         <KontaktForm settings={settings} />

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#F1F5F9"/>
+  
+  <!-- Building/Office -->
+  <rect x="120" y="80" width="160" height="180" rx="8" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Windows -->
+  <rect x="140" y="100" width="40" height="35" rx="4" fill="#EFF6FF"/>
+  <rect x="220" y="100" width="40" height="35" rx="4" fill="#EFF6FF"/>
+  <rect x="140" y="150" width="40" height="35" rx="4" fill="#EFF6FF"/>
+  <rect x="220" y="150" width="40" height="35" rx="4" fill="#EFF6FF"/>
+  
+  <!-- Door -->
+  <rect x="180" y="210" width="40" height="50" rx="4" fill="#0A2540"/>
+  <circle cx="212" cy="238" r="3" fill="#FCD34D"/>
+  
+  <!-- Sign -->
+  <rect x="160" y="65" width="80" height="20" rx="4" fill="#0A2540"/>
+  <text x="200" y="79" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="white">HAUSELIO</text>
+  
+  <!-- People silhouettes -->
+  <circle cx="80" cy="220" r="15" fill="#CBD5E1"/>
+  <path d="M65 245 Q80 235 95 245 L95 280 L65 280 Z" fill="#CBD5E1"/>
+  
+  <circle cx="320" cy="210" r="18" fill="#CBD5E1"/>
+  <path d="M302 238 Q320 228 338 238 L338 280 L302 280 Z" fill="#CBD5E1"/>
+  
+  <!-- Trees -->
+  <circle cx="60" cy="180" r="25" fill="#86EFAC" opacity="0.6"/>
+  <rect x="57" y="200" width="6" height="20" fill="#92400E"/>
+  
+  <circle cx="340" cy="170" r="30" fill="#86EFAC" opacity="0.6"/>
+  <rect x="337" y="195" width="6" height="25" fill="#92400E"/>
+  
+  <!-- Clouds -->
+  <ellipse cx="100" cy="50" rx="30" ry="15" fill="white" opacity="0.8"/>
+  <ellipse cx="300" cy="40" rx="25" ry="12" fill="white" opacity="0.8"/>
+</svg>

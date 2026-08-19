@@ -1,7 +1,8 @@
 "use client";
-
 import { useState } from "react";
+
 import Link from "next/link";
+import Image from "next/image";
 import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
@@ -27,9 +28,13 @@ export default function WarenkorbPage() {
   if (items.length === 0) {
     return (
       <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
-        <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-8 animate-float">
-          <ShoppingBag className="w-12 h-12 text-gray-300" />
-        </div>
+        <Image
+          src="/images/illustrations/empty-cart.svg"
+          alt="Leerer Warenkorb"
+          width={300}
+          height={225}
+          className="mx-auto mb-8"
+        />
         <h1 className="heading-2 mb-4">Ihr Warenkorb ist leer</h1>
         <p className="body-large mb-10">
           Fügen Sie Produkte hinzu, um mit dem Einkaufen zu beginnen.
