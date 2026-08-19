@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
+      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container — clean like Coolblue */}

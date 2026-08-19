@@ -88,7 +88,7 @@ export default function GuaranteeServiceSection() {
         </div>
 
         {/* Stats Bar — bolder, like Coolblue trust metrics */}
-        <div className="bg-[var(--color-primary)] rounded-2xl p-6 md:p-8">
+        <div className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl p-6 md:p-8 shadow-lg shadow-[var(--color-primary)]/20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, i) => (
               <div key={i} className="text-center">

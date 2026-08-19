@@ -54,8 +54,13 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               className="animate-fade-in-up relative"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              {/* Rank badge */}
-              <div className="absolute -top-2 -left-2 z-20 w-7 h-7 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs font-black shadow-md">
+              {/* Rank badge — gold/silver/bronze */}
+              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+                i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white" :
+                i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
+                i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :
+                "bg-[var(--color-primary)] text-white"
+              }`}>
                 {i + 1}
               </div>
               <ProductCard product={product} />

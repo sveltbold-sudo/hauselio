@@ -36,12 +36,12 @@ export default function NewsletterSection() {
               value={email}
               onChange={(e) => { setEmail(e.target.value); }}
               placeholder="Ihre E-Mail-Adresse"
-              className="flex-1 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-200 text-sm"
+              className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/40 focus:bg-white/15 transition-all duration-200 text-sm"
             />
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2.5 bg-white text-[var(--color-primary)] font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 whitespace-nowrap text-sm disabled:opacity-50"
+              className="px-5 py-3 bg-white text-[var(--color-primary)] font-semibold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-all duration-200 whitespace-nowrap text-sm disabled:opacity-50"
             >
               {isSubmitting ? "Wird gesendet..." : "Anmelden"}
             </button>

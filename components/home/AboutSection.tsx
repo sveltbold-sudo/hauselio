@@ -28,7 +28,7 @@ export default function AboutSection() {
               </p>
               <p>
                 Mit Sitz in Berlin sind wir Ihr deutscher Ansprechpartner für
-                everything rund um den modernen Haushalt. Unser Team beraten Sie
+                alles rund um den modernen Haushalt. Unser Team beraten Sie
                 persönlich und sorgt für eine reibungslose Abwicklung.
               </p>
             </div>
@@ -57,7 +57,7 @@ export default function AboutSection() {
               return (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow animate-fade-in-up"
+                  className="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 animate-fade-in-up"
                   style={{ animationDelay: `${i * 100}ms` }}
                 >
                   <div className="w-12 h-12 mx-auto mb-3 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">

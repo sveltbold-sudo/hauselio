@@ -43,24 +43,25 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
             <Link
               key={brand.name}
               href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-              className="group bg-white rounded-xl p-4 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 text-center animate-fade-in-up"
+              className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-all duration-300 text-center animate-fade-in-up"
               style={{ animationDelay: `${i * 40}ms` }}
             >
               <div
-                className="w-12 h-12 mx-auto mb-2 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
+                className="w-16 h-16 mx-auto mb-3 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
                 style={{ backgroundColor: `${brand.color}08` }}
               >
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  width={36}
-                  height={36}
+                  width={48}
+                  height={48}
                   className="object-contain"
                 />
               </div>
-              <h3 className="font-bold text-[13px] text-[var(--color-text-primary)] mb-0 group-hover:text-[var(--color-primary)] transition-colors">
+              <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
                 {brand.name}
               </h3>
+              <p className="text-[10px] text-[var(--color-text-muted)]">{brand.specialty}</p>
             </Link>
           ))}
         </div>

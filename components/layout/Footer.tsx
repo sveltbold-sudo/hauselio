@@ -163,16 +163,12 @@ export default function Footer() {
       {/* Bottom bar — payment methods + copyright */}
       <div className="border-t border-white/10">
         <div className="container-hauselio py-5">
-          {/* Payment methods */}
-          <div className="flex flex-wrap justify-center gap-2 mb-5">
-            {paymentMethods.map((method) => (
+          {/* Payment methods — only available */}
+          <div className="flex flex-wrap justify-center gap-2 mb-2">
+            {paymentMethods.filter(m => m.available).map((method) => (
               <div
                 key={method.name}
-                className={`px-3 py-1.5 border rounded-md text-[11px] font-semibold flex items-center gap-2 ${
-                  method.available
-                    ? "bg-white/5 border-white/10 text-white/60"
-                    : "bg-white/5 border-white/10 text-white/30"
-                }`}
+                className="px-3 py-1.5 border rounded-md text-[11px] font-semibold flex items-center gap-2 bg-white/5 border-white/10 text-white/60"
               >
                 <Image
                   src={method.icon}
@@ -182,12 +178,10 @@ export default function Footer() {
                   className="h-4 w-auto"
                 />
                 {method.name}
-                {!method.available && (
-                  <span className="text-[9px] opacity-50 ml-0.5">bald</span>
-                )}
               </div>
             ))}
           </div>
+          <p className="text-center text-[10px] text-white/30">Weitere Zahlungsmethoden folgen</p>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/50">

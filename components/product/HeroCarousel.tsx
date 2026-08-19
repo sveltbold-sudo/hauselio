@@ -128,7 +128,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       {/* Content */}
       <div className="relative z-10" aria-live="polite">
         <div className="container-hauselio py-8 md:py-14 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div key={current} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center animate-fade-in-up">
             {/* Text Content */}
             <div className="animate-fade-in-up order-2 lg:order-1">
               {/* Brand badge */}
@@ -230,17 +230,17 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       {/* Navigation Arrows — minimal like MediaMarkt */}
       <button
         onClick={prev}
-        className="absolute left-2 md:left-5 top-1/2 -translate-y-1/2 w-9 h-9 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute left-2 md:left-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Vorherige Folie"
       >
-        <ChevronLeft className="w-4 h-4" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-2 md:right-5 top-1/2 -translate-y-1/2 w-9 h-9 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute right-2 md:right-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Nächste Folie"
       >
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-5 h-5" />
       </button>
 
       {/* Progress Indicators — dots like Coolblue */}
