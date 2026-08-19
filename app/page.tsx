@@ -20,6 +20,7 @@ const EditorialContentSection = dynamicImport(() => import("@/components/product
 const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/BrandsShowcaseSection"));
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"));
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
+import AboutSection from "@/components/home/AboutSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
 export const revalidate = 300;
@@ -384,6 +385,8 @@ export default async function HomePage() {
           </Suspense>
         </div>
       </section>
+
+      <AboutSection />
 
       <GuaranteeServiceSection />
       <BuyingAdviceSection />
