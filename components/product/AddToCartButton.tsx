@@ -38,6 +38,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     });
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
+    window.dispatchEvent(new CustomEvent("cart:item-added"));
     timeoutRef.current = setTimeout(() => setAdded(false), 2000);
   };
 

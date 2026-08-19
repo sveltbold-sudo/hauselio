@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { Star, Check, X, Trash2 } from "lucide-react";
+import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ interface Review {
 }
 
 export default function BewertungenPage() {
+  const toast = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,8 @@ export default function BewertungenPage() {
       setReviews((prev) =>
         prev.map((r) => (r.id === id ? { ...r, isApproved: approved } : r))
       );
-    } catch {
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Aktualisieren");
     }
   };
 
@@ -53,7 +56,8 @@ export default function BewertungenPage() {
       const res = await fetch(`/api/admin/bewertungen/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
       setReviews((prev) => prev.filter((r) => r.id !== id));
-    } catch {
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
     }
   };
 

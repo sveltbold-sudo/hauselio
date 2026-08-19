@@ -1,7 +1,28 @@
 import Link from "next/link";
 import { Star, Award, ExternalLink, Quote } from "lucide-react";
 
-const pressReviews = [
+interface PressReview {
+  publication: string;
+  logoText: string;
+  rating: string;
+  headline: string;
+  excerpt: string;
+  category: string;
+  product: string;
+  borderColor: string;
+}
+
+interface CustomerReview {
+  name: string;
+  location: string;
+  rating: number;
+  text: string;
+  product: string;
+  verified: boolean;
+  date: string;
+}
+
+const defaultPressReviews: PressReview[] = [
   {
     publication: "Stiftung Warentest",
     logoText: "STIFTUNG\nWARENTEST",
@@ -44,7 +65,7 @@ const pressReviews = [
   },
 ];
 
-const customerHighlights = [
+const defaultCustomerReviews: CustomerReview[] = [
   {
     name: "Thomas K.",
     location: "Berlin",
@@ -74,7 +95,15 @@ const customerHighlights = [
   },
 ];
 
-export default function PressReviewsSection() {
+interface PressReviewsSectionProps {
+  pressReviews?: PressReview[];
+  customerReviews?: CustomerReview[];
+}
+
+export default function PressReviewsSection({
+  pressReviews = defaultPressReviews,
+  customerReviews = defaultCustomerReviews,
+}: PressReviewsSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
@@ -141,7 +170,7 @@ export default function PressReviewsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {customerHighlights.map((review, i) => (
+          {customerReviews.map((review, i) => (
             <div
               key={i}
               className="bg-white rounded-xl p-5 border border-[var(--color-border-light)] animate-fade-in-up"

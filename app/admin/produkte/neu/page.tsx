@@ -16,6 +16,7 @@ export default function NewProductPage() {
   const [categories, setCategories] = useState<AdminCategory[]>([]);
   const [brands, setBrands] = useState<AdminBrand[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -32,7 +33,11 @@ export default function NewProductPage() {
         setCategories(cats.categories || []);
         setBrands(brs.brands || []);
       })
-      .catch((err) => logger.error("Failed to load data", { error: err }));
+      .catch((err) => {
+        logger.error("Failed to load data", { error: err });
+        setDataError(true);
+        toast.error("Kategorien oder Marken konnten nicht geladen werden.");
+      });
   }, []);
 
   const handleSubmit = async (

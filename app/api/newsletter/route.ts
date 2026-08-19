@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { requireAdmin } from "@/lib/auth";
 import { handleApiError, validateCsrfOrigin, validateContentType } from "@/lib/api-helpers";
 import { sendNewsletterConfirmation } from "@/lib/emails";
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`newsletter:${ip}`, 3, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -41,6 +41,18 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!userMenuOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [userMenuOpen]);
 
   const handleLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -59,6 +71,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          aria-hidden="true"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -77,6 +90,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
+              aria-label="Menü schließen"
               className="lg:hidden text-white/70 hover:text-white"
             >
               <X className="w-5 h-5" />
@@ -109,7 +123,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
           </nav>
 
           {/* User */}
-          <div className="p-4 border-t border-white/10">
+          <div className="p-4 border-t border-white/10" ref={userMenuRef}>
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -161,6 +175,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+            aria-label="Menü öffnen"
           >
             <Menu className="w-5 h-5" />
           </button>
@@ -175,7 +190,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
         </header>
 
         {/* Page content */}
-        <main className="p-4 lg:p-6">{children}</main>
+        <main id="admin-content" className="p-4 lg:p-6">{children}</main>
       </div>
     </div>
   );

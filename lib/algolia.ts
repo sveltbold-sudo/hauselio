@@ -1,4 +1,5 @@
 import { algoliasearch, type SearchClient, type Algoliasearch } from "algoliasearch";
+import { logger } from "@/lib/logger";
 
 const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
 const ALGOLIA_SEARCH_KEY = process.env.ALGOLIA_SEARCH_API_KEY;
@@ -7,7 +8,7 @@ const ALGOLIA_ADMIN_KEY = process.env.ALGOLIA_ADMIN_API_KEY;
 const isAlgoliaConfigured = Boolean(ALGOLIA_APP_ID && ALGOLIA_SEARCH_KEY && ALGOLIA_ADMIN_KEY);
 
 if (!isAlgoliaConfigured) {
-  console.warn("Algolia env vars missing — search will not work");
+  logger.warn("algolia", "Algolia env vars missing — search will not work");
 }
 
 let _searchClient: Algoliasearch | null = null;

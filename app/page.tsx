@@ -9,12 +9,16 @@ import { SITE_URL } from "@/lib/constants";
 import ProductCard from "@/components/product/ProductCard";
 const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"));
 import ValuePropsSection from "@/components/product/ValuePropsSection";
+const DailyDealBanner = dynamicImport(() => import("@/components/product/DailyDealBanner"));
+const BestsellerSection = dynamicImport(() => import("@/components/product/BestsellerSection"));
+const RecommendedSection = dynamicImport(() => import("@/components/product/RecommendedSection"));
 
 const GuaranteeServiceSection = dynamicImport(() => import("@/components/product/GuaranteeServiceSection"));
 const BuyingAdviceSection = dynamicImport(() => import("@/components/product/BuyingAdviceSection"));
 const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"));
 const EditorialContentSection = dynamicImport(() => import("@/components/product/EditorialContentSection"));
 const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/BrandsShowcaseSection"));
+const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"));
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
@@ -47,7 +51,7 @@ async function getCategories() {
   return cats.map((cat) => ({
     name: cat.name,
     href: `/kategorie/${cat.slug}`,
-    image: `/images/categories/${cat.slug}.svg`,
+    image: `/images/categories/${cat.slug}.jpg`,
     count: `${cat._count.products}+`,
   }));
 }
@@ -74,23 +78,128 @@ async function getFeaturedProducts() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
-    inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || "HAUSELIO",
   }));
 }
 
+async function getHeroSlides() {
+  try {
+    const products = await prisma.product.findMany({
+      where: { isFeatured: true },
+      include: {
+        brand: true,
+        images: { take: 1, orderBy: { position: "asc" } },
+      },
+      orderBy: { reviewCount: "desc" },
+      take: 3,
+    });
+
+    return products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      brand: p.brand?.name || "",
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      tagline: p.isNew ? "Neuheit" : p.isPromo ? "Angebot" : "Premium Qualität",
+      subtitle: p.description?.slice(0, 120) || `${p.name} bei HAUSELIO entdecken.`,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      cta: "Jetzt ansehen",
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function getBestsellers() {
+  const products = await prisma.product.findMany({
+    where: { reviewCount: { gt: 0 } },
+    include: {
+      brand: true,
+      images: { take: 1, orderBy: { position: "asc" } },
+    },
+    orderBy: { reviewCount: "desc" },
+    take: 4,
+  });
+
+  return products.map((p) => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    price: Number(p.price),
+    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+    image: p.images[0]?.url || "/images/placeholder-product.svg",
+    rating: Number(p.rating),
+    reviewCount: p.reviewCount,
+    isNew: p.isNew,
+    inStock: p.inStock,
+    isPromo: p.originalPrice !== null,
+    brand: p.brand?.name || null,
+  }));
+}
+
+async function getDailyDeal() {
+  const product = await prisma.product.findFirst({
+    where: { isPromo: true, originalPrice: { not: null } },
+    include: {
+      brand: true,
+      images: { take: 1, orderBy: { position: "asc" } },
+    },
+    orderBy: { reviewCount: "desc" },
+  });
+
+  if (!product) return null;
+
+  return {
+    name: product.name,
+    slug: product.slug,
+    brand: product.brand?.name || "HAUSELIO",
+    price: Number(product.price),
+    originalPrice: Number(product.originalPrice),
+    image: product.images[0]?.url || "/images/placeholder-product.svg",
+    tagline: product.description?.slice(0, 120) || "Exklusives Angebot — nur heute",
+  };
+}
+
+async function getRecommended() {
+  const products = await prisma.product.findMany({
+    where: { rating: { gte: 4.5 } },
+    include: {
+      brand: true,
+      images: { take: 1, orderBy: { position: "asc" } },
+    },
+    orderBy: { rating: "desc" },
+    take: 4,
+  });
+
+  return products.map((p) => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    price: Number(p.price),
+    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+    image: p.images[0]?.url || "/images/placeholder-product.svg",
+    rating: Number(p.rating),
+    reviewCount: p.reviewCount,
+    isNew: p.isNew,
+    inStock: p.inStock,
+    isPromo: p.originalPrice !== null,
+    brand: p.brand?.name || null,
+  }));
+}
+
 const fallbackCategories = [
-  { name: "Küche & Kochen", href: "/kategorie/kueche", image: "/images/products/thermomix-tm7.jpg", count: "45+" },
-  { name: "Kaffee", href: "/kategorie/kaffee", image: "/images/products/jura-e8-platinum.jpg", count: "30+" },
-  { name: "Reinigung", href: "/kategorie/reinigung", image: "/images/categories/reinigung.svg", count: "25+" },
-  { name: "Klima", href: "/kategorie/klima", image: "/images/categories/klima.svg", count: "15+" },
-  { name: "Smart Home", href: "/kategorie/smart-home", image: "/images/categories/smart-home.svg", count: "20+" },
-  { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", image: "/images/products/kitchenaid-artisan-5ksm175pse.jpg", count: "50+" },
+  { name: "Küche & Kochen", href: "/kategorie/kueche", image: "/images/categories/kueche.jpg", count: "45+" },
+  { name: "Kaffee", href: "/kategorie/kaffee", image: "/images/categories/kaffee.jpg", count: "30+" },
+  { name: "Reinigung", href: "/kategorie/reinigung", image: "/images/categories/reinigung.jpg", count: "25+" },
+  { name: "Klima", href: "/kategorie/klima", image: "/images/categories/klima.jpg", count: "15+" },
+  { name: "Smart Home", href: "/kategorie/smart-home", image: "/images/categories/smart-home.jpg", count: "20+" },
+  { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", image: "/images/categories/haushaltsgeraete.jpg", count: "50+" },
 ];
 
 const fallbackProducts = [
-  { id: "1", name: "Thermomix TM7", slug: "thermomix-tm7", price: 1499, originalPrice: 1599, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 127, isNew: true, brand: "KitchenAid" },
+  { id: "1", name: "Thermomix TM7", slug: "thermomix-tm7", price: 1499, originalPrice: 1599, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 127, isNew: true, brand: "Vorwerk" },
   { id: "2", name: "Dyson V15 Detect Absolute", slug: "dyson-v15-detect-absolute", price: 749, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.7, reviewCount: 89, isNew: true, brand: "Dyson" },
   { id: "3", name: "Jura E8 Platinum", slug: "jura-e8-platinum", price: 1199, originalPrice: 1299, image: "/images/placeholder-product.svg", rating: 4.8, reviewCount: 156, isPromo: true, brand: "Jura" },
   { id: "4", name: "Miele W1 Waschmaschine", slug: "miele-w1-waschmaschine", price: 1899, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 203, isNew: false, brand: "Miele" },
@@ -110,7 +219,7 @@ function ProductsSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {[...Array(4)].map((_, i) => (
-        <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
+        <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />
           <div className="p-4 space-y-2.5">
             <div className="h-2.5 w-16 bg-[var(--color-bg-secondary)] rounded" />
@@ -207,10 +316,29 @@ async function FeaturedProductsSection() {
 }
 
 export default async function HomePage() {
+  let dailyDeal = null;
+  let bestsellers: Awaited<ReturnType<typeof getBestsellers>> = [];
+  let recommended: Awaited<ReturnType<typeof getRecommended>> = [];
+  let heroSlides: Awaited<ReturnType<typeof getHeroSlides>> = [];
+
+  try {
+    [dailyDeal, bestsellers, recommended, heroSlides] = await Promise.all([
+      getDailyDeal(),
+      getBestsellers(),
+      getRecommended(),
+      getHeroSlides(),
+    ]);
+  } catch {
+    // Continue without these sections
+  }
+
   return (
     <div>
-      <HeroCarousel />
+      <HeroCarousel slides={heroSlides.length > 0 ? heroSlides : undefined} />
       <ValuePropsSection />
+
+      {/* Deal of the Day — like MediaMarkt/Saturn */}
+      {dailyDeal && <DailyDealBanner product={dailyDeal} />}
 
       <section className="section-py">
         <div className="container-hauselio">
@@ -226,6 +354,12 @@ export default async function HomePage() {
           </Suspense>
         </div>
       </section>
+
+      {/* Bestseller — like all competitors */}
+      {bestsellers.length > 0 && <BestsellerSection products={bestsellers} />}
+
+      {/* Für Sie empfohlen — personalized */}
+      {recommended.length > 0 && <RecommendedSection products={recommended} />}
 
       <section className="section-py bg-[var(--color-bg-secondary)]">
         <div className="container-hauselio">
@@ -255,6 +389,7 @@ export default async function HomePage() {
       <BuyingAdviceSection />
       <PressReviewsSection />
       <EditorialContentSection />
+      <RecentlyViewedSection />
       <BrandsShowcaseSection />
       <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-gray-100 rounded-2xl" /></div></div>}>
         <CustomerReviewsSection />

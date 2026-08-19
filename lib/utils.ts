@@ -40,3 +40,5 @@ export function calcDiscount(price: number, originalPrice: number | null): numbe
   if (!originalPrice || originalPrice <= price) return 0;
   return Math.round(((originalPrice - price) / originalPrice) * 100);
 }
+
+

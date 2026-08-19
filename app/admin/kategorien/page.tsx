@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
 import { slugify } from "@/lib/utils";
+import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ interface Category {
 }
 
 export default function KategorienPage() {
+  const toast = useToast();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -52,7 +54,8 @@ export default function KategorienPage() {
       setForm({ name: "", slug: "", description: "" });
       loadCategories();
     } catch (error) {
-      console.error("Error:", error);
+      logger.error("Kategorie speichern fehlgeschlagen", { error });
+      toast.error(error instanceof Error ? error.message : "Fehler beim Speichern");
     }
   };
 
@@ -69,7 +72,8 @@ export default function KategorienPage() {
       if (!res.ok) throw new Error("Fehler beim Löschen");
       loadCategories();
     } catch (error) {
-      console.error("Error:", error);
+      logger.error("Kategorie löschen fehlgeschlagen", { error });
+      toast.error(error instanceof Error ? error.message : "Fehler beim Löschen");
     }
   };
 

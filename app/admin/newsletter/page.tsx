@@ -44,7 +44,8 @@ export default function NewsletterPage() {
       setSubscribers((prev) =>
         prev.map((s) => (s.id === id ? { ...s, isActive: !isActive } : s))
       );
-    } catch {
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Aktualisieren");
     }
   };
 
@@ -54,7 +55,8 @@ export default function NewsletterPage() {
       const res = await fetch(`/api/admin/newsletter/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
       setSubscribers((prev) => prev.filter((s) => s.id !== id));
-    } catch {
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
     }
   };
 

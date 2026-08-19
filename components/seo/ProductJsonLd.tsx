@@ -7,6 +7,7 @@ interface ProductJsonLdProps {
   price: number;
   currency?: string;
   brand: string;
+  slug: string;
   sku: string;
   rating?: number;
   reviewCount?: number;
@@ -21,13 +22,14 @@ export default function ProductJsonLd({
   price,
   currency = "EUR",
   brand,
+  slug,
   sku,
   rating,
   reviewCount,
   availability = "InStock",
   url,
 }: ProductJsonLdProps) {
-  const productUrl = url || `${SITE_URL}/produkt/${sku.toLowerCase()}`;
+  const productUrl = url || `${SITE_URL}/produkt/${slug}`;
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",

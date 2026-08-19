@@ -1,5 +1,8 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import KontaktForm from "@/components/kontakt/KontaktForm";
+import FaqSection from "@/components/kontakt/FaqSection";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
@@ -27,17 +30,22 @@ export default async function KontaktPage() {
   const settings = await getSettings();
 
   return (
-    <div className="container-hauselio py-8">
-      {/* Header */}
-      <div className="mb-12">
-        <p className="caption text-[var(--color-primary)] mb-3">Kontakt</p>
-        <h1 className="heading-1">So erreichen Sie uns</h1>
-        <p className="body-large mt-2">
-          Wir sind für Sie da — per E-Mail, Telefon oder persönlicher Nachricht.
-        </p>
-      </div>
+    <>
+      <div className="container-hauselio py-8">
+        {/* Breadcrumb */}
+        <Breadcrumb items={[{ label: "Kontakt" }]} />
 
-      <KontaktForm settings={settings} />
-    </div>
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="heading-1">So erreichen Sie uns</h1>
+          <p className="body-large mt-2">
+            Wir sind für Sie da — per E-Mail, Telefon oder persönlicher Nachricht.
+          </p>
+        </div>
+
+        <KontaktForm settings={settings} />
+      </div>
+      <FaqSection />
+    </>
   );
 }

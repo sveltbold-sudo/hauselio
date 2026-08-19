@@ -127,7 +127,8 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                 aria-expanded={hasResults}
                 aria-controls="search-results-list"
                 aria-autocomplete="list"
-                className="w-full pl-12 pr-12 py-4 bg-gray-50 border border-[var(--color-border)] rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-all duration-300 placeholder:text-[var(--color-text-muted)]"
+                aria-activedescendant={activeIndex >= 0 ? `search-result-${activeIndex}` : undefined}
+                className="w-full pl-12 pr-12 py-4 bg-gray-50 border border-[var(--color-border)] rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
               />
               {query && (
                 <button

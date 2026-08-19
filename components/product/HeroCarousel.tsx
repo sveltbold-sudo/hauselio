@@ -20,7 +20,11 @@ interface Slide {
   cta?: string;
 }
 
-const slides: Slide[] = [
+interface HeroCarouselProps {
+  slides?: Slide[];
+}
+
+const defaultSlides: Slide[] = [
   {
     id: "1",
     name: "Thermomix TM7",
@@ -36,7 +40,7 @@ const slides: Slide[] = [
   {
     id: "2",
     name: "KitchenAid Artisan",
-    slug: "kitchenaid-artisan",
+    slug: "kitchenaid-artisan-5ksm175pse",
     brand: "KitchenAid",
     price: 449,
     originalPrice: 549,
@@ -59,18 +63,20 @@ const slides: Slide[] = [
   },
 ];
 
-export default function HeroCarousel() {
+export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) {
+  const slides = propSlides && propSlides.length > 0 ? propSlides : defaultSlides;
   const [current, setCurrent] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const TRANSITION_MS = 600;
 
   const goTo = useCallback((index: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrent(index);
-    setTimeout(() => setIsTransitioning(false), 600);
+    setTimeout(() => setIsTransitioning(false), TRANSITION_MS);
   }, [isTransitioning]);
 
   const next = useCallback(() => {

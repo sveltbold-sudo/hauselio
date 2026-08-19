@@ -1,48 +1,48 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = [
-    { url: SITE_URL, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1.0 },
-    { url: `${SITE_URL}/shop`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
-    { url: `${SITE_URL}/kontakt`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 },
-    { url: `${SITE_URL}/ueber-uns`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5 },
-    { url: `${SITE_URL}/versand`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.3 },
-    { url: `${SITE_URL}/impressum`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.2 },
-    { url: `${SITE_URL}/datenschutz`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.2 },
-    { url: `${SITE_URL}/agb`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.2 },
-    { url: `${SITE_URL}/widerruf`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.2 },
+  const now = new Date();
+
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: SITE_URL, lastModified: now, changeFrequency: "daily", priority: 1.0 },
+    { url: `${SITE_URL}/shop`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${SITE_URL}/kategorie`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/kontakt`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/garantie`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/ueber-uns`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/agb`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE_URL}/datenschutz`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE_URL}/impressum`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE_URL}/widerruf`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ];
 
+  let categoryPages: MetadataRoute.Sitemap = [];
+  let productPages: MetadataRoute.Sitemap = [];
+
   try {
-    const { prisma } = await import("@/lib/prisma");
-
-    const [products, categories] = await Promise.all([
-      prisma.product.findMany({
-        select: { slug: true, updatedAt: true },
-        orderBy: { updatedAt: "desc" },
-      }),
-      prisma.category.findMany({
-        select: { slug: true, updatedAt: true },
-      }),
-    ]);
-
-    const categoryPages = categories.map((cat) => ({
+    const categories = await prisma.category.findMany({ select: { slug: true, updatedAt: true } });
+    categoryPages = categories.map((cat) => ({
       url: `${SITE_URL}/kategorie/${cat.slug}`,
       lastModified: cat.updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    }));
-
-    const productPages = products.map((product) => ({
-      url: `${SITE_URL}/produkt/${product.slug}`,
-      lastModified: product.updatedAt,
       changeFrequency: "weekly" as const,
       priority: 0.7,
     }));
 
-    return [...staticPages, ...categoryPages, ...productPages];
+    const products = await prisma.product.findMany({
+      select: { slug: true, updatedAt: true },
+      where: { inStock: true },
+    });
+    productPages = products.map((p) => ({
+      url: `${SITE_URL}/produkt/${p.slug}`,
+      lastModified: p.updatedAt,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
   } catch {
-    return staticPages;
+    // DB not available, return static pages only
   }
+
+  return [...staticPages, ...categoryPages, ...productPages];
 }

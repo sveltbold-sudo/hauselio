@@ -120,6 +120,7 @@ export default function OrderTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("orderNumber"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "orderNumber" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -132,6 +133,7 @@ export default function OrderTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("customer"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "customer" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -144,6 +146,7 @@ export default function OrderTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("date"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "date" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -156,6 +159,7 @@ export default function OrderTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("total"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "total" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -168,6 +172,7 @@ export default function OrderTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("status"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "status" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">

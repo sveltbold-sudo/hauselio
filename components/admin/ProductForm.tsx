@@ -181,6 +181,7 @@ export default function ProductForm({
       <div className="flex items-center gap-4 mb-6">
         <Link
           href={backHref}
+          aria-label="Zurück"
           className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -210,7 +211,7 @@ export default function ProductForm({
                     required
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -224,7 +225,7 @@ export default function ProductForm({
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, slug: e.target.value }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -242,7 +243,7 @@ export default function ProductForm({
                         description: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
                 <div>
@@ -259,7 +260,7 @@ export default function ProductForm({
                         shortDesc: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
               </div>
@@ -286,7 +287,7 @@ export default function ProductForm({
                     e.key === "Enter" && (e.preventDefault(), addFeature())
                   }
                   placeholder="Neues Feature hinzufügen..."
-                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                 />
                 <button
                   type="button"
@@ -336,7 +337,7 @@ export default function ProductForm({
                       }))
                     }
                     placeholder="Key (z.B. Leistung)"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div className="flex-1">
@@ -355,7 +356,7 @@ export default function ProductForm({
                       e.key === "Enter" && (e.preventDefault(), addSpec())
                     }
                     placeholder="Wert"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <button
@@ -408,10 +409,11 @@ export default function ProductForm({
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-price" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Preis (EUR) *
                   </label>
                   <input
+                    id="product-price"
                     type="number"
                     step="0.01"
                     min="0"
@@ -423,14 +425,15 @@ export default function ProductForm({
                         price: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="product-original-price" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Originalpreis (EUR)
                   </label>
                   <input
+                    id="product-original-price"
                     type="number"
                     step="0.01"
                     min="0"
@@ -441,7 +444,7 @@ export default function ProductForm({
                         originalPrice: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -458,7 +461,7 @@ export default function ProductForm({
                         weight: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -472,7 +475,7 @@ export default function ProductForm({
                           inStock: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-accent)]"
+                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Verfügbar
@@ -488,7 +491,7 @@ export default function ProductForm({
                           isNew: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-accent)]"
+                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Neu
@@ -504,7 +507,7 @@ export default function ProductForm({
                           isFeatured: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-accent)]"
+                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Empfohlen
@@ -533,7 +536,7 @@ export default function ProductForm({
                         categoryId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   >
                     <option value="">Kategorie wählen</option>
                     {categories.map((cat) => (
@@ -555,7 +558,7 @@ export default function ProductForm({
                         brandId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   >
                     <option value="">Marke wählen</option>
                     {brands.map((b) => (
@@ -602,7 +605,7 @@ export default function ProductForm({
                         seoTitle: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -619,7 +622,7 @@ export default function ProductForm({
                         seoDesc: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
               </div>

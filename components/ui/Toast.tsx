@@ -22,12 +22,12 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-let toastId = 0;
 const TOAST_DURATION = 4000;
 const EXIT_DURATION = 300;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const toastIdRef = useRef(0);
   const timersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 
   const removeToast = useCallback((id: number) => {
@@ -53,7 +53,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, [removeToast]);
 
   const addToast = useCallback((type: ToastType, message: string) => {
-    const id = ++toastId;
+    const id = ++toastIdRef.current;
     setToasts((prev) => [...prev, { id, type, message }]);
     startAutoDismiss(id);
   }, [startAutoDismiss]);

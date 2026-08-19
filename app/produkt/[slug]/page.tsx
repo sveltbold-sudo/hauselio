@@ -31,7 +31,6 @@ export async function generateStaticParams() {
   try {
     const products = await prisma.product.findMany({
       select: { slug: true },
-      where: { inStock: true },
     });
     return products.map((p) => ({ slug: p.slug }));
   } catch {
@@ -112,6 +111,32 @@ export default async function ProductPage({ params }: PageProps) {
     images: product.images.map((img) => img.url),
   };
 
+  let relatedProducts: { id: string; name: string; slug: string; price: number; image: string; brand: string | null }[] = [];
+  try {
+    const rawRelated = await prisma.product.findMany({
+      where: {
+        category: { slug: product.category.slug },
+        id: { not: product.id },
+      },
+      include: {
+        brand: { select: { name: true } },
+        images: { take: 1, orderBy: { position: "asc" } },
+      },
+      take: 3,
+      orderBy: { rating: "desc" },
+    });
+    relatedProducts = rawRelated.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: Number(p.price),
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      brand: p.brand?.name || null,
+    }));
+  } catch {
+    relatedProducts = [];
+  }
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -127,13 +152,14 @@ export default async function ProductPage({ params }: PageProps) {
         image={product.images[0]?.url || "/images/placeholder.jpg"}
         price={Number(product.price)}
         brand={product.brand?.name || "HAUSELIO"}
+        slug={product.slug}
         sku={product.sku || product.slug}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
         availability={product.inStock ? "InStock" : "OutOfStock"}
       />
       <div>
-        <ProductPageClient product={formattedProduct} />
+        <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />
       </div>
     </>
   );

@@ -2,7 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
-const brands = [
+interface Brand {
+  name: string;
+  logo: string;
+  color: string;
+  specialty: string;
+}
+
+interface BrandsShowcaseSectionProps {
+  brands?: Brand[];
+}
+
+const defaultBrands: Brand[] = [
   { name: "Miele", logo: "/images/brands/miele.svg", color: "#c4001a", specialty: "Premium Haushaltsgeräte" },
   { name: "Bosch", logo: "/images/brands/bosch.svg", color: "#e30613", specialty: "Technische Exzellenz" },
   { name: "Samsung", logo: "/images/brands/samsung.svg", color: "#1428a0", specialty: "Smart Home Pionier" },
@@ -13,7 +24,7 @@ const brands = [
   { name: "Siemens", logo: "/images/brands/siemens.svg", color: "#009999", specialty: "Smart Geräte" },
 ];
 
-export default function BrandsShowcaseSection() {
+export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">

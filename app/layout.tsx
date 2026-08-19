@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import BackToTop from "@/components/layout/BackToTop";
+import ComparisonBar from "@/components/product/ComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
@@ -46,14 +48,14 @@ export const metadata: Metadata = {
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "HAUSELIO — Premium Haushaltsgeräte" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
-    images: [`${SITE_URL}/logos/logoprincipale.png`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   robots: {
     index: true,
@@ -81,7 +83,6 @@ export default function RootLayout({
     <html lang="de" className={`${inter.variable} h-full`}>
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="preconnect" href="https://GEXPVTXH78-dsn.algolia.net" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
         <OrganizationJsonLd />
@@ -100,6 +101,8 @@ export default function RootLayout({
           <ClientProviders />
         </ToastProvider>
         <Footer />
+        <BackToTop />
+        <ComparisonBar />
         <CookieConsent />
       </body>
     </html>

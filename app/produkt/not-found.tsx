@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SearchX } from "lucide-react";
 
 export default function ProduktNotFound() {
   return (
@@ -9,7 +10,7 @@ export default function ProduktNotFound() {
         </p>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-20 h-20 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
-            <span className="text-4xl">🔍</span>
+            <SearchX className="w-10 h-10 text-[var(--color-primary)]" />
           </div>
         </div>
       </div>

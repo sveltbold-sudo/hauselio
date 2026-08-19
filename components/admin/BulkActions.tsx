@@ -58,7 +58,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
   };
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-2xl px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 animate-slide-in-right max-w-[calc(100vw-2rem)]">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 animate-slide-in-right max-w-[calc(100vw-2rem)]">
       <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
       <div className="w-px h-6 bg-white/20 hidden sm:block" />
       <button

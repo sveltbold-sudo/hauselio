@@ -27,12 +27,27 @@ interface Order {
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order");
-  const orderEmail = searchParams.get("email");
+  const [orderEmail, setOrderEmail] = useState<string | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
   const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [orderLoading, setOrderLoading] = useState(true);
   const [orderError, setOrderError] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [showEmailForm, setShowEmailForm] = useState(false);
+
+  useEffect(() => {
+    if (orderId) {
+      const storedEmail = sessionStorage.getItem(`order_${orderId}`);
+      if (storedEmail) {
+        setOrderEmail(storedEmail);
+        sessionStorage.removeItem(`order_${orderId}`);
+      } else {
+        setShowEmailForm(true);
+        setOrderLoading(false);
+      }
+    }
+  }, [orderId]);
 
   useEffect(() => {
     if (orderId && orderEmail) {
@@ -102,6 +117,41 @@ export default function OrderSuccessPage() {
       <p className="text-sm text-[var(--color-text-muted)] mb-8">
         Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.
       </p>
+
+      {/* Email input form (shown when sessionStorage is empty) */}
+      {showEmailForm && !orderEmail && (
+        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-8 text-left">
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+            Geben Sie die E-Mail-Adresse ein, die Sie bei der Bestellung verwendet haben:
+          </p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (emailInput.trim()) {
+                setOrderEmail(emailInput.trim());
+                setShowEmailForm(false);
+                setOrderLoading(true);
+              }
+            }}
+            className="flex gap-2"
+          >
+            <input
+              type="email"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              placeholder="name@beispiel.de"
+              required
+              className="flex-1 px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+            />
+            <button
+              type="submit"
+              className="px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-colors"
+            >
+              Bestellung anzeigen
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Loading state */}
       {orderLoading && (

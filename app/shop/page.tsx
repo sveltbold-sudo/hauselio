@@ -6,6 +6,9 @@ import { SearchX, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
+import ShopSortSelect from "@/components/product/ShopSortSelect";
+import MobileShopBar from "@/components/product/MobileShopBar";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
@@ -70,6 +73,7 @@ interface ShopPageProps {
     sort?: string;
     page?: string;
     q?: string;
+    price?: string;
   }>;
 }
 
@@ -78,6 +82,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const category = params.category;
   const brand = params.brand;
   const q = params.q;
+  const price = params.price;
   const sort = params.sort || "newest";
   const page = Math.max(1, parseInt(params.page || "1") || 1);
   const limit = 20;
@@ -96,6 +101,21 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       { description: { contains: q, mode: "insensitive" } },
       { brand: { name: { contains: q, mode: "insensitive" } } },
     ];
+  }
+  if (price) {
+    const parts = price.split("-");
+    const minVal = parts[0] ? Number(parts[0]) : undefined;
+    const maxVal = parts[1] ? Number(parts[1]) : undefined;
+    const priceFilter: { gte?: number; lte?: number } = {};
+    if (minVal !== undefined && !isNaN(minVal)) {
+      priceFilter.gte = minVal;
+    }
+    if (maxVal !== undefined && !isNaN(maxVal)) {
+      priceFilter.lte = maxVal;
+    }
+    if (Object.keys(priceFilter).length > 0) {
+      where.price = priceFilter;
+    }
   }
 
   let orderBy: Prisma.ProductOrderByWithRelationInput = { createdAt: "desc" };
@@ -153,6 +173,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   return (
     <div className="container-hauselio py-8">
+      {/* Breadcrumb */}
+      <Breadcrumb items={[{ label: "Shop" }]} />
+
       {/* Header */}
       <div className="mb-8">
         <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
@@ -180,6 +203,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             }`}
           >
             Alle Produkte
+          </Link>
+          <Link
+            href="/shop?promo=true"
+            role="tab"
+            className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
+          >
+            Angebote
           </Link>
           {categories.map((cat) => (
             <Link
@@ -225,19 +255,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               )}
             </p>
             <div className="flex items-center gap-3">
-              <label htmlFor="shop-sort" className="sr-only">Sortierung</label>
-              <select
-                id="shop-sort"
-                value={sort}
-                onChange={undefined}
-                className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 cursor-pointer"
-                aria-label="Sortierung"
-              >
-                <option value="newest">Neueste zuerst</option>
-                <option value="price_asc">Preis aufsteigend</option>
-                <option value="price_desc">Preis absteigend</option>
-                <option value="rating">Beste Bewertung</option>
-              </select>
+              <ShopSortSelect sort={sort} />
             </div>
           </div>
 
@@ -326,6 +344,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
         </div>
       </div>
+      <MobileShopBar totalProducts={total} />
     </div>
   );
 }
@@ -334,7 +353,7 @@ function ProductGridSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
       {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
+        <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />
           <div className="p-5 space-y-3">
             <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/3" />

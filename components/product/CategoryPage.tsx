@@ -2,6 +2,10 @@ import Link from "next/link";
 import { PackageOpen, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/product/ProductCard";
+import CategorySortSelect from "@/components/product/CategorySortSelect";
+import CategoryBrandFilter from "@/components/product/CategoryBrandFilter";
+import MobileShopBar from "@/components/product/MobileShopBar";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 const PAGE_SIZE = 20;
 
@@ -10,6 +14,8 @@ interface CategoryPageProps {
   title: string;
   description: string;
   page?: number;
+  sort?: string;
+  brand?: string;
 }
 
 export default async function CategoryPage({
@@ -17,10 +23,22 @@ export default async function CategoryPage({
   title,
   description,
   page = 1,
+  sort = "newest",
+  brand,
 }: CategoryPageProps) {
-
   const currentPage = Math.max(1, page);
   const skip = (currentPage - 1) * PAGE_SIZE;
+
+  let orderBy: Record<string, string> = { createdAt: "desc" };
+  if (sort === "price_asc") orderBy = { price: "asc" };
+  else if (sort === "price_desc") orderBy = { price: "desc" };
+  else if (sort === "rating") orderBy = { rating: "desc" };
+  else if (sort === "popular") orderBy = { reviewCount: "desc" };
+
+  const where: Record<string, unknown> = { category: { slug } };
+  if (brand) {
+    where.brand = { slug: brand };
+  }
 
   let products: {
     id: string;
@@ -31,26 +49,35 @@ export default async function CategoryPage({
     rating: number;
     reviewCount: number;
     isNew: boolean;
-    inStock: boolean;
     isPromo: boolean;
-    brand: { name: string } | null;
+    brand: { name: string; slug: string } | null;
     images: { url: string }[];
   }[] = [];
   let total = 0;
+  let brands: { name: string; slug: string; count: number }[] = [];
 
   try {
-    const [raw, count] = await Promise.all([
+    const [raw, count, brandData] = await Promise.all([
       prisma.product.findMany({
-        where: { category: { slug } },
+        where,
         include: {
-          brand: { select: { name: true } },
+          brand: { select: { name: true, slug: true } },
           images: { take: 1, orderBy: { position: "asc" } },
         },
-        orderBy: { createdAt: "desc" },
+        orderBy,
         skip,
         take: PAGE_SIZE,
       }),
-      prisma.product.count({ where: { category: { slug } } }),
+      prisma.product.count({ where }),
+      prisma.brand.findMany({
+        select: {
+          name: true,
+          slug: true,
+          _count: { select: { products: { where: { category: { slug } } } } },
+        },
+        where: { products: { some: { category: { slug } } } },
+        orderBy: { name: "asc" },
+      }),
     ]);
     total = count;
     products = raw.map((p) => ({
@@ -59,9 +86,15 @@ export default async function CategoryPage({
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       rating: Number(p.rating),
     }));
+    brands = brandData.map((b) => ({
+      name: b.name,
+      slug: b.slug,
+      count: b._count.products,
+    }));
   } catch {
     products = [];
     total = 0;
+    brands = [];
   }
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -76,25 +109,27 @@ export default async function CategoryPage({
     rating: product.rating,
     reviewCount: product.reviewCount,
     isNew: product.isNew,
-    inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
   }));
 
   function pageUrl(p: number) {
-    return `/kategorie/${slug}?page=${p}`;
+    const params = new URLSearchParams();
+    params.set("page", String(p));
+    if (sort !== "newest") params.set("sort", sort);
+    if (brand) params.set("brand", brand);
+    return `/kategorie/${slug}?${params.toString()}`;
   }
 
   return (
     <div className="container-hauselio py-8">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] mb-6" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
-        <span>/</span>
-        <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors">Shop</Link>
-        <span>/</span>
-        <span className="text-[var(--color-text-primary)] font-medium">{title}</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: "Shop", href: "/shop" },
+          { label: title },
+        ]}
+      />
 
       {/* Header */}
       <div className="mb-8">
@@ -103,6 +138,12 @@ export default async function CategoryPage({
         <p className="text-sm text-[var(--color-text-muted)] mt-2">
           {total} {total === 1 ? "Produkt" : "Produkte"} in dieser Kategorie
         </p>
+      </div>
+
+      {/* Toolbar with sort + brand filter */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
+        <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} currentSort={sort} />
+        <CategorySortSelect sort={sort} slug={slug} currentBrand={brand} />
       </div>
 
       {formattedProducts.length === 0 ? (
@@ -114,14 +155,14 @@ export default async function CategoryPage({
             Keine Produkte in dieser Kategorie
           </h2>
           <p className="text-[var(--color-text-muted)] mb-6">
-            Schauen Sie später wieder vorbei oder entdecken Sie unser gesamtes Sortiment.
+            {brand ? `Keine Produkte von "${brand}" in dieser Kategorie.` : "Schauen Sie später wieder vorbei."}
           </p>
           <Link
-            href="/shop"
+            href={brand ? `/kategorie/${slug}` : "/shop"}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             <ShoppingBag className="w-4 h-4" />
-            Zur Boutique
+            {brand ? "Alle Marken anzeigen" : "Zum Shop"}
           </Link>
         </div>
       ) : (
@@ -192,6 +233,7 @@ export default async function CategoryPage({
           )}
         </>
       )}
+      <MobileShopBar totalProducts={total} />
     </div>
   );
 }

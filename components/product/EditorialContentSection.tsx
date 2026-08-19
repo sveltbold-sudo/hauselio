@@ -2,7 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
-const editorialContent = [
+interface EditorialItem {
+  type: string;
+  title: string;
+  excerpt: string;
+  href: string;
+  readTime: string;
+  category: string;
+  image: string;
+}
+
+const defaultEditorialContent: EditorialItem[] = [
   {
     type: "Ratgeber",
     title: "Der ultimative Kaffee-Ratgeber",
@@ -32,7 +42,11 @@ const editorialContent = [
   },
 ];
 
-export default function EditorialContentSection() {
+interface EditorialContentSectionProps {
+  items?: EditorialItem[];
+}
+
+export default function EditorialContentSection({ items = defaultEditorialContent }: EditorialContentSectionProps) {
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
@@ -46,7 +60,7 @@ export default function EditorialContentSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {editorialContent.map((content, i) => (
+          {items.map((content, i) => (
             <Link
               key={i}
               href={content.href}

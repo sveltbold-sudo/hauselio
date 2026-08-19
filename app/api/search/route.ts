@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { handleApiError } from "@/lib/api-helpers";
 import { logger } from "@/lib/logger";
 
@@ -9,7 +9,7 @@ const algoliaAvailable = !!(
 );
 
 export async function GET(request: NextRequest) {
-  const ip = request.headers.get("x-forwarded-for") || "unknown";
+  const ip = getClientIp(request);
   const allowed = await checkRateLimit(`search:${ip}`, 30, 60_000);
   if (!allowed) {
     return NextResponse.json(

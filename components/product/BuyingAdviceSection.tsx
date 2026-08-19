@@ -16,7 +16,11 @@ interface BuyingAdvice {
   icon: React.ElementType;
 }
 
-const buyingAdviceData: BuyingAdvice[] = [
+interface BuyingAdviceSectionProps {
+  advices?: BuyingAdvice[];
+}
+
+const defaultBuyingAdviceData: BuyingAdvice[] = [
   {
     category: "Kaffeevollautomaten",
     slug: "kaffeevollautomaten",
@@ -95,7 +99,7 @@ const buyingAdviceData: BuyingAdvice[] = [
   },
 ];
 
-export default function BuyingAdviceSection() {
+export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData }: BuyingAdviceSectionProps) {
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
@@ -110,7 +114,7 @@ export default function BuyingAdviceSection() {
 
         {/* Advice Cards — tighter, more compact like Coolblue */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {buyingAdviceData.map((advice) => {
+          {advices.map((advice) => {
             const Icon = advice.icon;
             return (
               <div

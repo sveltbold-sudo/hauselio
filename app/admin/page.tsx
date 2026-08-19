@@ -11,6 +11,7 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants";
 import AlgoliaSyncButton from "@/components/admin/AlgoliaSyncButton";
+import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -49,7 +50,7 @@ export default async function AdminDashboard() {
   try {
     data = await fetchDashboardData();
   } catch (dbError) {
-    console.error("Dashboard DB error:", dbError);
+    logger.error("Dashboard DB error:", dbError);
     return (
       <div>
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">

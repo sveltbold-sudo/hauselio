@@ -61,9 +61,15 @@ export default async function AdminProductsPage({
   }
 
   const totalPages = Math.ceil(total / limit);
+  const dbError = products.length === 0 && total === 0;
 
   return (
     <div>
+      {dbError && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm text-red-700">
+          Daten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
+        </div>
+      )}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
           Produkte

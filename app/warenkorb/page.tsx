@@ -5,14 +5,22 @@ import Link from "next/link";
 import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
+import CartCrossSell from "@/components/product/CartCrossSell";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { getEstimatedDeliveryDate } from "@/lib/delivery";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const total = getTotal();
+  const totalSavings = items.reduce((sum, item) => {
+    if (item.originalPrice && item.originalPrice > item.price) {
+      return sum + (item.originalPrice - item.price) * item.quantity;
+    }
+    return sum;
+  }, 0);
   const shippingCost = getShippingCost(total);
   const finalTotal = total + shippingCost;
 
@@ -70,9 +78,21 @@ export default function WarenkorbPage() {
                 >
                   {item.name}
                 </Link>
-                <p className="text-xl font-bold text-[var(--color-text-primary)] mt-1">
-                  {formatPrice(item.price)}
-                </p>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <p className="text-xl font-bold text-[var(--color-text-primary)]">
+                    {formatPrice(item.price)}
+                  </p>
+                  {item.originalPrice && item.originalPrice > item.price && (
+                    <span className="text-xs text-[var(--color-text-muted)] line-through">
+                      {formatPrice(item.originalPrice)}
+                    </span>
+                  )}
+                </div>
+                {item.quantity > 1 && (
+                  <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                    {item.quantity} × {formatPrice(item.price)} = {formatPrice(item.price * item.quantity)}
+                  </p>
+                )}
 
                 <div className="flex items-center justify-between mt-4">
                   {/* Quantity */}
@@ -159,6 +179,12 @@ export default function WarenkorbPage() {
                 </span>
                 <span className="font-semibold">{formatPrice(total)}</span>
               </div>
+              {totalSavings > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-[var(--color-success)]">Ersparnis</span>
+                  <span className="font-semibold text-[var(--color-success)]">-{formatPrice(totalSavings)}</span>
+                </div>
+              )}
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">Versand</span>
                 <span className="font-semibold">
@@ -189,19 +215,23 @@ export default function WarenkorbPage() {
                     {formatPrice(finalTotal)}
                   </span>
                 </div>
+                <p className="text-xs text-[var(--color-text-muted)] mt-1">inkl. 19% MwSt.</p>
               </div>
             </div>
 
-            <Link
-              href="/bestellung"
-              className="inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.97] select-none w-full px-7 py-3.5 text-base gap-2.5 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl"
-            >
-              <CreditCard className="w-5 h-5 mr-2" />
-              Zur Kasse
+            <Link href="/bestellung" className="block">
+              <Button className="w-full px-7 py-3.5 text-base shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl">
+                <CreditCard className="w-5 h-5" />
+                Zur Kasse
+              </Button>
             </Link>
 
             {/* Trust badges */}
             <div className="mt-6 space-y-3">
+              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+                <Truck className="w-4 h-4 text-[var(--color-success)]" />
+                <span>{getEstimatedDeliveryDate().from} - {getEstimatedDeliveryDate().to}</span>
+              </div>
               <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
                 <span>Kostenloser Versand ab 50€</span>
@@ -214,6 +244,7 @@ export default function WarenkorbPage() {
           </div>
         </div>
       </div>
+      <CartCrossSell />
     </div>
   );
 }

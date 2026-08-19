@@ -200,8 +200,12 @@ export default function BestellungPage() {
         throw new Error(data.error || "Fehler bei der Bestellung");
       }
 
-      router.push(`/bestellung/erfolg?order=${data.order.orderNumber}&email=${encodeURIComponent(formData.email)}`);
-      setTimeout(() => clearCart(), 100);
+      sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
+      router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
+      setTimeout(() => {
+        clearCart();
+        sessionStorage.removeItem(`order_${data.order.orderNumber}`);
+      }, 5000);
     } catch (error) {
       setOrderError(error instanceof Error ? error.message : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
     } finally {

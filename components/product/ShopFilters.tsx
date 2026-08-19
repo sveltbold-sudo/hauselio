@@ -36,7 +36,7 @@ export default function ShopFilters({
     updateFilter("sort", sort);
   };
 
-  const hasActiveFilters = selectedCategory || selectedBrand;
+  const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price");
 
   return (
     <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5">
@@ -51,6 +51,7 @@ export default function ShopFilters({
               const params = new URLSearchParams(searchParams.toString());
               params.delete("category");
               params.delete("brand");
+              params.delete("price");
               params.delete("page");
               router.push(`/shop?${params.toString()}`);
             }}
@@ -81,6 +82,21 @@ export default function ShopFilters({
               {selectedBrand}
               <button
                 onClick={() => updateFilter("brand", null)}
+                className="hover:bg-[var(--color-primary)]/10 rounded p-0.5 transition-colors"
+                aria-label="Filter entfernen"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          {searchParams.get("price") && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary)] rounded-lg text-xs font-semibold">
+              {searchParams.get("price") === "0-500" && "Bis 500€"}
+              {searchParams.get("price") === "500-1000" && "500–1.000€"}
+              {searchParams.get("price") === "1000-2000" && "1.000–2.000€"}
+              {searchParams.get("price") === "2000-" && "Über 2.000€"}
+              <button
+                onClick={() => updateFilter("price", null)}
                 className="hover:bg-[var(--color-primary)]/10 rounded p-0.5 transition-colors"
                 aria-label="Filter entfernen"
               >
@@ -152,6 +168,39 @@ export default function ShopFilters({
               }`}
             >
               {brand}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Price range */}
+      <div className="mb-6">
+        <h3 className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+          <Tag className="w-3 h-3" />
+          Preisbereich
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { label: "Bis 500€", value: "0-500" },
+            { label: "500–1.000€", value: "500-1000" },
+            { label: "1.000–2.000€", value: "1000-2000" },
+            { label: "Über 2.000€", value: "2000-" },
+          ].map((range) => (
+            <button
+              key={range.value}
+              onClick={() =>
+                updateFilter(
+                  "price",
+                  searchParams.get("price") === range.value ? null : range.value
+                )
+              }
+              className={`px-3 py-2 rounded-lg text-[11px] font-semibold border transition-all duration-200 ${
+                searchParams.get("price") === range.value
+                  ? "bg-[var(--color-primary-50)] border-[var(--color-primary)]/20 text-[var(--color-primary)]"
+                  : "border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/20"
+              }`}
+            >
+              {range.label}
             </button>
           ))}
         </div>

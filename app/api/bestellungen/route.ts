@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils";
 import { sendOrderConfirmation } from "@/lib/emails";
 import { CreateOrderSchema } from "@/lib/validations";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { getShippingCost } from "@/lib/constants";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
 import { logger } from "@/lib/logger";
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`order:${ip}`, 5, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     const validatedItems = items.map((item) => {
       const product = productMap.get(item.id);
       if (!product) {
-        throw new Error(`Produkt ${item.id} nicht gefunden`);
+        throw new Error("Ein oder mehrere Produkte sind nicht verfügbar");
       }
       if (!product.inStock) {
         throw new Error(`${product.name} ist leider nicht verfügbar`);

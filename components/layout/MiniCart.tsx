@@ -6,6 +6,7 @@ import { ShoppingBag, X, Plus, Minus, ArrowRight } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
+import Button from "@/components/ui/Button";
 import { getShippingCost } from "@/lib/constants";
 
 export default function MiniCart() {
@@ -19,6 +20,15 @@ export default function MiniCart() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setIsOpen(false), []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -56,12 +66,18 @@ export default function MiniCart() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, close]);
 
+  useEffect(() => {
+    const handleItemAdded = () => setIsOpen(true);
+    window.addEventListener("cart:item-added", handleItemAdded);
+    return () => window.removeEventListener("cart:item-added", handleItemAdded);
+  }, []);
+
   return (
     <div className="relative" ref={ref}>
       {/* Cart button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+        className="relative w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200"
         aria-label="Warenkorb"
         aria-expanded={isOpen}
       >
@@ -70,7 +86,8 @@ export default function MiniCart() {
           <span
             aria-live="polite"
             aria-label={`${itemCount} Artikel im Warenkorb`}
-            className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 animate-pulse-badge"
+            key={itemCount}
+            className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 animate-bounce-in"
           >
             {itemCount}
           </span>
@@ -79,7 +96,7 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" style={{ transformOrigin: "top right" }} role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
             <h3 className="font-bold text-[var(--color-text-primary)]">
@@ -183,9 +200,11 @@ export default function MiniCart() {
                 <Link
                   href="/bestellung"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full py-3 bg-[var(--color-secondary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary)] transition-all duration-300 active:scale-[0.97] text-center focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2"
+                  className="block w-full"
                 >
-                  Zur Kasse
+                  <Button variant="secondary" size="lg" className="w-full">
+                    Zur Kasse
+                  </Button>
                 </Link>
                 <Link
                   href="/shop"

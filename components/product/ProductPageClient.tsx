@@ -3,17 +3,36 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus, Heart, RotateCcw, Zap } from "lucide-react";
+import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus, RotateCcw, Zap } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
+import WishlistButton from "@/components/product/WishlistButton";
+import SimilarProductsSection from "@/components/product/SimilarProductsSection";
+import CompareButton from "@/components/product/CompareButton";
 import { formatPrice, calcDiscount } from "@/lib/utils";
+import { getEstimatedDeliveryDate } from "@/lib/delivery";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
+
+import FrequentlyBoughtTogether from "@/components/product/FrequentlyBoughtTogether";
+import RecentlyViewedSection, { trackRecentlyViewed } from "@/components/product/RecentlyViewedSection";
+import ImageLightbox from "@/components/ui/ImageLightbox";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import StarRating from "@/components/ui/StarRating";
 
 interface ProductSpec {
   key: string;
   value: string;
+}
+
+interface RelatedProduct {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  image: string;
+  brand: string | null;
 }
 
 interface Product {
@@ -34,12 +53,12 @@ interface Product {
   images: string[];
 }
 
-export default function ProductPageClient({ product }: { product: Product }) {
+export default function ProductPageClient({ product, relatedProducts = [] }: { product: Product; relatedProducts?: RelatedProduct[] }) {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "shipping">("description");
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [added, setAdded] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -49,6 +68,23 @@ export default function ProductPageClient({ product }: { product: Product }) {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
+
+  // Track this product as recently viewed
+  useEffect(() => {
+    trackRecentlyViewed({
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.images[0] || "/images/placeholder-product.svg",
+      rating: product.rating,
+      reviewCount: product.reviewCount,
+      isNew: product.isNew,
+      isPromo: product.originalPrice !== null,
+      brand: product.brand,
+    });
+  }, [product]);
 
   const discount = calcDiscount(product.price, product.originalPrice);
 
@@ -63,6 +99,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
     toast.success(`${quantity > 1 ? quantity + " Artikel" : "Artikel"} zum Warenkorb hinzugefügt!`);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
+    window.dispatchEvent(new CustomEvent("cart:item-added"));
     timeoutRef.current = setTimeout(() => setAdded(false), 2000);
   };
 
@@ -87,51 +124,55 @@ export default function ProductPageClient({ product }: { product: Product }) {
   return (
     <div className="container-hauselio py-6 lg:py-10">
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[var(--color-text-muted)] mb-6 lg:mb-8 overflow-x-auto scrollbar-hide">
-        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap">
-          Startseite
-        </Link>
-        <span className="text-[var(--color-border)]">/</span>
-        <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap">
-          Shop
-        </Link>
-        <span className="text-[var(--color-border)]">/</span>
-        <Link
-          href={`/kategorie/${product.categorySlug}`}
-          className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap"
-        >
-          {product.categoryName}
-        </Link>
-        <span className="text-[var(--color-border)]">/</span>
-        <span className="text-[var(--color-text-primary)] font-medium truncate">{product.name}</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: "Shop", href: "/shop" },
+          { label: product.categoryName, href: `/kategorie/${product.categorySlug}` },
+          { label: product.name },
+        ]}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
         {/* Images */}
         <div className="animate-fade-in-up">
           {/* Main image */}
-          <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group">
-            <ProductImage
-              src={product.images[activeImageIndex] || product.images[0]}
-              alt={product.name}
-              brand={product.brand}
-              size="lg"
-              priority
-            />
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
+          >
+            <div className="w-full h-full">
+              <ProductImage
+                src={product.images[activeImageIndex] || product.images[0]}
+                alt={product.name}
+                brand={product.brand}
+                size="lg"
+                priority
+              />
+            </div>
             {/* Floating badges */}
             <div className="absolute top-4 left-4 flex flex-col gap-2">
               {product.isNew && <Badge variant="primary">Neu</Badge>}
               {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
             </div>
             {/* Wishlist button */}
-            <button
-              onClick={() => setIsWishlisted(!isWishlisted)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 opacity-0 group-hover:opacity-100"
-              aria-label={isWishlisted ? "Aus Wunschliste entfernen" : "Zur Wunschliste hinzufügen"}
-            >
-              <Heart className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : "text-[var(--color-text-muted)]"}`} />
-            </button>
-          </div>
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <WishlistButton
+                item={{
+                  id: product.id,
+                  name: product.name,
+                  slug: product.slug,
+                  price: product.price,
+                  originalPrice: product.originalPrice ?? undefined,
+                  image: product.images[0] || "/images/placeholder-product.svg",
+                  brand: product.brand ?? "",
+                  rating: product.rating,
+                  reviewCount: product.reviewCount,
+                }}
+                size="md"
+              />
+            </div>
+          </button>
 
           {/* Thumbnails */}
           {product.images.length > 1 && (
@@ -179,19 +220,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-5">
-            <div className="flex items-center" role="img" aria-label={`${product.rating} von 5 Sternen`}>
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  aria-hidden="true"
-                  className={`w-4 h-4 ${
-                    i < Math.floor(product.rating)
-                      ? "text-amber-400 fill-amber-400"
-                      : "text-gray-200"
-                  }`}
-                />
-              ))}
-            </div>
+            <StarRating rating={product.rating} size="md" />
             <span className="text-sm text-[var(--color-text-secondary)]">
               {product.rating}
             </span>
@@ -218,31 +247,25 @@ export default function ProductPageClient({ product }: { product: Product }) {
             )}
           </div>
 
-          {/* Stock — like Coolblue */}
-          <div className="flex items-center gap-2 mb-4">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                product.inStock ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"
-              }`}
-            />
-            <span
-              className={`text-sm font-semibold ${
-                product.inStock ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"
-              }`}
-            >
-              {product.inStock ? "Auf Lager — sofort lieferbar" : "Nicht verfügbar"}
-            </span>
-          </div>
-
           {/* Delivery estimate — like AO */}
-          {product.inStock && (
-            <p className="text-xs text-[var(--color-text-muted)] mb-4">
-              Lieferung in 2-5 Werktagen · Kostenloser Versand ab 50€
-            </p>
-          )}
+          {(() => {
+            const delivery = getEstimatedDeliveryDate();
+            return (
+              <div className="flex items-center gap-3 p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
+                <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                    Lieferung: {delivery.from} – {delivery.to}
+                  </p>
+                  <p className="text-xs text-[var(--color-success)]">
+                    Kostenloser Versand ab 50€
+                  </p>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Quantity & Add to cart */}
-          {product.inStock && (
             <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]">
                 <button
@@ -281,22 +304,21 @@ export default function ProductPageClient({ product }: { product: Product }) {
                 )}
               </Button>
             </div>
-          )}
 
-          {/* Trust badges — horizontal like AO/Coolblue, right next to CTA */}
-          <div className="flex items-center gap-4 mb-5 text-xs text-[var(--color-text-muted)]">
-            <span className="flex items-center gap-1.5">
-              <Truck className="w-4 h-4 text-[var(--color-success)]" />
-              Kostenloser Versand
-            </span>
-            <span className="flex items-center gap-1.5">
-              <RotateCcw className="w-4 h-4 text-[var(--color-success)]" />
-              30 Tage Rückgabe
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Shield className="w-4 h-4 text-[var(--color-success)]" />
-              Garantie bis 5 J.
-            </span>
+          {/* Trust badges — like AO */}
+          <div className="grid grid-cols-3 gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-xl mb-5">
+            <div className="flex flex-col items-center gap-1.5 text-center">
+              <Truck className="w-5 h-5 text-[var(--color-success)]" />
+              <span className="text-xs font-semibold text-[var(--color-text-primary)]">Kostenloser Versand</span>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 text-center">
+              <RotateCcw className="w-5 h-5 text-[var(--color-success)]" />
+              <span className="text-xs font-semibold text-[var(--color-text-primary)]">30 Tage Rückgabe</span>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 text-center">
+              <Shield className="w-5 h-5 text-[var(--color-success)]" />
+              <span className="text-xs font-semibold text-[var(--color-text-primary)]">Garantie bis 5 J.</span>
+            </div>
           </div>
 
           {/* Actions */}
@@ -308,13 +330,21 @@ export default function ProductPageClient({ product }: { product: Product }) {
               <Share2 className="w-4 h-4" />
               Teilen
             </button>
-            <button
-              onClick={() => setIsWishlisted(!isWishlisted)}
-              className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
-            >
-              <Heart className={`w-4 h-4 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
-              {isWishlisted ? "Gemerkt" : "Merken"}
-            </button>
+            <WishlistButton
+              item={{
+                id: product.id,
+                name: product.name,
+                slug: product.slug,
+                price: product.price,
+                originalPrice: product.originalPrice ?? undefined,
+                image: product.images[0] || "/images/placeholder-product.svg",
+                brand: product.brand ?? "",
+                rating: product.rating,
+                reviewCount: product.reviewCount,
+              }}
+              size="sm"
+              className="opacity-100"
+            />
           </div>
 
           {/* Payment info */}
@@ -327,6 +357,24 @@ export default function ProductPageClient({ product }: { product: Product }) {
               <Check className="w-3.5 h-3.5 text-[var(--color-success)]" />
               <span>Artikel geprüft und versandfertig</span>
             </div>
+          </div>
+
+          {/* Compare button */}
+          <div className="mt-3">
+            <CompareButton
+              product={{
+                id: product.id,
+                name: product.name,
+                slug: product.slug,
+                price: product.price,
+                originalPrice: product.originalPrice ?? undefined,
+                image: product.images[0] || "/images/placeholder-product.svg",
+                brand: product.brand ?? "",
+                rating: product.rating,
+                reviewCount: product.reviewCount,
+                specs: product.specs,
+              }}
+            />
           </div>
         </div>
       </div>
@@ -452,28 +500,47 @@ export default function ProductPageClient({ product }: { product: Product }) {
         </div>
       </div>
 
+      {/* Frequently Bought Together */}
+      <FrequentlyBoughtTogether
+        currentProduct={{ id: product.id, name: product.name, slug: product.slug, price: product.price, image: product.images[0] || "/images/placeholder-product.svg" }}
+        products={relatedProducts}
+      />
+
+      {/* Recently Viewed */}
+      <RecentlyViewedSection currentProductId={product.id} />
+
+      {/* Similar Products */}
+      <SimilarProductsSection currentProductId={product.id} categorySlug={product.categorySlug} />
+
       {/* Sticky mobile add-to-cart bar */}
-      {product.inStock && (
-        <div className="sticky-bottom-bar lg:hidden">
-          <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
-            <div className="flex-1 min-w-0">
-              <p className="text-[10px] text-[var(--color-text-muted)] truncate">{product.name}</p>
-              <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
-            </div>
-            <Button
-              onClick={handleAddToCart}
-              className={`transition-all duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
-              size="sm"
-            >
-              {added ? (
-                <Check className="w-4 h-4" />
-              ) : (
-                <ShoppingBag className="w-4 h-4" />
-              )}
-            </Button>
+      <div className="sticky-bottom-bar lg:hidden">
+        <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] text-[var(--color-text-muted)] truncate">{product.name}</p>
+            <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
           </div>
+          <Button
+            onClick={handleAddToCart}
+            className={`transition-all duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
+            size="sm"
+          >
+            {added ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <ShoppingBag className="w-4 h-4" />
+            )}
+          </Button>
         </div>
-      )}
+      </div>
+
+      <ImageLightbox
+        images={product.images}
+        initialIndex={activeImageIndex}
+        productName={product.name}
+        brand={product.brand ?? undefined}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </div>
   );
 }

@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     const admin = await withRetry(() => authenticateAdmin(email, password));
 
     if (!admin) {
-      await recordFailedLogin(email).catch(() => {});
+      await recordFailedLogin(email).catch((e) => logger.error("record-failed-login", e));
       return NextResponse.json(
         { error: "Ungültige Anmeldedaten" },
         { status: 401 }

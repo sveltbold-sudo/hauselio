@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; sort?: string; brand?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -73,6 +73,8 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   const { slug } = await params;
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
+  const sort = sp.sort || "newest";
+  const brand = sp.brand || undefined;
 
   const category = await getCategory(slug);
 
@@ -89,11 +91,25 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           { name: category.name, url: `/kategorie/${slug}` },
         ]}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: category.name,
+            description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
+            url: `${SITE_URL}/kategorie/${slug}`,
+          }),
+        }}
+      />
       <CategoryPage
         slug={slug}
         title={category.name}
         description={category.description || ""}
         page={page}
+        sort={sort}
+        brand={brand}
       />
     </>
   );

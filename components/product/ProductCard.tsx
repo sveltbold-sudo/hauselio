@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { Star, Heart } from "lucide-react";
+import { Star, Truck } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
+import WishlistButton from "@/components/product/WishlistButton";
 import { formatPrice, calcDiscount } from "@/lib/utils";
+import { getEstimatedDeliveryDate } from "@/lib/delivery";
 
 interface ProductCardProps {
   product: {
@@ -25,6 +27,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
   const fullStars = Math.floor(product.rating);
+  const delivery = getEstimatedDeliveryDate();
 
   return (
     <Link
@@ -52,22 +55,25 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Wishlist button — top right, shows on hover */}
-        <button
-          className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-white transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100"
-          aria-label="Zur Wunschliste hinzufügen"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-        >
-          <Heart className="w-4 h-4" />
-        </button>
+        <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <WishlistButton
+            item={{
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              price: product.price,
+              originalPrice: product.originalPrice ?? undefined,
+              image: product.image,
+              brand: product.brand ?? "",
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+            }}
+          />
+        </div>
 
         {/* Add-to-cart — bottom overlay like AO/Coolblue */}
         <div
           className="absolute bottom-3 left-3 right-3 z-10 transition-all duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
-          aria-hidden="true"
-          tabIndex={-1}
         >
           <AddToCartButton
             product={{
@@ -126,11 +132,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Stock — subtle like Coolblue */}
+        {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
-          <span className={`w-1.5 h-1.5 rounded-full ${product.inStock !== false ? "bg-[var(--color-success)]" : "bg-[var(--color-danger)]"}`} />
-          <span className={`text-[10px] font-medium ${product.inStock !== false ? "text-[var(--color-success)]" : "text-[var(--color-danger)]"}`}>
-            {product.inStock !== false ? "Lieferbar" : "Nicht verfügbar"}
+          <Truck className="w-3 h-3 text-[var(--color-text-muted)]" />
+          <span className="text-[10px] text-[var(--color-text-muted)]">
+            {delivery.from} - {delivery.to}
           </span>
         </div>
       </div>

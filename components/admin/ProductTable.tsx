@@ -121,6 +121,7 @@ export default function ProductTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("name"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -133,6 +134,7 @@ export default function ProductTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("category"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -145,6 +147,7 @@ export default function ProductTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("brand"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "brand" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -157,6 +160,7 @@ export default function ProductTable({
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("price"); } }}
                   tabIndex={0}
                   role="columnheader"
+                  aria-sort={sortKey === "price" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
                   <span className="inline-flex items-center">
@@ -247,14 +251,14 @@ export default function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
-                        title="Ansehen"
+                        aria-label="Ansehen"
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
                         className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
-                        title="Bearbeiten"
+                        aria-label="Bearbeiten"
                       >
                         <Pencil className="w-4 h-4" />
                       </Link>
@@ -338,14 +342,14 @@ export default function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
-                        title="Ansehen"
+                        aria-label="Ansehen"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
                         className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
-                        title="Bearbeiten"
+                        aria-label="Bearbeiten"
                       >
                         <Pencil className="w-3.5 h-3.5" />
                       </Link>

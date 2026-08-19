@@ -1,35 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { handleApiError } from "@/lib/api-helpers";
 
 export async function GET(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`bank:${ip}`, 10, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen" },
         { status: 429 }
       );
-    }
-
-    const origin = request.headers.get("origin") || request.headers.get("referer");
-    const host = request.headers.get("host");
-    if (origin && host) {
-      try {
-        const originHost = new URL(origin).host;
-        if (originHost !== host) {
-          return NextResponse.json(
-            { error: "Ungültige Herkunft" },
-            { status: 403 }
-          );
-        }
-      } catch {
-        return NextResponse.json(
-          { error: "Ungültige Herkunft" },
-          { status: 403 }
-        );
-      }
     }
 
     const settings = await prisma.siteSettings.findFirst();

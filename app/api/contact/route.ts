@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContactSchema } from "@/lib/validations";
 import { sendContactForward, sendContactAutoReply } from "@/lib/emails";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
 
 export async function POST(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`contact:${ip}`, 3, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },

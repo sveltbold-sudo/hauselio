@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function AGBPage() {
   return (
     <div className="container-hauselio py-16 max-w-3xl">
+      <Breadcrumb items={[{ label: "AGB" }]} />
       <h1 className="heading-1 mb-8">Allgemeine Geschäftsbedingungen</h1>
 
       <div className="prose-hauselio space-y-8">

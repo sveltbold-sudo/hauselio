@@ -33,13 +33,17 @@ export default function KundenPage() {
   const [data, setData] = useState<PaginatedResponse | null>(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
     fetch("/api/admin/kunden")
       .then((r) => r.json())
       .then((d: PaginatedResponse) => startTransition(() => setData(d)))
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .catch((err) => {
+        logger.error("Failed to load data", { error: err });
+        setError(true);
+      })
       .finally(() => setLoading(false));
   }, [startTransition]);
 
@@ -61,6 +65,11 @@ export default function KundenPage() {
 
   return (
     <div className="p-8">
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm text-red-700">
+          Kunden konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
+        </div>
+      )}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Kunden</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">

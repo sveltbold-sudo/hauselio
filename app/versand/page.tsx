@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Truck, Package } from "lucide-react";
+import { Truck, Package, Landmark } from "lucide-react";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
@@ -29,6 +30,7 @@ const shippingMethods = [
 export default function VersandPage() {
   return (
     <div className="container-hauselio py-16 max-w-3xl">
+      <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>
@@ -102,7 +104,7 @@ export default function VersandPage() {
         <div className="bg-[var(--color-bg)] rounded-xl p-6">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-              <span className="text-lg">🏦</span>
+              <Landmark className="w-5 h-5 text-[var(--color-primary)]" />
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">

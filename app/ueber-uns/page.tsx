@@ -1,6 +1,7 @@
 import { Truck, Shield, Headphones, Award, Heart, Zap } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
@@ -46,6 +47,7 @@ const values = [
 export default function UeberUnsPage() {
   return (
     <div className="container-hauselio py-8">
+      <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-16 text-center max-w-3xl mx-auto">
         <p className="caption text-[var(--color-primary)] mb-3">Über HAUSELIO</p>
