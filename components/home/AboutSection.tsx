@@ -51,15 +51,15 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Right: Office illustration */}
+          {/* Right: Office photo */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/illustrations/about-office.svg"
-                alt="HAUSELIO Büro"
+                src="/images/about-team.jpg"
+                alt="HAUSELIO Team"
                 width={500}
-                height={375}
-                className="w-full h-auto"
+                height={313}
+                className="w-full h-auto object-cover"
               />
             </div>
             {/* Floating stat card */}

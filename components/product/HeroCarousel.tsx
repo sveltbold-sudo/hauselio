@@ -17,6 +17,7 @@ interface Slide {
   tagline: string;
   subtitle: string;
   image: string;
+  bgImage?: string;
   cta?: string;
 }
 
@@ -35,6 +36,7 @@ const defaultSlides: Slide[] = [
     tagline: "Das ultimative Küchengerät",
     subtitle: "Über 80 Kochfunktionen in einem Gerät. Perfekt für anspruchsvolle Hobbyköche und Profis.",
     image: "/images/products/thermomix-tm7.jpg",
+    bgImage: "/images/hero-kitchen.jpg",
     cta: "Jetzt bestellen",
   },
   {
@@ -47,6 +49,7 @@ const defaultSlides: Slide[] = [
     tagline: "Der Küchenklassiker",
     subtitle: "Premium-Standmixer mit Metallgetriebe und 5L-Schüssel. Über 100 Jahre Küchentradition.",
     image: "/images/products/kitchenaid-artisan-5ksm175pse.jpg",
+    bgImage: "/images/hero-kitchen.jpg",
     cta: "Jetzt entdecken",
   },
   {
@@ -59,6 +62,7 @@ const defaultSlides: Slide[] = [
     tagline: "Premium Kaffeevollautomat",
     subtitle: "P.E.P. Technologie für perfekten Espresso und Milchschaum-System für Cappuccino.",
     image: "/images/products/jura-e8-platinum.jpg",
+    bgImage: "/images/hero-coffee.jpg",
     cta: "Jetzt ansehen",
   },
 ];
@@ -125,6 +129,19 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Background lifestyle image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={slide.bgImage || "/images/hero-kitchen.jpg"}
+          alt=""
+          fill
+          className="object-cover transition-opacity duration-700"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/40" />
+      </div>
+
       {/* Content */}
       <div className="relative z-10" aria-live="polite">
         <div className="container-hauselio py-8 md:py-14 lg:py-16">
