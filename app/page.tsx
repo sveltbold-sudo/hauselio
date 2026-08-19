@@ -325,7 +325,7 @@ async function FeaturedProductsSection() {
 }
 
 export default async function HomePage() {
-  let dailyDeal = null;
+  let dailyDeal: Awaited<ReturnType<typeof getDailyDeal>> = null;
   let bestsellers: Awaited<ReturnType<typeof getBestsellers>> = [];
   let recommended: Awaited<ReturnType<typeof getRecommended>> = [];
   let heroSlides: Awaited<ReturnType<typeof getHeroSlides>> = [];
@@ -337,6 +337,13 @@ export default async function HomePage() {
       getRecommended(),
       getHeroSlides(),
     ]);
+
+    // Exclude daily deal from bestsellers to avoid duplication
+    if (dailyDeal) {
+      const dealSlug = dailyDeal.slug;
+      bestsellers = bestsellers.filter((b) => b.slug !== dealSlug);
+      heroSlides = heroSlides.filter((h) => h.slug !== dealSlug);
+    }
   } catch {
     // Continue without these sections
   }

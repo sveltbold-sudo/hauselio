@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
-import NewsletterForm from "@/components/layout/NewsletterForm";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 
 const service = [
@@ -57,7 +56,7 @@ export default function Footer() {
       {/* Main footer content */}
       <div className="container-hauselio py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
-          {/* Brand + Newsletter */}
+          {/* Brand */}
           <div className="lg:col-span-4">
             <Link href="/" className="inline-block mb-4">
               <Image
@@ -72,16 +71,6 @@ export default function Footer() {
               Moderne Haushaltsgeräte für ein komfortables Zuhause.
               Qualität, Innovation und Service — direkt aus Deutschland.
             </p>
-
-            <div>
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2.5">
-                Newsletter
-              </h2>
-              <p className="text-xs text-white/60 mb-3">
-                Exklusive Angebote und Neuigkeiten.
-              </p>
-              <NewsletterForm />
-            </div>
           </div>
 
           {/* Kategorien */}

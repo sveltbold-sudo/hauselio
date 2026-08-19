@@ -1,4 +1,4 @@
-import { Truck, Shield, Headphones } from "lucide-react";
+import { Truck, Shield, Headphones, Phone } from "lucide-react";
 import Link from "next/link";
 import HeaderClient from "@/components/layout/HeaderClient";
 
@@ -22,6 +22,10 @@ export default function Header() {
             </span>
           </div>
           <div className="flex items-center gap-4">
+            <a href="tel:+493055578901" className="flex items-center gap-1.5 hover:text-white transition-colors duration-200">
+              <Phone className="w-3 h-3" />
+              +49 (0)30 555 789 01
+            </a>
             <Link href="/kontakt" className="hover:text-white transition-colors duration-200">
               Kontakt
             </Link>

@@ -690,8 +690,8 @@ async function main() {
     {
       name: "Anna K.",
       location: "München",
-      rating: 5,
-      content: "Die Miele Waschmaschine wurde problemlos geliefert. Das Gerät läuft super und der Preis war am günstigsten. Vielen Dank!",
+      rating: 4,
+      content: "Die Miele Waschmaschine wurde problemlos geliefert. Das Gerät läuft super. Einziger Kritikpunkt: Lieferung dauerte 3 statt 2 Tage.",
       product: "Miele W1 Waschmaschine",
       avatar: null,
       isApproved: true,
@@ -710,8 +710,8 @@ async function main() {
     {
       name: "Julia H.",
       location: "Köln",
-      rating: 5,
-      content: "Die KitchenAid Artisan kommt genau wie beschrieben. Der Versand war schnell und das Gerät ist wunderschön. Gerne wieder!",
+      rating: 4,
+      content: "Die KitchenAid Artisan kommt genau wie beschrieben. Preis war ok, Versand schnell. Gerne wieder!",
       product: "KitchenAid Artisan",
       avatar: null,
       isApproved: true,
