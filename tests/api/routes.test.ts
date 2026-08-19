@@ -9,6 +9,7 @@ vi.mock("next/headers", () => ({
 }));
 
 vi.mock("@/lib/rate-limit", () => ({
+  getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
   checkRateLimit: vi.fn().mockResolvedValue(true),
   getRemainingAttempts: vi.fn().mockResolvedValue({ remaining: 5, retryAfterMs: 0 }),
 }));
