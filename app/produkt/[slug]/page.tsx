@@ -156,7 +156,7 @@ export default async function ProductPage({ params }: PageProps) {
         sku={product.sku || product.slug}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
-        availability={product.inStock ? "InStock" : "OutOfStock"}
+        availability="InStock"
       />
       <div>
         <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />

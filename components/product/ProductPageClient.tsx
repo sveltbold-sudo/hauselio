@@ -288,7 +288,6 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               </div>
               <Button
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
                 className={`flex-1 transition-all duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
                 size="lg"
               >
@@ -300,7 +299,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
                 ) : (
                   <>
                     <ShoppingBag className="w-5 h-5 mr-2" />
-                    {product.inStock ? "In den Warenkorb" : "Ausverkauft"}
+                    In den Warenkorb
                   </>
                 )}
               </Button>
