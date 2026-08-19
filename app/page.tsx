@@ -20,6 +20,7 @@ const EditorialContentSection = dynamicImport(() => import("@/components/product
 const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/BrandsShowcaseSection"));
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"));
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
+import TestimonialsSection from "@/components/product/TestimonialsSection";
 import AboutSection from "@/components/home/AboutSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
@@ -399,6 +400,7 @@ export default async function HomePage() {
       <BuyingAdviceSection />
       <PressReviewsSection />
       <EditorialContentSection />
+      <TestimonialsSection />
       <RecentlyViewedSection />
       <BrandsShowcaseSection />
       <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-gray-100 rounded-2xl" /></div></div>}>

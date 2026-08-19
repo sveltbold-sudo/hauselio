@@ -196,6 +196,28 @@ model Review {
 }
 
 // ═══════════════════════════════════════════
+// TESTIMONIALS
+// ═══════════════════════════════════════════
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  location    String?
+  rating      Int
+  content     String
+  product     String?
+  avatar      String?
+  isApproved  Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isApproved])
+  @@index([isFeatured])
+  @@index([isApproved, isFeatured])
+}
+
+// ═══════════════════════════════════════════
 // NEWSLETTER
 // ═══════════════════════════════════════════
 

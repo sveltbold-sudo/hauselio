@@ -676,12 +676,139 @@ async function main() {
   }
   await prisma.review.createMany({ data: reviewData });
 
+  const testimonials = [
+    {
+      name: "Stefan M.",
+      location: "Berlin",
+      rating: 5,
+      content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSELIO nur empfehlen!",
+      product: "Jura E8 Platinum",
+      avatar: null,
+      isApproved: true,
+      isFeatured: true,
+    },
+    {
+      name: "Anna K.",
+      location: "München",
+      rating: 5,
+      content: "Die Miele Waschmaschine wurde problemlos geliefert. Das Gerät läuft super und der Preis war am günstigsten. Vielen Dank!",
+      product: "Miele W1 Waschmaschine",
+      avatar: null,
+      isApproved: true,
+      isFeatured: true,
+    },
+    {
+      name: "Thomas B.",
+      location: "Hamburg",
+      rating: 5,
+      content: "Sehr kompetenter Kundendienst. Hatte eine Frage zur Installation und wurde sofort freundlich beraten. Top Service!",
+      product: null,
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Julia H.",
+      location: "Köln",
+      rating: 5,
+      content: "Die KitchenAid Artisan kommt genau wie beschrieben. Der Versand war schnell und das Gerät ist wunderschön. Gerne wieder!",
+      product: "KitchenAid Artisan",
+      avatar: null,
+      isApproved: true,
+      isFeatured: true,
+    },
+    {
+      name: "Michael S.",
+      location: "Frankfurt",
+      rating: 5,
+      content: "Der Dyson V15 Detect ist fantastisch. Das orange Licht zeigt jeden Staub. HAUSELIO hatte den besten Preis!",
+      product: "Dyson V15 Detect",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Laura W.",
+      location: "Düsseldorf",
+      rating: 4,
+      content: "Gute Auswahl an Premium-Marken. Lieferung dauerte 3 Tage statt 2, aber das Gerät ist einwandfrei.",
+      product: "Samsung Bespoke Kühlschrank",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Peter R.",
+      location: "Stuttgart",
+      rating: 5,
+      content: "Der Miele Staubsauger ist leistungsstark und leise. Preis war 150€ günstiger als bei der Konkurrenz. Top!",
+      product: "Miele Triflex HX2",
+      avatar: null,
+      isApproved: true,
+      isFeatured: true,
+    },
+    {
+      name: "Sandra L.",
+      location: "Leipzig",
+      rating: 5,
+      content: "Tolle Beratung beim Kauf der Miele Spülmaschine. Alles super gelaufen, gerne wieder!",
+      product: "Miele G 7310 SCU",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Klaus D.",
+      location: "Dresden",
+      rating: 5,
+      content: "Die Siemens Kaffeemaschine ist einfach klasse. Der online-Shop ist übersichtlich und die Bezahlung per SEPA funktioniert super.",
+      product: "Siemens EQ.9 plus s500",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Monika F.",
+      location: "Hannover",
+      rating: 5,
+      content: "Schnelle Lieferung und gutes Preis-Leistungs-Verhältnis. Die Bosch Spülmaschine läuft einwandfrei. Danke!",
+      product: "Bosch SMS4HVW00E",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Alexander P.",
+      location: "Bremen",
+      rating: 4,
+      content: "Guter Service, aber die Lieferung könnte etwas schneller sein. Das LG Waschtrockner-Set ist Top!",
+      product: "LG WashTower",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+    {
+      name: "Christine W.",
+      location: "Münster",
+      rating: 5,
+      content: "Bin sehr zufrieden mit dem Vorwerk Kobold. HAUSELIO bietet wirklich faire Preise. Vielen Dank!",
+      product: "Vorwerk Kobold VK200",
+      avatar: null,
+      isApproved: true,
+      isFeatured: false,
+    },
+  ];
+
+  await prisma.testimonial.createMany({ data: testimonials });
+
   console.log(`✅ ${products.length} products created with reviews`);
+  console.log(`✅ ${testimonials.length} testimonials created`);
 
   console.log("🎉 Seeding complete!");
   console.log(`   Categories: ${categories.length}`);
   console.log(`   Brands: ${brands.length}`);
   console.log(`   Products: ${products.length}`);
+  console.log(`   Testimonials: ${testimonials.length}`);
   console.log(`   Admin: admin@hauselio.de / admin123`);
 }
 
