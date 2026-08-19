@@ -14,6 +14,7 @@ export default function WishlistPage() {
   const addItem = useCartStore((state) => state.addItem);
   const [mounted, setMounted] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid Zustand SSR/client mismatch
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {

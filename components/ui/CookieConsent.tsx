@@ -38,6 +38,16 @@ export default function CookieConsent() {
     };
   }, [visible]);
 
+  const handleAccept = () => {
+    setCookieConsent(true);
+    setVisible(false);
+  };
+
+  const handleReject = () => {
+    setCookieConsent(false);
+    setVisible(false);
+  };
+
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
       handleReject();
@@ -57,17 +67,7 @@ export default function CookieConsent() {
         first.focus();
       }
     }
-  }, []);
-
-  const handleAccept = () => {
-    setCookieConsent(true);
-    setVisible(false);
-  };
-
-  const handleReject = () => {
-    setCookieConsent(false);
-    setVisible(false);
-  };
+  }, [handleReject]);
 
   if (!visible) return null;
 

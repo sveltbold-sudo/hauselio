@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X, BarChart3, Plus, ArrowRight } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 
 interface ComparisonProduct {
@@ -23,6 +22,7 @@ export default function ComparisonBar() {
   const [products, setProducts] = useState<ComparisonProduct[]>([]);
   const [mounted, setMounted] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("hauselio-comparison");

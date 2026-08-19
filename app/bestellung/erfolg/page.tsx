@@ -27,27 +27,28 @@ interface Order {
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order");
-  const [orderEmail, setOrderEmail] = useState<string | null>(null);
+  const [orderEmail, setOrderEmail] = useState<string | null>(() => {
+    if (orderId && typeof window !== "undefined") {
+      const stored = sessionStorage.getItem(`order_${orderId}`);
+      if (stored) {
+        sessionStorage.removeItem(`order_${orderId}`);
+        return stored;
+      }
+    }
+    return null;
+  });
   const [order, setOrder] = useState<Order | null>(null);
   const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [orderLoading, setOrderLoading] = useState(true);
   const [orderError, setOrderError] = useState("");
   const [emailInput, setEmailInput] = useState("");
-  const [showEmailForm, setShowEmailForm] = useState(false);
-
-  useEffect(() => {
-    if (orderId) {
-      const storedEmail = sessionStorage.getItem(`order_${orderId}`);
-      if (storedEmail) {
-        setOrderEmail(storedEmail);
-        sessionStorage.removeItem(`order_${orderId}`);
-      } else {
-        setShowEmailForm(true);
-        setOrderLoading(false);
-      }
+  const [showEmailForm, setShowEmailForm] = useState(() => {
+    if (orderId && typeof window !== "undefined") {
+      return sessionStorage.getItem(`order_${orderId}`) === null;
     }
-  }, [orderId]);
+    return false;
+  });
 
   useEffect(() => {
     if (orderId && orderEmail) {

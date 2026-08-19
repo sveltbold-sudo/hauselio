@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Check, ShoppingBag } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";

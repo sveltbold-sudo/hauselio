@@ -1,13 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Award, Users, Clock, Shield } from "lucide-react";
-
-const stats = [
-  { icon: Users, value: "50.000+", label: "Zufriedene Kunden" },
-  { icon: Award, value: "200+", label: "Premium Produkte" },
-  { icon: Clock, value: "24h", label: "Schnelle Bearbeitung" },
-  { icon: Shield, value: "5 J.", label: "Garantie Optional" },
-];
+import { ArrowRight, Award } from "lucide-react";
 
 export default function AboutSection() {
   return (

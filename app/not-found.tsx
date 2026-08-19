@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Home, Search, SearchX, ShoppingBag, Star, Truck, ArrowRight, Shield } from "lucide-react";
+import { Home, Search, ShoppingBag, Star, Truck, ArrowRight, Shield } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";

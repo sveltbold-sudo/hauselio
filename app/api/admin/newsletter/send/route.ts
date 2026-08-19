@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { sendNewsletterCampaign } from "@/lib/emails";
@@ -11,13 +11,13 @@ const CampaignSchema = z.object({
   content: z.string().min(1, "Inhalt ist erforderlich"),
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const ctError = validateContentType(request as any, "application/json");
+    const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
     await requireRole("ADMIN");
-    const ip = (request as any).headers?.get?.("x-forwarded-for") || "unknown";
+    const ip = request.headers?.get?.("x-forwarded-for") || "unknown";
     if (!await checkRateLimit(`admin-newsletter-send:${ip}`, 3, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }

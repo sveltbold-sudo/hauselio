@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SlidersHorizontal, ArrowUp, Grid3X3, List } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 interface MobileShopBarProps {
   totalProducts: number;
