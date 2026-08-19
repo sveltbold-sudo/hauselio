@@ -33,8 +33,6 @@ const paymentMethods = [
   { name: "PayPal", icon: "/images/payments/paypal.svg", available: false },
   { name: "Klarna", icon: "/images/payments/klarna.svg", available: false },
   { name: "Apple Pay", icon: "/images/payments/apple-pay.svg", available: false },
-  { name: "Visa", icon: "/images/payments/visa.svg", available: true },
-  { name: "Mastercard", icon: "/images/payments/mastercard.svg", available: true },
 ];
 
 export default function Footer() {
