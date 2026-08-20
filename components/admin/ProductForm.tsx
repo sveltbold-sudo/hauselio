@@ -95,9 +95,9 @@ export default function ProductForm({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- sync form state with prop changes
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync form state with prop changes
       setFormData((prev) => ({ ...prev, ...initialData }));
     }
   }, [initialData]);

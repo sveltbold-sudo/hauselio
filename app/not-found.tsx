@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Home, Search, ShoppingBag, Star, Truck, ArrowRight, Shield } from "lucide-react";
+import { Home, Search, ShoppingBag, Star, Truck, Shield } from "lucide-react";
 
 export default async function NotFound() {
   return (

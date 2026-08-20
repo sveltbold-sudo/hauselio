@@ -16,8 +16,8 @@ interface ImageLightboxProps {
 export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with prop changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with prop changes
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 

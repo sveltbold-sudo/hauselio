@@ -25,12 +25,13 @@ export default function VergleichPage() {
   const [products, setProducts] = useState<ComparisonProduct[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
     setMounted(true);
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
         setProducts(JSON.parse(stored));
       } catch {}
     }

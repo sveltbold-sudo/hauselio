@@ -33,7 +33,7 @@ function makeRequest(url: string, init?: { method?: string; headers?: Record<str
       "x-forwarded-proto": "http",
       "x-forwarded-host": "localhost:3000",
     },
-  } as any);
+  } as RequestInit);
 }
 
 beforeEach(() => {

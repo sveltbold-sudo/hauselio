@@ -39,7 +39,6 @@ export function trackRecentlyViewed(product: ViewedProduct) {
 export default function RecentlyViewedSection({ currentProductId }: { currentProductId?: string }) {
   const [items, setItems] = useState<ViewedProduct[]>([]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -48,6 +47,7 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
         const filtered = currentProductId
           ? parsed.filter((i) => i.id !== currentProductId)
           : parsed;
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
         setItems(filtered.slice(0, 4));
       }
     } catch {

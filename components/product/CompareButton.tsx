@@ -22,8 +22,8 @@ export default function CompareButton({ product }: CompareButtonProps) {
   const [isComparing, setIsComparing] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
     setMounted(true);
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {

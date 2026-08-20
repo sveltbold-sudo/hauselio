@@ -48,10 +48,13 @@ const mockPrisma = {
   productImage: {
     deleteMany: vi.fn().mockResolvedValue({}),
   },
-  $transaction: vi.fn(async (fns: any[]) => {
+  $transaction: vi.fn(async (arg: unknown[] | ((tx: typeof mockPrisma) => Promise<unknown>)) => {
+    if (typeof arg === "function") {
+      return await arg(mockPrisma);
+    }
     const results = [];
-    for (const fn of fns) {
-      results.push(await fn);
+    for (const item of arg) {
+      results.push(await item);
     }
     return results;
   }),
@@ -69,15 +72,18 @@ vi.mock("@/lib/auth", () => ({
 import { NextRequest } from "next/server";
 
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {
-  return new NextRequest(url, init as any);
+  return new NextRequest(url, init as RequestInit);
 }
 
 beforeEach(() => {
   vi.clearAllMocks();
-  mockPrisma.$transaction.mockImplementation(async (fns: any[]) => {
+  mockPrisma.$transaction.mockImplementation(async (arg: unknown[] | ((tx: typeof mockPrisma) => Promise<unknown>)) => {
+    if (typeof arg === "function") {
+      return await arg(mockPrisma);
+    }
     const results = [];
-    for (const fn of fns) {
-      results.push(await fn);
+    for (const item of arg) {
+      results.push(await item);
     }
     return results;
   });

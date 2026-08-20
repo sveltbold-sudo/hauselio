@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import ProductForm, { emptyFormData } from "@/components/admin/ProductForm";
+import ProductForm, { type ProductFormProps } from "@/components/admin/ProductForm";
 import { useToast } from "@/components/ui/Toast";
 import { serializeProductBody } from "@/lib/admin-product-helpers";
+import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 import { logger } from "@/lib/logger";
 
@@ -16,7 +17,6 @@ export default function NewProductPage() {
   const [categories, setCategories] = useState<AdminCategory[]>([]);
   const [brands, setBrands] = useState<AdminBrand[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -35,13 +35,12 @@ export default function NewProductPage() {
       })
       .catch((err) => {
         logger.error("Failed to load data", { error: err });
-        setDataError(true);
         toast.error("Kategorien oder Marken konnten nicht geladen werden.");
       });
   }, []);
 
   const handleSubmit = async (
-    data: Omit<typeof emptyFormData, "newFeature" | "newSpecKey" | "newSpecValue">
+    data: Parameters<ProductFormProps["onSubmit"]>[0]
   ) => {
     setIsLoading(true);
     try {

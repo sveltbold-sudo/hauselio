@@ -55,7 +55,7 @@ vi.mock("@/lib/auth", () => ({
 }));
 
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {
-  return new NextRequest(url, init as any);
+  return new NextRequest(url, init as RequestInit);
 }
 
 beforeEach(() => {
@@ -234,7 +234,6 @@ describe("GET /api/admin/marken", () => {
     ]);
 
     const { GET } = await import("@/app/api/admin/marken/route");
-    const req = makeRequest("http://localhost:3000/api/admin/marken");
     const res = await GET();
     const data = await res.json();
 
