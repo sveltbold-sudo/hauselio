@@ -21,7 +21,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
               {item.label}
             </Link>
           ) : (
-            <span className="text-[var(--color-text-primary)] font-medium">{item.label}</span>
+            <span className="text-[var(--color-text-primary)] font-medium" aria-current="page">{item.label}</span>
           )}
         </span>
       ))}

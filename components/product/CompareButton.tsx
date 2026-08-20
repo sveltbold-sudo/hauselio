@@ -84,7 +84,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
       ) : (
         <Plus className="w-4 h-4" />
       )}
-      {isComparing ? "Vergleichen" : "Vergleichen"}
+      {isComparing ? "Aktiviert" : "Vergleichen"}
     </button>
   );
 }
