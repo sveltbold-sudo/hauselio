@@ -22,9 +22,13 @@ function needsConsentBanner(): boolean {
 }
 
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(needsConsentBanner);
+  const [visible, setVisible] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setVisible(needsConsentBanner());
+  }, []);
 
   useEffect(() => {
     if (visible) {

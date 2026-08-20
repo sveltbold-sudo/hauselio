@@ -27,7 +27,8 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
   const [products, setProducts] = useState<SimilarProduct[]>([]);
 
   useEffect(() => {
-    fetch(`/api/products?category=${categorySlug}&limit=5`)
+    const controller = new AbortController();
+    fetch(`/api/products?category=${categorySlug}&limit=5`, { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => {
         if (data.products) {
@@ -50,6 +51,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
         }
       })
       .catch(() => {});
+    return () => controller.abort();
   }, [currentProductId, categorySlug]);
 
   if (products.length === 0) return null;

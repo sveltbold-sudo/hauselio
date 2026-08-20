@@ -29,7 +29,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
+      "script-src 'self' https://va.vercel-scripts.com https://vercel.live",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' https://res.cloudinary.com data: blob:",
       "font-src 'self'",

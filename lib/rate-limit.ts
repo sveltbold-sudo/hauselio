@@ -85,6 +85,10 @@ export async function checkRateLimit(
     return success;
   }
 
+  // In production without Upstash, apply strict per-invocation fallback
+  const isProd = process.env.NODE_ENV === "production";
+  const effectiveMax = isProd ? Math.min(maxRequests, 3) : maxRequests;
+
   const now = Date.now();
   const entry = getMemoryEntry(key);
 
@@ -93,7 +97,7 @@ export async function checkRateLimit(
     return true;
   }
 
-  if (entry.count >= maxRequests) {
+  if (entry.count >= effectiveMax) {
     return false;
   }
 

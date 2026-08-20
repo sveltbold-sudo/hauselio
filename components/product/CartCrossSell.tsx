@@ -21,8 +21,9 @@ export default function CartCrossSell() {
   const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
+    const controller = new AbortController();
     const cartIds = items.map((i) => i.id);
-    fetch(`/api/products?limit=3&exclude=${cartIds.join(",")}`)
+    fetch(`/api/products?limit=3&exclude=${cartIds.join(",")}`, { signal: controller.signal })
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data.products)) {
@@ -38,6 +39,7 @@ export default function CartCrossSell() {
         }
       })
       .catch(() => {});
+    return () => controller.abort();
   }, [items]);
 
   if (suggestions.length === 0) return null;

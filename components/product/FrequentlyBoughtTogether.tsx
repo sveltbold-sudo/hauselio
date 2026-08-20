@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Check, ShoppingBag } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
@@ -26,6 +26,13 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
   const [addedBundle, setAddedBundle] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
+  const timeoutRef = useRef<NodeJS.Timeout>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const toggle = (id: string) => {
     setSelected((prev) => {
@@ -52,7 +59,8 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
     });
     toast.success(`${allItems.length} Artikel zum Warenkorb hinzugefügt!`);
     setAddedBundle(true);
-    setTimeout(() => setAddedBundle(false), 2000);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setAddedBundle(false), 2000);
   };
 
   if (products.length === 0) return null;

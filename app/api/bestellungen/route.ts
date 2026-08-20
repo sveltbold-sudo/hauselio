@@ -70,28 +70,41 @@ export async function POST(request: NextRequest) {
     let order;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
-        order = await prisma.order.create({
-          data: {
-            orderNumber: generateOrderNumber(),
-            customerEmail: email,
-            customerFirstName: firstName,
-            customerLastName: lastName,
-            customerPhone: phone || null,
-            customerAddress: address,
-            customerZip: zip,
-            customerCity: city,
-            customerCountry: country || "DE",
-            customerNotes: notes || null,
-            subtotal,
-            shippingCost,
-            total,
-            items: {
-              create: validatedItems,
+        order = await prisma.$transaction(async (tx) => {
+          // Atomically verify stock is still available
+          const stockCheck = await tx.product.findMany({
+            where: { id: { in: validatedItems.map((i) => i.productId) } },
+            select: { id: true, inStock: true },
+          });
+          const stockMap = new Map(stockCheck.map((p) => [p.id, p.inStock]));
+          for (const item of validatedItems) {
+            if (!stockMap.get(item.productId)) {
+              throw new Error("Produkt nicht mehr verfügbar");
+            }
+          }
+          return tx.order.create({
+            data: {
+              orderNumber: generateOrderNumber(),
+              customerEmail: email,
+              customerFirstName: firstName,
+              customerLastName: lastName,
+              customerPhone: phone || null,
+              customerAddress: address,
+              customerZip: zip,
+              customerCity: city,
+              customerCountry: country || "DE",
+              customerNotes: notes || null,
+              subtotal,
+              shippingCost,
+              total,
+              items: {
+                create: validatedItems,
+              },
             },
-          },
-          include: {
-            items: true,
-          },
+            include: {
+              items: true,
+            },
+          });
         });
         break;
       } catch (err: unknown) {
@@ -147,7 +160,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const ip = getClientIp(request);
-    if (!await checkRateLimit(`lookup:${ip}`, 10, 60_000)) {
+    if (!await checkRateLimit(`lookup:${ip}`, 5, 60_000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
         { status: 429, headers: { "Retry-After": "60" } }
@@ -165,7 +178,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (!email || email.length > 254) {
+    if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
         { error: "E-Mail-Adresse erforderlich" },
         { status: 400 }

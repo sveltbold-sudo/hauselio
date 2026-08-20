@@ -1,15 +1,28 @@
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth";
+import * as readline from "readline";
 
 const email = process.argv[2];
-const password = process.argv[3];
-const name = process.argv[4] || "Admin";
+const name = process.argv[3] || "Admin";
+
+function promptPassword(): Promise<string> {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return new Promise((resolve) => {
+    rl.question("Password: ", (answer) => {
+      rl.close();
+      resolve(answer);
+    });
+  });
+}
 
 async function main() {
-  if (!email || !password) {
-    console.error("Usage: npx tsx scripts/create-admin.ts <email> <password> [name]");
+  if (!email) {
+    console.error("Usage: npx tsx scripts/create-admin.ts <email> [name]");
+    console.error("Password will be prompted interactively.");
     process.exit(1);
   }
+
+  const password = await promptPassword();
 
   if (password.length < 8) {
     console.error("Password must be at least 8 characters long");
