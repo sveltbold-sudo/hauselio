@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 import { Star, Truck } from "lucide-react";
 import Badge from "@/components/ui/Badge";
@@ -24,7 +25,7 @@ interface ProductCardProps {
   };
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default memo(function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
   const fullStars = Math.floor(product.rating);
   const delivery = getEstimatedDeliveryDate();
@@ -142,4 +143,4 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
     </Link>
   );
-}
+});

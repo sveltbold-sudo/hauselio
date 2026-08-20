@@ -10,6 +10,7 @@ vi.mock("next/headers", () => ({
 
 vi.mock("@/lib/rate-limit", () => ({
   checkRateLimit: vi.fn().mockResolvedValue(true),
+  getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
 }));
 
 vi.mock("@/lib/algolia-sync", () => ({

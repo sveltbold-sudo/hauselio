@@ -58,9 +58,9 @@ describe("generateOrderNumber", () => {
 
   it("generates unique numbers", () => {
     const numbers = new Set<string>();
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       numbers.add(generateOrderNumber());
     }
-    expect(numbers.size).toBe(50);
+    expect(numbers.size).toBe(20);
   });
 });

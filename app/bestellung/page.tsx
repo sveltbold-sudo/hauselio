@@ -310,6 +310,20 @@ export default function BestellungPage() {
       )}
 
       <form onSubmit={handleSubmit}>
+        {/* Error summary for screen readers */}
+        {Object.keys(errors).length > 0 && (
+          <div role="alert" aria-live="polite" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p className="text-sm font-semibold text-red-800 mb-2">Bitte korrigieren Sie folgende Fehler:</p>
+            <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
+              {Object.entries(errors).map(([field, msg]) => (
+                <li key={field}>
+                  <a href={`#${field}`} className="underline hover:text-red-900">{msg}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form */}
           <div className="lg:col-span-2 space-y-6">

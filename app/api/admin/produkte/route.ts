@@ -4,12 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { updateProductInAlgolia } from "@/lib/algolia-sync";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-produkt-create:${ip}`, 30, 60_000);
     if (!allowed) {
       return NextResponse.json(

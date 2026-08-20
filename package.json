@@ -55,5 +55,9 @@
     "typescript": "^5",
     "vercel": "^58.9.1",
     "vitest": "^4.1.10"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,css,md}": ["prettier --write"]
   }
 }

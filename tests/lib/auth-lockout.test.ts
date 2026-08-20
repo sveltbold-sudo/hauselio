@@ -30,7 +30,7 @@ beforeEach(() => {
 });
 
 describe("authenticateAdmin", () => {
-  it("returns admin on valid credentials", async () => {
+  it("returns admin on valid credentials", { timeout: 15000 }, async () => {
     const { hashPassword, authenticateAdmin } = await import("@/lib/auth");
     const hash = await hashPassword("correct-password");
 

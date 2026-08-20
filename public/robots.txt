@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-Disallow: /warenkorb/
-Disallow: /bestellung/
-
-Sitemap: https://hauselio.vercel.app/sitemap.xml

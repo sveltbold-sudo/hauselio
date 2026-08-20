@@ -20,6 +20,27 @@ interface ProductRecord extends Record<string, unknown> {
   inStock: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function formatProduct(product: any): ProductRecord {
+  return {
+    objectID: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: Number(product.price),
+    originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+    brand: product.brand?.name || null,
+    categoryName: product.category?.name || "",
+    categorySlug: product.category?.slug || "",
+    image: product.images?.[0]?.url || "",
+    rating: Number(product.rating),
+    reviewCount: product.reviewCount,
+    isNew: product.isNew,
+    isPromo: product.isPromo,
+    description: product.description,
+    inStock: product.inStock,
+  };
+}
+
 export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors: number }> {
   const BATCH_SIZE = 500;
   let cursor: string | undefined;
@@ -40,23 +61,7 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
 
     if (products.length === 0) break;
 
-    const records: ProductRecord[] = products.map((product) => ({
-      objectID: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: Number(product.price),
-      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-      brand: product.brand?.name || null,
-      categoryName: product.category?.name || "",
-      categorySlug: product.category?.slug || "",
-      image: product.images[0]?.url || "",
-      rating: Number(product.rating),
-      reviewCount: product.reviewCount,
-      isNew: product.isNew,
-      isPromo: product.isPromo,
-      description: product.description,
-      inStock: product.inStock,
-    }));
+    const records: ProductRecord[] = products.map(formatProduct);
 
     try {
       await getAlgoliaAdminClient().saveObjects({
@@ -94,23 +99,7 @@ export async function updateProductInAlgolia(productId: string): Promise<void> {
 
   if (!product) return;
 
-  const record: ProductRecord = {
-    objectID: product.id,
-    name: product.name,
-    slug: product.slug,
-    price: Number(product.price),
-    originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-    brand: product.brand?.name || null,
-    categoryName: product.category?.name || "",
-    categorySlug: product.category?.slug || "",
-    image: product.images[0]?.url || "",
-    rating: Number(product.rating),
-    reviewCount: product.reviewCount,
-    isNew: product.isNew,
-    isPromo: product.isPromo,
-    description: product.description,
-    inStock: product.inStock,
-  };
+  const record = formatProduct(product);
 
   await getAlgoliaAdminClient().saveObject({
     indexName: PRODUCTS_INDEX,
