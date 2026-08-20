@@ -97,11 +97,11 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
   const next = useCallback(() => {
     goTo((current + 1) % slides.length);
-  }, [current, goTo]);
+  }, [current, goTo, slides.length]);
 
   const prev = useCallback(() => {
     goTo((current - 1 + slides.length) % slides.length);
-  }, [current, goTo]);
+  }, [current, goTo, slides.length]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

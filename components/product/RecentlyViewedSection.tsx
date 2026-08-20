@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { Clock } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
 

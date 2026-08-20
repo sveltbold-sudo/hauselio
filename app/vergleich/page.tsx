@@ -31,7 +31,6 @@ export default function VergleichPage() {
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {
       try {
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
         setProducts(JSON.parse(stored));
       } catch {}
     }

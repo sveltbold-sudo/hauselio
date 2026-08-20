@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Share2, Star, Truck, Shield, Check, Minus, Plus, RotateCcw, Zap } from "lucide-react";
+import { ShoppingBag, Share2, Truck, Shield, Check, Minus, Plus, RotateCcw, Zap } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";

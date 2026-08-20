@@ -48,10 +48,10 @@ export default function CookieConsent() {
     setVisible(false);
   };
 
-  const handleReject = () => {
+  const handleReject = useCallback(() => {
     setCookieConsent(false);
     setVisible(false);
-  };
+  }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Escape") {

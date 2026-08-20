@@ -6,10 +6,9 @@ interface CategoryBrandFilterProps {
   brands: { name: string; slug: string; count: number }[];
   selectedBrand?: string;
   slug: string;
-  currentSort: string;
 }
 
-export default function CategoryBrandFilter({ brands, selectedBrand, slug, currentSort }: CategoryBrandFilterProps) {
+export default function CategoryBrandFilter({ brands, selectedBrand, slug }: CategoryBrandFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

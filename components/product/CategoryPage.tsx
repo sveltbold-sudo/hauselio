@@ -142,8 +142,8 @@ export default async function CategoryPage({
 
       {/* Toolbar with sort + brand filter */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
-        <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} currentSort={sort} />
-        <CategorySortSelect sort={sort} slug={slug} currentBrand={brand} />
+        <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
+        <CategorySortSelect sort={sort} slug={slug} />
       </div>
 
       {formattedProducts.length === 0 ? (

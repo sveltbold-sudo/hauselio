@@ -5,10 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface CategorySortSelectProps {
   sort: string;
   slug: string;
-  currentBrand?: string;
 }
 
-export default function CategorySortSelect({ sort, slug, currentBrand }: CategorySortSelectProps) {
+export default function CategorySortSelect({ sort, slug }: CategorySortSelectProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

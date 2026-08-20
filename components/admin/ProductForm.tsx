@@ -152,6 +152,7 @@ export default function ProductForm({
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- exclude UI-only fields from submission
       const { newFeature, newSpecKey, newSpecValue, ...submitData } = formData;
       await onSubmit(submitData);
     } finally {

@@ -25,8 +25,10 @@ function LoginForm() {
     document.title = "Admin-Anmeldung | HAUSELIO";
   }, []);
 
+  const isLocked = lockoutSeconds > 0;
+
   useEffect(() => {
-    if (lockoutSeconds <= 0) return;
+    if (!isLocked) return;
     const timer = setInterval(() => {
       setLockoutSeconds((prev) => {
         if (prev <= 1) {
@@ -38,7 +40,7 @@ function LoginForm() {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [lockoutSeconds > 0]);
+  }, [isLocked]);
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();

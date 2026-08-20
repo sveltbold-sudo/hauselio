@@ -37,7 +37,7 @@ export default function NewProductPage() {
         logger.error("Failed to load data", { error: err });
         toast.error("Kategorien oder Marken konnten nicht geladen werden.");
       });
-  }, []);
+  }, [toast]);
 
   const handleSubmit = async (
     data: Parameters<ProductFormProps["onSubmit"]>[0]

@@ -289,16 +289,13 @@ async function CategoriesSection() {
 
 async function FeaturedProductsSection() {
   let featuredProducts;
-  let isFallback = false;
   try {
     featuredProducts = await getFeaturedProducts();
     if (featuredProducts.length === 0) {
       featuredProducts = fallbackProducts;
-      isFallback = true;
     }
   } catch {
     featuredProducts = fallbackProducts;
-    isFallback = true;
   }
 
   return (

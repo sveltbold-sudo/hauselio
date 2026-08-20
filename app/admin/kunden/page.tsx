@@ -47,7 +47,7 @@ export default function KundenPage() {
       .finally(() => setLoading(false));
   }, [startTransition]);
 
-  const customers = data?.customers ?? [];
+  const customers = useMemo(() => data?.customers ?? [], [data?.customers]);
   const pagination = data?.pagination;
 
   const filtered = useMemo(
