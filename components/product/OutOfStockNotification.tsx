@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, Check } from "lucide-react";
+import { Bell, Check, AlertCircle } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 interface OutOfStockNotificationProps {
@@ -11,19 +11,32 @@ interface OutOfStockNotificationProps {
 export default function OutOfStockNotification({ productName }: OutOfStockNotificationProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     try {
-      await fetch("/api/newsletter", {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-    } catch {}
-    setSubmitted(true);
+      if (!res.ok) throw new Error("API error");
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    }
   };
+
+  if (error) {
+    return (
+      <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600">
+        <AlertCircle className="w-4 h-4" />
+        <span>Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.</span>
+      </div>
+    );
+  }
 
   if (submitted) {
     return (

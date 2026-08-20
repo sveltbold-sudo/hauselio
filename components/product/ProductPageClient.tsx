@@ -84,7 +84,8 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       isPromo: product.originalPrice !== null,
       brand: product.brand,
     });
-  }, [product]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id]);
 
   const discount = calcDiscount(product.price, product.originalPrice);
 

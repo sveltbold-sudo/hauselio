@@ -588,7 +588,10 @@ async function main() {
   console.log("🗑️  Cleared existing data");
 
   const bcrypt = await import("bcryptjs");
-  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error("ADMIN_PASSWORD env var is required. Never use a default password.");
+  }
   const hashedPassword = await bcrypt.hash(adminPassword, 12);
   await prisma.adminUser.create({
     data: {
@@ -809,7 +812,7 @@ async function main() {
   console.log(`   Brands: ${brands.length}`);
   console.log(`   Products: ${products.length}`);
   console.log(`   Testimonials: ${testimonials.length}`);
-  console.log(`   Admin: admin@hauselio.de / admin123`);
+  console.log(`   Admin: ${adminEmail} (password from env var)`);
 }
 
 main()

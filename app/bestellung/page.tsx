@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { CreditCard, AlertTriangle, ArrowLeft, Check as CheckIcon } from "lucide-react";
@@ -86,6 +86,15 @@ export default function BestellungPage() {
   };
 
   const hasValidated = useRef(false);
+  const clearCartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (clearCartTimerRef.current) {
+        clearTimeout(clearCartTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (items.length === 0 || hasValidated.current) return;
@@ -201,10 +210,11 @@ export default function BestellungPage() {
       }
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
+      clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
-      setTimeout(() => {
-        clearCart();
+      clearCartTimerRef.current = setTimeout(() => {
         sessionStorage.removeItem(`order_${data.order.orderNumber}`);
+        clearCartTimerRef.current = null;
       }, 5000);
     } catch (error) {
       setOrderError(error instanceof Error ? error.message : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
