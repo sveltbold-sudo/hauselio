@@ -43,11 +43,13 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
     if (!query.trim() || query.trim().length < 2) return;
 
     let cancelled = false;
+    const controller = new AbortController();
     const timer = setTimeout(async () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/search?q=${encodeURIComponent(query.trim())}&limit=6`
+          `/api/search?q=${encodeURIComponent(query.trim())}&limit=6`,
+          { signal: controller.signal }
         );
         const data = await res.json();
         if (!cancelled) {
@@ -65,6 +67,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
 
     return () => {
       cancelled = true;
+      controller.abort();
       clearTimeout(timer);
     };
   }, [query]);

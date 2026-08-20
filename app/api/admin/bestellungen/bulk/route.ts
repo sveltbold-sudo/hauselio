@@ -6,7 +6,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const BulkOrderSchema = z.object({
-  ids: z.array(z.string().uuid()).min(1).max(50),
+  ids: z.array(z.string().min(1)).min(1).max(50),
   status: z.enum([
     "PENDING_PAYMENT",
     "PAYMENT_CONFIRMED",

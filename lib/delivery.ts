@@ -5,10 +5,7 @@ export function getEstimatedDeliveryDate(): { from: string; to: string } {
   let daysToAddMin = 2;
   let daysToAddMax = 5;
 
-  if (dayOfWeek === 5) {
-    daysToAddMin = 3;
-    daysToAddMax = 6;
-  } else if (dayOfWeek === 6) {
+  if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
     daysToAddMin = 3;
     daysToAddMax = 6;
   }
