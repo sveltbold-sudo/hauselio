@@ -1,42 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Home, Search, ShoppingBag, Star, Truck, ArrowRight, Shield } from "lucide-react";
-import { prisma } from "@/lib/prisma";
-import { formatPrice } from "@/lib/utils";
-import ProductImage from "@/components/product/ProductImage";
-
-async function getPopularProducts() {
-  try {
-    const products = await prisma.product.findMany({
-      include: {
-        brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-      orderBy: { reviewCount: "desc" },
-      take: 4,
-    });
-    return products.map((p) => ({
-      id: p.id,
-      name: p.name,
-      slug: p.slug,
-      price: Number(p.price),
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      image: p.images[0]?.url || "/images/placeholder-product.svg",
-      brand: p.brand?.name || "",
-      rating: Number(p.rating),
-      reviewCount: p.reviewCount,
-    }));
-  } catch {
-    return [];
-  }
-}
 
 export default async function NotFound() {
-  const popularProducts = await getPopularProducts();
-
   return (
     <div className="container-hauselio py-12 lg:py-20">
-      {/* Hero section */}
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Image
           src="/images/illustrations/404.svg"
@@ -53,7 +21,6 @@ export default async function NotFound() {
           Aber keine Sorge — wir haben <strong>Tausende hochwertige Haushaltsgeräte</strong> für Sie parat.
         </p>
 
-        {/* Search box */}
         <form action="/shop" method="GET" className="mb-8">
           <div className="flex gap-2 max-w-lg mx-auto">
             <div className="relative flex-1">
@@ -74,7 +41,6 @@ export default async function NotFound() {
           </div>
         </form>
 
-        {/* Quick category links */}
         <div className="flex flex-wrap justify-center gap-2 mb-6">
           {[
             { name: "Küche & Kochen", href: "/kategorie/kueche" },
@@ -94,65 +60,6 @@ export default async function NotFound() {
         </div>
       </div>
 
-      {/* Popular products — drives conversion */}
-      {popularProducts.length > 0 && (
-        <div className="max-w-5xl mx-auto mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
-                Beliebte Produkte
-              </h2>
-              <p className="text-sm text-[var(--color-text-muted)]">
-                Unsere meistverkauften Geräte
-              </p>
-            </div>
-            <Link
-              href="/shop"
-              className="flex items-center gap-1 text-sm font-semibold text-[var(--color-primary)] hover:underline"
-            >
-              Alle ansehen
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {popularProducts.map((product) => (
-              <Link
-                key={product.id}
-                href={`/produkt/${product.slug}`}
-                className="group bg-white rounded-xl border border-[var(--color-border-light)] p-3 hover:shadow-lg hover:border-[var(--color-primary)]/20 transition-all duration-300"
-              >
-                <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden mb-3">
-                  <ProductImage src={product.image} alt={product.name} brand={product.brand} size="sm" />
-                </div>
-                <div className="flex items-center gap-1 mb-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-3 h-3 ${
-                        i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"
-                      }`}
-                    />
-                  ))}
-                  <span className="text-[10px] text-[var(--color-text-muted)]">({product.reviewCount})</span>
-                </div>
-                <h3 className="text-sm font-semibold text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors mb-1">
-                  {product.name}
-                </h3>
-                <p className="text-xs text-[var(--color-text-muted)] mb-2">{product.brand}</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-bold text-[var(--color-text-primary)]">{formatPrice(product.price)}</span>
-                  {product.originalPrice && product.originalPrice > product.price && (
-                    <span className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</span>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Trust signals */}
       <div className="flex flex-wrap justify-center gap-6 mb-12 text-sm text-[var(--color-text-muted)]">
         <span className="flex items-center gap-2">
           <Truck className="w-4 h-4 text-[var(--color-success)]" />
@@ -167,7 +74,6 @@ export default async function NotFound() {
         </span>
       </div>
 
-      {/* CTA buttons */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/"

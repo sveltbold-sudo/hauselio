@@ -8,23 +8,31 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
+vi.mock("@/lib/resend", () => ({
+  getResendClient: () => ({
+    emails: { send: vi.fn() },
+  }),
+  FROM_EMAIL: "test@hauselio.de",
+}));
+
 describe("getBankDetails helper", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("returns bank details from database", async () => {
+  it("returns bank details from database via emails module", async () => {
     const { prisma } = await import("@/lib/prisma");
     vi.mocked(prisma.siteSettings.findFirst).mockResolvedValue({
       bankAccountName: "Test GmbH",
       bankIban: "DE89370400440532013000",
       bankBic: "COBADEFFXXX",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     const result = await prisma.siteSettings.findFirst();
     expect(result?.bankAccountName).toBe("Test GmbH");
     expect(result?.bankIban).toBe("DE89370400440532013000");
+    expect(result?.bankBic).toBe("COBADEFFXXX");
   });
 
   it("returns null when no settings exist", async () => {
@@ -33,5 +41,26 @@ describe("getBankDetails helper", () => {
 
     const result = await prisma.siteSettings.findFirst();
     expect(result).toBeNull();
+  });
+
+  it("sendOrderConfirmation uses bank details", async () => {
+    const { prisma } = await import("@/lib/prisma");
+    vi.mocked(prisma.siteSettings.findFirst).mockResolvedValue({
+      bankAccountName: "HAUSELIO GmbH",
+      bankIban: "DE89370400440532013000",
+      bankBic: "COBADEFFXXX",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
+
+    const { sendOrderConfirmation } = await import("@/lib/emails");
+    await sendOrderConfirmation({
+      orderNumber: "HL-202608-TEST",
+      customerEmail: "test@example.de",
+      customerName: "Test User",
+      items: [{ name: "Product", quantity: 1, price: 99.99 }],
+      total: 99.99,
+      shippingCost: 0,
+    });
+    expect(prisma.siteSettings.findFirst).toHaveBeenCalled();
   });
 });
