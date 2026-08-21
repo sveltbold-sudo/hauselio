@@ -66,7 +66,7 @@ export default function GuaranteeServiceSection() {
             return (
               <div
                 key={i}
-                className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/15 hover:shadow-md transition-all duration-300 group animate-fade-in-up"
+                className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/15 hover:shadow-md transition-colors transition-shadow duration-300 group animate-fade-in-up"
                 style={{ animationDelay: `${i * 50}ms` }}
               >
                 <div className="flex items-start gap-3">

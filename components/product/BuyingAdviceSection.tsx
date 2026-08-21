@@ -119,7 +119,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
             return (
               <div
                 key={advice.slug}
-                className="bg-[var(--color-bg-secondary)] rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-all duration-300 group"
+                className="bg-[var(--color-bg-secondary)] rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md transition-colors transition-shadow duration-300 group"
               >
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-3">

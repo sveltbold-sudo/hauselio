@@ -18,7 +18,7 @@ export default function WishlistButton({ item, size = "sm", className = "" }: Wi
 
   return (
     <button
-      className={`${sizeClasses} bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 shadow-sm ${isWishlisted ? "text-[var(--color-danger)]" : "text-[var(--color-text-muted)] hover:text-[var(--color-danger)]"} ${className}`}
+      className={`${sizeClasses} bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors transition-transform duration-200 shadow-sm ${isWishlisted ? "text-[var(--color-danger)]" : "text-[var(--color-text-muted)] hover:text-[var(--color-danger)]"} ${className}`}
       aria-label={isWishlisted ? "Von Wunschliste entfernen" : "Zur Wunschliste hinzufügen"}
       onClick={(e) => {
         e.preventDefault();

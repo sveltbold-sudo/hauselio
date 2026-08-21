@@ -201,7 +201,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
             role="tab"
             aria-selected={!category}
-            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
               !category
                 ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
                 : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
@@ -212,7 +212,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           <Link
             href="/shop?promo=true"
             role="tab"
-            className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
+            className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
           >
             Angebote
           </Link>
@@ -222,7 +222,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
               role="tab"
               aria-selected={category === cat.slug}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
                 category === cat.slug
                   ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
                   : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
@@ -301,7 +301,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 {page > 1 && (
                   <Link
                     href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -324,7 +324,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                       key={p}
                       href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
                       aria-current={p === page ? "page" : undefined}
-                      className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-all duration-200 ${
+                      className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                         p === page
                           ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
                           : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
@@ -337,7 +337,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 {page < totalPages && (
                   <Link
                     href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
                     Weiter

@@ -45,7 +45,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
               <button
                 key={rating}
                 onClick={() => setSelectedRating(selectedRating === rating ? null : rating)}
-                className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedRating === rating
                     ? "bg-[var(--color-primary)] text-white"
                     : "bg-white border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]"

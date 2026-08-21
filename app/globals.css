@@ -112,6 +112,11 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Touch Action ── */
+a, button, input, select, textarea, [role="button"] {
+  touch-action: manipulation;
+}
+
 /* ── Focus ── */
 *:focus-visible {
   outline: 2px solid var(--color-primary);
@@ -144,6 +149,7 @@ body {
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: var(--color-text-primary);
+  text-wrap: balance;
 }
 
 .heading-1 {
@@ -151,6 +157,7 @@ body {
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .heading-2 {
@@ -158,6 +165,7 @@ body {
   font-weight: 700;
   line-height: 1.18;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .heading-3 {
@@ -165,6 +173,7 @@ body {
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 .body-large {
@@ -333,6 +342,10 @@ body {
   position: relative;
   display: inline-block;
 }
+
+/* ── Tabular Nums ── */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
 .link-underline::after {
   content: '';
   position: absolute;
@@ -529,4 +542,9 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ── Modal Overscroll Containment ── */
+[role="dialog"], [aria-modal="true"] {
+  overscroll-behavior: contain;
 }

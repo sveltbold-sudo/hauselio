@@ -57,7 +57,7 @@ export default function ShopFilterDrawer({
       {/* Mobile filter toggle button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-border)] hover:text-[var(--color-text-primary)] transition-all duration-300"
+        className="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-border)] hover:text-[var(--color-text-primary)] transition-colors duration-300"
         aria-label="Filter öffnen"
       >
         <SlidersHorizontal className="w-4 h-4" />

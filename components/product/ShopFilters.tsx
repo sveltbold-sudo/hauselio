@@ -197,7 +197,8 @@ export default function ShopFilters({
                   searchParams.get("price") === range.value ? null : range.value
                 )
               }
-              className={`px-3 py-2 rounded-lg text-[11px] font-semibold border transition-all duration-200 ${
+              aria-pressed={searchParams.get("price") === range.value}
+              className={`px-3 py-2 rounded-lg text-[11px] font-semibold border transition-colors duration-200 ${
                 searchParams.get("price") === range.value
                   ? "bg-[var(--color-primary-50)] border-[var(--color-primary)]/20 text-[var(--color-primary)]"
                   : "border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/20"
@@ -218,7 +219,7 @@ export default function ShopFilters({
           value={selectedSort}
           onChange={(e) => updateSort(e.target.value)}
           aria-label="Sortierung"
-          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-all"
+          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
         >
           <option value="newest">Neueste</option>
           <option value="price_asc">Preis aufsteigend</option>

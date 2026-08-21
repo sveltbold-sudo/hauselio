@@ -91,8 +91,9 @@ export default function EinstellungenPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Kontoinhaber</label>
+              <label htmlFor="bankAccountName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Kontoinhaber</label>
               <input
+                id="bankAccountName"
                 type="text"
                 value={settings.bankAccountName}
                 onChange={(e) => handleChange("bankAccountName", e.target.value)}
@@ -100,8 +101,9 @@ export default function EinstellungenPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Bank</label>
+              <label htmlFor="bankName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Bank</label>
               <input
+                id="bankName"
                 type="text"
                 value={settings.bankName}
                 onChange={(e) => handleChange("bankName", e.target.value)}
@@ -109,8 +111,9 @@ export default function EinstellungenPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">IBAN</label>
+              <label htmlFor="bankIban" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">IBAN</label>
               <input
+                id="bankIban"
                 type="text"
                 value={settings.bankIban}
                 onChange={(e) => handleChange("bankIban", e.target.value)}
@@ -118,8 +121,9 @@ export default function EinstellungenPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">BIC</label>
+              <label htmlFor="bankBic" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">BIC</label>
               <input
+                id="bankBic"
                 type="text"
                 value={settings.bankBic}
                 onChange={(e) => handleChange("bankBic", e.target.value)}
@@ -142,8 +146,9 @@ export default function EinstellungenPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">E-Mail</label>
+              <label htmlFor="contactEmail" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">E-Mail</label>
               <input
+                id="contactEmail"
                 type="email"
                 value={settings.contactEmail}
                 onChange={(e) => handleChange("contactEmail", e.target.value)}
@@ -151,8 +156,9 @@ export default function EinstellungenPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Telefon</label>
+              <label htmlFor="contactPhone" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Telefon</label>
               <input
+                id="contactPhone"
                 type="tel"
                 value={settings.contactPhone}
                 onChange={(e) => handleChange("contactPhone", e.target.value)}
@@ -160,8 +166,9 @@ export default function EinstellungenPage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Adresse</label>
+              <label htmlFor="contactAddress" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Adresse</label>
               <input
+                id="contactAddress"
                 type="text"
                 value={settings.contactAddress}
                 onChange={(e) => handleChange("contactAddress", e.target.value)}
@@ -182,7 +189,9 @@ export default function EinstellungenPage() {
               <p className="text-xs text-[var(--color-text-muted)]">Text für Versandkonditionen</p>
             </div>
           </div>
+          <label htmlFor="shippingInfo" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Versandinformationen</label>
           <textarea
+            id="shippingInfo"
             value={settings.shippingInfo}
             onChange={(e) => handleChange("shippingInfo", e.target.value)}
             className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"

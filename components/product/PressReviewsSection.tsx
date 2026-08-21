@@ -93,7 +93,7 @@ export default function PressReviewsSection({
           {pressReviews.map((review, i) => (
             <div
               key={i}
-              className={`bg-white rounded-xl p-5 border border-[var(--color-border-light)] border-l-4 ${review.borderColor} hover:shadow-md transition-all duration-300 animate-fade-in-up`}
+              className={`bg-white rounded-xl p-5 border border-[var(--color-border-light)] border-l-4 ${review.borderColor} hover:shadow-md transition-shadow duration-300 animate-fade-in-up`}
               style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="flex items-start gap-3 mb-3">

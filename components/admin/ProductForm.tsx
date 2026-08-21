@@ -450,10 +450,11 @@ export default function ProductForm({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="weight" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Gewicht (kg)
                   </label>
                   <input
+                    id="weight"
                     type="number"
                     step="0.01"
                     value={formData.weight}
@@ -526,10 +527,11 @@ export default function ProductForm({
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="categoryId" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Kategorie *
                   </label>
                   <select
+                    id="categoryId"
                     required
                     value={formData.categoryId}
                     onChange={(e) =>
@@ -549,10 +551,11 @@ export default function ProductForm({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="brandId" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Marke
                   </label>
                   <select
+                    id="brandId"
                     value={formData.brandId}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -594,10 +597,11 @@ export default function ProductForm({
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="metaTitle" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Meta Title
                   </label>
                   <input
+                    id="metaTitle"
                     type="text"
                     maxLength={60}
                     value={formData.seoTitle}
@@ -611,10 +615,11 @@ export default function ProductForm({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                  <label htmlFor="metaDescription" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
                     Meta Description
                   </label>
                   <textarea
+                    id="metaDescription"
                     rows={3}
                     maxLength={160}
                     value={formData.seoDesc}

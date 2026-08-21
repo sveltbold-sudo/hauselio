@@ -28,12 +28,12 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => { setEmail(e.target.value); }}
           placeholder="Ihre E-Mail"
-          className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-300"
+          className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-colors duration-300"
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-all duration-300 active:scale-[0.97] disabled:opacity-50"
+          className="px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors transition-transform duration-300 active:scale-[0.97] disabled:opacity-50"
         >
           {isSubmitting ? "..." : "Anmelden"}
         </button>

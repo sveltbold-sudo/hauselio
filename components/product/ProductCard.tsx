@@ -33,7 +33,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-all duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
+      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 block"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container — clean like Coolblue */}
@@ -74,7 +74,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Add-to-cart — bottom overlay like AO/Coolblue */}
         <div
-          className="absolute bottom-3 left-3 right-3 z-10 transition-all duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
+          className="absolute bottom-3 left-3 right-3 z-10 transition-opacity transition-transform duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
         >
           <AddToCartButton
             product={{
@@ -123,7 +123,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Price — prominent like all competitors */}
         <div className="flex items-baseline gap-2">
-          <span className="text-base font-extrabold text-[var(--color-text-primary)]">
+          <span className="text-base font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (

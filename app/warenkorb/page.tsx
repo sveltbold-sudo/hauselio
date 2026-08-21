@@ -150,7 +150,7 @@ export default function WarenkorbPage() {
                       type="button"
                       onClick={() => setConfirmDelete(item.id)}
                       aria-label={`${item.name} entfernen`}
-                      className="p-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-all duration-300"
+                      className="p-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-colors duration-300"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -207,7 +207,7 @@ export default function WarenkorbPage() {
                   </p>
                   <div className="mt-2 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--color-primary)] rounded-full transition-all duration-500"
+                      className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
                       style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
                     />
                   </div>

@@ -33,7 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             "w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm",
             "bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]",
             "focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]",
-            "transition-all duration-300",
+            "transition-colors duration-300",
             "hover:border-gray-300",
             error && "border-[var(--color-danger)] focus:ring-[var(--color-danger)]/20 focus:border-[var(--color-danger)]",
             className

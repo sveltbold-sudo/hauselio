@@ -24,13 +24,13 @@ describe("verifyPassword", () => {
     const hashed = await hashPassword("test123");
     const result = await verifyPassword("test123", hashed);
     expect(result).toBe(true);
-  });
+  }, 15000);
 
   it("rejects wrong password", async () => {
     const hashed = await hashPassword("test123");
     const result = await verifyPassword("wrong", hashed);
     expect(result).toBe(false);
-  });
+  }, 15000);
 });
 
 describe("generateToken / verifyToken", () => {

@@ -52,7 +52,7 @@ export default async function NotFound() {
             <Link
               key={cat.href}
               href={cat.href}
-              className="px-4 py-2 bg-white border border-[var(--color-border-light)] rounded-full text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-all"
+              className="px-4 py-2 bg-white border border-[var(--color-border-light)] rounded-full text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               {cat.name}
             </Link>
@@ -84,7 +84,7 @@ export default async function NotFound() {
         </Link>
         <Link
           href="/shop"
-          className="inline-flex items-center justify-center px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:text-white transition-all"
+          className="inline-flex items-center justify-center px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:text-white transition-colors"
         >
           <ShoppingBag className="w-5 h-5 mr-2" />
           Kompletten Shop durchstöbern

@@ -112,7 +112,7 @@ export default async function TestimonialsSection() {
           {testimonials.map((testimonial, i) => (
             <div
               key={testimonial.id}
-              className="bg-white rounded-2xl p-6 border border-[var(--color-border-light)] hover:shadow-lg hover:border-[var(--color-primary)]/10 transition-all duration-300 animate-fade-in-up"
+              className="bg-white rounded-2xl p-6 border border-[var(--color-border-light)] hover:shadow-lg hover:border-[var(--color-primary)]/10 transition-colors transition-shadow duration-300 animate-fade-in-up"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               {/* Quote icon */}

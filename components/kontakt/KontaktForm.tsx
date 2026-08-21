@@ -109,6 +109,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   label="Vorname"
                   name="firstName"
                   required
+                  autoComplete="given-name"
                   value={formData.firstName}
                   onChange={handleInputChange}
                 />
@@ -116,6 +117,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   label="Nachname"
                   name="lastName"
                   required
+                  autoComplete="family-name"
                   value={formData.lastName}
                   onChange={handleInputChange}
                 />
@@ -126,6 +128,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}
                 />
@@ -135,6 +138,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   label="Betreff"
                   name="subject"
                   required
+                  autoComplete="off"
                   value={formData.subject}
                   onChange={handleInputChange}
                 />
@@ -150,7 +154,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-all duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
+                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>
@@ -176,7 +180,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               href={`mailto:${settings.contactEmail}`}
               className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors group"
             >
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all">
+               <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
                 <Mail className="w-4 h-4 text-[var(--color-primary)] group-hover:text-white" />
               </div>
               <span className="font-medium">{settings.contactEmail}</span>
@@ -185,7 +189,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               href={`tel:${settings.contactPhone.replace(/\s/g, "")}`}
               className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors group"
             >
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all">
+               <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
                 <Phone className="w-4 h-4 text-[var(--color-primary)] group-hover:text-white" />
               </div>
               <span className="font-medium">{settings.contactPhone}</span>

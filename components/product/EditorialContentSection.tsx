@@ -64,7 +64,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
             <Link
               key={i}
               href={content.href}
-              className="group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-all duration-300 animate-fade-in-up"
+              className="group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-colors transition-shadow duration-300 animate-fade-in-up"
               style={{ animationDelay: `${i * 60}ms` }}
             >
               {/* Image — real product photo like Coolblue blog */}
@@ -93,7 +93,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                   <span className="text-[10px] text-[var(--color-text-muted)]">
                     {content.readTime} Lesezeit
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-all">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
                     Weiterlesen
                     <ArrowRight className="w-3 h-3" />
                   </span>

@@ -183,7 +183,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
                   key={i}
                   onClick={() => setActiveImageIndex(i)}
                   aria-label={`${product.name} Bild ${i + 1} anzeigen`}
-                  className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-all duration-200 ${
+                  className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 ${
                     activeImageIndex === i
                       ? "border-[var(--color-primary)] shadow-sm"
                       : "border-transparent hover:border-[var(--color-border)]"
@@ -289,7 +289,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               </div>
               <Button
                 onClick={handleAddToCart}
-                className={`flex-1 transition-all duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
+                className={`flex-1 transition-colors duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
                 size="lg"
               >
                 {added ? (
@@ -522,7 +522,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           </div>
           <Button
             onClick={handleAddToCart}
-            className={`transition-all duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
+            className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
             size="sm"
           >
             {added ? (

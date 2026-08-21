@@ -82,6 +82,8 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${inter.variable} h-full`}>
       <head>
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#FAFAF8" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">

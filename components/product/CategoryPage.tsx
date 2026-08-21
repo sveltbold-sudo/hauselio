@@ -185,7 +185,7 @@ export default async function CategoryPage({
                 {currentPage > 1 && (
                   <Link
                     href={pageUrl(currentPage - 1)}
-                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -209,7 +209,7 @@ export default async function CategoryPage({
                     key={p}
                     href={pageUrl(p)}
                     aria-current={p === currentPage ? "page" : undefined}
-                    className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-all duration-200 ${
+                    className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                       p === currentPage
                         ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
                         : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
@@ -221,7 +221,7 @@ export default async function CategoryPage({
                 {currentPage < totalPages && (
                   <Link
                     href={pageUrl(currentPage + 1)}
-                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-all duration-200 flex items-center gap-1"
+                    className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
                     Weiter

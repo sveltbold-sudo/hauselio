@@ -43,7 +43,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
             <Link
               key={brand.name}
               href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-              className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-all duration-300 text-center animate-fade-in-up"
+              className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
               style={{ animationDelay: `${i * 40}ms` }}
             >
               <div
@@ -70,7 +70,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
         <div className="text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[var(--color-border)] rounded-lg text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[var(--color-border)] rounded-lg text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors duration-300"
           >
             Alle Marken entdecken
             <ArrowRight className="w-4 h-4" />

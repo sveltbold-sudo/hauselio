@@ -123,6 +123,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
   useEffect(() => {
     if (!isAutoPlaying) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
   }, [isAutoPlaying, next]);
@@ -140,6 +142,10 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+      }}
     >
       {/* Background lifestyle image */}
       <div className="absolute inset-0 z-0">
@@ -259,14 +265,14 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       {/* Navigation Arrows — minimal like MediaMarkt */}
       <button
         onClick={prev}
-        className="absolute left-2 md:left-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute left-2 md:left-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Vorherige Folie"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-2 md:right-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute right-2 md:right-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Nächste Folie"
       >
         <ChevronRight className="w-5 h-5" />
@@ -283,7 +289,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             className="flex items-center justify-center min-w-[36px] h-[36px]"
           >
             <span
-              className={`block h-1.5 rounded-full transition-all duration-400 ${
+              className={`block h-1.5 rounded-full transition-colors transition-transform duration-400 ${
                 i === current
                   ? "w-7 bg-[var(--color-primary)]"
                   : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"

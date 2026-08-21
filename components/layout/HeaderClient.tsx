@@ -189,10 +189,10 @@ export default function HeaderClient() {
                                 setActiveMega(null);
                               }
                             }}
-                            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-all duration-200 group"
+                            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-colors duration-200 group"
                           >
                             <span className="font-medium">{sub.name}</span>
-                            <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                            <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-opacity transition-transform duration-200" />
                           </Link>
                         ))}
                       </div>
@@ -217,7 +217,7 @@ export default function HeaderClient() {
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-all duration-200 cursor-text"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-colors duration-200 cursor-text"
               aria-label="Suche öffnen"
             >
               <Search className="w-4 h-4 shrink-0" />
@@ -229,7 +229,7 @@ export default function HeaderClient() {
             {/* Mobile: icon only */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
               aria-label="Suche"
               aria-expanded={searchOpen}
             >
@@ -238,7 +238,7 @@ export default function HeaderClient() {
 
             <Link
               href="/wunschliste"
-              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
               aria-label="Wunschliste"
             >
               <Heart className="w-5 h-5" />
@@ -248,7 +248,7 @@ export default function HeaderClient() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-all duration-300"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
               aria-label="Menü"
               aria-expanded={mobileMenuOpen}
             >
@@ -295,7 +295,7 @@ export default function HeaderClient() {
                       <Link
                         href={cat.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3.5 px-3 py-3 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-all duration-200 flex-1"
+                        className="flex items-center gap-3.5 px-3 py-3 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-colors duration-200 flex-1"
                       >
                         <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center shrink-0">
                           <Image
@@ -328,7 +328,7 @@ export default function HeaderClient() {
                             key={sub.name}
                             href={sub.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block px-3 py-2 rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-all duration-200"
+                            className="block px-3 py-2 rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors duration-200"
                           >
                             {sub.name}
                           </Link>

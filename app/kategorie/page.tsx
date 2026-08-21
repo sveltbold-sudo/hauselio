@@ -73,7 +73,7 @@ export default async function KategoriePage() {
             <Link
               key={cat.slug}
               href={`/kategorie/${cat.slug}`}
-              className="group bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden hover:shadow-lg hover:border-[var(--color-primary)]/20 transition-all duration-300"
+              className="group bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden hover:shadow-lg hover:border-[var(--color-primary)]/20 transition-colors transition-shadow duration-300"
             >
               <div className="aspect-[16/9] relative overflow-hidden bg-[var(--color-bg-secondary)]">
                 {cat.products[0]?.images[0] ? (
@@ -103,7 +103,7 @@ export default async function KategoriePage() {
                 <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">
                   {categoryDescriptions[cat.slug] || cat.description || `Entdecken Sie unsere Auswahl an ${cat.name}-Produkten.`}
                 </p>
-                <div className="mt-4 flex items-center text-sm font-semibold text-[var(--color-primary)] group-hover:gap-2 transition-all">
+                <div className="mt-4 flex items-center text-sm font-semibold text-[var(--color-primary)] group-hover:gap-2 transition-transform">
                   Produkte ansehen
                   <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

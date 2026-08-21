@@ -128,7 +128,7 @@ export default function StatistikenPage() {
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[var(--color-primary)] rounded-full transition-all duration-500"
+                        className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -163,7 +163,7 @@ export default function StatistikenPage() {
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className={`h-full ${colors[i % colors.length]} rounded-full transition-all duration-500`}
+                        className={`h-full ${colors[i % colors.length]} rounded-full transition-transform duration-500`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>

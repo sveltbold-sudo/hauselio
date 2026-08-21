@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Cookie, X } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 const CONSENT_KEY = "hauselio_cookie_consent";
 
@@ -101,24 +102,26 @@ export default function CookieConsent() {
               ablehnen.
             </p>
             <div className="flex flex-wrap gap-3">
-              <button
+              <Button
                 ref={firstButtonRef}
                 onClick={handleAccept}
-                className="px-5 py-2.5 bg-[var(--color-orange)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors"
+                variant="primary"
+                className="bg-[var(--color-orange)] hover:bg-[var(--color-orange-hover)]"
               >
                 Akzeptieren
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleReject}
-                className="px-5 py-2.5 bg-[var(--color-bg)] text-[var(--color-text-primary)] text-sm font-semibold rounded-xl border border-[var(--color-border)] hover:bg-[var(--color-border-light)] transition-colors"
+                variant="outline"
+                className="border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-border-light)]"
               >
                 Ablehnen
-              </button>
+              </Button>
             </div>
           </div>
           <button
             onClick={handleReject}
-            className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+            className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             aria-label="Schließen"
           >
             <X className="w-5 h-5" />

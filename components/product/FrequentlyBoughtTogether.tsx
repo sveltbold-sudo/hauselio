@@ -94,7 +94,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                 <button
                   key={product.id}
                   onClick={() => toggle(product.id)}
-                  className={`w-full flex items-center gap-3 rounded-xl p-3 border transition-all duration-200 text-left ${
+                  className={`w-full flex items-center gap-3 rounded-xl p-3 border transition-colors transition-opacity duration-200 text-left ${
                     isSelected
                       ? "bg-white border-[var(--color-primary)]/20 shadow-sm"
                       : "bg-white/50 border-transparent opacity-60 hover:opacity-80"
@@ -136,7 +136,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
 
             <button
               onClick={handleAddBundle}
-              className={`w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+              className={`w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-colors transition-shadow duration-300 ${
                 addedBundle
                   ? "bg-[var(--color-success)] text-white"
                   : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-[var(--color-primary)]/15"
