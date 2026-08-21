@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const BulkOrderSchema = z.object({
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     if (ctError) return ctError;
 
     await requireRole("ADMIN");
-    const ip = request.headers?.get?.("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-bestellung-bulk:${ip}`, 10, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }

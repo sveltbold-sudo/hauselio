@@ -12,10 +12,12 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setSubmitting(true);
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
@@ -26,6 +28,8 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
       setSubmitted(true);
     } catch {
       setError(true);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -66,8 +70,8 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
           required
           className="flex-1 px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
         />
-        <Button type="submit" size="sm">
-          Benachrichtigen
+        <Button type="submit" size="sm" disabled={submitting}>
+          {submitting ? "Wird gesendet..." : "Benachrichtigen"}
         </Button>
       </form>
     </div>

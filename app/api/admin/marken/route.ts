@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth";
 import { handleApiError } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function GET() {
   try {
@@ -21,7 +21,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-marke-create:${ip}`, 30, 60_000);
     if (!allowed) {
       return NextResponse.json(

@@ -17,6 +17,7 @@ interface CrossSellItem {
 
 export default function CartCrossSell() {
   const [suggestions, setSuggestions] = useState<CrossSellItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
 
@@ -38,9 +39,31 @@ export default function CartCrossSell() {
           );
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
     return () => controller.abort();
   }, [items]);
+
+  if (loading) {
+    return (
+      <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 lg:p-6">
+        <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4">
+          Kunden kauften auch
+        </h3>
+        <div className="space-y-3">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[var(--color-border-light)] animate-pulse">
+              <div className="w-16 h-16 rounded-lg bg-[var(--color-bg-secondary)]" />
+              <div className="flex-1">
+                <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-3/4 mb-2" />
+                <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/3" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (suggestions.length === 0) return null;
 

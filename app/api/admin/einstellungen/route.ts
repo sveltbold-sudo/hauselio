@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateSettingsSchema } from "@/lib/validations";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function GET() {
   try {
@@ -34,7 +34,7 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-einstellungen:${ip}`, 30, 60_000);
     if (!allowed) {
       return NextResponse.json(

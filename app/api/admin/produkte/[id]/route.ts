@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { updateProductInAlgolia, deleteProductFromAlgolia } from "@/lib/algolia-sync";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export async function GET(
@@ -47,7 +47,7 @@ export async function PUT(
     if (ctError) return ctError;
 
     await requireAdmin();
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }
@@ -127,7 +127,7 @@ export async function DELETE(
 ) {
   try {
     await requireRole("ADMIN");
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }

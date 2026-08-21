@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const UpdateReviewSchema = z.object({
@@ -18,7 +18,7 @@ export async function PUT(
     if (ctError) return ctError;
 
     await requireAdmin();
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-bewertung:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }
@@ -64,7 +64,7 @@ export async function DELETE(
 ) {
   try {
     await requireAdmin();
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-bewertung-delete:${ip}`, 30, 60_000);
     if (!allowed) {
       return NextResponse.json(

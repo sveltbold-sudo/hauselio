@@ -25,6 +25,7 @@ interface SimilarProductsSectionProps {
 
 export default function SimilarProductsSection({ currentProductId, categorySlug }: SimilarProductsSectionProps) {
   const [products, setProducts] = useState<SimilarProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -50,9 +51,30 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
           );
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
     return () => controller.abort();
   }, [currentProductId, categorySlug]);
+
+  if (loading) {
+    return (
+      <div className="mt-12">
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-2">
+          <Users className="w-5 h-5 text-[var(--color-primary)]" />
+          Andere kauften auch
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] p-3 animate-pulse">
+              <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg mb-3" />
+              <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-3/4 mb-2" />
+              <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/2" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (products.length === 0) return null;
 

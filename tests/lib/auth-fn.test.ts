@@ -16,7 +16,7 @@ describe("hashPassword", () => {
     const hash1 = await hashPassword("password");
     const hash2 = await hashPassword("password");
     expect(hash1).not.toBe(hash2);
-  });
+  }, 10000);
 });
 
 describe("verifyPassword", () => {

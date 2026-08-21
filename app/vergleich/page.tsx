@@ -105,7 +105,8 @@ export default function VergleichPage() {
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-x-auto">
+          <div className="min-w-[600px]">
           {/* Product headers */}
           <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
             {products.map((product) => (
@@ -198,6 +199,7 @@ export default function VergleichPage() {
                 />
               </div>
             ))}
+          </div>
           </div>
         </div>
       )}

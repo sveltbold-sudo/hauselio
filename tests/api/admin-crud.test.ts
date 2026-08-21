@@ -9,6 +9,7 @@ vi.mock("next/headers", () => ({
 
 vi.mock("@/lib/rate-limit", () => ({
   checkRateLimit: vi.fn().mockResolvedValue(true),
+  getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
 }));
 
 vi.mock("@/lib/algolia-sync", () => ({
@@ -26,6 +27,7 @@ const mockPrisma = {
   product: {
     findUnique: vi.fn().mockResolvedValue(null),
     findFirst: vi.fn().mockResolvedValue(null),
+    count: vi.fn().mockResolvedValue(0),
     update: vi.fn().mockResolvedValue({}),
     delete: vi.fn().mockResolvedValue({}),
   },

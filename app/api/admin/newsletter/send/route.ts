@@ -3,7 +3,7 @@ import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { sendNewsletterCampaign } from "@/lib/emails";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const CampaignSchema = z.object({
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     if (ctError) return ctError;
 
     await requireRole("ADMIN");
-    const ip = request.headers?.get?.("x-forwarded-for") || "unknown";
+    const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-newsletter-send:${ip}`, 3, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
     }
@@ -33,6 +33,11 @@ export async function POST(request: NextRequest) {
     }
 
     const { subject, content } = parsed.data;
+    const sanitizedContent = content
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+      .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
+      .replace(/ on\w+="[^"]*"/gi, "")
+      .replace(/ on\w+='[^']*'/gi, "");
 
     const subscribers = await prisma.newsletter.findMany({
       where: { isActive: true, confirmed: true },
@@ -47,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
     const emails = subscribers.map((s) => s.email);
-    const result = await sendNewsletterCampaign({ subject, content, emails });
+    const result = await sendNewsletterCampaign({ subject, content: sanitizedContent, emails });
 
     return NextResponse.json({
       success: true,

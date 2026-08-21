@@ -16,6 +16,13 @@ export async function GET(request: NextRequest) {
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
+        select: {
+          id: true,
+          email: true,
+          isActive: true,
+          confirmed: true,
+          createdAt: true,
+        },
       }),
       prisma.newsletter.count(),
     ]);
