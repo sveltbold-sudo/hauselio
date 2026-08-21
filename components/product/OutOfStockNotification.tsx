@@ -62,6 +62,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="ihre@email.de"
+          aria-label="E-Mail-Adresse für Benachrichtigung"
           required
           className="flex-1 px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
         />

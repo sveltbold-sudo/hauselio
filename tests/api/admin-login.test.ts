@@ -22,7 +22,10 @@ vi.mock("@/lib/prisma", () => ({
 vi.mock("@/lib/rate-limit", () => ({
   checkRateLimit: vi.fn().mockResolvedValue(true),
   getRemainingAttempts: vi.fn().mockResolvedValue({ remaining: 4, retryAfterMs: 0 }),
+  getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
 }));
+
+type NextReqInit = ConstructorParameters<typeof NextRequest>[1];
 
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {
   return new NextRequest(url, {
@@ -33,7 +36,7 @@ function makeRequest(url: string, init?: { method?: string; headers?: Record<str
       "x-forwarded-proto": "http",
       "x-forwarded-host": "localhost:3000",
     },
-  } as RequestInit);
+  } as unknown as NextReqInit);
 }
 
 beforeEach(() => {

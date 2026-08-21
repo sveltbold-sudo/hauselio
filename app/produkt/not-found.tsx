@@ -26,7 +26,7 @@ export default function ProduktNotFound() {
           href="/shop"
           className="px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
         >
-          Zurück zur Boutique
+          Zurück zum Shop
         </Link>
         <Link
           href="/"

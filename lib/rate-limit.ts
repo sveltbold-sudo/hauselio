@@ -56,18 +56,13 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
 
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
-// Cleanup expired entries every 60s to prevent memory leak
-if (typeof setInterval !== "undefined" && typeof process !== "undefined") {
-  setInterval(() => {
-    const now = Date.now();
-    for (const [key, entry] of rateLimitStore) {
-      if (now > entry.resetAt) rateLimitStore.delete(key);
-    }
-  }, 60_000);
-}
-
 function getMemoryEntry(key: string) {
-  return rateLimitStore.get(key);
+  const entry = rateLimitStore.get(key);
+  if (entry && Date.now() > entry.resetAt) {
+    rateLimitStore.delete(key);
+    return undefined;
+  }
+  return entry;
 }
 
 function setMemoryEntry(key: string, count: number, windowMs: number) {

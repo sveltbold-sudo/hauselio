@@ -16,7 +16,11 @@ export const logger = {
     };
 
     if (isProd) {
-      console.error(JSON.stringify(entry));
+      const entryWithError = {
+        ...entry,
+        error: error instanceof Error ? error.message : String(error),
+      };
+      console.error(JSON.stringify(entryWithError));
     } else {
       console.error(`[HAUSELIO] ${context}:`, error, extra);
     }

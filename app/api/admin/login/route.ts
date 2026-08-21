@@ -9,6 +9,7 @@ import {
   resetFailedLogins,
 } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
@@ -34,6 +35,14 @@ export async function POST(request: NextRequest) {
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-login:${ip}`, 10, 15 * 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "900" } }
+      );
+    }
 
     const body = await request.json();
     const parsed = LoginSchema.safeParse(body);

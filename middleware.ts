@@ -35,6 +35,7 @@ export async function middleware(request: NextRequest) {
     try {
       const { payload } = await jwtVerify(token, getJWTSecret(), {
         algorithms: ["HS256"],
+        issuer: "hauselio-admin",
       });
 
       const now = Math.floor(Date.now() / 1000);

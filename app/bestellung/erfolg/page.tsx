@@ -97,7 +97,7 @@ export default function OrderSuccessPage() {
           href="/shop"
           className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors"
         >
-          Zur Boutique
+          Zum Shop
           <ArrowRight className="w-5 h-5" />
         </Link>
       </div>

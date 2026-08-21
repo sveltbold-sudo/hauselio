@@ -116,6 +116,7 @@ export default function ShopFilters({
         <div className="space-y-0.5">
           <button
             onClick={() => updateFilter("category", null)}
+            aria-pressed={!selectedCategory}
             className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
               !selectedCategory
                 ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
@@ -133,6 +134,7 @@ export default function ShopFilters({
                   selectedCategory === cat.slug ? null : cat.slug
                 )
               }
+              aria-pressed={selectedCategory === cat.slug}
               className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
                 selectedCategory === cat.slug
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
@@ -161,6 +163,7 @@ export default function ShopFilters({
                   selectedBrand === brand ? null : brand
                 )
               }
+              aria-pressed={selectedBrand === brand}
               className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
                 selectedBrand === brand
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"

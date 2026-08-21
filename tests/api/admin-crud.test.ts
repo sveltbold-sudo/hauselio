@@ -71,8 +71,10 @@ vi.mock("@/lib/auth", () => ({
 
 import { NextRequest } from "next/server";
 
+type NextReqInit = ConstructorParameters<typeof NextRequest>[1];
+
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {
-  return new NextRequest(url, init as RequestInit);
+  return new NextRequest(url, init as unknown as NextReqInit);
 }
 
 beforeEach(() => {

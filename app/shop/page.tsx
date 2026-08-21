@@ -74,6 +74,7 @@ interface ShopPageProps {
     page?: string;
     q?: string;
     price?: string;
+    promo?: string;
   }>;
 }
 
@@ -89,6 +90,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const skip = (page - 1) * limit;
 
   const where: Prisma.ProductWhereInput = {};
+  const promo = params.promo;
+  if (promo === "true") {
+    where.isPromo = true;
+  }
   if (category) {
     where.category = { slug: category };
   }

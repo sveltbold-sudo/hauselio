@@ -136,7 +136,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
           <Truck className="w-3 h-3 text-[var(--color-text-muted)]" />
-          <span className="text-[10px] text-[var(--color-text-muted)]">
+          <span className="text-[10px] text-[var(--color-text-muted)]" suppressHydrationWarning>
             {delivery.from} - {delivery.to}
           </span>
         </div>

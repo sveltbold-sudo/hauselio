@@ -27,7 +27,7 @@ const defaultPressReviews: PressReview[] = [
     publication: "Stiftung Warentest",
     logoText: "STIFTUNG\nWARENTEST",
     rating: "GUT (1,8)",
-    headline: "Testsieger Kaffeevollautomaten 2024",
+    headline: "Testsieger Kaffeevollautomaten 2025",
     excerpt: "Der De'Longhi Magnifica Evo überzeugt mit erstklassiger Kaffeequalität und einfachster Bedienung.",
     category: "Kaffeevollautomaten",
     product: "De'Longhi Magnifica Evo",

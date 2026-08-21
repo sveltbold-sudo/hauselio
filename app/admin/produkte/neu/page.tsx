@@ -6,7 +6,6 @@ import ProductForm, { type ProductFormProps } from "@/components/admin/ProductFo
 import { useToast } from "@/components/ui/Toast";
 import { serializeProductBody } from "@/lib/admin-product-helpers";
 import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
-import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
