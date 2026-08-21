@@ -5,8 +5,16 @@ import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateSettingsSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-einstellungen-get:${ip}`, 60, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
     await requireAdmin();
 
     let settings = await prisma.siteSettings.findFirst();

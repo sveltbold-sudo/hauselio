@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth";
-import { handleApiError } from "@/lib/api-helpers";
+import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
@@ -29,6 +29,9 @@ export async function POST(request: NextRequest) {
         { status: 429, headers: { "Retry-After": "60" } }
       );
     }
+
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
 
     await requireAdmin();
 

@@ -36,8 +36,16 @@ export async function POST(request: NextRequest) {
     const sanitizedContent = content
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
       .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
+      .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, "")
+      .replace(/<embed\b[^>]*\/?>/gi, "")
+      .replace(/<form\b[^<]*(?:(?!<\/form>)<[^<]*)*<\/form>/gi, "")
+      .replace(/<input\b[^>]*\/?>/gi, "")
+      .replace(/<link\b[^>]*\/?>/gi, "")
+      .replace(/<meta\b[^>]*\/?>/gi, "")
       .replace(/ on\w+="[^"]*"/gi, "")
-      .replace(/ on\w+='[^']*'/gi, "");
+      .replace(/ on\w+='[^']*'/gi, "")
+      .replace(/expression\s*\([^)]*\)/gi, "")
+      .replace(/url\s*\([^)]*\)/gi, "");
 
     const subscribers = await prisma.newsletter.findMany({
       where: { isActive: true, confirmed: true },

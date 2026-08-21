@@ -2,15 +2,35 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError } from "@/lib/api-helpers";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { z } from "zod";
+
+const KundenQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+  search: z.string().max(200).default(""),
+});
 
 export async function GET(request: NextRequest) {
   try {
     await requireAdmin();
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-kunden:${ip}`, 30, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
 
     const { searchParams } = new URL(request.url);
-    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
-    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "20", 10) || 20));
-    const search = searchParams.get("search") || "";
+    const parsed = KundenQuerySchema.safeParse(Object.fromEntries(searchParams));
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0].message },
+        { status: 400 }
+      );
+    }
+    const { page, limit, search } = parsed.data;
     const offset = (page - 1) * limit;
 
     const whereClause = search

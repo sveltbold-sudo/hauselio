@@ -6,6 +6,17 @@ import { verifyUnsubscribeToken } from "@/lib/auth";
 
 import { SITE_URL } from "@/lib/constants";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+const safeSiteUrl = escapeHtml(SITE_URL);
+
 export async function GET(request: NextRequest) {
   try {
     const ip = getClientIp(request);
@@ -21,7 +32,7 @@ export async function GET(request: NextRequest) {
 
     if (!token) {
       return new NextResponse(
-        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Ungültiger Link</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Ungültiger Link</h1><p style="color:#6B7280;">Der Abmelde-Link ist ungültig oder abgelaufen.</p><a href="${SITE_URL}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
+        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Ungültiger Link</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Ungültiger Link</h1><p style="color:#6B7280;">Der Abmelde-Link ist ungültig oder abgelaufen.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
         { headers: { "Content-Type": "text/html; charset=utf-8" } }
       );
     }
@@ -29,7 +40,7 @@ export async function GET(request: NextRequest) {
     const email = await verifyUnsubscribeToken(token);
     if (!email) {
       return new NextResponse(
-        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Link abgelaufen</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Link abgelaufen</h1><p style="color:#6B7280;">Der Abmelde-Link ist abgelaufen. Bitte fordern Sie einen neuen an.</p><a href="${SITE_URL}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
+        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Link abgelaufen</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Link abgelaufen</h1><p style="color:#6B7280;">Der Abmelde-Link ist abgelaufen. Bitte fordern Sie einen neuen an.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
         { headers: { "Content-Type": "text/html; charset=utf-8" } }
       );
     }
@@ -40,7 +51,7 @@ export async function GET(request: NextRequest) {
 
     if (!subscriber) {
       return new NextResponse(
-        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>E-Mail nicht gefunden</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">E-Mail nicht gefunden</h1><p style="color:#6B7280;">Diese E-Mail-Adresse ist nicht für unseren Newsletter registriert.</p><a href="${SITE_URL}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
+        `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>E-Mail nicht gefunden</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">E-Mail nicht gefunden</h1><p style="color:#6B7280;">Diese E-Mail-Adresse ist nicht für unseren Newsletter registriert.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
         { headers: { "Content-Type": "text/html; charset=utf-8" } }
       );
     }
@@ -51,7 +62,7 @@ export async function GET(request: NextRequest) {
     });
 
     return new NextResponse(
-      `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Abgemeldet</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Erfolgreich abgemeldet</h1><p style="color:#6B7280;">Sie erhalten keine Newsletter mehr von HAUSELIO.</p><a href="${SITE_URL}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
+      `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Abgemeldet</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Erfolgreich abgemeldet</h1><p style="color:#6B7280;">Sie erhalten keine Newsletter mehr von HAUSELIO.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
       { headers: { "Content-Type": "text/html; charset=utf-8" } }
     );
   } catch (error) {
