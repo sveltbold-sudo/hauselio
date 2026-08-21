@@ -5,6 +5,7 @@ import { sendNewsletterCampaign } from "@/lib/emails";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
+import DOMPurify from "isomorphic-dompurify";
 
 const CampaignSchema = z.object({
   subject: z.string().min(1, "Betreff ist erforderlich").max(200),
@@ -33,19 +34,11 @@ export async function POST(request: NextRequest) {
     }
 
     const { subject, content } = parsed.data;
-    const sanitizedContent = content
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-      .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
-      .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, "")
-      .replace(/<embed\b[^>]*\/?>/gi, "")
-      .replace(/<form\b[^<]*(?:(?!<\/form>)<[^<]*)*<\/form>/gi, "")
-      .replace(/<input\b[^>]*\/?>/gi, "")
-      .replace(/<link\b[^>]*\/?>/gi, "")
-      .replace(/<meta\b[^>]*\/?>/gi, "")
-      .replace(/ on\w+="[^"]*"/gi, "")
-      .replace(/ on\w+='[^']*'/gi, "")
-      .replace(/expression\s*\([^)]*\)/gi, "")
-      .replace(/url\s*\([^)]*\)/gi, "");
+    const sanitizedContent = DOMPurify.sanitize(content, {
+      ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "br", "ul", "ol", "li", "h1", "h2", "h3", "h4", "a", "img", "table", "thead", "tbody", "tr", "th", "td", "blockquote", "hr", "div", "span"],
+      ALLOWED_ATTR: ["href", "src", "alt", "title", "width", "height", "style", "class", "target", "rel"],
+      ALLOW_DATA_ATTR: false,
+    });
 
     const subscribers = await prisma.newsletter.findMany({
       where: { isActive: true, confirmed: true },

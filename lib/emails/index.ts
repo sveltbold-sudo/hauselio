@@ -5,6 +5,9 @@ import { createUnsubscribeToken } from "@/lib/auth";
 
 import { SITE_URL } from "@/lib/constants";
 
+// Deduplication guard for newsletter campaigns
+const activeCampaigns = new Set<string>();
+
 export function escapeHtml(str: string): string {
   return str
     .replace(/&/g, "&amp;")
@@ -395,47 +398,58 @@ export async function sendNewsletterCampaign(data: {
   content: string;
   emails: string[];
 }) {
-  const safeSubject = escapeHtml(data.subject);
-  const safeContent = escapeHtml(data.content).replace(/\n/g, "<br>");
-
-  const BATCH_SIZE = 50;
-  const results: { status: string }[] = [];
-
-  for (let i = 0; i < data.emails.length; i += BATCH_SIZE) {
-    const batch = data.emails.slice(i, i + BATCH_SIZE);
-    const batchResults = await Promise.allSettled(
-      batch.map(async (email) => {
-        const token = await createUnsubscribeToken(email);
-        const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
-        const html = baseTemplate(`
-          <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 16px 0;">${safeSubject}</h2>
-          <div style="color:#6B7280;font-size:14px;line-height:1.7;">
-            ${safeContent}
-          </div>
-          <div style="margin-top:32px;padding-top:24px;border-top:1px solid #E8E8E8;">
-            <p style="color:#9CA3AF;font-size:12px;margin:0;">
-              Sie erhalten diese E-Mail, weil Sie sich für unseren Newsletter angemeldet haben.
-              <a href="${unsubscribeUrl}" style="color:#F5A623;">Abmelden</a>
-            </p>
-          </div>
-        `);
-        return sendEmail({
-          from: FROM_EMAIL,
-          to: email,
-          subject: `${safeSubject} – HAUSELIO`,
-          html,
-        });
-      })
-    );
-    results.push(...batchResults);
-
-    if (i + BATCH_SIZE < data.emails.length) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
+  // Deduplication guard: prevent duplicate concurrent sends
+  const campaignKey = `newsletter-campaign:${data.subject}:${data.emails.length}`;
+  if (activeCampaigns.has(campaignKey)) {
+    throw new Error("Eine Newsletter-Kampagne wird gerade bereits versendet. Bitte warten Sie.");
   }
+  activeCampaigns.add(campaignKey);
 
-  const sent = results.filter((r) => r.status === "fulfilled").length;
-  const failed = results.filter((r) => r.status === "rejected").length;
+  try {
+    const safeSubject = escapeHtml(data.subject);
+    const safeContent = escapeHtml(data.content).replace(/\n/g, "<br>");
 
-  return { sent, failed, total: data.emails.length };
+    const BATCH_SIZE = 50;
+    const results: { status: string }[] = [];
+
+    for (let i = 0; i < data.emails.length; i += BATCH_SIZE) {
+      const batch = data.emails.slice(i, i + BATCH_SIZE);
+      const batchResults = await Promise.allSettled(
+        batch.map(async (email) => {
+          const token = await createUnsubscribeToken(email);
+          const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+          const html = baseTemplate(`
+            <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 16px 0;">${safeSubject}</h2>
+            <div style="color:#6B7280;font-size:14px;line-height:1.7;">
+              ${safeContent}
+            </div>
+            <div style="margin-top:32px;padding-top:24px;border-top:1px solid #E8E8E8;">
+              <p style="color:#9CA3AF;font-size:12px;margin:0;">
+                Sie erhalten diese E-Mail, weil Sie sich für unseren Newsletter angemeldet haben.
+                <a href="${unsubscribeUrl}" style="color:#F5A623;">Abmelden</a>
+              </p>
+            </div>
+          `);
+          return sendEmail({
+            from: FROM_EMAIL,
+            to: email,
+            subject: `${safeSubject} – HAUSELIO`,
+            html,
+          });
+        })
+      );
+      results.push(...batchResults);
+
+      if (i + BATCH_SIZE < data.emails.length) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    }
+
+    const sent = results.filter((r) => r.status === "fulfilled").length;
+    const failed = results.filter((r) => r.status === "rejected").length;
+
+    return { sent, failed, total: data.emails.length };
+  } finally {
+    activeCampaigns.delete(campaignKey);
+  }
 }

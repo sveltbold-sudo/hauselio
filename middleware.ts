@@ -4,20 +4,26 @@ import { jwtVerify } from "jose";
 import { getJWTSecret } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 
+const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isAdminRoute = pathname.startsWith("/admin") && !pathname.startsWith("/admin/login");
   const isAdminApiRoute = pathname.startsWith("/api/admin") && !pathname.startsWith("/api/admin/login");
+  const isApiRoute = pathname.startsWith("/api/");
 
-  if (isAdminRoute || isAdminApiRoute) {
-    if (isAdminApiRoute && !validateCsrfOrigin(request)) {
+  // CSRF on ALL non-safe API routes (not just admin)
+  if (isApiRoute && !SAFE_METHODS.includes(request.method)) {
+    if (!validateCsrfOrigin(request)) {
       return NextResponse.json(
         { error: "CSRF-Schutz: Ungültige Herkunft" },
         { status: 403 }
       );
     }
+  }
 
+  if (isAdminRoute || isAdminApiRoute) {
     const token = request.cookies.get("admin_token")?.value;
 
     if (!token) {
@@ -77,6 +83,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*",
-    "/api/admin/:path*",
+    "/api/:path*",
   ],
 };

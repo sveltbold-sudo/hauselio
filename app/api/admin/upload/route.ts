@@ -34,6 +34,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate file extension
+    const allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
+    const ext = file.name.split(".").pop()?.toLowerCase();
+    if (!ext || !allowedExtensions.includes(ext)) {
+      return NextResponse.json(
+        { error: "Nur .jpg, .jpeg, .png, .webp und .gif Dateien sind erlaubt" },
+        { status: 400 }
+      );
+    }
+
     // Max 5MB
     if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(

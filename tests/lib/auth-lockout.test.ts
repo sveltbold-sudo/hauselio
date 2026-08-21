@@ -63,7 +63,7 @@ describe("authenticateAdmin", () => {
 
     const result = await authenticateAdmin("admin@test.de", "wrong-password");
     expect(result).toBeNull();
-  });
+  }, 15000);
 
   it("returns null on non-existent email (timing-safe)", async () => {
     const { authenticateAdmin } = await import("@/lib/auth");

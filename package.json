@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@types/dompurify": "^3.0.5",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.2",
     "@vercel/analytics": "^1.6.1",
@@ -30,6 +31,7 @@
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2",
     "clsx": "^2",
+    "isomorphic-dompurify": "^3.22.0",
     "jose": "^6.2.8",
     "lucide-react": "^0.500",
     "next": "16.2.12",
@@ -59,7 +61,12 @@
     "vitest": "^4.1.10"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{json,css,md}": ["prettier --write"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }

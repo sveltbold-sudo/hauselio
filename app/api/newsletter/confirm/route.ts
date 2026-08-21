@@ -29,6 +29,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL("/?newsletter=already-confirmed", request.url));
     }
 
+    // Check token expiration (24h)
+    if (subscriber.confirmExpiresAt && subscriber.confirmExpiresAt < new Date()) {
+      return NextResponse.redirect(new URL("/?newsletter=expired", request.url));
+    }
+
     await prisma.newsletter.update({
       where: { id: subscriber.id },
       data: {
