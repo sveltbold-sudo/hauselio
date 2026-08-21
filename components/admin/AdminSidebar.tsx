@@ -183,6 +183,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
           <Link
             href="/"
             target="_blank"
+            rel="noopener noreferrer"
             className="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
           >
             Website ansehen →

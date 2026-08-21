@@ -62,7 +62,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FaqSection() {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]">
+    <section id="faq" className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-3">

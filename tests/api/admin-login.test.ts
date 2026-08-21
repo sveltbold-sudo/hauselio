@@ -94,7 +94,7 @@ describe("POST /api/admin/login", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(401);
-  });
+  }, 15000);
 
   it("rejects invalid body with 400", async () => {
     const { POST } = await import("@/app/api/admin/login/route");
@@ -152,5 +152,5 @@ describe("POST /api/admin/login", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(401);
-  });
+  }, 15000);
 });

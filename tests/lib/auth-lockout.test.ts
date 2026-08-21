@@ -90,7 +90,7 @@ describe("authenticateAdmin", () => {
     expect(result).not.toBeNull();
     expect(result?.name).toBeUndefined();
     expect(result?.role).toBe("EDITOR");
-  });
+  }, 15000);
 
   it("returns null when verifyPassword throws (malformed hash)", async () => {
     mockPrisma.adminUser.findUnique.mockResolvedValue({

@@ -250,6 +250,7 @@ export default function ProductTable({
                       <a
                         href={`/produkt/${product.slug}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
                         aria-label="Ansehen"
                       >
@@ -341,6 +342,7 @@ export default function ProductTable({
                       <a
                         href={`/produkt/${product.slug}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
                         aria-label="Ansehen"
                       >
