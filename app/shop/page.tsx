@@ -300,7 +300,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
                 {page > 1 && (
                   <Link
-                    href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
+                    href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
                     className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
@@ -322,7 +322,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   return (
                     <Link
                       key={p}
-                      href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
+                      href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
                       aria-current={p === page ? "page" : undefined}
                       className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                         p === page
@@ -336,7 +336,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 })}
                 {page < totalPages && (
                   <Link
-                    href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
+                    href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
                     className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >

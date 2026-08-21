@@ -89,6 +89,7 @@ export async function POST(request: NextRequest) {
           id: product.id,
           valid: true,
           priceChanged: true,
+          price: currentPrice,
           oldPrice: item.price,
           newPrice: currentPrice,
           name: product.name,
