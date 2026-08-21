@@ -32,7 +32,9 @@ export default function VergleichPage() {
     if (stored) {
       try {
         setProducts(JSON.parse(stored));
-      } catch {}
+      } catch {
+        console.warn("Failed to parse comparison data from localStorage");
+      }
     }
   }, []);
 

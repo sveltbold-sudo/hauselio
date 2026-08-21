@@ -236,7 +236,7 @@ describe("GET /api/admin/marken", () => {
     ]);
 
     const { GET } = await import("@/app/api/admin/marken/route");
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost:3000/api/admin/marken"));
     const data = await res.json();
 
     expect(res.status).toBe(200);

@@ -12,6 +12,14 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-produkt-get:${ip}`, 60, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
     await requireAdmin();
     const { id } = await params;
 

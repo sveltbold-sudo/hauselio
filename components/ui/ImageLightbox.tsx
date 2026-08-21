@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
 
@@ -15,6 +15,7 @@ interface ImageLightboxProps {
 
 export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with prop changes
@@ -35,9 +36,23 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "Tab") {
+        const focusable = document.querySelectorAll('[role="dialog"] button, [role="dialog"] a');
+        if (focusable.length === 0) return;
+        const first = focusable[0] as HTMLElement;
+        const last = focusable[focusable.length - 1] as HTMLElement;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
@@ -55,6 +70,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       aria-modal="true"
     >
       <button
+        ref={closeRef}
         onClick={onClose}
         className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors z-10"
         aria-label="Schließen"

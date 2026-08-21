@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
           },
         },
         {
-          headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
+          headers: { "Cache-Control": "private, no-store, no-cache, must-revalidate" },
         }
       );
     }
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
         },
       },
       {
-        headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
+        headers: { "Cache-Control": "private, no-store, no-cache, must-revalidate" },
       }
     );
   } catch (error) {

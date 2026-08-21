@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const CampaignSchema = z.object({
   subject: z.string().min(1, "Betreff ist erforderlich").max(200),
-  content: z.string().min(1, "Inhalt ist erforderlich"),
+  content: z.string().min(1, "Inhalt ist erforderlich").max(100000),
 });
 
 export async function POST(request: NextRequest) {
