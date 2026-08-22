@@ -229,6 +229,12 @@ export default function BestellungPage() {
   };
 
   useEffect(() => {
+    if (!mounted) return;
+    if (items.length === 0) {
+      router.replace("/warenkorb");
+    }
+  }, [mounted, items.length, router]);
+
   if (!mounted) {
     return (
       <div className="container-hauselio py-20 text-center">
@@ -237,11 +243,6 @@ export default function BestellungPage() {
       </div>
     );
   }
-
-  if (items.length === 0) {
-      router.replace("/warenkorb");
-    }
-  }, [items.length, router]);
 
   if (items.length === 0) {
     return (
