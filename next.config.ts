@@ -30,10 +30,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' https://va.vercel-scripts.com https://vercel.live",
-      "style-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' https://res.cloudinary.com data: blob:",
-      "font-src 'self'",
+      "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io",
       "object-src 'none'",
       "frame-ancestors 'none'",
