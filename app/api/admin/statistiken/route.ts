@@ -16,6 +16,20 @@ export async function GET(request: NextRequest) {
 
     await requireAdmin();
 
+    const { searchParams } = new URL(request.url);
+    const range = searchParams.get("range") || "all";
+    const now = new Date();
+    let dateFrom: Date | undefined;
+    if (range === "7d") {
+      dateFrom = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    } else if (range === "30d") {
+      dateFrom = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    } else if (range === "90d") {
+      dateFrom = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+    }
+
+    const orderFilter = dateFrom ? { createdAt: { gte: dateFrom } } : {};
+
     const [
       totalRevenue,
       totalOrders,
@@ -27,10 +41,10 @@ export async function GET(request: NextRequest) {
       categoryStats,
       categoryRevenues,
     ] = await Promise.all([
-      prisma.order.aggregate({ _sum: { total: true } }),
-      prisma.order.count(),
+      prisma.order.aggregate({ _sum: { total: true }, where: orderFilter }),
+      prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
-      prisma.order.count({ where: { status: "PENDING_PAYMENT" } }),
+      prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
       prisma.product.count({ where: { inStock: true } }),
       prisma.orderItem.groupBy({
         by: ["productId"],
@@ -38,6 +52,7 @@ export async function GET(request: NextRequest) {
         _count: true,
         orderBy: { _sum: { price: "desc" } },
         take: 5,
+        where: { order: orderFilter },
       }),
       prisma.order.findMany({
         select: {
@@ -46,6 +61,7 @@ export async function GET(request: NextRequest) {
           status: true,
           createdAt: true,
         },
+        where: orderFilter,
         orderBy: { createdAt: "desc" },
         take: 10,
       }),
@@ -59,6 +75,7 @@ export async function GET(request: NextRequest) {
       prisma.orderItem.groupBy({
         by: ["productId"],
         _sum: { price: true },
+        where: { order: orderFilter },
       }),
     ]);
 

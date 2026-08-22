@@ -5,6 +5,7 @@ import {
   ShoppingCart,
   Package,
   Clock,
+  Users,
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
@@ -21,6 +22,7 @@ async function fetchDashboardData() {
     totalProducts,
     pendingOrders,
     totalRevenue,
+    totalCustomers,
     recentOrders,
     unavailableProducts,
   ] = await Promise.all([
@@ -28,6 +30,7 @@ async function fetchDashboardData() {
     prisma.product.count(),
     prisma.order.count({ where: { status: "PENDING_PAYMENT" } }),
     prisma.order.aggregate({ _sum: { total: true }, where: { status: { not: "CANCELLED" } } }),
+    prisma.order.groupBy({ by: ["customerEmail"] }).then((groups) => groups.length),
     prisma.order.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },
@@ -40,7 +43,7 @@ async function fetchDashboardData() {
     }),
   ]);
 
-  return { totalOrders, totalProducts, pendingOrders, totalRevenue, recentOrders, unavailableProducts };
+  return { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, unavailableProducts };
 }
 
 export default async function AdminDashboard() {
@@ -75,7 +78,7 @@ export default async function AdminDashboard() {
     );
   }
 
-  const { totalOrders, totalProducts, pendingOrders, totalRevenue, recentOrders, unavailableProducts } = data;
+  const { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, unavailableProducts } = data;
 
   const stats = [
     {
@@ -102,6 +105,12 @@ export default async function AdminDashboard() {
       icon: Clock,
       color: pendingOrders > 0 ? "bg-red-500" : "bg-gray-400",
     },
+    {
+      name: "Kunden",
+      value: totalCustomers.toString(),
+      icon: Users,
+      color: "bg-purple-500",
+    },
   ];
 
   return (
@@ -111,7 +120,7 @@ export default async function AdminDashboard() {
       </h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         {stats.map((stat) => (
           <div
             key={stat.name}

@@ -1,10 +1,19 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useCallback } from "react";
 import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
+
+type DateRange = "all" | "7d" | "30d" | "90d";
+
+const DATE_RANGE_OPTIONS: { value: DateRange; label: string }[] = [
+  { value: "all", label: "Gesamt" },
+  { value: "90d", label: "90 Tage" },
+  { value: "30d", label: "30 Tage" },
+  { value: "7d", label: "7 Tage" },
+];
 
 interface Stats {
   totalRevenue: number;
@@ -22,15 +31,25 @@ interface Stats {
 export default function StatistikenPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [dateRange, setDateRange] = useState<DateRange>("all");
   const [, startTransition] = useTransition();
 
-  useEffect(() => {
-    fetch("/api/admin/statistiken")
+  const fetchStats = useCallback((range: DateRange) => {
+    setLoading(true);
+    fetch(`/api/admin/statistiken?range=${range}`)
       .then((res) => res.json())
       .then((data) => startTransition(() => setStats(data)))
       .catch((err) => logger.error("Failed to load data", { error: err }))
       .finally(() => setLoading(false));
   }, [startTransition]);
+
+  useEffect(() => {
+    fetchStats(dateRange);
+  }, [dateRange, fetchStats]);
+
+  const handleRangeChange = (range: DateRange) => {
+    setDateRange(range);
+  };
 
   if (loading) {
     return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
@@ -42,9 +61,27 @@ export default function StatistikenPage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Statistiken</h1>
-        <p className="text-[var(--color-text-secondary)] mt-1">Überblick über Ihren Shop</p>
+      {/* Header with date range filter */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Statistiken</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Überblick über Ihren Shop</p>
+        </div>
+        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+          {DATE_RANGE_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => handleRangeChange(opt.value)}
+              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                dateRange === opt.value
+                  ? "bg-white text-[var(--color-text-primary)] shadow-sm"
+                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* KPI Cards */}

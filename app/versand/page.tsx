@@ -17,6 +17,7 @@ const shippingMethods = [
     freeAbove: "50 €",
     duration: "2–5 Werktage",
     icon: Truck,
+    available: true,
   },
   {
     name: "Expressversand",
@@ -24,6 +25,7 @@ const shippingMethods = [
     freeAbove: null,
     duration: "1–2 Werktage",
     icon: Package,
+    available: false,
   },
 ];
 
@@ -54,7 +56,10 @@ export default function VersandPage() {
               </div>
               <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                 <p>
-                  <span className="font-medium">Kosten:</span> {method.price}
+                  <span className="font-medium">Kosten:</span>{" "}
+                  {method.available ? method.price : (
+                    <span className="text-[var(--color-text-muted)]">bald verfügbar</span>
+                  )}
                 </p>
                 {method.freeAbove && (
                   <p className="text-[var(--color-success)] font-medium">
@@ -63,8 +68,15 @@ export default function VersandPage() {
                 )}
                 <p>
                   <span className="font-medium">Lieferzeit:</span>{" "}
-                  {method.duration}
+                  {method.available ? method.duration : (
+                    <span className="text-[var(--color-text-muted)]">in Planung</span>
+                  )}
                 </p>
+                {!method.available && (
+                  <p className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full text-xs font-medium">
+                    Bald verfügbar
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -85,8 +97,8 @@ export default function VersandPage() {
           </p>
           <p className="text-[var(--color-text-secondary)] leading-relaxed">
             Die Lieferung erfolgt in der Regel innerhalb von <strong>2–5
-            Werktagen</strong> nach Eingang der Zahlung. Bei Expressversand
-            erhalten Sie Ihre Ware innerhalb von <strong>1–2 Werktagen</strong>.
+            Werktagen</strong> nach Eingang der Zahlung. Ein Expressversand
+            wird bald verfügbar sein.
           </p>
           <p className="text-[var(--color-text-secondary)] leading-relaxed">
             Bitte stellen Sie sicher, dass bei Lieferung eine Person anwesend
