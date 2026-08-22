@@ -28,11 +28,16 @@ export default function BestellungPage() {
   const router = useRouter();
   const { items, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [priceChanges, setPriceChanges] = useState<PriceChange[]>([]);
   const [invalidItems, setInvalidItems] = useState<InvalidItem[]>([]);
   const [isValidating, setIsValidating] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -224,7 +229,16 @@ export default function BestellungPage() {
   };
 
   useEffect(() => {
-    if (items.length === 0) {
+  if (!mounted) {
+    return (
+      <div className="container-hauselio py-20 text-center">
+        <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen...</p>
+      </div>
+    );
+  }
+
+  if (items.length === 0) {
       router.replace("/warenkorb");
     }
   }, [items.length, router]);

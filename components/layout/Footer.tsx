@@ -174,7 +174,7 @@ export default function Footer() {
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/50">
-              © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
+              © 2026 HAUSELIO. Alle Rechte vorbehalten.
             </p>
             <ScrollToTop />
           </div>

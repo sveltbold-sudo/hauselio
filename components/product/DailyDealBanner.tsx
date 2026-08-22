@@ -33,9 +33,12 @@ function getTimeLeft() {
 }
 
 export default function DailyDealBanner({ product }: DailyDealBannerProps) {
-  const [time, setTime] = useState(getTimeLeft());
+  const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    setTime(getTimeLeft());
     const timer = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -86,22 +89,24 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               </div>
 
               {/* Countdown */}
-              <div className="flex items-center gap-2 mb-6">
-                <Clock className="w-4 h-4 text-white/70" />
-                <span className="text-xs text-white/70 font-medium mr-2">Endet in:</span>
-                {[
-                  { value: time.hours, label: "Std" },
-                  { value: time.minutes, label: "Min" },
-                  { value: time.seconds, label: "Sek" },
-                ].map((unit, i) => (
-                  <div key={i} className="flex items-center gap-1">
-                    <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-sm font-black text-white tabular-nums">
-                      {String(unit.value).padStart(2, "0")}
-                    </span>
-                    {i < 2 && <span className="text-white/50 text-xs font-bold">:</span>}
-                  </div>
-                ))}
-              </div>
+              {mounted && (
+                <div className="flex items-center gap-2 mb-6">
+                  <Clock className="w-4 h-4 text-white/70" />
+                  <span className="text-xs text-white/70 font-medium mr-2">Endet in:</span>
+                  {[
+                    { value: time.hours, label: "Std" },
+                    { value: time.minutes, label: "Min" },
+                    { value: time.seconds, label: "Sek" },
+                  ].map((unit, i) => (
+                    <div key={i} className="flex items-center gap-1">
+                      <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-sm font-black text-white tabular-nums">
+                        {String(unit.value).padStart(2, "0")}
+                      </span>
+                      {i < 2 && <span className="text-white/50 text-xs font-bold">:</span>}
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* CTA */}
               <Link

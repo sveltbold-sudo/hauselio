@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -15,8 +15,13 @@ import { getEstimatedDeliveryDate } from "@/lib/delivery";
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity } = useCartStore();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const total = useCartStore(selectTotal);
   const itemCount = useCartStore(selectItemCount);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const totalSavings = items.reduce((sum, item) => {
     if (item.originalPrice && item.originalPrice > item.price) {
       return sum + (item.originalPrice - item.price) * item.quantity;
@@ -25,6 +30,17 @@ export default function WarenkorbPage() {
   }, 0);
   const shippingCost = getShippingCost(total);
   const finalTotal = total + shippingCost;
+
+  if (!mounted) {
+    return (
+      <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded mx-auto" />
+          <div className="h-40 bg-[var(--color-bg-secondary)] rounded" />
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (
