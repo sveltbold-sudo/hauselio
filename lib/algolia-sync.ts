@@ -1,6 +1,13 @@
 import { prisma } from "./prisma";
 import { getAlgoliaAdminClient, PRODUCTS_INDEX } from "./algolia";
 import { logger } from "./logger";
+import type { Product } from "@prisma/client";
+
+type ProductWithRelations = Product & {
+  category: { name: string; slug: string } | null;
+  brand: { name: string } | null;
+  images: { url: string }[];
+};
 
 interface ProductRecord extends Record<string, unknown> {
   objectID: string;
@@ -20,8 +27,7 @@ interface ProductRecord extends Record<string, unknown> {
   inStock: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function formatProduct(product: any): ProductRecord {
+function formatProduct(product: ProductWithRelations): ProductRecord {
   return {
     objectID: product.id,
     name: product.name,

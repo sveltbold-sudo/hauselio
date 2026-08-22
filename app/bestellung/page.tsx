@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/lib/store";
+import { useCartStore, selectTotal } from "@/lib/store";
 import { getShippingCost } from "@/lib/constants";
 
 interface PriceChange {
@@ -26,7 +26,7 @@ interface InvalidItem {
 
 export default function BestellungPage() {
   const router = useRouter();
-  const { items, getTotal, clearCart, updateQuantity, removeItem } = useCartStore();
+  const { items, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [priceChanges, setPriceChanges] = useState<PriceChange[]>([]);
   const [invalidItems, setInvalidItems] = useState<InvalidItem[]>([]);
@@ -46,7 +46,7 @@ export default function BestellungPage() {
     notes: "",
   });
 
-  const total = getTotal();
+  const total = useCartStore(selectTotal);
   const shippingCost = getShippingCost(total);
   const finalTotal = total + shippingCost;
 

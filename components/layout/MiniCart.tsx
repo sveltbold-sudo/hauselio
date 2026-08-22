@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ShoppingBag, X, Plus, Minus, ArrowRight } from "lucide-react";
-import { useCartStore } from "@/lib/store";
+import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
@@ -14,8 +14,8 @@ export default function MiniCart() {
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
-  const itemCount = useCartStore((state) => state.getItemCount());
-  const total = useCartStore((state) => state.getTotal());
+  const itemCount = useCartStore(selectItemCount);
+  const total = useCartStore(selectTotal);
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

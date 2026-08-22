@@ -114,21 +114,21 @@ describe("cart store", () => {
   });
 
   it("calculates total", async () => {
-    const { useCartStore } = await import("@/lib/store");
+    const { useCartStore, selectTotal } = await import("@/lib/store");
     const { addItem } = useCartStore.getState();
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 100, image: "/img.jpg" }, 2);
     addItem({ id: "p2", name: "Product 2", slug: "product-2", price: 50, image: "/img2.jpg" }, 1);
-    const total = useCartStore.getState().getTotal();
+    const total = selectTotal(useCartStore.getState());
     expect(total).toBe(250);
     useCartStore.setState({ items: [] });
   });
 
   it("counts items", async () => {
-    const { useCartStore } = await import("@/lib/store");
+    const { useCartStore, selectItemCount } = await import("@/lib/store");
     const { addItem } = useCartStore.getState();
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 100, image: "/img.jpg" }, 3);
     addItem({ id: "p2", name: "Product 2", slug: "product-2", price: 50, image: "/img2.jpg" }, 2);
-    const count = useCartStore.getState().getItemCount();
+    const count = selectItemCount(useCartStore.getState());
     expect(count).toBe(5);
     useCartStore.setState({ items: [] });
   });

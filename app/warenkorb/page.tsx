@@ -8,14 +8,15 @@ import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
 import CartCrossSell from "@/components/product/CartCrossSell";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/lib/store";
+import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import { getEstimatedDeliveryDate } from "@/lib/delivery";
 
 export default function WarenkorbPage() {
-  const { items, removeItem, updateQuantity, getTotal, getItemCount } = useCartStore();
+  const { items, removeItem, updateQuantity } = useCartStore();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
-  const total = getTotal();
+  const total = useCartStore(selectTotal);
+  const itemCount = useCartStore(selectItemCount);
   const totalSavings = items.reduce((sum, item) => {
     if (item.originalPrice && item.originalPrice > item.price) {
       return sum + (item.originalPrice - item.price) * item.quantity;
@@ -180,7 +181,7 @@ export default function WarenkorbPage() {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">
-                  Zwischensumme ({getItemCount()} Artikel)
+                  Zwischensumme ({itemCount} Artikel)
                 </span>
                 <span className="font-semibold">{formatPrice(total)}</span>
               </div>

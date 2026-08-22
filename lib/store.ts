@@ -19,13 +19,11 @@ interface CartState {
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
-  getTotal: () => number;
-  getItemCount: () => number;
 }
 
 export const useCartStore = create<CartState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       items: [],
 
       addItem: (item, quantity = 1) => {
@@ -66,20 +64,15 @@ export const useCartStore = create<CartState>()(
       },
 
       clearCart: () => set({ items: [] }),
-
-      getTotal: () => {
-        return get().items.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
-      },
-
-      getItemCount: () => {
-        return get().items.reduce((count, item) => count + item.quantity, 0);
-      },
     }),
     {
       name: "hauselio-cart",
     }
   )
 );
+
+export const selectItemCount = (state: CartState) =>
+  state.items.reduce((count, item) => count + item.quantity, 0);
+
+export const selectTotal = (state: CartState) =>
+  state.items.reduce((total, item) => total + item.price * item.quantity, 0);
