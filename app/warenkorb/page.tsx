@@ -10,7 +10,7 @@ import CartCrossSell from "@/components/product/CartCrossSell";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
-import { getEstimatedDeliveryDate } from "@/lib/delivery";
+import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity } = useCartStore();
@@ -252,7 +252,7 @@ export default function WarenkorbPage() {
             <div className="mt-6 space-y-3">
               <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
-                <span>{getEstimatedDeliveryDate().from} - {getEstimatedDeliveryDate().to}</span>
+                <DeliveryEstimate />
               </div>
               <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />

@@ -121,7 +121,11 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     }
   };
 
-  const delivery = getEstimatedDeliveryDate();
+  const [delivery, setDelivery] = useState<{ from: string; to: string } | null>(null);
+
+  useEffect(() => {
+    setDelivery(getEstimatedDeliveryDate());
+  }, []);
   const wishlistItem = {
     id: product.id,
     name: product.name,
@@ -205,7 +209,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />
             <div>
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                Lieferung: {delivery.from} – {delivery.to}
+                {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferung: --"}
               </p>
               <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€</p>
             </div>

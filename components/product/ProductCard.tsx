@@ -6,7 +6,7 @@ import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import WishlistButton from "@/components/product/WishlistButton";
 import { formatPrice, calcDiscount } from "@/lib/utils";
-import { getEstimatedDeliveryDate } from "@/lib/delivery";
+import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 
 interface ProductCardProps {
   product: {
@@ -28,7 +28,6 @@ interface ProductCardProps {
 export default memo(function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
   const fullStars = Math.floor(product.rating);
-  const delivery = getEstimatedDeliveryDate();
 
   return (
     <Link
@@ -136,9 +135,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
           <Truck className="w-3 h-3 text-[var(--color-text-muted)]" />
-          <span className="text-[10px] text-[var(--color-text-muted)]" suppressHydrationWarning>
-            {delivery.from} - {delivery.to}
-          </span>
+          <DeliveryEstimate />
         </div>
       </div>
     </Link>
