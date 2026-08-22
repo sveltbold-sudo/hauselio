@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { useWishlistStore, type WishlistItem } from "@/lib/wishlist";
 
@@ -10,8 +11,13 @@ interface WishlistButtonProps {
 }
 
 export default function WishlistButton({ item, size = "sm", className = "" }: WishlistButtonProps) {
+  const [mounted, setMounted] = useState(false);
   const { toggleItem, isInWishlist } = useWishlistStore();
-  const isWishlisted = isInWishlist(item.id);
+  const isWishlisted = mounted && isInWishlist(item.id);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sizeClasses = size === "sm" ? "w-8 h-8" : "w-10 h-10";
   const iconSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";

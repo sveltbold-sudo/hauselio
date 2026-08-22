@@ -8,7 +8,6 @@ import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
 import ProductPaymentInfo from "@/components/product/ProductPaymentInfo";
 import ProductTabs from "@/components/product/ProductTabs";
-import ProductImage from "@/components/product/ProductImage";
 import WishlistButton from "@/components/product/WishlistButton";
 import SimilarProductsSection from "@/components/product/SimilarProductsSection";
 import CompareButton from "@/components/product/CompareButton";

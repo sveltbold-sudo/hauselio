@@ -46,7 +46,7 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
         const filtered = currentProductId
           ? parsed.filter((i) => i.id !== currentProductId)
           : parsed;
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
+         
         setItems(filtered.slice(0, 4));
       }
     } catch {

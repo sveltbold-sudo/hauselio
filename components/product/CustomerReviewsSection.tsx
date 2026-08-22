@@ -43,6 +43,15 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
 
   const fullStars = Math.floor(averageRating);
 
+  const reviewsWithFormattedDates = reviews.map((r) => ({
+    ...r,
+    formattedDate: new Date(r.createdAt).toLocaleDateString("de-DE", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
+  }));
+
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
@@ -95,7 +104,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           </div>
 
           {/* Reviews List */}
-          <ReviewFilters reviews={reviews} />
+          <ReviewFilters reviews={reviewsWithFormattedDates} />
         </div>
       </div>
     </section>

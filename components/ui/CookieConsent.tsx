@@ -28,7 +28,7 @@ export default function CookieConsent() {
   const firstButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
+     
     setVisible(needsConsentBanner());
   }, []);
 

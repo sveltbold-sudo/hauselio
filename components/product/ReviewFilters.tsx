@@ -10,6 +10,7 @@ interface Review {
   title: string | null;
   content: string | null;
   createdAt: Date;
+  formattedDate: string;
   product: { name: string; slug: string };
 }
 
@@ -111,11 +112,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
               </div>
             </div>
             <span className="text-xs text-[var(--color-text-muted)]">
-              {new Date(review.createdAt).toLocaleDateString("de-DE", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {review.formattedDate}
             </span>
           </div>
 

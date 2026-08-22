@@ -18,7 +18,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync state with prop changes
+     
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 

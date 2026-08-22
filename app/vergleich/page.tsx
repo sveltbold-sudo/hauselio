@@ -26,7 +26,7 @@ export default function VergleichPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: avoid localStorage read during SSR
+     
     setMounted(true);
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {
