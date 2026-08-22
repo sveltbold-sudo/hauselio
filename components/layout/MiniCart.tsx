@@ -11,6 +11,7 @@ import { getShippingCost } from "@/lib/constants";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -18,6 +19,10 @@ export default function MiniCart() {
   const total = useCartStore(selectTotal);
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const close = useCallback(() => setIsOpen(false), []);
 
@@ -82,7 +87,7 @@ export default function MiniCart() {
         aria-expanded={isOpen}
       >
         <ShoppingBag className="w-5 h-5" />
-        {itemCount > 0 && (
+        {mounted && itemCount > 0 && (
           <span
             aria-live="polite"
             aria-label={`${itemCount} Artikel im Warenkorb`}
