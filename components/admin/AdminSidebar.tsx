@@ -156,7 +156,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                   <button
                     role="menuitem"
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-gray-50 focus-visible:outline-none focus:bg-gray-50"
                   >
                     <LogOut className="w-4 h-4" />
                     Abmelden

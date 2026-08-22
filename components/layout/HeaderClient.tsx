@@ -276,7 +276,7 @@ export default function HeaderClient() {
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Menü schließen"
-                className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>

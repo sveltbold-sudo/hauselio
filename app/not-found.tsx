@@ -29,7 +29,7 @@ export default async function NotFound() {
                 type="text"
                 name="q"
                 placeholder="Was suchen Sie? (z.B. Kaffeemaschine, Staubsauger...)"
-                className="w-full pl-12 pr-4 py-4 border border-[var(--color-border-light)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] shadow-sm"
+                className="w-full pl-12 pr-4 py-4 border border-[var(--color-border-light)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] shadow-sm"
               />
             </div>
             <button

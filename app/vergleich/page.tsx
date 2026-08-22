@@ -140,7 +140,7 @@ export default function VergleichPage() {
               {products.map((product) => (
                 <div key={`price-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
                   <p className="text-xs text-[var(--color-text-muted)] mb-1">Preis</p>
-                  <p className="text-xl font-bold text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
+                  <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
                   {product.originalPrice && (
                     <p className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</p>
                   )}

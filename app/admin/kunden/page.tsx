@@ -104,11 +104,11 @@ export default function KundenPage() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
         <input
           type="text"
-          placeholder="Kunden suchen (Name, E-Mail, Stadt)..."
+          placeholder="Kunden suchen (Name, E-Mail, Stadt)…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           aria-label="Kunden suchen"
-          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function KundenPage() {
             {loading ? (
               <tr>
                 <td colSpan={5} className="px-4 py-12 text-center text-[var(--color-text-muted)]">
-                  Laden...
+                  Laden…
                 </td>
               </tr>
             ) : filtered.length === 0 ? (

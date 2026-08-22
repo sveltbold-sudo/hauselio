@@ -172,6 +172,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <Link
               href={`/shop?brand=${encodeURIComponent(product.brand.toLowerCase())}`}
               className="inline-block text-xs font-bold text-[var(--color-primary)] uppercase tracking-widest mb-2 hover:underline"
+              translate="no"
             >
               {product.brand}
             </Link>
@@ -220,7 +221,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 aria-label="Menge verringern"
-                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <Minus className="w-4 h-4" />
               </button>
@@ -230,7 +231,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <button
                 onClick={() => setQuantity(Math.min(99, quantity + 1))}
                 aria-label="Menge erhöhen"
-                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <Plus className="w-4 h-4" />
               </button>

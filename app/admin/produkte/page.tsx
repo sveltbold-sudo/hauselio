@@ -90,15 +90,15 @@ export default async function AdminProductsPage({
             type="text"
             name="q"
             defaultValue={q}
-            placeholder="Suche..."
+            placeholder="Suche…"
             aria-label="Produkte suchen"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           />
           <select
             name="category"
             defaultValue={category}
             aria-label="Kategorie filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Kategorien</option>
             {categories.map((cat) => (
@@ -111,7 +111,7 @@ export default async function AdminProductsPage({
             name="brand"
             defaultValue={brand}
             aria-label="Marke filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Marken</option>
             {brands.map((b) => (

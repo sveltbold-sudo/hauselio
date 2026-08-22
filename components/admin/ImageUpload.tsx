@@ -137,9 +137,9 @@ export default function ImageUpload({
           <ImageIcon className="w-10 h-10 text-[var(--color-text-muted)]" />
           <span className="text-sm text-[var(--color-text-muted)]">
             {isDragging
-              ? "Bild hier ablegen..."
+              ? "Bild hier ablegen…"
               : isUploading
-                ? "Wird hochgeladen..."
+                ? "Wird hochgeladen…"
                 : "Bild hochladen oder hierher ziehen"}
           </span>
           <span className="text-xs text-[var(--color-text-muted)]">JPG, PNG, WebP (max. 5MB)</span>

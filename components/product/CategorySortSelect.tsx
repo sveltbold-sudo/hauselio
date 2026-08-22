@@ -25,7 +25,7 @@ export default function CategorySortSelect({ sort, slug }: CategorySortSelectPro
         id="category-sort"
         value={sort}
         onChange={(e) => handleChange(e.target.value)}
-        className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 cursor-pointer"
+        className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-1.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 cursor-pointer"
       >
         <option value="newest">Neueste zuerst</option>
         <option value="price_asc">Preis aufsteigend</option>

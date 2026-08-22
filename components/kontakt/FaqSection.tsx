@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqItems = [
@@ -32,6 +32,7 @@ const faqItems = [
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
 
   return (
     <div className="border border-[var(--color-border-light)] rounded-xl overflow-hidden">
@@ -39,6 +40,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
         aria-expanded={isOpen}
+        aria-controls={panelId}
       >
         <span className="font-semibold text-sm text-[var(--color-text-primary)] pr-4">
           {question}
@@ -47,10 +49,11 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
           className={`w-4 h-4 text-[var(--color-text-muted)] shrink-0 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
+          aria-hidden="true"
         />
       </button>
       {isOpen && (
-        <div className="px-5 pb-4">
+        <div id={panelId} className="px-5 pb-4">
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             {answer}
           </p>

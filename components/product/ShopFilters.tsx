@@ -219,7 +219,7 @@ export default function ShopFilters({
           value={selectedSort}
           onChange={(e) => updateSort(e.target.value)}
           aria-label="Sortierung"
-          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
         >
           <option value="newest">Neueste</option>
           <option value="price_asc">Preis aufsteigend</option>

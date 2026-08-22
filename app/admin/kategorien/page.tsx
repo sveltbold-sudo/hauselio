@@ -108,7 +108,7 @@ export default function KategorienPage() {
               <button
                 onClick={() => setShowForm(false)}
                 aria-label="Modal schließen"
-                className="p-1 hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="p-1 hover:bg-gray-100 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -120,7 +120,7 @@ export default function KategorienPage() {
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value, slug: slugify(e.target.value) })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
                   required
                 />
               </div>
@@ -130,7 +130,7 @@ export default function KategorienPage() {
                   type="text"
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
                   required
                 />
               </div>
@@ -139,7 +139,7 @@ export default function KategorienPage() {
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
                   rows={3}
                 />
               </div>

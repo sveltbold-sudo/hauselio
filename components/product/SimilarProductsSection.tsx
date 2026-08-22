@@ -97,9 +97,9 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
             <h3 className="text-sm font-semibold text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors mb-1">
               {product.name}
             </h3>
-            <p className="text-xs text-[var(--color-text-muted)] mb-2">{product.brand}</p>
+            <p className="text-xs text-[var(--color-text-muted)] mb-2" translate="no">{product.brand}</p>
             <div className="flex items-baseline gap-2">
-              <span className="text-sm font-bold text-[var(--color-text-primary)]">{formatPrice(product.price)}</span>
+              <span className="text-sm font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</span>
               {product.originalPrice && product.originalPrice > product.price && (
                 <span className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</span>
               )}

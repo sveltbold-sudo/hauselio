@@ -69,7 +69,7 @@ export default function NewProductPage() {
     <ProductForm
       title="Neues Produkt"
       submitLabel="Produkt erstellen"
-      loadingLabel="Wird erstellt..."
+      loadingLabel="Wird erstellt…"
       backHref="/admin/produkte"
       categories={categories}
       brands={brands}

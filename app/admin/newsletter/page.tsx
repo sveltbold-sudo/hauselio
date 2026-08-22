@@ -153,7 +153,7 @@ export default function NewsletterPage() {
                 value={campaignSubject}
                 onChange={(e) => setCampaignSubject(e.target.value)}
                 placeholder="z. B. Neue Angebote im Mai"
-                className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div>
@@ -162,8 +162,8 @@ export default function NewsletterPage() {
                 rows={8}
                 value={campaignContent}
                 onChange={(e) => setCampaignContent(e.target.value)}
-                placeholder="<h2>Überschrift</h2><p>Ihr Text hier...</p>"
-                className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 resize-none"
+                placeholder="<h2>Überschrift</h2><p>Ihr Text hier…</p>"
+                className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 resize-none"
               />
             </div>
             <div className="flex gap-2">
@@ -172,7 +172,7 @@ export default function NewsletterPage() {
                 disabled={sending || activeCount === 0}
                 className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50"
               >
-                {sending ? "Wird gesendet..." : `An ${activeCount} Abonnenten senden`}
+                {sending ? "Wird gesendet…" : `An ${activeCount} Abonnenten senden`}
               </button>
               <button
                 onClick={() => setShowCompose(false)}
@@ -206,10 +206,10 @@ export default function NewsletterPage() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
         <input
           type="text"
-          placeholder="E-Mail suchen..."
+          placeholder="E-Mail suchen…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
         />
       </div>
 
@@ -226,7 +226,7 @@ export default function NewsletterPage() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden...</td></tr>
+              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden…</td></tr>
             ) : filtered.length === 0 ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Abonnenten gefunden.</td></tr>
             ) : (

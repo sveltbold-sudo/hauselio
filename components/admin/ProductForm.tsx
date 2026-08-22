@@ -80,7 +80,7 @@ export const emptyFormData: ProductFormData = {
 export default function ProductForm({
   title,
   submitLabel,
-  loadingLabel = "Wird gespeichert...",
+  loadingLabel = "Wird gespeichert…",
   backHref,
   categories,
   brands,
@@ -213,7 +213,7 @@ export default function ProductForm({
                     required
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -227,7 +227,7 @@ export default function ProductForm({
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, slug: e.target.value }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -245,7 +245,7 @@ export default function ProductForm({
                         description: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
                 <div>
@@ -262,7 +262,7 @@ export default function ProductForm({
                         shortDesc: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
               </div>
@@ -288,8 +288,8 @@ export default function ProductForm({
                   onKeyDown={(e) =>
                     e.key === "Enter" && (e.preventDefault(), addFeature())
                   }
-                  placeholder="Neues Feature hinzufügen..."
-                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                  placeholder="Neues Feature hinzufügen…"
+                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                 />
                 <button
                   type="button"
@@ -339,7 +339,7 @@ export default function ProductForm({
                       }))
                     }
                     placeholder="Key (z.B. Leistung)"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div className="flex-1">
@@ -358,7 +358,7 @@ export default function ProductForm({
                       e.key === "Enter" && (e.preventDefault(), addSpec())
                     }
                     placeholder="Wert"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <button
@@ -427,7 +427,7 @@ export default function ProductForm({
                         price: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -446,7 +446,7 @@ export default function ProductForm({
                         originalPrice: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -464,7 +464,7 @@ export default function ProductForm({
                         weight: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div className="space-y-2">
@@ -540,7 +540,7 @@ export default function ProductForm({
                         categoryId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   >
                     <option value="">Kategorie wählen</option>
                     {categories.map((cat) => (
@@ -563,7 +563,7 @@ export default function ProductForm({
                         brandId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   >
                     <option value="">Marke wählen</option>
                     {brands.map((b) => (
@@ -611,7 +611,7 @@ export default function ProductForm({
                         seoTitle: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
@@ -629,7 +629,7 @@ export default function ProductForm({
                         seoDesc: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
                 </div>
               </div>

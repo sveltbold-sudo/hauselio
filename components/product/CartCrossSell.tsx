@@ -82,7 +82,7 @@ export default function CartCrossSell() {
               <Link href={`/produkt/${item.slug}`} className="text-sm font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-1 block">
                 {item.name}
               </Link>
-              <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5">
+              <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5 tabular-nums">
                 {formatPrice(item.price)}
               </p>
             </div>

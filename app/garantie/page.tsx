@@ -89,7 +89,7 @@ export default function GarantiePage() {
                 <tier.icon className={`w-6 h-6 ${tier.color}`} />
               </div>
               <div className="text-sm font-bold text-[var(--color-primary)] mb-1">{tier.duration}</div>
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{tier.title}</h3>
+              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{tier.title}</h2>
               <p className="text-sm text-[var(--color-text-secondary)]">{tier.description}</p>
             </div>
           ))}

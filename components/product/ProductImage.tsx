@@ -112,7 +112,7 @@ export default function ProductImage({
       </p>
 
       {brand && (
-        <p className={`font-bold uppercase tracking-widest mt-1 ${brandSizes[size]}`} style={{ color: brandColor }}>
+        <p className={`font-bold uppercase tracking-widest mt-1 ${brandSizes[size]}`} style={{ color: brandColor }} translate="no">
           {brand}
         </p>
       )}

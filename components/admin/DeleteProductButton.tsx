@@ -74,7 +74,7 @@ export default function DeleteProductButton({
       <button
         onClick={() => setShowConfirm(true)}
         aria-label={`${productName} löschen`}
-        className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+        className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
       >
         <Trash2 className="w-4 h-4" />
       </button>
@@ -101,16 +101,16 @@ export default function DeleteProductButton({
               <button
                 ref={cancelRef}
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 Abbrechen
               </button>
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
               >
-                {isDeleting ? "Wird gelöscht..." : "Löschen"}
+                {isDeleting ? "Wird gelöscht…" : "Löschen"}
               </button>
             </div>
           </div>

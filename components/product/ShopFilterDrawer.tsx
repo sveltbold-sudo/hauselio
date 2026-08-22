@@ -91,7 +91,7 @@ export default function ShopFilterDrawer({
               <button
                 onClick={() => setIsOpen(false)}
                 aria-label="Filter schließen"
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>

@@ -64,7 +64,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               </div>
 
               {/* Brand */}
-              <p className="text-xs font-bold uppercase tracking-wider text-white/70 mb-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/70 mb-1" translate="no">
                 {product.brand}
               </p>
 

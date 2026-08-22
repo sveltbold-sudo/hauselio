@@ -70,7 +70,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             aria-label="Bewertungen sortieren"
-            className="text-sm border-0 bg-transparent font-medium text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] rounded-lg cursor-pointer"
+            className="text-sm border-0 bg-transparent font-medium text-[var(--color-text-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-lg cursor-pointer"
           >
             <option value="newest">Neueste zuerst</option>
             <option value="highest">Beste Bewertung</option>

@@ -67,7 +67,7 @@ export default function EinstellungenPage() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
+    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden…</div>;
   }
 
   return (
@@ -97,7 +97,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankAccountName}
                 onChange={(e) => handleChange("bankAccountName", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div>
@@ -107,7 +107,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankName}
                 onChange={(e) => handleChange("bankName", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div>
@@ -117,7 +117,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankIban}
                 onChange={(e) => handleChange("bankIban", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div>
@@ -127,7 +127,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankBic}
                 onChange={(e) => handleChange("bankBic", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function EinstellungenPage() {
                 type="email"
                 value={settings.contactEmail}
                 onChange={(e) => handleChange("contactEmail", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div>
@@ -162,7 +162,7 @@ export default function EinstellungenPage() {
                 type="tel"
                 value={settings.contactPhone}
                 onChange={(e) => handleChange("contactPhone", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
             <div className="md:col-span-2">
@@ -172,7 +172,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.contactAddress}
                 onChange={(e) => handleChange("contactAddress", e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
               />
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function EinstellungenPage() {
             id="shippingInfo"
             value={settings.shippingInfo}
             onChange={(e) => handleChange("shippingInfo", e.target.value)}
-            className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20"
+            className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
             rows={3}
           />
         </div>
@@ -207,7 +207,7 @@ export default function EinstellungenPage() {
             className="flex items-center gap-2 px-6 py-3 bg-[var(--color-orange)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
-            {saving ? "Speichern..." : "Einstellungen speichern"}
+            {saving ? "Speichern…" : "Einstellungen speichern"}
           </button>
         </div>
       </form>

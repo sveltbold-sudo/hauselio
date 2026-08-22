@@ -125,13 +125,13 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                     onClose();
                   }
                 }}
-                placeholder="Suche nach Produkten, Marken..."
+                placeholder="Suche nach Produkten, Marken…"
                 role="combobox"
                 aria-expanded={hasResults}
                 aria-controls="search-results-list"
                 aria-autocomplete="list"
                 aria-activedescendant={activeIndex >= 0 ? `search-result-${activeIndex}` : undefined}
-                className="w-full pl-12 pr-12 py-4 bg-gray-50 border border-[var(--color-border)] rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
+                className="w-full pl-12 pr-12 py-4 bg-gray-50 border border-[var(--color-border)] rounded-2xl text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
               />
               {query && (
                 <button
@@ -141,7 +141,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                     setResults([]);
                   }}
                   aria-label="Suche löschen"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -160,7 +160,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                 <div className="p-8 text-center">
                   <div className="w-6 h-6 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
                   <p className="text-sm text-[var(--color-text-muted)] mt-3">
-                    Suche läuft...
+                    Suche läuft…
                   </p>
                 </div>
               ) : results.length > 0 ? (
@@ -214,11 +214,11 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                           </div>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="text-sm font-bold text-[var(--color-text-primary)]">
+                          <p className="text-sm font-bold text-[var(--color-text-primary)] tabular-nums">
                             {formatPrice(hit.price)}
                           </p>
                           {hit.originalPrice && (
-                            <p className="text-xs text-[var(--color-text-muted)] line-through">
+                            <p className="text-xs text-[var(--color-text-muted)] line-through tabular-nums">
                               {formatPrice(hit.originalPrice)}
                             </p>
                           )}

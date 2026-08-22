@@ -160,7 +160,7 @@ export default function EditProductPage({
     <ProductForm
       title="Produkt bearbeiten"
       submitLabel="Änderungen speichern"
-      loadingLabel="Wird gespeichert..."
+      loadingLabel="Wird gespeichert…"
       backHref="/admin/produkte"
       categories={categories}
       brands={brands}

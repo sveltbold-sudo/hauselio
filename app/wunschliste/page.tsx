@@ -86,9 +86,9 @@ export default function WishlistPage() {
               </Link>
               <div className="flex-1 min-w-0">
                 <Link href={`/produkt/${item.slug}`} className="block">
-                  <h3 className="font-bold text-[var(--color-text-primary)] text-sm line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
+                  <h2 className="font-bold text-[var(--color-text-primary)] text-sm line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
                     {item.name}
-                  </h3>
+                  </h2>
                 </Link>
                 <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{item.brand}</p>
                 <div className="flex items-center gap-2 mt-2">

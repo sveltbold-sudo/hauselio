@@ -112,7 +112,7 @@ function LoginForm() {
               ref={errorRef}
               tabIndex={-1}
               role="alert"
-              className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6 focus:outline-none focus:ring-2 focus:ring-[var(--color-danger)]/40"
+              className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)]/40"
             >
               <p>{error}</p>
               {lockoutSeconds > 0 && (
@@ -142,7 +142,7 @@ function LoginForm() {
                   autoComplete="email"
                   maxLength={254}
                   disabled={lockoutSeconds > 0}
-                  className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="admin@hauselio.de"
                 />
               </div>
@@ -166,7 +166,7 @@ function LoginForm() {
                   autoComplete="current-password"
                   maxLength={128}
                   disabled={lockoutSeconds > 0}
-                  className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                 />
                 <button
@@ -190,7 +190,7 @@ function LoginForm() {
               disabled={isLoading || lockoutSeconds > 0}
               className="w-full py-3 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Wird angemeldet..." : lockoutSeconds > 0 ? `Gesperrt (${formatTime(lockoutSeconds)})` : "Anmelden"}
+              {isLoading ? "Wird angemeldet…" : lockoutSeconds > 0 ? `Gesperrt (${formatTime(lockoutSeconds)})` : "Anmelden"}
             </button>
           </form>
         </div>
@@ -207,7 +207,7 @@ export default function AdminLoginPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center">
-        <div className="text-[var(--color-text-muted)]">Laden...</div>
+        <div className="text-[var(--color-text-muted)]">Laden…</div>
       </div>
     }>
       <LoginForm />

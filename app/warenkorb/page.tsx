@@ -101,7 +101,7 @@ export default function WarenkorbPage() {
                   {item.name}
                 </Link>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <p className="text-xl font-bold text-[var(--color-text-primary)]">
+                  <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">
                     {formatPrice(item.price)}
                   </p>
                   {item.originalPrice && item.originalPrice > item.price && (
@@ -123,7 +123,7 @@ export default function WarenkorbPage() {
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                       aria-label="Menge verringern"
-                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                       -
                     </button>
@@ -133,7 +133,7 @@ export default function WarenkorbPage() {
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       aria-label="Menge erhöhen"
-                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       +
                     </button>
@@ -233,7 +233,7 @@ export default function WarenkorbPage() {
               <div className="border-t border-[var(--color-border-light)] pt-3">
                 <div className="flex justify-between">
                   <span className="font-semibold text-[var(--color-text-primary)]">Gesamt</span>
-                  <span className="font-bold text-2xl text-[var(--color-text-primary)]">
+                  <span className="font-bold text-2xl text-[var(--color-text-primary)] tabular-nums">
                     {formatPrice(finalTotal)}
                   </span>
                 </div>

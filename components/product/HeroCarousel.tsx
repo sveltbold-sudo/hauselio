@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, RotateCcw } from "lucide-react";
-import Button from "@/components/ui/Button";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 
 interface Slide {
@@ -167,7 +166,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             {/* Text Content */}
             <div className="animate-fade-in-up order-2 lg:order-1">
               {/* Brand badge */}
-              <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-4">
+              <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-4" translate="no">
                 {slide.brand}
               </span>
 
@@ -188,12 +187,12 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
               {/* Price — inline like Coolblue/AO */}
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight">
+                <span className="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
                   {formatPrice(slide.price)}
                 </span>
                 {slide.originalPrice && (
                   <>
-                    <span className="text-base text-[var(--color-text-muted)] line-through">
+                    <span className="text-base text-[var(--color-text-muted)] line-through tabular-nums">
                       {formatPrice(slide.originalPrice)}
                     </span>
                     <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-xs font-bold rounded">
@@ -205,20 +204,18 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3 mb-6">
-                <Link href={`/produkt/${slide.slug}`}>
-                  <Button size="lg" className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white font-bold shadow-lg shadow-[var(--color-primary)]/15">
-                    {slide.cta || "Jetzt bestellen"}
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
-                  </Button>
+                <Link
+                  href={`/produkt/${slide.slug}`}
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] select-none"
+                >
+                  {slide.cta || "Jetzt bestellen"}
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Link>
-                <Link href="/shop">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
-                  >
-                    Alle Produkte
-                  </Button>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:ring-[var(--color-primary)] active:scale-[0.97] select-none"
+                >
+                  Alle Produkte
                 </Link>
               </div>
 

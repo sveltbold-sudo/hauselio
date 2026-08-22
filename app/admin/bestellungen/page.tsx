@@ -68,15 +68,15 @@ export default async function AdminOrdersPage({
             type="text"
             name="q"
             defaultValue={q}
-            placeholder="Suche (Nr., Name, E-Mail)..."
+            placeholder="Suche (Nr., Name, E-Mail)…"
             aria-label="Bestellungen suchen"
-            className="flex-1 min-w-[200px] px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="flex-1 min-w-[200px] px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           />
           <select
             name="status"
             defaultValue={status}
             aria-label="Status filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
           >
             <option value="">Alle Status</option>
             {Object.entries(ORDER_STATUS_LABELS).map(([value, label]) => (

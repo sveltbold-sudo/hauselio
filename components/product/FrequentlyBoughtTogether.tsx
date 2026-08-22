@@ -110,7 +110,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                   </div>
                   <div className="flex-1 min-w-0">
                     {product.brand && (
-                      <p className="text-[9px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">{product.brand}</p>
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">{product.brand}</p>
                     )}
                     <p className="text-xs font-semibold text-[var(--color-text-primary)] truncate">{product.name}</p>
                     <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5">{formatPrice(product.price)}</p>

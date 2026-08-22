@@ -44,6 +44,7 @@ export default function ProductImageGallery({
       <button
         type="button"
         onClick={onImageClick}
+        aria-label="Bild vergrößern"
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
       >
         <div className="w-full h-full">

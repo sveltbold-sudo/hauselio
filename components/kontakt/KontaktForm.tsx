@@ -154,7 +154,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
+                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>

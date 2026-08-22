@@ -212,6 +212,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           <Link
             href="/shop?promo=true"
             role="tab"
+            aria-selected={promo === "true"}
             className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
           >
             Angebote
@@ -269,7 +270,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             {formattedProducts.length === 0 ? (
               <div className="text-center py-20">
                 <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
-                  <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" />
+                  <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
                 </div>
                 <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
                   Keine Produkte gefunden
@@ -281,7 +282,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   href="/shop"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
                 >
-                  <ShoppingBag className="w-4 h-4" />
+                  <ShoppingBag className="w-4 h-4" aria-hidden="true" />
                   Alle Produkte ansehen
                 </Link>
               </div>
@@ -304,7 +305,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                     className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                     Zurück
                   </Link>
                 )}
@@ -341,7 +342,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                     aria-label="Nächste Seite"
                   >
                     Weiter
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4" aria-hidden="true" />
                   </Link>
                 )}
               </nav>

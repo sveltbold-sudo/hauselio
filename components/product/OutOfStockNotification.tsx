@@ -68,10 +68,10 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
           placeholder="ihre@email.de"
           aria-label="E-Mail-Adresse für Benachrichtigung"
           required
-          className="flex-1 px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+          className="flex-1 px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
         />
         <Button type="submit" size="sm" disabled={submitting}>
-          {submitting ? "Wird gesendet..." : "Benachrichtigen"}
+          {submitting ? "Wird gesendet…" : "Benachrichtigen"}
         </Button>
       </form>
     </div>

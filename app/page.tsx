@@ -347,6 +347,7 @@ export default async function HomePage() {
 
   return (
     <div>
+      <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte aus Deutschland</h1>
       <HeroCarousel slides={heroSlides.length > 0 ? heroSlides : undefined} />
       <ValuePropsSection />
 

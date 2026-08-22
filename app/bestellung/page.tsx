@@ -239,7 +239,7 @@ export default function BestellungPage() {
     return (
       <div className="container-hauselio py-20 text-center">
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen...</p>
+        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen…</p>
       </div>
     );
   }
@@ -248,7 +248,7 @@ export default function BestellungPage() {
     return (
       <div className="container-hauselio py-20 text-center">
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird weitergeleitet...</p>
+        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird weitergeleitet…</p>
       </div>
     );
   }
@@ -300,7 +300,7 @@ export default function BestellungPage() {
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
             <AlertTriangle className="w-5 h-5 text-amber-600" />
-            <h3 className="font-bold text-amber-800">Preisänderungen</h3>
+            <h2 className="font-bold text-amber-800">Preisänderungen</h2>
           </div>
           <p className="text-sm text-amber-700 mb-3">
             Die Preise einiger Artikel haben sich geändert:
@@ -324,7 +324,7 @@ export default function BestellungPage() {
         <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
             <AlertTriangle className="w-5 h-5 text-red-600" />
-            <h3 className="font-bold text-red-800">Nicht verfügbare Artikel</h3>
+            <h2 className="font-bold text-red-800">Nicht verfügbare Artikel</h2>
           </div>
           <div className="space-y-1">
             {invalidItems.map((item) => (
@@ -441,7 +441,7 @@ export default function BestellungPage() {
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus:border-transparent"
                   >
                     <option value="DE">Deutschland</option>
                     <option value="AT">Österreich</option>
@@ -482,8 +482,8 @@ export default function BestellungPage() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
-                placeholder="Besondere Wünsche oder Hinweise..."
+                className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
+                placeholder="Besondere Wünsche oder Hinweise…"
               />
             </div>
           </div>
@@ -514,7 +514,7 @@ export default function BestellungPage() {
                         {item.quantity} x {formatPrice(item.price)}
                       </p>
                     </div>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)] tabular-nums">
                       {formatPrice(item.price * item.quantity)}
                     </p>
                   </div>
@@ -540,7 +540,7 @@ export default function BestellungPage() {
                 <div className="border-t border-[var(--color-border-light)] pt-3">
                   <div className="flex justify-between">
                     <span className="font-semibold text-[var(--color-text-primary)]">Gesamt</span>
-                    <span className="font-bold text-2xl text-[var(--color-text-primary)]">
+                    <span className="font-bold text-2xl text-[var(--color-text-primary)] tabular-nums">
                       {formatPrice(finalTotal)}
                     </span>
                   </div>

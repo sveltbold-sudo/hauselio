@@ -29,7 +29,7 @@ export default function AlgoliaSyncButton() {
         className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50"
       >
         <RefreshCw className={`w-4 h-4 ${syncing ? "animate-spin" : ""}`} />
-        {syncing ? "Synchronisiere..." : "Algolia synchronisieren"}
+        {syncing ? "Synchronisiere…" : "Algolia synchronisieren"}
       </button>
       {result && (
         <span className={`text-sm font-medium flex items-center gap-1 ${
