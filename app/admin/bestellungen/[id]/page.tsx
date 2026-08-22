@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 import { formatPrice } from "@/lib/utils";
 import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants";
+import { logger } from "@/lib/logger";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
@@ -29,7 +30,7 @@ export default async function AdminOrderDetailPage({
       },
     });
   } catch (error) {
-    console.error("[HAUSELIO] DB error in bestellungen/[id]:", error);
+    logger.error("bestellungen/[id]: DB error", error);
     notFound();
   }
 

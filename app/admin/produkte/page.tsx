@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import ProductTable from "@/components/admin/ProductTable";
@@ -57,7 +58,7 @@ export default async function AdminProductsPage({
       prisma.product.count({ where }),
     ]);
   } catch (error) {
-    console.error("[HAUSELIO] DB error in admin/produkte:", error);
+    logger.error("admin/produkte: DB error", error);
   }
 
   const totalPages = Math.ceil(total / limit);

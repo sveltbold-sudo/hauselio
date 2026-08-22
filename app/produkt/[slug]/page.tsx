@@ -33,7 +33,8 @@ export async function generateStaticParams() {
       select: { slug: true },
     });
     return products.map((p) => ({ slug: p.slug }));
-  } catch {
+  } catch (error) {
+    logger.error("Failed to generate static params", error);
     return [];
   }
 }
@@ -133,7 +134,8 @@ export default async function ProductPage({ params }: PageProps) {
       image: p.images[0]?.url || "/images/placeholder-product.svg",
       brand: p.brand?.name || null,
     }));
-  } catch {
+  } catch (error) {
+    logger.error("Failed to fetch related products", error);
     relatedProducts = [];
   }
 
@@ -156,7 +158,7 @@ export default async function ProductPage({ params }: PageProps) {
         sku={product.sku || product.slug}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
-        availability="InStock"
+        availability={product.inStock ? "InStock" : "OutOfStock"}
       />
       <div>
         <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />

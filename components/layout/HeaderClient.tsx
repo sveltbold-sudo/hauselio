@@ -62,8 +62,8 @@ export default function HeaderClient() {
         'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
       );
       if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      const first = focusable[0]!;
+      const last = focusable[focusable.length - 1]!;
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -181,10 +181,10 @@ export default function HeaderClient() {
                               if (!items) return;
                               if (e.key === "ArrowDown") {
                                 e.preventDefault();
-                                items[(subIdx + 1) % items.length].focus();
+                                items[(subIdx + 1) % items.length]?.focus();
                               } else if (e.key === "ArrowUp") {
                                 e.preventDefault();
-                                items[(subIdx - 1 + items.length) % items.length].focus();
+                                items[(subIdx - 1 + items.length) % items.length]?.focus();
                               } else if (e.key === "Escape") {
                                 setActiveMega(null);
                               }
@@ -217,7 +217,7 @@ export default function HeaderClient() {
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-colors duration-200 cursor-text"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche öffnen"
             >
               <Search className="w-4 h-4 shrink-0" />
@@ -229,7 +229,7 @@ export default function HeaderClient() {
             {/* Mobile: icon only */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche"
               aria-expanded={searchOpen}
             >
@@ -238,7 +238,7 @@ export default function HeaderClient() {
 
             <Link
               href="/wunschliste"
-              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
+              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Wunschliste"
             >
               <Heart className="w-5 h-5" />
@@ -248,7 +248,7 @@ export default function HeaderClient() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Menü"
               aria-expanded={mobileMenuOpen}
             >

@@ -178,7 +178,7 @@ enum PaymentStatus {
 
 model Review {
   id          String   @id @default(cuid())
-  rating      Int
+  rating      Int      @db.SmallInt
   title       String?
   content     String?
   authorName  String
@@ -226,7 +226,7 @@ model Newsletter {
   email            String     @unique
   isActive         Boolean    @default(true)
   confirmed        Boolean    @default(false)
-  confirmToken     String?
+  confirmToken     String?    @unique
   confirmExpiresAt DateTime?
   confirmedAt      DateTime?
   createdAt        DateTime   @default(now())

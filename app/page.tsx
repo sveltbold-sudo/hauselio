@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
+import { logger } from "@/lib/logger";
 import ProductCard from "@/components/product/ProductCard";
 const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"));
 import ValuePropsSection from "@/components/product/ValuePropsSection";
@@ -116,7 +117,8 @@ async function getHeroSlides() {
       image: p.images[0]?.url || "/images/placeholder-product.svg",
       cta: "Jetzt ansehen",
     }));
-  } catch {
+  } catch (error) {
+    logger.error("Failed to fetch hero slides", error);
     return [];
   }
 }
@@ -247,7 +249,8 @@ async function CategoriesSection() {
   try {
     categories = await getCategories();
     if (categories.length === 0) categories = fallbackCategories;
-  } catch {
+  } catch (error) {
+    logger.error("Failed to fetch categories", error);
     categories = fallbackCategories;
   }
 
@@ -294,7 +297,8 @@ async function FeaturedProductsSection() {
     if (featuredProducts.length === 0) {
       featuredProducts = fallbackProducts;
     }
-  } catch {
+  } catch (error) {
+    logger.error("Failed to fetch featured products", error);
     featuredProducts = fallbackProducts;
   }
 
@@ -341,8 +345,8 @@ export default async function HomePage() {
       bestsellers = bestsellers.filter((b) => b.slug !== dealSlug);
       heroSlides = heroSlides.filter((h) => h.slug !== dealSlug);
     }
-  } catch {
-    // Continue without these sections
+  } catch (error) {
+    logger.error("Failed to fetch homepage data", error);
   }
 
   return (

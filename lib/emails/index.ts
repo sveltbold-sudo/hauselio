@@ -407,7 +407,7 @@ export async function sendNewsletterCampaign(data: {
 
   try {
     const safeSubject = escapeHtml(data.subject);
-    const safeContent = escapeHtml(data.content).replace(/\n/g, "<br>");
+    const safeContent = data.content.replace(/\n/g, "<br>");
 
     const BATCH_SIZE = 50;
     const results: { status: string }[] = [];

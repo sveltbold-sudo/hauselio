@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
+import { logger } from "@/lib/logger";
 import OrderTable from "@/components/admin/OrderTable";
 
 export const dynamic = "force-dynamic";
@@ -44,7 +45,7 @@ export default async function AdminOrdersPage({
       prisma.order.count({ where }),
     ]);
   } catch (error) {
-    console.error("[HAUSELIO] DB error in admin/bestellungen:", error);
+    logger.error("admin/bestellungen: DB error", error);
   }
 
   const totalPages = Math.ceil(total / limit);
