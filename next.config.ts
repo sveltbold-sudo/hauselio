@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const securityHeaders = [
   {
@@ -33,7 +34,7 @@ const securityHeaders = [
       "style-src 'self'",
       "img-src 'self' https://res.cloudinary.com data: blob:",
       "font-src 'self'",
-      "connect-src 'self' https://va.vercel-scripts.com",
+      "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io",
       "object-src 'none'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
@@ -76,4 +77,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  silent: true,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+});
