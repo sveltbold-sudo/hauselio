@@ -146,95 +146,77 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         if (e.key === "ArrowLeft") prev();
       }}
     >
-      {/* ── MOBILE LAYOUT (default) ── */}
-      {/* Compact: image top, text + CTA below — all visible without scroll */}
-      <div className="lg:hidden" aria-live="polite">
-        <div key={current} className="animate-fade-in-up">
-          {/* Background gradient — subtle */}
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--color-primary-50)] via-white to-white" />
+      {/* ── MOBILE LAYOUT ── */}
+      <div className="lg:hidden relative" aria-live="polite">
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--color-primary-50)] via-white to-white" />
 
-          <div className="relative z-10">
-            {/* Product image — compact, centered */}
-            <div className="relative mx-auto w-full max-w-[280px] aspect-square pt-6 pb-2">
-              <Image
-                src={slide.image}
-                alt={slide.name}
-                fill
-                className="object-contain p-4 transition-transform duration-700"
-                priority
-                sizes="280px"
-              />
-              {/* Discount badge */}
-              {discount > 0 && (
-                <span className="absolute top-6 left-2 inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded-md shadow-sm">
-                  -{discount}%
-                </span>
+        <div key={current} className="relative z-10 animate-fade-in-up">
+          {/* Product image */}
+          <div className="relative mx-auto w-full max-w-[280px] aspect-square pt-6 pb-2">
+            <Image
+              src={slide.image}
+              alt={slide.name}
+              fill
+              className="object-contain p-4"
+              priority
+              sizes="280px"
+            />
+            {discount > 0 && (
+              <span className="absolute top-6 left-2 inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded-md shadow-sm">
+                -{discount}%
+              </span>
+            )}
+          </div>
+
+          {/* Text content */}
+          <div className="px-5 pb-6 text-center">
+            <span className="inline-block px-2.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2" translate="no">
+              {slide.brand}
+            </span>
+            <h2 className="text-xl font-extrabold text-[var(--color-text-primary)] mb-1 leading-tight">
+              {slide.name}
+            </h2>
+            <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
+              {slide.tagline}
+            </p>
+            <p className="text-xs text-[var(--color-text-secondary)] mb-4 line-clamp-2 max-w-sm mx-auto">
+              {slide.subtitle}
+            </p>
+            <div className="flex items-baseline justify-center gap-2 mb-4">
+              <span className="text-2xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
+                {formatPrice(slide.price)}
+              </span>
+              {slide.originalPrice && (
+                <>
+                  <span className="text-sm text-[var(--color-text-muted)] line-through tabular-nums">
+                    {formatPrice(slide.originalPrice)}
+                  </span>
+                  <span className="inline-flex items-center px-1.5 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-[10px] font-bold rounded">
+                    -{discount}%
+                  </span>
+                </>
               )}
             </div>
-
-            {/* Text content — immediately below image */}
-            <div className="px-5 pb-6 text-center">
-              {/* Brand */}
-              <span className="inline-block px-2.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2" translate="no">
-                {slide.brand}
+            <Link
+              href={`/produkt/${slide.slug}`}
+              className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-blue-500/20 active:scale-[0.97] transition-all duration-200"
+            >
+              {slide.cta || "Jetzt bestellen"}
+              <ArrowRight className="w-4 h-4 ml-1.5" />
+            </Link>
+            <div className="flex items-center justify-center gap-4 mt-3 text-[10px] text-[var(--color-text-muted)]">
+              <span className="flex items-center gap-1">
+                <Truck className="w-3 h-3 text-[var(--color-success)]" />
+                Versand gratis
               </span>
-
-              {/* Name */}
-              <h2 className="text-xl font-extrabold text-[var(--color-text-primary)] mb-1 leading-tight">
-                {slide.name}
-              </h2>
-
-              {/* Tagline */}
-              <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
-                {slide.tagline}
-              </p>
-
-              {/* Subtitle — truncated on mobile */}
-              <p className="text-xs text-[var(--color-text-secondary)] mb-4 line-clamp-2 max-w-sm mx-auto">
-                {slide.subtitle}
-              </p>
-
-              {/* Price */}
-              <div className="flex items-baseline justify-center gap-2 mb-4">
-                <span className="text-2xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
-                  {formatPrice(slide.price)}
-                </span>
-                {slide.originalPrice && (
-                  <>
-                    <span className="text-sm text-[var(--color-text-muted)] line-through tabular-nums">
-                      {formatPrice(slide.originalPrice)}
-                    </span>
-                    <span className="inline-flex items-center px-1.5 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-[10px] font-bold rounded">
-                      -{discount}%
-                    </span>
-                  </>
-                )}
-              </div>
-
-              {/* CTA — full width, impossible to miss */}
-              <Link
-                href={`/produkt/${slide.slug}`}
-                className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-blue-500/20 active:scale-[0.97] transition-all duration-200"
-              >
-                {slide.cta || "Jetzt bestellen"}
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </Link>
-
-              {/* Trust signals — compact */}
-              <div className="flex items-center justify-center gap-4 mt-3 text-[10px] text-[var(--color-text-muted)]">
-                <span className="flex items-center gap-1">
-                  <Truck className="w-3 h-3 text-[var(--color-success)]" />
-                  Versand gratis
-                </span>
-                <span className="flex items-center gap-1">
-                  <Shield className="w-3 h-3 text-[var(--color-success)]" />
-                  5 J. Garantie
-                </span>
-                <span className="flex items-center gap-1">
-                  <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
-                  30 Tage
-                </span>
-              </div>
+              <span className="flex items-center gap-1">
+                <Shield className="w-3 h-3 text-[var(--color-success)]" />
+                5 J. Garantie
+              </span>
+              <span className="flex items-center gap-1">
+                <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
+                30 Tage
+              </span>
             </div>
           </div>
         </div>
@@ -260,7 +242,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           ))}
         </div>
 
-        {/* Nav arrows — bottom corners, thumb-friendly */}
+        {/* Nav arrows */}
         <button
           onClick={prev}
           className="absolute left-2 bottom-16 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200"
@@ -277,122 +259,104 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         </button>
       </div>
 
-      {/* ── DESKTOP LAYOUT (lg:) ── */}
-      {/* Split: text left, product right — premium feel */}
-      <div className="hidden lg:block" aria-live="polite">
-        {/* Background lifestyle image */}
+      {/* ── DESKTOP LAYOUT ── */}
+      <div className="hidden lg:block relative" aria-live="polite">
         <div className="absolute inset-0 z-0">
           <Image
             src={slide.bgImage || "/images/hero-kitchen.jpg"}
             alt=""
             fill
-            className="object-cover transition-opacity duration-700"
-            priority
+            className="object-cover"
+            loading="lazy"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/30" />
         </div>
 
-        <div className="relative z-10">
-          <div className="container-hauselio py-14 lg:py-16 xl:py-20">
-            <div key={current} className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
-              {/* Text Content */}
-              <div className="animate-fade-in-up">
-                {/* Brand badge */}
-                <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
-                  {slide.brand}
+        <div className="relative z-10 container-hauselio py-14 lg:py-16 xl:py-20">
+          <div key={current} className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
+            {/* Text */}
+            <div>
+              <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
+                {slide.brand}
+              </span>
+              <h2 className="text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">
+                {slide.name}
+              </h2>
+              <p className="text-lg xl:text-xl font-semibold text-[var(--color-text-primary)] mb-3">
+                {slide.tagline}
+              </p>
+              <p className="text-sm xl:text-base text-[var(--color-text-secondary)] max-w-md mb-6 leading-relaxed">
+                {slide.subtitle}
+              </p>
+              <div className="flex items-baseline gap-3 mb-7">
+                <span className="text-3xl xl:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
+                  {formatPrice(slide.price)}
                 </span>
-
-                {/* Headline — larger on desktop */}
-                <h2 className="text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">
-                  {slide.name}
-                </h2>
-
-                {/* Tagline */}
-                <p className="text-lg xl:text-xl font-semibold text-[var(--color-text-primary)] mb-3">
-                  {slide.tagline}
-                </p>
-
-                {/* Description */}
-                <p className="text-sm xl:text-base text-[var(--color-text-secondary)] max-w-md mb-6 leading-relaxed">
-                  {slide.subtitle}
-                </p>
-
-                {/* Price */}
-                <div className="flex items-baseline gap-3 mb-7">
-                  <span className="text-3xl xl:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
-                    {formatPrice(slide.price)}
-                  </span>
-                  {slide.originalPrice && (
-                    <>
-                      <span className="text-base text-[var(--color-text-muted)] line-through tabular-nums">
-                        {formatPrice(slide.originalPrice)}
-                      </span>
-                      <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-xs font-bold rounded">
-                        -{discount}%
-                      </span>
-                    </>
-                  )}
-                </div>
-
-                {/* CTAs */}
-                <div className="flex flex-wrap gap-3 mb-7">
-                  <Link
-                    href={`/produkt/${slide.slug}`}
-                    className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] select-none"
-                  >
-                    {slide.cta || "Jetzt bestellen"}
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
-                  </Link>
-                  <Link
-                    href="/shop"
-                    className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:ring-[var(--color-primary)] active:scale-[0.97] select-none"
-                  >
-                    Alle Produkte
-                  </Link>
-                </div>
-
-                {/* Trust Signals */}
-                <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--color-text-muted)]">
-                  <span className="flex items-center gap-1.5">
-                    <Truck className="w-4 h-4 text-[var(--color-success)]" />
-                    Kostenloser Versand
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Shield className="w-4 h-4 text-[var(--color-success)]" />
-                    Garantie bis 5 Jahre
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <RotateCcw className="w-4 h-4 text-[var(--color-success)]" />
-                    30 Tage Rückgabe
-                  </span>
-                </div>
-              </div>
-
-              {/* Product Image — floating card */}
-              <div className="relative flex items-center justify-center animate-fade-in-up delay-200">
-                <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-square bg-white rounded-3xl shadow-2xl shadow-black/5 overflow-hidden">
-                  <Image
-                    src={slide.image}
-                    alt={slide.name}
-                    fill
-                    className="object-contain p-8 xl:p-10 transition-transform duration-700 hover:scale-105"
-                    priority
-                    sizes="480px"
-                  />
-                  {/* Discount badge */}
-                  {discount > 0 && (
-                    <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1 bg-[var(--color-danger)] text-white text-sm font-bold rounded-lg shadow-sm">
+                {slide.originalPrice && (
+                  <>
+                    <span className="text-base text-[var(--color-text-muted)] line-through tabular-nums">
+                      {formatPrice(slide.originalPrice)}
+                    </span>
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-xs font-bold rounded">
                       -{discount}%
                     </span>
-                  )}
-                </div>
+                  </>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-3 mb-7">
+                <Link
+                  href={`/produkt/${slide.slug}`}
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+                >
+                  {slide.cta || "Jetzt bestellen"}
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Link>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+                >
+                  Alle Produkte
+                </Link>
+              </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--color-text-muted)]">
+                <span className="flex items-center gap-1.5">
+                  <Truck className="w-4 h-4 text-[var(--color-success)]" />
+                  Kostenloser Versand
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-[var(--color-success)]" />
+                  Garantie bis 5 Jahre
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <RotateCcw className="w-4 h-4 text-[var(--color-success)]" />
+                  30 Tage Rückgabe
+                </span>
+              </div>
+            </div>
+
+            {/* Product Image */}
+            <div className="relative flex items-center justify-center">
+              <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-square bg-white rounded-3xl shadow-2xl shadow-black/5 overflow-hidden">
+                <Image
+                  src={slide.image}
+                  alt={slide.name}
+                  fill
+                  className="object-contain p-8 xl:p-10 transition-transform duration-700 hover:scale-105"
+                  priority
+                  sizes="480px"
+                />
+                {discount > 0 && (
+                  <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1 bg-[var(--color-danger)] text-white text-sm font-bold rounded-lg shadow-sm">
+                    -{discount}%
+                  </span>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Navigation Arrows */}
+        {/* Nav arrows */}
         <button
           onClick={prev}
           className="absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-all duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
@@ -408,7 +372,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* Progress Indicators */}
+        {/* Dots */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
           {slides.map((_, i) => (
             <button
