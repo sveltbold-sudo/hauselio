@@ -251,7 +251,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         {/* Product grid */}
         <div className="flex-1 min-w-0">
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
+          <div className="flex items-center justify-between mb-4 sm:mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-4 sm:px-5 py-3">
             <p className="text-sm text-[var(--color-text-secondary)]">
               <span className="font-bold text-[var(--color-text-primary)]">{total}</span> {total === 1 ? "Produkt" : "Produkte"}
               {category && (

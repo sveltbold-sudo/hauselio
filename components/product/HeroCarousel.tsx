@@ -161,7 +161,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
       {/* Content */}
       <div className="relative z-10" aria-live="polite">
-        <div className="container-hauselio py-8 md:py-14 lg:py-16">
+        <div className="container-hauselio py-8 sm:py-10 md:py-14 lg:py-16">
           <div key={current} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center animate-fade-in-up">
             {/* Text Content */}
             <div className="animate-fade-in-up order-2 lg:order-1">

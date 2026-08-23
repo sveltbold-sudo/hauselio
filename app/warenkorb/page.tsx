@@ -123,17 +123,17 @@ export default function WarenkorbPage() {
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                       aria-label="Menge verringern"
-                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                       -
                     </button>
-                    <span className="px-4 py-2 font-semibold text-sm border-x border-[var(--color-border)]" aria-live="polite">
+                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="polite">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       aria-label="Menge erhöhen"
-                      className="px-3 py-2 text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       +
                     </button>

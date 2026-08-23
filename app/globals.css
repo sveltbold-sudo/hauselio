@@ -116,6 +116,7 @@ body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  overscroll-behavior-x: contain;
 }
 
 /* ── Touch Action ── */
@@ -183,9 +184,13 @@ a, button, input, select, textarea, [role="button"] {
 }
 
 .body-large {
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--color-text-secondary);
+}
+
+@media (min-width: 640px) {
+  .body-large { font-size: 1.125rem; }
 }
 
 .body-small {
@@ -380,8 +385,15 @@ a, button, input, select, textarea, [role="button"] {
 
 /* ── Section Spacing ── */
 .section-py {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .section-py {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
 }
 
 @media (min-width: 768px) {

@@ -353,7 +353,7 @@ export default function BestellungPage() {
           {/* Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Contact */}
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
               <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
                 Kontaktdaten
               </h2>
@@ -380,7 +380,7 @@ export default function BestellungPage() {
             </div>
 
             {/* Shipping */}
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
               <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
                 Lieferadresse
               </h2>
@@ -452,7 +452,7 @@ export default function BestellungPage() {
             </div>
 
             {/* Payment method */}
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
               <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
                 Zahlungsart
               </h2>
@@ -472,7 +472,7 @@ export default function BestellungPage() {
             </div>
 
             {/* Notes */}
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
               <label htmlFor="checkout-notes" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">
                 Bestellhinweise (optional)
               </label>
@@ -490,7 +490,7 @@ export default function BestellungPage() {
 
           {/* Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 sticky top-24">
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 sticky top-24">
               <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
                 Ihre Bestellung
               </h2>

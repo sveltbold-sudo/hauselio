@@ -75,7 +75,7 @@ export default function Footer() {
 
           {/* Kategorien */}
           <div className="lg:col-span-3">
-            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
+            <h2 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Kategorien
             </h2>
             <ul className="space-y-0" aria-label="Kategorien">
@@ -94,7 +94,7 @@ export default function Footer() {
 
           {/* Service */}
           <div className="lg:col-span-2">
-            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
+            <h2 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Service
             </h2>
             <ul className="space-y-0" aria-label="Service">
@@ -113,7 +113,7 @@ export default function Footer() {
 
           {/* Rechtliches + Contact */}
           <div className="lg:col-span-3">
-            <h2 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-4">
+            <h2 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Rechtliches
             </h2>
             <ul className="space-y-0 mb-6" aria-label="Rechtliches">

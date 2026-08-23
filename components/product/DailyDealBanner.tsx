@@ -51,7 +51,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
         <div className="bg-gradient-to-r from-[var(--color-danger)] to-red-600 rounded-2xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Content */}
-            <div className="p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+            <div className="p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-center">
               {/* Badge */}
               <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold text-white uppercase tracking-wider">

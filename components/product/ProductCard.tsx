@@ -97,7 +97,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-[13px] text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+        <h3 className="font-semibold text-[13px] sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 
@@ -122,7 +122,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Price — prominent like all competitors */}
         <div className="flex items-baseline gap-2">
-          <span className="text-base font-extrabold text-[var(--color-text-primary)] tabular-nums">
+          <span className="text-base sm:text-lg font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (
