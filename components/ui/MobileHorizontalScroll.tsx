@@ -1,19 +1,23 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 interface MobileHorizontalScrollProps {
   children: React.ReactNode;
   className?: string;
+  autoScrollInterval?: number;
 }
 
 export default function MobileHorizontalScroll({
   children,
   className = "",
+  autoScrollInterval = 8000,
 }: MobileHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
   const checkScroll = () => {
     const el = scrollRef.current;
@@ -34,6 +38,33 @@ export default function MobileHorizontalScroll({
     };
   }, []);
 
+  const scrollToNext = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el || isPaused) return;
+    const cardWidth = el.children[0]?.getBoundingClientRect().width || 280;
+    const gap = 16;
+    const isAtEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
+
+    if (isAtEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      el.scrollBy({ left: cardWidth + gap, behavior: "smooth" });
+    }
+  }, [isPaused]);
+
+  useEffect(() => {
+    if (autoScrollInterval <= 0) return;
+    autoScrollRef.current = setInterval(scrollToNext, autoScrollInterval);
+    return () => {
+      if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+    };
+  }, [scrollToNext, autoScrollInterval]);
+
+  const handleTouchStart = () => setIsPaused(true);
+  const handleTouchEnd = () => {
+    setTimeout(() => setIsPaused(false), 3000);
+  };
+
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
@@ -42,10 +73,16 @@ export default function MobileHorizontalScroll({
       left: direction === "left" ? -cardWidth - 16 : cardWidth + 16,
       behavior: "smooth",
     });
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 5000);
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div
+      className={`relative ${className}`}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       {/* Scroll hints */}
       {canScrollLeft && (
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
@@ -59,6 +96,8 @@ export default function MobileHorizontalScroll({
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-5 px-5"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {children}
       </div>
@@ -81,6 +120,13 @@ export default function MobileHorizontalScroll({
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </button>
+      )}
+
+      {/* Auto-scroll indicator */}
+      {!isPaused && autoScrollInterval > 0 && (
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gray-200 rounded-full overflow-hidden z-10">
+          <div className="h-full bg-[var(--color-primary)]/40 rounded-full animate-[shrink_8s_linear_infinite]" />
+        </div>
       )}
     </div>
   );

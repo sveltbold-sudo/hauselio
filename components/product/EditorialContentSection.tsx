@@ -60,46 +60,35 @@ export default function EditorialContentSection({ items = defaultEditorialConten
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="sm:hidden">
-          <MobileHorizontalScroll>
+        {/* Mobile: blog cards scroll */}
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-[var(--color-bg-secondary)] to-white py-6 -mt-6">
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={8000}>
             {items.map((content, i) => (
-              <Link
-                key={i}
-                href={content.href}
-                className="snap-start shrink-0 w-[260px] group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-colors transition-shadow duration-300"
-              >
-                <div className="aspect-[16/10] bg-[var(--color-bg-secondary)] relative overflow-hidden">
-                  <Image
-                    src={content.image}
-                    alt={content.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="260px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 bg-white/95 backdrop-blur-sm rounded-md text-xs font-bold text-[var(--color-text-primary)]">
-                    {content.type}
-                  </span>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5 group-hover:text-[var(--color-primary)] transition-colors line-clamp-2">
-                    {content.title}
-                  </h3>
-                  <p className="text-xs text-[var(--color-text-muted)] mb-3 line-clamp-2 leading-relaxed">
-                    {content.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-[var(--color-text-muted)]">
-                      {content.readTime} Lesezeit
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
-                      Weiterlesen
-                      <ArrowRight className="w-3 h-3" />
+              <div key={i} className="snap-start shrink-0 w-[260px]">
+                <Link href={content.href} className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img src={content.image} alt={content.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-primary)] rounded-md">
+                      {content.type}
                     </span>
                   </div>
-                </div>
-              </Link>
+                  <div className="p-4">
+                    <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-1.5 line-clamp-2 leading-snug">
+                      {content.title}
+                    </h3>
+                    <p className="text-[11px] text-[var(--color-text-secondary)] line-clamp-2 mb-3">
+                      {content.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[var(--color-text-muted)]">{content.readTime}</span>
+                      <span className="text-[11px] font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Weiterlesen
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             ))}
           </MobileHorizontalScroll>
         </div>

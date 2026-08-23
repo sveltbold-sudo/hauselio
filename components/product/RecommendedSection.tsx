@@ -48,12 +48,14 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
           </Link>
         </div>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="sm:hidden">
-          <MobileHorizontalScroll>
+        {/* Mobile: soft pastel horizontal scroll */}
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 py-6 -mt-6">
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={9000}>
             {products.map((product) => (
-              <div key={product.id} className="snap-start shrink-0 w-[280px]">
-                <ProductCard product={product} />
+              <div key={product.id} className="snap-start shrink-0 w-[260px]">
+                <div className="bg-white rounded-2xl shadow-sm border border-pink-100/50 overflow-hidden hover:shadow-md transition-shadow">
+                  <ProductCard product={product} />
+                </div>
               </div>
             ))}
           </MobileHorizontalScroll>

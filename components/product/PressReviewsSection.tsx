@@ -89,43 +89,27 @@ export default function PressReviewsSection({
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="sm:hidden mb-8 md:mb-14">
-          <MobileHorizontalScroll>
+        {/* Mobile: magazine clipping scroll */}
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-stone-50 to-amber-50/30 py-6 -mt-6">
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {pressReviews.map((review, i) => (
-              <div
-                key={i}
-                className={`snap-start shrink-0 w-[280px] bg-white rounded-xl p-5 border border-[var(--color-border-light)] border-l-4 ${review.borderColor}`}
-              >
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-11 h-11 bg-gray-50 rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
-                    <span className="text-[7px] font-black text-gray-400 uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
-                      {review.logoText}
-                    </span>
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-bold text-sm text-[var(--color-text-primary)]">
-                      {review.publication}
-                    </p>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-success-light)] text-[var(--color-success)] text-xs font-bold rounded-full">
-                      <Award className="w-2.5 h-2.5" />
+              <div key={i} className="snap-start shrink-0 w-[280px]">
+                <div className="bg-white rounded-xl p-5 shadow-sm border border-stone-200/60 relative overflow-hidden">
+                  <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
+                  <div className="flex items-center justify-between mb-3 relative z-10">
+                    <div className="w-10 h-10 rounded-lg bg-stone-100 flex items-center justify-center">
+                      <span className="text-[8px] font-black text-stone-600 text-center leading-tight whitespace-pre-line">{review.logoText}</span>
+                    </div>
+                    <span className="inline-flex items-center px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full">
                       {review.rating}
                     </span>
                   </div>
-                </div>
-                <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5">
-                  {review.headline}
-                </h3>
-                <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-3">
-                  {review.excerpt}
-                </p>
-                <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
-                  <span className="text-xs font-medium text-[var(--color-text-muted)]">
-                    {review.product}
-                  </span>
-                  <span className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
-                    {review.category}
-                  </span>
+                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-3 line-clamp-3 relative z-10">
+                    &ldquo;{review.excerpt}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-2 relative z-10">
+                    <span className="text-[11px] font-semibold text-[var(--color-text-primary)]">{review.product}</span>
+                  </div>
                 </div>
               </div>
             ))}

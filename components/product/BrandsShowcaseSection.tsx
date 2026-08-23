@@ -38,32 +38,22 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="sm:hidden mb-8">
-          <MobileHorizontalScroll>
+        {/* Mobile: logo cloud scroll */}
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-gray-50 to-white py-6 -mt-6">
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={6000}>
             {brands.map((brand) => (
-              <Link
-                key={brand.name}
-                href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-                className="snap-start shrink-0 w-[140px] group bg-white rounded-xl p-3 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center"
-              >
-                <div
-                  className="w-16 h-16 mx-auto mb-3 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
-                  style={{ backgroundColor: `${brand.color}08` }}
-                >
-                  <Image
-                    src={brand.logo}
-                    alt={brand.name}
-                    width={48}
-                    height={48}
-                    className="object-contain"
-                  />
+              <div key={brand.name} className="snap-start shrink-0 w-[130px]">
+                <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] flex flex-col items-center gap-2 hover:border-[var(--color-primary)]/30 hover:shadow-sm transition-all duration-300 group">
+                  <div className="w-14 h-14 rounded-xl bg-[var(--color-bg-secondary)] flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                    {brand.logo ? (
+                      <img src={brand.logo} alt={brand.name} className="w-10 h-10 object-contain" />
+                    ) : (
+                      <span className="text-lg font-bold text-[var(--color-text-muted)]">{brand.name.charAt(0)}</span>
+                    )}
+                  </div>
+                  <p className="text-[11px] font-semibold text-[var(--color-text-primary)] text-center leading-tight">{brand.name}</p>
                 </div>
-                <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
-                  {brand.name}
-                </h3>
-                <p className="text-xs text-[var(--color-text-muted)]">{brand.specialty}</p>
-              </Link>
+              </div>
             ))}
           </MobileHorizontalScroll>
         </div>
