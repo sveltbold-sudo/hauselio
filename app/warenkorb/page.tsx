@@ -34,6 +34,7 @@ export default function WarenkorbPage() {
   if (!mounted) {
     return (
       <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+        <h1 className="heading-2 mb-4 sr-only">Warenkorb</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded mx-auto" />
           <div className="h-40 bg-[var(--color-bg-secondary)] rounded" />

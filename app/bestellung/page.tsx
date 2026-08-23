@@ -238,6 +238,7 @@ export default function BestellungPage() {
   if (!mounted) {
     return (
       <div className="container-hauselio py-20 text-center">
+        <h1 className="heading-2 mb-4 sr-only">Bestellung</h1>
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen…</p>
       </div>
