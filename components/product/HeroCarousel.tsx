@@ -147,7 +147,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       }}
     >
       {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative" aria-live="polite">
+      <div className="lg:hidden relative h-[85vh] min-h-[500px] max-h-[700px]" aria-live="polite">
         {slides.map((s, i) => (
           <div
             key={s.id}
