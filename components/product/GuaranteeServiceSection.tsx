@@ -51,7 +51,7 @@ export default function GuaranteeServiceSection() {
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Service & Garantie</p>
           <h2 className="heading-2">Ihr Vertrauen ist unser Antrieb</h2>
           <p className="body-large mt-2 max-w-2xl mx-auto">
@@ -60,7 +60,7 @@ export default function GuaranteeServiceSection() {
         </div>
 
         {/* Guarantees — compact horizontal layout like AO/Darty */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 md:mb-10">
           {guarantees.map((guarantee, i) => {
             const Icon = guarantee.icon;
             return (

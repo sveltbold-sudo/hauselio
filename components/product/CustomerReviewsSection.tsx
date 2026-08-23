@@ -63,9 +63,9 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:p-6 md:gap-8">
           {/* Rating Summary */}
-          <div className="bg-[var(--color-bg)] rounded-2xl p-6">
+          <div className="bg-[var(--color-bg)] rounded-2xl p-4 sm:p-6">
             <div className="text-center mb-6">
               <p className="text-4xl sm:text-5xl font-black text-[var(--color-text-primary)]">
                 {averageRating.toFixed(1)}

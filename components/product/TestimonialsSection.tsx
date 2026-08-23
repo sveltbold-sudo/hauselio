@@ -108,11 +108,11 @@ export default async function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-4 sm:p-6">
           {testimonials.map((testimonial, i) => (
             <div
               key={testimonial.id}
-              className="bg-white rounded-2xl p-6 border border-[var(--color-border-light)] hover:shadow-lg hover:border-[var(--color-primary)]/10 transition-colors transition-shadow duration-300 animate-fade-in-up"
+              className="bg-white rounded-2xl p-4 sm:p-6 border border-[var(--color-border-light)] hover:shadow-lg hover:border-[var(--color-primary)]/10 transition-colors transition-shadow duration-300 animate-fade-in-up"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               {/* Quote icon */}
@@ -131,7 +131,7 @@ export default async function TestimonialsSection() {
               {/* Product tag */}
               {testimonial.product && (
                 <div className="mb-4">
-                  <span className="inline-block px-2.5 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-semibold text-[var(--color-text-muted)]">
+                  <span className="inline-block px-2.5 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-semibold text-[var(--color-text-muted)]">
                     {testimonial.product}
                   </span>
                 </div>
@@ -161,7 +161,7 @@ export default async function TestimonialsSection() {
                     {testimonial.name}
                   </p>
                   {testimonial.location && (
-                    <p className="text-[11px] text-[var(--color-text-muted)]">
+                    <p className="text-xs text-[var(--color-text-muted)]">
                       {testimonial.location}
                     </p>
                   )}

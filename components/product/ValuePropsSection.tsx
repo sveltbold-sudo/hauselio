@@ -55,10 +55,10 @@ export default function ValuePropsSection() {
               >
                 <Icon className={`w-5 h-5 ${prop.color} shrink-0`} />
                 <div className="min-w-0">
-                  <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight truncate">
+                  <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight line-clamp-2">
                     {prop.title}
                   </p>
-                  <p className="text-[11px] text-[var(--color-text-muted)] leading-tight truncate">
+                  <p className="text-xs text-[var(--color-text-muted)] leading-tight truncate">
                     {prop.description}
                   </p>
                 </div>

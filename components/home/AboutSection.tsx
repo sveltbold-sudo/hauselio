@@ -11,7 +11,7 @@ export default function AboutSection() {
           <div>
             <p className="caption text-[var(--color-accent)] mb-3">Über HAUSELIO</p>
             <h2 className="heading-2 mb-6">
-              Ihr Partner für<br />
+              Ihr Partner für<br className="hidden sm:block" />
               <span className="text-[var(--color-primary)]">moderne Haushaltsgeräte</span>
             </h2>
             <div className="space-y-3 sm:space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
@@ -56,7 +56,7 @@ export default function AboutSection() {
               />
             </div>
             {/* Floating stat card */}
-            <div className="absolute -bottom-4 left-4 sm:-bottom-6 sm:-left-6 bg-white rounded-xl p-3 sm:p-4 shadow-lg border border-[var(--color-border-light)] animate-fade-in-up">
+            <div className="absolute -bottom-4 left-2 sm:absolute sm:-bottom-6 sm:-left-6 bg-white rounded-xl p-3 sm:p-4 shadow-lg border border-[var(--color-border-light)] animate-fade-in-up">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[var(--color-success)]/10 rounded-lg flex items-center justify-center">
                   <Award className="w-5 h-5 text-[var(--color-success)]" />

@@ -80,7 +80,7 @@ export default function PressReviewsSection({
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Vertrauen</p>
           <h2 className="heading-2">Was die Experten & Kunden sagen</h2>
           <p className="body-large mt-2">
@@ -89,7 +89,7 @@ export default function PressReviewsSection({
         </div>
 
         {/* Press Reviews — 2-column like MediaMarkt */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-14">
           {pressReviews.map((review, i) => (
             <div
               key={i}
@@ -107,7 +107,7 @@ export default function PressReviewsSection({
                   <p className="font-bold text-sm text-[var(--color-text-primary)]">
                     {review.publication}
                   </p>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-success-light)] text-[var(--color-success)] text-[11px] font-bold rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-success-light)] text-[var(--color-success)] text-xs font-bold rounded-full">
                     <Award className="w-2.5 h-2.5" />
                     {review.rating}
                   </span>
@@ -122,10 +122,10 @@ export default function PressReviewsSection({
               </p>
 
               <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
-                <span className="text-[11px] font-medium text-[var(--color-text-muted)]">
+                <span className="text-xs font-medium text-[var(--color-text-muted)]">
                   {review.product}
                 </span>
-                <span className="text-[11px] font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                <span className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
                   {review.category}
                 </span>
               </div>
@@ -164,7 +164,7 @@ export default function PressReviewsSection({
                         />
                       ))}
                     </div>
-                    <span className="text-[11px] text-[var(--color-text-muted)]">{review.date}</span>
+                    <span className="text-xs text-[var(--color-text-muted)]">{review.date}</span>
                   </div>
 
                   {/* Quote */}
@@ -179,7 +179,7 @@ export default function PressReviewsSection({
                   <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
                     <div className="flex items-center gap-2">
                       <div className="w-7 h-7 rounded-full bg-[var(--color-primary-50)] flex items-center justify-center">
-                        <span className="text-[11px] font-bold text-[var(--color-primary)]">
+                        <span className="text-xs font-bold text-[var(--color-primary)]">
                           {review.name.charAt(0)}
                         </span>
                       </div>
@@ -187,17 +187,17 @@ export default function PressReviewsSection({
                         <p className="font-semibold text-xs text-[var(--color-text-primary)]">
                           {review.name}
                         </p>
-                        <p className="text-[11px] text-[var(--color-text-muted)]">
+                        <p className="text-xs text-[var(--color-text-muted)]">
                           {review.location}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[11px] font-medium text-[var(--color-text-muted)] block">
+                      <span className="text-xs font-medium text-[var(--color-text-muted)] block">
                         {review.product}
                       </span>
                       {review.verified && (
-                        <span className="text-[11px] font-bold text-[var(--color-success)]">
+                        <span className="text-xs font-bold text-[var(--color-success)]">
                           ✓ Verifiziert
                         </span>
                       )}

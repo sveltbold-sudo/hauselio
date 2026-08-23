@@ -51,7 +51,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
     <section className="section-py bg-white">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Magazin</p>
           <h2 className="heading-2">Ratgeber, Rezepte & mehr</h2>
           <p className="body-large mt-2">
@@ -77,7 +77,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 bg-white/95 backdrop-blur-sm rounded-md text-[10px] font-bold text-[var(--color-text-primary)]">
+                <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 bg-white/95 backdrop-blur-sm rounded-md text-xs font-bold text-[var(--color-text-primary)]">
                   {content.type}
                 </span>
               </div>
@@ -90,10 +90,10 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                   {content.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-[var(--color-text-muted)]">
+                  <span className="text-xs text-[var(--color-text-muted)]">
                     {content.readTime} Lesezeit
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
                     Weiterlesen
                     <ArrowRight className="w-3 h-3" />
                   </span>

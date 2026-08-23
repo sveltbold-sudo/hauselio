@@ -27,14 +27,14 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp className="w-5 h-5 text-[var(--color-accent)]" />
               <p className="caption text-[var(--color-accent)]">Bestseller</p>
             </div>
             <h2 className="heading-2">Am besten verkauft</h2>
-            <p className="body-large mt-2">
+            <p className="body-large mt-2 line-clamp-2">
               Unsere meistverkauften Produkte — vertrauen Sie auf die Wahl tausender Kunden
             </p>
           </div>
@@ -55,7 +55,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               style={{ animationDelay: `${i * 60}ms` }}
             >
               {/* Rank badge — gold/silver/bronze */}
-              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+              <div className={`absolute -top-2 -left-1 sm:-left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
                 i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white" :
                 i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
                 i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :

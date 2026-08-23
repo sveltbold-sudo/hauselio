@@ -104,7 +104,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
     <section className="section-py bg-white">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kaufberatung</p>
           <h2 className="heading-2">Experten-Tipps für den richtigen Kauf</h2>
           <p className="body-large mt-2">
@@ -137,7 +137,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                 </div>
 
                 {/* Tips — 2-col with compact checkmarks */}
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 mb-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 mb-3">
                   {advice.tips.map((tip, i) => (
                     <div key={i} className="flex items-start gap-1.5">
                       <Check className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0 mt-0.5" />
@@ -151,13 +151,13 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                 {/* Recommended Product — inline row like Coolblue recommendation */}
                 <div className="bg-white rounded-lg p-3 border border-[var(--color-border-light)] flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-0.5">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-0.5">
                       Empfehlung
                     </p>
                     <p className="font-semibold text-xs text-[var(--color-text-primary)] truncate">
                       {advice.recommendedProduct.name}
                     </p>
-                    <p className="text-[11px] text-[var(--color-text-muted)]">
+                    <p className="text-xs text-[var(--color-text-muted)]">
                       {advice.recommendedProduct.highlight}
                     </p>
                   </div>

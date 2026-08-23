@@ -27,7 +27,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-5 h-5 text-[var(--color-accent)]" />
@@ -57,6 +57,13 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
               <ProductCard product={product} />
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 text-center md:hidden">
+          <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors">
+            Mehr entdecken
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>
