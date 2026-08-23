@@ -33,7 +33,7 @@ const defaultSlides: Slide[] = [
     price: 1499,
     originalPrice: 1599,
     tagline: "Das ultimative Küchengerät",
-    subtitle: "Über 80 Kochfunktionen in einem Gerät. Perfekt für anspruchsvolle Hobbyköche und Profis.",
+    subtitle: "Über 80 Kochfunktionen in einem Gerät.",
     image: "/images/products/thermomix-tm7.jpg",
     bgImage: "/images/hero-kitchen.jpg",
     cta: "Jetzt bestellen",
@@ -46,7 +46,7 @@ const defaultSlides: Slide[] = [
     price: 449,
     originalPrice: 549,
     tagline: "Der Küchenklassiker",
-    subtitle: "Premium-Standmixer mit Metallgetriebe und 5L-Schüssel. Über 100 Jahre Küchentradition.",
+    subtitle: "Premium-Standmixer mit Metallgetriebe.",
     image: "/images/products/kitchenaid-artisan-5ksm175pse.jpg",
     bgImage: "/images/hero-kitchen.jpg",
     cta: "Jetzt entdecken",
@@ -59,7 +59,7 @@ const defaultSlides: Slide[] = [
     price: 1199,
     originalPrice: 1299,
     tagline: "Premium Kaffeevollautomat",
-    subtitle: "P.E.P. Technologie für perfekten Espresso und Milchschaum-System für Cappuccino.",
+    subtitle: "P.E.P. Technologie für perfekten Espresso.",
     image: "/images/products/jura-e8-platinum.jpg",
     bgImage: "/images/hero-coffee.jpg",
     cta: "Jetzt ansehen",
@@ -135,7 +135,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
     <section
       aria-roledescription="carousel"
       aria-label="Produkt-Highlights"
-      className="relative w-full bg-white overflow-hidden"
+      className="relative w-full overflow-hidden"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
       onTouchStart={handleTouchStart}
@@ -146,83 +146,96 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         if (e.key === "ArrowLeft") prev();
       }}
     >
-      {/* ── MOBILE LAYOUT ── */}
+      {/* ── MOBILE: Full-bleed editorial ── */}
       <div className="lg:hidden relative" aria-live="polite">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[var(--color-primary-50)] via-white to-white" />
-
-        <div key={current} className="relative z-10 animate-fade-in-up">
-          {/* Product image */}
-          <div className="relative mx-auto w-full max-w-[280px] aspect-square pt-6 pb-2">
-            <Image
-              src={slide.image}
-              alt={slide.name}
-              fill
-              className="object-contain p-4"
-              priority
-              sizes="280px"
-            />
-            {discount > 0 && (
-              <span className="absolute top-6 left-2 inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded-md shadow-sm">
-                -{discount}%
-              </span>
-            )}
-          </div>
-
-          {/* Text content */}
-          <div className="px-5 pb-6 text-center">
-            <span className="inline-block px-2.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2" translate="no">
-              {slide.brand}
-            </span>
-            <h2 className="text-xl font-extrabold text-[var(--color-text-primary)] mb-1 leading-tight">
-              {slide.name}
-            </h2>
-            <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
-              {slide.tagline}
-            </p>
-            <p className="text-xs text-[var(--color-text-secondary)] mb-4 line-clamp-2 max-w-sm mx-auto">
-              {slide.subtitle}
-            </p>
-            <div className="flex items-baseline justify-center gap-2 mb-4">
-              <span className="text-2xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
-                {formatPrice(slide.price)}
-              </span>
-              {slide.originalPrice && (
-                <>
-                  <span className="text-sm text-[var(--color-text-muted)] line-through tabular-nums">
-                    {formatPrice(slide.originalPrice)}
-                  </span>
-                  <span className="inline-flex items-center px-1.5 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-[10px] font-bold rounded">
-                    -{discount}%
-                  </span>
-                </>
-              )}
+        {slides.map((s, i) => (
+          <div
+            key={s.id}
+            className={`absolute inset-0 transition-opacity duration-700 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+          >
+            {/* Full-bleed product image */}
+            <div className="absolute inset-0 bg-[#f0ede8]">
+              <Image
+                src={s.image}
+                alt={s.name}
+                fill
+                className="object-contain scale-110"
+                priority={i === 0}
+                sizes="100vw"
+              />
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
             </div>
-            <Link
-              href={`/produkt/${slide.slug}`}
-              className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-blue-500/20 active:scale-[0.97] transition-all duration-200"
-            >
-              {slide.cta || "Jetzt bestellen"}
-              <ArrowRight className="w-4 h-4 ml-1.5" />
-            </Link>
-            <div className="flex items-center justify-center gap-4 mt-3 text-[10px] text-[var(--color-text-muted)]">
-              <span className="flex items-center gap-1">
-                <Truck className="w-3 h-3 text-[var(--color-success)]" />
-                Versand gratis
-              </span>
-              <span className="flex items-center gap-1">
-                <Shield className="w-3 h-3 text-[var(--color-success)]" />
-                5 J. Garantie
-              </span>
-              <span className="flex items-center gap-1">
-                <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
-                30 Tage
-              </span>
+
+            {/* Content overlaid on image */}
+            <div className="absolute inset-0 flex flex-col justify-between p-5 pb-20">
+              {/* Top: brand + discount */}
+              <div className="flex items-start justify-between">
+                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
+                  {s.brand}
+                </span>
+                {calcDiscount(s.price, s.originalPrice) > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded-lg shadow-lg">
+                    -{calcDiscount(s.price, s.originalPrice)}%
+                  </span>
+                )}
+              </div>
+
+              {/* Bottom: text + CTA */}
+              <div>
+                <h2 className="text-3xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
+                  {s.name}
+                </h2>
+                <p className="text-sm font-semibold text-white/90 mb-1 drop-shadow">
+                  {s.tagline}
+                </p>
+                <p className="text-xs text-white/70 mb-4 line-clamp-1 drop-shadow">
+                  {s.subtitle}
+                </p>
+
+                {/* Price */}
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-2xl font-extrabold text-white tabular-nums drop-shadow-lg">
+                    {formatPrice(s.price)}
+                  </span>
+                  {s.originalPrice && (
+                    <span className="text-sm text-white/60 line-through tabular-nums">
+                      {formatPrice(s.originalPrice)}
+                    </span>
+                  )}
+                </div>
+
+                {/* CTA */}
+                <Link
+                  href={`/produkt/${s.slug}`}
+                  className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-white text-[var(--color-text-primary)] shadow-xl active:scale-[0.97] transition-all duration-200"
+                >
+                  {s.cta || "Jetzt bestellen"}
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Link>
+
+                {/* Trust */}
+                <div className="flex items-center justify-center gap-4 mt-3 text-[10px] text-white/60">
+                  <span className="flex items-center gap-1">
+                    <Truck className="w-3 h-3" />
+                    Versand gratis
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Shield className="w-3 h-3" />
+                    5 J. Garantie
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <RotateCcw className="w-3 h-3" />
+                    30 Tage
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
 
         {/* Dots */}
-        <div className="relative z-10 flex items-center justify-center gap-2 pb-4">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -234,8 +247,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               <span
                 className={`block h-1.5 rounded-full transition-all duration-400 ${
                   i === current
-                    ? "w-7 bg-[var(--color-primary)]"
-                    : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"
+                    ? "w-7 bg-white"
+                    : "w-2.5 bg-white/40 hover:bg-white/60"
                 }`}
               />
             </button>
@@ -245,22 +258,22 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {/* Nav arrows */}
         <button
           onClick={prev}
-          className="absolute left-2 bottom-16 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200"
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200"
           aria-label="Vorherige Folie"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-2 bottom-16 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200"
           aria-label="Nächste Folie"
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-5 h-5" />
         </button>
       </div>
 
-      {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden lg:block relative" aria-live="polite">
+      {/* ── DESKTOP: Split layout ── */}
+      <div className="hidden lg:block relative bg-white" aria-live="polite">
         <div className="absolute inset-0 z-0">
           <Image
             src={slide.bgImage || "/images/hero-kitchen.jpg"}

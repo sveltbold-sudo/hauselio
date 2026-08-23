@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
+import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface BestsellerProduct {
   id: string;
@@ -47,15 +48,35 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Mobile: horizontal scroll */}
+        <div className="sm:hidden">
+          <MobileHorizontalScroll>
+            {products.map((product, i) => (
+              <div
+                key={product.id}
+                className="snap-start shrink-0 w-[280px] relative"
+              >
+                <div className={`absolute -top-2 -left-1 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+                  i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white" :
+                  i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
+                  i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :
+                  "bg-[var(--color-primary)] text-white"
+                }`}>
+                  {i + 1}
+                </div>
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </MobileHorizontalScroll>
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((product, i) => (
             <div
               key={product.id}
-              className="animate-fade-in-up relative"
-              style={{ animationDelay: `${i * 60}ms` }}
+              className="relative"
             >
-              {/* Rank badge — gold/silver/bronze */}
-              <div className={`absolute -top-2 -left-1 sm:-left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
                 i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white" :
                 i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
                 i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :

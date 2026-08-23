@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Star, Award, ExternalLink, Quote } from "lucide-react";
+import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface PressReview {
   publication: string;
@@ -88,8 +89,50 @@ export default function PressReviewsSection({
           </p>
         </div>
 
-        {/* Press Reviews — 2-column like MediaMarkt */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-14">
+        {/* Mobile: horizontal scroll */}
+        <div className="sm:hidden mb-8 md:mb-14">
+          <MobileHorizontalScroll>
+            {pressReviews.map((review, i) => (
+              <div
+                key={i}
+                className={`snap-start shrink-0 w-[280px] bg-white rounded-xl p-5 border border-[var(--color-border-light)] border-l-4 ${review.borderColor}`}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-11 h-11 bg-gray-50 rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
+                    <span className="text-[7px] font-black text-gray-400 uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
+                      {review.logoText}
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-bold text-sm text-[var(--color-text-primary)]">
+                      {review.publication}
+                    </p>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-success-light)] text-[var(--color-success)] text-xs font-bold rounded-full">
+                      <Award className="w-2.5 h-2.5" />
+                      {review.rating}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5">
+                  {review.headline}
+                </h3>
+                <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-3">
+                  {review.excerpt}
+                </p>
+                <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
+                  <span className="text-xs font-medium text-[var(--color-text-muted)]">
+                    {review.product}
+                  </span>
+                  <span className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                    {review.category}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </MobileHorizontalScroll>
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-2 gap-4 mb-8 md:mb-14">
           {pressReviews.map((review, i) => (
             <div
               key={i}
@@ -97,7 +140,6 @@ export default function PressReviewsSection({
               style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="flex items-start gap-3 mb-3">
-                {/* Logo as styled text — like Coolblue */}
                 <div className="w-11 h-11 bg-gray-50 rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
                   <span className="text-[7px] font-black text-gray-400 uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
                     {review.logoText}
@@ -113,14 +155,12 @@ export default function PressReviewsSection({
                   </span>
                 </div>
               </div>
-
               <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5">
                 {review.headline}
               </h3>
               <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-3">
                 {review.excerpt}
               </p>
-
               <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
                 <span className="text-xs font-medium text-[var(--color-text-muted)]">
                   {review.product}

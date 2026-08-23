@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface EditorialItem {
   type: string;
@@ -59,7 +60,51 @@ export default function EditorialContentSection({ items = defaultEditorialConten
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Mobile: horizontal scroll */}
+        <div className="sm:hidden">
+          <MobileHorizontalScroll>
+            {items.map((content, i) => (
+              <Link
+                key={i}
+                href={content.href}
+                className="snap-start shrink-0 w-[260px] group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-colors transition-shadow duration-300"
+              >
+                <div className="aspect-[16/10] bg-[var(--color-bg-secondary)] relative overflow-hidden">
+                  <Image
+                    src={content.image}
+                    alt={content.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="260px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 bg-white/95 backdrop-blur-sm rounded-md text-xs font-bold text-[var(--color-text-primary)]">
+                    {content.type}
+                  </span>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5 group-hover:text-[var(--color-primary)] transition-colors line-clamp-2">
+                    {content.title}
+                  </h3>
+                  <p className="text-xs text-[var(--color-text-muted)] mb-3 line-clamp-2 leading-relaxed">
+                    {content.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[var(--color-text-muted)]">
+                      {content.readTime} Lesezeit
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
+                      Weiterlesen
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </MobileHorizontalScroll>
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-3 gap-5">
           {items.map((content, i) => (
             <Link
               key={i}
@@ -67,7 +112,6 @@ export default function EditorialContentSection({ items = defaultEditorialConten
               className="group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-colors transition-shadow duration-300 animate-fade-in-up"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              {/* Image — real product photo like Coolblue blog */}
               <div className="aspect-[16/10] bg-[var(--color-bg-secondary)] relative overflow-hidden">
                 <Image
                   src={content.image}
@@ -81,7 +125,6 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                   {content.type}
                 </span>
               </div>
-
               <div className="p-4">
                 <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-1.5 group-hover:text-[var(--color-primary)] transition-colors line-clamp-2">
                   {content.title}

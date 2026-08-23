@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface Brand {
   name: string;
@@ -37,13 +38,42 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
           </p>
         </div>
 
-        {/* Brands Grid — compact 4-col like MediaMarkt */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-8">
+        {/* Mobile: horizontal scroll */}
+        <div className="sm:hidden mb-8">
+          <MobileHorizontalScroll>
+            {brands.map((brand) => (
+              <Link
+                key={brand.name}
+                href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
+                className="snap-start shrink-0 w-[140px] group bg-white rounded-xl p-3 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center"
+              >
+                <div
+                  className="w-16 h-16 mx-auto mb-3 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
+                  style={{ backgroundColor: `${brand.color}08` }}
+                >
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={48}
+                    height={48}
+                    className="object-contain"
+                  />
+                </div>
+                <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
+                  {brand.name}
+                </h3>
+                <p className="text-xs text-[var(--color-text-muted)]">{brand.specialty}</p>
+              </Link>
+            ))}
+          </MobileHorizontalScroll>
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-4 gap-3 mb-8">
           {brands.map((brand, i) => (
             <Link
               key={brand.name}
               href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-              className="group bg-white rounded-xl p-3 sm:p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
+              className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
               style={{ animationDelay: `${i * 40}ms` }}
             >
               <div
@@ -61,7 +91,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
               <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
                 {brand.name}
               </h3>
-              <p className="text-xs sm:text-[12px] text-[var(--color-text-muted)]">{brand.specialty}</p>
+              <p className="text-[12px] text-[var(--color-text-muted)]">{brand.specialty}</p>
             </Link>
           ))}
         </div>

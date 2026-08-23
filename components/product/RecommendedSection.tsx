@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
+import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface RecommendedProduct {
   id: string;
@@ -47,7 +48,18 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Mobile: horizontal scroll */}
+        <div className="sm:hidden">
+          <MobileHorizontalScroll>
+            {products.map((product) => (
+              <div key={product.id} className="snap-start shrink-0 w-[280px]">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </MobileHorizontalScroll>
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((product, i) => (
             <div
               key={product.id}
