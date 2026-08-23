@@ -29,7 +29,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Marken</p>
           <h2 className="heading-2">Unsere Premium-Marken</h2>
           <p className="body-large mt-2">
@@ -38,12 +38,12 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
         </div>
 
         {/* Brands Grid — compact 4-col like MediaMarkt */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-8">
           {brands.map((brand, i) => (
             <Link
               key={brand.name}
               href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-              className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
+              className="group bg-white rounded-xl p-3 sm:p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
               style={{ animationDelay: `${i * 40}ms` }}
             >
               <div
@@ -61,7 +61,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
               <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
                 {brand.name}
               </h3>
-              <p className="text-[10px] text-[var(--color-text-muted)]">{brand.specialty}</p>
+              <p className="text-[10px] sm:text-[11px] text-[var(--color-text-muted)]">{brand.specialty}</p>
             </Link>
           ))}
         </div>

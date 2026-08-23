@@ -38,7 +38,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
     <div className="border border-[var(--color-border-light)] rounded-xl overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3.5 sm:px-5 sm:py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
         aria-expanded={isOpen}
         aria-controls={panelId}
       >
@@ -53,7 +53,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         />
       </button>
       {isOpen && (
-        <div id={panelId} className="px-5 pb-4">
+        <div id={panelId} className="px-4 pb-3 sm:px-5 sm:pb-4">
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             {answer}
           </p>

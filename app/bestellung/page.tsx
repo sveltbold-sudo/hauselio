@@ -254,9 +254,9 @@ export default function BestellungPage() {
   }
 
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-10">
+      <div className="mb-6 sm:mb-10">
         <Link
           href="/warenkorb"
           className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors mb-4"
@@ -269,7 +269,7 @@ export default function BestellungPage() {
       </div>
 
       {/* Step indicator */}
-      <div className="flex items-center justify-center gap-2 mb-10" aria-label="Bestellschritte">
+      <div className="flex items-center justify-center gap-2 mb-6 sm:mb-10" aria-label="Bestellschritte">
         <Link
           href="/warenkorb"
           className="flex items-center gap-2 text-sm text-[var(--color-success)] font-semibold"
@@ -349,7 +349,7 @@ export default function BestellungPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Contact */}

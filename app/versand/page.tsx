@@ -31,14 +31,14 @@ const shippingMethods = [
 
 export default function VersandPage() {
   return (
-    <div className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-8 sm:py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>
 
       {/* Versandarten */}
-      <section className="mb-12">
+      <section className="mb-8 sm:mb-12">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
           Versandarten & Kosten
         </h2>
@@ -84,7 +84,7 @@ export default function VersandPage() {
       </section>
 
       {/* Lieferung */}
-      <section className="mb-12">
+      <section className="mb-8 sm:mb-12">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
           Lieferung
         </h2>
@@ -109,7 +109,7 @@ export default function VersandPage() {
       </section>
 
       {/* Zahlung */}
-      <section className="mb-12">
+      <section className="mb-8 sm:mb-12">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
           Zahlungsarten
         </h2>
@@ -134,7 +134,7 @@ export default function VersandPage() {
       </section>
 
       {/* Sendungsverfolgung */}
-      <section className="mb-12">
+      <section className="mb-8 sm:mb-12">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
           Sendungsverfolgung
         </h2>

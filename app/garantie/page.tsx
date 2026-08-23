@@ -67,7 +67,7 @@ export default function GarantiePage() {
         ]}
       />
 
-      <div className="container-hauselio py-12 max-w-4xl">
+      <div className="container-hauselio py-8 sm:py-12 max-w-4xl">
         <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-8">
           <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
           <span>/</span>
@@ -75,11 +75,11 @@ export default function GarantiePage() {
         </nav>
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
-        <p className="text-[var(--color-text-secondary)] text-lg mb-12 max-w-2xl">
+        <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">
           Bei HAUSELIO stehen wir hinter der Qualität unserer Produkte. Profitieren Sie von unserer umfassenden Garantie.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-16">
           {guaranteeTiers.map((tier) => (
             <div
               key={tier.title}
@@ -95,9 +95,9 @@ export default function GarantiePage() {
           ))}
         </div>
 
-        <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-8 mb-16">
+        <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-6 sm:p-8 mb-10 sm:mb-16">
           <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-8 text-center">So melden Sie einen Garantiefall</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {guaranteeSteps.map((step) => (
               <div key={step.step} className="text-center">
                 <div className="w-10 h-10 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold">
@@ -110,7 +110,7 @@ export default function GarantiePage() {
           </div>
         </div>
 
-        <div className="prose-hauselio space-y-8 mb-16">
+        <div className="prose-hauselio space-y-6 sm:space-y-8 mb-10 sm:mb-16">
           <section>
             <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Gesetzliche Gewährleistung</h2>
             <p className="text-[var(--color-text-secondary)]">
@@ -139,7 +139,7 @@ export default function GarantiePage() {
           </section>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-8">
+        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 sm:p-8">
           <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">Kontaktieren Sie uns</h2>
           <p className="text-[var(--color-text-secondary)] mb-6">
             Haben Sie Fragen zur Garantie? Unser Service-Team hilft Ihnen gerne weiter.

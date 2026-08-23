@@ -171,12 +171,12 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               </span>
 
               {/* Headline */}
-              <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-[var(--color-text-primary)] mb-3 leading-[1.1] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-[var(--color-text-primary)] mb-3 leading-[1.1] tracking-tight">
                 {slide.name}
               </h2>
 
               {/* Tagline */}
-              <p className="text-lg md:text-xl font-semibold text-[var(--color-text-primary)] mb-2">
+              <p className="text-base sm:text-lg md:text-xl font-semibold text-[var(--color-text-primary)] mb-2">
                 {slide.tagline}
               </p>
 
@@ -187,7 +187,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
               {/* Price — inline like Coolblue/AO */}
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
+                <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
                   {formatPrice(slide.price)}
                 </span>
                 {slide.originalPrice && (
@@ -203,17 +203,17 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-3 mb-6">
+              <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
                 <Link
                   href={`/produkt/${slide.slug}`}
-                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] select-none"
+                  className="inline-flex items-center justify-center px-5 py-3 text-sm sm:px-7 sm:py-3.5 sm:text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] select-none"
                 >
                   {slide.cta || "Jetzt bestellen"}
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:ring-[var(--color-primary)] active:scale-[0.97] select-none"
+                  className="inline-flex items-center justify-center px-5 py-3 text-sm sm:px-7 sm:py-3.5 sm:text-base font-semibold rounded-xl transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:ring-[var(--color-primary)] active:scale-[0.97] select-none"
                 >
                   Alle Produkte
                 </Link>
@@ -243,7 +243,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   src={slide.image}
                   alt={slide.name}
                   fill
-                  className="object-contain p-6 md:p-10 transition-transform duration-700 hover:scale-105"
+                  className="object-contain p-4 sm:p-6 lg:p-10 transition-transform duration-700 hover:scale-105"
                   priority
                   sizes="(max-width: 768px) 100vw, 440px"
                 />
@@ -262,14 +262,14 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       {/* Navigation Arrows — minimal like MediaMarkt */}
       <button
         onClick={prev}
-        className="absolute left-2 md:left-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Vorherige Folie"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-2 md:right-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:shadow-md active:scale-95 transition-colors transition-shadow transition-transform duration-200 z-20 border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Nächste Folie"
       >
         <ChevronRight className="w-5 h-5" />

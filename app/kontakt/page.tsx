@@ -38,12 +38,12 @@ export default async function KontaktPage() {
 
   return (
     <>
-      <div className="container-hauselio py-8">
+      <div className="container-hauselio py-6 sm:py-8">
         {/* Breadcrumb */}
         <Breadcrumb items={[{ label: "Kontakt" }]} />
 
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
             <div>
               <h1 className="heading-1">So erreichen Sie uns</h1>

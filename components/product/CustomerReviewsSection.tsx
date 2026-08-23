@@ -55,7 +55,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   return (
     <section className="section-py bg-white">
       <div className="container-hauselio">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
           <h2 className="heading-2">Was unsere Kunden sagen</h2>
           <p className="body-large mt-2">
@@ -63,11 +63,11 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Rating Summary */}
           <div className="bg-[var(--color-bg)] rounded-2xl p-6">
             <div className="text-center mb-6">
-              <p className="text-5xl font-black text-[var(--color-text-primary)]">
+              <p className="text-4xl sm:text-5xl font-black text-[var(--color-text-primary)]">
                 {averageRating.toFixed(1)}
               </p>
               <div className="flex items-center justify-center gap-1 mt-2">

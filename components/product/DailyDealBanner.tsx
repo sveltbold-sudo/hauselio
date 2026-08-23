@@ -53,7 +53,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
             {/* Content */}
             <div className="p-6 md:p-8 lg:p-10 flex flex-col justify-center">
               {/* Badge */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold text-white uppercase tracking-wider">
                   <Flame className="w-3.5 h-3.5" />
                   Angebot des Tages
@@ -99,7 +99,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                     { value: time.seconds, label: "Sek" },
                   ].map((unit, i) => (
                     <div key={i} className="flex items-center gap-1">
-                      <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-sm font-black text-white tabular-nums">
+                      <span className="inline-flex items-center justify-center min-w-[32px] h-8 px-1 sm:min-w-[36px] sm:h-9 sm:px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-xs sm:text-sm font-black text-white tabular-nums">
                         {String(unit.value).padStart(2, "0")}
                       </span>
                       {i < 2 && <span className="text-white/50 text-xs font-bold">:</span>}
@@ -119,7 +119,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
             </div>
 
             {/* Image */}
-            <div className="relative flex items-center justify-center p-6 lg:p-0 bg-white/10">
+            <div className="relative flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-white/10">
               <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-square">
                 <Image
                   src={product.image}

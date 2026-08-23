@@ -177,12 +177,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
         <h1 className="heading-1">
           {q ? `Suchergebnisse für "${q}"` : "Alle Produkte"}
@@ -195,8 +195,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
 
       {/* Category tabs — visual cards */}
-      <div className="mb-8">
-        <div className="flex flex-wrap gap-3" role="tablist" aria-label="Kategorien">
+      <div className="mb-6 sm:mb-8">
+        <div className="flex flex-wrap gap-2 sm:gap-3" role="tablist" aria-label="Kategorien">
           <Link
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
             role="tab"

@@ -40,13 +40,13 @@ export default function Footer() {
       {/* Trust badges bar */}
       <div className="border-b border-white/10">
         <div className="container-hauselio py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {trustBadges.map((badge) => (
               <div key={badge.label} className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <badge.icon className="w-4 h-4 text-[var(--color-primary)]" />
                 </div>
-                <span className="text-[13px] text-white/80 font-medium">{badge.label}</span>
+                <span className="text-[12px] sm:text-[13px] text-white/80 font-medium">{badge.label}</span>
               </div>
             ))}
           </div>
@@ -54,8 +54,8 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="container-hauselio py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+      <div className="container-hauselio py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-4">
             <Link href="/" className="inline-block mb-4">

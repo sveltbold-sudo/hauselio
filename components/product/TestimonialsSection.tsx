@@ -100,7 +100,7 @@ export default async function TestimonialsSection() {
   return (
     <section className="section-py">
       <div className="container-hauselio">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kundenstimmen</p>
           <h2 className="heading-2 mb-3">Was unsere Kunden sagen</h2>
           <p className="body-large max-w-2xl mx-auto">
@@ -108,7 +108,7 @@ export default async function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {testimonials.map((testimonial, i) => (
             <div
               key={testimonial.id}

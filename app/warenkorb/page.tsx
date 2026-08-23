@@ -67,20 +67,20 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-10">
+      <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
         <h1 className="heading-1">Warenkorb</h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         {/* Cart items */}
         <div className="lg:col-span-2 space-y-4">
           {items.map((item, i) => (
             <div
               key={item.id}
-              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 flex gap-5 animate-fade-in-up"
+              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 flex gap-4 sm:gap-5 animate-fade-in-up"
               style={{ animationDelay: `${i * 50}ms` }}
             >
               {/* Image */}
@@ -189,7 +189,7 @@ export default function WarenkorbPage() {
 
         {/* Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 sticky top-24">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 sticky top-24">
             <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
               Zusammenfassung
             </h2>

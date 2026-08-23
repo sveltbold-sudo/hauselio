@@ -280,7 +280,7 @@ async function CategoriesSection() {
             <h3 className="font-bold text-sm text-white mb-0.5 leading-tight">
               {cat.name}
             </h3>
-            <p className="text-[10px] text-white/70 font-medium">
+            <p className="text-[10px] sm:text-[11px] text-white/70 font-medium">
               {cat.count} Produkte
             </p>
           </div>
@@ -315,7 +315,7 @@ async function FeaturedProductsSection() {
           </div>
         ))}
       </div>
-      <div className="mt-10 text-center md:hidden">
+      <div className="mt-8 text-center md:hidden">
         <Link href="/shop" className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">
           Alle ansehen
           <ArrowRight className="w-4 h-4" />
@@ -360,7 +360,7 @@ export default async function HomePage() {
 
       <section className="section-py">
         <div className="container-hauselio">
-          <div className="text-center mb-10">
+          <div className="text-center mb-6 md:mb-10">
             <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
             <h2 className="heading-2 mb-3">Entdecken Sie unsere Kategorien</h2>
             <p className="body-large max-w-2xl mx-auto">
@@ -381,7 +381,7 @@ export default async function HomePage() {
 
       <section className="section-py bg-[var(--color-bg-secondary)]">
         <div className="container-hauselio">
-          <div className="flex items-end justify-between mb-10">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
               <p className="caption text-[var(--color-accent)] mb-3">Highlights</p>
               <h2 className="heading-2">Beliebte Produkte</h2>

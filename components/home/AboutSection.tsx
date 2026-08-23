@@ -6,7 +6,7 @@ export default function AboutSection() {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hauselio">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Content */}
           <div>
             <p className="caption text-[var(--color-accent)] mb-3">Über HAUSELIO</p>
@@ -14,7 +14,7 @@ export default function AboutSection() {
               Ihr Partner für<br />
               <span className="text-[var(--color-primary)]">moderne Haushaltsgeräte</span>
             </h2>
-            <div className="space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
+            <div className="space-y-3 sm:space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
               <p>
                 HAUSELIO steht für hochwertige Haushaltsgeräte zu fairen Preisen.
                 Wir bieten Ihnen eine kuratierte Auswahl an Premium-Geräten von
@@ -56,7 +56,7 @@ export default function AboutSection() {
               />
             </div>
             {/* Floating stat card */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg border border-[var(--color-border-light)] animate-fade-in-up">
+            <div className="absolute -bottom-4 left-4 sm:-bottom-6 sm:-left-6 bg-white rounded-xl p-3 sm:p-4 shadow-lg border border-[var(--color-border-light)] animate-fade-in-up">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[var(--color-success)]/10 rounded-lg flex items-center justify-center">
                   <Award className="w-5 h-5 text-[var(--color-success)]" />
