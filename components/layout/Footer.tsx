@@ -170,7 +170,7 @@ export default function Footer() {
               </div>
             ))}
           </div>
-          <p className="text-center text-[10px] text-white/30">Weitere Zahlungsmethoden folgen</p>
+          <p className="text-center text-[11px] text-white/30">Weitere Zahlungsmethoden folgen</p>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/50">

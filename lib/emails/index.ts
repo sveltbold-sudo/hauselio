@@ -6,7 +6,8 @@ import { createUnsubscribeToken } from "@/lib/auth";
 import { SITE_URL } from "@/lib/constants";
 
 // Deduplication guard for newsletter campaigns
-const activeCampaigns = new Set<string>();
+// Note: Per-invocation in serverless — acceptable since campaigns are admin-triggered and infrequent
+const activeCampaigns = new Map<string, number>();
 
 export function escapeHtml(str: string): string {
   return str
@@ -400,10 +401,15 @@ export async function sendNewsletterCampaign(data: {
 }) {
   // Deduplication guard: prevent duplicate concurrent sends
   const campaignKey = `newsletter-campaign:${data.subject}:${data.emails.length}`;
+  const now = Date.now();
+  // Clean up stale entries older than 5 minutes
+  for (const [key, timestamp] of activeCampaigns) {
+    if (now - timestamp > 5 * 60_000) activeCampaigns.delete(key);
+  }
   if (activeCampaigns.has(campaignKey)) {
     throw new Error("Eine Newsletter-Kampagne wird gerade bereits versendet. Bitte warten Sie.");
   }
-  activeCampaigns.add(campaignKey);
+  activeCampaigns.set(campaignKey, now);
 
   try {
     const safeSubject = escapeHtml(data.subject);

@@ -48,7 +48,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
           {product.isPromo && discount > 0 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[10px] font-bold rounded">
+            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded">
               -{discount}%
             </span>
           )}
@@ -91,7 +91,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
       <div className="p-4">
         {/* Brand */}
         {product.brand && (
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
             {product.brand}
           </p>
         )}

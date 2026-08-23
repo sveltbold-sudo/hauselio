@@ -32,7 +32,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' https://res.cloudinary.com data: blob:",
+      "img-src 'self' https://res.cloudinary.com blob:",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io",
       "object-src 'none'",

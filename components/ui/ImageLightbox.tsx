@@ -72,7 +72,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       <button
         ref={closeRef}
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors z-10"
+        className="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/80 hover:text-white transition-colors z-10"
         aria-label="Schließen"
       >
         <X className="w-6 h-6" />
@@ -81,7 +81,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); goPrev(); }}
-          className="absolute left-4 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-10"
+          className="absolute left-4 min-w-[44px] min-h-[44px] flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-10"
           aria-label="Vorheriges Bild"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -103,7 +103,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       {images.length > 1 && (
         <button
           onClick={(e) => { e.stopPropagation(); goNext(); }}
-          className="absolute right-4 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-10"
+          className="absolute right-4 min-w-[44px] min-h-[44px] flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-10"
           aria-label="Nächstes Bild"
         >
           <ChevronRight className="w-6 h-6" />

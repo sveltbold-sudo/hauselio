@@ -27,7 +27,7 @@ export function generateOrderNumber(): string {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const random = crypto.randomUUID().replace(/-/g, "").slice(0, 4).toUpperCase();
+  const random = crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
   return `HL-${year}${month}-${random}`;
 }
 

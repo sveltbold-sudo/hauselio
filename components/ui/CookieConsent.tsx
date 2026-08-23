@@ -78,18 +78,20 @@ export default function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div
-      ref={dialogRef}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Cookie-Einstellungen"
-      onKeyDown={handleKeyDown}
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
-    >
+    <>
+      <div className="fixed inset-0 z-50 bg-black/30" aria-hidden="true" />
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Cookie-Einstellungen"
+        onKeyDown={handleKeyDown}
+        className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
+      >
       <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-6">
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-10 h-10 bg-[var(--color-orange)]/10 rounded-xl flex items-center justify-center">
-            <Cookie className="w-5 h-5 text-[var(--color-orange)]" />
+          <div className="flex-shrink-0 w-10 h-10 bg-[var(--color-accent)]/10 rounded-xl flex items-center justify-center">
+            <Cookie className="w-5 h-5 text-[var(--color-accent)]" />
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
@@ -106,7 +108,7 @@ export default function CookieConsent() {
                 ref={firstButtonRef}
                 onClick={handleAccept}
                 variant="primary"
-                className="bg-[var(--color-orange)] hover:bg-[var(--color-orange-hover)]"
+                className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"
               >
                 Akzeptieren
               </Button>
@@ -128,6 +130,7 @@ export default function CookieConsent() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -99,7 +99,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               </h2>
 
               {error && (
-                <div aria-live="polite" className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 mb-6">
+                <div role="alert" className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 mb-6">
                   {error}
                 </div>
               )}

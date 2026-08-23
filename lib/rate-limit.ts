@@ -12,6 +12,7 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextRequest } from "next/server";
+import { logger } from "./logger";
 
 /**
  * Extract client IP from request.
@@ -80,9 +81,14 @@ export async function checkRateLimit(
     return success;
   }
 
-  // In production without Upstash, apply strict per-invocation fallback
+  // In production without Upstash — per-invocation state is useless in serverless
   const isProd = process.env.NODE_ENV === "production";
-  const effectiveMax = isProd ? Math.min(maxRequests, 3) : maxRequests;
+  if (isProd && !useUpstash) {
+    // Fail open: log warning but allow request (better UX than blocking all)
+    // TODO: Configure UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN
+    logger.warn("rate-limit", "Upstash not configured — rate limiting disabled in production");
+    return true;
+  }
 
   const now = Date.now();
   const entry = getMemoryEntry(key);
@@ -92,7 +98,7 @@ export async function checkRateLimit(
     return true;
   }
 
-  if (entry.count >= effectiveMax) {
+  if (entry.count >= maxRequests) {
     return false;
   }
 

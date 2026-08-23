@@ -25,7 +25,10 @@ export default function MobileShopBar({ totalProducts, onScrollToTop }: MobileSh
     <div className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-white border-t border-[var(--color-border-light)] shadow-[0_-2px_10px_-2px_rgba(0,0,0,0.1)] animate-slide-up safe-area-bottom">
       <div className="flex items-center justify-between px-4 py-3">
         <button
-          onClick={onScrollToTop || (() => window.scrollTo({ top: 0, behavior: "smooth" }))}
+          onClick={onScrollToTop || (() => {
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+          })}
           className="flex items-center gap-2 px-4 py-2 bg-[var(--color-bg-secondary)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10 transition-colors"
         >
           <ArrowUp className="w-4 h-4" />

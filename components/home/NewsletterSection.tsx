@@ -8,7 +8,7 @@ export default function NewsletterSection() {
   const { email, setEmail, isSubmitting, isSubscribed, error, handleSubmit } = useNewsletter();
 
   return (
-    <section className="relative section-py bg-[var(--color-primary)] overflow-hidden">
+    <section className="relative section-py bg-[var(--color-primary)] overflow-hidden" aria-label="Newsletter">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-30">
         <Image

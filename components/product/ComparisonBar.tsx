@@ -80,10 +80,10 @@ export default function ComparisonBar() {
                 <span className="text-xs font-medium text-[var(--color-text-primary)] max-w-[120px] truncate">{product.name}</span>
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
-                  aria-label="Entfernen"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  aria-label={`${product.name} entfernen`}
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             ))}

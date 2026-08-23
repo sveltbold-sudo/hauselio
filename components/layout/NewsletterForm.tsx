@@ -33,9 +33,10 @@ export default function NewsletterForm() {
         <button
           type="submit"
           disabled={isSubmitting}
+          aria-busy={isSubmitting}
           className="px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors transition-transform duration-300 active:scale-[0.97] disabled:opacity-50"
         >
-          {isSubmitting ? "…" : "Anmelden"}
+          {isSubmitting ? "Wird gesendet…" : "Anmelden"}
         </button>
       </form>
       {error && (

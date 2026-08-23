@@ -221,7 +221,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 aria-label="Menge verringern"
-                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <Minus className="w-4 h-4" />
               </button>
@@ -231,7 +231,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <button
                 onClick={() => setQuantity(Math.min(99, quantity + 1))}
                 aria-label="Menge erhöhen"
-                className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -259,9 +259,9 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
           <div className="flex items-center gap-4 mb-6">
             <button
-              onClick={handleShare}
-              className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
-            >
+                onClick={handleShare}
+                className="flex items-center gap-2 min-h-[44px] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
+              >
               <Share2 className="w-4 h-4" />
               Teilen
             </button>

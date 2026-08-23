@@ -117,7 +117,7 @@ export default function ShopFilters({
           <button
             onClick={() => updateFilter("category", null)}
             aria-pressed={!selectedCategory}
-            className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
               !selectedCategory
                 ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
                 : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
@@ -135,7 +135,7 @@ export default function ShopFilters({
                 )
               }
               aria-pressed={selectedCategory === cat.slug}
-              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
                 selectedCategory === cat.slug
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
                   : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
@@ -164,7 +164,7 @@ export default function ShopFilters({
                 )
               }
               aria-pressed={selectedBrand === brand}
-              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[40px] px-3 rounded-lg transition-colors text-left ${
+              className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
                 selectedBrand === brand
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
                   : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"

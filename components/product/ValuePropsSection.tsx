@@ -58,7 +58,7 @@ export default function ValuePropsSection() {
                   <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight truncate">
                     {prop.title}
                   </p>
-                  <p className="text-[10px] text-[var(--color-text-muted)] leading-tight truncate">
+                  <p className="text-[11px] text-[var(--color-text-muted)] leading-tight truncate">
                     {prop.description}
                   </p>
                 </div>

@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { clearAuthCookie } from "@/lib/auth";
 import { handleApiError } from "@/lib/api-helpers";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST() {
   try {
+    if (!await checkRateLimit("admin-logout", 20, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
+    }
     const response = NextResponse.json({ success: true });
     const cookieOptions = clearAuthCookie();
 
