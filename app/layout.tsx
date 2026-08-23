@@ -80,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${inter.variable} h-full`}>
+    <html lang="de" className={`${inter.variable} h-full`} style={{ viewportFit: "cover" } as React.CSSProperties}>
       <head>
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#FAFAF8" />

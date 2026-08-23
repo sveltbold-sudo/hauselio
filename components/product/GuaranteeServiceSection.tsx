@@ -95,7 +95,7 @@ export default function GuaranteeServiceSection() {
                 <p className="text-2xl md:text-3xl font-black text-white mb-0.5">
                   {stat.number}
                 </p>
-                <p className="text-[11px] text-white/60 font-medium">{stat.label}</p>
+                <p className="text-[11px] text-white/80 font-medium">{stat.label}</p>
               </div>
             ))}
           </div>

@@ -46,7 +46,7 @@ export default function CartCrossSell() {
 
   if (loading) {
     return (
-      <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 lg:p-6">
+      <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 lg:p-6" role="status"><span className="sr-only">Wird geladen...</span>
         <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4">
           Kunden kauften auch
         </h3>

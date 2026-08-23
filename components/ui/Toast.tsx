@@ -107,7 +107,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             </p>
             <button
               onClick={() => removeToast(t.id)}
-              className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-white/50 transition-colors"
+              className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-white/50 transition-colors"
               aria-label="Schließen"
             >
               <X className="w-4 h-4" />

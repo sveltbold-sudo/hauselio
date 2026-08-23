@@ -111,12 +111,12 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       )}
 
       {images.length > 1 && (
-        <div className="absolute bottom-4 flex gap-2">
+        <div className="absolute bottom-4 flex gap-3">
           {images.map((_, i) => (
             <button
               key={i}
               onClick={(e) => { e.stopPropagation(); setCurrentIndex(i); }}
-              className={`w-2 h-2 rounded-full transition-colors ${
+              className={`w-3 h-3 rounded-full transition-colors ${
                 i === currentIndex ? "bg-white" : "bg-white/40"
               }`}
               aria-label={`Bild ${i + 1}`}

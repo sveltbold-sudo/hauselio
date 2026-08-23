@@ -115,7 +115,7 @@ export default function VergleichPage() {
               <div key={product.id} className="relative p-6 border-b border-[var(--color-border-light)]">
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="absolute top-3 right-3 p-1 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="absolute top-3 right-3 p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                   aria-label="Entfernen"
                 >
                   <X className="w-4 h-4" />

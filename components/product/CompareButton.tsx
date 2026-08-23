@@ -67,7 +67,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
     window.dispatchEvent(new Event("storage"));
   };
 
-  if (!mounted) return null;
+  if (!mounted) return <div className="w-20 h-5" />;
 
   return (
     <button

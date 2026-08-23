@@ -77,7 +77,7 @@ export default function WishlistPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex gap-4 p-4 bg-white rounded-xl border border-[var(--color-border-light)] hover:shadow-sm transition-shadow"
+              className="flex flex-col sm:flex-row gap-4 p-4 bg-white rounded-xl border border-[var(--color-border-light)] hover:shadow-sm transition-shadow"
             >
               <Link href={`/produkt/${item.slug}`} className="shrink-0">
                 <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden">
@@ -103,7 +103,7 @@ export default function WishlistPage() {
               <div className="flex flex-col items-end gap-2">
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                   aria-label="Entfernen"
                 >
                   <Trash2 className="w-4 h-4" />

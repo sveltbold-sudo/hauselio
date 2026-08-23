@@ -134,7 +134,7 @@ export default function OrderSuccessPage() {
                 setOrderLoading(true);
               }
             }}
-            className="flex gap-2"
+            className="flex flex-col sm:flex-row gap-2"
           >
             <input
               type="email"
@@ -185,7 +185,7 @@ export default function OrderSuccessPage() {
               <button
                 onClick={() => copyToClipboard(order.orderNumber, "orderNumber")}
                 aria-label="Bestellnummer kopieren"
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
               >
                 {copied === "orderNumber" ? (
                   <Check className="w-4 h-4 text-[var(--color-success)]" />
@@ -260,7 +260,7 @@ export default function OrderSuccessPage() {
                   <button
                     onClick={() => copyToClipboard(bankDetails.accountName, "name")}
                     aria-label="Empfängername kopieren"
-                    className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                   >
                     {copied === "name" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -273,7 +273,7 @@ export default function OrderSuccessPage() {
                   <button
                     onClick={() => copyToClipboard(bankDetails.iban, "iban")}
                     aria-label="IBAN kopieren"
-                    className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                   >
                     {copied === "iban" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -286,7 +286,7 @@ export default function OrderSuccessPage() {
                   <button
                     onClick={() => copyToClipboard(bankDetails.bic, "bic")}
                     aria-label="BIC kopieren"
-                    className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                   >
                     {copied === "bic" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -299,7 +299,7 @@ export default function OrderSuccessPage() {
                   <button
                     onClick={() => copyToClipboard(order.orderNumber, "reference")}
                     aria-label="Verwendungszweck kopieren"
-                    className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                   >
                     {copied === "reference" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -314,7 +314,7 @@ export default function OrderSuccessPage() {
                   <button
                     onClick={() => copyToClipboard(formatPrice(order.total), "amount")}
                     aria-label="Betrag kopieren"
-                    className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
                   >
                     {copied === "amount" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>

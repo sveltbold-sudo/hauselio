@@ -19,7 +19,7 @@ export default function WishlistButton({ item, size = "sm", className = "" }: Wi
     setMounted(true);
   }, []);
 
-  const sizeClasses = size === "sm" ? "w-8 h-8" : "w-10 h-10";
+  const sizeClasses = size === "sm" ? "w-11 h-11" : "w-11 h-11";
   const iconSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
 
   return (
