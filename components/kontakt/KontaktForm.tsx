@@ -65,7 +65,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
       {/* Contact Form */}
       <div className="lg:col-span-2">
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-8">
+        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-8">
           {submitted ? (
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -154,7 +154,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
+                  className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-y placeholder:text-[var(--color-text-muted)]"
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>

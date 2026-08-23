@@ -277,21 +277,21 @@ export default function BestellungPage() {
           <span className="w-6 h-6 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs">
             <CheckIcon className="w-3.5 h-3.5" />
           </span>
-          Warenkorb
+          <span className="hidden sm:inline">Warenkorb</span>
         </Link>
         <div className="w-8 h-px bg-[var(--color-border)]" />
         <span className="flex items-center gap-2 text-sm text-[var(--color-primary)] font-bold">
           <span className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs">
             2
           </span>
-          Kasse
+          <span className="hidden sm:inline">Kasse</span>
         </span>
         <div className="w-8 h-px bg-[var(--color-border)]" />
         <span className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
           <span className="w-6 h-6 rounded-full bg-gray-200 text-[var(--color-text-muted)] flex items-center justify-center text-xs">
             3
           </span>
-          Bestätigung
+          <span className="hidden sm:inline">Bestätigung</span>
         </span>
       </div>
 
@@ -364,6 +364,7 @@ export default function BestellungPage() {
                   name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   error={errors.email}
@@ -373,6 +374,7 @@ export default function BestellungPage() {
                   label="Telefon (optional)"
                   name="phone"
                   type="tel"
+                  autoComplete="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
                 />
@@ -390,6 +392,7 @@ export default function BestellungPage() {
                   label="Vorname"
                   name="firstName"
                   required
+                  autoComplete="given-name"
                   value={formData.firstName}
                   onChange={handleInputChange}
                   error={errors.firstName}
@@ -399,6 +402,7 @@ export default function BestellungPage() {
                   label="Nachname"
                   name="lastName"
                   required
+                  autoComplete="family-name"
                   value={formData.lastName}
                   onChange={handleInputChange}
                   error={errors.lastName}
@@ -409,6 +413,7 @@ export default function BestellungPage() {
                     label="Adresse"
                     name="address"
                     required
+                    autoComplete="street-address"
                     value={formData.address}
                     onChange={handleInputChange}
                     error={errors.address}
@@ -419,6 +424,9 @@ export default function BestellungPage() {
                   label="PLZ"
                   name="zip"
                   required
+                  inputMode="numeric"
+                  pattern="\d{5}"
+                  autoComplete="postal-code"
                   value={formData.zip}
                   onChange={handleInputChange}
                   error={errors.zip}
@@ -428,6 +436,7 @@ export default function BestellungPage() {
                   label="Stadt"
                   name="city"
                   required
+                  autoComplete="address-level2"
                   value={formData.city}
                   onChange={handleInputChange}
                   error={errors.city}
@@ -482,7 +491,7 @@ export default function BestellungPage() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-none placeholder:text-[var(--color-text-muted)]"
+                className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-y placeholder:text-[var(--color-text-muted)]"
                 placeholder="Besondere Wünsche oder Hinweise…"
               />
             </div>

@@ -83,7 +83,7 @@ export default function Footer() {
                 <li key={cat.href}>
                   <Link
                     href={cat.href}
-                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {cat.name}
                   </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -121,7 +121,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block px-2.5 py-2 min-h-[40px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -132,14 +132,14 @@ export default function Footer() {
             <div className="space-y-0">
               <a
                 href="mailto:support@hauselio.de"
-                className="flex items-center gap-2 px-2.5 py-2 min-h-[40px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
                 <Mail className="w-3.5 h-3.5" />
                 support@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"
-                className="flex items-center gap-2 px-2.5 py-2 min-h-[40px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
                 <Phone className="w-3.5 h-3.5" />
                 +49 (0)30 555 789 01

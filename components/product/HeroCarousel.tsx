@@ -283,7 +283,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             onClick={() => goTo(i)}
             aria-current={i === current ? "true" : undefined}
             aria-label={`Folie ${i + 1}`}
-            className="flex items-center justify-center min-w-[36px] h-[36px]"
+            className="flex items-center justify-center min-w-[44px] h-[44px]"
           >
             <span
               className={`block h-1.5 rounded-full transition-colors transition-transform duration-400 ${

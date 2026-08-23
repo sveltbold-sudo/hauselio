@@ -174,7 +174,7 @@ export default function MiniCart() {
                     <button
                       onClick={() => removeItem(item.id)}
                       aria-label="Artikel entfernen"
-                      className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -214,7 +214,7 @@ export default function MiniCart() {
                 <Link
                   href="/shop"
                   onClick={() => setIsOpen(false)}
-                  className="block text-center mt-3 text-sm text-[var(--color-primary)] font-medium hover:underline"
+                  className="block text-center mt-3 py-2 min-h-[44px] flex items-center justify-center text-sm text-[var(--color-primary)] font-medium hover:underline"
                 >
                   Weiter einkaufen
                 </Link>

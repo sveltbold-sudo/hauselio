@@ -242,6 +242,13 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="lg:hidden w-full mt-3 py-3 min-h-[44px] flex items-center justify-center text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] border border-[var(--color-border-light)] rounded-xl transition-colors"
+                  >
+                    Schließen
+                  </button>
                 </>
               ) : (
                 <div className="p-8 text-center">

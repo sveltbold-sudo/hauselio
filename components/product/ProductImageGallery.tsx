@@ -62,7 +62,7 @@ export default function ProductImageGallery({
           {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
         </div>
         {/* Wishlist button */}
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
           <WishlistButton
             item={{
               id,
@@ -82,7 +82,7 @@ export default function ProductImageGallery({
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
           {images.slice(0, 5).map((img, i) => (
             <button
               key={i}

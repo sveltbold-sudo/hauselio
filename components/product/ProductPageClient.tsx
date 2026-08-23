@@ -295,13 +295,13 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       <div className="sticky-bottom-bar lg:hidden">
         <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] text-[var(--color-text-muted)] truncate">{product.name}</p>
+            <p className="text-[11px] sm:text-xs text-[var(--color-text-muted)] truncate">{product.name}</p>
             <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
           </div>
           <Button
             onClick={handleAddToCart}
             className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
-            size="sm"
+            size="md"
           >
             {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
           </Button>
