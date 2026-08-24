@@ -84,11 +84,11 @@ export default function HeaderClient() {
     <header
       className={`sticky top-0 z-50 transition-[background,box-shadow] duration-200 ${
         scrolled
-          ? "glass border-b border-[var(--color-border-light)] shadow-[var(--shadow-md)]"
+          ? "glass-premium border-b border-[var(--color-border-light)] shadow-[var(--shadow-md)]"
           : "bg-white border-b border-[var(--color-border-light)]"
       }`}
     >
-      <div className="brand-stripe h-[2px]" />
+      <div className="brand-stripe" />
 
       <div className="container-hauselio">
         <div className="flex items-center justify-between h-16 md:h-[72px]">

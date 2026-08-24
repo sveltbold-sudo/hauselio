@@ -19,10 +19,21 @@ export default function MiniCart() {
   const total = useCartStore(selectTotal);
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const prevCount = useRef(itemCount);
+  useEffect(() => {
+    if (itemCount !== prevCount.current && badgeRef.current) {
+      badgeRef.current.classList.remove("animate-bounce-in");
+      void badgeRef.current.offsetWidth;
+      badgeRef.current.classList.add("animate-bounce-in");
+      prevCount.current = itemCount;
+    }
+  }, [itemCount]);
 
   const close = useCallback(() => setIsOpen(false), []);
 
@@ -89,9 +100,9 @@ export default function MiniCart() {
         <ShoppingBag className="w-5 h-5" />
         {mounted && itemCount > 0 && (
           <span
+            ref={badgeRef}
             aria-live="polite"
             aria-label={`${itemCount} Artikel im Warenkorb`}
-            key={itemCount}
             className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 animate-bounce-in"
           >
             {itemCount}
