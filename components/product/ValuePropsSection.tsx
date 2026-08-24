@@ -44,7 +44,7 @@ export default function ValuePropsSection() {
     <section aria-label="Unsere Vorteile" className="section-py bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-light)]">
       <div className="container-hauselio">
         <h2 className="sr-only">Ihre Vorteile bei HAUSELIO</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3" role="list">
           {valueProps.map((prop, i) => {
             const Icon = prop.icon;
             return (
@@ -52,6 +52,7 @@ export default function ValuePropsSection() {
                 key={i}
                 className="flex items-center gap-2.5 py-2 animate-fade-in-up"
                 style={{ animationDelay: `${i * 50}ms` }}
+                role="listitem"
               >
                 <Icon className={`w-5 h-5 ${prop.color} shrink-0`} />
                 <div className="min-w-0">

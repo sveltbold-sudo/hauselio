@@ -46,7 +46,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
   const discount = calcDiscount(product.price, product.originalPrice);
 
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Angebot des Tages">
       <div className="container-hauselio">
         <div className="bg-gradient-to-r from-[var(--color-danger)] to-red-600 rounded-2xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -91,7 +91,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               {/* Countdown */}
               {mounted && (
                 <div className="flex flex-wrap items-center justify-center gap-2 mb-6" aria-label="Angebot endet in">
-                  <Clock className="w-4 h-4 text-white/70" />
+                  <Clock className="w-4 h-4 text-white/70" aria-hidden="true" />
                   <span className="hidden sm:inline text-xs text-white/70 font-medium mr-2">Endet in:</span>
                   {[
                     { value: time.hours, label: "Std", ariaLabel: "Stunden" },

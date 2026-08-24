@@ -48,7 +48,7 @@ const stats = [
 
 export default function GuaranteeServiceSection() {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Service und Garantie">
+    <section className="section-py bg-white" aria-label="Service und Garantie">
       <div className="container-hauselio">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">

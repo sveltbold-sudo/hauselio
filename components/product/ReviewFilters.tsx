@@ -118,9 +118,9 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
           </div>
 
           {review.title && (
-            <h4 className="font-bold text-[var(--color-text-primary)] mb-2">
+            <h3 className="font-bold text-[var(--color-text-primary)] mb-2">
               {review.title}
-            </h4>
+            </h3>
           )}
           {review.content && (
             <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">

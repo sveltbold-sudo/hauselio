@@ -159,8 +159,9 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 src={s.image}
                 alt={s.name}
                 fill
-                className="object-contain scale-110"
+                className="object-contain"
                 priority={i === 0}
+                loading={i === 0 ? undefined : "lazy"}
                 sizes="100vw"
               />
               {/* Gradient overlay for text readability */}

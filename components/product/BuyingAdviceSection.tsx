@@ -137,16 +137,16 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                 </div>
 
                 {/* Tips — 2-col with compact checkmarks */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 mb-3">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 mb-3 list-none p-0 m-0">
                   {advice.tips.map((tip, i) => (
-                    <div key={i} className="flex items-start gap-1.5">
+                    <li key={i} className="flex items-start gap-1.5">
                       <Check className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0 mt-0.5" />
                       <p className="text-[12px] text-[var(--color-text-secondary)] leading-tight">
                         {tip}
                       </p>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
 
                 {/* Recommended Product — inline row like Coolblue recommendation */}
                 <div className="bg-white rounded-lg p-3 border border-[var(--color-border-light)] flex items-center justify-between gap-3">
