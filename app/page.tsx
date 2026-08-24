@@ -218,7 +218,7 @@ const fallbackProducts = [
 
 function CategoriesSkeleton() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" aria-hidden="true">
       {[...Array(6)].map((_, i) => (
         <div key={i} className="rounded-2xl aspect-[4/3] bg-[var(--color-bg-secondary)] animate-pulse" />
       ))}
@@ -228,7 +228,7 @@ function CategoriesSkeleton() {
 
 function ProductsSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" aria-hidden="true">
       {[...Array(4)].map((_, i) => (
         <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />

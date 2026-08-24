@@ -30,7 +30,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="container-hauselio py-12">
+    <main className="container-hauselio py-12">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Wunschliste" }]} />
 
       <p className="caption text-[var(--color-primary)] mb-3">Meine Wünsche</p>
@@ -103,7 +103,7 @@ export default function WishlistPage() {
                 <button
                   onClick={() => removeItem(item.id)}
                   className="min-w-[44px] min-h-[44px] p-2.5 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
-                  aria-label="Entfernen"
+                  aria-label={`${item.name} von Wunschliste entfernen`}
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -137,6 +137,6 @@ export default function WishlistPage() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

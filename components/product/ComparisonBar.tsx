@@ -63,7 +63,7 @@ export default function ComparisonBar() {
   if (!mounted || products.length === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[var(--color-border-light)] shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.1)] animate-slide-up">
+    <div className="fixed bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
       <div className="container-hauselio py-3">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
@@ -108,7 +108,7 @@ export default function ComparisonBar() {
             {products.length >= 2 && (
               <Link
                 href={`/vergleich?ids=${products.map((p) => p.id).join(",")}`}
-                className="flex items-center gap-1 px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"
+                className="flex items-center gap-1 px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
               >
                 Vergleichen
                 <ArrowRight className="w-3 h-3" />

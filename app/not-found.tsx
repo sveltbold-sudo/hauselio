@@ -4,7 +4,7 @@ import { Home, Search, ShoppingBag, Star, Truck, Shield } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="container-hauselio py-12 lg:py-20">
+    <main className="container-hauselio py-12 lg:py-20">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Image
           src="/images/illustrations/404.svg"
@@ -24,10 +24,12 @@ export default function NotFound() {
         <form action="/shop" method="GET" className="mb-8">
           <div className="flex gap-2 max-w-lg mx-auto">
             <div className="relative flex-1">
+              <label htmlFor="search-404" className="sr-only">Suche</label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
               <input
                 type="text"
                 name="q"
+                id="search-404"
                 placeholder="Was suchen Sie? (z.B. Kaffeemaschine, Staubsauger...)"
                 className="w-full pl-12 pr-4 py-4 border border-[var(--color-border-light)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] shadow-sm"
               />
@@ -90,6 +92,6 @@ export default function NotFound() {
           Kompletten Shop durchstöbern
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

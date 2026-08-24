@@ -106,7 +106,7 @@ export default function OrderSuccessPage() {
   }
 
   return (
-    <div className="container-hauselio py-16 text-center max-w-2xl mx-auto">
+    <main className="container-hauselio py-16 text-center max-w-2xl mx-auto">
       {/* Success Icon */}
       <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
         <Check className="w-10 h-10 text-[var(--color-success)]" />
@@ -354,6 +354,6 @@ export default function OrderSuccessPage() {
           Zurück zur Startseite
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

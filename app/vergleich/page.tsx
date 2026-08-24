@@ -61,7 +61,7 @@ export default function VergleichPage() {
   }
 
   return (
-    <div className="container-hauselio section-py">
+    <main className="container-hauselio section-py">
       <Breadcrumb items={[{ label: "Produktvergleich" }]} />
 
       <div className="flex items-center justify-between mb-8">
@@ -109,103 +109,108 @@ export default function VergleichPage() {
         </div>
       ) : (
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-x-auto">
-          <div className="min-w-[600px]">
-          {/* Product headers */}
-          <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
-            {products.map((product) => (
-              <div key={product.id} className="relative p-6 border-b border-[var(--color-border-light)]">
-                <button
-                  onClick={() => removeProduct(product.id)}
-                  className="absolute top-3 right-3 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
-                  aria-label="Entfernen"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-                <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden mb-4">
-                  <ProductImage src={product.image} alt={product.name} size="lg" />
-                </div>
-                <Link href={`/produkt/${product.slug}`} className="block">
-                  <h3 className="font-semibold text-sm text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-2">
-                    {product.name}
-                  </h3>
-                </Link>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1">{product.brand}</p>
-              </div>
-            ))}
-          </div>
+          <table className="w-full min-w-[600px] border-collapse">
+            <thead>
+              <tr>
+                <th className="p-6 border-b border-[var(--color-border-light)] text-left" scope="col">
+                  <span className="sr-only">Produkt</span>
+                </th>
+                {products.map((product) => (
+                  <th key={product.id} className="relative p-6 border-b border-[var(--color-border-light)] text-center" scope="col">
+                    <button
+                      onClick={() => removeProduct(product.id)}
+                      className="absolute top-3 right-3 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                      aria-label={`${product.name} aus Vergleich entfernen`}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                    <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden mb-4">
+                      <ProductImage src={product.image} alt={product.name} size="lg" />
+                    </div>
+                    <Link href={`/produkt/${product.slug}`} className="block">
+                      <h3 className="font-semibold text-sm text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-2">
+                        {product.name}
+                      </h3>
+                    </Link>
+                    <p className="text-xs text-[var(--color-text-muted)] mt-1">{product.brand}</p>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {/* Price */}
+              <tr>
+                <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Preis</th>
+                {products.map((product) => (
+                  <td key={`price-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
+                    <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
+                    {product.originalPrice && (
+                      <p className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</p>
+                    )}
+                  </td>
+                ))}
+              </tr>
 
-          {/* Comparison rows */}
-          <div className="grid gap-0 border-t border-[var(--color-border-light)]" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
-            {/* Price */}
-            <div className="contents">
-              {products.map((product) => (
-                <div key={`price-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
-                  <p className="text-xs text-[var(--color-text-muted)] mb-1">Preis</p>
-                  <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
-                  {product.originalPrice && (
-                    <p className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+              {/* Rating */}
+              <tr>
+                <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Bewertung</th>
+                {products.map((product) => (
+                  <td key={`rating-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                      <span className="font-semibold text-sm">{product.rating}</span>
+                      <span className="text-xs text-[var(--color-text-muted)]">({product.reviewCount})</span>
+                    </div>
+                  </td>
+                ))}
+              </tr>
 
-          {/* Rating */}
-          <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
-            {products.map((product) => (
-              <div key={`rating-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
-                <p className="text-xs text-[var(--color-text-muted)] mb-1">Bewertung</p>
-                <div className="flex items-center justify-center gap-1">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  <span className="font-semibold text-sm">{product.rating}</span>
-                  <span className="text-xs text-[var(--color-text-muted)]">({product.reviewCount})</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              {/* Specs if available */}
+              {products.some((p) => p.specs && p.specs.length > 0) && (
+                <tr>
+                  <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Spezifikationen</th>
+                  {products.map((product) => (
+                    <td key={`specs-${product.id}`} className="p-6 border-b border-[var(--color-border-light)]">
+                      {product.specs && product.specs.length > 0 ? (
+                        <dl className="space-y-1.5">
+                          {product.specs.slice(0, 6).map((spec) => (
+                            <div key={spec.key} className="flex justify-between text-xs">
+                              <dt className="text-[var(--color-text-muted)]">{spec.key}</dt>
+                              <dd className="font-medium text-[var(--color-text-primary)]">{spec.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      ) : (
+                        <p className="text-xs text-[var(--color-text-muted)] text-center">—</p>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              )}
 
-          {/* Specs if available */}
-          {products.some((p) => p.specs && p.specs.length > 0) && (
-            <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
-              {products.map((product) => (
-                <div key={`specs-${product.id}`} className="p-6 border-b border-[var(--color-border-light)]">
-                  <p className="text-xs text-[var(--color-text-muted)] mb-2 text-center">Spezifikationen</p>
-                  {product.specs && product.specs.length > 0 ? (
-                    <dl className="space-y-1.5">
-                      {product.specs.slice(0, 6).map((spec) => (
-                        <div key={spec.key} className="flex justify-between text-xs">
-                          <dt className="text-[var(--color-text-muted)]">{spec.key}</dt>
-                          <dd className="font-medium text-[var(--color-text-primary)]">{spec.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  ) : (
-                    <p className="text-xs text-[var(--color-text-muted)] text-center">—</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Add to cart */}
-          <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${products.length}, 1fr)` }}>
-            {products.map((product) => (
-              <div key={`cart-${product.id}`} className="p-6 text-center">
-                <AddToCartButton
-                  product={{
-                    id: product.id,
-                    name: product.name,
-                    slug: product.slug,
-                    price: product.price,
-                    image: product.image,
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-          </div>
+              {/* Add to cart */}
+              <tr>
+                <th scope="row" className="p-6 text-left text-xs text-[var(--color-text-muted)] font-medium">
+                  <span className="sr-only">In den Warenkorb</span>
+                </th>
+                {products.map((product) => (
+                  <td key={`cart-${product.id}`} className="p-6 text-center">
+                    <AddToCartButton
+                      product={{
+                        id: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        image: product.image,
+                      }}
+                    />
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
-    </div>
+    </main>
   );
 }

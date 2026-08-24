@@ -68,7 +68,7 @@ export default function GarantiePage() {
         ]}
       />
 
-      <div className="container-hauselio py-8 sm:py-12 max-w-4xl">
+      <main className="container-hauselio py-8 sm:py-12 max-w-4xl">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
@@ -174,7 +174,7 @@ export default function GarantiePage() {
             </Link>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

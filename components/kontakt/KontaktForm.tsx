@@ -94,12 +94,12 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
+              <h2 className="heading-3 mb-6">
                 Nachricht senden
               </h2>
 
               {error && (
-                <div role="alert" className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 mb-6">
+                <div role="alert" className="bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6">
                   {error}
                 </div>
               )}

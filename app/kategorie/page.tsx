@@ -55,7 +55,7 @@ export default async function KategoriePage() {
         ]}
       />
 
-      <div className="container-hauselio py-12">
+      <main className="container-hauselio py-12">
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 
@@ -110,7 +110,7 @@ export default async function KategoriePage() {
             </Link>
           ))}
         </div>
-      </div>
+      </main>
     </>
   );
 }

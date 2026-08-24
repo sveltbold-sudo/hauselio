@@ -46,6 +46,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
               <button
                 key={rating}
                 onClick={() => setSelectedRating(selectedRating === rating ? null : rating)}
+                aria-pressed={selectedRating === rating}
                 className={`inline-flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-full text-xs font-medium transition-colors ${
                   selectedRating === rating
                     ? "bg-[var(--color-primary)] text-white"
@@ -104,8 +105,8 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
                     aria-hidden="true"
                     className={`w-4 h-4 ${
                       j < review.rating
-                        ? "text-amber-400 fill-amber-400"
-                        : "text-gray-200"
+                        ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
+                        : "text-[var(--color-star-empty)]"
                     }`}
                   />
                 ))}

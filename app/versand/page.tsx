@@ -31,7 +31,7 @@ const shippingMethods = [
 
 export default function VersandPage() {
   return (
-    <div className="container-hauselio py-16 max-w-3xl">
+    <main className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
@@ -166,6 +166,6 @@ export default function VersandPage() {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

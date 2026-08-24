@@ -33,10 +33,12 @@ const faqItems = [
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
+  const buttonId = useId();
 
   return (
     <div className="border border-[var(--color-border-light)] rounded-xl overflow-hidden">
       <button
+        id={buttonId}
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-4 py-3.5 sm:px-5 sm:py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
         aria-expanded={isOpen}
@@ -53,7 +55,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         />
       </button>
       {isOpen && (
-        <div id={panelId} className="px-4 pb-3 sm:px-5 sm:pb-4">
+        <div id={panelId} role="region" aria-labelledby={buttonId} className="px-4 pb-3 sm:px-5 sm:pb-4">
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             {answer}
           </p>

@@ -59,7 +59,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
   if (loading) {
     return (
       <div className="mt-12">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-2">
+        <h2 className="heading-2 mb-6 flex items-center gap-2">
           <Users className="w-5 h-5 text-[var(--color-primary)]" />
           Andere kauften auch
         </h2>
@@ -80,7 +80,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
 
   return (
     <div className="mt-12">
-      <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center gap-2">
+      <h2 className="heading-2 mb-6 flex items-center gap-2">
         <Users className="w-5 h-5 text-[var(--color-primary)]" />
         Andere kauften auch
       </h2>

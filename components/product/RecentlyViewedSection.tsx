@@ -61,7 +61,7 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
       <div className="container-hauselio">
         <div className="flex items-center gap-2 mb-6">
           <Clock className="w-5 h-5 text-[var(--color-text-muted)]" />
-          <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
+          <h2 className="heading-3">
             Zuletzt angesehen
           </h2>
         </div>

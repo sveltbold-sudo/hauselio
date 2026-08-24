@@ -74,6 +74,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
+                    aria-hidden="true"
                     className={`w-5 h-5 ${
                       i < fullStars ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" : "text-[var(--color-star-empty)]"
                     }`}
@@ -93,6 +94,11 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
                     <div
                       className="h-full bg-amber-400 rounded-full transition-transform duration-500"
                       style={{ width: `${dist.percentage}%` }}
+                      role="meter"
+                      aria-valuenow={dist.percentage}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={`${dist.stars} Sterne: ${dist.count} Bewertungen`}
                     />
                   </div>
                   <span className="text-xs text-[var(--color-text-muted)] w-10 text-right">

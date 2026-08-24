@@ -292,7 +292,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       <SimilarProductsSection currentProductId={product.id} categorySlug={product.categorySlug} />
 
       {/* Sticky mobile add-to-cart bar */}
-      <div className="sticky-bottom-bar lg:hidden">
+      <div className="sticky-bottom-bar lg:hidden" role="complementary" aria-label="Schnellzugriff">
         <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
           <div className="flex-1 min-w-0">
             <p className="text-[11px] sm:text-xs text-[var(--color-text-muted)] truncate">{product.name}</p>

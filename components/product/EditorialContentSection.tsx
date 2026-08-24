@@ -98,7 +98,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
             <Link
               key={i}
               href={content.href}
-              className="group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] transition-colors transition-shadow duration-300 animate-fade-in-up"
+              className="group bg-white rounded-xl overflow-hidden border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-lg transition-colors transition-shadow duration-300 animate-fade-in-up"
               style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="aspect-[16/10] bg-[var(--color-bg-secondary)] relative overflow-hidden">

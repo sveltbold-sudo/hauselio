@@ -37,7 +37,7 @@ export default async function KontaktPage() {
   const settings = await getSettings();
 
   return (
-    <>
+    <main>
       <div className="container-hauselio py-6 sm:py-8">
         {/* Breadcrumb */}
         <Breadcrumb items={[{ label: "Kontakt" }]} />
@@ -66,6 +66,6 @@ export default async function KontaktPage() {
         <KontaktForm settings={settings} />
       </div>
       <FaqSection />
-    </>
+    </main>
   );
 }

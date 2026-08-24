@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AGBPage() {
   return (
-    <div className="container-hauselio py-16 max-w-3xl">
+    <main className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "AGB" }]} />
       <h1 className="heading-1 mb-8">Allgemeine Geschäftsbedingungen</h1>
 
@@ -138,6 +138,6 @@ export default function AGBPage() {
           </p>
         </section>
       </div>
-    </div>
+    </main>
   );
 }

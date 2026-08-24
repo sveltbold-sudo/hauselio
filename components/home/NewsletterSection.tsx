@@ -60,7 +60,7 @@ export default function NewsletterSection() {
         )}
 
         {error && (
-          <p className="text-sm text-red-300 mt-2" role="alert">{error}</p>
+          <p className="text-sm text-[var(--color-danger-light)] mt-2" role="alert">{error}</p>
         )}
 
         <p className="text-[11px] text-white/40 mt-3">

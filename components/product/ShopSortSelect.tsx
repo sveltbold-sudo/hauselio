@@ -24,7 +24,7 @@ export default function ShopSortSelect({ sort }: ShopSortSelectProps) {
         id="shop-sort"
         value={sort}
         onChange={(e) => handleChange(e.target.value)}
-        className="text-sm border border-[var(--color-border-light)] rounded-lg px-3 py-2.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 cursor-pointer"
+        className="text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 cursor-pointer"
         aria-label="Sortierung"
       >
         <option value="newest">Neueste zuerst</option>

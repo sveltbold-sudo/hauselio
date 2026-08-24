@@ -103,14 +103,16 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           }),
         }}
       />
-      <CategoryPage
-        slug={slug}
-        title={category.name}
-        description={category.description || ""}
-        page={page}
-        sort={sort}
-        brand={brand}
-      />
+      <main>
+        <CategoryPage
+          slug={slug}
+          title={category.name}
+          description={category.description || ""}
+          page={page}
+          sort={sort}
+          brand={brand}
+        />
+      </main>
     </>
   );
 }

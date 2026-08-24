@@ -8,9 +8,9 @@ export default function NewsletterForm() {
 
   if (isSubscribed) {
     return (
-      <div className="flex items-center gap-2 px-4 py-2.5 bg-green-500/10 border border-green-500/20 rounded-xl">
-        <Check className="w-4 h-4 text-green-400" />
-        <span className="text-sm text-green-300">Erfolgreich angemeldet! Bitte bestätigen Sie Ihre E-Mail.</span>
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-xl">
+        <Check className="w-4 h-4 text-[var(--color-success)]" />
+        <span className="text-sm text-[var(--color-success)]">Erfolgreich angemeldet! Bitte bestätigen Sie Ihre E-Mail.</span>
       </div>
     );
   }

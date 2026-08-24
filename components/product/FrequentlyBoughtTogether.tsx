@@ -67,7 +67,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
 
   return (
     <div className="mt-10 lg:mt-14">
-      <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
+      <h2 className="heading-3 mb-5">
         Oft zusammen gekauft
       </h2>
 
@@ -94,6 +94,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                 <button
                   key={product.id}
                   onClick={() => toggle(product.id)}
+                  aria-pressed={isSelected}
                   className={`w-full flex items-center gap-3 rounded-xl p-3 min-h-[44px] border transition-colors transition-opacity duration-200 text-left ${
                     isSelected
                       ? "bg-white border-[var(--color-primary)]/20 shadow-sm"

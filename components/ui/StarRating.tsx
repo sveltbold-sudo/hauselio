@@ -22,11 +22,11 @@ function StarIcon({ filled, half, size }: { filled: boolean; half: boolean; size
   if (half) {
     return (
       <span className={`relative ${size}`} aria-hidden="true">
-        <svg className="absolute inset-0 text-gray-200 fill-gray-200" viewBox="0 0 24 24">
+        <svg className="absolute inset-0 text-[var(--color-star-empty)] fill-[var(--color-star-empty)]" viewBox="0 0 24 24">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
         <span className="absolute inset-0 overflow-hidden" style={{ width: "50%" }}>
-          <svg className={`${size} text-amber-400 fill-amber-400`} viewBox="0 0 24 24">
+          <svg className={`${size} text-[var(--color-star-filled)] fill-[var(--color-star-filled)]`} viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
           </svg>
         </span>
@@ -36,7 +36,7 @@ function StarIcon({ filled, half, size }: { filled: boolean; half: boolean; size
 
   return (
     <svg
-      className={`${size} ${filled ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`}
+      className={`${size} ${filled ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" : "text-[var(--color-star-empty)] fill-[var(--color-star-empty)]"}`}
       viewBox="0 0 24 24"
       aria-hidden="true"
     >

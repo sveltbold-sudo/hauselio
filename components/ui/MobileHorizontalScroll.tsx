@@ -54,6 +54,8 @@ export default function MobileHorizontalScroll({
 
   useEffect(() => {
     if (autoScrollInterval <= 0) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
     autoScrollRef.current = setInterval(scrollToNext, autoScrollInterval);
     return () => {
       if (autoScrollRef.current) clearInterval(autoScrollRef.current);
@@ -94,6 +96,8 @@ export default function MobileHorizontalScroll({
       {/* Scroll container */}
       <div
         ref={scrollRef}
+        role="region"
+        aria-label="Horizontale Produktauswahl"
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-5 px-5"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         onTouchStart={handleTouchStart}

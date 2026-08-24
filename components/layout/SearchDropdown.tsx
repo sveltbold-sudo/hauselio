@@ -202,8 +202,8 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                                   aria-hidden="true"
                                   className={`w-3 h-3 ${
                                     i < Math.floor(hit.rating)
-                                      ? "text-amber-400 fill-amber-400"
-                                      : "text-gray-200"
+                                      ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
+                                      : "text-[var(--color-star-empty)]"
                                   }`}
                                 />
                               ))}

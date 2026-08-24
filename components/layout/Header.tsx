@@ -5,7 +5,7 @@ import HeaderClient from "@/components/layout/HeaderClient";
 export default function Header() {
   return (
     <>
-      <div className="bg-[var(--color-secondary)] text-[#CBD5E1] text-[11px] hidden md:block">
+      <nav aria-label="Service-Navigation" className="bg-[var(--color-secondary)] text-[#CBD5E1] text-[11px] hidden md:block">
         <div className="container-hauselio flex items-center justify-between h-8">
           <div className="flex items-center gap-5">
             <span className="flex items-center gap-1.5">
@@ -34,7 +34,7 @@ export default function Header() {
             </Link>
           </div>
         </div>
-      </div>
+      </nav>
       <HeaderClient />
     </>
   );

@@ -255,7 +255,7 @@ export default function BestellungPage() {
   }
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <Link
@@ -281,7 +281,7 @@ export default function BestellungPage() {
           <span className="hidden sm:inline">Warenkorb</span>
         </Link>
         <div className="w-8 h-px bg-[var(--color-border)]" />
-        <span className="flex items-center gap-2 text-sm text-[var(--color-primary)] font-bold">
+        <span className="flex items-center gap-2 text-sm text-[var(--color-primary)] font-bold" aria-current="step">
           <span className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs">
             2
           </span>
@@ -588,6 +588,6 @@ export default function BestellungPage() {
           </div>
         </div>
       </form>
-    </div>
+    </main>
   );
 }

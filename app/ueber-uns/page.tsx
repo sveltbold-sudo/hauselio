@@ -46,7 +46,7 @@ const values = [
 
 export default function UeberUnsPage() {
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
@@ -134,6 +134,6 @@ export default function UeberUnsPage() {
           Zur Boutique
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

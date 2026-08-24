@@ -32,7 +32,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
+      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container — clean like Coolblue */}

@@ -177,7 +177,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -196,11 +196,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
       {/* Category tabs — visual cards */}
       <div className="mb-6 sm:mb-8">
-        <div className="flex flex-wrap gap-2 sm:gap-3" role="tablist" aria-label="Kategorien">
+        <nav aria-label="Kategorien" className="flex flex-wrap gap-2 sm:gap-3">
           <Link
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-            role="tab"
-            aria-selected={!category}
+            aria-current={!category ? "page" : undefined}
               className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
               !category
                 ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
@@ -211,8 +210,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </Link>
           <Link
             href="/shop?promo=true"
-            role="tab"
-            aria-selected={promo === "true"}
+            aria-current={promo === "true" ? "page" : undefined}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
               promo === "true"
                 ? "bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
@@ -225,8 +223,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <Link
               key={cat.id}
               href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              role="tab"
-              aria-selected={category === cat.slug}
+              aria-current={category === cat.slug ? "page" : undefined}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
                 category === cat.slug
                   ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
@@ -236,7 +233,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               {cat.name}
             </Link>
           ))}
-        </div>
+        </nav>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -355,13 +352,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </div>
       </div>
       <MobileShopBar totalProducts={total} />
-    </div>
+    </main>
   );
 }
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5" aria-hidden="true">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />

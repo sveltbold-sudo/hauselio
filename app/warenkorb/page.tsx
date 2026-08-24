@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
@@ -227,6 +227,11 @@ export default function WarenkorbPage() {
                     <div
                       className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
                       style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
+                      role="meter"
+                      aria-valuenow={Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label="Fortschritt zum kostenlosen Versand"
                     />
                   </div>
                 </div>
@@ -268,6 +273,6 @@ export default function WarenkorbPage() {
         </div>
       </div>
       <CartCrossSell />
-    </div>
+    </main>
   );
 }

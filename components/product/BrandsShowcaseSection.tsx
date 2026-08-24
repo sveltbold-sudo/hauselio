@@ -94,7 +94,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
         <div className="text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[var(--color-border)] rounded-lg text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors duration-300"
           >
             Alle Marken entdecken
             <ArrowRight className="w-4 h-4" />
