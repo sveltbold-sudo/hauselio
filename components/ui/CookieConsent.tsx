@@ -86,7 +86,7 @@ export default function CookieConsent() {
         aria-modal="true"
         aria-label="Cookie-Einstellungen"
         onKeyDown={handleKeyDown}
-        className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
+        className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
       >
       <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-6">
         <div className="flex items-start gap-4">

@@ -79,7 +79,7 @@ export default function VergleichPage() {
         {products.length > 0 && (
           <button
             onClick={clearAll}
-            className="flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+            className="flex items-center gap-1.5 text-sm min-h-[44px] px-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
           >
             <Trash2 className="w-4 h-4" />
             Alle entfernen
@@ -115,7 +115,7 @@ export default function VergleichPage() {
               <div key={product.id} className="relative p-6 border-b border-[var(--color-border-light)]">
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="absolute top-3 right-3 p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="absolute top-3 right-3 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                   aria-label="Entfernen"
                 >
                   <X className="w-4 h-4" />

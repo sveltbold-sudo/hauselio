@@ -49,7 +49,7 @@ interface EditorialContentSectionProps {
 
 export default function EditorialContentSection({ items = defaultEditorialContent }: EditorialContentSectionProps) {
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Magazin und Ratgeber">
       <div className="container-hauselio">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
@@ -67,7 +67,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
               <div key={i} className="snap-start shrink-0 w-[260px]">
                 <Link href={content.href} className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <img src={content.image} alt={content.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={content.image} alt={content.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="260px" />
                     <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-primary)] rounded-md">
                       {content.type}
                     </span>

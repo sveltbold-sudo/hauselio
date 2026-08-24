@@ -91,7 +91,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div aria-live="polite" className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
+      <div aria-live="polite" className="fixed bottom-4 right-4 pb-[env(safe-area-inset-bottom,0px)] z-[100] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
@@ -107,7 +107,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             </p>
             <button
               onClick={() => removeToast(t.id)}
-              className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-white/50 transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2.5 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-white/50 transition-colors"
               aria-label="Schließen"
             >
               <X className="w-4 h-4" />

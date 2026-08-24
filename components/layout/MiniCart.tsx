@@ -207,7 +207,7 @@ export default function MiniCart() {
                   onClick={() => setIsOpen(false)}
                   className="block w-full"
                 >
-                  <Button variant="secondary" size="lg" className="w-full">
+                  <Button variant="primary" size="lg" className="w-full">
                     Zur Kasse
                   </Button>
                 </Link>

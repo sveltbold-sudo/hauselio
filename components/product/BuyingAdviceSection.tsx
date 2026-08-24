@@ -101,7 +101,7 @@ const defaultBuyingAdviceData: BuyingAdvice[] = [
 
 export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData }: BuyingAdviceSectionProps) {
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Kaufberatung">
       <div className="container-hauselio">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
@@ -124,7 +124,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <Icon className="w-4.5 h-4.5 text-[var(--color-primary)]" />
+                    <Icon className="w-5 h-5 text-[var(--color-primary)]" />
                   </div>
                   <div>
                     <h3 className="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
@@ -174,7 +174,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                 {/* CTA */}
                 <Link
                   href={`/kategorie/${advice.slug}`}
-                  className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors group/link"
+                  className="inline-flex items-center gap-1 mt-3 min-h-[44px] py-2.5 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors group/link"
                 >
                   Alle {advice.category} ansehen
                   <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />

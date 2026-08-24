@@ -26,7 +26,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
   if (products.length === 0) return null;
 
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Für Sie empfohlen">
       <div className="container-hauselio">
         <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>

@@ -72,7 +72,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
   return (
     <button
       onClick={toggleCompare}
-      className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${
+      className={`flex items-center gap-1.5 min-h-[44px] px-3 py-2 text-xs font-medium transition-colors ${
         isComparing
           ? "text-[var(--color-primary)]"
           : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"

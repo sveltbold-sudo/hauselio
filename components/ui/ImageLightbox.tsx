@@ -15,6 +15,7 @@ interface ImageLightboxProps {
 
 export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -91,6 +92,17 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       <div
         className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
         onClick={(e) => e.stopPropagation()}
+        aria-live="polite"
+        onTouchStart={(e) => setTouchStart(e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          if (touchStart === null) return;
+          const diff = touchStart - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50 && Math.abs(diff) > Math.abs(e.changedTouches[0].clientY - (e.touches[0]?.clientY || 0))) {
+            if (diff > 0) goNext();
+            else if (diff < 0) goPrev();
+          }
+          setTouchStart(null);
+        }}
       >
         <ProductImage
           src={images[currentIndex]}
@@ -116,11 +128,13 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
             <button
               key={i}
               onClick={(e) => { e.stopPropagation(); setCurrentIndex(i); }}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                i === currentIndex ? "bg-white" : "bg-white/40"
-              }`}
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={`Bild ${i + 1}`}
-            />
+            >
+              <span className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                i === currentIndex ? "bg-white" : "bg-white/40"
+              }`} />
+            </button>
           ))}
         </div>
       )}

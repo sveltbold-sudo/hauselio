@@ -171,11 +171,11 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             <div className="absolute inset-0 flex flex-col justify-between p-5 pb-20">
               {/* Top: brand + discount */}
               <div className="flex items-start justify-between">
-                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
+                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
                   {s.brand}
                 </span>
                 {calcDiscount(s.price, s.originalPrice) > 0 && (
-                  <span className="inline-flex items-center px-2 py-1 bg-[var(--color-danger)] text-white text-[11px] font-bold rounded-lg shadow-lg">
+                  <span className="inline-flex items-center px-2 py-1 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg shadow-lg">
                     -{calcDiscount(s.price, s.originalPrice)}%
                   </span>
                 )}
@@ -215,7 +215,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 </Link>
 
                 {/* Trust */}
-                <div className="flex items-center justify-center gap-4 mt-3 text-[10px] text-white/60">
+                <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-white/60">
                   <span className="flex items-center gap-1">
                     <Truck className="w-3 h-3" />
                     Versand gratis
@@ -258,14 +258,14 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {/* Nav arrows */}
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200"
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Vorherige Folie"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Nächste Folie"
         >
           <ChevronRight className="w-5 h-5" />
@@ -290,7 +290,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           <div key={current} className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
             {/* Text */}
             <div>
-              <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
+              <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
                 {slide.brand}
               </span>
               <h2 className="text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">

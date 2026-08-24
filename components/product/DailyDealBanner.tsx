@@ -90,7 +90,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
 
               {/* Countdown */}
               {mounted && (
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-6" aria-label="Angebot endet in">
                   <Clock className="w-4 h-4 text-white/70" />
                   <span className="hidden sm:inline text-xs text-white/70 font-medium mr-2">Endet in:</span>
                   {[
@@ -99,7 +99,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                     { value: time.seconds, label: "Sek" },
                   ].map((unit, i) => (
                     <div key={i} className="flex items-center gap-1">
-                      <span className="inline-flex items-center justify-center min-w-[32px] h-8 px-1 sm:min-w-[36px] sm:h-9 sm:px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-xs sm:text-sm font-black text-white tabular-nums">
+                      <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1 sm:min-w-[36px] sm:h-9 sm:px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-xs sm:text-sm font-black text-white tabular-nums">
                         {String(unit.value).padStart(2, "0")}
                       </span>
                       {i < 2 && <span className="text-white/50 text-xs font-bold">:</span>}
@@ -111,7 +111,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               {/* CTA */}
               <Link
                 href={`/produkt/${product.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[var(--color-danger)] font-bold rounded-xl hover:bg-white/90 transition-colors transition-shadow duration-300 shadow-lg w-fit"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[var(--color-danger)] font-bold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-shadow transition-transform duration-300 shadow-lg w-fit"
               >
                 Jetzt sichern
                 <ArrowRight className="w-4 h-4" />

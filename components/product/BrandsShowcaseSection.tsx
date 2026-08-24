@@ -27,7 +27,7 @@ const defaultBrands: Brand[] = [
 
 export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]">
+    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Unsere Marken">
       <div className="container-hauselio">
         {/* Header */}
         <div className="text-center mb-8 md:mb-10">
@@ -42,7 +42,11 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-gray-50 to-white py-6 -mt-6">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={6000}>
             {brands.map((brand) => (
-              <div key={brand.name} className="snap-start shrink-0 w-[130px]">
+              <Link
+                key={brand.name}
+                href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
+                className="snap-start shrink-0 w-[130px] block"
+              >
                 <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] flex flex-col items-center gap-2 hover:border-[var(--color-primary)]/30 hover:shadow-sm transition-all duration-300 group">
                   <div className="w-14 h-14 rounded-xl bg-[var(--color-bg-secondary)] flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
                     {brand.logo ? (
@@ -53,7 +57,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
                   </div>
                   <p className="text-[11px] font-semibold text-[var(--color-text-primary)] text-center leading-tight">{brand.name}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </MobileHorizontalScroll>
         </div>

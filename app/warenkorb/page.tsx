@@ -150,7 +150,7 @@ export default function WarenkorbPage() {
                           setConfirmDelete(null);
                         }}
                         aria-label={`${item.name} entfernen bestätigen`}
-                        className="px-3 py-2 min-h-[40px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-red-700 transition-colors"
+                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-red-700 transition-colors"
                       >
                         Entfernen
                       </button>
@@ -158,7 +158,7 @@ export default function WarenkorbPage() {
                         type="button"
                         onClick={() => setConfirmDelete(null)}
                         aria-label="Abbrechen"
-                        className="px-3 py-2 min-h-[40px] text-xs font-semibold text-[var(--color-text-muted)] bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
                       >
                         Abbruch
                       </button>
@@ -168,7 +168,7 @@ export default function WarenkorbPage() {
                       type="button"
                       onClick={() => setConfirmDelete(item.id)}
                       aria-label={`${item.name} entfernen`}
-                      className="p-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-colors duration-300"
+                      className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-colors duration-300"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
@@ -38,6 +39,8 @@ export default function ProductImageGallery({
   onImageSelect,
   onImageClick,
 }: ProductImageGalleryProps) {
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+
   return (
     <div className="animate-fade-in-up">
       {/* Main image */}
@@ -46,6 +49,16 @@ export default function ProductImageGallery({
         onClick={onImageClick}
         aria-label="Bild vergrößern"
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
+        onTouchStart={(e) => setTouchStart(e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          if (touchStart === null) return;
+          const diff = touchStart - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50 && Math.abs(diff) > Math.abs(e.changedTouches[0].clientY - (e.touches[0]?.clientY || 0))) {
+            if (diff > 0 && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
+            else if (diff < 0 && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
+          }
+          setTouchStart(null);
+        }}
       >
         <div className="w-full h-full">
           <ProductImage

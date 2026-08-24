@@ -96,7 +96,7 @@ export default function CartCrossSell() {
                   image: item.image,
                 }, 1);
               }}
-              className="p-2 rounded-lg hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-lg hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] transition-colors"
               aria-label={`${item.name} zum Warenkorb hinzufügen`}
             >
               <ShoppingCart className="w-4 h-4" />

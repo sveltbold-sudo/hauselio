@@ -78,7 +78,7 @@ export default function PressReviewsSection({
   customerReviews = defaultCustomerReviews,
 }: PressReviewsSectionProps) {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]">
+    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Pressestimmen">
       <div className="container-hauselio">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
@@ -98,7 +98,7 @@ export default function PressReviewsSection({
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
                     <div className="w-10 h-10 rounded-lg bg-stone-100 flex items-center justify-center">
-                      <span className="text-[8px] font-black text-stone-600 text-center leading-tight whitespace-pre-line">{review.logoText}</span>
+                      <span className="text-[10px] font-black text-stone-600 text-center leading-tight whitespace-pre-line">{review.logoText}</span>
                     </div>
                     <span className="inline-flex items-center px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full">
                       {review.rating}

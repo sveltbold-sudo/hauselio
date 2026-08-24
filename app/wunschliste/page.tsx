@@ -46,7 +46,7 @@ export default function WishlistPage() {
         {items.length > 0 && (
           <button
             onClick={clearWishlist}
-            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+            className="text-sm min-h-[44px] flex items-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
           >
             Alle entfernen
           </button>
@@ -103,7 +103,7 @@ export default function WishlistPage() {
               <div className="flex flex-col items-end gap-2">
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="min-w-[44px] min-h-[44px] p-2.5 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                   aria-label="Entfernen"
                 >
                   <Trash2 className="w-4 h-4" />

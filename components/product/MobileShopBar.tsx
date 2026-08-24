@@ -29,7 +29,7 @@ export default function MobileShopBar({ totalProducts, onScrollToTop }: MobileSh
             const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
           })}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-bg-secondary)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10 transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10 transition-colors"
         >
           <ArrowUp className="w-4 h-4" />
           Nach oben

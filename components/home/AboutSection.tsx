@@ -4,7 +4,7 @@ import { ArrowRight, Award } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]">
+    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Über HAUSELIO">
       <div className="container-hauselio">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Content */}

@@ -26,7 +26,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
   if (products.length === 0) return null;
 
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Bestseller">
       <div className="container-hauselio">
         <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
@@ -96,7 +96,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
         <div className="mt-8 text-center md:hidden">
           <Link
             href="/shop?sort=rating"
-            className="inline-flex items-center gap-2 px-5 py-2.5 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors text-sm"
+            className="inline-flex items-center gap-2 px-5 py-3 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors text-sm"
           >
             Alle Bestseller
             <ArrowRight className="w-4 h-4" />

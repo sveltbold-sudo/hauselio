@@ -10,6 +10,7 @@ interface ShopFilterDrawerProps {
   selectedCategory?: string;
   selectedBrand?: string;
   selectedSort: string;
+  activeCount?: number;
 }
 
 export default function ShopFilterDrawer({
@@ -18,6 +19,7 @@ export default function ShopFilterDrawer({
   selectedCategory,
   selectedBrand,
   selectedSort,
+  activeCount = 0,
 }: ShopFilterDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -62,6 +64,11 @@ export default function ShopFilterDrawer({
       >
         <SlidersHorizontal className="w-4 h-4" />
         Filter
+        {activeCount > 0 && (
+          <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full">
+            {activeCount}
+          </span>
+        )}
       </button>
 
       {/* Desktop inline filters */}
