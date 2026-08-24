@@ -7,7 +7,7 @@ import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
-import { getShippingCost } from "@/lib/constants";
+import { getShippingCost, SHIPPING_COST } from "@/lib/constants";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,11 +39,17 @@ export default function MiniCart() {
 
   useEffect(() => {
     if (isOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -112,7 +118,7 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" style={{ transformOrigin: "top right" }} role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
             <h3 className="font-bold text-[var(--color-text-primary)]">
@@ -204,7 +210,7 @@ export default function MiniCart() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-[var(--color-text-muted)]">Versand</span>
                   <span className="text-sm font-medium text-[var(--color-success)]">
-                    {getShippingCost(total) === 0 ? "Kostenlos" : "4,99 €"}
+                    {getShippingCost(total) === 0 ? "Kostenlos" : formatPrice(SHIPPING_COST)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-5 pt-3 border-t border-[var(--color-border-light)]">
@@ -225,7 +231,7 @@ export default function MiniCart() {
                 <Link
                   href="/shop"
                   onClick={() => setIsOpen(false)}
-                  className="block text-center mt-3 py-2 min-h-[44px] flex items-center justify-center text-sm text-[var(--color-primary)] font-medium hover:underline"
+                  className="flex items-center justify-center mt-3 py-2 min-h-[44px] text-sm text-[var(--color-primary)] font-medium hover:underline"
                 >
                   Weiter einkaufen
                 </Link>

@@ -160,7 +160,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
             >
               {loading ? (
                 <div className="p-8 text-center">
-                  <div className="w-6 h-6 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
+                  <div className="w-6 h-6 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" role="status" aria-label="Suche läuft" />
                   <p className="text-sm text-[var(--color-text-muted)] mt-3">
                     Suche läuft…
                   </p>
@@ -197,7 +197,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                             {hit.name}
                           </p>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <div className="flex items-center">
+                            <div className="flex items-center" aria-label={`${hit.rating} von 5 Sternen`}>
                               {[...Array(5)].map((_, i) => (
                                 <Star
                                   key={i}
@@ -247,7 +247,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                   <button
                     type="button"
                     onClick={onClose}
-                    className="lg:hidden w-full mt-3 py-3 min-h-[44px] flex items-center justify-center text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] border border-[var(--color-border-light)] rounded-xl transition-colors"
+                    className="w-full mt-3 py-3 min-h-[44px] flex items-center justify-center text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] border border-[var(--color-border-light)] rounded-xl transition-colors"
                   >
                     Schließen
                   </button>

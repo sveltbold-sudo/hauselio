@@ -52,11 +52,17 @@ export default function HeaderClient() {
 
   useEffect(() => {
     if (mobileMenuOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
   }, [mobileMenuOpen]);
 
   useEffect(() => {
@@ -148,7 +154,7 @@ export default function HeaderClient() {
                       setActiveMega(null);
                       (e.target as HTMLElement).blur();
                     }
-                    if (e.key === "Enter") {
+                    if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       setActiveMega(activeMega === cat.href ? null : cat.href);
                     }
@@ -176,7 +182,7 @@ export default function HeaderClient() {
                   }`}
                   aria-label={`${cat.name} Kategorie`}
                 >
-                  <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px]">
+                  <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px] max-w-[calc(100vw-2rem)]">
                       <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
                         <div className="w-14 h-14 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
                           <Image
@@ -244,7 +250,7 @@ export default function HeaderClient() {
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-bg-secondary)] transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-bg)] transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche öffnen"
               aria-expanded={searchOpen}
             >
@@ -339,7 +345,7 @@ export default function HeaderClient() {
                       {cat.subcategories.length > 0 && (
                         <button
                           onClick={() => setExpandedMobileCat(isExpanded ? null : cat.href)}
-                          className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                          className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                           aria-label={`${cat.name} ${isExpanded ? "schließen" : "öffnen"}`}
                           aria-expanded={isExpanded}
                         >
