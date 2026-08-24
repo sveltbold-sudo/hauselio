@@ -33,19 +33,19 @@ export default function WarenkorbPage() {
 
   if (!mounted) {
     return (
-      <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4 sr-only">Warenkorb</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded mx-auto" />
           <div className="h-40 bg-[var(--color-bg-secondary)] rounded" />
         </div>
-      </div>
+      </main>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <Image
           src="/images/illustrations/empty-cart.svg"
           alt="Leerer Warenkorb"
@@ -63,12 +63,12 @@ export default function WarenkorbPage() {
             Jetzt einkaufen
           </Button>
         </Link>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
@@ -77,12 +77,13 @@ export default function WarenkorbPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         {/* Cart items */}
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2 space-y-4" role="list">
           {items.map((item, i) => (
             <div
               key={item.id}
               className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 flex gap-4 sm:gap-5 animate-fade-in-up"
               style={{ animationDelay: `${i * 50}ms` }}
+              role="listitem"
             >
               {/* Image */}
               <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
@@ -102,7 +103,7 @@ export default function WarenkorbPage() {
                   {item.name}
                 </Link>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">
+                  <p className="text-lg font-bold text-[var(--color-text-primary)] tabular-nums">
                     {formatPrice(item.price)}
                   </p>
                   {item.originalPrice && item.originalPrice > item.price && (
@@ -124,17 +125,17 @@ export default function WarenkorbPage() {
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                       aria-label="Menge verringern"
-                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                       -
                     </button>
-                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="polite">
+                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="off">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       aria-label="Menge erhöhen"
-                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="w-11 h-11 flex items-center justify-center text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       +
                     </button>
@@ -158,7 +159,7 @@ export default function WarenkorbPage() {
                         type="button"
                         onClick={() => setConfirmDelete(null)}
                         aria-label="Abbrechen"
-                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
                       >
                         Abbruch
                       </button>
@@ -181,7 +182,7 @@ export default function WarenkorbPage() {
           {/* Continue shopping */}
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors mt-4"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mt-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Weiter einkaufen
@@ -255,16 +256,16 @@ export default function WarenkorbPage() {
             </Link>
 
             {/* Trust badges */}
-            <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+            <div className="mt-6 space-y-3" role="list">
+              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
                 <DeliveryEstimate />
               </div>
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
                 <span>Kostenloser Versand ab 50€</span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
                 <Shield className="w-4 h-4 text-[var(--color-success)]" />
                 <span>Sichere Zahlung</span>
               </div>
@@ -273,6 +274,6 @@ export default function WarenkorbPage() {
         </div>
       </div>
       <CartCrossSell />
-    </div>
+    </main>
   );
 }
