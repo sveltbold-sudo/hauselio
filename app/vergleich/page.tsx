@@ -51,7 +51,7 @@ export default function VergleichPage() {
 
   if (!mounted) {
     return (
-      <div className="container-hauselio py-12">
+      <div className="container-hauselio section-py">
         <div className="animate-pulse space-y-6">
           <div className="h-8 bg-[var(--color-bg-secondary)] rounded w-1/3" />
           <div className="h-64 bg-[var(--color-bg-secondary)] rounded-2xl" />
@@ -61,11 +61,12 @@ export default function VergleichPage() {
   }
 
   return (
-    <div className="container-hauselio py-12">
+    <div className="container-hauselio section-py">
       <Breadcrumb items={[{ label: "Produktvergleich" }]} />
 
       <div className="flex items-center justify-between mb-8">
         <div>
+          <p className="caption text-[var(--color-primary)] mb-3">Produktvergleich</p>
           <h1 className="heading-1 flex items-center gap-3">
             <BarChart3 className="w-8 h-8 text-[var(--color-primary)]" />
             Produktvergleich

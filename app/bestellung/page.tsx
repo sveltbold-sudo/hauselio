@@ -451,7 +451,7 @@ export default function BestellungPage() {
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:border-transparent transition-colors"
+                    className="block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="DE">Deutschland</option>
                     <option value="AT">Österreich</option>
@@ -492,7 +492,7 @@ export default function BestellungPage() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-y placeholder:text-[var(--color-text-muted)]"
+                className="block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[100px]"
                 placeholder="Besondere Wünsche oder Hinweise…"
               />
             </div>

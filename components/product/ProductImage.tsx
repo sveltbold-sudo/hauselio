@@ -65,7 +65,7 @@ export default function ProductImage({
   };
 
   const brandSizes = {
-    sm: "text-[10px]",
+    sm: "text-[11px]",
     md: "text-xs",
     lg: "text-sm",
   };
@@ -107,7 +107,7 @@ export default function ProductImage({
         <span className="text-white font-bold text-lg md:text-xl">{initials}</span>
       </div>
 
-      <p className={`font-semibold text-gray-800 text-center px-4 leading-tight ${textSizes[size]}`}>
+      <p className={`font-semibold text-[var(--color-text-primary)] text-center px-4 leading-tight ${textSizes[size]}`}>
         {alt}
       </p>
 

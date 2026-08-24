@@ -86,7 +86,7 @@ export default function KategorienPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", slug: "", description: "" }); }}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-orange)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-orange-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-orange)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-orange-hover)] transition-colors"
         >
           <Plus className="w-4 h-4" /> Neue Kategorie
         </button>
@@ -120,7 +120,7 @@ export default function KategorienPage() {
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value, slug: slugify(e.target.value) })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
                   required
                 />
               </div>
@@ -130,7 +130,7 @@ export default function KategorienPage() {
                   type="text"
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
                   required
                 />
               </div>
@@ -139,7 +139,7 @@ export default function KategorienPage() {
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20"
+                  className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
                   rows={3}
                 />
               </div>

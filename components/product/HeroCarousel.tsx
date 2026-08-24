@@ -154,7 +154,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             className={`absolute inset-0 transition-opacity duration-700 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
           >
             {/* Full-bleed product image */}
-            <div className="absolute inset-0 bg-[#f0ede8]">
+            <div className="absolute inset-0 bg-[var(--color-hero-bg)]">
               <Image
                 src={s.image}
                 alt={s.name}

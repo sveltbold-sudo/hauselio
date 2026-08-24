@@ -97,10 +97,10 @@ export default function PressReviewsSection({
                 <div className="bg-white rounded-xl p-5 shadow-sm border border-stone-200/60 relative overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
-                    <div className="w-10 h-10 rounded-lg bg-stone-100 flex items-center justify-center">
-                      <span className="text-[10px] font-black text-stone-600 text-center leading-tight whitespace-pre-line">{review.logoText}</span>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-secondary)] flex items-center justify-center">
+                      <span className="text-[10px] font-black text-[var(--color-text-muted)] text-center leading-tight whitespace-pre-line">{review.logoText}</span>
                     </div>
-                    <span className="inline-flex items-center px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded-full">
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-success)]/10 text-[var(--color-success)] text-[11px] font-bold rounded-full">
                       {review.rating}
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export default function PressReviewsSection({
             >
               <div className="flex items-start gap-3 mb-3">
                 <div className="w-11 h-11 bg-gray-50 rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
-                  <span className="text-[7px] font-black text-gray-400 uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
+                  <span className="text-[10px] font-black text-[var(--color-text-muted)] uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
                     {review.logoText}
                   </span>
                 </div>
@@ -182,8 +182,8 @@ export default function PressReviewsSection({
                           key={j}
                           className={`w-3.5 h-3.5 ${
                             j < review.rating
-                              ? "text-amber-400 fill-amber-400"
-                              : "text-gray-200 fill-gray-200"
+                            ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
+                            : "text-[var(--color-star-empty)] fill-[var(--color-star-empty)]"
                           }`}
                         />
                       ))}

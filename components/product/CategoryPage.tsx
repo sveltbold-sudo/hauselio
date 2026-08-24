@@ -148,8 +148,8 @@ export default async function CategoryPage({
 
       {formattedProducts.length === 0 ? (
         <div className="text-center py-20">
-          <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-6">
-            <PackageOpen className="w-10 h-10 text-gray-300" />
+            <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
+            <PackageOpen className="w-10 h-10 text-[var(--color-border)]" />
           </div>
           <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
             Keine Produkte in dieser Kategorie

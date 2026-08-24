@@ -22,18 +22,18 @@ export default function AdminError({ error, reset, title, description }: AdminEr
       <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
         <AlertTriangle className="w-8 h-8 text-red-500" />
       </div>
-      <h2 className="text-lg font-bold text-gray-900 mb-2">{title}</h2>
-      <p className="text-gray-500 mb-6">{description}</p>
+      <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{title}</h2>
+      <p className="text-[var(--color-text-muted)] mb-6">{description}</p>
       <div className="flex gap-3 justify-center">
         <button
           onClick={() => reset()}
-          className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 bg-[var(--color-text-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
         >
           Erneut versuchen
         </button>
         <Link
           href="/admin"
-          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+          className="px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-secondary)] rounded-lg text-sm font-medium hover:bg-[var(--color-bg-secondary)] transition-colors"
         >
           Dashboard
         </Link>

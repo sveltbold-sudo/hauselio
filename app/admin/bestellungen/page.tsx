@@ -71,13 +71,13 @@ export default async function AdminOrdersPage({
             defaultValue={q}
             placeholder="Suche (Nr., Name, E-Mail)…"
             aria-label="Bestellungen suchen"
-            className="flex-1 min-w-[200px] px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="flex-1 min-w-[200px] px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
           />
           <select
             name="status"
             defaultValue={status}
             aria-label="Status filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
           >
             <option value="">Alle Status</option>
             {Object.entries(ORDER_STATUS_LABELS).map(([value, label]) => (
@@ -88,7 +88,7 @@ export default async function AdminOrdersPage({
           </select>
           <button
             type="submit"
-            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+            className="px-4 py-3 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             Filtern
           </button>

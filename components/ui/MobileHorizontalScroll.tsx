@@ -124,7 +124,7 @@ export default function MobileHorizontalScroll({
 
       {/* Auto-scroll indicator */}
       {!isPaused && autoScrollInterval > 0 && (
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gray-200 rounded-full overflow-hidden z-10">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--color-border-light)] rounded-full overflow-hidden z-10">
           <div className="h-full bg-[var(--color-primary)]/40 rounded-full animate-[shrink_8s_linear_infinite]" />
         </div>
       )}

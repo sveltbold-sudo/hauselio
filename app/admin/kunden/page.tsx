@@ -108,7 +108,7 @@ export default function KundenPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           aria-label="Kunden suchen"
-          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
         />
       </div>
 

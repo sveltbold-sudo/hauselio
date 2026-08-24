@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Shield, Clock, CheckCircle, Phone, Mail, FileText } from "lucide-react";
 import { SITE_URL } from "@/lib/constants";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
@@ -68,11 +69,7 @@ export default function GarantiePage() {
       />
 
       <div className="container-hauselio py-8 sm:py-12 max-w-4xl">
-        <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-8">
-          <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
-          <span>/</span>
-          <span className="text-[var(--color-text-primary)] font-medium">Garantie</span>
-        </nav>
+        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
         <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">

@@ -75,7 +75,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
                   <Star
                     key={i}
                     className={`w-5 h-5 ${
-                      i < fullStars ? "text-amber-400 fill-amber-400" : "text-gray-200"
+                      i < fullStars ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" : "text-[var(--color-star-empty)]"
                     }`}
                   />
                 ))}
@@ -89,7 +89,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
               {distribution.map((dist) => (
                 <div key={dist.stars} className="flex items-center gap-2">
                   <span className="text-xs font-medium w-8">{dist.stars}★</span>
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-[var(--color-border-light)] rounded-full overflow-hidden">
                     <div
                       className="h-full bg-amber-400 rounded-full transition-transform duration-500"
                       style={{ width: `${dist.percentage}%` }}

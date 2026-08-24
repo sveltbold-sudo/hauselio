@@ -213,7 +213,11 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             href="/shop?promo=true"
             role="tab"
             aria-selected={promo === "true"}
-            className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
+            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
+              promo === "true"
+                ? "bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
+                : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-danger)]/30 hover:text-[var(--color-danger)] hover:shadow-sm"
+            }`}
           >
             Angebote
           </Link>

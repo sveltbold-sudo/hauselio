@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 300;
 
@@ -56,11 +57,7 @@ export default async function KategoriePage() {
 
       <div className="container-hauselio py-12">
         <div className="mb-10">
-          <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-6">
-            <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
-            <span>/</span>
-            <span className="text-[var(--color-text-primary)] font-medium">Kategorien</span>
-          </nav>
+          <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 
           <h1 className="heading-1 mb-3">Unsere Kategorien</h1>
           <p className="text-[var(--color-text-secondary)] text-lg max-w-2xl">

@@ -48,7 +48,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
           {product.isPromo && discount > 0 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded">
+            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-md">
               -{discount}%
             </span>
           )}
@@ -97,7 +97,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-[13px] sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+        <h3 className="font-semibold text-sm sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 
@@ -109,8 +109,8 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
                 key={i}
                 className={`w-3.5 h-3.5 ${
                   i < fullStars
-                    ? "text-amber-400 fill-amber-400"
-                    : "text-gray-200 fill-gray-200"
+                    ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
+                    : "text-[var(--color-star-empty)] fill-[var(--color-star-empty)]"
                 }`}
               />
             ))}

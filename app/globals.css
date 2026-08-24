@@ -46,6 +46,11 @@
   --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.15);
 
+  /* ── Semantic Colors ── */
+  --color-star-filled: #fbbf24;
+  --color-star-empty: #e5e7eb;
+  --color-hero-bg: #f0ede8;
+
   /* ── Radii ── */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;

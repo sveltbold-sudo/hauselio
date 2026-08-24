@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
+import Input from "@/components/ui/Input";
 import { Check, Copy, ArrowRight, Download, AlertCircle } from "lucide-react";
 
 interface BankDetails {
@@ -136,13 +137,18 @@ export default function OrderSuccessPage() {
             }}
             className="flex flex-col sm:flex-row gap-2"
           >
-            <input
+            <label htmlFor="email" className="sr-only">E-Mail-Adresse</label>
+            <Input
               type="email"
+              id="email"
+              name="email"
+              placeholder="ihre@email.de"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
-              placeholder="name@beispiel.de"
               required
-              className="flex-1 px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+              autoComplete="email"
+              inputMode="email"
+              className="flex-1"
             />
             <button
               type="submit"

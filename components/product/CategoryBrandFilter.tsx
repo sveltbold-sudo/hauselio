@@ -30,7 +30,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
       <span className="text-xs text-[var(--color-text-muted)] whitespace-nowrap">Marke:</span>
       <button
         onClick={() => handleBrandChange(null)}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+          className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
           !selectedBrand
             ? "bg-[var(--color-primary)] text-white"
             : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10"
@@ -42,7 +42,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
         <button
           key={brand.slug}
           onClick={() => handleBrandChange(brand.slug)}
-        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+        className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
             selectedBrand === brand.slug
               ? "bg-[var(--color-primary)] text-white"
               : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10"

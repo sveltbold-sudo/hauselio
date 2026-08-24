@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Home, Search, ShoppingBag, Star, Truck, Shield } from "lucide-react";
 
-export default async function NotFound() {
+export default function NotFound() {
   return (
     <div className="container-hauselio py-12 lg:py-20">
       <div className="text-center max-w-2xl mx-auto mb-16">

@@ -8,6 +8,7 @@ import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WishlistPage() {
   const { items, removeItem, clearWishlist } = useWishlistStore();
@@ -19,8 +20,8 @@ export default function WishlistPage() {
 
   if (!mounted) {
     return (
-      <div className="container-hauselio py-16 max-w-3xl">
-        <div className="animate-pulse space-y-4">
+    <div className="container-hauselio py-16">
+      <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded" />
           <div className="h-4 w-32 bg-[var(--color-bg-secondary)] rounded" />
         </div>
@@ -29,12 +30,10 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="container-hauselio py-12 max-w-3xl">
-      <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-8">
-        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Startseite</Link>
-        <span>/</span>
-        <span className="text-[var(--color-text-primary)] font-medium">Wunschliste</span>
-      </nav>
+    <div className="container-hauselio py-12">
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Wunschliste" }]} />
+
+      <p className="caption text-[var(--color-primary)] mb-3">Meine Wünsche</p>
 
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -77,10 +76,10 @@ export default function WishlistPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row gap-4 p-4 bg-white rounded-xl border border-[var(--color-border-light)] hover:shadow-sm transition-shadow"
+              className="flex flex-col sm:flex-row gap-4 p-4 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-sm transition-shadow"
             >
               <Link href={`/produkt/${item.slug}`} className="shrink-0">
-                <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden">
+                <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden">
                   <ProductImage src={item.image} alt={item.name} brand={item.brand} size="sm" />
                 </div>
               </Link>

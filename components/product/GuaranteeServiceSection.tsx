@@ -29,13 +29,13 @@ const guarantees = [
     icon: Clock,
     title: "30 Tage Rückgabe",
     description: "Kostenloser Rückversand",
-    color: "text-purple-600",
+    color: "text-[var(--color-info)]",
   },
   {
     icon: BadgeCheck,
     title: "Geprüfte Qualität",
     description: "TÜV-geprüft, EU-Standards",
-    color: "text-teal-600",
+    color: "text-[var(--color-accent)]",
   },
 ];
 

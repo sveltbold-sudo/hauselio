@@ -55,7 +55,7 @@ export default function UpdateOrderStatus({
         value={status}
         onChange={(e) => setStatus(e.target.value)}
         aria-label="Bestellstatus"
-        className="px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+        className="px-3 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
       >
         {statusOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>

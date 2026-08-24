@@ -58,10 +58,10 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               >
                 {/* Rank badge — premium gold */}
                 <div className={`absolute -top-2 -left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
-                  i === 0 ? "bg-gradient-to-br from-amber-300 to-amber-500 text-amber-900 shadow-amber-300/30" :
-                  i === 1 ? "bg-gradient-to-br from-gray-200 to-gray-400 text-gray-700 shadow-gray-300/30" :
-                  i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-800 text-amber-100 shadow-amber-600/30" :
-                  "bg-white/10 text-white/70"
+                  i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-amber-300/30" :
+                  i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-gray-300/30" :
+                  i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white shadow-amber-600/30" :
+                  "bg-[var(--color-primary)] text-white"
                 }`}>
                   {i + 1}
                 </div>

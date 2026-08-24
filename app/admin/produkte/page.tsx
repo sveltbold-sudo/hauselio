@@ -93,13 +93,13 @@ export default async function AdminProductsPage({
             defaultValue={q}
             placeholder="Suche…"
             aria-label="Produkte suchen"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
           />
           <select
             name="category"
             defaultValue={category}
             aria-label="Kategorie filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
           >
             <option value="">Alle Kategorien</option>
             {categories.map((cat) => (
@@ -112,7 +112,7 @@ export default async function AdminProductsPage({
             name="brand"
             defaultValue={brand}
             aria-label="Marke filtern"
-            className="px-4 py-2 border border-[var(--color-border)] rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/20 focus:border-[var(--color-accent)]"
+            className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
           >
             <option value="">Alle Marken</option>
             {brands.map((b) => (
@@ -123,7 +123,7 @@ export default async function AdminProductsPage({
           </select>
           <button
             type="submit"
-            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+            className="px-4 py-3 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             Filtern
           </button>

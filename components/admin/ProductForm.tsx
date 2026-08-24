@@ -289,13 +289,13 @@ export default function ProductForm({
                     e.key === "Enter" && (e.preventDefault(), addFeature())
                   }
                   placeholder="Neues Feature hinzufügen…"
-                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                  className="flex-1 px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                 />
                 <button
                   type="button"
                   onClick={addFeature}
                   aria-label="Feature hinzufügen"
-                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)]"
+                  className="px-4 py-3 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)]"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -339,7 +339,7 @@ export default function ProductForm({
                       }))
                     }
                     placeholder="Key (z.B. Leistung)"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div className="flex-1">
@@ -358,14 +358,14 @@ export default function ProductForm({
                       e.key === "Enter" && (e.preventDefault(), addSpec())
                     }
                     placeholder="Wert"
-                    className="w-full px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={addSpec}
                   aria-label="Spezifikation hinzufügen"
-                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)]"
+                  className="px-4 py-3 bg-[var(--color-primary)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-primary-hover)]"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
