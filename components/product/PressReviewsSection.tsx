@@ -90,15 +90,15 @@ export default function PressReviewsSection({
         </div>
 
         {/* Mobile: magazine clipping scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-stone-50 to-amber-50/30 py-6 -mt-6">
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg)] py-6 -mt-6">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {pressReviews.map((review, i) => (
               <div key={i} className="snap-start shrink-0 w-[280px]">
-                <div className="bg-white rounded-xl p-5 shadow-sm border border-stone-200/60 relative overflow-hidden">
+                <div className="bg-white rounded-xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
                     <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-secondary)] flex items-center justify-center">
-                      <span className="text-[10px] font-black text-[var(--color-text-muted)] text-center leading-tight whitespace-pre-line">{review.logoText}</span>
+                      <span className="text-[11px] font-black text-[var(--color-text-muted)] text-center leading-tight whitespace-pre-line">{review.logoText}</span>
                     </div>
                     <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-success)]/10 text-[var(--color-success)] text-[11px] font-bold rounded-full">
                       {review.rating}
@@ -124,8 +124,8 @@ export default function PressReviewsSection({
               style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="flex items-start gap-3 mb-3">
-                <div className="w-11 h-11 bg-gray-50 rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
-                  <span className="text-[10px] font-black text-[var(--color-text-muted)] uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
+                <div className="w-11 h-11 bg-[var(--color-bg-secondary)] rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
+                  <span className="text-[11px] font-black text-[var(--color-text-muted)] uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
                     {review.logoText}
                   </span>
                 </div>

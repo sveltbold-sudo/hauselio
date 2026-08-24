@@ -50,7 +50,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
                 <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] flex flex-col items-center gap-2 hover:border-[var(--color-primary)]/30 hover:shadow-sm transition-all duration-300 group">
                   <div className="w-14 h-14 rounded-xl bg-[var(--color-bg-secondary)] flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
                     {brand.logo ? (
-                      <img src={brand.logo} alt={brand.name} className="w-10 h-10 object-contain" />
+                      <Image src={brand.logo} alt={brand.name} width={40} height={40} className="w-10 h-10 object-contain" />
                     ) : (
                       <span className="text-lg font-bold text-[var(--color-text-muted)]">{brand.name.charAt(0)}</span>
                     )}

@@ -35,8 +35,8 @@ const guaranteeTiers = [
     duration: "Bis zu 5 Jahre",
     description: "Für Premium-Geräte von Miele, Gaggenau und V-ZUG. Umfassender Schutz für Ihre Investition.",
     icon: CheckCircle,
-    color: "text-green-600",
-    bgColor: "bg-green-50",
+    color: "text-[var(--color-success)]",
+    bgColor: "bg-[var(--color-success)]/10",
   },
 ];
 

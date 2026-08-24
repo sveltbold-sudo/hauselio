@@ -168,7 +168,7 @@ export default function WarenkorbPage() {
                       type="button"
                       onClick={() => setConfirmDelete(item.id)}
                       aria-label={`${item.name} entfernen`}
-                      className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-red-50 rounded-xl transition-colors duration-300"
+                      className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors duration-300"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

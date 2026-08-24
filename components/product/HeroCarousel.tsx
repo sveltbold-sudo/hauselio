@@ -245,7 +245,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               className="flex items-center justify-center min-w-[44px] h-[44px]"
             >
               <span
-                className={`block h-1.5 rounded-full transition-all duration-400 ${
+                className={`block h-1.5 rounded-full transition-all duration-300 ${
                   i === current
                     ? "w-7 bg-white"
                     : "w-2.5 bg-white/40 hover:bg-white/60"
@@ -396,7 +396,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               className="flex items-center justify-center min-w-[44px] h-[44px]"
             >
               <span
-                className={`block h-1.5 rounded-full transition-all duration-400 ${
+                className={`block h-1.5 rounded-full transition-all duration-300 ${
                   i === current
                     ? "w-7 bg-[var(--color-primary)]"
                     : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"

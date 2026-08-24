@@ -68,7 +68,7 @@ export default function NotFound() {
           Kostenloser Versand ab 50€
         </span>
         <span className="flex items-center gap-2">
-          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+          <Star className="w-4 h-4 text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" />
           4.8 Bewertung
         </span>
         <span className="flex items-center gap-2">

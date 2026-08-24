@@ -285,7 +285,7 @@ export default function OrderTable({
                       </p>
                     </div>
                     <span
-                      className={`inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-semibold shrink-0 ${
+                      className={`inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
                         ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
                       }`}
                     >
