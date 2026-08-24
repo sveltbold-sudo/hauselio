@@ -9,15 +9,15 @@ export default function Header() {
         <div className="container-hauselio flex items-center justify-between h-8">
           <div className="flex items-center gap-5">
             <span className="flex items-center gap-1.5">
-              <Truck className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+              <Truck className="w-3.5 h-3.5 text-white/70" />
               Kostenloser Versand ab 50€
             </span>
             <span className="flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+              <Shield className="w-3.5 h-3.5 text-white/70" />
               30 Tage Rückgabe
             </span>
             <span className="flex items-center gap-1.5">
-              <Headphones className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+              <Headphones className="w-3.5 h-3.5 text-white/70" />
               Deutsche Kundenbetreuung
             </span>
           </div>

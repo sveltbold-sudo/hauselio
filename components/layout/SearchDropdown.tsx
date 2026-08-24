@@ -93,12 +93,14 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
     [query, router, onClose]
   );
 
-  if (!isOpen) return null;
-
   const hasResults = query.trim().length >= 2 && results.length > 0;
 
   return (
-    <div className="border-t border-[var(--color-border-light)] bg-white animate-fade-in-down">
+    <div
+      className={`border-t border-[var(--color-border-light)] bg-white transition-[opacity,visibility] duration-200 ${
+        isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+      }`}
+    >
       <div className="container-hauselio py-5">
         <div className="max-w-2xl mx-auto">
           {/* Search input */}

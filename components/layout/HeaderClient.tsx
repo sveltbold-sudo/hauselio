@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart } from "lucide-react";
+import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
@@ -18,7 +18,16 @@ export default function HeaderClient() {
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 60);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -90,6 +99,21 @@ export default function HeaderClient() {
     >
       <div className="brand-stripe" />
 
+      {/* Mobile trust signals */}
+      <div className="md:hidden border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
+        <div className="container-hauselio flex items-center justify-center gap-4 h-7 text-[10px] text-[var(--color-text-muted)]">
+          <span className="flex items-center gap-1">
+            <Truck className="w-3 h-3 text-[var(--color-success)]" />
+            Versand gratis
+          </span>
+          <span className="text-[var(--color-border)]">|</span>
+          <span className="flex items-center gap-1">
+            <Shield className="w-3 h-3 text-[var(--color-success)]" />
+            30 Tage Rückgabe
+          </span>
+        </div>
+      </div>
+
       <div className="container-hauselio">
         <div className="flex items-center justify-between h-16 md:h-[72px]">
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
@@ -129,8 +153,6 @@ export default function HeaderClient() {
                       setActiveMega(activeMega === cat.href ? null : cat.href);
                     }
                   }}
-                  aria-haspopup="true"
-                  aria-expanded={activeMega === cat.href}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
                   className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-colors duration-200 ${
                     activeMega === cat.href
@@ -146,9 +168,15 @@ export default function HeaderClient() {
                   />
                 </Link>
 
-                {activeMega === cat.href && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 animate-fade-in-down z-50">
-                    <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px]">
+                <div
+                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 transition-[opacity,visibility] duration-200 ${
+                    activeMega === cat.href
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible pointer-events-none"
+                  }`}
+                  aria-label={`${cat.name} Kategorie`}
+                >
+                  <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px]">
                       <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
                         <div className="w-14 h-14 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
                           <Image
@@ -205,10 +233,9 @@ export default function HeaderClient() {
                           Alle {cat.name} ansehen
                           <ArrowRight className="w-4 h-4" />
                         </Link>
-                      </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </nav>
@@ -219,6 +246,7 @@ export default function HeaderClient() {
               onClick={() => setSearchOpen(!searchOpen)}
               className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-bg-secondary)] transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche öffnen"
+              aria-expanded={searchOpen}
             >
               <Search className="w-4 h-4 shrink-0" />
               <span className="truncate">Suche nach Produkten, Marken...</span>
