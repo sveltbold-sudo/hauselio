@@ -56,7 +56,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
           setResults(data.hits || []);
           setNbHits(data.nbHits || 0);
         }
-      } catch {
+      } catch (err) {
         if (!cancelled) {
           setResults([]);
         }

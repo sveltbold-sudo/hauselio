@@ -121,7 +121,7 @@ export default function HeaderClient() {
       </div>
 
       <div className="container-hauselio">
-        <div className="flex items-center justify-between h-16 md:h-[72px]">
+        <div className="flex items-center justify-between h-16 md:h-[68px]">
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <div className="relative">
               <Image
@@ -160,7 +160,7 @@ export default function HeaderClient() {
                     }
                   }}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
-                  className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-colors duration-200 ${
+                  className={`flex items-center gap-1 px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 ${
                     activeMega === cat.href
                       ? "text-[var(--color-primary)] bg-[var(--color-primary-50)]"
                       : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)]"
@@ -259,7 +259,7 @@ export default function HeaderClient() {
             </button>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             {/* Mobile: icon only */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}

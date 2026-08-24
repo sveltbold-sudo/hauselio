@@ -46,7 +46,7 @@ export default function Footer() {
                 <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <badge.icon className="w-4 h-4 text-[var(--color-primary)]" />
                 </div>
-                <span className="text-[12px] sm:text-[13px] text-white/80 font-medium">{badge.label}</span>
+                <span className="text-xs sm:text-sm text-white/80 font-medium">{badge.label}</span>
               </div>
             ))}
           </div>
