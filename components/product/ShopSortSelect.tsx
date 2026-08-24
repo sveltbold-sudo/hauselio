@@ -27,7 +27,7 @@ export default function ShopSortSelect({ sort }: ShopSortSelectProps) {
         className="text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 cursor-pointer"
         aria-label="Sortierung"
       >
-        <option value="newest">Neueste zuerst</option>
+        <option value="newest">Neueste</option>
         <option value="price_asc">Preis aufsteigend</option>
         <option value="price_desc">Preis absteigend</option>
         <option value="rating">Beste Bewertung</option>

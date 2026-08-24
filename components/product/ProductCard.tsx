@@ -97,7 +97,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-sm sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+        <h3 className="font-semibold text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 

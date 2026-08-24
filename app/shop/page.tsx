@@ -16,6 +16,18 @@ const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFi
 
 export const revalidate = 300;
 
+function shopUrl(page: number, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string) {
+  const params = new URLSearchParams();
+  params.set("page", String(page));
+  if (category) params.set("category", category);
+  if (brand) params.set("brand", brand);
+  if (q) params.set("q", q);
+  if (sort && sort !== "newest") params.set("sort", sort);
+  if (price) params.set("price", price);
+  if (promo) params.set("promo", promo);
+  return `/shop?${params.toString()}`;
+}
+
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
   const params = await searchParams;
   const category = params.category;
@@ -137,7 +149,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   let total = 0;
 
   try {
-    [products, categories, brands, total] = await Promise.all([
+    const [productsResult, categoriesResult, brandsResult, totalResult] = await Promise.allSettled([
       prisma.product.findMany({
         where,
         include: {
@@ -153,6 +165,16 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       prisma.brand.findMany({ orderBy: { name: "asc" } }),
       prisma.product.count({ where }),
     ]);
+
+    products = productsResult.status === "fulfilled" ? productsResult.value : [];
+    categories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
+    brands = brandsResult.status === "fulfilled" ? brandsResult.value : [];
+    total = totalResult.status === "fulfilled" ? totalResult.value : 0;
+
+    if (productsResult.status === "rejected") logger.error("shop-products", productsResult.reason);
+    if (categoriesResult.status === "rejected") logger.error("shop-categories", categoriesResult.reason);
+    if (brandsResult.status === "rejected") logger.error("shop-brands", brandsResult.reason);
+    if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
   } catch (error) {
     logger.error("shop-page", error);
   }
@@ -177,7 +199,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -200,7 +222,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           <Link
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
             aria-current={!category ? "page" : undefined}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               !category
                 ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
                 : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
@@ -211,7 +233,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           <Link
             href="/shop?promo=true"
             aria-current={promo === "true" ? "page" : undefined}
-            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
+            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               promo === "true"
                 ? "bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
                 : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-danger)]/30 hover:text-[var(--color-danger)] hover:shadow-sm"
@@ -224,7 +246,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               key={cat.id}
               href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
               aria-current={category === cat.slug ? "page" : undefined}
-            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 ${
+            className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 category === cat.slug
                   ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
                   : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
@@ -302,7 +324,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
                 {page > 1 && (
                   <Link
-                    href={`/shop?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
+                    href={shopUrl(page - 1, category, brand, q, sort, price, promo)}
                     className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
@@ -324,7 +346,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   return (
                     <Link
                       key={p}
-                      href={`/shop?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
+                      href={shopUrl(p, category, brand, q, sort, price, promo)}
                       aria-current={p === page ? "page" : undefined}
                       className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                         p === page
@@ -338,7 +360,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 })}
                 {page < totalPages && (
                   <Link
-                    href={`/shop?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}${price ? `&price=${price}` : ""}${promo ? `&promo=${promo}` : ""}`}
+                    href={shopUrl(page + 1, category, brand, q, sort, price, promo)}
                     className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
@@ -352,7 +374,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </div>
       </div>
       <MobileShopBar totalProducts={total} />
-    </div>
+    </main>
   );
 }
 

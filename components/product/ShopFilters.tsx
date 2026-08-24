@@ -109,7 +109,7 @@ export default function ShopFilters({
 
       {/* Category filter */}
       <div className="mb-6">
-        <h3 className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
           <Package className="w-3 h-3" />
           Kategorie
         </h3>
@@ -149,14 +149,15 @@ export default function ShopFilters({
 
       {/* Brand filter */}
       <div className="mb-6">
-        <h3 className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
           <Tag className="w-3 h-3" />
           Marke
         </h3>
-        <div className="space-y-0.5 max-h-48 overflow-y-auto">
+        <div className="space-y-0.5 max-h-48 overflow-y-auto" role="list">
           {brands.map((brand) => (
             <button
               key={brand}
+              role="listitem"
               onClick={() =>
                 updateFilter(
                   "brand",
@@ -178,7 +179,7 @@ export default function ShopFilters({
 
       {/* Price range */}
       <div className="mb-6">
-        <h3 className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
           <Tag className="w-3 h-3" />
           Preisbereich
         </h3>
@@ -212,7 +213,7 @@ export default function ShopFilters({
 
       {/* Sort */}
       <div>
-        <h3 className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
           Sortierung
         </h3>
         <select
