@@ -23,8 +23,11 @@ export default function CompareButton({ product }: CompareButtonProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-     
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {
       try {
@@ -34,7 +37,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
         }
       } catch {}
     }
-  }, [product.id]);
+  }, [product.id, mounted]);
 
   const toggleCompare = () => {
     const stored = localStorage.getItem("hauselio-comparison");

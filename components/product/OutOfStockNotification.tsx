@@ -19,7 +19,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
     if (!email) return;
     setSubmitting(true);
     try {
-      const res = await fetch("/api/newsletter", {
+      const res = await fetch("/api/out-of-stock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

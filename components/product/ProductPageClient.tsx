@@ -260,6 +260,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           <div className="flex items-center gap-4 mb-6">
             <button
                 onClick={handleShare}
+                aria-label="Produkt-Link kopieren"
                 className="flex items-center gap-2 min-h-[44px] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
               >
               <Share2 className="w-4 h-4" />

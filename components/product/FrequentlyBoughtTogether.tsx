@@ -111,7 +111,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                   </div>
                   <div className="flex-1 min-w-0">
                     {product.brand && (
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">{product.brand}</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">{product.brand}</p>
                     )}
                     <p className="text-xs font-semibold text-[var(--color-text-primary)] truncate">{product.name}</p>
                     <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5">{formatPrice(product.price)}</p>
@@ -156,7 +156,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
               )}
             </button>
 
-            <p className="text-[11px] text-[var(--color-text-muted)] text-center mt-2">
+            <p className="text-xs text-[var(--color-text-muted)] text-center mt-2">
               {allItems.length} Artikel · Kostenlos ab 50€
             </p>
           </div>

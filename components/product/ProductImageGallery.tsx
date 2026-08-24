@@ -39,7 +39,7 @@ export default function ProductImageGallery({
   onImageSelect,
   onImageClick,
 }: ProductImageGalleryProps) {
-  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
 
   return (
     <div className="animate-fade-in-up">
@@ -49,13 +49,14 @@ export default function ProductImageGallery({
         onClick={onImageClick}
         aria-label="Bild vergrößern"
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
-        onTouchStart={(e) => setTouchStart(e.touches[0].clientX)}
+        onTouchStart={(e) => setTouchStart({ x: e.touches[0].clientX, y: e.touches[0].clientY })}
         onTouchEnd={(e) => {
           if (touchStart === null) return;
-          const diff = touchStart - e.changedTouches[0].clientX;
-          if (Math.abs(diff) > 50 && Math.abs(diff) > Math.abs(e.changedTouches[0].clientY - (e.touches[0]?.clientY || 0))) {
-            if (diff > 0 && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
-            else if (diff < 0 && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
+          const diffX = touchStart.x - e.changedTouches[0].clientX;
+          const diffY = touchStart.y - e.changedTouches[0].clientY;
+          if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0 && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
+            else if (diffX < 0 && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
           }
           setTouchStart(null);
         }}
@@ -95,10 +96,11 @@ export default function ProductImageGallery({
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2" role="list">
           {images.slice(0, 5).map((img, i) => (
             <button
               key={i}
+              role="listitem"
               onClick={() => onImageSelect(i)}
               aria-label={`${name} Bild ${i + 1} anzeigen`}
               className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 ${
