@@ -238,30 +238,30 @@ export default function BestellungPage() {
 
   if (!mounted) {
     return (
-      <div className="container-hauselio py-20 text-center">
+      <main className="container-hauselio py-20 text-center">
         <h1 className="heading-2 mb-4 sr-only">Bestellung</h1>
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen…</p>
-      </div>
+      </main>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="container-hauselio py-20 text-center">
+      <main className="container-hauselio py-20 text-center">
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird weitergeleitet…</p>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <Link
           href="/warenkorb"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors mb-4"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Zurück zum Warenkorb
@@ -290,7 +290,7 @@ export default function BestellungPage() {
         </span>
         <div className="w-8 h-px bg-[var(--color-border)]" />
         <span className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
-          <span className="w-6 h-6 rounded-full bg-gray-200 text-[var(--color-text-muted)] flex items-center justify-center text-xs">
+          <span className="w-6 h-6 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] flex items-center justify-center text-xs">
             3
           </span>
           <span className="hidden sm:inline">Bestätigung</span>
@@ -299,21 +299,21 @@ export default function BestellungPage() {
 
       {/* Price change warnings */}
       {priceChanges.length > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6">
+        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600" />
-            <h2 className="font-bold text-amber-800">Preisänderungen</h2>
+            <AlertTriangle className="w-5 h-5 text-[var(--color-danger)]" />
+            <h2 className="font-bold text-[var(--color-danger)]">Preisänderungen</h2>
           </div>
-          <p className="text-sm text-amber-700 mb-3">
+          <p className="text-sm text-[var(--color-text-secondary)] mb-3">
             Die Preise einiger Artikel haben sich geändert:
           </p>
           <div className="space-y-2">
             {priceChanges.map((change) => (
               <div key={change.id} className="flex items-center justify-between text-sm">
-                <span className="text-amber-800">{change.name} × {change.quantity}</span>
+                <span className="text-[var(--color-text-primary)]">{change.name} × {change.quantity}</span>
                 <span>
-                  <span className="line-through text-amber-500 mr-2">{formatPrice(change.oldPrice * change.quantity)}</span>
-                  <span className="font-bold text-amber-800">{formatPrice(change.newPrice * change.quantity)}</span>
+                  <span className="line-through text-[var(--color-text-muted)] mr-2">{formatPrice(change.oldPrice * change.quantity)}</span>
+                  <span className="font-bold text-[var(--color-text-primary)]">{formatPrice(change.newPrice * change.quantity)}</span>
                 </span>
               </div>
             ))}
@@ -323,14 +323,14 @@ export default function BestellungPage() {
 
       {/* Invalid items warnings */}
       {invalidItems.length > 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
+        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <AlertTriangle className="w-5 h-5 text-red-600" />
-            <h2 className="font-bold text-red-800">Nicht verfügbare Artikel</h2>
+            <AlertTriangle className="w-5 h-5 text-[var(--color-danger)]" />
+            <h2 className="font-bold text-[var(--color-danger)]">Nicht verfügbare Artikel</h2>
           </div>
           <div className="space-y-1">
             {invalidItems.map((item) => (
-              <p key={item.id} className="text-sm text-red-700">{item.error}</p>
+              <p key={item.id} className="text-sm text-[var(--color-text-secondary)]">{item.error}</p>
             ))}
           </div>
         </div>
@@ -339,12 +339,12 @@ export default function BestellungPage() {
       <form onSubmit={handleSubmit}>
         {/* Error summary for screen readers */}
         {Object.keys(errors).length > 0 && (
-          <div role="alert" aria-live="polite" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
-            <p className="text-sm font-semibold text-red-800 mb-2">Bitte korrigieren Sie folgende Fehler:</p>
-            <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
+          <div role="alert" aria-live="polite" className="mb-6 p-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
+            <p className="text-sm font-semibold text-[var(--color-danger)] mb-2">Bitte korrigieren Sie folgende Fehler:</p>
+            <ul className="list-disc list-inside text-sm text-[var(--color-text-secondary)] space-y-1">
               {Object.entries(errors).map(([field, msg]) => (
                 <li key={field}>
-                  <a href={`#${field}`} className="underline hover:text-red-900">{msg}</a>
+                  <a href={`#${field}`} className="underline hover:text-[var(--color-text-primary)]">{msg}</a>
                 </li>
               ))}
             </ul>
@@ -452,7 +452,7 @@ export default function BestellungPage() {
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
-                    className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="DE">Deutschland</option>
                     <option value="AT">Österreich</option>
@@ -493,7 +493,7 @@ export default function BestellungPage() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[100px]"
+                className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[100px]"
                 placeholder="Besondere Wünsche oder Hinweise…"
               />
             </div>
@@ -507,9 +507,9 @@ export default function BestellungPage() {
               </h2>
 
               {/* Items */}
-              <div className="space-y-3 mb-6 max-h-64 overflow-y-auto">
+              <div className="space-y-3 mb-6 max-h-64 overflow-y-auto" role="list">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center gap-3">
+                  <div key={item.id} className="flex items-center gap-3" role="listitem">
                     <div className="w-12 h-12 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
                       <ProductImage
                         src={item.image}
@@ -551,7 +551,7 @@ export default function BestellungPage() {
                 <div className="border-t border-[var(--color-border-light)] pt-3">
                   <div className="flex justify-between">
                     <span className="font-semibold text-[var(--color-text-primary)]">Gesamt</span>
-                    <span className="font-bold text-2xl text-[var(--color-text-primary)] tabular-nums">
+                    <span className="font-bold text-xl text-[var(--color-text-primary)] tabular-nums">
                       {formatPrice(finalTotal)}
                     </span>
                   </div>
@@ -569,7 +569,7 @@ export default function BestellungPage() {
               </Button>
 
               {orderError && (
-                <div aria-live="polite" className="mt-4 bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
+                <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">
                   {orderError}
                 </div>
               )}
@@ -589,6 +589,6 @@ export default function BestellungPage() {
           </div>
         </div>
       </form>
-    </div>
+    </main>
   );
 }
