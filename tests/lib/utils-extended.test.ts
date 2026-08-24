@@ -53,7 +53,7 @@ describe("generateOrderNumber", () => {
 
   it("has correct format", () => {
     const orderNumber = generateOrderNumber();
-    expect(orderNumber).toMatch(/^HL-\d{6}-[0-9A-F]{4}$/);
+    expect(orderNumber).toMatch(/^HL-\d{6}-[0-9A-F]{8}$/);
   });
 
   it("generates unique numbers", () => {
