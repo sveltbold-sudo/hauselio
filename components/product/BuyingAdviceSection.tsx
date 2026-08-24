@@ -130,7 +130,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                     <h3 className="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
                       {advice.title}
                     </h3>
-                    <p className="text-[12px] text-[var(--color-text-muted)] mt-0.5">
+                    <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
                       {advice.subtitle}
                     </p>
                   </div>
@@ -141,7 +141,7 @@ export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData 
                   {advice.tips.map((tip, i) => (
                     <li key={i} className="flex items-start gap-1.5">
                       <Check className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0 mt-0.5" />
-                      <p className="text-[12px] text-[var(--color-text-secondary)] leading-tight">
+                      <p className="text-xs text-[var(--color-text-secondary)] leading-tight">
                         {tip}
                       </p>
                     </li>

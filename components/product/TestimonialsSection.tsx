@@ -101,7 +101,8 @@ export default async function TestimonialsSection() {
   return (
     <section className="section-py" aria-label="Kundenstimmen">
       <div className="container-hauselio">
-        <div className="text-center mb-8 md:mb-10">
+        {/* Header */}
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kundenstimmen</p>
           <h2 className="heading-2 mb-3">Was unsere Kunden sagen</h2>
           <p className="body-large max-w-2xl mx-auto">
@@ -114,7 +115,7 @@ export default async function TestimonialsSection() {
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {testimonials.map((t) => (
               <div key={t.id} className="snap-start shrink-0 w-[300px]">
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden">
+                <div className="bg-white rounded-2xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden hover:shadow-md transition-shadow duration-300">
                   {/* Quote mark */}
                   <div className="absolute top-3 right-4 text-6xl font-serif text-[var(--color-primary)]/10 leading-none select-none">&quot;</div>
                   {/* Stars */}

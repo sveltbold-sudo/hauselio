@@ -55,7 +55,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   return (
     <section className="section-py bg-white" aria-label="Kundenbewertungen">
       <div className="container-hauselio">
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
           <h2 className="heading-2">Was unsere Kunden sagen</h2>
           <p className="body-large mt-2">

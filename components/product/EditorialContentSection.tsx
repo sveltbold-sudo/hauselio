@@ -65,7 +65,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {items.map((content, i) => (
               <div key={i} className="snap-start shrink-0 w-[260px]">
-                <Link href={content.href} className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
+                <Link href={content.href} className="block bg-white rounded-xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image src={content.image} alt={content.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="260px" />
                     <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-white/90 backdrop-blur-sm text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-primary)] rounded-md">

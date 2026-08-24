@@ -74,10 +74,10 @@ export default function GuaranteeServiceSection() {
                     <Icon className={`w-5 h-5 ${guarantee.color}`} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[13px] text-[var(--color-text-primary)] mb-0.5">
+                    <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5">
                       {guarantee.title}
                     </h3>
-                    <p className="text-[12px] text-[var(--color-text-muted)] leading-snug">
+                    <p className="text-xs text-[var(--color-text-muted)] leading-snug">
                       {guarantee.description}
                     </p>
                   </div>
@@ -95,7 +95,7 @@ export default function GuaranteeServiceSection() {
                 <p className="text-2xl md:text-3xl font-extrabold text-white mb-0.5">
                   {stat.number}
                 </p>
-                <p className="text-[12px] text-white/80 font-medium">{stat.label}</p>
+                <p className="text-xs text-white/80 font-medium">{stat.label}</p>
               </div>
             ))}
           </div>

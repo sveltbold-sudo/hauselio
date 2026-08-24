@@ -30,7 +30,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Unsere Marken">
       <div className="container-hauselio">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-10">
+        <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Marken</p>
           <h2 className="heading-2">Unsere Premium-Marken</h2>
           <p className="body-large mt-2">
@@ -85,7 +85,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
               <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5 group-hover:text-[var(--color-primary)] transition-colors">
                 {brand.name}
               </h3>
-              <p className="text-[12px] text-[var(--color-text-muted)]">{brand.specialty}</p>
+              <p className="text-xs text-[var(--color-text-muted)]">{brand.specialty}</p>
             </Link>
           ))}
         </div>

@@ -80,7 +80,7 @@ export default function PressReviewsSection({
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {pressReviews.map((review, i) => (
               <div key={i} className="snap-start shrink-0 w-[280px]">
-                <div className="bg-white rounded-xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden">
+                <div className="bg-white rounded-xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
                     <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-secondary)] flex items-center justify-center">
@@ -144,7 +144,7 @@ export default function PressReviewsSection({
         </div>
 
         {/* CTA */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 md:mb-14 text-center">
           <Link
             href="/shop?sort=rating"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors"
