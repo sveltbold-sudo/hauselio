@@ -2,8 +2,9 @@ import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
-import ScrollToTop from "@/components/layout/ScrollToTop";
 import NewsletterForm from "@/components/layout/NewsletterForm";
+
+const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200";
 
 const service = [
   { name: "Kontakt", href: "/kontakt" },
@@ -116,18 +117,17 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Kategorien
             </h2>
-            <ul className="space-y-0" aria-label="Kategorien">
-              {footerCategories.map((cat) => (
-                <li key={cat.href}>
-                  <Link
-                    href={cat.href}
-                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Kategorien">
+              <ul className="space-y-0">
+                {footerCategories.map((cat) => (
+                  <li key={cat.href}>
+                    <Link href={cat.href} className={footerLinkClass}>
+                      {cat.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Service */}
@@ -135,18 +135,17 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Service
             </h2>
-            <ul className="space-y-0" aria-label="Service">
-              {service.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Service">
+              <ul className="space-y-0">
+                {service.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className={footerLinkClass}>
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Rechtliches + Contact */}
@@ -154,30 +153,29 @@ export default function Footer() {
             <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Rechtliches
             </h2>
-            <ul className="space-y-0 mb-6" aria-label="Rechtliches">
-              {legal.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="block px-2.5 py-2 min-h-[44px] flex items-center text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Rechtliches">
+              <ul className="space-y-0 mb-6">
+                {legal.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className={footerLinkClass}>
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             <div className="space-y-0">
               <a
                 href="mailto:support@hauselio.de"
-                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
                 <Mail className="w-3.5 h-3.5" />
                 support@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"
-                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-[13px] text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-200"
               >
                 <Phone className="w-3.5 h-3.5" />
                 +49 (0)30 555 789 01
@@ -210,11 +208,10 @@ export default function Footer() {
           </div>
           <p className="text-center text-[11px] text-white/30">Weitere Zahlungsmethoden folgen</p>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 mt-4">
             <p className="text-xs text-white/50">
-              © 2026 HAUSELIO. Alle Rechte vorbehalten.
+              © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
             </p>
-            <ScrollToTop />
           </div>
         </div>
       </div>
