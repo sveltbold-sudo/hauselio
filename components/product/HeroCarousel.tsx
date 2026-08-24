@@ -147,7 +147,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       }}
     >
       {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative h-[85vh] min-h-[500px] max-h-[700px]" aria-live="polite">
+      <div className="lg:hidden relative h-[85vh] min-h-[500px] max-h-[700px]" aria-live="off">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -273,7 +273,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       </div>
 
       {/* ── DESKTOP: Split layout ── */}
-      <div className="hidden lg:block relative bg-white" aria-live="polite">
+      <div className="hidden lg:block relative bg-white" aria-live="off">
         <div className="absolute inset-0 z-0">
           <Image
             src={slide.bgImage || "/images/hero-kitchen.jpg"}
@@ -287,7 +287,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         </div>
 
         <div className="relative z-10 container-hauselio py-14 lg:py-16 xl:py-20">
-          <div key={current} className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
+          <div className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
             {/* Text */}
             <div>
               <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">

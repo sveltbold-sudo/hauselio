@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star, Award, ExternalLink, Quote } from "lucide-react";
+import { Award, ExternalLink } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface PressReview {
@@ -11,16 +11,6 @@ interface PressReview {
   category: string;
   product: string;
   borderColor: string;
-}
-
-interface CustomerReview {
-  name: string;
-  location: string;
-  rating: number;
-  text: string;
-  product: string;
-  verified: boolean;
-  date: string;
 }
 
 const defaultPressReviews: PressReview[] = [
@@ -66,16 +56,12 @@ const defaultPressReviews: PressReview[] = [
   },
 ];
 
-const defaultCustomerReviews: CustomerReview[] = [];
-
 interface PressReviewsSectionProps {
   pressReviews?: PressReview[];
-  customerReviews?: CustomerReview[];
 }
 
 export default function PressReviewsSection({
   pressReviews = defaultPressReviews,
-  customerReviews = defaultCustomerReviews,
 }: PressReviewsSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Pressestimmen">
@@ -156,82 +142,6 @@ export default function PressReviewsSection({
             </div>
           ))}
         </div>
-
-        {/* Customer Reviews — like Coolblue verified reviews */}
-        {customerReviews.length > 0 && (
-          <>
-            <div className="text-center mb-8">
-              <h3 className="heading-3">Kundenbewertungen</h3>
-              <p className="text-sm text-[var(--color-text-muted)] mt-1">
-                Verifizierte Käufer über ihre Erfahrung
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {customerReviews.map((review, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-xl p-5 border border-[var(--color-border-light)] animate-fade-in-up"
-                  style={{ animationDelay: `${i * 60}ms` }}
-                >
-                  {/* Stars + date */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-0.5">
-                      {[...Array(5)].map((_, j) => (
-                        <Star
-                          key={j}
-                          className={`w-3.5 h-3.5 ${
-                            j < review.rating
-                            ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
-                            : "text-[var(--color-star-empty)] fill-[var(--color-star-empty)]"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs text-[var(--color-text-muted)]">{review.date}</span>
-                  </div>
-
-                  {/* Quote */}
-                  <div className="relative mb-3">
-                    <Quote className="w-4 h-4 text-[var(--color-border-light)] absolute -top-1 -left-0.5" />
-                    <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed pl-5">
-                      {review.text}
-                    </p>
-                  </div>
-
-                  {/* Author + product */}
-                  <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-light)]">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-full bg-[var(--color-primary-50)] flex items-center justify-center">
-                        <span className="text-xs font-bold text-[var(--color-primary)]">
-                          {review.name.charAt(0)}
-                        </span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-xs text-[var(--color-text-primary)]">
-                          {review.name}
-                        </p>
-                        <p className="text-xs text-[var(--color-text-muted)]">
-                          {review.location}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-xs font-medium text-[var(--color-text-muted)] block">
-                        {review.product}
-                      </span>
-                      {review.verified && (
-                        <span className="text-xs font-bold text-[var(--color-success)]">
-                          ✓ Verifiziert
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
 
         {/* CTA */}
         <div className="mt-8 text-center">

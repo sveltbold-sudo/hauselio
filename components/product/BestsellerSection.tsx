@@ -65,8 +65,8 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
                 }`}>
                   {i + 1}
                 </div>
-                {/* Card with dark bg */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+                {/* Card */}
+                <div>
                   <ProductCard product={product} />
                 </div>
               </div>

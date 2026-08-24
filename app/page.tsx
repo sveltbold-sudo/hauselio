@@ -326,37 +326,37 @@ async function FeaturedProductsSection() {
 }
 
 export default async function HomePage() {
-  let dailyDeal: Awaited<ReturnType<typeof getDailyDeal>> = null;
-  let bestsellers: Awaited<ReturnType<typeof getBestsellers>> = [];
-  let recommended: Awaited<ReturnType<typeof getRecommended>> = [];
-  let heroSlides: Awaited<ReturnType<typeof getHeroSlides>> = [];
+  const [dailyDeal, bestsellers, recommended, heroSlides] = await Promise.allSettled([
+    getDailyDeal(),
+    getBestsellers(),
+    getRecommended(),
+    getHeroSlides(),
+  ]);
 
-  try {
-    [dailyDeal, bestsellers, recommended, heroSlides] = await Promise.all([
-      getDailyDeal(),
-      getBestsellers(),
-      getRecommended(),
-      getHeroSlides(),
-    ]);
+  const dealValue = dailyDeal.status === "fulfilled" ? dailyDeal.value : null;
+  const bestsellersValue = bestsellers.status === "fulfilled" ? bestsellers.value : [];
+  let recommendedValue = recommended.status === "fulfilled" ? recommended.value : [];
+  const heroSlidesValue = heroSlides.status === "fulfilled" ? heroSlides.value : [];
 
-    // Exclude daily deal from bestsellers to avoid duplication
-    if (dailyDeal) {
-      const dealSlug = dailyDeal.slug;
-      bestsellers = bestsellers.filter((b) => b.slug !== dealSlug);
-      heroSlides = heroSlides.filter((h) => h.slug !== dealSlug);
-    }
-  } catch (error) {
-    logger.error("Failed to fetch homepage data", error);
+  if (dailyDeal.status === "rejected") logger.error("Failed to fetch daily deal", dailyDeal.reason);
+  if (bestsellers.status === "rejected") logger.error("Failed to fetch bestsellers", bestsellers.reason);
+  if (recommended.status === "rejected") logger.error("Failed to fetch recommended", recommended.reason);
+  if (heroSlides.status === "rejected") logger.error("Failed to fetch hero slides", heroSlides.reason);
+
+  if (dealValue) {
+    const dealSlug = dealValue.slug;
+    bestsellersValue.filter((b) => b.slug !== dealSlug);
+    recommendedValue = recommendedValue.filter((r) => r.slug !== dealSlug);
   }
 
   return (
-    <div>
+    <main>
       <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte aus Deutschland</h1>
-      <HeroCarousel slides={heroSlides.length > 0 ? heroSlides : undefined} />
+      <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
       <ValuePropsSection />
 
       {/* Deal of the Day — like MediaMarkt/Saturn */}
-      {dailyDeal && <DailyDealBanner product={dailyDeal} />}
+      {dealValue && <DailyDealBanner product={dealValue} />}
 
       <section className="section-py">
         <div className="container-hauselio">
@@ -374,10 +374,10 @@ export default async function HomePage() {
       </section>
 
       {/* Bestseller — like all competitors */}
-      {bestsellers.length > 0 && <BestsellerSection products={bestsellers} />}
+      {bestsellersValue.length > 0 && <BestsellerSection products={bestsellersValue} />}
 
       {/* Für Sie empfohlen — personalized */}
-      {recommended.length > 0 && <RecommendedSection products={recommended} />}
+      {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
 
       <section className="section-py bg-[var(--color-bg-secondary)]">
         <div className="container-hauselio">
@@ -416,6 +416,6 @@ export default async function HomePage() {
         <CustomerReviewsSection />
       </Suspense>
       <NewsletterSection />
-    </div>
+    </main>
   );
 }
