@@ -137,7 +137,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
 
             <button
               onClick={handleAddBundle}
-              className={`w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-colors transition-shadow duration-300 ${
+              className={`w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 addedBundle
                   ? "bg-[var(--color-success)] text-white"
                   : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-[var(--color-primary)]/15"

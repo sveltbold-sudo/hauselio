@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function WiderrufPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Widerruf" }]} />
       <h1 className="heading-1 mb-8">Widerrufsbelehrung</h1>
 
       <div className="prose-hauselio space-y-8">
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Widerrufsrecht</h2>
+          <h2 className="heading-3 mb-3">Widerrufsrecht</h2>
           <p className="text-[var(--color-text-secondary)]">
             Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu
             widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen
@@ -45,7 +45,7 @@ export default function WiderrufPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Folgen des Widerrufs</h2>
+          <h2 className="heading-3 mb-3">Folgen des Widerrufs</h2>
           <p className="text-[var(--color-text-secondary)]">
             Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten
             haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus
@@ -85,7 +85,7 @@ export default function WiderrufPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Ausschluss bzw. vorzeitiges Erlöschen des Widerrufsrechts</h2>
+          <h2 className="heading-3 mb-3">Ausschluss bzw. vorzeitiges Erlöschen des Widerrufsrechts</h2>
           <p className="text-[var(--color-text-secondary)]">
             Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung versiegelter Waren, die aus
             Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind, wenn ihre
@@ -94,7 +94,7 @@ export default function WiderrufPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Muster-Widerrufsformular</h2>
+          <h2 className="heading-3 mb-3">Muster-Widerrufsformular</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 border-2 border-dashed border-[var(--color-border)]">
             <p className="text-[var(--color-text-secondary)] mb-4">
               (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und
@@ -114,6 +114,6 @@ export default function WiderrufPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

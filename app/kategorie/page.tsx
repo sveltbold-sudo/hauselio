@@ -55,12 +55,12 @@ export default async function KategoriePage() {
         ]}
       />
 
-      <main className="container-hauselio py-12">
+      <div className="container-hauselio py-12">
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 
           <h1 className="heading-1 mb-3">Unsere Kategorien</h1>
-          <p className="text-[var(--color-text-secondary)] text-lg max-w-2xl">
+          <p className="body-large max-w-2xl">
             Entdecken Sie unser Sortiment an Premium-Haushaltsgeräten. Finden Sie das perfekte Gerät für Ihr Zuhause.
           </p>
         </div>
@@ -90,7 +90,7 @@ export default async function KategoriePage() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <h2 className="text-xl font-bold text-white mb-1">{cat.name}</h2>
+                  <h2 className="heading-3 text-white mb-1">{cat.name}</h2>
                   <p className="text-white/80 text-sm">
                     {cat._count.products} {cat._count.products === 1 ? "Produkt" : "Produkte"}
                   </p>
@@ -110,7 +110,7 @@ export default async function KategoriePage() {
             </Link>
           ))}
         </div>
-      </main>
+      </div>
     </>
   );
 }

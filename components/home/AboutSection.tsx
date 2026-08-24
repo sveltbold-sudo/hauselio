@@ -30,7 +30,7 @@ export default function AboutSection() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/ueber-uns"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-blue-500/20"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-[var(--color-primary)]/20"
               >
                 Mehr über uns
                 <ArrowRight className="w-4 h-4" />

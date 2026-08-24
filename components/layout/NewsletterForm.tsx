@@ -40,7 +40,7 @@ export default function NewsletterForm() {
         </button>
       </form>
       {error && (
-        <p className="text-xs text-red-400 mt-2" role="alert">{error}</p>
+        <p className="text-xs text-[var(--color-danger)] mt-2" role="alert">{error}</p>
       )}
     </>
   );

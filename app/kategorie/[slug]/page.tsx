@@ -103,7 +103,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           }),
         }}
       />
-      <main>
+      <div>
         <CategoryPage
           slug={slug}
           title={category.name}
@@ -112,7 +112,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           sort={sort}
           brand={brand}
         />
-      </main>
+      </div>
     </>
   );
 }

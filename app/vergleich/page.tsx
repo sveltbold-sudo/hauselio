@@ -61,7 +61,7 @@ export default function VergleichPage() {
   }
 
   return (
-    <main className="container-hauselio section-py">
+    <div className="container-hauselio section-py">
       <Breadcrumb items={[{ label: "Produktvergleich" }]} />
 
       <div className="flex items-center justify-between mb-8">
@@ -79,7 +79,7 @@ export default function VergleichPage() {
         </div>
         {products.length > 0 && (
           <button
-            onClick={clearAll}
+            onClick={() => { if (!window.confirm("Vergleich wirklich leeren?")) return; clearAll(); }}
             className="flex items-center gap-1.5 text-sm min-h-[44px] px-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
           >
             <Trash2 className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function VergleichPage() {
           <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
             <BarChart3 className="w-10 h-10 text-[var(--color-text-muted)]" />
           </div>
-          <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+          <h2 className="heading-3 mb-2">
             Produkte vergleichen
           </h2>
           <p className="text-[var(--color-text-muted)] mb-6 max-w-md mx-auto">
@@ -211,6 +211,6 @@ export default function VergleichPage() {
           </table>
         </div>
       )}
-    </main>
+    </div>
   );
 }

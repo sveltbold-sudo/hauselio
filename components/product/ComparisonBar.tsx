@@ -33,7 +33,7 @@ export default function ComparisonBar() {
       } catch {}
     }
 
-    const handleStorageChange = () => {
+    const handleUpdate = () => {
       const updated = localStorage.getItem("hauselio-comparison");
       if (updated) {
         try {
@@ -45,8 +45,12 @@ export default function ComparisonBar() {
       }
     };
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    window.addEventListener("storage", handleUpdate);
+    window.addEventListener("comparison-updated", handleUpdate);
+    return () => {
+      window.removeEventListener("storage", handleUpdate);
+      window.removeEventListener("comparison-updated", handleUpdate);
+    };
   }, []);
 
   const removeProduct = (id: string) => {
@@ -108,7 +112,7 @@ export default function ComparisonBar() {
             {products.length >= 2 && (
               <Link
                 href={`/vergleich?ids=${products.map((p) => p.id).join(",")}`}
-                className="flex items-center gap-1 px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+                className="flex items-center gap-1 px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 Vergleichen
                 <ArrowRight className="w-3 h-3" />

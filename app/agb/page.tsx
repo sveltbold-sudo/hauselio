@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function AGBPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "AGB" }]} />
       <h1 className="heading-1 mb-8">Allgemeine Geschäftsbedingungen</h1>
 
       <div className="prose-hauselio space-y-8">
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 1 Geltungsbereich</h2>
+          <h2 className="heading-3 mb-3">§ 1 Geltungsbereich</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Diese Allgemeinen Geschäftsbedingungen (nachfolgend &quot;AGB&quot;) der HAUSELIO GmbH (nachfolgend
             &quot;Verkäufer&quot;) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend
@@ -36,7 +36,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 2 Zustandekommen des Vertrages</h2>
+          <h2 className="heading-3 mb-3">§ 2 Zustandekommen des Vertrages</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot des
             Verkäufers dar, sondern dient dazu, dem Kunden ein unverbindliches Angebot abzugeben.
@@ -60,7 +60,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 3 Preise und Zahlungsbedingungen</h2>
+          <h2 className="heading-3 mb-3">§ 3 Preise und Zahlungsbedingungen</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Die in den Produktbeschreibungen dargestellten Preise sind Endpreise und enthalten die
             gesetzliche Mehrwertsteuer. Zusätzlich fallen eventuell Lieferkosten an, die auf der
@@ -73,7 +73,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 4 Lieferung</h2>
+          <h2 className="heading-3 mb-3">§ 4 Lieferung</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Die Lieferung erfolgt innerhalb Deutschlands an die vom Kunden angegebene Lieferadresse,
             sofern nichts anderes vereinbart wurde.
@@ -88,7 +88,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 5 Widerrufsrecht</h2>
+          <h2 className="heading-3 mb-3">§ 5 Widerrufsrecht</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Verbraucher haben ein vierzehntägiges Widerrufsrecht.
           </p>
@@ -103,7 +103,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 6 Gewährleistung</h2>
+          <h2 className="heading-3 mb-3">§ 6 Gewährleistung</h2>
           <p className="text-[var(--color-text-secondary)]">
             (1) Das gesetzliche Mängelhaftungsrecht gilt.
           </p>
@@ -120,7 +120,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 7 Salvatorische Klausel</h2>
+          <h2 className="heading-3 mb-3">§ 7 Salvatorische Klausel</h2>
           <p className="text-[var(--color-text-secondary)]">
             Sollten einzelne Bestimmungen dieses Vertrages unwirksam sein oder werden, so bleibt die
             Wirksamkeit des Vertrages im Übrigen hiervon unberührt. Anstelle der unwirksamen Bestimmung
@@ -130,7 +130,7 @@ export default function AGBPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">§ 8 Gerichtsstand</h2>
+          <h2 className="heading-3 mb-3">§ 8 Gerichtsstand</h2>
           <p className="text-[var(--color-text-secondary)]">
             Es gilt deutsches Recht. Erfüllungsort sowie ausschließlicher Gerichtsstand ist Berlin, sofern
             der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches
@@ -138,6 +138,6 @@ export default function AGBPage() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

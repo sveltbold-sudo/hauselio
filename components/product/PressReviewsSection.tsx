@@ -32,7 +32,7 @@ const defaultPressReviews: PressReview[] = [
     excerpt: "Der De'Longhi Magnifica Evo überzeugt mit erstklassiger Kaffeequalität und einfachster Bedienung.",
     category: "Kaffeevollautomaten",
     product: "De'Longhi Magnifica Evo",
-    borderColor: "border-l-blue-500",
+    borderColor: "border-l-[var(--color-info)]",
   },
   {
     publication: "CHIP",
@@ -62,7 +62,7 @@ const defaultPressReviews: PressReview[] = [
     excerpt: "KitchenAid Artisan bietet premium Qualität zu fairem Preis – ideal für ambitionierte Hobbyköche.",
     category: "Küchenmaschinen",
     product: "KitchenAid Artisan",
-    borderColor: "border-l-purple-500",
+    borderColor: "border-l-[var(--color-primary-light)]",
   },
 ];
 

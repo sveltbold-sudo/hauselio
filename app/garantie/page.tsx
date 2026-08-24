@@ -68,7 +68,7 @@ export default function GarantiePage() {
         ]}
       />
 
-      <main className="container-hauselio py-8 sm:py-12 max-w-4xl">
+      <div className="container-hauselio py-8 sm:py-12 max-w-4xl">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
@@ -93,7 +93,7 @@ export default function GarantiePage() {
         </div>
 
         <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-6 sm:p-8 mb-10 sm:mb-16">
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-8 text-center">So melden Sie einen Garantiefall</h2>
+          <h2 className="heading-3 mb-8 text-center">So melden Sie einen Garantiefall</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {guaranteeSteps.map((step) => (
               <div key={step.step} className="text-center">
@@ -109,7 +109,7 @@ export default function GarantiePage() {
 
         <div className="prose-hauselio space-y-6 sm:space-y-8 mb-10 sm:mb-16">
           <section>
-            <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Gesetzliche Gewährleistung</h2>
+            <h2 className="heading-3 mb-3">Gesetzliche Gewährleistung</h2>
             <p className="text-[var(--color-text-secondary)]">
               Alle Produkte unterliegen der gesetzlichen Gewährleistung von 24 Monaten ab Lieferung. Innerhalb dieser
               Zeit haben Sie das Recht auf Reparatur, Ersatzlieferung oder Minderung des Kaufpreises bei
@@ -118,7 +118,7 @@ export default function GarantiePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Erweiterte Garantie</h2>
+            <h2 className="heading-3 mb-3">Erweiterte Garantie</h2>
             <p className="text-[var(--color-text-secondary)]">
               Für ausgewählte Produkte bieten wir eine optionale erweiterte Garantie an. Diese kann direkt beim Kauf
               für 1-3 weitere Jahre gebucht werden. Die erweiterte Garantie deckt die gleichen Mängel ab wie die
@@ -127,7 +127,7 @@ export default function GarantiePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Ausschlüsse</h2>
+            <h2 className="heading-3 mb-3">Ausschlüsse</h2>
             <p className="text-[var(--color-text-secondary)]">
               Die Garantie umfasst keine Schäden durch unsachgemäße Verwendung, sportliche Aktivitäten,
               Wasserschäden durch Überschwemmungen, Brandschäden oder andere äußere Einwirkungen. Ebenso ausgeschlossen
@@ -137,7 +137,7 @@ export default function GarantiePage() {
         </div>
 
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 sm:p-8">
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">Kontaktieren Sie uns</h2>
+          <h2 className="heading-3 mb-4">Kontaktieren Sie uns</h2>
           <p className="text-[var(--color-text-secondary)] mb-6">
             Haben Sie Fragen zur Garantie? Unser Service-Team hilft Ihnen gerne weiter.
           </p>
@@ -174,7 +174,7 @@ export default function GarantiePage() {
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

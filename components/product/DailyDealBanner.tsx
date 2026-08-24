@@ -111,7 +111,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               {/* CTA */}
               <Link
                 href={`/produkt/${product.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[var(--color-danger)] font-bold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-shadow transition-transform duration-300 shadow-lg w-fit"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[var(--color-danger)] font-bold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-shadow transition-transform duration-300 shadow-lg w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 Jetzt sichern
                 <ArrowRight className="w-4 h-4" />

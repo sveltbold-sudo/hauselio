@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Datenschutz" }]} />
       <h1 className="heading-1 mb-8">Datenschutzerklärung</h1>
 
       <div className="prose-hauselio space-y-8">
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">1. Datenschutz auf einen Blick</h2>
+          <h2 className="heading-3 mb-3">1. Datenschutz auf einen Blick</h2>
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Allgemeine Hinweise</h3>
           <p className="text-[var(--color-text-secondary)]">
             Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen
@@ -27,7 +27,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">2. Verantwortliche Stelle</h2>
+          <h2 className="heading-3 mb-3">2. Verantwortliche Stelle</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
@@ -38,7 +38,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">3. Datenerfassung auf dieser Website</h2>
+          <h2 className="heading-3 mb-3">3. Datenerfassung auf dieser Website</h2>
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Server-Log-Dateien</h3>
           <p className="text-[var(--color-text-secondary)]">
             Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten
@@ -50,7 +50,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">4. Cookies</h2>
+          <h2 className="heading-3 mb-3">4. Cookies</h2>
           <p className="text-[var(--color-text-secondary)]">
             Die Internetseiten nutzen teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen
             Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher,
@@ -65,7 +65,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">5. Kontaktformular</h2>
+          <h2 className="heading-3 mb-3">5. Kontaktformular</h2>
           <p className="text-[var(--color-text-secondary)]">
             Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
             Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der
@@ -75,7 +75,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">6. Bestellvorgang</h2>
+          <h2 className="heading-3 mb-3">6. Bestellvorgang</h2>
           <p className="text-[var(--color-text-secondary)]">
             Beim Bestellvorgang werden Ihre Daten zur Abwicklung des Kaufvertrags erhoben und verarbeitet.
             Dies umfasst insbesondere:
@@ -94,7 +94,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">7. Zahlungsabwicklung</h2>
+          <h2 className="heading-3 mb-3">7. Zahlungsabwicklung</h2>
           <p className="text-[var(--color-text-secondary)]">
             Wir bieten ausschließlich die Zahlungsart SEPA-Überweisung an. Bei dieser Zahlungsart erfolgt die
             Zahlungsabwicklung über unseren Zahlungsdienstleister. Ihre Zahlungsdaten werden ausschließlich
@@ -103,7 +103,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">8. Newsletter</h2>
+          <h2 className="heading-3 mb-3">8. Newsletter</h2>
           <p className="text-[var(--color-text-secondary)]">
             Wenn Sie den auf der Website angebotenen Newsletter beziehen wollen, benötigen wir von Ihnen eine
             E-Mail-Adresse sowie Informationen, die uns die Überprüfung gestatten, dass Sie der Inhaber der
@@ -117,7 +117,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">9. Ihre Rechte</h2>
+          <h2 className="heading-3 mb-3">9. Ihre Rechte</h2>
           <p className="text-[var(--color-text-secondary)]">
             Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer
             gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung
@@ -128,7 +128,7 @@ export default function DatenschutzPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">10. Beschwerderecht</h2>
+          <h2 className="heading-3 mb-3">10. Beschwerderecht</h2>
           <p className="text-[var(--color-text-secondary)]">
             Im Falle einer Verletzung des Datenschutzes können Sie sich bei der zuständigen
             Aufsichtsbehörde beschweren. Die zuständige Aufsichtsbehörde für datenschutzrechtliche Fragen
@@ -136,6 +136,6 @@ export default function DatenschutzPage() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

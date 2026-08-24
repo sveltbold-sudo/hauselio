@@ -49,7 +49,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
         </div>
 
         {/* Mobile: dark luxe horizontal scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-secondary)] via-[#1a1f36] to-[var(--color-secondary)] py-6 -mt-6">
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={8000}>
             {products.map((product, i) => (
               <div
@@ -58,9 +58,9 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               >
                 {/* Rank badge — premium gold */}
                 <div className={`absolute -top-2 -left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
-                  i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-amber-300/30" :
-                  i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-gray-300/30" :
-                  i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white shadow-amber-600/30" :
+                  i === 0 ? "bg-gradient-to-br from-[var(--color-star-filled)] to-amber-500 text-white" :
+                  i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
+                  i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :
                   "bg-[var(--color-primary)] text-white"
                 }`}>
                   {i + 1}

@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Impressum" }]} />
       <h1 className="heading-1 mb-8">Impressum</h1>
 
       <div className="prose-hauselio space-y-8">
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Angaben gemäß § 5 TMG</h2>
+          <h2 className="heading-3 mb-3">Angaben gemäß § 5 TMG</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
@@ -27,7 +27,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Kontakt</h2>
+          <h2 className="heading-3 mb-3">Kontakt</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
             <p className="text-[var(--color-text-secondary)]">E-Mail: info@hauselio.de</p>
@@ -36,12 +36,12 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Vertreten durch</h2>
+          <h2 className="heading-3 mb-3">Vertreten durch</h2>
           <p className="text-[var(--color-text-secondary)]">Geschäftsführer: Thomas Brenner</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Registereintrag</h2>
+          <h2 className="heading-3 mb-3">Registereintrag</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">Registergericht: Amtsgericht Berlin-Charlottenburg</p>
             <p className="text-[var(--color-text-secondary)]">Registernummer: HRB 204817</p>
@@ -49,7 +49,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Umsatzsteuer-ID</h2>
+          <h2 className="heading-3 mb-3">Umsatzsteuer-ID</h2>
           <p className="text-[var(--color-text-secondary)]">
             Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
           </p>
@@ -57,7 +57,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Streitschlichtung</h2>
+          <h2 className="heading-3 mb-3">Streitschlichtung</h2>
           <p className="text-[var(--color-text-secondary)]">
             Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
             <a
@@ -76,7 +76,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Haftung für Inhalte</h2>
+          <h2 className="heading-3 mb-3">Haftung für Inhalte</h2>
           <p className="text-[var(--color-text-secondary)]">
             Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den
             allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
@@ -86,7 +86,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Haftung für Links</h2>
+          <h2 className="heading-3 mb-3">Haftung für Links</h2>
           <p className="text-[var(--color-text-secondary)]">
             Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
             Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
@@ -95,7 +95,7 @@ export default function ImpressumPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Urheberrecht</h2>
+          <h2 className="heading-3 mb-3">Urheberrecht</h2>
           <p className="text-[var(--color-text-secondary)]">
             Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
             Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
@@ -103,6 +103,6 @@ export default function ImpressumPage() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

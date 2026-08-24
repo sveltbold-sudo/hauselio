@@ -135,7 +135,7 @@ export default function HeaderClient() {
                   className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-colors duration-200 ${
                     activeMega === cat.href
                       ? "text-[var(--color-primary)] bg-[var(--color-primary-50)]"
-                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-gray-50"
+                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)]"
                   }`}
                 >
                   {cat.name}
@@ -217,7 +217,7 @@ export default function HeaderClient() {
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-50 border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-gray-100 transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-bg-secondary)] transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche öffnen"
             >
               <Search className="w-4 h-4 shrink-0" />
@@ -276,7 +276,7 @@ export default function HeaderClient() {
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Menü schließen"
-                className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>

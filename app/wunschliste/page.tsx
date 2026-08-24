@@ -20,7 +20,7 @@ export default function WishlistPage() {
 
   if (!mounted) {
     return (
-    <div className="container-hauselio py-16">
+    <div className="container-hauselio py-12">
       <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded" />
           <div className="h-4 w-32 bg-[var(--color-bg-secondary)] rounded" />
@@ -30,7 +30,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <main className="container-hauselio py-12">
+    <div className="container-hauselio py-12">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Wunschliste" }]} />
 
       <p className="caption text-[var(--color-primary)] mb-3">Meine Wünsche</p>
@@ -44,7 +44,7 @@ export default function WishlistPage() {
         </div>
         {items.length > 0 && (
           <button
-            onClick={clearWishlist}
+            onClick={() => { if (!window.confirm("Wirklich alle Produkte von der Wunschliste entfernen?")) return; clearWishlist(); }}
             className="text-sm min-h-[44px] flex items-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
           >
             Alle entfernen
@@ -57,7 +57,7 @@ export default function WishlistPage() {
           <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
             <Heart className="w-10 h-10 text-[var(--color-text-muted)]" />
           </div>
-          <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+          <h2 className="heading-3 mb-2">
             Ihre Wunschliste ist leer
           </h2>
           <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
@@ -137,6 +137,6 @@ export default function WishlistPage() {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }

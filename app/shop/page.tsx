@@ -177,7 +177,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <main className="container-hauselio py-6 sm:py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -273,7 +273,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
                   <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
                 </div>
-                <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+                <h2 className="heading-3 mb-2">
                   Keine Produkte gefunden
                 </h2>
                 <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
@@ -352,7 +352,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </div>
       </div>
       <MobileShopBar totalProducts={total} />
-    </main>
+    </div>
   );
 }
 

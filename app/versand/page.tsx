@@ -31,7 +31,7 @@ const shippingMethods = [
 
 export default function VersandPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <div className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
@@ -39,7 +39,7 @@ export default function VersandPage() {
 
       {/* Versandarten */}
       <section className="mb-8 sm:mb-12">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+        <h2 className="heading-3 mb-6">
           Versandarten & Kosten
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,7 +85,7 @@ export default function VersandPage() {
 
       {/* Lieferung */}
       <section className="mb-8 sm:mb-12">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+        <h2 className="heading-3 mb-6">
           Lieferung
         </h2>
         <div className="space-y-4">
@@ -110,7 +110,7 @@ export default function VersandPage() {
 
       {/* Zahlung */}
       <section className="mb-8 sm:mb-12">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+        <h2 className="heading-3 mb-6">
           Zahlungsarten
         </h2>
         <div className="bg-[var(--color-bg)] rounded-xl p-6">
@@ -135,7 +135,7 @@ export default function VersandPage() {
 
       {/* Sendungsverfolgung */}
       <section className="mb-8 sm:mb-12">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+        <h2 className="heading-3 mb-6">
           Sendungsverfolgung
         </h2>
         <p className="text-[var(--color-text-secondary)] leading-relaxed">
@@ -147,7 +147,7 @@ export default function VersandPage() {
 
       {/* Kontakt */}
       <section>
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-6">
+        <h2 className="heading-3 mb-6">
           Fragen zum Versand?
         </h2>
         <p className="text-[var(--color-text-secondary)] leading-relaxed">
@@ -166,6 +166,6 @@ export default function VersandPage() {
           </p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

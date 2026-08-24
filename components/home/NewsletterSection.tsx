@@ -30,7 +30,7 @@ export default function NewsletterSection() {
 
         {isSubscribed ? (
           <div className="flex items-center justify-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-xl max-w-md mx-auto">
-            <Check className="w-5 h-5 text-green-400" />
+            <Check className="w-5 h-5 text-[var(--color-success)]" />
             <span className="text-white font-semibold text-sm">
               Vielen Dank! Bitte bestätigen Sie Ihre E-Mail-Adresse.
             </span>

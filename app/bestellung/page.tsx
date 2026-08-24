@@ -155,6 +155,7 @@ export default function BestellungPage() {
           removeItem(inv.id);
         }
       } catch {
+        setOrderError("Preisüberprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.");
       } finally {
         setIsValidating(false);
       }
@@ -255,7 +256,7 @@ export default function BestellungPage() {
   }
 
   return (
-    <main className="container-hauselio py-6 sm:py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <Link
@@ -355,7 +356,7 @@ export default function BestellungPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Contact */}
             <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
+              <h2 className="heading-3 mb-5">
                 Kontaktdaten
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -384,7 +385,7 @@ export default function BestellungPage() {
 
             {/* Shipping */}
             <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
+              <h2 className="heading-3 mb-5">
                 Lieferadresse
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -451,7 +452,7 @@ export default function BestellungPage() {
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
-                    className="block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="DE">Deutschland</option>
                     <option value="AT">Österreich</option>
@@ -463,7 +464,7 @@ export default function BestellungPage() {
 
             {/* Payment method */}
             <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-5">
+              <h2 className="heading-3 mb-5">
                 Zahlungsart
               </h2>
               <div className="bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-4">
@@ -492,7 +493,7 @@ export default function BestellungPage() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 rows={3}
-                className="block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[100px]"
+                className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50 resize-none min-h-[100px]"
                 placeholder="Besondere Wünsche oder Hinweise…"
               />
             </div>
@@ -501,7 +502,7 @@ export default function BestellungPage() {
           {/* Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 sticky top-24">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
+              <h2 className="heading-3 mb-6">
                 Ihre Bestellung
               </h2>
 
@@ -588,6 +589,6 @@ export default function BestellungPage() {
           </div>
         </div>
       </form>
-    </main>
+    </div>
   );
 }

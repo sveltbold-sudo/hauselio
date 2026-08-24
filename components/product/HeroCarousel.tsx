@@ -208,7 +208,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 {/* CTA */}
                 <Link
                   href={`/produkt/${s.slug}`}
-                  className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-white text-[var(--color-text-primary)] shadow-xl active:scale-[0.97] transition-all duration-200"
+                  className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-white text-[var(--color-text-primary)] shadow-xl active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                 >
                   {s.cta || "Jetzt bestellen"}
                   <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -320,7 +320,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               <div className="flex flex-wrap gap-3 mb-7">
                 <Link
                   href={`/produkt/${slide.slug}`}
-                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl active:scale-[0.97] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
                 >
                   {slide.cta || "Jetzt bestellen"}
                   <ArrowRight className="w-4 h-4 ml-1.5" />

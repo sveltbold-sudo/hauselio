@@ -92,7 +92,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
                   <span className="text-xs font-medium w-8">{dist.stars}★</span>
                   <div className="flex-1 h-2 bg-[var(--color-border-light)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-amber-400 rounded-full transition-transform duration-500"
+                      className="h-full bg-[var(--color-star-filled)] rounded-full transition-transform duration-500"
                       style={{ width: `${dist.percentage}%` }}
                       role="meter"
                       aria-valuenow={dist.percentage}

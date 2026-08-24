@@ -4,7 +4,7 @@ import { Home, Search, ShoppingBag, Star, Truck, Shield } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="container-hauselio py-12 lg:py-20">
+    <div className="container-hauselio py-12 lg:py-20">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Image
           src="/images/illustrations/404.svg"
@@ -17,7 +17,7 @@ export default function NotFound() {
         <p className="body-large mb-4">
           Die gesuchte Seite existiert nicht oder wurde verschoben.
         </p>
-        <p className="text-lg text-[var(--color-text-secondary)] mb-8">
+        <p className="body-large mb-8">
           Aber keine Sorge — wir haben <strong>Tausende hochwertige Haushaltsgeräte</strong> für Sie parat.
         </p>
 
@@ -31,12 +31,12 @@ export default function NotFound() {
                 name="q"
                 id="search-404"
                 placeholder="Was suchen Sie? (z.B. Kaffeemaschine, Staubsauger...)"
-                className="w-full pl-12 pr-4 py-4 border border-[var(--color-border-light)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] shadow-sm"
+                className="w-full pl-12 pr-4 py-3 border border-[var(--color-border-light)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] shadow-sm"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-4 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-blue-500/20"
+              className="px-6 py-4 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-[var(--color-primary)]/20"
             >
               Suchen
             </button>
@@ -79,7 +79,7 @@ export default function NotFound() {
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/"
-          className="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-blue-500/20"
+          className="inline-flex items-center justify-center px-6 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-primary-hover)] transition-colors shadow-lg shadow-[var(--color-primary)]/20"
         >
           <Home className="w-5 h-5 mr-2" />
           Zurück zur Startseite
@@ -92,6 +92,6 @@ export default function NotFound() {
           Kompletten Shop durchstöbern
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

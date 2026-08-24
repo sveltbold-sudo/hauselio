@@ -17,6 +17,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
      
@@ -38,7 +39,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
       if (e.key === "Tab") {
-        const focusable = document.querySelectorAll('[role="dialog"] button, [role="dialog"] a');
+        const focusable = dialogRef.current?.querySelectorAll('[role="dialog"] button, [role="dialog"] a') || document.querySelectorAll('[role="dialog"] button, [role="dialog"] a');
         if (focusable.length === 0) return;
         const first = focusable[0] as HTMLElement;
         const last = focusable[focusable.length - 1] as HTMLElement;
@@ -64,6 +65,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
 
   return (
     <div
+      ref={dialogRef}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in-up"
       onClick={onClose}
       role="dialog"

@@ -110,7 +110,7 @@ export default function MiniCart() {
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Warenkorb schließen"
-              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
             >
               <X className="w-5 h-5" />
             </button>
@@ -119,7 +119,7 @@ export default function MiniCart() {
           {/* Items */}
           {items.length === 0 ? (
             <div className="p-10 text-center">
-              <ShoppingBag className="w-12 h-12 text-gray-200 mx-auto mb-3" />
+              <ShoppingBag className="w-12 h-12 text-[var(--color-border)] mx-auto mb-3" />
               <p className="text-[var(--color-text-muted)] font-medium">
                 Ihr Warenkorb ist leer
               </p>
@@ -137,7 +137,7 @@ export default function MiniCart() {
               <div className="max-h-80 overflow-y-auto p-5 space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 border border-[var(--color-border-light)]">
+                    <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">
                       <ProductImage src={item.image} alt={item.name} size="sm" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -154,7 +154,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.max(1, item.quantity - 1))
                         }
                         aria-label="Menge verringern"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-l-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -166,7 +166,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.min(99, item.quantity + 1))
                         }
                         aria-label="Menge erhöhen"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-50 rounded-r-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Plus className="w-3 h-3" />
                       </button>

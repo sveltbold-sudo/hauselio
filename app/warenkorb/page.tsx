@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main className="container-hauselio py-6 sm:py-8">
+    <div className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
@@ -191,7 +191,7 @@ export default function WarenkorbPage() {
         {/* Summary */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 sticky top-24">
-            <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-6">
+            <h2 className="heading-3 mb-6">
               Zusammenfassung
             </h2>
 
@@ -223,7 +223,7 @@ export default function WarenkorbPage() {
                   <p className="text-xs text-[var(--color-primary)] font-medium">
                     Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand
                   </p>
-                  <div className="mt-2 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="mt-2 h-1.5 bg-[var(--color-border-light)] rounded-full overflow-hidden">
                     <div
                       className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
                       style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
@@ -248,7 +248,7 @@ export default function WarenkorbPage() {
             </div>
 
             <Link href="/bestellung" className="block">
-              <Button className="w-full px-7 py-3.5 text-base shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:shadow-xl">
+              <Button className="w-full px-7 py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl">
                 <CreditCard className="w-5 h-5" />
                 Zur Kasse
               </Button>
@@ -273,6 +273,6 @@ export default function WarenkorbPage() {
         </div>
       </div>
       <CartCrossSell />
-    </main>
+    </div>
   );
 }

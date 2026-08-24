@@ -96,7 +96,7 @@ export default function OrderSuccessPage() {
         </p>
         <Link
           href="/shop"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           Zum Shop
           <ArrowRight className="w-5 h-5" />
@@ -106,7 +106,7 @@ export default function OrderSuccessPage() {
   }
 
   return (
-    <main className="container-hauselio py-16 text-center max-w-2xl mx-auto">
+    <div className="container-hauselio py-16 text-center max-w-2xl mx-auto">
       {/* Success Icon */}
       <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
         <Check className="w-10 h-10 text-[var(--color-success)]" />
@@ -342,7 +342,7 @@ export default function OrderSuccessPage() {
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/shop"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           Weiter einkaufen
           <ArrowRight className="w-5 h-5" />
@@ -354,6 +354,6 @@ export default function OrderSuccessPage() {
           Zurück zur Startseite
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

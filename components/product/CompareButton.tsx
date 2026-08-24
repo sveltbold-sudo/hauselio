@@ -65,6 +65,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
     localStorage.setItem("hauselio-comparison", JSON.stringify(items));
     setIsComparing(!isComparing);
     window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
   if (!mounted) return <div className="w-20 h-5" />;

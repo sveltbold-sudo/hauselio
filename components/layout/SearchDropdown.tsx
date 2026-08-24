@@ -131,7 +131,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                 aria-controls="search-results-list"
                 aria-autocomplete="list"
                 aria-activedescendant={activeIndex >= 0 ? `search-result-${activeIndex}` : undefined}
-                className="w-full pl-12 pr-12 py-4 bg-gray-50 border border-[var(--color-border)] rounded-2xl text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
+                className="w-full pl-12 pr-12 py-4 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
               />
               {query && (
                 <button
@@ -141,7 +141,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                     setResults([]);
                   }}
                   aria-label="Suche löschen"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -174,10 +174,10 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                         aria-selected={index === activeIndex}
                         onClick={() => handleSelect(hit.slug)}
                         className={`w-full flex items-center gap-4 p-3 rounded-xl transition-colors duration-200 text-left ${
-                          index === activeIndex ? "bg-gray-100" : "hover:bg-gray-50"
+                          index === activeIndex ? "bg-[var(--color-bg-secondary)]" : "hover:bg-[var(--color-bg-secondary)]"
                         }`}
                       >
-                        <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 border border-[var(--color-border-light)]">
+                        <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">
                           <ProductImage
                             src={hit.image}
                             alt={hit.name}
@@ -236,7 +236,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                         onClose();
                         setQuery("");
                       }}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 bg-gray-50 border-t border-[var(--color-border-light)] text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors"
+                      className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-light)] text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors"
                     >
                       Alle {nbHits} Ergebnisse ansehen
                       <ArrowRight className="w-4 h-4" />
