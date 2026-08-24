@@ -49,11 +49,11 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
         </div>
 
         {/* Mobile: soft pastel horizontal scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 py-6 -mt-6">
-          <MobileHorizontalScroll className="px-0" autoScrollInterval={9000}>
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-primary-50)] via-white to-[var(--color-accent)]/5 py-6 -mt-6">
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {products.map((product) => (
               <div key={product.id} className="snap-start shrink-0 w-[260px]">
-                <div className="bg-white rounded-2xl shadow-sm border border-pink-100/50 overflow-hidden hover:shadow-md transition-shadow">
+                <div className="bg-white rounded-2xl shadow-sm border border-[var(--color-border-light)] overflow-hidden hover:shadow-md transition-shadow">
                   <ProductCard product={product} />
                 </div>
               </div>
@@ -74,7 +74,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
         </div>
 
         <div className="mt-8 text-center md:hidden">
-          <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors">
+          <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors">
             Mehr entdecken
             <ArrowRight className="w-4 h-4" />
           </Link>

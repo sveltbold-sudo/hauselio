@@ -50,14 +50,14 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
 
         {/* Mobile: dark luxe horizontal scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6">
-          <MobileHorizontalScroll className="px-0" autoScrollInterval={8000}>
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {products.map((product, i) => (
               <div
                 key={product.id}
                 className="snap-start shrink-0 w-[260px] relative group"
               >
                 {/* Rank badge — premium gold */}
-                <div className={`absolute -top-2 -left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+                <div className={`absolute -top-2 -left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
                   i === 0 ? "bg-gradient-to-br from-[var(--color-star-filled)] to-amber-500 text-white" :
                   i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
                   i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :
@@ -80,7 +80,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               key={product.id}
               className="relative"
             >
-              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-lg ${
+              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
                 i === 0 ? "bg-gradient-to-br from-amber-400 to-amber-500 text-white" :
                 i === 1 ? "bg-gradient-to-br from-gray-300 to-gray-400 text-white" :
                 i === 2 ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white" :

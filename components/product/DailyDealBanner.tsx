@@ -58,7 +58,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                   <Flame className="w-3.5 h-3.5" />
                   Angebot des Tages
                 </span>
-                <span className="inline-flex items-center px-2.5 py-1 bg-white text-[var(--color-danger)] text-xs font-black rounded-full">
+                <span className="inline-flex items-center px-2.5 py-1 bg-white text-[var(--color-danger)] text-xs font-extrabold rounded-full">
                   -{discount}%
                 </span>
               </div>
@@ -80,7 +80,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
 
               {/* Price */}
               <div className="flex items-baseline gap-3 mb-5">
-                <span className="text-3xl md:text-4xl font-black text-white">
+                <span className="text-3xl md:text-4xl font-extrabold text-white">
                   {formatPrice(product.price)}
                 </span>
                 <span className="text-lg text-white/60 line-through">
@@ -94,12 +94,12 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                   <Clock className="w-4 h-4 text-white/70" />
                   <span className="hidden sm:inline text-xs text-white/70 font-medium mr-2">Endet in:</span>
                   {[
-                    { value: time.hours, label: "Std" },
-                    { value: time.minutes, label: "Min" },
-                    { value: time.seconds, label: "Sek" },
+                    { value: time.hours, label: "Std", ariaLabel: "Stunden" },
+                    { value: time.minutes, label: "Min", ariaLabel: "Minuten" },
+                    { value: time.seconds, label: "Sek", ariaLabel: "Sekunden" },
                   ].map((unit, i) => (
                     <div key={i} className="flex items-center gap-1">
-                      <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1 sm:min-w-[36px] sm:h-9 sm:px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-xs sm:text-sm font-black text-white tabular-nums">
+                      <span className="inline-flex items-center justify-center min-w-[36px] h-9 px-1 sm:min-w-[36px] sm:h-9 sm:px-1.5 bg-white/20 backdrop-blur-sm rounded-lg text-xs sm:text-sm font-extrabold text-white tabular-nums" aria-label={`${unit.value} ${unit.ariaLabel}`}>
                         {String(unit.value).padStart(2, "0")}
                       </span>
                       {i < 2 && <span className="text-white/50 text-xs font-bold">:</span>}

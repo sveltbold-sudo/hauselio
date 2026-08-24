@@ -92,7 +92,7 @@ export default function GuaranteeServiceSection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, i) => (
               <div key={i} className="text-center">
-                <p className="text-2xl md:text-3xl font-black text-white mb-0.5">
+                <p className="text-2xl md:text-3xl font-extrabold text-white mb-0.5">
                   {stat.number}
                 </p>
                 <p className="text-[12px] text-white/80 font-medium">{stat.label}</p>

@@ -53,7 +53,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   }));
 
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white" aria-label="Kundenbewertungen">
       <div className="container-hauselio">
         <div className="text-center mb-8 md:mb-12">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
@@ -67,7 +67,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           {/* Rating Summary */}
           <div className="bg-[var(--color-bg)] rounded-2xl p-4 sm:p-6">
             <div className="text-center mb-6">
-              <p className="text-4xl sm:text-5xl font-black text-[var(--color-text-primary)]">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)]">
                 {averageRating.toFixed(1)}
               </p>
               <div className="flex items-center justify-center gap-1 mt-2">

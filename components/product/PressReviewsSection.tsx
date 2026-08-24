@@ -84,7 +84,7 @@ export default function PressReviewsSection({
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
                     <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-secondary)] flex items-center justify-center">
-                      <span className="text-[11px] font-black text-[var(--color-text-muted)] text-center leading-tight whitespace-pre-line">{review.logoText}</span>
+                      <span className="text-[11px] font-extrabold text-[var(--color-text-muted)] text-center leading-tight whitespace-pre-line">{review.logoText}</span>
                     </div>
                     <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-success)]/10 text-[var(--color-success)] text-[11px] font-bold rounded-full">
                       {review.rating}
@@ -111,7 +111,7 @@ export default function PressReviewsSection({
             >
               <div className="flex items-start gap-3 mb-3">
                 <div className="w-11 h-11 bg-[var(--color-bg-secondary)] rounded-lg flex items-center justify-center border border-[var(--color-border-light)] shrink-0">
-                  <span className="text-[11px] font-black text-[var(--color-text-muted)] uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
+                  <span className="text-[11px] font-extrabold text-[var(--color-text-muted)] uppercase tracking-wider leading-[1.1] text-center whitespace-pre-line">
                     {review.logoText}
                   </span>
                 </div>

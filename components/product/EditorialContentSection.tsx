@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
 interface EditorialItem {
@@ -62,7 +62,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
 
         {/* Mobile: blog cards scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-[var(--color-bg-secondary)] to-white py-6 -mt-6">
-          <MobileHorizontalScroll className="px-0" autoScrollInterval={8000}>
+          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {items.map((content, i) => (
               <div key={i} className="snap-start shrink-0 w-[260px]">
                 <Link href={content.href} className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
@@ -83,7 +83,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                       <span className="text-[11px] text-[var(--color-text-muted)]">{content.readTime}</span>
                       <span className="text-[11px] font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
                         Weiterlesen
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <ChevronRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>

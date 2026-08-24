@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface MobileHorizontalScrollProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default function MobileHorizontalScroll({
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const checkScroll = () => {
     const el = scrollRef.current;
@@ -59,12 +61,14 @@ export default function MobileHorizontalScroll({
     autoScrollRef.current = setInterval(scrollToNext, autoScrollInterval);
     return () => {
       if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     };
   }, [scrollToNext, autoScrollInterval]);
 
   const handleTouchStart = () => setIsPaused(true);
   const handleTouchEnd = () => {
-    setTimeout(() => setIsPaused(false), 3000);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 3000);
   };
 
   const scroll = (direction: "left" | "right") => {
@@ -76,7 +80,8 @@ export default function MobileHorizontalScroll({
       behavior: "smooth",
     });
     setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 5000);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 5000);
   };
 
   return (
@@ -113,7 +118,7 @@ export default function MobileHorizontalScroll({
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           aria-label="Zurück"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <ChevronLeft className="w-4 h-4" />
         </button>
       )}
       {canScrollRight && (
@@ -122,7 +127,7 @@ export default function MobileHorizontalScroll({
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           aria-label="Weiter"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <ChevronRight className="w-4 h-4" />
         </button>
       )}
 

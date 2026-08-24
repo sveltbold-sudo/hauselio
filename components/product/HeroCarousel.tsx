@@ -74,7 +74,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const TRANSITION_MS = 600;
+  const TRANSITION_MS = 700;
 
   useEffect(() => {
     return () => {
