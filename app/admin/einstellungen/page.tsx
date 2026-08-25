@@ -67,11 +67,11 @@ export default function EinstellungenPage() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden…</div>;
+    return <main className="p-8 text-center text-[var(--color-text-muted)]">Laden…</main>;
   }
 
   return (
-    <div className="p-8 max-w-3xl">
+    <main className="p-8 max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Einstellungen</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">Konfigurieren Sie Ihre Shop-Daten</p>
@@ -211,6 +211,6 @@ export default function EinstellungenPage() {
           </button>
         </div>
       </form>
-    </div>
+    </main>
   );
 }

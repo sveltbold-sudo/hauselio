@@ -78,7 +78,7 @@ export default function KategorienPage() {
   };
 
   return (
-    <div className="p-8">
+    <main className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Kategorien</h1>
@@ -108,7 +108,7 @@ export default function KategorienPage() {
               <button
                 onClick={() => setShowForm(false)}
                 aria-label="Modal schließen"
-                className="p-1 hover:bg-gray-100 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="p-1 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -144,7 +144,7 @@ export default function KategorienPage() {
                 />
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-gray-100 rounded-lg">
+                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
                 <button type="submit" className="px-4 py-2 bg-[var(--color-orange)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-orange-hover)]">
@@ -189,7 +189,7 @@ export default function KategorienPage() {
                     <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" />
                     </button>
-                    <button onClick={() => handleDelete(cat.id)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50 rounded-lg">
+                    <button onClick={() => handleDelete(cat.id)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -199,6 +199,6 @@ export default function KategorienPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   );
 }

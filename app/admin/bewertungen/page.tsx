@@ -70,13 +70,13 @@ export default function BewertungenPage() {
   const pendingCount = reviews.filter((r) => !r.isApproved).length;
 
   return (
-    <div className="p-8">
+    <main className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Bewertungen</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">
           {reviews.length} Bewertungen insgesamt
           {pendingCount > 0 && (
-            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]">
               {pendingCount} ausstehend
             </span>
           )}
@@ -113,7 +113,7 @@ export default function BewertungenPage() {
               className={`bg-white rounded-xl border p-5 ${
                 review.isApproved
                   ? "border-[var(--color-border-light)]"
-                  : "border-amber-300 bg-amber-50/30"
+                  : "border-[var(--color-border)] bg-[var(--color-bg)]"
               }`}
             >
               <div className="flex items-start justify-between gap-4">
@@ -188,6 +188,6 @@ export default function BewertungenPage() {
           ))
         )}
       </div>
-    </div>
+    </main>
   );
 }

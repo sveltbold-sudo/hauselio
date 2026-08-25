@@ -60,7 +60,7 @@ export default async function AdminDashboard() {
           Dashboard
         </h1>
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-8 text-center">
-          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <AlertTriangle className="w-12 h-12 text-[var(--color-danger)] mx-auto mb-4" />
           <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
             Datenbank nicht erreichbar
           </h2>
@@ -85,7 +85,7 @@ export default async function AdminDashboard() {
       name: "Gesamtumsatz",
       value: formatPrice(Number(totalRevenue._sum.total || 0)),
       icon: Euro,
-      color: "bg-green-500",
+      color: "bg-[var(--color-success)]",
     },
     {
       name: "Bestellungen",
@@ -97,24 +97,24 @@ export default async function AdminDashboard() {
       name: "Produkte",
       value: totalProducts.toString(),
       icon: Package,
-      color: "bg-purple-500",
+      color: "bg-[var(--color-primary)]",
     },
     {
       name: "Ausstehend",
       value: pendingOrders.toString(),
       icon: Clock,
-      color: pendingOrders > 0 ? "bg-red-500" : "bg-gray-400",
+      color: pendingOrders > 0 ? "bg-[var(--color-danger)]" : "bg-[var(--color-bg-secondary)]",
     },
     {
       name: "Kunden",
       value: totalCustomers.toString(),
       icon: Users,
-      color: "bg-purple-500",
+      color: "bg-[var(--color-primary)]",
     },
   ];
 
   return (
-    <div>
+    <main>
       <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
         Dashboard
       </h1>
@@ -190,7 +190,7 @@ export default async function AdminDashboard() {
                 {recentOrders.map((order) => (
                   <tr
                     key={order.id}
-                    className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-gray-50"
+                    className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]"
                   >
                     <td className="px-5 py-3">
                       <Link
@@ -214,7 +214,7 @@ export default async function AdminDashboard() {
                     <td className="px-5 py-3">
                       <span
                         className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                          ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
+                          ORDER_STATUS_COLORS[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"
                         }`}
                       >
                         {ORDER_STATUS_LABELS[order.status] || order.status}
@@ -270,7 +270,7 @@ export default async function AdminDashboard() {
                         {formatPrice(Number(product.price))}
                       </p>
                     </div>
-                    <span className="inline-flex px-2 py-0.5 bg-red-100 text-red-700 rounded text-xs font-semibold">
+                    <span className="inline-flex px-2 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] rounded text-xs font-semibold">
                       Ausverkauft
                     </span>
                   </div>
@@ -280,6 +280,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

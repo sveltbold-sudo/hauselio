@@ -90,7 +90,7 @@ function LoginForm() {
     <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-black text-[var(--color-primary)]">
+          <h1 className="text-2xl font-extrabold text-[var(--color-primary)]">
             HAUSELIO
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mt-2">

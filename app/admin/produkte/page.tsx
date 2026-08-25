@@ -65,9 +65,9 @@ export default async function AdminProductsPage({
   const dbError = products.length === 0 && total === 0;
 
   return (
-    <div>
+    <main>
       {dbError && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm text-red-700">
+        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Daten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
         </div>
       )}
@@ -146,6 +146,6 @@ export default async function AdminProductsPage({
         brand={brand}
         q={q}
       />
-    </div>
+    </main>
   );
 }

@@ -52,22 +52,22 @@ export default function StatistikenPage() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
+    return <main className="p-8 text-center text-[var(--color-text-muted)]">Laden...</main>;
   }
 
   if (!stats) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Fehler beim Laden der Statistiken.</div>;
+    return <main className="p-8 text-center text-[var(--color-text-muted)]">Fehler beim Laden der Statistiken.</main>;
   }
 
   return (
-    <div className="p-8">
+    <main className="p-8">
       {/* Header with date range filter */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Statistiken</h1>
           <p className="text-[var(--color-text-secondary)] mt-1">Überblick über Ihren Shop</p>
         </div>
-        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-[var(--color-bg-secondary)] rounded-lg p-1">
           {DATE_RANGE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
@@ -126,8 +126,8 @@ export default function StatistikenPage() {
 
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center">
-              <Users className="w-5 h-5 text-purple-600" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
+              <Users className="w-5 h-5 text-[var(--color-primary)]" />
             </div>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">Kunden</p>
@@ -163,7 +163,7 @@ export default function StatistikenPage() {
                         <span className="text-xs text-[var(--color-text-muted)] block">{p.orderCount}x verkauft</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
                         style={{ width: `${pct}%` }}
@@ -186,7 +186,7 @@ export default function StatistikenPage() {
               {stats.categoryStats.map((cat, i) => {
                 const maxRevenue = Math.max(...stats.categoryStats.map((c) => c.totalRevenue));
                 const pct = maxRevenue > 0 ? (cat.totalRevenue / maxRevenue) * 100 : 0;
-                const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-orange)]", "bg-[var(--color-success)]", "bg-purple-500", "bg-amber-500"];
+                const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-orange)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
                 return (
                   <div key={`${cat.name}-${i}`}>
                     <div className="flex items-center justify-between py-1">
@@ -198,7 +198,7 @@ export default function StatistikenPage() {
                         {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(cat.totalRevenue)}
                       </span>
                     </div>
-                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
                       <div
                         className={`h-full ${colors[i % colors.length]} rounded-full transition-transform duration-500`}
                         style={{ width: `${pct}%` }}
@@ -237,10 +237,10 @@ export default function StatistikenPage() {
                     </td>
                     <td className="py-2 text-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                        order.status === "DELIVERED" ? "bg-green-100 text-green-800" :
-                        order.status === "SHIPPED" ? "bg-blue-100 text-blue-800" :
-                        order.status === "CANCELLED" ? "bg-red-100 text-red-800" :
-                        "bg-amber-100 text-amber-800"
+                         order.status === "DELIVERED" ? "bg-[var(--color-success)]/10 text-[var(--color-success)]" :
+                         order.status === "SHIPPED" ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]" :
+                         order.status === "CANCELLED" ? "bg-[var(--color-danger-light)] text-[var(--color-danger)]" :
+                         "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"
                       }`}>
                         {order.status === "DELIVERED" ? "Zugestellt" :
                          order.status === "SHIPPED" ? "Versand" :
@@ -258,6 +258,6 @@ export default function StatistikenPage() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

@@ -114,7 +114,7 @@ export default function NewsletterPage() {
   const activeCount = subscribers.filter((s) => s.isActive).length;
 
   return (
-    <div className="p-8">
+    <main className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Newsletter</h1>
@@ -176,7 +176,7 @@ export default function NewsletterPage() {
               </button>
               <button
                 onClick={() => setShowCompose(false)}
-                className="px-5 py-2.5 border border-[var(--color-border)] text-[var(--color-text-secondary)] rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                className="px-5 py-2.5 border border-[var(--color-border)] text-[var(--color-text-secondary)] rounded-lg text-sm font-medium hover:bg-[var(--color-bg)] transition-colors"
               >
                 Abbrechen
               </button>
@@ -244,8 +244,8 @@ export default function NewsletterPage() {
                       onClick={() => handleToggle(sub.id, sub.isActive)}
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         sub.isActive
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-500"
+                      ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
+                           : "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"
                       }`}
                     >
                       {sub.isActive ? "Aktiv" : "Inaktiv"}
@@ -260,7 +260,7 @@ export default function NewsletterPage() {
                     <button
                       onClick={() => handleDelete(sub.id)}
                       aria-label="Abonnent löschen"
-                      className="p-2 text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50 rounded-lg"
+                      className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -271,6 +271,6 @@ export default function NewsletterPage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   );
 }
