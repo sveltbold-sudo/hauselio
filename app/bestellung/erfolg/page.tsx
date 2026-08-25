@@ -89,7 +89,7 @@ export default function OrderSuccessPage() {
 
   if (!orderId) {
     return (
-      <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4">Keine Bestellung gefunden</h1>
         <p className="body-large mb-10">
           Es wurde keine Bestellnummer angegeben. Bitte geben Sie Ihre Bestellung über den normalen Checkout-Prozess auf.
@@ -101,12 +101,12 @@ export default function OrderSuccessPage() {
           Zum Shop
           <ArrowRight className="w-5 h-5" />
         </Link>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container-hauselio py-16 text-center max-w-2xl mx-auto">
+    <main className="container-hauselio py-16 text-center max-w-2xl mx-auto">
       {/* Success Icon */}
       <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
         <Check className="w-10 h-10 text-[var(--color-success)]" />
@@ -163,17 +163,17 @@ export default function OrderSuccessPage() {
       {/* Loading state */}
       {orderLoading && (
         <div className="space-y-4 mb-8">
-          <div className="h-20 bg-gray-100 rounded-2xl animate-pulse" />
-          <div className="h-40 bg-gray-100 rounded-2xl animate-pulse" />
-          <div className="h-48 bg-gray-100 rounded-2xl animate-pulse" />
+          <div className="h-20 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" />
+          <div className="h-40 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" />
+          <div className="h-48 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" />
         </div>
       )}
 
       {/* Error state */}
       {orderError && !orderLoading && (
-        <div aria-live="polite" className="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8 text-center">
-          <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-3" />
-          <p className="text-sm text-red-700 font-medium">{orderError}</p>
+        <div aria-live="polite" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-6 mb-8 text-center">
+          <AlertCircle className="w-8 h-8 text-[var(--color-danger)] mx-auto mb-3" />
+          <p className="text-sm text-[var(--color-text-secondary)] font-medium">{orderError}</p>
         </div>
       )}
 
@@ -185,7 +185,7 @@ export default function OrderSuccessPage() {
               Bestellnummer
             </p>
             <div className="flex items-center justify-center gap-2">
-              <p className="text-2xl font-black text-[var(--color-primary)]">
+                <p className="text-xl font-extrabold text-[var(--color-primary)]">
                 {order.orderNumber}
               </p>
               <button
@@ -207,9 +207,9 @@ export default function OrderSuccessPage() {
             <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
               Zusammenfassung
             </h2>
-            <div className="space-y-2 mb-4">
+            <div className="space-y-2 mb-4" role="list">
               {order.items.map((item, i) => (
-                <div key={i} className="flex justify-between text-sm">
+                <div key={i} className="flex justify-between text-sm" role="listitem">
                   <span className="text-[var(--color-text-secondary)]">
                     {item.product.name} × {item.quantity}
                   </span>
@@ -300,7 +300,7 @@ export default function OrderSuccessPage() {
                 <div className="flex items-center justify-between border-t border-[var(--color-border-light)] pt-3">
                   <div>
                     <p className="text-xs text-[var(--color-text-muted)]">Verwendungszweck</p>
-                    <p className="text-lg font-black text-[var(--color-primary)]">{order.orderNumber}</p>
+                    <p className="text-lg font-extrabold text-[var(--color-primary)]">{order.orderNumber}</p>
                   </div>
                   <button
                     onClick={() => copyToClipboard(order.orderNumber, "reference")}
@@ -313,7 +313,7 @@ export default function OrderSuccessPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs text-[var(--color-text-muted)]">Betrag</p>
-                    <p className="text-lg font-black text-[var(--color-primary)]">
+                    <p className="text-lg font-extrabold text-[var(--color-primary)]">
                       {formatPrice(order.total)}
                     </p>
                   </div>
@@ -327,8 +327,8 @@ export default function OrderSuccessPage() {
                 </div>
               </div>
 
-              <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-                <p className="text-xs text-amber-800">
+              <div className="mt-4 p-3 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
+                <p className="text-xs text-[var(--color-text-secondary)]">
                   <strong>Hinweis:</strong> Ihre Bestellung wird erst nach Eingang der Zahlung versendet.
                   Bitte geben Sie die Bestellnummer als Verwendungszweck an.
                 </p>
@@ -354,6 +354,6 @@ export default function OrderSuccessPage() {
           Zurück zur Startseite
         </Link>
       </div>
-    </div>
+    </main>
   );
 }
