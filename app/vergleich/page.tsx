@@ -51,17 +51,17 @@ export default function VergleichPage() {
 
   if (!mounted) {
     return (
-      <div className="container-hauselio section-py">
+      <main className="container-hauselio section-py">
         <div className="animate-pulse space-y-6">
           <div className="h-8 bg-[var(--color-bg-secondary)] rounded w-1/3" />
           <div className="h-64 bg-[var(--color-bg-secondary)] rounded-2xl" />
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container-hauselio section-py">
+    <main className="container-hauselio section-py">
       <Breadcrumb items={[{ label: "Produktvergleich" }]} />
 
       <div className="flex items-center justify-between mb-8">
@@ -71,7 +71,7 @@ export default function VergleichPage() {
             <BarChart3 className="w-8 h-8 text-[var(--color-primary)]" />
             Produktvergleich
           </h1>
-          <p className="text-[var(--color-text-secondary)] mt-2">
+          <p className="text-[var(--color-text-muted)] mt-2">
             {products.length > 0
               ? `${products.length} Produkte vergleichen`
               : "Vergleichen Sie Produkte Seite an Seite"}
@@ -143,7 +143,7 @@ export default function VergleichPage() {
                 <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Preis</th>
                 {products.map((product) => (
                   <td key={`price-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
-                    <p className="text-xl font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
+                    <p className="text-lg font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
                     {product.originalPrice && (
                       <p className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</p>
                     )}
@@ -157,7 +157,7 @@ export default function VergleichPage() {
                 {products.map((product) => (
                   <td key={`rating-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
                     <div className="flex items-center justify-center gap-1">
-                      <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                      <Star className="w-4 h-4 text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" />
                       <span className="font-semibold text-sm">{product.rating}</span>
                       <span className="text-xs text-[var(--color-text-muted)]">({product.reviewCount})</span>
                     </div>
@@ -211,6 +211,6 @@ export default function VergleichPage() {
           </table>
         </div>
       )}
-    </div>
+    </main>
   );
 }
