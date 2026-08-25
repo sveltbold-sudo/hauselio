@@ -46,7 +46,7 @@ const values = [
 
 export default function UeberUnsPage() {
   return (
-    <div className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
@@ -84,7 +84,7 @@ export default function UeberUnsPage() {
         </div>
         <div className="bg-gradient-to-br from-[var(--color-primary-50)] to-[var(--color-primary)]/10 rounded-3xl p-8 sm:p-12 flex items-center justify-center">
           <div className="text-center">
-            <div className="text-5xl sm:text-7xl font-black text-[var(--color-primary)] mb-4">H</div>
+            <div className="text-5xl sm:text-7xl font-extrabold text-[var(--color-primary)] mb-4">H</div>
             <p className="text-sm font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
               Seit 2024 in Berlin
             </p>
@@ -134,6 +134,6 @@ export default function UeberUnsPage() {
           Zur Boutique
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

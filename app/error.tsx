@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+    <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
       <div className="w-20 h-20 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-8">
         <AlertTriangle className="w-10 h-10 text-[var(--color-danger)]" />
       </div>
@@ -32,7 +32,7 @@ export default function Error({
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <button
           onClick={() => reset()}
-          className="inline-flex items-center px-8 py-4 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-primary)]/20 hover:bg-[var(--color-primary-dark)] transition-colors transition-shadow duration-300"
+          className="inline-flex items-center px-8 py-4 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-primary)]/20 hover:bg-[var(--color-primary-hover)] transition-colors transition-shadow duration-300"
         >
           Erneut versuchen
         </button>
@@ -43,6 +43,6 @@ export default function Error({
           Zurück zur Startseite
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

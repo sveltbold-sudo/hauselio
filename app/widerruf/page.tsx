@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function WiderrufPage() {
   return (
-    <div className="container-hauselio py-16 max-w-3xl">
+    <main className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Widerruf" }]} />
       <h1 className="heading-1 mb-8">Widerrufsbelehrung</h1>
 
@@ -114,6 +114,6 @@ export default function WiderrufPage() {
           </div>
         </section>
       </div>
-    </div>
+    </main>
   );
 }

@@ -10,7 +10,7 @@ export default function GlobalError({
   return (
     <html lang="de">
       <body>
-        <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
+        <main className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
           <div className="text-center max-w-md mx-auto p-8">
             <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-4">
               Etwas ist schiefgelaufen
@@ -25,7 +25,7 @@ export default function GlobalError({
               Erneut versuchen
             </button>
           </div>
-        </div>
+        </main>
       </body>
     </html>
   );

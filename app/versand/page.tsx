@@ -31,7 +31,7 @@ const shippingMethods = [
 
 export default function VersandPage() {
   return (
-    <div className="container-hauselio py-16 max-w-3xl">
+    <main className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
@@ -73,7 +73,7 @@ export default function VersandPage() {
                   )}
                 </p>
                 {!method.available && (
-                  <p className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full text-xs font-medium">
+                  <p className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] rounded-full text-xs font-medium">
                     Bald verfügbar
                   </p>
                 )}
@@ -166,6 +166,6 @@ export default function VersandPage() {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
