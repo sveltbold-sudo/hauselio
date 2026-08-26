@@ -125,15 +125,17 @@ export default function NewsletterPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setShowCompose(!showCompose)}
+            aria-expanded={showCompose}
             className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
           >
-            <Send className="w-4 h-4" /> Newsletter senden
+            <Send className="w-4 h-4" aria-hidden="true" /> Newsletter senden
           </button>
           <button
             onClick={exportCSV}
+            aria-label="CSV exportieren"
             className="flex items-center gap-2 px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-secondary)] rounded-lg text-sm font-medium hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
           >
-            <Download className="w-4 h-4" /> CSV
+            <Download className="w-4 h-4" aria-hidden="true" /> CSV
           </button>
         </div>
       </div>
@@ -147,8 +149,9 @@ export default function NewsletterPage() {
           </p>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">Betreff *</label>
+              <label htmlFor="campaign-subject" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">Betreff *</label>
               <input
+                id="campaign-subject"
                 type="text"
                 value={campaignSubject}
                 onChange={(e) => setCampaignSubject(e.target.value)}
@@ -157,8 +160,9 @@ export default function NewsletterPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">Inhalt (HTML) *</label>
+              <label htmlFor="campaign-content" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">Inhalt (HTML) *</label>
               <textarea
+                id="campaign-content"
                 rows={8}
                 value={campaignContent}
                 onChange={(e) => setCampaignContent(e.target.value)}
@@ -203,7 +207,7 @@ export default function NewsletterPage() {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" aria-hidden="true" />
         <input
           type="text"
           placeholder="E-Mail suchen…"
@@ -233,15 +237,16 @@ export default function NewsletterPage() {
             ) : (
               filtered.map((sub) => (
                 <tr key={sub.id} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
-                  <td className="px-4 py-3">
+                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-[var(--color-text-muted)]" />
+                      <Mail className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
                       <span className="text-sm text-[var(--color-text-primary)]">{sub.email}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-center">
                     <button
                       onClick={() => handleToggle(sub.id, sub.isActive)}
+                      aria-label={sub.isActive ? `${sub.email} deaktivieren` : `${sub.email} aktivieren`}
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         sub.isActive
                       ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
@@ -262,7 +267,7 @@ export default function NewsletterPage() {
                       aria-label="Abonnent löschen"
                       className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </td>
                 </tr>

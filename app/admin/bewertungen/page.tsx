@@ -84,11 +84,12 @@ export default function BewertungenPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2 mb-6">
+      <div role="group" aria-label="Bewertungsfilter" className="flex gap-2 mb-6">
         {(["all", "pending", "approved"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
+            aria-pressed={filter === f}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f
                 ? "bg-[var(--color-primary)] text-white"
@@ -119,10 +120,11 @@ export default function BewertungenPage() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="flex">
+                    <div className="flex" role="img" aria-label={`Bewertung: ${review.rating} von 5 Sternen`}>
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
+                          aria-hidden="true"
                           className={`w-4 h-4 ${
                             i < review.rating
                               ? "text-[var(--color-orange)] fill-[var(--color-orange)]"

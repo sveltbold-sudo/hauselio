@@ -110,6 +110,7 @@ function LoginForm() {
           {error && (
             <div
               ref={errorRef}
+              id="login-error"
               tabIndex={-1}
               role="alert"
               className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)]/40"
@@ -132,7 +133,7 @@ function LoginForm() {
                 E-Mail
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
                 <input
                   id="admin-email"
                   type="email"
@@ -142,6 +143,7 @@ function LoginForm() {
                   autoComplete="email"
                   maxLength={254}
                   disabled={lockoutSeconds > 0}
+                  aria-describedby={error ? "login-error" : undefined}
                   className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="admin@hauselio.de"
                 />
@@ -156,7 +158,7 @@ function LoginForm() {
                 Passwort
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
                 <input
                   id="admin-password"
                   type={showPassword ? "text" : "password"}
@@ -166,6 +168,7 @@ function LoginForm() {
                   autoComplete="current-password"
                   maxLength={128}
                   disabled={lockoutSeconds > 0}
+                  aria-describedby={error ? "login-error" : undefined}
                   className="w-full pl-10 pr-12 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                 />
