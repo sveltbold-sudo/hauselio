@@ -60,7 +60,7 @@ export default function StatistikenPage() {
   }
 
   return (
-    <main className="p-8">
+    <main id="main-content" className="p-8">
       {/* Header with date range filter */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>

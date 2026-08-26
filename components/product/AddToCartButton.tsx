@@ -46,6 +46,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     <Button
       onClick={handleAdd}
       aria-live="polite"
+      aria-label={`${added ? "Hinzugefügt" : "In den Warenkorb"}: ${product.name}`}
       className={`flex-1 ${
         added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""
       }`}

@@ -37,7 +37,7 @@ export default async function KontaktPage() {
   const settings = await getSettings();
 
   return (
-    <main>
+    <main id="main-content">
       <div className="container-hauselio py-6 sm:py-8">
         {/* Breadcrumb */}
         <Breadcrumb items={[{ label: "Kontakt" }]} />

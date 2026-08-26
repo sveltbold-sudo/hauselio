@@ -114,7 +114,7 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <main>
+    <main id="main-content">
       <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
         Dashboard
       </h1>

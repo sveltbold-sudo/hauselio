@@ -104,7 +104,7 @@ export default async function TestimonialsSection() {
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kundenstimmen</p>
-          <h2 className="heading-2 mb-3">Was unsere Kunden sagen</h2>
+          <h2 className="heading-2 mb-3">Stimmen aus unserem Kundenkreis</h2>
           <p className="body-large max-w-2xl mx-auto">
             Echte Bewertungen von zufriedenen HAUSELIO Kunden
           </p>

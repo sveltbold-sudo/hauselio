@@ -128,6 +128,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                   }
                 }}
                 placeholder="Suche nach Produkten, Marken…"
+                aria-label="Produkte suchen"
                 role="combobox"
                 aria-expanded={hasResults}
                 aria-controls="search-results-list"

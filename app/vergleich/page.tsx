@@ -61,7 +61,7 @@ export default function VergleichPage() {
   }
 
   return (
-    <main className="container-hauselio section-py">
+    <main id="main-content" className="container-hauselio section-py">
       <Breadcrumb items={[{ label: "Produktvergleich" }]} />
 
       <div className="flex items-center justify-between mb-8">

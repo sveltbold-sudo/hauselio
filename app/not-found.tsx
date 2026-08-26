@@ -4,7 +4,7 @@ import { Home, Search, ShoppingBag, Star, Truck, Shield } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="container-hauselio py-12 lg:py-20">
+    <main id="main-content" className="container-hauselio py-12 lg:py-20">
       <div className="text-center max-w-2xl mx-auto mb-16">
         <Image
           src="/images/illustrations/404.svg"

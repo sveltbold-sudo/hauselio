@@ -70,7 +70,7 @@ export default function BewertungenPage() {
   const pendingCount = reviews.filter((r) => !r.isApproved).length;
 
   return (
-    <main className="p-8">
+    <main id="main-content" className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Bewertungen</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">

@@ -64,7 +64,7 @@ export default function KundenPage() {
   const totalRevenue = customers.reduce((sum, c) => sum + c.totalSpent, 0);
 
   return (
-    <main className="p-8">
+    <main id="main-content" className="p-8">
       {error && (
         <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Kunden konnten nicht geladen werden. Bitte versuchen Sie es später erneut.

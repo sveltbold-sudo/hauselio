@@ -136,6 +136,7 @@ export default function HeaderClient() {
           </Link>
 
           <nav
+            aria-label="Hauptnavigation"
             className="hidden lg:flex items-center gap-0.5"
             onMouseLeave={handleMegaLeave}
           >

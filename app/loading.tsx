@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="container-hauselio py-8">
+    <main id="main-content" className="container-hauselio py-8">
       <div className="animate-pulse">
         {/* Header skeleton */}
         <div className="mb-10">

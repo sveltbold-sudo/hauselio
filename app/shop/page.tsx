@@ -199,7 +199,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <main className="container-hauselio py-6 sm:py-8">
+    <main id="main-content" className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 

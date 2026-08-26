@@ -52,7 +52,7 @@ export default async function AdminOrdersPage({
   const dbError = orders.length === 0 && total === 0;
 
   return (
-    <main>
+    <main id="main-content">
       {dbError && (
         <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Bestellungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.

@@ -97,9 +97,9 @@ export default function RootLayout({
         </a>
         <Header />
         <ToastProvider>
-          <main id="main-content" className="flex-1">
+          <div id="main-content" className="flex-1">
             {children}
-          </main>
+          </div>
           <ClientProviders />
         </ToastProvider>
         <Footer />

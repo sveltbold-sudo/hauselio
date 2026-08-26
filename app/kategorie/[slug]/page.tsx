@@ -103,7 +103,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           }),
         }}
       />
-      <main>
+      <main id="main-content">
         <CategoryPage
           slug={slug}
           title={category.name}
