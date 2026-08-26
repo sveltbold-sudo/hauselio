@@ -236,6 +236,7 @@ export default function OrderTable({
                   <td className="px-5 py-3 text-right">
                     <Link
                       href={`/admin/bestellungen/${order.id}`}
+                      aria-label={`Bestellung ${order.orderNumber} Details`}
                       className="text-sm font-medium text-[var(--color-primary)] hover:underline"
                     >
                       Details
@@ -307,6 +308,7 @@ export default function OrderTable({
                       </p>
                       <Link
                         href={`/admin/bestellungen/${order.id}`}
+                        aria-label={`Bestellung ${order.orderNumber} Details`}
                         className="text-xs font-medium text-[var(--color-primary)] hover:underline"
                       >
                         Details
@@ -335,6 +337,7 @@ export default function OrderTable({
                   <Link
                     key={p}
                     href={`/admin/bestellungen?page=${p}${status ? `&status=${status}` : ""}${q ? `&q=${q}` : ""}`}
+                    aria-label={`Seite ${p}`}
                     aria-current={p === page ? "page" : undefined}
                     className={`px-3 py-1 rounded text-sm ${
                       p === page

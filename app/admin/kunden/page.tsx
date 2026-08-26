@@ -64,9 +64,9 @@ export default function KundenPage() {
   const totalRevenue = customers.reduce((sum, c) => sum + c.totalSpent, 0);
 
   return (
-    <main id="main-content" className="p-8">
+    <div className="p-8">
       {error && (
-        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
+        <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Kunden konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
         </div>
       )}
@@ -114,7 +114,7 @@ export default function KundenPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
-        <table className="w-full">
+        <table className="w-full" aria-label="Kundenliste">
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Kunde</th>
@@ -151,16 +151,16 @@ export default function KundenPage() {
                   <td className="px-4 py-3 hidden md:table-cell">
                     {customer.phone && (
                       <p className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1">
-                        <Phone className="w-3 h-3" /> {customer.phone}
+                        <Phone className="w-3 h-3" aria-hidden="true" /> {customer.phone}
                       </p>
                     )}
                     <p className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1">
-                      <Mail className="w-3 h-3" /> {customer.email}
+                      <Mail className="w-3 h-3" aria-hidden="true" /> {customer.email}
                     </p>
                   </td>
                   <td className="px-4 py-3 hidden lg:table-cell">
                     <p className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
+                      <MapPin className="w-3 h-3" aria-hidden="true" />
                       {customer.zip} {customer.city}
                     </p>
                   </td>
@@ -180,6 +180,6 @@ export default function KundenPage() {
           </tbody>
         </table>
       </div>
-    </main>
+    </div>
   );
 }

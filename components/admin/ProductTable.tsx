@@ -252,14 +252,14 @@ export default function ProductTable({
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
-                        aria-label="Ansehen"
+                        aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
                         className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
-                        aria-label="Bearbeiten"
+                        aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-4 h-4" />
                       </Link>
@@ -344,14 +344,14 @@ export default function ProductTable({
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
-                        aria-label="Ansehen"
+                        aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
                         className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
-                        aria-label="Bearbeiten"
+                        aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-3.5 h-3.5" />
                       </Link>

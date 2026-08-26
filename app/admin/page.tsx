@@ -114,7 +114,7 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <main id="main-content">
+    <div>
       <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
         Dashboard
       </h1>
@@ -280,6 +280,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

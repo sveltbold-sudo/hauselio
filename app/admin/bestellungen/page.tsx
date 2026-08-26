@@ -52,9 +52,9 @@ export default async function AdminOrdersPage({
   const dbError = orders.length === 0 && total === 0;
 
   return (
-    <main id="main-content">
+    <div>
       {dbError && (
-        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
+        <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Bestellungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
         </div>
       )}
@@ -64,7 +64,7 @@ export default async function AdminOrdersPage({
 
       {/* Filters */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4 mb-6">
-        <form className="flex flex-wrap gap-3">
+        <form role="search" aria-label="Bestellungen filtern" className="flex flex-wrap gap-3">
           <input
             type="text"
             name="q"
@@ -108,6 +108,6 @@ export default async function AdminOrdersPage({
         status={status}
         q={q}
       />
-    </main>
+    </div>
   );
 }

@@ -43,6 +43,7 @@ export default async function AdminOrderDetailPage({
       <div className="flex items-center gap-4 mb-6">
         <Link
           href="/admin/bestellungen"
+          aria-label="Zurück zu Bestellungen"
           className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />

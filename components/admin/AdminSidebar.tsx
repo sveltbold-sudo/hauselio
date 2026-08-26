@@ -98,7 +98,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          <nav aria-label="Admin-Hauptnavigation" className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
             {navigation.map((item) => {
               const isActive = item.href === "/admin"
                 ? pathname === "/admin"

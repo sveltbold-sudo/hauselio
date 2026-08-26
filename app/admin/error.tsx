@@ -17,7 +17,7 @@ export default function AdminError({
   }, [error]);
 
   return (
-    <main id="main-content" className="p-8 text-center">
+    <div className="p-8 text-center">
       <div className="w-16 h-16 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-6">
         <AlertTriangle className="w-8 h-8 text-[var(--color-danger)]" />
       </div>
@@ -31,6 +31,6 @@ export default function AdminError({
           Dashboard
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

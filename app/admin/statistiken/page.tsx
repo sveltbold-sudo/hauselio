@@ -52,15 +52,15 @@ export default function StatistikenPage() {
   };
 
   if (loading) {
-    return <main className="p-8 text-center text-[var(--color-text-muted)]">Laden...</main>;
+    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
   }
 
   if (!stats) {
-    return <main className="p-8 text-center text-[var(--color-text-muted)]">Fehler beim Laden der Statistiken.</main>;
+    return <div className="p-8 text-center text-[var(--color-text-muted)]">Fehler beim Laden der Statistiken.</div>;
   }
 
   return (
-    <main id="main-content" className="p-8">
+    <div className="p-8">
       {/* Header with date range filter */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
@@ -258,6 +258,6 @@ export default function StatistikenPage() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }
