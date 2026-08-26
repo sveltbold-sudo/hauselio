@@ -5,45 +5,63 @@ const prisma = new PrismaClient();
 const adminEmail = "admin@hauselio.de";
 
   const categories = [
-    { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche", image: "/images/categories/kueche.jpg" },
-    { name: "Kaffee", slug: "kaffee", description: "Premium Kaffeemaschinen für den perfekten Genuss", image: "/images/categories/kaffee.jpg" },
-    { name: "Reinigung", slug: "reinigung", description: "Effiziente Reinigungsgeräte für Ihr Zuhause", image: "/images/categories/reinigung.jpg" },
-    { name: "Klima & Luft", slug: "klima", description: "Klimaanlagen und Luftreiniger für jedes Raumklima", image: "/images/categories/klima.jpg" },
-    { name: "Smart Home", slug: "smart-home", description: "Intelligente Geräte für ein vernetztes Zuhause", image: "/images/categories/smart-home.jpg" },
-    { name: "Haushaltsgeräte", slug: "haushaltsgeraete", description: "Waschmaschinen, Trockner, Kühlschränke & mehr", image: "/images/categories/haushaltsgeraete.jpg" },
+    { name: "Küche & Food", slug: "kueche-food", description: "Robots de cuisine, mixeurs, blenders et robots pâtissiers", image: "/images/categories/kueche.jpg", sortOrder: 0 },
+    { name: "Café", slug: "kaffee", description: "Machines à café automatiques, expresso, capsules et filtre", image: "/images/categories/kaffee.jpg", sortOrder: 1 },
+    { name: "Aspirateurs", slug: "aspirateurs", description: "Aspirateurs sans fil, robots, balais et main", image: "/images/categories/reinigung.jpg", sortOrder: 2 },
+    { name: "Cuisson", slug: "cuisson", description: "Air fryers, fours, plaques de cuisson et cheminées", image: "/images/categories/kueche.jpg", sortOrder: 3 },
+    { name: "Lave-linge & Séche-linge", slug: "waschen-trocknen", description: "Machines à laver et séche-linge front et top", image: "/images/categories/haushaltsgeraete.jpg", sortOrder: 4 },
+    { name: "Froid", slug: "froid", description: "Réfrigérateurs, congélateurs et ensembles combinés", image: "/images/categories/haushaltsgeraete.jpg", sortOrder: 5 },
+    { name: "Lave-vaisselle", slug: "geschirrspueler", description: "Lave-vaisselle encastrables, compacts et posables", image: "/images/categories/haushaltsgeraete.jpg", sortOrder: 6 },
+    { name: "Traitement d'air", slug: "klima-luft", description: "Purificateurs, humidificateurs et climatisation", image: "/images/categories/klima.jpg", sortOrder: 7 },
+    { name: "Smart Home", slug: "smart-home", description: "Thermostats, éclairage, sécurité et automation", image: "/images/categories/smart-home.jpg", sortOrder: 8 },
   ];
 
 const brands = [
-  { name: "Miele", slug: "miele", logo: "/images/brands/miele.svg" },
+  { name: "Vorwerk", slug: "vorwerk", logo: "/images/brands/vorwerk.svg" },
+  { name: "Thermomix", slug: "thermomix", logo: "/images/brands/thermomix.svg" },
+  { name: "KitchenAid", slug: "kitchenaid", logo: "/images/brands/kitchenaid.svg" },
   { name: "Bosch", slug: "bosch", logo: "/images/brands/bosch.svg" },
   { name: "Siemens", slug: "siemens", logo: "/images/brands/siemens.svg" },
-  { name: "Dyson", slug: "dyson", logo: "/images/brands/dyson.svg" },
-  { name: "Samsung", slug: "samsung", logo: "/images/brands/samsung.svg" },
-  { name: "LG", slug: "lg", logo: "/images/brands/lg.svg" },
-  { name: "Philips", slug: "philips", logo: "/images/brands/philips.svg" },
-  { name: "De'Longhi", slug: "delonghi", logo: "/images/brands/delonghi.svg" },
-  { name: "Jura", slug: "jura", logo: "/images/brands/jura.svg" },
-  { name: "KitchenAid", slug: "kitchenaid", logo: "/images/brands/kitchenaid.svg" },
-  { name: "Nespresso", slug: "nespresso", logo: "/images/brands/nespresso.svg" },
-  { name: "iRobot", slug: "irobot", logo: "/images/brands/irobot.svg" },
-  { name: "tado°", slug: "tado", logo: "/images/brands/tado.svg" },
-  { name: "V-ZUG", slug: "vzug", logo: "/images/brands/vzug.svg" },
-  { name: "Thermador", slug: "thermador", logo: "/images/brands/thermador.svg" },
-  { name: "Electrolux", slug: "electrolux", logo: "/images/brands/electrolux.svg" },
-  { name: "AEG", slug: "aeg", logo: "/images/brands/aeg.svg" },
+  { name: "Miele", slug: "miele", logo: "/images/brands/miele.svg" },
   { name: "Gaggenau", slug: "gaggenau", logo: "/images/brands/gaggenau.svg" },
   { name: "Neff", slug: "neff", logo: "/images/brands/neff.svg" },
-  { name: "Haier", slug: "haier", logo: "/images/brands/haier.svg" },
-  { name: "Liebherr", slug: "liebherr", logo: "/images/brands/liebherr.svg" },
-  { name: "Tchibo", slug: "tchibo", logo: "/images/brands/tchibo.svg" },
-  { name: "Vorwerk", slug: "vorwerk", logo: "/images/brands/vorwerk.svg" },
+  { name: "AEG", slug: "aeg", logo: "/images/brands/aeg.svg" },
+  { name: "Electrolux", slug: "electrolux", logo: "/images/brands/electrolux.svg" },
+  { name: "Jura", slug: "jura", logo: "/images/brands/jura.svg" },
+  { name: "De'Longhi", slug: "delonghi", logo: "/images/brands/delonghi.svg" },
+  { name: "Nespresso", slug: "nespresso", logo: "/images/brands/nespresso.svg" },
   { name: "Melitta", slug: "melitta", logo: "/images/brands/melitta.svg" },
   { name: "Breville", slug: "breville", logo: "/images/brands/breville.svg" },
+  { name: "Philips", slug: "philips", logo: "/images/brands/philips.svg" },
+  { name: "Siemens EQ", slug: "siemens-eq", logo: "/images/brands/siemens.svg" },
+  { name: "Saeco", slug: "saeco", logo: "/images/brands/saeco.svg" },
+  { name: "Krups", slug: "krups", logo: "/images/brands/krups.svg" },
+  { name: "Tchibo", slug: "tchibo", logo: "/images/brands/tchibo.svg" },
+  { name: "Gastroback", slug: "gastroback", logo: "/images/brands/gastroback.svg" },
+  { name: "Sage", slug: "sage", logo: "/images/brands/sage.svg" },
+  { name: "Dyson", slug: "dyson", logo: "/images/brands/dyson.svg" },
+  { name: "iRobot", slug: "irobot", logo: "/images/brands/irobot.svg" },
+  { name: "Roborock", slug: "roborock", logo: "/images/brands/roborock.svg" },
+  { name: "Samsung", slug: "samsung", logo: "/images/brands/samsung.svg" },
+  { name: "LG", slug: "lg", logo: "/images/brands/lg.svg" },
+  { name: "Xiaomi", slug: "xiaomi", logo: "/images/brands/xiaomi.svg" },
   { name: "Kärcher", slug: "kaercher", logo: "/images/brands/kaercher.svg" },
+  { name: "Tefal", slug: "tefal", logo: "/images/brands/tefal.svg" },
+  { name: "WMF", slug: "wmf", logo: "/images/brands/wmf.svg" },
+  { name: "Ninja", slug: "ninja", logo: "/images/brands/ninja.svg" },
+  { name: "Cosori", slug: "cosori", logo: "/images/brands/cosori.svg" },
+  { name: "Liebherr", slug: "liebherr", logo: "/images/brands/liebherr.svg" },
+  { name: "Haier", slug: "haier", logo: "/images/brands/haier.svg" },
+  { name: "BEKO", slug: "beko", logo: "/images/brands/beko.svg" },
+  { name: "V-ZUG", slug: "vzug", logo: "/images/brands/vzug.svg" },
   { name: "Stadler Form", slug: "stadler-form", logo: "/images/brands/stadler-form.svg" },
   { name: "Blueair", slug: "blueair", logo: "/images/brands/blueair.svg" },
+  { name: "Levoit", slug: "levoit", logo: "/images/brands/levoit.svg" },
+  { name: "tado°", slug: "tado", logo: "/images/brands/tado.svg" },
   { name: "Nanoleaf", slug: "nanoleaf", logo: "/images/brands/nanoleaf.svg" },
   { name: "Ring", slug: "ring", logo: "/images/brands/ring.svg" },
+  { name: "Netatmo", slug: "netatmo", logo: "/images/brands/netatmo.svg" },
+  { name: "IKEA", slug: "ikea", logo: "/images/brands/ikea.svg" },
 ];
 
 interface ProductData {
@@ -77,7 +95,7 @@ const products: ProductData[] = [
     description: "Der neue Thermomix TM7 - noch leistungsstärker, vielseitiger und benutzerfreundlicher. Über 80 Kochfunktionen in einem Gerät.",
     shortDesc: "Das ultimative Küchengerät mit 80+ Funktionen",
     price: 1499.0, originalPrice: 1599.0, sku: "TM7-2026", inStock: true, isFeatured: true, isNew: true,
-    rating: 4.9, reviewCount: 127, categorySlug: "kueche", brandSlug: "vorwerk", weight: 7.95,
+    rating: 4.9, reviewCount: 127, categorySlug: "kueche-food", brandSlug: "thermomix", weight: 7.95,
     features: ["80+ Kochfunktionen", "6,8 Zoll TFT-Display", "WLAN & App-Steuerung", "Selbstreinigung"],
     tags: ["bestseller", "premium", "smart-home"],
     seoTitle: "Thermomix TM7 kaufen – HAUSELIO", seoDesc: "Der neue Thermomix TM7 mit 80+ Funktionen. Kostenloser Versand ab 50€.",
@@ -92,7 +110,7 @@ const products: ProductData[] = [
     description: "Der bewährte Thermomix TM6 - zuverlässig, leistungsstark und vielseitig.",
     shortDesc: "Bewährte Qualität mit 40+ Funktionen",
     price: 1399.0, sku: "TM6-2025", inStock: true, isFeatured: true,
-    rating: 4.8, reviewCount: 342, categorySlug: "kueche", brandSlug: "vorwerk",
+    rating: 4.8, reviewCount: 342, categorySlug: "kueche-food", brandSlug: "thermomix",
     features: ["40+ Kochfunktionen", "Cookidoo-Zugang", "Selbstreinigung", "5,5 Zoll Display"],
     specs: [
       { key: "Leistung", value: "1500 Watt" }, { key: "Gewicht", value: "7,95 kg" },
@@ -105,7 +123,7 @@ const products: ProductData[] = [
     description: "Die KitchenAid Artisan Küchenmaschine - ikonisches Design trifft auf professionelle Leistung.",
     shortDesc: "Ikonische Küchenmaschine mit 4,8L Schüssel",
     price: 549.0, originalPrice: 599.0, sku: "KA-ART-5KSM", inStock: true, isFeatured: true, isPromo: true,
-    rating: 4.8, reviewCount: 289, categorySlug: "kueche", brandSlug: "kitchenaid", weight: 10.5,
+    rating: 4.8, reviewCount: 289, categorySlug: "kueche-food", brandSlug: "kitchenaid", weight: 10.5,
     features: ["4,8L Edelstahlschüssel", "10 Geschwindigkeiten", "Planetarische Bewegung"],
     tags: ["bestseller", "design-klassiker"],
     specs: [
@@ -119,7 +137,7 @@ const products: ProductData[] = [
     description: "Der Bosch Serie 6 Herd mit 4 Induktionsherdfeldern und 66L Backofen.",
     shortDesc: "Induktionsherd mit PerfectBake Technologie",
     price: 1899.0, sku: "BSH-HKH634ES5", inStock: true,
-    rating: 4.7, reviewCount: 78, categorySlug: "kueche", brandSlug: "bosch", weight: 62,
+    rating: 4.7, reviewCount: 78, categorySlug: "cuisson", brandSlug: "bosch", weight: 62,
     features: ["4 Induktionsherdfelder", "66L Backofen", "PerfectBake", "PerfectRoast"],
     specs: [
       { key: "Herdtyp", value: "Induktion" }, { key: "Backofenvolumen", value: "66 Liter" },
@@ -131,7 +149,7 @@ const products: ProductData[] = [
     description: "Der Siemens iQ700 Einbau-Backofen mit pyrolytischer Selbstreinigung.",
     shortDesc: "Einbau-Backofen mit Pyrolyse",
     price: 1299.0, sku: "SI-HB778GES0", inStock: true, isNew: true,
-    rating: 4.8, reviewCount: 45, categorySlug: "kueche", brandSlug: "siemens", weight: 38,
+    rating: 4.8, reviewCount: 45, categorySlug: "cuisson", brandSlug: "siemens", weight: 38,
     features: ["Pyrolytische Selbstreinigung", "cookControl Pro", "TFT-Touchdisplay"],
     specs: [
       { key: "Backraumvolumen", value: "71 Liter" }, { key: "Heizarten", value: "13" },
@@ -143,7 +161,7 @@ const products: ProductData[] = [
     description: "Das Gaggenau Vario 200 Kochfeld - flexibles Induktionssystem.",
     shortDesc: "Premium-Induktion mit flexibler Kochfläche",
     price: 2499.0, sku: "GAG-V200-IND", inStock: true,
-    rating: 4.9, reviewCount: 34, categorySlug: "kueche", brandSlug: "gaggenau",
+    rating: 4.9, reviewCount: 34, categorySlug: "cuisson", brandSlug: "gaggenau",
     features: ["2200 cm² Kochfläche", "Boost-Funktion", "Bratensensor"],
     specs: [
       { key: "Kochfeldtyp", value: "Induktion" }, { key: "Fläche", value: "2200 cm²" },
@@ -229,7 +247,7 @@ const products: ProductData[] = [
     description: "Der Dyson V15 Detect Absolute - der leistungsstärkste kabellose Staubsauger.",
     shortDesc: "Kabelloser Staubsauger mit Laser-Technologie",
     price: 749.0, sku: "DY-V15-ABS", inStock: true, isFeatured: true, isNew: true,
-    rating: 4.7, reviewCount: 89, categorySlug: "reinigung", brandSlug: "dyson", weight: 3.1,
+    rating: 4.7, reviewCount: 89, categorySlug: "aspirateurs", brandSlug: "dyson", weight: 3.1,
     features: ["Grüne Laserdiode", "LCD-Display", "60 Min. Laufzeit", "Piezo-Sensor"],
     tags: ["bestseller", "premium"],
     specs: [
@@ -242,23 +260,24 @@ const products: ProductData[] = [
     description: "Der Dyson Gen5detect Absolute - die nächste Generation der Saugroboter.",
     shortDesc: "Top Saugleistung mit 280 AW",
     price: 949.0, sku: "DY-GEN5-ABS", inStock: true,
-    rating: 4.8, reviewCount: 45, categorySlug: "reinigung", brandSlug: "dyson", weight: 3.5,
+    rating: 4.8, reviewCount: 45, categorySlug: "aspirateurs", brandSlug: "dyson", weight: 3.5,
     features: ["280 AW Saugleistung", "70 Min. Laufzeit", "DLS Technologie", "HEPA-Filter"],
     specs: [
       { key: "Laufzeit", value: "bis zu 70 Minuten" }, { key: "Saugleistung", value: "280 AW" },
     ],
   },
   {
-    name: "iRobot Roomba j7+",
-    slug: "irobot-roomba-j7-plus",
-    description: "Der iRobot Roomba j7+ - intelligenter Saugroboter mit PrecisionVision Navigation.",
-    shortDesc: "Intelligenter Saugroboter mit Hinderniserkennung",
-    price: 599.0, originalPrice: 799.0, sku: "IR-J7PLUS", inStock: true, isFeatured: true, isPromo: true,
-    rating: 4.6, reviewCount: 312, categorySlug: "reinigung", brandSlug: "irobot", weight: 3.4,
-    features: ["PrecisionVision", "Auto-Entsorgung", "3-Stufen-Reinigung"],
+    name: "iRobot Roomba Plus 405",
+    slug: "irobot-roomba-plus-405",
+    description: "Der iRobot Roomba Plus 405 - intelligenter Saugroboter mit 3-Stufen-Reinigungssystem und automatischer Staubbenerdielung.",
+    shortDesc: "Saugroboter mit 3-Stufen-Reinigung & Auto-Empty",
+    price: 499.0, sku: "IR-RP405", inStock: true, isFeatured: true,
+    rating: 4.5, reviewCount: 156, categorySlug: "aspirateurs", brandSlug: "irobot", weight: 3.2,
+    features: ["3-Stufen-Reinigung", "Automatische Staubbenerdielung", "App-Steuerung", "Scheibenreinigung"],
     tags: ["bestseller"],
     specs: [
-      { key: "Laufzeit", value: "bis zu 75 Minuten" }, { key: "Navigation", value: "PrecisionVision" },
+      { key: "Laufzeit", value: "bis zu 120 Minuten" }, { key: "Navigation", value: "iAdapt 3.0" },
+      { key: "Volumen Staubbbehälter", value: "0,7 L" },
     ],
   },
   {
@@ -267,7 +286,7 @@ const products: ProductData[] = [
     description: "Der Dyson Big Ball Animal Pro - leistungsstarker Staubsauger für Tierhalter.",
     shortDesc: "Kabellöser Staubsauger für Tierhalter",
     price: 549.0, sku: "DY-BBAP", inStock: true,
-    rating: 4.5, reviewCount: 187, categorySlug: "reinigung", brandSlug: "dyson", weight: 7.2,
+    rating: 4.5, reviewCount: 187, categorySlug: "aspirateurs", brandSlug: "dyson", weight: 7.2,
     features: ["Radial Root Cyclone", "Automatische Höhenanpassung"],
     specs: [
       { key: "Saugleistung", value: "250 AW" }, { key: "Filter", value: "HEPA" },
@@ -279,7 +298,7 @@ const products: ProductData[] = [
     description: "Der Kärcher SC 4 EasyFix Premium - dampfreiniger mit Geschirrspültank.",
     shortDesc: "Dampfreiniger mit Geschirrspültank",
     price: 229.0, sku: "KA-SC4-EFP", inStock: true,
-    rating: 4.7, reviewCount: 567, categorySlug: "reinigung", brandSlug: "kaercher", weight: 6.0,
+    rating: 4.7, reviewCount: 567, categorySlug: "aspirateurs", brandSlug: "kaercher", weight: 6.0,
     features: ["EasyFix Bodenpark", "Geschirrspültank", "Dauerdampf"],
     specs: [
       { key: "Dampfdruck", value: "3,5 bar" }, { key: "Heizzeit", value: "4 Minuten" },
@@ -291,7 +310,7 @@ const products: ProductData[] = [
     description: "Der Dyson Purifier Big Quiet - Luftreiniger und Heizstrahler in einem.",
     shortDesc: "Luftreiniger mit formaldehydzerstörendem Katalysator",
     price: 899.0, sku: "DY-PUR-BQF", inStock: true, isFeatured: true,
-    rating: 4.7, reviewCount: 67, categorySlug: "klima", brandSlug: "dyson", weight: 8.5,
+    rating: 4.7, reviewCount: 67, categorySlug: "klima-luft", brandSlug: "dyson", weight: 8.5,
     features: ["Formaldehyd-Katalysator", "HEPA H13", "Bidirektional"],
     tags: ["premium", "gesundheit"],
     specs: [
@@ -304,7 +323,7 @@ const products: ProductData[] = [
     description: "Der Dyson Pure Cool TP09 - Luftreiniger und Ventilator.",
     shortDesc: "Luftreiniger & Ventilator mit Air-Quality-Display",
     price: 499.0, originalPrice: 549.0, sku: "DY-TP09", inStock: true, isPromo: true,
-    rating: 4.6, reviewCount: 123, categorySlug: "klima", brandSlug: "dyson",
+    rating: 4.6, reviewCount: 123, categorySlug: "klima-luft", brandSlug: "dyson",
     features: ["Formaldehyd-Katalysator", "Air-Quality-Display", "350° Oscillation"],
     specs: [
       { key: "Filter", value: "HEPA H13 + Aktivkohle" }, { key: "Raumgröße", value: "bis 40 m²" },
@@ -316,7 +335,7 @@ const products: ProductData[] = [
     description: "Der Stadler Form Oskar Big - eleganter Luftbefeuchter für Räume bis 80 m².",
     shortDesc: "Eleganter Luftbefeuchter für bis 80 m²",
     price: 189.0, sku: "SF-OSKAR-BIG", inStock: true,
-    rating: 4.4, reviewCount: 234, categorySlug: "klima", brandSlug: "stadler-form",
+    rating: 4.4, reviewCount: 234, categorySlug: "klima-luft", brandSlug: "stadler-form",
     features: ["3 Befeuchtungsstufen", "Hygiene-Funktion", "Nachtschaltfunktion"],
     specs: [
       { key: "Raumgröße", value: "bis 80 m²" }, { key: "Wasserkapazität", value: "6 Liter" },
@@ -328,7 +347,7 @@ const products: ProductData[] = [
     description: "Der Blueair Blue 3210 - kompakter Luftreiniger mit HEPASilent-Technologie.",
     shortDesc: "Kompakter Luftreiniger mit HEPASilent",
     price: 199.0, sku: "BLUE-3210", inStock: true,
-    rating: 4.5, reviewCount: 189, categorySlug: "klima", brandSlug: "blueair",
+    rating: 4.5, reviewCount: 189, categorySlug: "klima-luft", brandSlug: "blueair",
     features: ["HEPASilent-Technologie", "One-Touch-Bedienung", "3 Geschwindigkeiten"],
     specs: [
       { key: "Raumgröße", value: "bis 25 m²" }, { key: "Filter", value: "HEPASilent" },
@@ -402,7 +421,7 @@ const products: ProductData[] = [
     description: "Die Miele W1 Frontlader-Waschmaschine - revolutionäre Pflege mit TwinDos.",
     shortDesc: "Premium Waschmaschine mit TwinDos Technologie",
     price: 1899.0, sku: "MIELE-WCI870", inStock: true, isFeatured: true,
-    rating: 4.9, reviewCount: 203, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 87,
+    rating: 4.9, reviewCount: 203, categorySlug: "waschen-trocknen", brandSlug: "miele", weight: 87,
     features: ["TwinDos", "CapDosing", "PowerWash 2.0", "8 kg Füllmenge"],
     tags: ["premium", "energieeffizient"],
     specs: [
@@ -415,7 +434,7 @@ const products: ProductData[] = [
     description: "Der Miele T1 Trommeltrockner mit Wärmepumpentechnologie.",
     shortDesc: "Premium Trommeltrockner mit Wärmepumpe",
     price: 1699.0, sku: "MIELE-TRK845", inStock: true,
-    rating: 4.8, reviewCount: 156, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 62,
+    rating: 4.8, reviewCount: 156, categorySlug: "waschen-trocknen", brandSlug: "miele", weight: 62,
     features: ["Wärmepumpe", "AutoSensoren", "PerfectDry", "8 kg"],
     specs: [
       { key: "Fassungsvermögen", value: "8 kg" }, { key: "Trocknungsart", value: "Wärmepumpe" },
@@ -427,7 +446,7 @@ const products: ProductData[] = [
     description: "Die Bosch Serie 6 Waschmaschine mit Home Connect, i-DOS und ActiveWater Plus.",
     shortDesc: "Waschmaschine mit i-DOS & Home Connect",
     price: 899.0, sku: "BSH-WGG244Z00", inStock: true,
-    rating: 4.7, reviewCount: 312, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 74,
+    rating: 4.7, reviewCount: 312, categorySlug: "waschen-trocknen", brandSlug: "bosch", weight: 74,
     features: ["i-DOS", "Home Connect", "ActiveWater Plus", "9 kg"],
     tags: ["bestseller"],
     specs: [
@@ -440,22 +459,23 @@ const products: ProductData[] = [
     description: "Die Samsung EcoBubble Waschmaschine mit AirWash-Technologie.",
     shortDesc: "EcoBubble mit AirWash-Technologie",
     price: 699.0, originalPrice: 799.0, sku: "SAM-WW90TP", inStock: true, isPromo: true,
-    rating: 4.6, reviewCount: 567, categorySlug: "haushaltsgeraete", brandSlug: "samsung", weight: 65,
+    rating: 4.6, reviewCount: 567, categorySlug: "waschen-trocknen", brandSlug: "samsung", weight: 65,
     features: ["EcoBubble", "AirWash", "Digital Inverter", "Smart Things"],
     specs: [
       { key: "Füllmenge", value: "9 kg" }, { key: "Schleuderdrehzahl", value: "1400 U/min" },
     ],
   },
   {
-    name: "AEG LR7A80600 Frontlader",
-    slug: "aeg-lr7a80600",
-    description: "Die AEG LR7A80600 Waschmaschine mit ProSense Technology.",
-    shortDesc: "ProSense Waschmaschine mit Öko-Inverter",
-    price: 799.0, sku: "AEG-LR7A80600", inStock: true,
-    rating: 4.7, reviewCount: 234, categorySlug: "haushaltsgeraete", brandSlug: "aeg", weight: 70,
-    features: ["ProSense Technology", "Öko-Inverter", "Antivibrations-Design"],
+    name: "AEG CX7-2-I360",
+    slug: "aeg-cx7-2-i360",
+    description: "Der AEG CX7-2-I360 - kabelloser Handstaubsauger mit 2-in-1-Design und zyklonischer Filtration.",
+    shortDesc: "Kabelloser Handstaubsauger mit 2-in-1-Design",
+    price: 299.0, sku: "AEG-CX7-2-I360", inStock: true,
+    rating: 4.4, reviewCount: 87, categorySlug: "aspirateurs", brandSlug: "aeg", weight: 2.5,
+    features: ["2-in-1-Design", "Zyklon-Technologie", "Akku bis 60 min", "LED-Display"],
     specs: [
-      { key: "Füllmenge", value: "8 kg" }, { key: "Energieeffizienz", value: "A+++" },
+      { key: "Laufzeit", value: "bis zu 60 Minuten" }, { key: "Volumen", value: "0,7 L" },
+      { key: "Gewicht", value: "2,5 kg" },
     ],
   },
   {
@@ -464,7 +484,7 @@ const products: ProductData[] = [
     description: "Der Miele G7966 SCVi - Einbaugeschirrspüler mit AutoDos und PowerDisk.",
     shortDesc: "Premium-Geschirrspüler mit AutoDos & PowerDisk",
     price: 1699.0, sku: "MIELE-G7966", inStock: true, isFeatured: true,
-    rating: 4.9, reviewCount: 89, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 38,
+    rating: 4.9, reviewCount: 89, categorySlug: "geschirrspueler", brandSlug: "miele", weight: 38,
     features: ["AutoDos", "PowerDisk", "3D-Tac Sensor", "WiFiConn@ct"],
     tags: ["premium", "energieeffizient"],
     specs: [
@@ -472,39 +492,42 @@ const products: ProductData[] = [
     ],
   },
   {
-    name: "Bosch Serie 6 SMV88TX36E",
-    slug: "bosch-serie-6-smv88tx36e",
-    description: "Der Bosch Serie 6 Einbau-Geschirrspüler mit Zeolith-Trocknung.",
-    shortDesc: "Geschirrspüler mit Zeolith & CrystalDry",
-    price: 1199.0, sku: "BSH-SMV88TX36E", inStock: true,
-    rating: 4.8, reviewCount: 234, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 36,
-    features: ["Zeolith-Trocknung", "CrystalDry", "Home Connect"],
+    name: "Bosch Serie 4 SMV6ECX22E",
+    slug: "bosch-serie-4-smv6ecx22e",
+    description: "Der Bosch Serie 4 Einbau-Geschirrspüler mit PerfectDry und Zeolith-Trocknung.",
+    shortDesc: "Geschirrspüler mit PerfectDry & Zeolith",
+    price: 799.0, sku: "BSH-SMV6ECX22E", inStock: true,
+    rating: 4.7, reviewCount: 189, categorySlug: "geschirrspueler", brandSlug: "bosch", weight: 34,
+    features: ["PerfectDry", "Zeolith-Trocknung", "Home Connect", "EcoSilence Drive"],
     specs: [
       { key: "Fassungsvermögen", value: "14 Gedecke" }, { key: "Geräuschpegel", value: "44 dB(A)" },
+      { key: "Energieeffizienz", value: "C" },
     ],
   },
   {
-    name: "Siemens iQ700 SN878X04CE",
-    slug: "siemens-iq700-sn878x04ce",
-    description: "Der Siemens iQ700 Geschirrspüler mit varioDrawer Plus und Zeolith.",
-    shortDesc: "Siemens iQ700 mit varioDrawer & Zeolith",
-    price: 1099.0, sku: "SI-SN878X04CE", inStock: true,
-    rating: 4.7, reviewCount: 178, categorySlug: "haushaltsgeraete", brandSlug: "siemens", weight: 35,
-    features: ["varioDrawer Plus", "Zeolith Trocknung", "Home Connect"],
+    name: "Siemens iQ300 SN63EX22CE",
+    slug: "siemens-iq300-sn63ex22ce",
+    description: "Der Siemens iQ300 Geschirrspüler mit Silence Plus und varioSpeed.",
+    shortDesc: "Siemens iQ300 mit Silence Plus & varioSpeed",
+    price: 999.0, sku: "SI-SN63EX22CE", inStock: true,
+    rating: 4.5, reviewCount: 33, categorySlug: "geschirrspueler", brandSlug: "siemens", weight: 35,
+    features: ["Silence Plus", "varioSpeed", "Home Connect", "AquaStop"],
     specs: [
-      { key: "Fassungsvermögen", value: "14 Gedecke" }, { key: "Trocknung", value: "Zeolith" },
+      { key: "Fassungsvermögen", value: "14 Gedecke" }, { key: "Geräuschpegel", value: "42 dB(A)" },
+      { key: "Energieeffizienz", value: "C" },
     ],
   },
   {
-    name: "Bosch Serie 2 SKS62E32EU",
-    slug: "bosch-serie-2-sks62e32eu",
-    description: "Der Bosch Serie 2 Kompakt-Geschirrspüler für die Aufstellschublade.",
-    shortDesc: "Kompakt-Geschirrspüler für die Aufstellschublade",
-    price: 449.0, sku: "BSH-SKS62E32EU", inStock: true,
-    rating: 4.5, reviewCount: 456, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 25,
-    features: ["Aufbau-Geschirrspüler", "10 Gedecke", "6 Programme", "AquaStop"],
+    name: "Bosch Serie 4 SMS4ECI28F",
+    slug: "bosch-serie-4-sms4eci28f",
+    description: "Der Bosch Serie 4 Pose libre Geschirrspüler mit Silence Plus und EfficientDry.",
+    shortDesc: "Pose libre mit Silence Plus & EfficientDry",
+    price: 1099.0, sku: "BSH-SMS4ECI28F", inStock: true,
+    rating: 4.7, reviewCount: 24, categorySlug: "geschirrspueler", brandSlug: "bosch", weight: 53,
+    features: ["Silence Plus", "EfficientDry", "Home Connect", "EcoSilence Drive"],
     specs: [
-      { key: "Fassungsvermögen", value: "10 Gedecke" }, { key: "Programme", value: "6 + 3 Spezial" },
+      { key: "Fassungsvermögen", value: "14 Gedecke" }, { key: "Geräuschpegel", value: "42 dB(A)" },
+      { key: "Energieeffizienz", value: "A" },
     ],
   },
   {
@@ -513,7 +536,7 @@ const products: ProductData[] = [
     description: "Der Liebherr Premium Comfort Kühlschrank - BioFresh, NoFrost und MagicEye.",
     shortDesc: "Premium Kühlschrank mit BioFresh & NoFrost",
     price: 1499.0, sku: "LB-KGN36VI3", inStock: true,
-    rating: 4.8, reviewCount: 134, categorySlug: "haushaltsgeraete", brandSlug: "liebherr", weight: 93,
+    rating: 4.8, reviewCount: 134, categorySlug: "froid", brandSlug: "liebherr", weight: 93,
     features: ["BioFresh", "NoFrost", "MagicEye", "SuperCool"],
     tags: ["premium", "energieeffizient"],
     specs: [
@@ -521,15 +544,16 @@ const products: ProductData[] = [
     ],
   },
   {
-    name: "Liebherr Mono SGNe 5226 Gefrierschrank",
-    slug: "liebherr-mono-sgne5226",
-    description: "Der Liebherr Mono Gefrierschrank mit NoFrost, SmartFrost und VarioSpace.",
-    shortDesc: "Gefrierschrank mit NoFrost & VarioSpace",
-    price: 1299.0, sku: "LB-SGNE5226", inStock: true,
-    rating: 4.7, reviewCount: 89, categorySlug: "haushaltsgeraete", brandSlug: "liebherr", weight: 85,
-    features: ["NoFrost", "SmartFrost", "VarioSpace"],
+    name: "Liebherr Comfort Ke230-26",
+    slug: "liebherr-comfort-ke230-26",
+    description: "Der Liebherr Comfort Kühlschrank mit 213 L Volumen, LED-Beleuchtung und ClimateClass SN-ST.",
+    shortDesc: "Kompakter Kühlschrank mit 213 L & LED",
+    price: 549.0, sku: "LB-KE230-26", inStock: true,
+    rating: 4.3, reviewCount: 56, categorySlug: "froid", brandSlug: "liebherr", weight: 44,
+    features: ["213 L Volumen", "LED-Beleuchtung", "Porte réversible", "Clayette porte-bouteilles"],
     specs: [
-      { key: "Nutzvolumen", value: "382 Liter" }, { key: "Energieeffizienz", value: "A+++" },
+      { key: "Nutzvolumen", value: "213 Liter" }, { key: "Geräuschpegel", value: "38 dB(A)" },
+      { key: "Klasse", value: "Comfort" },
     ],
   },
   {
@@ -538,7 +562,7 @@ const products: ProductData[] = [
     description: "Der Samsung Family Hub Kühlschrank mit 21,5 Zoll Touchscreen und AI-Kamera.",
     shortDesc: "Family Hub mit Touchscreen & AI-Kamera",
     price: 2499.0, sku: "SAM-FH-RB38B", inStock: true, isNew: true,
-    rating: 4.6, reviewCount: 67, categorySlug: "haushaltsgeraete", brandSlug: "samsung", weight: 115,
+    rating: 4.6, reviewCount: 67, categorySlug: "froid", brandSlug: "samsung", weight: 115,
     features: ["21,5\" Touchscreen", "AI-Innenraumkamera", "SmartThings"],
     tags: ["premium", "smart-home"],
     specs: [
@@ -546,15 +570,16 @@ const products: ProductData[] = [
     ],
   },
   {
-    name: "Bosch Serie 6 KGN39VL3A",
-    slug: "bosch-serie-6-kgn39vl3a",
-    description: "Der Bosch Serie 6 Kühlschrank mit NoFrost und VitaFresh Pro.",
-    shortDesc: "NoFrost Kühlschrank mit VitaFresh Pro",
-    price: 1099.0, sku: "BSH-KGN39VL3A", inStock: true,
-    rating: 4.7, reviewCount: 234, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 82,
-    features: ["NoFrost", "VitaFresh Pro", "Home Connect", "MultiAirflow"],
+    name: "Bosch Serie 4 KGN36VLED",
+    slug: "bosch-serie-4-kgn36vled",
+    description: "Der Bosch Serie 4 Kombi-Kühlschrank mit NoFrost, VitaFresh und LED-Display.",
+    shortDesc: "Kombi-Kühlschrank mit NoFrost & VitaFresh",
+    price: 633.0, sku: "BSH-KGN36VLED", inStock: true,
+    rating: 4.4, reviewCount: 31, categorySlug: "froid", brandSlug: "bosch", weight: 72,
+    features: ["NoFrost", "VitaFresh", "LED-Display", "MultiAirflow"],
     specs: [
-      { key: "Nutzvolumen", value: "366 Liter" }, { key: "Energieeffizienz", value: "A+++" },
+      { key: "Nutzvolumen", value: "326 Liter" }, { key: "Geräuschpegel", value: "35 dB(A)" },
+      { key: "Energieeffizienz", value: "C" },
     ],
   },
 ];
@@ -645,9 +670,26 @@ async function main() {
     productRecords.push(created);
   }
 
-  const imageData = productRecords.flatMap((p) => [
-    { url: `/images/products/${p.slug}.jpg`, alt: p.slug, position: 0, productId: p.id },
-  ]);
+  const fs = await import("fs");
+  const path = await import("path");
+  const imageData: { url: string; alt: string; position: number; productId: string }[] = [];
+  for (const rec of productRecords) {
+    const productDir = path.join(process.cwd(), "public", "images", "products", rec.slug);
+    if (!fs.existsSync(productDir)) {
+      imageData.push({ url: `/images/products/${rec.slug}.jpg`, alt: rec.slug, position: 0, productId: rec.id });
+      continue;
+    }
+    const webpFiles = fs.readdirSync(productDir)
+      .filter((f) => f.endsWith("-medium.webp"))
+      .sort();
+    if (webpFiles.length === 0) {
+      imageData.push({ url: `/images/products/${rec.slug}.jpg`, alt: rec.slug, position: 0, productId: rec.id });
+    } else {
+      webpFiles.forEach((file, i) => {
+        imageData.push({ url: `/images/products/${rec.slug}/${file}`, alt: `${rec.slug} ${i + 1}`, position: i, productId: rec.id });
+      });
+    }
+  }
   await prisma.productImage.createMany({ data: imageData });
 
   const specData: { key: string; value: string; position: number; productId: string }[] = [];
@@ -662,10 +704,14 @@ async function main() {
   await prisma.productSpec.createMany({ data: specData });
 
   const reviewData: { rating: number; title: string; content: string; authorName: string; authorEmail: string; isApproved: boolean; productId: string }[] = [];
+  const seenReviews = new Set<string>();
   for (const rec of productRecords) {
     const reviewCount = Math.floor(Math.random() * 3) + 1;
     for (let i = 0; i < reviewCount; i++) {
       const review = sampleReviews[Math.floor(Math.random() * sampleReviews.length)];
+      const key = `${rec.id}|${review.authorName.toLowerCase().replace(/[^a-z]/g, "")}@example.de`;
+      if (seenReviews.has(key)) continue;
+      seenReviews.add(key);
       reviewData.push({
         rating: review.rating,
         title: review.title,
