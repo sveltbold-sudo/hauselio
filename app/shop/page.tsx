@@ -333,6 +333,28 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </p>
             <div className="flex items-center gap-3">
               <ShopSortSelect sort={sort} />
+              <div className="hidden sm:flex items-center border border-[var(--color-border-light)] rounded-lg overflow-hidden">
+                <button
+                  type="button"
+                  aria-label="Rasteransicht"
+                  aria-pressed="true"
+                  className="p-2 bg-[var(--color-primary)] text-white"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  aria-label="Listenansicht"
+                  aria-pressed="false"
+                  className="p-2 text-[var(--color-text-muted)] hover:bg-[var(--color-bg-secondary)]"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -368,55 +390,60 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="mt-10 flex justify-center">
-              <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
-                {page > 1 && (
-                  <Link
-                    href={shopUrl(page - 1, category, brand, q, sort, price, promo)}
-                    className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
-                    aria-label="Vorherige Seite"
-                  >
-                    <ChevronLeft className="w-4 h-4" aria-hidden="true" />
-                    Zurück
-                  </Link>
-                )}
-                {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-                  let p: number;
-                  if (totalPages <= 7) {
-                    p = i + 1;
-                  } else if (page <= 4) {
-                    p = i + 1;
-                  } else if (page >= totalPages - 3) {
-                    p = totalPages - 6 + i;
-                  } else {
-                    p = page - 3 + i;
-                  }
-                  return (
+            <div className="mt-10">
+              <p className="text-center text-sm text-[var(--color-text-muted)] mb-4">
+                Ergebnisse {((page - 1) * 20) + 1}–{Math.min(page * 20, total)} von {total}
+              </p>
+              <div className="flex justify-center">
+                <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
+                  {page > 1 && (
                     <Link
-                      key={p}
-                      href={shopUrl(p, category, brand, q, sort, price, promo)}
-                      aria-current={p === page ? "page" : undefined}
-                      className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
-                        p === page
-                          ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
-                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
-                      }`}
+                      href={shopUrl(page - 1, category, brand, q, sort, price, promo)}
+                      className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      aria-label="Vorherige Seite"
                     >
-                      {p}
+                      <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+                      Zurück
                     </Link>
-                  );
-                })}
-                {page < totalPages && (
-                  <Link
-                    href={shopUrl(page + 1, category, brand, q, sort, price, promo)}
-                    className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
-                    aria-label="Nächste Seite"
-                  >
-                    Weiter
-                    <ChevronRight className="w-4 h-4" aria-hidden="true" />
-                  </Link>
-                )}
-              </nav>
+                  )}
+                  {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                    let p: number;
+                    if (totalPages <= 7) {
+                      p = i + 1;
+                    } else if (page <= 4) {
+                      p = i + 1;
+                    } else if (page >= totalPages - 3) {
+                      p = totalPages - 6 + i;
+                    } else {
+                      p = page - 3 + i;
+                    }
+                    return (
+                      <Link
+                        key={p}
+                        href={shopUrl(p, category, brand, q, sort, price, promo)}
+                        aria-current={p === page ? "page" : undefined}
+                        className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
+                          p === page
+                            ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
+                            : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
+                        }`}
+                      >
+                        {p}
+                      </Link>
+                    );
+                  })}
+                  {page < totalPages && (
+                    <Link
+                      href={shopUrl(page + 1, category, brand, q, sort, price, promo)}
+                      className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      aria-label="Nächste Seite"
+                    >
+                      Weiter
+                      <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                    </Link>
+                  )}
+                </nav>
+              </div>
             </div>
           )}
         </div>

@@ -320,6 +320,21 @@ a, button, input, select, textarea, [role="button"] {
   display: none;
 }
 
+/* ── Content Visibility — optimize below-fold rendering ── */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ── Blur-up image placeholder ── */
+.blur-up {
+  filter: blur(0);
+  transition: filter 0.3s ease;
+}
+.blur-up[loading="lazy"] {
+  filter: blur(4px);
+}
+
 /* ── Stagger Delays ── */
 .delay-100 { animation-delay: 100ms; }
 .delay-150 { animation-delay: 150ms; }

@@ -78,7 +78,9 @@ export default function ProductImage({
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out blur-up"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsM"
           {...(priority ? { priority: true } : { loading: "lazy" })}
         />
       </div>
