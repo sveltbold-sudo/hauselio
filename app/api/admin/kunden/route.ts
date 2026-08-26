@@ -42,8 +42,26 @@ export async function GET(request: NextRequest) {
         }
       : {};
 
-    const orders = await prisma.order.findMany({
+    const aggregatedCustomers = await prisma.order.groupBy({
+      by: ["customerEmail"],
       where,
+      _count: true,
+      _sum: { total: true },
+      _max: { createdAt: true },
+      orderBy: { _max: { createdAt: "desc" } },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    const totalCount = await prisma.order.groupBy({
+      by: ["customerEmail"],
+      where,
+      _count: true,
+    });
+
+    const customerEmails = aggregatedCustomers.map((c) => c.customerEmail);
+    const latestOrders = await prisma.order.findMany({
+      where: { customerEmail: { in: customerEmails } },
       select: {
         customerEmail: true,
         customerFirstName: true,
@@ -53,65 +71,42 @@ export async function GET(request: NextRequest) {
         customerCity: true,
         customerZip: true,
         customerCountry: true,
-        total: true,
         createdAt: true,
       },
       orderBy: { createdAt: "desc" },
     });
 
-    const customerMap = new Map<string, {
-      email: string;
-      firstName: string;
-      lastName: string;
-      phone: string | null;
-      address: string;
-      city: string;
-      zip: string;
-      country: string;
-      orderCount: number;
-      totalSpent: number;
-      lastOrderAt: Date;
-    }>();
-
-    for (const order of orders) {
-      const key = order.customerEmail.toLowerCase();
-      const existing = customerMap.get(key);
-      if (existing) {
-        existing.orderCount++;
-        existing.totalSpent += Number(order.total);
-        if (order.createdAt > existing.lastOrderAt) {
-          existing.lastOrderAt = order.createdAt;
-        }
-      } else {
-        customerMap.set(key, {
-          email: order.customerEmail,
-          firstName: order.customerFirstName,
-          lastName: order.customerLastName,
-          phone: order.customerPhone,
-          address: order.customerAddress,
-          city: order.customerCity,
-          zip: order.customerZip,
-          country: order.customerCountry,
-          orderCount: 1,
-          totalSpent: Number(order.total),
-          lastOrderAt: order.createdAt,
-        });
+    const latestOrderMap = new Map<string, typeof latestOrders[0]>();
+    for (const order of latestOrders) {
+      if (!latestOrderMap.has(order.customerEmail)) {
+        latestOrderMap.set(order.customerEmail, order);
       }
     }
 
-    const allCustomers = Array.from(customerMap.values())
-      .sort((a, b) => b.lastOrderAt.getTime() - a.lastOrderAt.getTime());
-
-    const total = allCustomers.length;
-    const customers = allCustomers.slice((page - 1) * limit, page * limit);
+    const customers = aggregatedCustomers.map((agg) => {
+      const latest = latestOrderMap.get(agg.customerEmail);
+      return {
+        email: agg.customerEmail,
+        firstName: latest?.customerFirstName ?? "",
+        lastName: latest?.customerLastName ?? "",
+        phone: latest?.customerPhone ?? null,
+        address: latest?.customerAddress ?? "",
+        city: latest?.customerCity ?? "",
+        zip: latest?.customerZip ?? "",
+        country: latest?.customerCountry ?? "",
+        orderCount: agg._count,
+        totalSpent: Number(agg._sum.total || 0),
+        lastOrderAt: agg._max.createdAt ?? new Date(),
+      };
+    });
 
     return NextResponse.json({
       customers,
       pagination: {
         page,
         limit,
-        total,
-        pages: Math.ceil(total / limit),
+        total: totalCount.length,
+        pages: Math.ceil(totalCount.length / limit),
       },
     });
   } catch (error) {

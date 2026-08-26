@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "20", 10) || 20));
     const filter = searchParams.get("filter") || "all";
 
-    const where: Record<string, unknown> = {};
+    const where: { isApproved?: boolean } = {};
     if (filter === "pending") where.isApproved = false;
     else if (filter === "approved") where.isApproved = true;
 

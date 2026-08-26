@@ -27,7 +27,11 @@ export async function GET(request: NextRequest) {
       ? Math.min(100, Math.max(1, rawLimit))
       : 20;
 
-    const where: Record<string, unknown> = {};
+    const where: {
+      category?: { slug: string };
+      brand?: { slug: string };
+      OR?: Array<{ name: { contains: string; mode: "insensitive" } } | { description: { contains: string; mode: "insensitive" } }>;
+    } = {};
 
     if (category) {
       where.category = { slug: category };

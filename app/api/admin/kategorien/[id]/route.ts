@@ -22,7 +22,7 @@ export async function PUT(
     await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-kategorie:${ip}`, 30, 60_000)) {
-      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
     const { id } = await params;
     const body = await request.json();

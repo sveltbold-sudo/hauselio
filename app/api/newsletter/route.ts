@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     if (!await checkRateLimit(`newsletter:${ip}`, 3, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
-        { status: 429 }
+        { status: 429, headers: { "Retry-After": "60" } }
       );
     }
 

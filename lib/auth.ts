@@ -247,10 +247,14 @@ export async function recordFailedLogin(email: string): Promise<void> {
 }
 
 export async function resetFailedLogins(email: string): Promise<void> {
-  await prisma.adminUser.update({
-    where: { email },
-    data: { failedAttempts: 0, lockedUntil: null },
-  });
+  try {
+    await prisma.adminUser.update({
+      where: { email },
+      data: { failedAttempts: 0, lockedUntil: null },
+    });
+  } catch {
+    // Admin might not exist — ignore silently
+  }
 }
 
 // Real bcrypt hash of a random 64-char string — used for timing-attack prevention

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     if (!await checkRateLimit(`bank:${ip}`, 10, 60 * 1000)) {
       return NextResponse.json(
         { error: "Zu viele Anfragen" },
-        { status: 429 }
+        { status: 429, headers: { "Retry-After": "60" } }
       );
     }
 

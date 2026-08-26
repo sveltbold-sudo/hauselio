@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-upload:${ip}`, 20, 60_000)) {
-      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
     const formData = await request.formData();

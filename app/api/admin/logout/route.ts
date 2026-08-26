@@ -6,7 +6,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 export async function POST() {
   try {
     if (!await checkRateLimit("admin-logout", 20, 60_000)) {
-      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
     const response = NextResponse.json({ success: true });
     const cookieOptions = clearAuthCookie();
