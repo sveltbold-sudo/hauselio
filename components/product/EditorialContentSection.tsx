@@ -68,7 +68,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                 <Link href={content.href} className="block bg-white rounded-xl overflow-hidden shadow-sm border border-[var(--color-border-light)] hover:shadow-md transition-shadow group">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image src={content.image} alt={content.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="260px" />
-                    <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-white/90 backdrop-blur-sm text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-primary)] rounded-md">
+                    <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-white/90 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] rounded-md">
                       {content.type}
                     </span>
                   </div>
@@ -76,12 +76,12 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                     <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-1.5 line-clamp-2 leading-snug">
                       {content.title}
                     </h3>
-                    <p className="text-[11px] text-[var(--color-text-secondary)] line-clamp-2 mb-3">
+                    <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 mb-3">
                       {content.excerpt}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] text-[var(--color-text-muted)]">{content.readTime}</span>
-                      <span className="text-[11px] font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                      <span className="text-xs text-[var(--color-text-muted)]">{content.readTime}</span>
+                      <span className="text-xs font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
                         Weiterlesen
                         <ChevronRight className="w-3 h-3" />
                       </span>

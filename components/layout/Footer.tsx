@@ -191,7 +191,7 @@ export default function Footer() {
             {paymentMethods.map((method) => (
               <div
                 key={method.name}
-                className="px-3 py-1.5 border rounded-md bg-white/5 border-white/10"
+                className="px-3 py-1.5 border rounded-lg bg-white/5 border-white/10"
                 title={method.name}
               >
                 <Image

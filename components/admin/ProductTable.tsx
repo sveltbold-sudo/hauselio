@@ -309,7 +309,7 @@ export default function ProductTable({
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[11px] text-[var(--color-text-muted)]">
+                    <div className="w-full h-full flex items-center justify-center text-xs text-[var(--color-text-muted)]">
                       Kein Bild
                     </div>
                   )}
@@ -325,7 +325,7 @@ export default function ProductTable({
                       </p>
                     </div>
                     <span
-                      className={`inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
+                      className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 ${
                         product.inStock
                           ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
                           : "bg-[var(--color-danger)]/10 text-[var(--color-danger)]"

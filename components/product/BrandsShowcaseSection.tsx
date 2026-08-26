@@ -55,7 +55,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
                       <span className="text-lg font-bold text-[var(--color-text-muted)]">{brand.name.charAt(0)}</span>
                     )}
                   </div>
-                  <p className="text-[11px] font-semibold text-[var(--color-text-primary)] text-center leading-tight">{brand.name}</p>
+                   <p className="text-xs font-semibold text-[var(--color-text-primary)] text-center leading-tight">{brand.name}</p>
                 </div>
               </Link>
             ))}

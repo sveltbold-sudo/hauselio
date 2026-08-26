@@ -135,7 +135,7 @@ export default async function TestimonialsSection() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-[var(--color-text-primary)]">{t.name}</p>
-                      <p className="text-[11px] text-[var(--color-text-muted)]">{t.location}</p>
+                      <p className="text-xs text-[var(--color-text-muted)]">{t.location}</p>
                     </div>
                   </div>
                 </div>

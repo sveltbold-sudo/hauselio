@@ -190,7 +190,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                         </div>
                         <div className="flex-1 min-w-0">
                           {hit.brand && (
-                            <p className="text-[11px] font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                            <p className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
                               {hit.brand}
                             </p>
                           )}

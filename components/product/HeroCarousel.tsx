@@ -172,7 +172,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             <div className="absolute inset-0 flex flex-col justify-between p-5 pb-20">
               {/* Top: brand + discount */}
               <div className="flex items-start justify-between">
-                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
+                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
                   {s.brand}
                 </span>
                 {calcDiscount(s.price, s.originalPrice) > 0 && (
@@ -216,7 +216,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 </Link>
 
                 {/* Trust */}
-                <div className="flex items-center justify-center gap-4 mt-3 text-[11px] text-white/60">
+                <div className="flex items-center justify-center gap-4 mt-3 text-xs text-white/60">
                   <span className="flex items-center gap-1">
                     <Truck className="w-3 h-3" />
                     Versand gratis

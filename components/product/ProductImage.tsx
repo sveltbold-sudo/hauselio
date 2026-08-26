@@ -65,7 +65,7 @@ export default function ProductImage({
   };
 
   const brandSizes = {
-    sm: "text-[11px]",
+    sm: "text-xs",
     md: "text-xs",
     lg: "text-sm",
   };

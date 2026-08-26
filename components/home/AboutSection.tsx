@@ -63,7 +63,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="text-lg font-bold text-[var(--color-text-primary)]">Seit 2020</p>
-                  <p className="text-[11px] text-[var(--color-text-muted)]">In Deutschland</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">In Deutschland</p>
                 </div>
               </div>
             </div>

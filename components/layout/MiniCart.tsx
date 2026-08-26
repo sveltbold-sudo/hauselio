@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingBag, X, Plus, Minus, ArrowRight } from "lucide-react";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
@@ -136,7 +137,13 @@ export default function MiniCart() {
           {/* Items */}
           {items.length === 0 ? (
             <div className="p-10 text-center">
-              <ShoppingBag className="w-12 h-12 text-[var(--color-border)] mx-auto mb-3" />
+              <Image
+                src="/images/illustrations/empty-cart.svg"
+                alt="Leerer Warenkorb"
+                width={120}
+                height={90}
+                className="mx-auto mb-4 opacity-60"
+              />
               <p className="text-[var(--color-text-muted)] font-medium">
                 Ihr Warenkorb ist leer
               </p>
@@ -165,13 +172,13 @@ export default function MiniCart() {
                         {formatPrice(item.price)}
                       </p>
                     </div>
-                    <div className="flex items-center border border-[var(--color-border)] rounded-lg">
+                    <div className="flex items-center border border-[var(--color-border)] rounded-xl">
                       <button
                         onClick={() =>
                           updateQuantity(item.id, Math.max(1, item.quantity - 1))
                         }
                         aria-label="Menge verringern"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -183,7 +190,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.min(99, item.quantity + 1))
                         }
                         aria-label="Menge erhöhen"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -191,7 +198,7 @@ export default function MiniCart() {
                     <button
                       onClick={() => removeItem(item.id)}
                       aria-label="Artikel entfernen"
-                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       <X className="w-4 h-4" />
                     </button>

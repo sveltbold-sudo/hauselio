@@ -65,7 +65,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] p-3 animate-pulse">
+            <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] p-3 animate-pulse">
               <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg mb-3" />
               <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-3/4 mb-2" />
               <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/2" />

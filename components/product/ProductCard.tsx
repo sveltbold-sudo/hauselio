@@ -32,7 +32,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
+      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container — clean like Coolblue */}
@@ -48,7 +48,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
           {product.isPromo && discount > 0 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-md">
+            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg">
               -{discount}%
             </span>
           )}

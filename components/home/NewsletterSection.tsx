@@ -63,7 +63,7 @@ export default function NewsletterSection() {
           <p className="text-sm text-[var(--color-danger-light)] mt-2" role="alert">{error}</p>
         )}
 
-        <p className="text-[11px] text-white/40 mt-3">
+        <p className="text-xs text-white/40 mt-3">
           Kein Spam. Abmeldung jederzeit möglich.
         </p>
       </div>
