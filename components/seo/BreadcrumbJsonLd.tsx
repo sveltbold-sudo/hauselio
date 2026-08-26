@@ -14,7 +14,7 @@ export default function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] })
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.url}`,
+      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
     })),
   };
 

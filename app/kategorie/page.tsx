@@ -50,8 +50,8 @@ export default async function KategoriePage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Startseite", url: SITE_URL },
-          { name: "Kategorien", url: `${SITE_URL}/kategorie` },
+          { name: "Startseite", url: "/" },
+          { name: "Kategorien", url: "/kategorie" },
         ]}
       />
 

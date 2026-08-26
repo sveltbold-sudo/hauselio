@@ -63,8 +63,8 @@ export default function GarantiePage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Startseite", url: SITE_URL },
-          { name: "Garantie", url: `${SITE_URL}/garantie` },
+          { name: "Startseite", url: "/" },
+          { name: "Garantie", url: "/garantie" },
         ]}
       />
 
@@ -118,7 +118,7 @@ export default function GarantiePage() {
           </section>
 
           <section>
-            <h2 className="heading-3 mb-3">Erweiterte Garantie</h2>
+            <h2 className="heading-3 mb-3">Details zur erweiterten Garantie</h2>
             <p className="text-[var(--color-text-secondary)]">
               Für ausgewählte Produkte bieten wir eine optionale erweiterte Garantie an. Diese kann direkt beim Kauf
               für 1-3 weitere Jahre gebucht werden. Die erweiterte Garantie deckt die gleichen Mängel ab wie die
