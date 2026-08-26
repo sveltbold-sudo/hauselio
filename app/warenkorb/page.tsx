@@ -223,12 +223,17 @@ export default function WarenkorbPage() {
               </div>
               {shippingCost > 0 && (
                   <div className="bg-[var(--color-primary-50)] rounded-xl p-3">
-                  <p className="text-xs text-[var(--color-primary)] font-medium">
-                    Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand
-                  </p>
-                  <div className="mt-2 h-1.5 bg-[var(--color-border-light)] rounded-full overflow-hidden">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs text-[var(--color-primary)] font-medium">
+                      Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand
+                    </p>
+                    <span className="text-xs font-bold text-[var(--color-primary)]">
+                      {Math.round((total / FREE_SHIPPING_THRESHOLD) * 100)}%
+                    </span>
+                  </div>
+                  <div className="h-2 bg-[var(--color-border-light)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
+                      className="h-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full transition-all duration-500"
                       style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
                       role="meter"
                       aria-valuenow={Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}
@@ -247,6 +252,25 @@ export default function WarenkorbPage() {
                   </span>
                 </div>
                 <p className="text-xs text-[var(--color-text-muted)] mt-1">inkl. 19% MwSt.</p>
+              </div>
+            </div>
+
+            {/* Gutschein input */}
+            <div className="mb-4">
+              <label htmlFor="gutschein" className="sr-only">Gutscheincode</label>
+              <div className="flex gap-2">
+                <input
+                  id="gutschein"
+                  type="text"
+                  placeholder="Gutscheincode eingeben"
+                  className="flex-1 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                />
+                <button
+                  type="button"
+                  className="px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-border-light)] transition-colors"
+                >
+                  Anwenden
+                </button>
               </div>
             </div>
 
@@ -272,10 +296,41 @@ export default function WarenkorbPage() {
                 <span>Sichere Zahlung</span>
               </li>
             </ul>
+
+            {/* Payment methods */}
+            <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+              <p className="text-xs text-[var(--color-text-muted)] mb-2">Sicher bezahlen mit:</p>
+              <div className="flex flex-wrap gap-2">
+                {["Vorkasse", "PayPal", "Klarna", "Visa", "Mastercard"].map((method) => (
+                  <span
+                    key={method}
+                    className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-[10px] font-medium text-[var(--color-text-muted)]"
+                  >
+                    {method}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <CartCrossSell />
+
+      {/* Sticky mobile checkout button */}
+      <div className="fixed bottom-14 left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-4 pb-[env(safe-area-inset-bottom,0px)]">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
+          <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
+            {formatPrice(finalTotal)}
+          </span>
+        </div>
+        <Link href="/bestellung" className="block">
+          <Button className="w-full py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20">
+            <CreditCard className="w-5 h-5" />
+            Zur Kasse
+          </Button>
+        </Link>
+      </div>
     </main>
   );
 }

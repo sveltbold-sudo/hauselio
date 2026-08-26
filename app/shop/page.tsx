@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import dynamicImport from "next/dynamic";
-import { SearchX, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
+import { SearchX, ShoppingBag, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ProductCard from "@/components/product/ProductCard";
@@ -257,6 +257,54 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           ))}
         </nav>
       </div>
+
+      {/* Active filter chips */}
+      {(category || brand || promo === "true" || q) && (
+        <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
+          {category && (
+            <Link
+              href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+            >
+              {categories.find((c) => c.slug === category)?.name || category}
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          {brand && (
+            <Link
+              href={category ? `/shop?category=${category}${q ? `&q=${encodeURIComponent(q)}` : ""}` : q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+            >
+              {brand}
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          {promo === "true" && (
+            <Link
+              href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
+            >
+              Angebote
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          {q && (
+            <Link
+              href={category ? `/shop?category=${category}` : "/shop"}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
+            >
+              Suche: {q}
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          <Link
+            href="/shop"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors"
+          >
+            Alle entfernen
+          </Link>
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar filters — desktop inline / mobile drawer */}
