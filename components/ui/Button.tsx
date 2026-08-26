@@ -33,7 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline:
         "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white focus:ring-[var(--color-primary)]",
       ghost:
-        "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus:ring-gray-400",
+        "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus:ring-[var(--color-primary)]",
       danger:
         "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 focus:ring-[var(--color-danger)] shadow-lg shadow-[var(--color-danger)]/20",
     };

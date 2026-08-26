@@ -85,7 +85,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-white/10">
-            <Link href="/admin" className="text-white font-black text-xl">
+            <Link href="/admin" className="text-white font-extrabold text-xl">
               HAUSELIO
             </Link>
             <button
@@ -156,7 +156,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                   <button
                     role="menuitem"
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-gray-50 focus-visible:outline-none focus:bg-gray-50"
+                    className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] focus-visible:outline-none focus:bg-[var(--color-bg)]"
                   >
                     <LogOut className="w-4 h-4" />
                     Abmelden

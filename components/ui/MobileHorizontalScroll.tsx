@@ -12,7 +12,7 @@ interface MobileHorizontalScrollProps {
 export default function MobileHorizontalScroll({
   children,
   className = "",
-  autoScrollInterval = 8000,
+  autoScrollInterval = 7000,
 }: MobileHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -134,7 +134,7 @@ export default function MobileHorizontalScroll({
       {/* Auto-scroll indicator */}
       {!isPaused && autoScrollInterval > 0 && (
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--color-border-light)] rounded-full overflow-hidden z-10">
-          <div className="h-full bg-[var(--color-primary)]/40 rounded-full animate-[shrink_8s_linear_infinite]" />
+          <div className="h-full bg-[var(--color-primary)]/40 rounded-full animate-[shrink_7s_linear_infinite]" />
         </div>
       )}
     </div>
