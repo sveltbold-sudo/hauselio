@@ -249,6 +249,7 @@ export default function BestellungPage() {
   if (items.length === 0) {
     return (
       <main className="container-hauselio py-20 text-center">
+        <h1 className="sr-only">Bestellung</h1>
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird weitergeleitet…</p>
       </main>
@@ -271,7 +272,7 @@ export default function BestellungPage() {
       </div>
 
       {/* Step indicator */}
-      <div className="flex items-center justify-center gap-2 mb-6 sm:mb-10" aria-label="Bestellschritte">
+      <nav className="flex items-center justify-center gap-2 mb-6 sm:mb-10" aria-label="Bestellschritte">
         <Link
           href="/warenkorb"
           className="flex items-center gap-2 text-sm text-[var(--color-success)] font-semibold"
@@ -295,7 +296,7 @@ export default function BestellungPage() {
           </span>
           <span className="hidden sm:inline">Bestätigung</span>
         </span>
-      </div>
+      </nav>
 
       {/* Price change warnings */}
       {priceChanges.length > 0 && (
@@ -336,10 +337,10 @@ export default function BestellungPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} aria-label="Bestellformular">
         {/* Error summary for screen readers */}
         {Object.keys(errors).length > 0 && (
-          <div role="alert" aria-live="polite" className="mb-6 p-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
+          <div role="alert" className="mb-6 p-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
             <p className="text-sm font-semibold text-[var(--color-danger)] mb-2">Bitte korrigieren Sie folgende Fehler:</p>
             <ul className="list-disc list-inside text-sm text-[var(--color-text-secondary)] space-y-1">
               {Object.entries(errors).map(([field, msg]) => (
@@ -452,6 +453,7 @@ export default function BestellungPage() {
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
+                    autoComplete="country"
                     className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="DE">Deutschland</option>
@@ -507,9 +509,9 @@ export default function BestellungPage() {
               </h2>
 
               {/* Items */}
-              <div className="space-y-3 mb-6 max-h-64 overflow-y-auto" role="list">
+              <ul className="space-y-3 mb-6 max-h-64 overflow-y-auto list-none">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center gap-3" role="listitem">
+                  <li key={item.id} className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
                       <ProductImage
                         src={item.image}
@@ -528,9 +530,9 @@ export default function BestellungPage() {
                     <p className="text-sm font-semibold text-[var(--color-text-primary)] tabular-nums">
                       {formatPrice(item.price * item.quantity)}
                     </p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
               {/* Totals */}
               <div className="space-y-3 mb-6 border-t border-[var(--color-border-light)] pt-4">
@@ -555,6 +557,7 @@ export default function BestellungPage() {
                       {formatPrice(finalTotal)}
                     </span>
                   </div>
+                  <p className="text-xs text-[var(--color-text-muted)] mt-1">inkl. 19% MwSt.</p>
                 </div>
               </div>
 

@@ -77,13 +77,14 @@ export default function WarenkorbPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         {/* Cart items */}
-        <div className="lg:col-span-2 space-y-4" role="list">
+        <div className="lg:col-span-2 space-y-4">
+          <h2 className="sr-only">Artikel im Warenkorb</h2>
+          <ul className="space-y-4">
           {items.map((item, i) => (
-            <div
+            <li
               key={item.id}
-              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 flex gap-4 sm:gap-5 animate-fade-in-up"
+              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 flex gap-4 sm:gap-5 animate-fade-in-up list-none"
               style={{ animationDelay: `${i * 50}ms` }}
-              role="listitem"
             >
               {/* Image */}
               <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
@@ -129,7 +130,7 @@ export default function WarenkorbPage() {
                     >
                       -
                     </button>
-                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="off">
+                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="polite" aria-label={`${item.quantity} Stück`}>
                       {item.quantity}
                     </span>
                     <button
@@ -176,8 +177,9 @@ export default function WarenkorbPage() {
                   )}
                 </div>
               </div>
-            </div>
+            </li>
           ))}
+          </ul>
 
           {/* Continue shopping */}
           <Link
@@ -256,20 +258,20 @@ export default function WarenkorbPage() {
             </Link>
 
             {/* Trust badges */}
-            <div className="mt-6 space-y-3" role="list">
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
+            <ul className="mt-6 space-y-3 list-none">
+              <li className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
                 <DeliveryEstimate />
-              </div>
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
+              </li>
+              <li className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
                 <span>Kostenloser Versand ab 50€</span>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]" role="listitem">
+              </li>
+              <li className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Shield className="w-4 h-4 text-[var(--color-success)]" />
                 <span>Sichere Zahlung</span>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
