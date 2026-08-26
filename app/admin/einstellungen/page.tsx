@@ -82,7 +82,7 @@ export default function EinstellungenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
-              <Building2 className="w-5 h-5 text-[var(--color-primary)]" />
+              <Building2 className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Bankverbindung</h2>
@@ -137,7 +137,7 @@ export default function EinstellungenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-orange)]/10 flex items-center justify-center">
-              <Globe className="w-5 h-5 text-[var(--color-orange)]" />
+              <Globe className="w-5 h-5 text-[var(--color-orange)]" aria-hidden="true" />
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Kontaktdaten</h2>
@@ -182,7 +182,7 @@ export default function EinstellungenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-success)]/10 flex items-center justify-center">
-              <Truck className="w-5 h-5 text-[var(--color-success)]" />
+              <Truck className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Versandinformationen</h2>

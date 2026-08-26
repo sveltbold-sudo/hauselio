@@ -72,6 +72,7 @@ export default function StatistikenPage() {
             <button
               key={opt.value}
               onClick={() => handleRangeChange(opt.value)}
+              aria-pressed={dateRange === opt.value}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 dateRange === opt.value
                   ? "bg-white text-[var(--color-text-primary)] shadow-sm"
@@ -89,7 +90,7 @@ export default function StatistikenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-[var(--color-primary)]" />
+              <TrendingUp className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
             </div>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">Gesamtumsatz</p>
@@ -101,7 +102,7 @@ export default function StatistikenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-orange)]/10 flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-[var(--color-orange)]" />
+              <ShoppingCart className="w-5 h-5 text-[var(--color-orange)]" aria-hidden="true" />
             </div>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
               {stats.pendingOrders} ausstehend
@@ -114,7 +115,7 @@ export default function StatistikenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-success)]/10 flex items-center justify-center">
-              <Package className="w-5 h-5 text-[var(--color-success)]" />
+              <Package className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
             </div>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
               {stats.activeProducts} aktiv
@@ -127,7 +128,7 @@ export default function StatistikenPage() {
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
-              <Users className="w-5 h-5 text-[var(--color-primary)]" />
+              <Users className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
             </div>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">Kunden</p>

@@ -86,9 +86,10 @@ export default function KategorienPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", slug: "", description: "" }); }}
+          aria-expanded={showForm}
           className="flex items-center gap-2 px-4 py-3 bg-[var(--color-orange)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-orange-hover)] transition-colors"
         >
-          <Plus className="w-4 h-4" /> Neue Kategorie
+          <Plus className="w-4 h-4" aria-hidden="true" /> Neue Kategorie
         </button>
       </div>
 
@@ -110,13 +111,14 @@ export default function KategorienPage() {
                 aria-label="Modal schließen"
                 className="p-1 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Name</label>
+                <label htmlFor="cat-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Name</label>
                 <input
+                  id="cat-name"
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value, slug: slugify(e.target.value) })}
@@ -125,8 +127,9 @@ export default function KategorienPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Slug</label>
+                <label htmlFor="cat-slug" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Slug</label>
                 <input
+                  id="cat-slug"
                   type="text"
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
@@ -135,8 +138,9 @@ export default function KategorienPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Beschreibung</label>
+                <label htmlFor="cat-desc" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Beschreibung</label>
                 <textarea
+                  id="cat-desc"
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
@@ -187,10 +191,10 @@ export default function KategorienPage() {
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">
                     <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
-                      <Pencil className="w-4 h-4" />
+                      <Pencil className="w-4 h-4" aria-hidden="true" />
                     </button>
                     <button onClick={() => handleDelete(cat.id)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
                 </td>
