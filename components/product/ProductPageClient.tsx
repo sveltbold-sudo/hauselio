@@ -209,7 +209,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />
             <div>
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferung: --"}
+                {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferzeit wird berechnet…"}
               </p>
               <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€</p>
             </div>
@@ -301,6 +301,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           </div>
           <Button
             onClick={handleAddToCart}
+            aria-label={added ? "Zum Warenkorb hinzugefügt" : "In den Warenkorb"}
             className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
             size="md"
           >

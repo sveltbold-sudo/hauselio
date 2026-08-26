@@ -107,6 +107,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
+                aria-hidden="true"
                 className={`w-3.5 h-3.5 ${
                   i < fullStars
                     ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"

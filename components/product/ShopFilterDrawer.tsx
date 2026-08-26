@@ -80,7 +80,7 @@ export default function ShopFilterDrawer({
       </button>
 
       {/* Desktop inline filters */}
-      <aside className="hidden lg:block w-64 flex-shrink-0">
+      <aside className="hidden lg:block w-64 flex-shrink-0" aria-label="Produktfilter">
         <ShopFilters
           categories={categories}
           brands={brands}

@@ -46,6 +46,7 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
             aria-selected={activeTab === tab.key}
             aria-controls={`tabpanel-${tab.key}`}
             id={`tab-${tab.key}`}
+            tabIndex={activeTab === tab.key ? 0 : -1}
             onClick={() => setActiveTab(tab.key)}
             className={`px-5 py-3.5 text-sm font-semibold border-b-2 transition-[border-color,color] duration-200 whitespace-nowrap ${
               activeTab === tab.key

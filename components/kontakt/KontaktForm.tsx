@@ -93,20 +93,21 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
-              <h2 className="heading-3 mb-6">
-                Nachricht senden
-              </h2>
+            <form onSubmit={handleSubmit} aria-label="Kontaktformular">
+              <fieldset>
+                <legend className="heading-3 mb-6">
+                  Nachricht senden
+                </legend>
 
               {error && (
-                <div role="alert" className="bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6">
+                <div id="form-error" role="alert" className="bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-danger)] mb-6">
                   {error}
                 </div>
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <Input
-                  label="Vorname"
+                  label="Vorname *"
                   name="firstName"
                   required
                   autoComplete="given-name"
@@ -114,7 +115,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   onChange={handleInputChange}
                 />
                 <Input
-                  label="Nachname"
+                  label="Nachname *"
                   name="lastName"
                   required
                   autoComplete="family-name"
@@ -124,7 +125,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               </div>
               <div className="mb-4">
                 <Input
-                  label="E-Mail"
+                  label="E-Mail *"
                   name="email"
                   type="email"
                   required
@@ -135,7 +136,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               </div>
               <div className="mb-4">
                 <Input
-                  label="Betreff"
+                  label="Betreff *"
                   name="subject"
                   required
                   autoComplete="off"
@@ -158,10 +159,11 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>
-              <Button type="submit" size="lg" isLoading={isLoading}>
+              <Button type="submit" size="lg" isLoading={isLoading} aria-describedby={error ? "form-error" : undefined}>
                 <Send className="w-4 h-4 mr-2" />
                 Nachricht senden
               </Button>
+              </fieldset>
             </form>
           )}
         </div>
@@ -169,6 +171,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
 
       {/* Contact Info */}
       <div className="space-y-6">
+        <address className="space-y-6 not-italic">
         {/* Contact details */}
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
           <h3 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
@@ -221,6 +224,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
             <p>Sonntag: Geschlossen</p>
           </div>
         </div>
+        </address>
       </div>
     </div>
   );

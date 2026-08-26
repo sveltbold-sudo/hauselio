@@ -8,9 +8,17 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Kontakt — HAUSELIO",
+  title: "Kontakt",
   description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
   alternates: { canonical: "/kontakt" },
+  openGraph: {
+    title: "Kontakt — HAUSELIO",
+    description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht.",
+    url: "https://hauselio.vercel.app/kontakt",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 const fallbackSettings = {

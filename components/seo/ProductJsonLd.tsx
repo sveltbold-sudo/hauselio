@@ -30,13 +30,14 @@ export default function ProductJsonLd({
   url,
 }: ProductJsonLdProps) {
   const productUrl = url || `${SITE_URL}/produkt/${slug}`;
+  const absoluteImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name,
     description,
-    image,
+    image: absoluteImage,
     sku,
     brand: {
       "@type": "Brand",
