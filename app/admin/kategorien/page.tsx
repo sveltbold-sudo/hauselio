@@ -87,7 +87,7 @@ export default function KategorienPage() {
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", slug: "", description: "" }); }}
           aria-expanded={showForm}
-          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-orange)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-orange-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           <Plus className="w-4 h-4" aria-hidden="true" /> Neue Kategorie
         </button>
@@ -151,7 +151,7 @@ export default function KategorienPage() {
                 <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
-                <button type="submit" className="px-4 py-2 bg-[var(--color-orange)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-orange-hover)]">
+                <button type="submit" className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)]">
                   {editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>

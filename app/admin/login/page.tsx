@@ -191,7 +191,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={isLoading || lockoutSeconds > 0}
-              className="w-full py-3 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Wird angemeldet…" : lockoutSeconds > 0 ? `Gesperrt (${formatTime(lockoutSeconds)})` : "Anmelden"}
             </button>

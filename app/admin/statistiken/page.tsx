@@ -101,8 +101,8 @@ export default function StatistikenPage() {
 
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-orange)]/10 flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-[var(--color-orange)]" aria-hidden="true" />
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <ShoppingCart className="w-5 h-5 text-[var(--color-accent)]" aria-hidden="true" />
             </div>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
               {stats.pendingOrders} ausstehend
@@ -187,7 +187,7 @@ export default function StatistikenPage() {
               {stats.categoryStats.map((cat, i) => {
                 const maxRevenue = Math.max(...stats.categoryStats.map((c) => c.totalRevenue));
                 const pct = maxRevenue > 0 ? (cat.totalRevenue / maxRevenue) * 100 : 0;
-                const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-orange)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
+                const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-accent)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
                 return (
                   <div key={`${cat.name}-${i}`}>
                     <div className="flex items-center justify-between py-1">

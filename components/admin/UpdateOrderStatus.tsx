@@ -66,7 +66,7 @@ export default function UpdateOrderStatus({
       <button
         onClick={handleUpdate}
         disabled={isUpdating || status === currentStatus}
-        className="px-4 py-2 bg-[var(--color-orange)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isUpdating ? "…" : "Aktualisieren"}
       </button>

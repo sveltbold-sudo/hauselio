@@ -127,7 +127,7 @@ export default function BewertungenPage() {
                           aria-hidden="true"
                           className={`w-4 h-4 ${
                             i < review.rating
-                              ? "text-[var(--color-orange)] fill-[var(--color-orange)]"
+                              ? "text-[var(--color-accent)] fill-[var(--color-accent)]"
                               : "text-gray-200"
                           }`}
                         />

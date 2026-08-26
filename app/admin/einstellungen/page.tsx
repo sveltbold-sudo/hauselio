@@ -136,8 +136,8 @@ export default function EinstellungenPage() {
         {/* Contact */}
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-orange)]/10 flex items-center justify-center">
-              <Globe className="w-5 h-5 text-[var(--color-orange)]" aria-hidden="true" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <Globe className="w-5 h-5 text-[var(--color-accent)]" aria-hidden="true" />
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Kontaktdaten</h2>
@@ -204,7 +204,7 @@ export default function EinstellungenPage() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 px-6 py-3 bg-[var(--color-orange)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-orange-hover)] transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {saving ? "Speichern…" : "Einstellungen speichern"}

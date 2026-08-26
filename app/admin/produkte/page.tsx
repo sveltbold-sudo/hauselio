@@ -77,7 +77,7 @@ export default async function AdminProductsPage({
         </h1>
         <Link
           href="/admin/produkte/neu"
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--color-orange)] text-white font-semibold rounded-xl hover:bg-[var(--color-orange-hover)] transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
         >
           <Plus className="w-4 h-4" />
           Neues Produkt
