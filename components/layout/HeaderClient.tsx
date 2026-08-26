@@ -130,7 +130,7 @@ export default function HeaderClient() {
                 width={140}
                 height={44}
                 priority
-                className="h-9 md:h-11 w-auto transition-transform duration-500 group-hover:scale-105"
+                className="h-7 md:h-9 w-auto transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           </Link>
