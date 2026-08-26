@@ -9,6 +9,7 @@ import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import CookieConsent from "@/components/ui/CookieConsent";
 import ClientProviders from "@/components/ui/ClientProviders";
+import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -103,6 +104,7 @@ export default function RootLayout({
           <ClientProviders />
         </ToastProvider>
         <Footer />
+        <MobileBottomNav />
         <BackToTop />
         <LazyComparisonBar />
         <CookieConsent />

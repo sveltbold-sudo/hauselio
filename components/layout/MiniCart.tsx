@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, X, Plus, Minus, ArrowRight } from "lucide-react";
+import { ShoppingBag, X, Plus, Minus, ArrowRight, Truck } from "lucide-react";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
@@ -225,6 +225,11 @@ export default function MiniCart() {
                   <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
                     {formatPrice(total + getShippingCost(total))}
                   </span>
+                </div>
+                {/* Delivery promise */}
+                <div className="flex items-center justify-center gap-2 mb-4 py-2.5 px-3 bg-[var(--color-success)]/10 rounded-xl text-sm text-[var(--color-success)]">
+                  <Truck className="w-4 h-4" />
+                  <span className="font-medium">Kostenlose Lieferung</span>
                 </div>
                 <Link
                   href="/bestellung"

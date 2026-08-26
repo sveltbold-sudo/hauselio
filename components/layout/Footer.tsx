@@ -32,6 +32,12 @@ const trustBadges = [
 
 const paymentMethods = [
   { name: "Vorkasse / SEPA", icon: "/images/payments/vorkasse.svg" },
+  { name: "PayPal", icon: "/images/payments/paypal.svg" },
+  { name: "Klarna", icon: "/images/payments/klarna.svg" },
+  { name: "Visa", icon: "/images/payments/visa.svg" },
+  { name: "Mastercard", icon: "/images/payments/mastercard.svg" },
+  { name: "Apple Pay", icon: "/images/payments/applepay.svg" },
+  { name: "Google Pay", icon: "/images/payments/googlepay.svg" },
 ];
 
 export default function Footer() {
@@ -50,6 +56,18 @@ export default function Footer() {
               </li>
             ))}
           </ul>
+          {/* Trustpilot / Kiyoh scores */}
+          <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-4 sm:gap-6">
+            <span className="text-xs text-white/50">Kundenbewertung:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-semibold text-[var(--color-accent)]">4,8/5</span>
+              <span className="text-xs text-white/60">— 342 Bewertungen</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-semibold text-[var(--color-accent)]">9,2/10</span>
+              <span className="text-xs text-white/60">— 187 Bewertungen</span>
+            </div>
+          </div>
         </div>
       </div>
 

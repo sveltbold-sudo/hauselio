@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield } from "lucide-react";
+import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
@@ -105,17 +105,26 @@ export default function HeaderClient() {
     >
       <div className="brand-stripe" />
 
-      {/* Mobile trust signals */}
-      <div className="md:hidden border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
-        <div className="container-hauselio flex items-center justify-center gap-4 h-7 text-xs text-[var(--color-text-muted)]">
+      {/* Trust signals — visible on all breakpoints */}
+      <div className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
+        <div className="container-hauselio flex items-center justify-center gap-3 md:gap-5 h-7 text-[10px] md:text-xs text-[var(--color-text-muted)]">
           <span className="flex items-center gap-1">
             <Truck className="w-3 h-3 text-[var(--color-success)]" />
             Versand gratis
           </span>
-          <span className="text-[var(--color-border)]">|</span>
-          <span className="flex items-center gap-1">
+          <span className="text-[var(--color-border)] hidden sm:inline">|</span>
+          <span className="hidden sm:flex items-center gap-1">
             <Shield className="w-3 h-3 text-[var(--color-success)]" />
             30 Tage Rückgabe
+          </span>
+          <span className="text-[var(--color-border)] hidden md:inline">|</span>
+          <span className="hidden md:flex items-center gap-1">
+            <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
+            5 Jahre Garantie
+          </span>
+          <span className="text-[var(--color-border)] hidden lg:inline">|</span>
+          <span className="hidden lg:flex items-center gap-1">
+            <span className="font-semibold text-[var(--color-accent)]">4,8/5</span> — 342 Bewertungen
           </span>
         </div>
       </div>
