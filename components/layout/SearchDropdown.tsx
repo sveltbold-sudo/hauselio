@@ -102,7 +102,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
       }`}
     >
       <div className="container-hauselio py-5">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-full sm:max-w-2xl mx-auto">
           {/* Search input */}
           <form onSubmit={handleSubmit}>
             <div className="relative">

@@ -109,7 +109,7 @@ export default function ProductImage({
         <span className="text-white font-bold text-lg md:text-xl">{initials}</span>
       </div>
 
-      <p className={`font-semibold text-[var(--color-text-primary)] text-center px-4 leading-tight ${textSizes[size]}`}>
+      <p className={`font-semibold text-[var(--color-text-primary)] text-center px-4 leading-tight line-clamp-2 ${textSizes[size]}`}>
         {alt}
       </p>
 

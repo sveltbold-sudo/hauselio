@@ -16,7 +16,7 @@
   --color-secondary: #123B5E;
   --color-secondary-hover: #1a4d7a;
 
-  --color-accent: #E8530E;
+  --color-accent: #D14A0C;
   --color-accent-hover: #d14a0c;
   --color-accent-light: #FFF0E6;
 
@@ -85,7 +85,7 @@
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-text-primary);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -97,6 +97,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -191,6 +192,12 @@ a, button, input, select, textarea, [role="button"] {
 .body-small {
   font-size: 0.875rem;
   line-height: 1.5;
+}
+
+.body-base {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
 }
 
 .caption {
@@ -323,7 +330,7 @@ a, button, input, select, textarea, [role="button"] {
 /* ── Content Visibility — optimize below-fold rendering ── */
 .content-visibility-auto {
   content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
+  contain-intrinsic-size: 0 800px;
 }
 
 /* ── Blur-up image placeholder ── */
@@ -563,15 +570,6 @@ a, button, input, select, textarea, [role="button"] {
 @keyframes shrink {
   from { width: 100%; }
   to { width: 0%; }
-}
-
-/* ── Fade in up (hero, cards) ── */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out both;
 }
 
 /* ═══════════════════════════════════════════════════

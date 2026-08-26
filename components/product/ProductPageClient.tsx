@@ -296,7 +296,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       <div className="sticky-bottom-bar lg:hidden" role="complementary" aria-label="Schnellzugriff">
         <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
           <div className="flex-1 min-w-0">
-            <p className="text-xs sm:text-xs text-[var(--color-text-muted)] truncate">{product.name}</p>
+            <p className="text-sm text-[var(--color-text-muted)] truncate">{product.name}</p>
             <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
           </div>
           <Button

@@ -50,7 +50,7 @@ export default function ValuePropsSection() {
             return (
               <div
                 key={i}
-                className="flex items-center gap-2.5 py-2 animate-fade-in-up"
+                className="flex items-center gap-2.5 py-3 animate-fade-in-up"
                 style={{ animationDelay: `${i * 50}ms` }}
                 role="listitem"
               >

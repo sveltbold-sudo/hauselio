@@ -69,7 +69,7 @@ export default function ComparisonBar() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
       <div className="container-hauselio py-3">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
             <BarChart3 className="w-4 h-4 text-[var(--color-primary)]" />
             <span>Vergleichen ({products.length})</span>
@@ -84,7 +84,7 @@ export default function ComparisonBar() {
                 <span className="text-xs font-medium text-[var(--color-text-primary)] max-w-[120px] truncate">{product.name}</span>
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-1"
                   aria-label={`${product.name} entfernen`}
                 >
                   <X className="w-4 h-4" />

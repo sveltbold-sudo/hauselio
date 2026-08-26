@@ -119,7 +119,7 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-full sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-50 animate-scale-in origin-top-right" role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
             <h3 className="font-bold text-[var(--color-text-primary)]">
@@ -158,7 +158,7 @@ export default function MiniCart() {
             </div>
           ) : (
             <>
-              <div className="max-h-80 overflow-y-auto p-5 space-y-4">
+              <div className="max-h-[40vh] sm:max-h-80 overflow-y-auto p-5 space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">

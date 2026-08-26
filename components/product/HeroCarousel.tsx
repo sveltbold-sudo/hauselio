@@ -218,15 +218,15 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 {/* Trust */}
                 <div className="flex items-center justify-center gap-4 mt-3 text-xs text-white/60">
                   <span className="flex items-center gap-1">
-                    <Truck className="w-3 h-3" />
+                    <Truck className="w-4 h-4" />
                     Versand gratis
                   </span>
                   <span className="flex items-center gap-1">
-                    <Shield className="w-3 h-3" />
+                    <Shield className="w-4 h-4" />
                     5 J. Garantie
                   </span>
                   <span className="flex items-center gap-1">
-                    <RotateCcw className="w-3 h-3" />
+                    <RotateCcw className="w-4 h-4" />
                     30 Tage
                   </span>
                 </div>

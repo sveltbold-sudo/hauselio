@@ -93,7 +93,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
           </MobileHorizontalScroll>
         </div>
         {/* Desktop: grid */}
-        <div className="hidden sm:grid grid-cols-3 gap-5">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((content, i) => (
             <Link
               key={i}

@@ -50,7 +50,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       className={`flex-1 ${
         added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""
       }`}
-      size="sm"
+      size="md"
     >
       {added ? (
         <>

@@ -87,7 +87,7 @@ export default function WarenkorbPage() {
               style={{ animationDelay: `${i * 50}ms` }}
             >
               {/* Image */}
-              <div className="w-24 h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
                 <ProductImage
                   src={item.image}
                   alt={item.name}
@@ -304,7 +304,7 @@ export default function WarenkorbPage() {
                 {["Vorkasse", "PayPal", "Klarna", "Visa", "Mastercard"].map((method) => (
                   <span
                     key={method}
-                    className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-[10px] font-medium text-[var(--color-text-muted)]"
+                    className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-xs font-medium text-[var(--color-text-muted)]"
                   >
                     {method}
                   </span>
