@@ -3,8 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BackToTop from "@/components/layout/BackToTop";
-import dynamic from "next/dynamic";
-const ComparisonBar = dynamic(() => import("@/components/product/ComparisonBar"), { ssr: false });
+import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
@@ -105,7 +104,7 @@ export default function RootLayout({
         </ToastProvider>
         <Footer />
         <BackToTop />
-        <ComparisonBar />
+        <LazyComparisonBar />
         <CookieConsent />
       </body>
     </html>
