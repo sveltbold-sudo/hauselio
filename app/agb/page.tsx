@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Allgemeine Geschäftsbedingungen",
   description: "AGB der HAUSELIO GmbH. Geschäftsbedingungen für den Online-Shop.",
   robots: { index: false, follow: false },
+  openGraph: {
+    title: "AGB — HAUSELIO",
+    description: "Allgemeine Geschäftsbedingungen der HAUSELIO GmbH.",
+    url: "https://hauselio.vercel.app/agb",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export default function AGBPage() {

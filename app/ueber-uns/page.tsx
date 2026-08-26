@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Über uns",
   description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
   alternates: { canonical: "/ueber-uns" },
+  openGraph: {
+    title: "Über HAUSELIO — Ihr Partner für Haushaltsgeräte",
+    description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
+    url: "https://hauselio.vercel.app/ueber-uns",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 const values = [
@@ -52,7 +60,7 @@ export default function UeberUnsPage() {
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
         <p className="caption text-[var(--color-primary)] mb-3">Über HAUSELIO</p>
         <h1 className="heading-1 mb-4">
-          Moderne Haushaltsgeräte für Ihr Zuhause
+          Über HAUSELIO
         </h1>
         <p className="body-large">
           HAUSELIO wurde mit einer klaren Vision gegründet: hochwertige Haushaltsgeräte

@@ -74,9 +74,9 @@ export default function Footer() {
 
             {/* Newsletter */}
             <div className="mb-6">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/50 mb-3">
                 Newsletter
-              </h3>
+              </p>
               <p className="text-xs text-white/50 mb-3">
                 Angebote, Neuigkeiten & Tipps — direkt in Ihr Postfach.
               </p>
@@ -112,9 +112,9 @@ export default function Footer() {
 
           {/* Kategorien */}
           <div className="lg:col-span-3 md:border-l md:border-white/10 md:pl-8">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Kategorien
-            </h2>
+            </p>
             <nav aria-label="Kategorien">
               <ul className="space-y-0">
                 {footerCategories.map((cat) => (
@@ -130,9 +130,9 @@ export default function Footer() {
 
           {/* Service */}
           <div className="lg:col-span-2 md:border-l md:border-white/10 md:pl-8">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Service
-            </h2>
+            </p>
             <nav aria-label="Service">
               <ul className="space-y-0">
                 {service.map((item) => (
@@ -148,9 +148,9 @@ export default function Footer() {
 
           {/* Rechtliches + Contact */}
           <div className="lg:col-span-3 md:border-l md:border-white/10 md:pl-8">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50 mb-4">
               Rechtliches
-            </h2>
+            </p>
             <nav aria-label="Rechtliches">
               <ul className="space-y-0 mb-6">
                 {legal.map((item) => (
