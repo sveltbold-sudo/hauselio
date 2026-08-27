@@ -107,7 +107,7 @@ export default function HeaderClient() {
 
       {/* Trust signals — visible on all breakpoints */}
       <div className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
-        <div className="container-hauselio flex items-center justify-center gap-3 md:gap-5 h-7 text-[11px] md:text-xs text-[var(--color-text-muted)]">
+        <div className="container-hauselio flex items-center justify-center gap-3 md:gap-5 h-7 text-xs text-[var(--color-text-muted)]">
           <span className="flex items-center gap-1">
             <Truck className="w-3 h-3 text-[var(--color-success)]" />
             Versand gratis

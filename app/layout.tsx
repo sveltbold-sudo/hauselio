@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -75,13 +75,17 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${inter.variable} h-full`} style={{ viewportFit: "cover" } as React.CSSProperties}>
+    <html lang="de" className={`${inter.variable} h-full`}>
       <head>
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#FAFAF8" />
