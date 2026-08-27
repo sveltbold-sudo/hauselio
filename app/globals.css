@@ -432,6 +432,12 @@ a, button, input, select, textarea, [role="button"] {
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-primary) 100%);
   background-size: 200% 100%;
+  animation: brand-stripe-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes brand-stripe-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* ═══════════════════════════════════════════════════

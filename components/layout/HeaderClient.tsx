@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw } from "lucide-react";
+import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw, User } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
 import { navCategories } from "@/lib/navigation";
+import { TRUST_BAR_RATING, TRUST_BAR_REVIEW_COUNT } from "@/lib/constants";
 
 export default function HeaderClient() {
   const pathname = usePathname();
@@ -107,25 +108,39 @@ export default function HeaderClient() {
 
       {/* Trust signals — visible on all breakpoints */}
       <div className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
-        <div className="container-hauselio flex items-center justify-center gap-3 md:gap-5 h-7 text-xs text-[var(--color-text-muted)]">
-          <span className="flex items-center gap-1">
-            <Truck className="w-3 h-3 text-[var(--color-success)]" />
-            Versand gratis
-          </span>
-          <span className="text-[var(--color-border)] hidden sm:inline">|</span>
-          <span className="hidden sm:flex items-center gap-1">
-            <Shield className="w-3 h-3 text-[var(--color-success)]" />
-            30 Tage Rückgabe
-          </span>
-          <span className="text-[var(--color-border)] hidden md:inline">|</span>
-          <span className="hidden md:flex items-center gap-1">
-            <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
-            5 Jahre Garantie
-          </span>
-          <span className="text-[var(--color-border)] hidden lg:inline">|</span>
-          <span className="hidden lg:flex items-center gap-1">
-            <span className="font-semibold text-[var(--color-accent)]">4,8/5</span> — 342 Bewertungen
-          </span>
+        <div className="container-hauselio flex items-center justify-between h-7 text-xs text-[var(--color-text-muted)]">
+          <div className="flex items-center gap-3 md:gap-5">
+            <span className="flex items-center gap-1">
+              <Truck className="w-3 h-3 text-[var(--color-success)]" />
+              Versand gratis
+            </span>
+            <span className="text-[var(--color-border)] hidden sm:inline">·</span>
+            <span className="hidden sm:flex items-center gap-1">
+              <Shield className="w-3 h-3 text-[var(--color-success)]" />
+              30 Tage Rückgabe
+            </span>
+            <span className="text-[var(--color-border)] hidden md:inline">·</span>
+            <span className="hidden md:flex items-center gap-1">
+              <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
+              5 Jahre Garantie
+            </span>
+            <span className="text-[var(--color-border)] hidden lg:inline">·</span>
+            <span className="hidden lg:flex items-center gap-1">
+              <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span> — {TRUST_BAR_REVIEW_COUNT} Bewertungen
+            </span>
+          </div>
+          <div className="hidden md:flex items-center gap-4">
+            <a href="tel:+493055578901" className="flex items-center gap-1.5 hover:text-white transition-colors duration-200">
+              <Phone className="w-3 h-3" />
+              +49 (0)30 555 789 01
+            </a>
+            <Link href="/kontakt" className="hover:text-white transition-colors duration-200">
+              Kontakt
+            </Link>
+            <Link href="/impressum" className="hover:text-white transition-colors duration-200">
+              Impressum
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -192,7 +207,7 @@ export default function HeaderClient() {
                   }`}
                   aria-label={`${cat.name} Kategorie`}
                 >
-                  <div className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px] max-w-[calc(100vw-2rem)]">
+                  <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px] max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
                       <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
                         <div className="w-14 h-14 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
                           <Image
@@ -260,7 +275,7 @@ export default function HeaderClient() {
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-bg)] transition-colors duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/40 hover:bg-white hover:shadow-sm transition-all duration-200 cursor-text focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Suche öffnen"
               aria-expanded={searchOpen}
             >
@@ -385,6 +400,14 @@ export default function HeaderClient() {
             </div>
 
             <div className="p-5 border-t border-[var(--color-border-light)] mt-2 space-y-1">
+              <Link
+                href="/konto"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
+              >
+                <User className="w-4 h-4" />
+                Mein Konto
+              </Link>
               <Link
                 href="/kontakt"
                 onClick={() => setMobileMenuOpen(false)}
