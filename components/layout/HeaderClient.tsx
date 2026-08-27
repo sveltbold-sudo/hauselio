@@ -204,7 +204,7 @@ export default function HeaderClient() {
           {/* Search input — desktop */}
           <div className="hidden lg:flex items-center flex-1 max-w-xl mx-4">
             <div className="relative w-full header-search-input">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[var(--color-text-muted)]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[var(--color-text-muted)]" />
               <input
                 ref={searchInputRef}
                 type="text"

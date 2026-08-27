@@ -96,13 +96,11 @@ export async function checkRateLimit(
     return success;
   }
 
-  // In production without Upstash — per-invocation state is useless in serverless
+  // In production without Upstash — in-memory is per-invocation only
+  // (won't be shared between serverless instances, but better than no rate limiting)
   const isProd = process.env.NODE_ENV === "production";
   if (isProd && !useUpstash) {
-    // Fail open: log warning but allow request (better UX than blocking all)
-    // TODO: Configure UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN
-    logger.warn("rate-limit", "Upstash not configured — rate limiting disabled in production");
-    return true;
+    logger.warn("rate-limit", "Upstash not configured — using per-invocation in-memory rate limiting (not shared across instances)");
   }
 
   const now = Date.now();
