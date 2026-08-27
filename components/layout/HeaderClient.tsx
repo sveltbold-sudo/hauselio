@@ -150,49 +150,58 @@ export default function HeaderClient() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background,box-shadow] duration-200 ${
-        scrolled
-          ? "glass-premium shadow-[var(--shadow-md)]"
-          : "bg-white"
+      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 ${
+        scrolled ? "shadow-[var(--shadow-md)]" : ""
       }`}
     >
-      <div className="brand-stripe" />
+      {/* Brand stripe — hidden when scrolled */}
+      <div
+        className={`brand-stripe transition-[height,opacity] duration-300 overflow-hidden ${
+          scrolled ? "h-0 opacity-0" : "opacity-100"
+        }`}
+      />
 
-      {/* Promo Banner — dismissible */}
+      {/* Promo Banner — hidden when scrolled */}
       {!promoDismissed && (
-        <div className="promo-banner">
-          <div className="container-hauselio flex items-center justify-center h-8 gap-2 relative">
-            <span className="hidden sm:inline">🚚</span>
-            <span className="font-medium">
-              Kostenloser Versand ab {FREE_SHIPPING_THRESHOLD}€ · 30 Tage Rückgabe
-            </span>
-            <button
-              onClick={dismissPromo}
-              aria-label="Banner schließen"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
+        <div
+          className={`overflow-hidden transition-[max-height,opacity] duration-300 ${
+            scrolled ? "max-h-0 opacity-0" : "max-h-12 opacity-100"
+          }`}
+        >
+          <div className="promo-banner">
+            <div className="container-hauselio flex items-center justify-center h-8 gap-2 relative">
+              <span className="hidden sm:inline">🚚</span>
+              <span className="font-medium">
+                Kostenloser Versand ab {FREE_SHIPPING_THRESHOLD}€ · 30 Tage Rückgabe
+              </span>
+              <button
+                onClick={dismissPromo}
+                aria-label="Banner schließen"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       {/* Main header row: Logo | Search | Actions */}
-      <div className="container-hauselio">
-        <div className="flex items-center gap-4 h-16 md:h-[68px]">
-          {/* Logo — larger */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+      <div className="container-hauselio relative">
+        <div className="flex items-center gap-2 sm:gap-4 h-14 md:h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center shrink-0 group">
             <Image
               src="/logos/logoprincipale.png"
               alt="HAUSELIO"
               width={160}
               height={50}
               priority
-              className="h-9 md:h-11 w-auto transition-transform duration-500 group-hover:scale-105"
+              className="h-8 md:h-10 w-auto transition-transform duration-500 group-hover:scale-105"
             />
           </Link>
 
-          {/* Search input — desktop (prominent, MediaMarkt/Coolblue pattern) */}
+          {/* Search input — desktop */}
           <div className="hidden lg:flex items-center flex-1 max-w-xl mx-4">
             <div className="relative w-full header-search-input">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[var(--color-text-muted)]" />
@@ -263,6 +272,19 @@ export default function HeaderClient() {
             </button>
           </div>
         </div>
+
+        {/* SearchDropdown — absolute, overlays content below header */}
+        <div className="absolute top-full left-0 right-0 z-50">
+          <SearchDropdown
+            isOpen={searchOpen}
+            onClose={() => setSearchOpen(false)}
+            query={searchQuery}
+            activeIndex={searchActiveIndex}
+            onActiveIndexChange={setSearchActiveIndex}
+            onSelect={handleSearchSelect}
+            onClear={handleSearchClear}
+          />
+        </div>
       </div>
 
       {/* Category navigation tabs — desktop */}
@@ -332,7 +354,7 @@ export default function HeaderClient() {
           </div>
         </div>
 
-        {/* Mega menu dropdowns — rendered at nav level to avoid overflow clipping */}
+        {/* Mega menu dropdowns */}
         {navCategories.map((cat) => (
           <div
             key={`mega-${cat.href}`}
@@ -408,16 +430,6 @@ export default function HeaderClient() {
           </div>
         ))}
       </nav>
-
-      <SearchDropdown
-        isOpen={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        query={searchQuery}
-        activeIndex={searchActiveIndex}
-        onActiveIndexChange={setSearchActiveIndex}
-        onSelect={handleSearchSelect}
-        onClear={handleSearchClear}
-      />
 
       {/* Mobile menu — slide-in from right */}
       {mobileMenuOpen && (
