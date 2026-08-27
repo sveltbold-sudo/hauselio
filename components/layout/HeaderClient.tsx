@@ -152,8 +152,8 @@ export default function HeaderClient() {
     <header
       className={`sticky top-0 z-50 transition-[background,box-shadow] duration-200 ${
         scrolled
-          ? "glass-premium border-b border-[var(--color-border-light)] shadow-[var(--shadow-md)]"
-          : "bg-white border-b border-[var(--color-border-light)]"
+          ? "glass-premium shadow-[var(--shadow-md)]"
+          : "bg-white"
       }`}
     >
       <div className="brand-stripe" />
@@ -272,7 +272,7 @@ export default function HeaderClient() {
         onMouseLeave={handleMegaLeave}
       >
         <div className="container-hauselio">
-          <div className="flex items-center gap-1 h-11 overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-1 h-11">
             {navCategories.map((cat) => (
               <div
                 key={cat.href}
