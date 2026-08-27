@@ -268,7 +268,7 @@ export default function HeaderClient() {
       {/* Category navigation tabs — desktop */}
       <nav
         aria-label="Kategorien"
-        className="hidden lg:block border-t border-[var(--color-border-light)]"
+        className="hidden lg:block relative border-t border-[var(--color-border-light)]"
         onMouseLeave={handleMegaLeave}
       >
         <div className="container-hauselio">
@@ -307,76 +307,6 @@ export default function HeaderClient() {
                     }`}
                   />
                 </Link>
-
-                {/* Mega menu dropdown */}
-                <div
-                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 transition-[opacity,visibility] duration-200 ${
-                    activeMega === cat.href
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible pointer-events-none"
-                  }`}
-                  aria-label={`${cat.name} Kategorie`}
-                >
-                  <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-[420px] max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
-                    <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
-                      <div className="w-12 h-12 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
-                        <Image
-                          src={cat.image}
-                          alt={cat.name}
-                          width={28}
-                          height={28}
-                          className="w-7 h-7 object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-[var(--color-text-primary)] text-sm">
-                          {cat.name}
-                        </h3>
-                        <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                          {cat.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-0.5" role="menu">
-                      {cat.subcategories.map((sub, subIdx) => (
-                        <Link
-                          key={sub.name}
-                          href={sub.href}
-                          role="menuitem"
-                          tabIndex={activeMega === cat.href ? 0 : -1}
-                          onKeyDown={(e) => {
-                            const items = (e.currentTarget.closest('[role="menu"]') as HTMLElement)?.querySelectorAll('[role="menuitem"]') as NodeListOf<HTMLElement>;
-                            if (!items) return;
-                            if (e.key === "ArrowDown") {
-                              e.preventDefault();
-                              items[(subIdx + 1) % items.length]?.focus();
-                            } else if (e.key === "ArrowUp") {
-                              e.preventDefault();
-                              items[(subIdx - 1 + items.length) % items.length]?.focus();
-                            } else if (e.key === "Escape") {
-                              setActiveMega(null);
-                            }
-                          }}
-                          className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-colors duration-200 group"
-                        >
-                          <span className="font-medium">{sub.name}</span>
-                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-opacity transition-transform duration-200" />
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
-                      <Link
-                        href={cat.href}
-                        className="flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-lg transition-colors duration-200"
-                      >
-                        Alle {cat.name} ansehen
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
               </div>
             ))}
 
@@ -401,6 +331,82 @@ export default function HeaderClient() {
             </div>
           </div>
         </div>
+
+        {/* Mega menu dropdowns — rendered at nav level to avoid overflow clipping */}
+        {navCategories.map((cat) => (
+          <div
+            key={`mega-${cat.href}`}
+            className={`absolute top-full left-0 right-0 z-50 transition-[opacity,visibility] duration-200 ${
+              activeMega === cat.href
+                ? "opacity-100 visible"
+                : "opacity-0 invisible pointer-events-none"
+            }`}
+          >
+            <div className="container-hauselio">
+              <div className="pt-1 pb-2">
+                <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-fit max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
+                  <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
+                    <div className="w-12 h-12 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
+                      <Image
+                        src={cat.image}
+                        alt={cat.name}
+                        width={28}
+                        height={28}
+                        className="w-7 h-7 object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-[var(--color-text-primary)] text-sm">
+                        {cat.name}
+                      </h3>
+                      <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                        {cat.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-0.5" role="menu">
+                    {cat.subcategories.map((sub, subIdx) => (
+                      <Link
+                        key={sub.name}
+                        href={sub.href}
+                        role="menuitem"
+                        tabIndex={activeMega === cat.href ? 0 : -1}
+                        onKeyDown={(e) => {
+                          const items = (e.currentTarget.closest('[role="menu"]') as HTMLElement)?.querySelectorAll('[role="menuitem"]') as NodeListOf<HTMLElement>;
+                          if (!items) return;
+                          if (e.key === "ArrowDown") {
+                            e.preventDefault();
+                            items[(subIdx + 1) % items.length]?.focus();
+                          } else if (e.key === "ArrowUp") {
+                            e.preventDefault();
+                            items[(subIdx - 1 + items.length) % items.length]?.focus();
+                          } else if (e.key === "Escape") {
+                            setActiveMega(null);
+                          }
+                        }}
+                        className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-colors duration-200 group"
+                      >
+                        <span className="font-medium">{sub.name}</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-opacity transition-transform duration-200" />
+                      </Link>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+                    <Link
+                      href={cat.href}
+                      className="flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-lg transition-colors duration-200"
+                    >
+                      Alle {cat.name} ansehen
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </nav>
 
       <SearchDropdown
