@@ -440,6 +440,74 @@ a, button, input, select, textarea, [role="button"] {
   50% { background-position: 100% 50%; }
 }
 
+/* ── Header Search Input ── */
+.header-search-input {
+  height: 44px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.header-search-input:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+.header-search-input:focus-within {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
+}
+
+/* ── Header Nav Tabs ── */
+.header-nav-tab {
+  position: relative;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-lg);
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.header-nav-tab:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+}
+.header-nav-tab.active {
+  color: var(--color-primary);
+  background: var(--color-primary-50);
+}
+.header-nav-tab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 1px;
+  transition: transform 0.2s ease;
+}
+.header-nav-tab:hover::after,
+.header-nav-tab.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── Promo Banner ── */
+.promo-banner {
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.8125rem;
+  overflow: hidden;
+  position: relative;
+}
+@keyframes promo-banner-slide {
+  0%, 45% { transform: translateY(0); }
+  50%, 95% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+
 /* ═══════════════════════════════════════════════════
    Components
    ═══════════════════════════════════════════════════ */
