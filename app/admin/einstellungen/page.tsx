@@ -71,7 +71,7 @@ export default function EinstellungenPage() {
   }
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Einstellungen</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">Konfigurieren Sie Ihre Shop-Daten</p>

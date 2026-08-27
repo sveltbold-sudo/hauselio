@@ -305,7 +305,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
             size="md"
           >
-            {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
+            {added ? <Check className="w-4 h-4" /> : <><ShoppingBag className="w-4 h-4" /> <span className="hidden sm:inline">In den Warenkorb</span></>}
           </Button>
         </div>
       </div>

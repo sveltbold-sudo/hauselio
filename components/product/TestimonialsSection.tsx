@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import StarRating from "@/components/ui/StarRating";
 import { Quote } from "lucide-react";
@@ -160,9 +161,9 @@ export default async function TestimonialsSection() {
               </p>
               {testimonial.product && (
                 <div className="mb-4">
-                  <span className="inline-block px-2.5 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-semibold text-[var(--color-text-muted)]">
+                  <Link href={`/shop?q=${encodeURIComponent(testimonial.product)}`} className="inline-block px-2.5 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors">
                     {testimonial.product}
-                  </span>
+                  </Link>
                 </div>
               )}
               <div className="flex items-center gap-3 pt-4 border-t border-[var(--color-border-light)]">

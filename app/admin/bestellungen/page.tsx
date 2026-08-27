@@ -49,15 +49,9 @@ export default async function AdminOrdersPage({
   }
 
   const totalPages = Math.ceil(total / limit);
-  const dbError = orders.length === 0 && total === 0;
 
   return (
     <div>
-      {dbError && (
-        <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
-          Bestellungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
-        </div>
-      )}
       <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
         Bestellungen
       </h1>

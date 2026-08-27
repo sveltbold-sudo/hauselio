@@ -6,8 +6,6 @@ import { slugify } from "@/lib/utils";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 
-export const dynamic = "force-dynamic";
-
 interface Category {
   id: string;
   name: string;
@@ -78,7 +76,7 @@ export default function KategorienPage() {
   };
 
   return (
-    <div className="p-8">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Kategorien</h1>

@@ -32,11 +32,11 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-5 h-5 text-[var(--color-accent)]" />
-              <p className="caption text-[var(--color-accent)]">Für Sie empfohlen</p>
+              <p className="caption text-[var(--color-accent)]">Top-Bewertet</p>
             </div>
-            <h2 className="heading-2">Passend zu Ihrem Geschmack</h2>
+            <h2 className="heading-2">Unsere Besten</h2>
             <p className="body-large mt-2">
-              Produkte, die unseren Kunden besonders gut gefallen haben
+              Produkte mit den besten Bewertungen unserer Kunden
             </p>
           </div>
           <Link

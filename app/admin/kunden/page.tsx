@@ -32,12 +32,20 @@ interface PaginatedResponse {
 export default function KundenPage() {
   const [data, setData] = useState<PaginatedResponse | null>(null);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    fetch("/api/admin/kunden")
+    const timer = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}`)
       .then((r) => r.json())
       .then((d: PaginatedResponse) => startTransition(() => setData(d)))
       .catch((err) => {
@@ -45,26 +53,17 @@ export default function KundenPage() {
         setError(true);
       })
       .finally(() => setLoading(false));
-  }, [startTransition]);
+  }, [page, debouncedSearch, startTransition]);
 
   const customers = useMemo(() => data?.customers ?? [], [data?.customers]);
   const pagination = data?.pagination;
 
-  const filtered = useMemo(
-    () =>
-      customers.filter(
-        (c) =>
-          c.email.toLowerCase().includes(search.toLowerCase()) ||
-          `${c.firstName} ${c.lastName}`.toLowerCase().includes(search.toLowerCase()) ||
-          c.city.toLowerCase().includes(search.toLowerCase())
-      ),
-    [customers, search]
-  );
+  const filtered = useMemo(() => customers, [customers]);
 
   const totalRevenue = customers.reduce((sum, c) => sum + c.totalSpent, 0);
 
   return (
-    <div className="p-8">
+    <div>
       {error && (
         <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">
           Kunden konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
@@ -180,6 +179,31 @@ export default function KundenPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      {pagination && pagination.pages > 1 && (
+        <div className="flex items-center justify-between mt-6">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            Seite {pagination.page} von {pagination.pages}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Zurück
+            </button>
+            <button
+              onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))}
+              disabled={page === pagination.pages}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Weiter
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

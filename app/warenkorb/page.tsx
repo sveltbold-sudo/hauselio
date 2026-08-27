@@ -264,14 +264,17 @@ export default function WarenkorbPage() {
                   type="text"
                   placeholder="Gutscheincode eingeben"
                   className="flex-1 px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  disabled
                 />
                 <button
                   type="button"
-                  className="px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-border-light)] transition-colors"
+                  className="px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-muted)] cursor-not-allowed"
+                  disabled
                 >
                   Anwenden
                 </button>
               </div>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1.5">Bald verfügbar</p>
             </div>
 
             <Link href="/bestellung" className="block">
@@ -301,7 +304,7 @@ export default function WarenkorbPage() {
             <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
               <p className="text-xs text-[var(--color-text-muted)] mb-2">Sicher bezahlen mit:</p>
               <div className="flex flex-wrap gap-2">
-                {["Vorkasse", "PayPal", "Klarna", "Visa", "Mastercard"].map((method) => (
+                {["Vorkasse", "SEPA-Überweisung"].map((method) => (
                   <span
                     key={method}
                     className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-xs font-medium text-[var(--color-text-muted)]"

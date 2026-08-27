@@ -25,7 +25,7 @@ export default function NewsletterSection() {
           Bleiben Sie auf dem Laufenden
         </h2>
         <p className="text-sm text-white/60 mb-6 max-w-md mx-auto">
-          Exklusive Angebote und Neuigkeiten direkt in Ihr Postfach.
+          10% Rabatt auf Ihre erste Bestellung. Exklusive Angebote und Neuigkeiten direkt in Ihr Postfach.
         </p>
 
         {isSubscribed ? (

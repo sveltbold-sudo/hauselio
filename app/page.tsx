@@ -345,7 +345,7 @@ export default async function HomePage() {
 
   if (dealValue) {
     const dealSlug = dealValue.slug;
-    bestsellersValue.filter((b) => b.slug !== dealSlug);
+    bestsellersValue = bestsellersValue.filter((b) => b.slug !== dealSlug);
     recommendedValue = recommendedValue.filter((r) => r.slug !== dealSlug);
   }
 
@@ -353,7 +353,6 @@ export default async function HomePage() {
     <>
       <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte aus Deutschland</h1>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
-      <ValuePropsSection />
 
       {/* Trust scores — like Coolblue */}
       <section className="py-6 border-b border-[var(--color-border-light)]">
@@ -386,6 +385,8 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <ValuePropsSection />
+
       {/* Deal of the Day — like MediaMarkt/Saturn */}
       {dealValue && <DailyDealBanner product={dealValue} />}
 
@@ -401,38 +402,20 @@ export default async function HomePage() {
           <Suspense fallback={<CategoriesSkeleton />}>
             <CategoriesSection />
           </Suspense>
+          <div className="mt-8 text-center">
+            <Link href="/shop" className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors text-sm">
+              Alle Kategorien ansehen
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Bestseller — like all competitors */}
       {bestsellersValue.length > 0 && <BestsellerSection products={bestsellersValue} />}
 
-      {/* Für Sie empfohlen — personalized */}
+      {/* Für Sie empfohlen — top-rated */}
       {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
-
-      <section className="section-py bg-[var(--color-bg-secondary)]">
-        <div className="container-hauselio">
-          <div className="flex items-end justify-between mb-6 md:mb-10">
-            <div>
-              <p className="caption text-[var(--color-accent)] mb-3">Highlights</p>
-              <h2 className="heading-2">Beliebte Produkte</h2>
-              <p className="body-large mt-2">
-                Unsere meistverkauften Haushaltsgeräte
-              </p>
-            </div>
-            <Link
-              href="/shop"
-              className="hidden md:flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors"
-            >
-              Alle ansehen
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <Suspense fallback={<ProductsSkeleton />}>
-            <FeaturedProductsSection />
-          </Suspense>
-        </div>
-      </section>
 
       <AboutSection />
 

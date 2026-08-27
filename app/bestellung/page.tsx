@@ -570,6 +570,7 @@ export default function BestellungPage() {
               >
                 Bestellung aufgeben
               </Button>
+              <p className="text-xs text-center text-[var(--color-text-muted)] mt-2">Sichere Bestellung · 30 Tage Rückgaberecht</p>
 
               {orderError && (
                 <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">

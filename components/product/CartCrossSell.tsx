@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
+import { useToast } from "@/components/ui/Toast";
 import ProductImage from "@/components/product/ProductImage";
 
 interface CrossSellItem {
@@ -20,6 +21,7 @@ export default function CartCrossSell() {
   const [loading, setLoading] = useState(true);
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
+  const { toast } = useToast();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -95,6 +97,7 @@ export default function CartCrossSell() {
                   price: item.price,
                   image: item.image,
                 }, 1);
+                toast({ title: "Hinzugefügt", description: `${item.name} wurde zum Warenkorb hinzugefügt.` });
               }}
               className="min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-lg hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] transition-colors"
               aria-label={`${item.name} zum Warenkorb hinzufügen`}

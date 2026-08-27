@@ -80,7 +80,7 @@ export default function DatenschutzPage() {
             Beim Bestellvorgang werden Ihre Daten zur Abwicklung des Kaufvertrags erhoben und verarbeitet.
             Dies umfasst insbesondere:
           </p>
-          <ul className="list-disc list-inside text-[var(--color-text-secondary)] mt-2 space-y-1">
+          <ul className="list-disc list-outside pl-5 text-[var(--color-text-secondary)] mt-2 space-y-1">
             <li>Name, Vorname</li>
             <li>E-Mail-Adresse</li>
             <li>Lieferadresse</li>
