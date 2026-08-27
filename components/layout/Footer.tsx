@@ -34,10 +34,7 @@ const paymentMethods = [
   { name: "Vorkasse / SEPA", icon: "/images/payments/vorkasse.svg" },
   { name: "PayPal", icon: "/images/payments/paypal.svg" },
   { name: "Klarna", icon: "/images/payments/klarna.svg" },
-  { name: "Visa", icon: "/images/payments/visa.svg" },
-  { name: "Mastercard", icon: "/images/payments/mastercard.svg" },
-  { name: "Apple Pay", icon: "/images/payments/applepay.svg" },
-  { name: "Google Pay", icon: "/images/payments/googlepay.svg" },
+  { name: "Apple Pay", icon: "/images/payments/apple-pay.svg" },
 ];
 
 export default function Footer() {

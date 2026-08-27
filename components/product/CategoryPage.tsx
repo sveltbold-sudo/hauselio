@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { PackageOpen, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -141,10 +142,12 @@ export default async function CategoryPage({
       </div>
 
       {/* Toolbar with sort + brand filter */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
-        <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
-        <CategorySortSelect sort={sort} slug={slug} />
-      </div>
+      <Suspense fallback={<div className="h-12 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
+          <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
+          <CategorySortSelect sort={sort} slug={slug} />
+        </div>
+      </Suspense>
 
       {formattedProducts.length === 0 ? (
         <div className="text-center py-20">

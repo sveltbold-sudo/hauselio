@@ -21,7 +21,7 @@ const defaultEditorialContent: EditorialItem[] = [
     href: "/shop?category=kaffee",
     readTime: "8 Min.",
     category: "Kaffeevollautomaten",
-    image: "/images/products/jura-e8-platinum.jpg",
+    image: "/images/products/jura-e8-platinum/1.jpg",
   },
   {
     type: "Rezept",
@@ -30,7 +30,7 @@ const defaultEditorialContent: EditorialItem[] = [
     href: "/shop?category=kueche",
     readTime: "5 Min.",
     category: "Küchenmaschinen",
-    image: "/images/products/kitchenaid-artisan-5ksm175pse.jpg",
+    image: "/images/products/kitchenaid-artisan-5ksm175pse/1.jpg",
   },
   {
     type: "Tipps",
@@ -39,7 +39,7 @@ const defaultEditorialContent: EditorialItem[] = [
     href: "/shop?category=kueche",
     readTime: "6 Min.",
     category: "Ratgeber",
-    image: "/images/products/thermomix-tm7.jpg",
+    image: "/images/products/thermomix-tm7/1.jpg",
   },
 ];
 
