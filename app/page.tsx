@@ -334,7 +334,7 @@ export default async function HomePage() {
   ]);
 
   const dealValue = dailyDeal.status === "fulfilled" ? dailyDeal.value : null;
-  const bestsellersValue = bestsellers.status === "fulfilled" ? bestsellers.value : [];
+  let bestsellersValue = bestsellers.status === "fulfilled" ? bestsellers.value : [];
   let recommendedValue = recommended.status === "fulfilled" ? recommended.value : [];
   const heroSlidesValue = heroSlides.status === "fulfilled" ? heroSlides.value : [];
 
