@@ -224,7 +224,7 @@ export default function HeaderClient() {
       {/* Category navigation tabs — desktop */}
       <nav
         aria-label="Kategorien"
-        className="hidden lg:block border-t border-[var(--color-border-light)] bg-[var(--color-bg)]"
+        className="hidden lg:block border-t border-[var(--color-border-light)]"
         onMouseLeave={handleMegaLeave}
       >
         <div className="container-hauselio">
