@@ -218,7 +218,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
       {/* Category tabs — visual cards */}
       <div className="mb-6 sm:mb-8">
-        <nav aria-label="Kategorien" className="flex flex-wrap gap-2 sm:gap-3">
+        <nav aria-label="Kategorien" className="flex flex-nowrap sm:flex-wrap overflow-x-auto scrollbar-hide gap-2 sm:gap-3">
           <Link
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
             aria-current={!category ? "page" : undefined}
@@ -264,7 +264,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {category && (
             <Link
               href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {categories.find((c) => c.slug === category)?.name || category}
               <X className="w-3.5 h-3.5" aria-hidden="true" />
@@ -273,7 +273,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {brand && (
             <Link
               href={category ? `/shop?category=${category}${q ? `&q=${encodeURIComponent(q)}` : ""}` : q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {brand}
               <X className="w-3.5 h-3.5" aria-hidden="true" />
@@ -282,7 +282,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {promo === "true" && (
             <Link
               href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
               Angebote
               <X className="w-3.5 h-3.5" aria-hidden="true" />
@@ -338,7 +338,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   type="button"
                   aria-label="Rasteransicht"
                   aria-pressed="true"
-                  className="p-2 bg-[var(--color-primary)] text-white"
+                  className="p-3 min-w-[44px] min-h-[44px] bg-[var(--color-primary)] text-white"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -348,7 +348,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   type="button"
                   aria-label="Listenansicht"
                   aria-pressed="false"
-                  className="p-2 text-[var(--color-text-muted)] hover:bg-[var(--color-bg-secondary)]"
+                  className="p-3 min-w-[44px] min-h-[44px] text-[var(--color-text-muted)] hover:bg-[var(--color-bg-secondary)]"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -380,7 +380,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {formattedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
@@ -395,7 +395,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 Ergebnisse {((page - 1) * 20) + 1}–{Math.min(page * 20, total)} von {total}
               </p>
               <div className="flex justify-center">
-                <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-wrap justify-center">
+                <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide justify-center">
                   {page > 1 && (
                     <Link
                       href={shopUrl(page - 1, category, brand, q, sort, price, promo)}

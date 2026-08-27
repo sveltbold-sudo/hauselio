@@ -74,7 +74,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
         </div>
 
         <div className="mt-8 text-center md:hidden">
-          <Link href="/shop" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors">
+          <Link href="/shop" className="inline-flex items-center gap-2 px-5 py-3 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors text-sm">
             Mehr entdecken
             <ArrowRight className="w-4 h-4" />
           </Link>

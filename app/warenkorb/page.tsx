@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-6 sm:py-8">
+    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
@@ -263,11 +263,11 @@ export default function WarenkorbPage() {
                   id="gutschein"
                   type="text"
                   placeholder="Gutscheincode eingeben"
-                  className="flex-1 px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="flex-1 px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 />
                 <button
                   type="button"
-                  className="px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-border-light)] transition-colors"
+                  className="px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-border-light)] transition-colors"
                 >
                   Anwenden
                 </button>

@@ -217,14 +217,14 @@ export default function Footer() {
                   alt={method.name}
                   width={32}
                   height={20}
-                  className="h-4 w-auto opacity-60"
+                  className="h-4 w-auto opacity-80"
                 />
               </div>
             ))}
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-white/60">
               © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
             </p>
           </div>

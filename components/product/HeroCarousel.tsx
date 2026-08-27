@@ -190,7 +190,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 <p className="text-sm font-semibold text-white/90 mb-1 drop-shadow">
                   {s.tagline}
                 </p>
-                <p className="text-xs text-white/70 mb-4 line-clamp-1 drop-shadow">
+                <p className="text-sm text-white/70 mb-4 line-clamp-2 drop-shadow">
                   {s.subtitle}
                 </p>
 
@@ -216,7 +216,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 </Link>
 
                 {/* Trust */}
-                <div className="flex items-center justify-center gap-4 mt-3 text-xs text-white/60">
+                <div className="flex items-center justify-center gap-2.5 mt-3 text-[10px] sm:text-xs text-white/60">
                   <span className="flex items-center gap-1">
                     <Truck className="w-4 h-4" />
                     Versand gratis

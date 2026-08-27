@@ -54,7 +54,7 @@ export default function AGBPage() {
             Bestellsystem abgeben. Dabei legt der Kunde die ausgewählten Produkte in den Warenkorb und
             durchläuft die folgenden Schritte:
           </p>
-          <ul className="list-disc list-inside text-[var(--color-text-secondary)] mt-2 space-y-1">
+          <ul className="list-disc list-outside pl-5 text-[var(--color-text-secondary)] mt-2 space-y-1">
             <li>Eingabe der Rechnungs- und Lieferadresse</li>
             <li>Auswahl der Zahlungsart</li>
             <li>Überprüfung der Bestelldaten</li>

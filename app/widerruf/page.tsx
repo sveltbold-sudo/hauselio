@@ -85,7 +85,7 @@ export default function WiderrufPage() {
         </section>
 
         <section>
-          <h2 className="heading-3 mb-3">Ausschluss bzw. vorzeitiges Erlöschen des Widerrufsrechts</h2>
+          <h2 className="heading-3 mb-3" style={{ textWrap: "pretty" }}>Ausschluss bzw. vorzeitiges Erlöschen des Widerrufsrechts</h2>
           <p className="text-[var(--color-text-secondary)]">
             Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung versiegelter Waren, die aus
             Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind, wenn ihre

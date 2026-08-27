@@ -454,7 +454,7 @@ export default function BestellungPage() {
                     value={formData.country}
                     onChange={handleInputChange}
                     autoComplete="country"
-                    className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] disabled:cursor-not-allowed disabled:opacity-50"
+                    className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 min-h-[44px] text-sm text-[var(--color-text-primary)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="DE">Deutschland</option>
                     <option value="AT">Österreich</option>

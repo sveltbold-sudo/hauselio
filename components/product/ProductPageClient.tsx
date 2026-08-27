@@ -138,7 +138,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
   };
 
   return (
-    <div className="container-hauselio py-6 lg:py-10">
+    <div className="container-hauselio py-6 lg:py-10 pb-20 lg:pb-10">
       <Breadcrumb
         items={[
           { label: "Shop", href: "/shop" },
@@ -189,7 +189,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <span className="text-sm text-[var(--color-text-muted)]">{product.reviewCount} Bewertungen</span>
           </div>
 
-          <div className="flex items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
+          <div className="flex flex-wrap items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
             <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)]">
               {formatPrice(product.price)}
             </span>

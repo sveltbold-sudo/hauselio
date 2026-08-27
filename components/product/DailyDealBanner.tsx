@@ -90,7 +90,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
 
               {/* Countdown */}
               {mounted && (
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-6" aria-label="Angebot endet in">
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-1" aria-label="Angebot endet in">
                   <Clock className="w-4 h-4 text-white/70" aria-hidden="true" />
                   <span className="hidden sm:inline text-xs text-white/70 font-medium mr-2">Endet in:</span>
                   {[

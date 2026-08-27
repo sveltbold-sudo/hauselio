@@ -84,10 +84,10 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
                       i % 2 === 0 ? "spec-row-even" : "spec-row-odd"
                     } ${i < specs.length - 1 ? "border-b border-[var(--color-border-light)]" : ""}`}
                   >
-                    <span className="w-2/5 text-sm font-semibold text-[var(--color-text-primary)]">
+                    <span className="min-w-[100px] max-w-[40%] text-sm font-semibold text-[var(--color-text-primary)] break-words">
                       {spec.key}
                     </span>
-                    <span className="w-3/5 text-sm text-[var(--color-text-secondary)]">
+                    <span className="min-w-0 flex-1 text-sm text-[var(--color-text-secondary)] break-words">
                       {spec.value}
                     </span>
                   </div>

@@ -54,7 +54,7 @@ export default function NotFound() {
             <Link
               key={cat.href}
               href={cat.href}
-              className="px-4 py-2 bg-white border border-[var(--color-border-light)] rounded-full text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-colors"
+              className="px-4 py-3 min-h-[44px] bg-white border border-[var(--color-border-light)] rounded-full text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               {cat.name}
             </Link>

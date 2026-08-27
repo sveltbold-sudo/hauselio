@@ -97,7 +97,7 @@ export default function CookieConsent() {
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
               Cookie-Einstellungen
             </h3>
-            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+            <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
               Wir verwenden Cookies und Analyse-Tools (Vercel Analytics), um das
               Nutzererlebnis zu verbessern. Diese Daten helfen uns, die
               Performance unserer Website zu optimieren. Sie können jederzeit

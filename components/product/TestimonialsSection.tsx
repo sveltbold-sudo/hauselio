@@ -144,7 +144,7 @@ export default async function TestimonialsSection() {
           </MobileHorizontalScroll>
         </div>
         {/* Desktop: grid */}
-        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, i) => (
             <div
               key={testimonial.id}

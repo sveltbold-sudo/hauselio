@@ -67,7 +67,7 @@ export default function ComparisonBar() {
   if (!mounted || products.length === 0) return null;
 
   return (
-    <div className="fixed bottom-14 lg:bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
+    <div className="fixed bottom-[72px] lg:bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
       <div className="container-hauselio py-3">
         <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">

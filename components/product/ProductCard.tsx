@@ -136,7 +136,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Price — prominent like all competitors */}
         <div className="flex items-baseline gap-2">
-          <span className="text-base sm:text-lg font-extrabold text-[var(--color-text-primary)] tabular-nums">
+          <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
           </span>
           {product.originalPrice && (

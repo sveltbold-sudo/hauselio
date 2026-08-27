@@ -199,7 +199,7 @@ export default function ShopFilters({
                 )
               }
               aria-pressed={searchParams.get("price") === range.value}
-               className={`px-3 py-2.5 min-h-[44px] rounded-lg text-xs font-semibold border transition-colors duration-200 ${
+               className={`px-3 py-2.5 min-h-[44px] rounded-lg text-xs font-semibold border transition-colors duration-200 whitespace-nowrap ${
                 searchParams.get("price") === range.value
                   ? "bg-[var(--color-primary-50)] border-[var(--color-primary)]/20 text-[var(--color-primary)]"
                   : "border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/20"

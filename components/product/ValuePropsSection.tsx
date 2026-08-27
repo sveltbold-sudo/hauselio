@@ -59,7 +59,7 @@ export default function ValuePropsSection() {
                   <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight line-clamp-2">
                     {prop.title}
                   </p>
-                  <p className="text-xs text-[var(--color-text-muted)] leading-tight truncate">
+                  <p className="text-xs text-[var(--color-text-muted)] leading-tight line-clamp-2">
                     {prop.description}
                   </p>
                 </div>

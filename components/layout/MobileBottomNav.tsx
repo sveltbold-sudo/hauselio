@@ -29,7 +29,7 @@ export default function MobileBottomNav() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`flex flex-col items-center justify-center min-w-[52px] min-h-[48px] gap-0.5 text-xs transition-colors ${
+                className={`relative flex flex-col items-center justify-center min-w-[52px] min-h-[48px] gap-0.5 text-xs transition-colors ${
                   isActive
                     ? "text-[var(--color-accent)] font-semibold"
                     : "text-[var(--color-text-muted)]"

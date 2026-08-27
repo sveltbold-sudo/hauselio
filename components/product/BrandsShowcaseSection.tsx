@@ -62,7 +62,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
           </MobileHorizontalScroll>
         </div>
         {/* Desktop: grid */}
-        <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
+        <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
           {brands.map((brand, i) => (
             <Link
               key={brand.name}
