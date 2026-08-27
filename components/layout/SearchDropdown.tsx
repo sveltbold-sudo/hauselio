@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, Star, ArrowRight } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 
@@ -22,25 +22,33 @@ interface SearchResult {
 interface SearchDropdownProps {
   isOpen: boolean;
   onClose: () => void;
+  query: string;
+  activeIndex: number;
+  onActiveIndexChange: (index: number) => void;
+  onSelect: (slug: string) => void;
+  onClear: () => void;
 }
 
-export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps) {
-  const [query, setQuery] = useState("");
+export default function SearchDropdown({
+  isOpen,
+  onClose,
+  query,
+  activeIndex,
+  onActiveIndexChange,
+  onSelect,
+  onClear,
+}: SearchDropdownProps) {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [nbHits, setNbHits] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (!query.trim() || query.trim().length < 2) {
+      setResults([]);
+      setNbHits(0);
+      return;
     }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!query.trim() || query.trim().length < 2) return;
 
     let cancelled = false;
     const controller = new AbortController();
@@ -56,7 +64,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
           setResults(data.hits || []);
           setNbHits(data.nbHits || 0);
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) {
           setResults([]);
         }
@@ -72,28 +80,14 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
     };
   }, [query]);
 
-  const handleSelect = useCallback(
-    (slug: string) => {
-      router.push(`/produkt/${slug}`);
-      onClose();
-      setQuery("");
-    },
-    [router, onClose]
-  );
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      if (query.trim()) {
-        router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
-        onClose();
-        setQuery("");
-      }
-    },
-    [query, router, onClose]
-  );
+  const handleViewAll = useCallback(() => {
+    router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
+    onClose();
+    onClear();
+  }, [query, router, onClose, onClear]);
 
   const hasResults = query.trim().length >= 2 && results.length > 0;
+  const hasQuery = query.trim().length >= 2;
 
   return (
     <div
@@ -103,61 +97,11 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
     >
       <div className="container-hauselio py-5">
         <div className="max-w-full sm:max-w-2xl mx-auto">
-          {/* Search input */}
-          <form onSubmit={handleSubmit}>
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
-              <input
-                ref={inputRef}
-                type="text"
-                value={query}
-                onChange={(e) => { setQuery(e.target.value); setActiveIndex(-1); }}
-                onKeyDown={(e) => {
-                  if (!hasResults) return;
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    setActiveIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0));
-                  } else if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    setActiveIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1));
-                  } else if (e.key === "Enter" && activeIndex >= 0) {
-                    e.preventDefault();
-                    handleSelect(results[activeIndex].slug);
-                  } else if (e.key === "Escape") {
-                    onClose();
-                  }
-                }}
-                placeholder="Suche nach Produkten, Marken…"
-                aria-label="Produkte suchen"
-                role="combobox"
-                aria-expanded={hasResults}
-                aria-controls="search-results-list"
-                aria-autocomplete="list"
-                aria-activedescendant={activeIndex >= 0 ? `search-result-${activeIndex}` : undefined}
-                className="w-full pl-12 pr-12 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)]"
-              />
-              {query && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setQuery("");
-                    setResults([]);
-                  }}
-                  aria-label="Suche löschen"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          </form>
-
-          {/* Results dropdown */}
-          {query.trim().length >= 2 && (
+          {hasQuery && (
             <div
               id="search-results-list"
               role="listbox"
-              className="mt-2 bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top"
+              className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top"
             >
               {loading ? (
                 <div className="p-8 text-center">
@@ -175,7 +119,7 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
                         id={`search-result-${index}`}
                         role="option"
                         aria-selected={index === activeIndex}
-                        onClick={() => handleSelect(hit.slug)}
+                        onClick={() => onSelect(hit.slug)}
                         className={`w-full flex items-center gap-4 p-3 rounded-xl transition-colors duration-200 text-left ${
                           index === activeIndex ? "bg-[var(--color-bg-secondary)]" : "hover:bg-[var(--color-bg-secondary)]"
                         }`}
@@ -232,26 +176,13 @@ export default function SearchDropdown({ isOpen, onClose }: SearchDropdownProps)
 
                   {nbHits > results.length && (
                     <button
-                      onClick={() => {
-                        router.push(
-                          `/shop?q=${encodeURIComponent(query.trim())}`
-                        );
-                        onClose();
-                        setQuery("");
-                      }}
+                      onClick={handleViewAll}
                       className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-light)] text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors"
                     >
                       Alle {nbHits} Ergebnisse ansehen
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="w-full mt-3 py-3 min-h-[44px] flex items-center justify-center text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] border border-[var(--color-border-light)] rounded-xl transition-colors"
-                  >
-                    Schließen
-                  </button>
                 </>
               ) : (
                 <div className="p-8 text-center">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw, User, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
@@ -12,8 +12,11 @@ import { TRUST_BAR_RATING, TRUST_BAR_REVIEW_COUNT, FREE_SHIPPING_THRESHOLD } fro
 
 export default function HeaderClient() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchActiveIndex, setSearchActiveIndex] = useState(-1);
   const [scrolled, setScrolled] = useState(false);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
@@ -112,6 +115,39 @@ export default function HeaderClient() {
     setSearchOpen(true);
   };
 
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!searchOpen) return;
+    if (e.key === "Escape") {
+      setSearchOpen(false);
+      searchInputRef.current?.blur();
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSearchActiveIndex((prev) => (prev < 5 ? prev + 1 : 0));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSearchActiveIndex((prev) => (prev > 0 ? prev - 1 : 5));
+    } else if (e.key === "Enter" && searchActiveIndex >= 0) {
+      // Handled by SearchDropdown's onSelect
+    } else if (e.key === "Enter" && searchQuery.trim()) {
+      router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+  const handleSearchSelect = useCallback((slug: string) => {
+    router.push(`/produkt/${slug}`);
+    setSearchOpen(false);
+    setSearchQuery("");
+  }, [router]);
+
+  const handleSearchClear = useCallback(() => {
+    setSearchQuery("");
+    setSearchActiveIndex(-1);
+  }, []);
+
   return (
     <header
       className={`sticky top-0 z-50 transition-[background,box-shadow] duration-200 ${
@@ -163,9 +199,17 @@ export default function HeaderClient() {
               <input
                 ref={searchInputRef}
                 type="text"
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); setSearchActiveIndex(-1); }}
                 onFocus={handleSearchFocus}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="Was suchst du?"
                 aria-label="Produkte suchen"
+                role="combobox"
+                aria-expanded={searchOpen && searchQuery.trim().length >= 2}
+                aria-controls="search-results-list"
+                aria-autocomplete="list"
+                aria-activedescendant={searchActiveIndex >= 0 ? `search-result-${searchActiveIndex}` : undefined}
                 className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
               />
             </div>
@@ -359,7 +403,15 @@ export default function HeaderClient() {
         </div>
       </nav>
 
-      <SearchDropdown isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchDropdown
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        query={searchQuery}
+        activeIndex={searchActiveIndex}
+        onActiveIndexChange={setSearchActiveIndex}
+        onSelect={handleSearchSelect}
+        onClear={handleSearchClear}
+      />
 
       {/* Mobile menu — slide-in from right */}
       {mobileMenuOpen && (
