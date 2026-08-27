@@ -97,27 +97,36 @@ export default function ProductImageGallery({
       {/* Thumbnails */}
       {images.length > 1 && (
         <div className="grid grid-cols-4 sm:grid-cols-5 gap-2" role="list">
-          {images.slice(0, 5).map((img, i) => (
-            <button
-              key={i}
-              role="listitem"
-              onClick={() => onImageSelect(i)}
-              aria-label={`${name} Bild ${i + 1} anzeigen`}
-              className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 ${
-                activeImageIndex === i
-                  ? "border-[var(--color-primary)] shadow-sm"
-                  : "border-transparent hover:border-[var(--color-border)]"
-              }`}
-            >
-              <Image
-                src={img}
-                alt={`${name} ${i + 1}`}
-                width={80}
-                height={80}
-                className="w-full h-full object-contain p-1.5"
-              />
-            </button>
-          ))}
+          {images.slice(0, 5).map((img, i) => {
+            const isLast = i === 4 && images.length > 5;
+            const remaining = images.length - 5;
+            return (
+              <button
+                key={i}
+                role="listitem"
+                onClick={() => onImageSelect(i)}
+                aria-label={isLast ? `${remaining} weitere Bilder anzeigen` : `${name} Bild ${i + 1} anzeigen`}
+                className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 relative ${
+                  activeImageIndex === i
+                    ? "border-[var(--color-primary)] shadow-sm"
+                    : "border-transparent hover:border-[var(--color-border)]"
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`${name} ${i + 1}`}
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-contain p-1.5"
+                />
+                {isLast && (
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white text-sm font-semibold">+{remaining}</span>
+                  </div>
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

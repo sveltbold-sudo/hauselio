@@ -225,7 +225,7 @@ export default function ShopFilters({
           <option value="newest">Neueste</option>
           <option value="price_asc">Preis aufsteigend</option>
           <option value="price_desc">Preis absteigend</option>
-          <option value="rating">Bewertung</option>
+          <option value="rating">Beste Bewertung</option>
         </select>
       </div>
     </div>
