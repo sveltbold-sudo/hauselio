@@ -45,7 +45,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
               <Link
                 key={brand.name}
                 href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
-                className="snap-start shrink-0 w-[130px] block"
+                className="snap-start shrink-0 w-[140px] block"
               >
                 <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] flex flex-col items-center gap-2 hover:border-[var(--color-primary)]/30 hover:shadow-sm transition-all duration-300 group">
                   <div className="w-14 h-14 rounded-xl bg-[var(--color-bg-secondary)] flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">

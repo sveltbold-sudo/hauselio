@@ -67,7 +67,7 @@ export default function ComparisonBar() {
   if (!mounted || products.length === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
+    <div className="fixed bottom-14 lg:bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
       <div className="container-hauselio py-3">
         <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
@@ -84,7 +84,7 @@ export default function ComparisonBar() {
                 <span className="text-xs font-medium text-[var(--color-text-primary)] max-w-[120px] truncate">{product.name}</span>
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-1"
+                  className="flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors min-w-[44px] min-h-[44px] p-2.5"
                   aria-label={`${product.name} entfernen`}
                 >
                   <X className="w-4 h-4" />
@@ -94,7 +94,7 @@ export default function ComparisonBar() {
             {products.length < 4 && (
               <Link
                 href="/shop"
-                className="flex items-center gap-1 text-xs text-[var(--color-primary)] hover:underline whitespace-nowrap"
+                className="flex items-center gap-1 text-xs text-[var(--color-primary)] hover:underline whitespace-nowrap min-h-[44px] py-2"
               >
                 <Plus className="w-3 h-3" />
                 Hinzufügen
@@ -105,14 +105,14 @@ export default function ComparisonBar() {
           <div className="flex items-center gap-2">
             <button
               onClick={clearAll}
-              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors min-h-[44px] py-2"
             >
               Leeren
             </button>
             {products.length >= 2 && (
               <Link
                 href={`/vergleich?ids=${products.map((p) => p.id).join(",")}`}
-                className="flex items-center gap-1 px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                className="flex items-center gap-1 px-4 py-3 min-h-[44px] bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 Vergleichen
                 <ArrowRight className="w-3 h-3" />

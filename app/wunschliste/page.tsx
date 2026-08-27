@@ -129,7 +129,7 @@ export default function WishlistPage() {
           <div className="flex justify-end pt-4">
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] hover:underline font-medium"
+              className="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] hover:underline font-medium min-h-[44px] py-2"
             >
               Weiter einkaufen
               <ArrowRight className="w-4 h-4" />

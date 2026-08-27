@@ -38,7 +38,7 @@ export default function MobileBottomNav() {
                 <item.icon className="w-5 h-5" />
                 <span>{item.label}</span>
                 {item.href === "/warenkorb" && itemCount > 0 && (
-                  <span className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-[11px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-xs font-bold rounded-full flex items-center justify-center">
                     {itemCount > 99 ? "99+" : itemCount}
                   </span>
                 )}
