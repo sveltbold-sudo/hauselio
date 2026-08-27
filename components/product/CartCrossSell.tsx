@@ -21,7 +21,7 @@ export default function CartCrossSell() {
   const [loading, setLoading] = useState(true);
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
-  const { toast } = useToast();
+  const toast = useToast();
 
   useEffect(() => {
     const controller = new AbortController();
