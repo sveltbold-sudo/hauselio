@@ -97,7 +97,7 @@ export default function CartCrossSell() {
                   price: item.price,
                   image: item.image,
                 }, 1);
-                toast({ title: "Hinzugefügt", description: `${item.name} wurde zum Warenkorb hinzugefügt.` });
+                toast.success(`${item.name} zum Warenkorb hinzugefügt.`);
               }}
               className="min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-lg hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] transition-colors"
               aria-label={`${item.name} zum Warenkorb hinzufügen`}
