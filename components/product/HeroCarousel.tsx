@@ -152,6 +152,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           <div
             key={s.id}
             className={`absolute inset-0 transition-opacity duration-700 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            aria-hidden={i !== current}
           >
             {/* Full-bleed product image */}
             <div className="absolute inset-0 bg-[var(--color-hero-bg)]">
@@ -218,15 +219,15 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 {/* Trust */}
                 <div className="flex items-center justify-center gap-2.5 mt-3 text-[10px] sm:text-xs text-white/60">
                   <span className="flex items-center gap-1">
-                    <Truck className="w-4 h-4" />
+                    <Truck className="w-4 h-4" aria-hidden="true" />
                     Versand gratis
                   </span>
                   <span className="flex items-center gap-1">
-                    <Shield className="w-4 h-4" />
+                    <Shield className="w-4 h-4" aria-hidden="true" />
                     5 J. Garantie
                   </span>
                   <span className="flex items-center gap-1">
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-4 h-4" aria-hidden="true" />
                     30 Tage
                   </span>
                 </div>
@@ -335,15 +336,15 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--color-text-muted)]">
                 <span className="flex items-center gap-1.5">
-                  <Truck className="w-4 h-4 text-[var(--color-success)]" />
+                  <Truck className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
                   Kostenloser Versand
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-[var(--color-success)]" />
+                  <Shield className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
                   Garantie bis 5 Jahre
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <RotateCcw className="w-4 h-4 text-[var(--color-success)]" />
+                  <RotateCcw className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
                   30 Tage Rückgabe
                 </span>
               </div>

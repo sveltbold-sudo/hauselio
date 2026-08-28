@@ -54,7 +54,7 @@ export default function ValuePropsSection() {
                 style={{ animationDelay: `${i * 50}ms` }}
                 role="listitem"
               >
-                <Icon className={`w-5 h-5 ${prop.color} shrink-0`} />
+                <Icon className={`w-5 h-5 ${prop.color} shrink-0`} aria-hidden="true" />
                 <div className="min-w-0">
                   <p className="font-bold text-xs text-[var(--color-text-primary)] leading-tight line-clamp-2">
                     {prop.title}

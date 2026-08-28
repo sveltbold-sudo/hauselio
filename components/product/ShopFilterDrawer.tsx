@@ -69,6 +69,7 @@ export default function ShopFilterDrawer({
         onClick={() => setIsOpen(true)}
         className="lg:hidden flex items-center gap-2 px-4 py-3 min-h-[44px] rounded-xl text-sm font-semibold bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-border)] hover:text-[var(--color-text-primary)] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         aria-label="Filter öffnen"
+        aria-controls="shop-filter-drawer"
       >
         <SlidersHorizontal className="w-4 h-4" />
         Filter
@@ -97,7 +98,7 @@ export default function ShopFilterDrawer({
             className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
             onClick={() => setIsOpen(false)}
           />
-          <div ref={drawerRef} className="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] animate-slide-in-left overflow-y-auto">
+          <div ref={drawerRef} id="shop-filter-drawer" className="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] animate-slide-in-left overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
               <h2 className="font-bold text-[var(--color-text-primary)] flex items-center gap-2 text-sm">
                 <SlidersHorizontal className="w-4 h-4" />

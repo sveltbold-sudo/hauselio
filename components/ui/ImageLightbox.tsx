@@ -66,7 +66,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
   return (
     <div
       ref={dialogRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in-up"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 animate-fade-in-up"
       onClick={onClose}
       role="dialog"
       aria-label="Bildvergrößerung"

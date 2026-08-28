@@ -83,7 +83,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                       <span className="text-xs text-[var(--color-text-muted)]">{content.readTime}</span>
                       <span className="text-xs font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
                         Weiterlesen
-                        <ChevronRight className="w-3 h-3" />
+                        <ChevronRight className="w-3 h-3" aria-hidden="true" />
                       </span>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-primary)] group-hover:gap-1.5 transition-transform">
                     Weiterlesen
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3 h-3" aria-hidden="true" />
                   </span>
                 </div>
               </div>

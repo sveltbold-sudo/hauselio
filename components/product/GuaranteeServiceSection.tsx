@@ -71,7 +71,7 @@ export default function GuaranteeServiceSection() {
               >
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg bg-[var(--color-bg-secondary)] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <Icon className={`w-5 h-5 ${guarantee.color}`} />
+                    <Icon className={`w-5 h-5 ${guarantee.color}`} aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="font-bold text-sm text-[var(--color-text-primary)] mb-0.5">

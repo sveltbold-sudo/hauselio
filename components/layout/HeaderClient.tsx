@@ -274,7 +274,7 @@ export default function HeaderClient() {
         </div>
 
         {/* SearchDropdown — absolute, overlays content below header */}
-        <div className="absolute top-full left-0 right-0 z-50">
+        <div className="absolute top-full left-0 right-0 z-[55]">
           <SearchDropdown
             isOpen={searchOpen}
             onClose={() => setSearchOpen(false)}
@@ -358,7 +358,7 @@ export default function HeaderClient() {
         {navCategories.map((cat) => (
           <div
             key={`mega-${cat.href}`}
-            className={`absolute top-full left-0 right-0 z-50 transition-[opacity,visibility] duration-200 ${
+            className={`absolute top-full left-0 right-0 z-[55] transition-[opacity,visibility] duration-200 ${
               activeMega === cat.href
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
@@ -433,7 +433,7 @@ export default function HeaderClient() {
 
       {/* Mobile menu — slide-in from right */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-0 z-50" role="dialog" aria-modal="true" aria-label="Menü">
+        <div className="lg:hidden fixed inset-0 top-0 z-[60]" role="dialog" aria-modal="true" aria-label="Menü">
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}

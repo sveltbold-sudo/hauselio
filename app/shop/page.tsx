@@ -239,7 +239,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </Link>
           <Link
             href="/shop?promo=true"
-            aria-current={promo === "true" ? "page" : undefined}
+            aria-pressed={promo === "true"}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               promo === "true"
                 ? "bg-[var(--color-danger)] text-white shadow-lg shadow-[var(--color-danger)]/20"
@@ -252,7 +252,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <Link
               key={cat.id}
               href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              aria-current={category === cat.slug ? "page" : undefined}
+              aria-pressed={category === cat.slug}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 category === cat.slug
                   ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"

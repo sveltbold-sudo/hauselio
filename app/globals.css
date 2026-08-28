@@ -59,6 +59,13 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
+  /* ── Z-Index Scale ── */
+  --z-header: 50;
+  --z-dropdown: 55;
+  --z-overlay: 60;
+  --z-modal: 70;
+  --z-toast: 100;
+
   /* ── Transitions ── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
