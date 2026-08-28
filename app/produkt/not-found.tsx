@@ -5,7 +5,7 @@ export default function ProduktNotFound() {
   return (
     <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
       <div className="relative mb-8">
-        <p className="text-[10rem] font-black leading-none text-gray-100 select-none">
+        <p className="text-[10rem] font-black leading-none text-[var(--color-text-muted)] select-none">
           404
         </p>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -30,7 +30,7 @@ export default function ProduktNotFound() {
         </Link>
         <Link
           href="/"
-          className="px-6 py-3 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+          className="px-6 py-3 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:bg-[var(--color-bg-secondary)] transition-colors"
         >
           Startseite
         </Link>

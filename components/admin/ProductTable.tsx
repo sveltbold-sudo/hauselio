@@ -110,7 +110,7 @@ export default function ProductTable({
                     checked={selected.length === products.length && products.length > 0}
                     onChange={toggleAll}
                     aria-label="Alle auswählen"
-                    className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)]"
+                    className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)]"
                   />
                 </th>
                 <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
@@ -190,7 +190,7 @@ export default function ProductTable({
                       checked={selected.includes(product.id)}
                       onChange={() => toggle(product.id)}
                       aria-label={`${product.name} auswählen`}
-                      className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)]"
+                      className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)]"
                     />
                   </td>
                   <td className="px-5 py-3">
@@ -297,7 +297,7 @@ export default function ProductTable({
                   checked={selected.includes(product.id)}
                   onChange={() => toggle(product.id)}
                   aria-label={`${product.name} auswählen`}
-                  className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)] mt-1"
+                  className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)] mt-1"
                 />
                 <div className="w-14 h-14 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden shrink-0">
                   {product.images[0] ? (

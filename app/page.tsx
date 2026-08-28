@@ -361,7 +361,7 @@ export default async function HomePage() {
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-4 h-4 text-[#00b67a]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg key={i} className="w-4 h-4 text-[var(--color-success)]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
@@ -376,7 +376,7 @@ export default async function HomePage() {
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
-              <svg className="w-5 h-5 text-[#00b67a]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-[var(--color-success)]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
               </svg>
               <span>Geprüfter Online-Shop</span>

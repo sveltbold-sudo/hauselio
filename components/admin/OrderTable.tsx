@@ -112,7 +112,7 @@ export default function OrderTable({
                     checked={selected.length === orders.length && orders.length > 0}
                     onChange={toggleAll}
                     aria-label="Alle auswählen"
-                    className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)]"
+                    className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)]"
                   />
                 </th>
                 <th
@@ -199,7 +199,7 @@ export default function OrderTable({
                       checked={selected.includes(order.id)}
                       onChange={() => toggle(order.id)}
                       aria-label={`Bestellung ${order.orderNumber} auswählen`}
-                      className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)]"
+                      className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)]"
                     />
                   </td>
                   <td className="px-5 py-3">
@@ -270,7 +270,7 @@ export default function OrderTable({
                   checked={selected.includes(order.id)}
                   onChange={() => toggle(order.id)}
                   aria-label={`Bestellung ${order.orderNumber} auswählen`}
-                  className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)] mt-1"
+                  className="w-4 h-4 rounded border-[var(--color-border)] accent-[var(--color-primary)] mt-1"
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">

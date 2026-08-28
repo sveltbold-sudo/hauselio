@@ -92,7 +92,7 @@ export default function ProductImage({
 
   return (
     <div
-      className={`relative bg-gradient-to-br from-gray-50 via-white to-gray-100 flex flex-col items-center justify-center overflow-hidden ${sizeClasses[size]} ${className}`}
+      className={`relative bg-gradient-to-br from-[var(--color-bg-secondary)] via-white to-[var(--color-border-light)] flex flex-col items-center justify-center overflow-hidden ${sizeClasses[size]} ${className}`}
     >
       <div
         className="absolute inset-0 opacity-[0.03]"

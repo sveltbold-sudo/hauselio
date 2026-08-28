@@ -311,7 +311,7 @@ export default function ProductForm({
                       type="button"
                       onClick={() => removeFeature(i)}
                       aria-label={`Feature "${feature}" entfernen`}
-                      className="hover:text-red-600"
+                      className="hover:text-[var(--color-danger-hover)]"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -478,7 +478,7 @@ export default function ProductForm({
                           inStock: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
+                      className="rounded border-[var(--color-border)] text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Verfügbar
@@ -494,7 +494,7 @@ export default function ProductForm({
                           isNew: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
+                      className="rounded border-[var(--color-border)] text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Neu
@@ -510,7 +510,7 @@ export default function ProductForm({
                           isFeatured: e.target.checked,
                         }))
                       }
-                      className="rounded border-gray-300 text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
+                      className="rounded border-[var(--color-border)] text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
                     />
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       Empfohlen

@@ -44,7 +44,7 @@ export default async function AdminOrderDetailPage({
         <Link
           href="/admin/bestellungen"
           aria-label="Zurück zu Bestellungen"
-          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
@@ -76,7 +76,7 @@ export default async function AdminOrderDetailPage({
                 </h2>
                 <span
                   className={`inline-flex px-3 py-1 rounded-full text-sm font-semibold ${
-                          ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
+                          ORDER_STATUS_COLORS[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]"
                   }`}
                 >
                         {ORDER_STATUS_LABELS[order.status] || order.status}
@@ -100,7 +100,7 @@ export default async function AdminOrderDetailPage({
                   key={item.id}
                   className="flex items-center gap-4 py-3 border-b border-[var(--color-border-light)] last:border-0"
                 >
-                  <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-16 h-16 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden flex-shrink-0">
                     {item.product && (
                       <Image
                         src={`/api/products/${item.productId}/image`}

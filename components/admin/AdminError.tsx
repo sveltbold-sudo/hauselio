@@ -19,8 +19,8 @@ export default function AdminError({ error, reset, title, description }: AdminEr
 
   return (
     <div className="p-8 text-center">
-      <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
-        <AlertTriangle className="w-8 h-8 text-red-500" />
+      <div className="w-16 h-16 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-6">
+        <AlertTriangle className="w-8 h-8 text-[var(--color-danger)]" />
       </div>
       <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{title}</h2>
       <p className="text-[var(--color-text-muted)] mb-6">{description}</p>

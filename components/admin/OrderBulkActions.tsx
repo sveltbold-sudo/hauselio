@@ -92,14 +92,14 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
             ref={menuRef}
             role="menu"
             aria-label="Status auswählen"
-            className="absolute bottom-full mb-2 left-0 bg-white rounded-lg shadow-xl border border-gray-200 py-1 min-w-[160px]"
+            className="absolute bottom-full mb-2 left-0 bg-white rounded-lg shadow-xl border border-[var(--color-border-light)] py-1 min-w-[160px]"
           >
             {statuses.map((s) => (
               <button
                 key={s.value}
                 role="menuitem"
                 onClick={() => handleBulkStatus(s.value)}
-                className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus:bg-gray-100"
+                className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus:bg-[var(--color-bg-secondary)]"
               >
                 {s.label}
               </button>
