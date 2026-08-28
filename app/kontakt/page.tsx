@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     locale: "de_DE",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kontakt — HAUSELIO",
+    description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht.",
+  },
 };
 
 const fallbackSettings = {

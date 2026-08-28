@@ -16,6 +16,12 @@ export const metadata: Metadata = {
     locale: "de_DE",
     type: "website",
   },
+  alternates: { canonical: "/agb" },
+  twitter: {
+    card: "summary_large_image",
+    title: "AGB — HAUSELIO",
+    description: "Allgemeine Geschäftsbedingungen der HAUSELIO GmbH.",
+  },
 };
 
 export default function AGBPage() {

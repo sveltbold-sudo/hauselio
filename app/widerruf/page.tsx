@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Widerrufsbelehrung",
   description: "Ihr Widerrufsrecht bei Einkäufen im HAUSELIO Online-Shop.",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/widerruf" },
+  openGraph: {
+    title: "Widerrufsbelehrung — HAUSELIO",
+    description: "Ihr Widerrufsrecht bei Einkäufen im HAUSELIO Online-Shop.",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export default function WiderrufPage() {

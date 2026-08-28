@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Impressum",
   description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/impressum" },
+  openGraph: {
+    title: "Impressum — HAUSELIO",
+    description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export default function ImpressumPage() {

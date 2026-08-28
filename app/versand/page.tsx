@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   title: "Versandinformationen",
   description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/versand" },
+  openGraph: {
+    title: "Versandinformationen — HAUSELIO",
+    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO.",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 const shippingMethods = [

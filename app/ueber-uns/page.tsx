@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     locale: "de_DE",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Über HAUSELIO",
+    description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte.",
+  },
 };
 
 const values = [

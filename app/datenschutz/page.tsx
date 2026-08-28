@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Datenschutzerklärung",
   description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/datenschutz" },
+  openGraph: {
+    title: "Datenschutzerklärung — HAUSELIO",
+    description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
+    siteName: "HAUSELIO",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export default function DatenschutzPage() {
