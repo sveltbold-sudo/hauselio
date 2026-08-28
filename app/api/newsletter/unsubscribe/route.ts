@@ -3,17 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { verifyUnsubscribeToken } from "@/lib/auth";
-
+import { escapeHtml } from "@/lib/html";
 import { SITE_URL } from "@/lib/constants";
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 const safeSiteUrl = escapeHtml(SITE_URL);
 

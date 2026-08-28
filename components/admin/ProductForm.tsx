@@ -6,41 +6,13 @@ import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
 import Button from "@/components/ui/Button";
 import { slugify } from "@/lib/utils";
+import type { Category, Brand, ProductFormData } from "@/lib/admin-product-types";
+import { emptyFormData } from "@/lib/admin-product-types";
 
-interface Category {
-  id: string;
-  name: string;
-}
+export type { ProductFormData, Category, Brand };
+export { emptyFormData };
 
-interface Brand {
-  id: string;
-  name: string;
-}
-
-interface ProductFormData {
-  name: string;
-  slug: string;
-  description: string;
-  shortDesc: string;
-  price: string;
-  originalPrice: string;
-  categoryId: string;
-  brandId: string;
-  inStock: boolean;
-  isNew: boolean;
-  isFeatured: boolean;
-  weight: string;
-  imageUrl: string;
-  features: string[];
-  newFeature: string;
-  specs: { key: string; value: string }[];
-  newSpecKey: string;
-  newSpecValue: string;
-  seoTitle: string;
-  seoDesc: string;
-}
-
-export interface ProductFormProps {
+interface ProductFormProps {
   title: string;
   submitLabel: string;
   loadingLabel?: string;
@@ -54,28 +26,7 @@ export interface ProductFormProps {
   ) => Promise<void>;
 }
 
-export const emptyFormData: ProductFormData = {
-  name: "",
-  slug: "",
-  description: "",
-  shortDesc: "",
-  price: "",
-  originalPrice: "",
-  categoryId: "",
-  brandId: "",
-  inStock: true,
-  isNew: false,
-  isFeatured: false,
-  weight: "",
-  imageUrl: "",
-  features: [],
-  newFeature: "",
-  specs: [],
-  newSpecKey: "",
-  newSpecValue: "",
-  seoTitle: "",
-  seoDesc: "",
-};
+export type { ProductFormProps };
 
 export default function ProductForm({
   title,

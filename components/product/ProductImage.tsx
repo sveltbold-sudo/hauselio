@@ -30,14 +30,7 @@ const brandColors: Record<string, string> = {
   kenwood: "#cc0000",
 };
 
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-}
+import { getInitials } from "@/lib/html";
 
 function getBrandColor(brand?: string | null): string {
   if (!brand) return "#6b7280";

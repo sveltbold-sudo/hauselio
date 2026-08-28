@@ -20,5 +20,3 @@ export function getCloudinary() {
   ensureConfigured();
   return cloudinary;
 }
-
-export default cloudinary;

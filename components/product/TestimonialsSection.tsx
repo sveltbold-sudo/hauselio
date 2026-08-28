@@ -78,14 +78,7 @@ async function getTestimonials(): Promise<Testimonial[]> {
   }
 }
 
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-}
+import { getInitials } from "@/lib/html";
 
 const avatarColors = [
   "bg-[var(--color-primary)]",

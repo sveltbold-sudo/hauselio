@@ -1,6 +1,7 @@
-import { emptyFormData } from "@/components/admin/ProductForm";
+import type { ProductFormData } from "@/lib/admin-product-types";
+import { emptyFormData } from "@/lib/admin-product-types";
 
-type FormData = Omit<typeof emptyFormData, "newFeature" | "newSpecKey" | "newSpecValue">;
+type FormData = Omit<ProductFormData, "newFeature" | "newSpecKey" | "newSpecValue">;
 
 export function serializeProductBody(data: FormData) {
   return {
