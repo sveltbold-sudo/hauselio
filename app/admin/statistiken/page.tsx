@@ -220,7 +220,7 @@ export default function StatistikenPage() {
           <p className="text-sm text-[var(--color-text-muted)]">Noch keine Bestellungen.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full" aria-label="Letzte Bestellungen">
               <thead>
                 <tr className="border-b border-[var(--color-border-light)]">
                   <th className="text-left pb-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Bestellung</th>

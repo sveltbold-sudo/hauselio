@@ -160,7 +160,7 @@ export default function KategorienPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
-        <table className="w-full">
+        <table className="w-full" aria-label="Kategorien">
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Name</th>
