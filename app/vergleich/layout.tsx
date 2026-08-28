@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Produktvergleich",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Produktvergleich — HAUSELIO",
     description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen.",
-    url: "https://hauselio.vercel.app/vergleich",
+    url: `${SITE_URL}/vergleich`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

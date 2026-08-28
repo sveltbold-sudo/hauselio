@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Cookie, X } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 const CONSENT_KEY = "hauselio_cookie_consent";
 
@@ -28,20 +29,15 @@ export default function CookieConsent() {
   const firstButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-     
     setVisible(needsConsentBanner());
   }, []);
 
+  useScrollLock(visible);
+
   useEffect(() => {
-    if (visible) {
-      document.body.style.overflow = "hidden";
-      if (firstButtonRef.current) {
-        firstButtonRef.current.focus();
-      }
+    if (visible && firstButtonRef.current) {
+      firstButtonRef.current.focus();
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [visible]);
 
   const handleAccept = () => {

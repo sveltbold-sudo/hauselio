@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 86400;
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AGB — HAUSELIO",
     description: "Allgemeine Geschäftsbedingungen der HAUSELIO GmbH.",
-    url: "https://hauselio.vercel.app/agb",
+    url: `${SITE_URL}/agb`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

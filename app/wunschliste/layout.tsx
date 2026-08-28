@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Wunschliste",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Meine Wunschliste — HAUSELIO",
     description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste.",
-    url: "https://hauselio.vercel.app/wunschliste",
+    url: `${SITE_URL}/wunschliste`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

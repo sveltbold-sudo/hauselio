@@ -2,6 +2,7 @@ import { Truck, Shield, Headphones, Award, Heart, Zap } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 86400;
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Über HAUSELIO — Ihr Partner für Haushaltsgeräte",
     description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
-    url: "https://hauselio.vercel.app/ueber-uns",
+    url: `${SITE_URL}/ueber-uns`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function KontaktError({
   error,
@@ -12,7 +13,7 @@ export default function KontaktError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("[HAUSELIO] Kontakt page error:", error);
+    logger.error("page-error", error);
   }, [error]);
 
   return (

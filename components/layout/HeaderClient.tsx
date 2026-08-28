@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw, User, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
@@ -66,20 +67,7 @@ export default function HeaderClient() {
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
-  }, [mobileMenuOpen]);
+  useScrollLock(mobileMenuOpen);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;

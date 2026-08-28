@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Warenkorb | HAUSELIO",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Warenkorb | HAUSELIO",
     description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
-    url: "https://hauselio.vercel.app/warenkorb",
+    url: `${SITE_URL}/warenkorb`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: "Warenkorb | HAUSELIO",
     description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
   },
-  alternates: { canonical: "https://hauselio.vercel.app/warenkorb" },
+  alternates: { canonical: `${SITE_URL}/warenkorb` },
 };
 
 export default function WarenkorbLayout({

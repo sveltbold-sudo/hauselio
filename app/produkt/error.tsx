@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle, RefreshCw } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function ProduktError({
   error,
@@ -12,7 +13,7 @@ export default function ProduktError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("Product error:", error);
+    logger.error("page-error", error);
   }, [error]);
 
   const isNotFound = error?.message?.includes("not found") || error?.message?.includes("Not found");

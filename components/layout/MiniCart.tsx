@@ -8,6 +8,7 @@ import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { getShippingCost, SHIPPING_COST } from "@/lib/constants";
 
 export default function MiniCart() {
@@ -38,20 +39,7 @@ export default function MiniCart() {
 
   const close = useCallback(() => setIsOpen(false), []);
 
-  useEffect(() => {
-    if (isOpen) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {

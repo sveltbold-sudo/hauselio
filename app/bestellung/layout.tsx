@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Bestellung | HAUSELIO",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bestellung | HAUSELIO",
     description: "Schließen Sie Ihre Bestellung bei HAUSELIO ab.",
-    url: "https://hauselio.vercel.app/bestellung",
+    url: `${SITE_URL}/bestellung`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: "Bestellung | HAUSELIO",
     description: "Schließen Sie Ihre Bestellung bei HAUSELIO ab.",
   },
-  alternates: { canonical: "https://hauselio.vercel.app/bestellung" },
+  alternates: { canonical: `${SITE_URL}/bestellung` },
 };
 
 export default function BestellungLayout({

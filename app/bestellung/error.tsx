@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle, RefreshCw } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function BestellungError({
   error,
@@ -12,7 +13,7 @@ export default function BestellungError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("Checkout error:", error);
+    logger.error("page-error", error);
   }, [error]);
 
   return (
