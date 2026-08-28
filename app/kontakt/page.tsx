@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import KontaktForm from "@/components/kontakt/KontaktForm";
 import FaqSection from "@/components/kontakt/FaqSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 86400;
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kontakt — HAUSELIO",
     description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht.",
-    url: "https://hauselio.vercel.app/kontakt",
+    url: `${SITE_URL}/kontakt`,
     siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",

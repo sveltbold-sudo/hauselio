@@ -216,7 +216,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
           {/* Quantity & Add to cart */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]">
+            <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]" role="group" aria-label="Artikelmenge">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 aria-label="Menge verringern"

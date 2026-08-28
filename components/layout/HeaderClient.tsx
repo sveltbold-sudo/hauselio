@@ -216,7 +216,7 @@ export default function HeaderClient() {
                 aria-label="Produkte suchen"
                 role="combobox"
                 aria-expanded={searchOpen && searchQuery.trim().length >= 2}
-                aria-controls="search-results-list"
+                aria-controls={searchOpen && searchQuery.trim().length >= 2 ? "search-results-list" : undefined}
                 aria-autocomplete="list"
                 aria-activedescendant={searchActiveIndex >= 0 ? `search-result-${searchActiveIndex}` : undefined}
                 className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"

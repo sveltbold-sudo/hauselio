@@ -64,30 +64,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const review = await prisma.review.create({
-      data: {
-        rating,
-        title: title || null,
-        content: content || null,
-        authorName,
-        authorEmail,
-        isApproved: false,
-        productId,
-      },
-    });
+    const review = await prisma.$transaction(async (tx) => {
+      const review = await tx.review.create({
+        data: {
+          rating,
+          title: title || null,
+          content: content || null,
+          authorName,
+          authorEmail,
+          isApproved: false,
+          productId,
+        },
+      });
 
-    const stats = await prisma.review.aggregate({
-      where: { productId, isApproved: true },
-      _avg: { rating: true },
-      _count: { rating: true },
-    });
+      const stats = await tx.review.aggregate({
+        where: { productId, isApproved: true },
+        _avg: { rating: true },
+        _count: { rating: true },
+      });
 
-    await prisma.product.update({
-      where: { id: productId },
-      data: {
-        rating: stats._avg.rating || 0,
-        reviewCount: stats._count.rating,
-      },
+      await tx.product.update({
+        where: { id: productId },
+        data: {
+          rating: stats._avg.rating || 0,
+          reviewCount: stats._count.rating,
+        },
+      });
+
+      return review;
     });
 
     return NextResponse.json({

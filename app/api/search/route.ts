@@ -9,73 +9,73 @@ const algoliaAvailable = !!(
 );
 
 export async function GET(request: NextRequest) {
-  const ip = getClientIp(request);
-  const allowed = await checkRateLimit(`search:${ip}`, 30, 60_000);
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
-      { status: 429, headers: { "Retry-After": "60" } }
-    );
-  }
-
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q");
-  const rawLimit = parseInt(searchParams.get("limit") || "10", 10);
-  const limit = Number.isFinite(rawLimit)
-    ? Math.min(50, Math.max(1, rawLimit))
-    : 10;
-
-  if (!query || query.trim().length === 0) {
-    return NextResponse.json({ hits: [], nbHits: 0 }, {
-      headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
-    });
-  }
-
-  if (algoliaAvailable) {
-    try {
-      const { getAlgoliaSearchClient, PRODUCTS_INDEX } = await import("@/lib/algolia");
-      const result = await getAlgoliaSearchClient().search({
-        requests: [
-          {
-            indexName: PRODUCTS_INDEX,
-            query: query.trim(),
-            hitsPerPage: limit,
-            attributesToRetrieve: [
-              "objectID",
-              "name",
-              "slug",
-              "price",
-              "originalPrice",
-              "brand",
-              "categoryName",
-              "image",
-              "rating",
-              "reviewCount",
-              "isNew",
-              "isPromo",
-            ],
-            attributesToHighlight: ["name"],
-          },
-        ],
-      });
-
-      const result0 = result.results[0] as { hits: unknown[]; nbHits: number };
-
-      return NextResponse.json(
-        {
-          hits: result0.hits,
-          nbHits: result0.nbHits,
-        },
-        {
-          headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
-        }
-      );
-    } catch (error) {
-      logger.error("algolia-search", error);
-    }
-  }
-
   try {
+    const ip = getClientIp(request);
+    const allowed = await checkRateLimit(`search:${ip}`, 30, 60_000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get("q");
+    const rawLimit = parseInt(searchParams.get("limit") || "10", 10);
+    const limit = Number.isFinite(rawLimit)
+      ? Math.min(50, Math.max(1, rawLimit))
+      : 10;
+
+    if (!query || query.trim().length === 0) {
+      return NextResponse.json({ hits: [], nbHits: 0 }, {
+        headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
+      });
+    }
+
+    if (algoliaAvailable) {
+      try {
+        const { getAlgoliaSearchClient, PRODUCTS_INDEX } = await import("@/lib/algolia");
+        const result = await getAlgoliaSearchClient().search({
+          requests: [
+            {
+              indexName: PRODUCTS_INDEX,
+              query: query.trim(),
+              hitsPerPage: limit,
+              attributesToRetrieve: [
+                "objectID",
+                "name",
+                "slug",
+                "price",
+                "originalPrice",
+                "brand",
+                "categoryName",
+                "image",
+                "rating",
+                "reviewCount",
+                "isNew",
+                "isPromo",
+              ],
+              attributesToHighlight: ["name"],
+            },
+          ],
+        });
+
+        const result0 = result.results[0] as { hits: unknown[]; nbHits: number };
+
+        return NextResponse.json(
+          {
+            hits: result0.hits,
+            nbHits: result0.nbHits,
+          },
+          {
+            headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
+          }
+        );
+      } catch (error) {
+        logger.error("algolia-search", error);
+      }
+    }
+
     const searchQuery = query.trim();
 
     const [products, total] = await Promise.all([

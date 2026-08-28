@@ -228,7 +228,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         <nav aria-label="Kategorien" className="flex flex-nowrap sm:flex-wrap overflow-x-auto scrollbar-hide gap-2 sm:gap-3">
           <Link
             href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
-            aria-current={!category ? "page" : undefined}
+            aria-pressed={!category}
               className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               !category
                 ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
@@ -346,7 +346,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {/* Products grid */}
           <Suspense fallback={<ProductGridSkeleton />}>
             {formattedProducts.length === 0 ? (
-              <div className="text-center py-20">
+              <div className="text-center py-20" role="status" aria-live="polite">
                 <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
                   <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
                 </div>

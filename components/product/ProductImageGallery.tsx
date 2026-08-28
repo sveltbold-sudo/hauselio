@@ -103,7 +103,6 @@ export default function ProductImageGallery({
             return (
               <button
                 key={i}
-                role="listitem"
                 onClick={() => onImageSelect(i)}
                 aria-label={isLast ? `${remaining} weitere Bilder anzeigen` : `${name} Bild ${i + 1} anzeigen`}
                 className={`aspect-square bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 relative ${

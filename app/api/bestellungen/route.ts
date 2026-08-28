@@ -6,6 +6,7 @@ import { CreateOrderSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { getShippingCost } from "@/lib/constants";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
+import { ValidationError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
@@ -52,10 +53,10 @@ export async function POST(request: NextRequest) {
     const validatedItems = items.map((item) => {
       const product = productMap.get(item.id);
       if (!product) {
-        throw new Error("Ein oder mehrere Produkte sind nicht verfügbar");
+        throw new ValidationError("Ein oder mehrere Produkte sind nicht verfügbar");
       }
       if (!product.inStock) {
-        throw new Error(`${product.name} ist leider nicht verfügbar`);
+        throw new ValidationError(`${product.name} ist leider nicht verfügbar`);
       }
       const quantity = Math.max(1, Math.min(99, item.quantity));
       const price = Number(product.price);

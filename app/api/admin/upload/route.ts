@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import cloudinary from "@/lib/cloudinary";
+import { getCloudinary } from "@/lib/cloudinary";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
@@ -10,6 +10,8 @@ export async function POST(request: NextRequest) {
     if (ctError) return ctError;
 
     await requireAdmin();
+
+    const cloudinary = getCloudinary();
 
     if (!validateCsrfOrigin(request)) {
       return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
