@@ -267,6 +267,7 @@ export async function authenticateAdmin(
 ): Promise<AdminPayload | null> {
   const admin = await prisma.adminUser.findUnique({
     where: { email },
+    select: { id: true, email: true, role: true, name: true, password: true },
   });
 
   const hashToCheck = admin?.password || DUMMY_HASH;

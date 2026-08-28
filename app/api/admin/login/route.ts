@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       const retryAfterSec = Math.ceil(lockout.retryAfterMs / 1000);
       return NextResponse.json(
         {
-          error: `Konto gesperrt. Versuchen Sie es in ${retryAfterSec} Sekunden erneut.`,
+          error: "Zu viele Versuche. Bitte versuchen Sie es später erneut.",
           retryAfterSec,
         },
         {

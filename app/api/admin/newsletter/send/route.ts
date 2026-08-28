@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const { subject, content } = parsed.data;
     const sanitizedContent = DOMPurify.sanitize(content, {
       ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "br", "ul", "ol", "li", "h1", "h2", "h3", "h4", "a", "img", "table", "thead", "tbody", "tr", "th", "td", "blockquote", "hr", "div", "span"],
-      ALLOWED_ATTR: ["href", "src", "alt", "title", "width", "height", "style", "class", "target", "rel"],
+      ALLOWED_ATTR: ["href", "src", "alt", "title", "width", "height", "target", "rel"],
       ALLOW_DATA_ATTR: false,
     });
 

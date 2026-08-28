@@ -72,14 +72,13 @@ export async function POST(request: NextRequest) {
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
         order = await prisma.$transaction(async (tx) => {
-          // Atomically verify stock is still available
-          const stockCheck = await tx.product.findMany({
-            where: { id: { in: validatedItems.map((i) => i.productId) } },
-            select: { id: true, inStock: true },
-          });
-          const stockMap = new Map(stockCheck.map((p) => [p.id, p.inStock]));
+          // Atomically reserve stock — only set inStock=false if currently true
           for (const item of validatedItems) {
-            if (!stockMap.get(item.productId)) {
+            const result = await tx.product.updateMany({
+              where: { id: item.productId, inStock: true },
+              data: { inStock: false },
+            });
+            if (result.count === 0) {
               throw new Error("Produkt nicht mehr verfügbar");
             }
           }
