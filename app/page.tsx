@@ -14,15 +14,8 @@ const DailyDealBanner = dynamicImport(() => import("@/components/product/DailyDe
 const BestsellerSection = dynamicImport(() => import("@/components/product/BestsellerSection"));
 const RecommendedSection = dynamicImport(() => import("@/components/product/RecommendedSection"));
 
-const GuaranteeServiceSection = dynamicImport(() => import("@/components/product/GuaranteeServiceSection"));
-const BuyingAdviceSection = dynamicImport(() => import("@/components/product/BuyingAdviceSection"));
-const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"));
-const EditorialContentSection = dynamicImport(() => import("@/components/product/EditorialContentSection"));
-const BrandsShowcaseSection = dynamicImport(() => import("@/components/product/BrandsShowcaseSection"));
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"));
-import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 import TestimonialsSection from "@/components/product/TestimonialsSection";
-import AboutSection from "@/components/home/AboutSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
 export const revalidate = 300;
@@ -417,18 +410,8 @@ export default async function HomePage() {
       {/* Für Sie empfohlen — top-rated */}
       {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
 
-      <AboutSection />
-
-      <GuaranteeServiceSection />
-      <BuyingAdviceSection />
-      <PressReviewsSection />
-      <EditorialContentSection />
       <TestimonialsSection />
       <RecentlyViewedSection />
-      <BrandsShowcaseSection />
-      <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-[var(--color-bg-secondary)] rounded-2xl" /></div></div>}>
-        <CustomerReviewsSection />
-      </Suspense>
       <NewsletterSection />
     </>
   );
