@@ -86,6 +86,14 @@ export default async function AdminOrdersPage({
           >
             Filtern
           </button>
+          {(status || q) && (
+            <a
+              href="/admin/bestellungen"
+              className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors"
+            >
+              Filter zurücksetzen
+            </a>
+          )}
         </form>
       </div>
 

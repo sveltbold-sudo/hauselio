@@ -46,6 +46,9 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
 
   const handleBulkStatus = async (status: string) => {
     setShowStatusMenu(false);
+    if (status === "CANCELLED" && !confirm(`${selectedIds.length} Bestellungen wirklich stornieren? Dies kann nicht rückgängig gemacht werden.`)) {
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch("/api/admin/bestellungen/bulk", {

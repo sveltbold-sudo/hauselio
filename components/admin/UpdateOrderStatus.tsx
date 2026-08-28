@@ -28,6 +28,9 @@ export default function UpdateOrderStatus({
   const toast = useToast();
 
   const handleUpdate = async () => {
+    if (status === "CANCELLED" && currentStatus !== "CANCELLED" && !confirm("Bestellung wirklich stornieren? Dies kann nicht rückgängig gemacht werden.")) {
+      return;
+    }
     setIsUpdating(true);
     try {
       const res = await fetch(`/api/admin/bestellungen/${orderId}`, {
