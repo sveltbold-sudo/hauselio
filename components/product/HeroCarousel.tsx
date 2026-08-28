@@ -138,6 +138,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       className="relative w-full overflow-hidden"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
+      onFocus={() => setIsAutoPlaying(false)}
+      onBlur={() => setIsAutoPlaying(true)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

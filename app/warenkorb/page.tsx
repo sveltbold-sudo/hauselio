@@ -255,28 +255,6 @@ export default function WarenkorbPage() {
               </div>
             </div>
 
-            {/* Gutschein input */}
-            <div className="mb-4">
-              <label htmlFor="gutschein" className="sr-only">Gutscheincode</label>
-              <div className="flex gap-2">
-                <input
-                  id="gutschein"
-                  type="text"
-                  placeholder="Gutscheincode eingeben"
-                  className="flex-1 px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-                  disabled
-                />
-                <button
-                  type="button"
-                  className="px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded-xl text-sm font-medium text-[var(--color-text-muted)] cursor-not-allowed"
-                  disabled
-                >
-                  Anwenden
-                </button>
-              </div>
-              <p className="text-xs text-[var(--color-text-muted)] mt-1.5">Bald verfügbar</p>
-            </div>
-
             <Link href="/bestellung" className="block">
               <Button className="w-full px-7 py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl">
                 <CreditCard className="w-5 h-5" />

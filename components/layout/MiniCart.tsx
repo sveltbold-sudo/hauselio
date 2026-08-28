@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
 import { useScrollLock } from "@/hooks/useScrollLock";
-import { getShippingCost, SHIPPING_COST } from "@/lib/constants";
+import { getShippingCost, SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,10 +77,18 @@ export default function MiniCart() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, close]);
 
+  const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
-    const handleItemAdded = () => setIsOpen(true);
+    const handleItemAdded = () => {
+      if (openTimerRef.current) clearTimeout(openTimerRef.current);
+      openTimerRef.current = setTimeout(() => setIsOpen(true), 500);
+    };
     window.addEventListener("cart:item-added", handleItemAdded);
-    return () => window.removeEventListener("cart:item-added", handleItemAdded);
+    return () => {
+      window.removeEventListener("cart:item-added", handleItemAdded);
+      if (openTimerRef.current) clearTimeout(openTimerRef.current);
+    };
   }, []);
 
   return (
@@ -216,10 +224,22 @@ export default function MiniCart() {
                   </span>
                 </div>
                 {/* Delivery promise */}
-                <div className="flex items-center justify-center gap-2 mb-4 py-2.5 px-3 bg-[var(--color-success)]/10 rounded-xl text-sm text-[var(--color-success)]">
-                  <Truck className="w-4 h-4" aria-hidden="true" />
-                  <span className="font-medium">Kostenlose Lieferung</span>
-                </div>
+                {getShippingCost(total) === 0 ? (
+                  <div className="flex items-center justify-center gap-2 mb-4 py-2.5 px-3 bg-[var(--color-success)]/10 rounded-xl text-sm text-[var(--color-success)]">
+                    <Truck className="w-4 h-4" aria-hidden="true" />
+                    <span className="font-medium">Kostenlose Lieferung</span>
+                  </div>
+                ) : (
+                  <div className="mb-4 py-2.5 px-3 bg-[var(--color-accent)]/10 rounded-xl text-sm text-[var(--color-accent)]">
+                    <div className="flex items-center justify-center gap-2 mb-1.5">
+                      <Truck className="w-4 h-4" aria-hidden="true" />
+                      <span className="font-medium">Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand</span>
+                    </div>
+                    <div className="w-full bg-[var(--color-accent)]/20 rounded-full h-1.5" role="meter" aria-valuenow={Math.min(100, Math.round((total / FREE_SHIPPING_THRESHOLD) * 100))} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt zum kostenlosen Versand">
+                      <div className="bg-[var(--color-accent)] h-1.5 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (total / FREE_SHIPPING_THRESHOLD) * 100)}%` }} />
+                    </div>
+                  </div>
+                )}
                 <Link
                   href="/bestellung"
                   onClick={() => setIsOpen(false)}

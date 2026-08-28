@@ -5,7 +5,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Pencil, ExternalLink, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { Pencil, ExternalLink, ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import BulkActions from "@/components/admin/BulkActions";
@@ -379,24 +379,51 @@ function ProductTable({
             <p className="text-sm text-[var(--color-text-muted)]">
               {total} Produkte — Seite {page} von {totalPages}
             </p>
-            <div className="flex gap-1">
-              {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(
-                (p) => (
-                  <Link
-                    key={p}
-                    href={`/admin/produkte?page=${p}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${q}` : ""}`}
-                    aria-current={p === page ? "page" : undefined}
-                    className={`px-3 py-1 rounded text-sm ${
-                      p === page
-                        ? "bg-[var(--color-primary)] text-white"
-                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
-                    }`}
-                  >
-                    {p}
-                  </Link>
-                )
+            <nav className="flex items-center gap-1" aria-label="Seitennavigation">
+              {page > 1 && (
+                <Link
+                  href={`/admin/produkte?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${q}` : ""}`}
+                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  aria-label="Vorherige Seite"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Link>
               )}
-            </div>
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                .reduce<(number | "ellipsis")[]>((acc, p, i, arr) => {
+                  if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push("ellipsis");
+                  acc.push(p);
+                  return acc;
+                }, [])
+                .map((item, i) =>
+                  item === "ellipsis" ? (
+                    <span key={`e${i}`} className="px-1 text-sm text-[var(--color-text-muted)]">…</span>
+                  ) : (
+                    <Link
+                      key={item}
+                      href={`/admin/produkte?page=${item}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${q}` : ""}`}
+                      aria-current={item === page ? "page" : undefined}
+                      className={`px-3 py-1 rounded text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+                        item === page
+                          ? "bg-[var(--color-primary)] text-white"
+                          : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+                      }`}
+                    >
+                      {item}
+                    </Link>
+                  )
+                )}
+              {page < totalPages && (
+                <Link
+                  href={`/admin/produkte?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${q}` : ""}`}
+                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  aria-label="Nächste Seite"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              )}
+            </nav>
           </div>
         )}
       </div>

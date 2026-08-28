@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useRef, useCallback } from "react";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
 import { slugify } from "@/lib/utils";
 import { useToast } from "@/components/ui/Toast";
@@ -25,6 +25,28 @@ export default function KategorienPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [, startTransition] = useTransition();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleModalKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setShowForm(false);
+      return;
+    }
+    if (e.key !== "Tab" || !modalRef.current) return;
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'input, button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0]!;
+    const last = focusable[focusable.length - 1]!;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, []);
 
   const loadCategories = () => {
     fetch("/api/admin/kategorien")
@@ -104,9 +126,9 @@ export default function KategorienPage() {
           aria-modal="true"
           aria-labelledby="kategorie-modal-title"
           onClick={(e) => { if (e.target === e.currentTarget) setShowForm(false); }}
-          onKeyDown={(e) => { if (e.key === "Escape") setShowForm(false); }}
+          onKeyDown={handleModalKeyDown}
         >
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+          <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
               <h2 id="kategorie-modal-title" className="text-lg font-bold">{editingId ? "Kategorie bearbeiten" : "Neue Kategorie"}</h2>
               <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -45,11 +45,33 @@ export default function ProductForm({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isDirty = useRef(false);
+  const initialDataRef = useRef(initialData);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty.current) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  const markDirty = useCallback(() => {
+    isDirty.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (isSubmitting) return;
+    isDirty.current = true;
+  }, [formData, isSubmitting]);
 
   useEffect(() => {
     if (initialData) {
        
       setFormData((prev) => ({ ...prev, ...initialData }));
+      initialDataRef.current = initialData;
     }
   }, [initialData]);
 
@@ -106,6 +128,7 @@ export default function ProductForm({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- exclude UI-only fields from submission
       const { newFeature, newSpecKey, newSpecValue, ...submitData } = formData;
       await onSubmit(submitData);
+      isDirty.current = false;
     } finally {
       setIsSubmitting(false);
     }

@@ -1,10 +1,11 @@
 import { memo } from "react";
 import Link from "next/link";
-import { Star, Truck } from "lucide-react";
+import { Truck } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import WishlistButton from "@/components/product/WishlistButton";
+import StarRating from "@/components/ui/StarRating";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 
@@ -27,7 +28,6 @@ interface ProductCardProps {
 
 export default memo(function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
-  const fullStars = Math.floor(product.rating);
 
   return (
     <Link
@@ -83,7 +83,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Add-to-cart — bottom overlay like AO/Coolblue */}
         <div
-          className="absolute bottom-3 left-3 right-3 z-10 transition-opacity transition-transform duration-300 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto"
+          className="absolute bottom-3 left-3 right-3 z-10 transition-opacity transition-transform duration-300 md:translate-y-0"
         >
           <AddToCartButton
             product={{
@@ -113,22 +113,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Rating — compact like Coolblue */}
         <div className="flex items-center gap-1.5 mb-2.5">
-          <div className="flex items-center" role="img" aria-label={`${product.rating} von 5 Sternen`}>
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                aria-hidden="true"
-                className={`w-3.5 h-3.5 ${
-                  i < fullStars
-                    ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]"
-                    : "text-[var(--color-star-empty)] fill-[var(--color-star-empty)]"
-                }`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-[var(--color-text-muted)]">
-            ({product.reviewCount})
-          </span>
+          <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />
         </div>
 
         {/* Spacer — pushes price to bottom */}
