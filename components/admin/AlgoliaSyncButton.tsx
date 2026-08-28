@@ -33,7 +33,7 @@ export default function AlgoliaSyncButton() {
       </button>
       {result && (
         <span className={`text-sm font-medium flex items-center gap-1 ${
-          result.errors === 0 ? "text-[var(--color-success)]" : result.errors === -1 ? "text-red-500" : "text-amber-600"
+          result.errors === 0 ? "text-[var(--color-success)]" : result.errors === -1 ? "text-[var(--color-danger)]" : "text-[var(--color-accent)]"
         }`}>
           {result.errors === 0 ? (
             <><Check className="w-4 h-4" /> {result.indexed} Produkte synchronisiert</>

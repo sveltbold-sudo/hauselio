@@ -207,10 +207,10 @@ export default async function AdminOrderDetailPage({
                 <span
                   className={`inline-flex px-2 py-0.5 rounded text-xs font-semibold ${
                     order.paymentStatus === "CONFIRMED"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-[var(--color-success-light)] text-[var(--color-success)]"
                       : order.paymentStatus === "FAILED"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-amber-100 text-amber-700"
+                      ? "bg-[var(--color-danger-light)] text-[var(--color-danger)]"
+                      : "bg-[var(--color-accent-light)] text-[var(--color-accent)]"
                   }`}
                 >
                   {order.paymentStatus === "CONFIRMED"

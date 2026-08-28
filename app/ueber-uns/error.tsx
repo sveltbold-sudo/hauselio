@@ -17,8 +17,8 @@ export default function UeberUnsError({
 
   return (
     <div className="container-hauselio py-20 text-center">
-      <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
-        <AlertTriangle className="w-8 h-8 text-red-500" />
+      <div className="w-16 h-16 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-6">
+        <AlertTriangle className="w-8 h-8 text-[var(--color-danger)]" />
       </div>
       <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-3">
         Etwas ist schiefgelaufen

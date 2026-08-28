@@ -152,7 +152,7 @@ export default function WarenkorbPage() {
                           setConfirmDelete(null);
                         }}
                         aria-label={`${item.name} entfernen bestätigen`}
-                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-red-700 transition-colors"
+                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors"
                       >
                         Entfernen
                       </button>

@@ -78,7 +78,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
       <button
         onClick={handleBulkDelete}
         disabled={loading}
-        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-red-500/80 hover:bg-red-500 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-[var(--color-danger)]/80 hover:bg-[var(--color-danger-hover)] rounded-lg text-xs sm:text-sm font-medium transition-colors"
       >
         <Trash2 className="w-4 h-4" /> Löschen
       </button>

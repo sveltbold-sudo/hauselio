@@ -103,7 +103,7 @@ export default function ProductTable({
         <div className="overflow-x-auto">
           <table className="w-full hidden md:table">
             <thead>
-              <tr className="border-b border-[var(--color-border-light)] bg-gray-50">
+              <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
                 <th className="px-5 py-3 w-10">
                   <input
                     type="checkbox"
@@ -180,8 +180,8 @@ export default function ProductTable({
               {sorted.map((product) => (
                 <tr
                   key={product.id}
-                  className={`border-b border-[var(--color-border-light)] last:border-0 hover:bg-gray-50 ${
-                    selected.includes(product.id) ? "bg-blue-50" : ""
+                  className={`border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)] ${
+                    selected.includes(product.id) ? "bg-[var(--color-primary)]/5" : ""
                   }`}
                 >
                   <td className="px-5 py-3">
@@ -194,7 +194,7 @@ export default function ProductTable({
                     />
                   </td>
                   <td className="px-5 py-3">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
+                    <div className="w-12 h-12 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden">
                       {product.images[0] ? (
                         <Image
                           src={product.images[0].url}
@@ -204,7 +204,7 @@ export default function ProductTable({
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
+                        <div className="w-full h-full flex items-center justify-center text-xs text-[var(--color-text-muted)]">
                           Kein Bild
                         </div>
                       )}
@@ -238,8 +238,8 @@ export default function ProductTable({
                     <span
                       className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${
                         product.inStock
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
+                          ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
+                          : "bg-[var(--color-danger-light)] text-[var(--color-danger)]"
                       }`}
                     >
                       {product.inStock ? "Verfügbar" : "Nicht verfügbar"}
@@ -251,14 +251,14 @@ export default function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-4 h-4" />
@@ -289,7 +289,7 @@ export default function ProductTable({
           {sorted.map((product) => (
             <div
               key={product.id}
-              className={`p-4 ${selected.includes(product.id) ? "bg-blue-50" : ""}`}
+              className={`p-4 ${selected.includes(product.id) ? "bg-[var(--color-primary)]/5" : ""}`}
             >
               <div className="flex items-start gap-3">
                 <input
@@ -299,7 +299,7 @@ export default function ProductTable({
                   aria-label={`${product.name} auswählen`}
                   className="w-4 h-4 rounded border-gray-300 accent-[var(--color-primary)] mt-1"
                 />
-                <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                <div className="w-14 h-14 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden shrink-0">
                   {product.images[0] ? (
                     <Image
                       src={product.images[0].url}
@@ -343,14 +343,14 @@ export default function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
-                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-3.5 h-3.5" />
@@ -387,7 +387,7 @@ export default function ProductTable({
                     className={`px-3 py-1 rounded text-sm ${
                       p === page
                         ? "bg-[var(--color-primary)] text-white"
-                        : "text-[var(--color-text-secondary)] hover:bg-gray-100"
+                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
                     }`}
                   >
                     {p}

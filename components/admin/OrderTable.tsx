@@ -105,7 +105,7 @@ export default function OrderTable({
         <div className="overflow-x-auto">
           <table className="w-full hidden md:table">
             <thead>
-              <tr className="border-b border-[var(--color-border-light)] bg-gray-50">
+              <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
                 <th className="px-5 py-3 w-10">
                   <input
                     type="checkbox"
@@ -189,8 +189,8 @@ export default function OrderTable({
               {sorted.map((order) => (
                 <tr
                   key={order.id}
-                  className={`border-b border-[var(--color-border-light)] last:border-0 hover:bg-gray-50 ${
-                    selected.includes(order.id) ? "bg-blue-50" : ""
+                  className={`border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)] ${
+                    selected.includes(order.id) ? "bg-[var(--color-primary)]/5" : ""
                   }`}
                 >
                   <td className="px-5 py-3">
@@ -227,7 +227,7 @@ export default function OrderTable({
                   <td className="px-5 py-3">
                     <span
                       className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                        ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
+                        ORDER_STATUS_COLORS[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]"
                       }`}
                     >
                       {ORDER_STATUS_LABELS[order.status] || order.status}
@@ -262,7 +262,7 @@ export default function OrderTable({
           {sorted.map((order) => (
             <div
               key={order.id}
-              className={`p-4 ${selected.includes(order.id) ? "bg-blue-50" : ""}`}
+              className={`p-4 ${selected.includes(order.id) ? "bg-[var(--color-primary)]/5" : ""}`}
             >
               <div className="flex items-start gap-3">
                 <input
@@ -287,7 +287,7 @@ export default function OrderTable({
                     </div>
                     <span
                       className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold shrink-0 ${
-                        ORDER_STATUS_COLORS[order.status] || "bg-gray-100 text-gray-700"
+                        ORDER_STATUS_COLORS[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]"
                       }`}
                     >
                       {ORDER_STATUS_LABELS[order.status] || order.status}
@@ -342,7 +342,7 @@ export default function OrderTable({
                     className={`px-3 py-1 rounded text-sm ${
                       p === page
                         ? "bg-[var(--color-primary)] text-white"
-                        : "text-[var(--color-text-secondary)] hover:bg-gray-100"
+                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
                     }`}
                   >
                     {p}

@@ -184,7 +184,7 @@ export default function ProductForm({
         <Link
           href={backHref}
           aria-label="Zurück"
-          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
@@ -389,7 +389,7 @@ export default function ProductForm({
                             type="button"
                             onClick={() => removeSpec(i)}
                             aria-label={`Spezifikation "${spec.key}" entfernen`}
-                            className="text-red-500 hover:text-red-700"
+                            className="text-[var(--color-danger)] hover:text-[var(--color-danger)]"
                           >
                             <X className="w-4 h-4" />
                           </button>

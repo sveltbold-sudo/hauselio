@@ -19,8 +19,8 @@ export default function ProduktError({
 
   return (
     <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
-      <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-8">
-        <AlertTriangle className="w-10 h-10 text-red-500" />
+      <div className="w-20 h-20 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-8">
+        <AlertTriangle className="w-10 h-10 text-[var(--color-danger)]" />
       </div>
       <h1 className="heading-2 mb-4">
         {isNotFound ? "Produkt nicht gefunden" : "Fehler beim Laden"}

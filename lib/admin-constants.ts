@@ -8,12 +8,12 @@ export const ORDER_STATUS_LABELS: Record<string, string> = {
 };
 
 export const ORDER_STATUS_COLORS: Record<string, string> = {
-  PENDING_PAYMENT: "bg-amber-100 text-amber-700",
-  PAYMENT_CONFIRMED: "bg-green-100 text-green-700",
+  PENDING_PAYMENT: "bg-[var(--color-accent-light)] text-[var(--color-accent)]",
+  PAYMENT_CONFIRMED: "bg-[var(--color-success-light)] text-[var(--color-success)]",
   PROCESSING: "bg-blue-100 text-blue-700",
   SHIPPED: "bg-purple-100 text-purple-700",
-  DELIVERED: "bg-green-100 text-green-700",
-  CANCELLED: "bg-red-100 text-red-700",
+  DELIVERED: "bg-[var(--color-success-light)] text-[var(--color-success)]",
+  CANCELLED: "bg-[var(--color-danger-light)] text-[var(--color-danger)]",
 };
 
 export const PAYMENT_STATUS_LABELS: Record<string, string> = {

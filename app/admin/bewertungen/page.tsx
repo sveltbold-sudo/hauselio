@@ -137,7 +137,7 @@ export default function BewertungenPage() {
                       {review.rating}/5
                     </span>
                     {!review.isApproved && (
-                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--color-accent-light)] text-[var(--color-text-primary)]">
                         Ausstehend
                       </span>
                     )}
@@ -171,7 +171,7 @@ export default function BewertungenPage() {
                   {review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, false)}
-                      className="p-2 text-amber-600 hover:bg-amber-100 rounded-lg transition-colors"
+                      className="p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
                       aria-label="Genehmigung entziehen"
                     >
                       <X className="w-4 h-4" />
@@ -179,7 +179,7 @@ export default function BewertungenPage() {
                   )}
                   <button
                     onClick={() => handleDelete(review.id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
                     aria-label="Bewertung löschen"
                   >
                     <Trash2 className="w-4 h-4" />

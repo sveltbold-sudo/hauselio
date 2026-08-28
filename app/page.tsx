@@ -426,7 +426,7 @@ export default async function HomePage() {
       <TestimonialsSection />
       <RecentlyViewedSection />
       <BrandsShowcaseSection />
-      <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-gray-100 rounded-2xl" /></div></div>}>
+      <Suspense fallback={<div className="section-py"><div className="container-hauselio"><div className="animate-pulse h-64 bg-[var(--color-bg-secondary)] rounded-2xl" /></div></div>}>
         <CustomerReviewsSection />
       </Suspense>
       <NewsletterSection />

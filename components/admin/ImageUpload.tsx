@@ -103,14 +103,14 @@ export default function ImageUpload({
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="px-3 py-1.5 bg-white text-[var(--color-text-primary)] rounded-lg text-sm font-medium hover:bg-gray-100"
+              className="px-3 py-1.5 bg-white text-[var(--color-text-primary)] rounded-lg text-sm font-medium hover:bg-[var(--color-bg-secondary)]"
             >
               Ändern
             </button>
             <button
               type="button"
               onClick={handleRemove}
-              className="px-3 py-1.5 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600"
+              className="px-3 py-1.5 bg-[var(--color-danger)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-danger-hover)]"
             >
               Entfernen
             </button>
@@ -147,7 +147,7 @@ export default function ImageUpload({
       )}
 
       {error && (
-        <p className="text-xs text-red-500 mt-1">{error}</p>
+        <p className="text-xs text-[var(--color-danger)] mt-1">{error}</p>
       )}
 
       <input
