@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -28,7 +29,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: "asc" | "desc" }) {
     : <ArrowDown className="w-3 h-3 ml-1 text-[var(--color-primary)]" />;
 }
 
-export default function OrderTable({
+function OrderTable({
   orders,
   total,
   totalPages,
@@ -362,3 +363,5 @@ export default function OrderTable({
     </>
   );
 }
+
+export default React.memo(OrderTable);

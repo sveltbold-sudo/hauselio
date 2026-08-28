@@ -233,7 +233,7 @@ export default function WarenkorbPage() {
                   </div>
                   <div className="h-2 bg-[var(--color-border-light)] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-full transition-[width] duration-500"
                       style={{ width: `${Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}%` }}
                       role="meter"
                       aria-valuenow={Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100)}

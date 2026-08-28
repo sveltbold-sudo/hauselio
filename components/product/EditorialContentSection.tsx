@@ -81,7 +81,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-[var(--color-text-muted)]">{content.readTime}</span>
-                      <span className="text-xs font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                      <span className="text-xs font-semibold text-[var(--color-primary)] flex items-center gap-1 group-hover:gap-2 transition-[gap]">
                         Weiterlesen
                         <ChevronRight className="w-3 h-3" aria-hidden="true" />
                       </span>
