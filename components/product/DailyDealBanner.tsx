@@ -39,7 +39,9 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
   useEffect(() => {
     setMounted(true);
     setTime(getTimeLeft());
-    const timer = setInterval(() => setTime(getTimeLeft()), 1000);
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const interval = prefersReduced ? 30_000 : 1_000;
+    const timer = setInterval(() => setTime(getTimeLeft()), interval);
     return () => clearInterval(timer);
   }, []);
 

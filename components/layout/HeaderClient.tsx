@@ -225,10 +225,10 @@ export default function HeaderClient() {
             </button>
 
             {/* Account */}
-            <Link
-              href="/konto"
-              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
-              aria-label="Mein Konto"
+              <Link
+                href="/kontakt"
+                className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+                aria-label="Mein Konto"
             >
               <User className="w-5 h-5" />
             </Link>
@@ -498,7 +498,7 @@ export default function HeaderClient() {
 
             <div className="p-5 border-t border-[var(--color-border-light)] mt-2 space-y-1">
               <Link
-                href="/konto"
+                href="/kontakt"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
               >

@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 
 const CategorySchema = z.object({
@@ -62,15 +63,13 @@ export async function DELETE(
     }
     const { id } = await params;
 
-    const productCount = await prisma.product.count({ where: { categoryId: id } });
-    if (productCount > 0) {
-      return NextResponse.json(
-        { error: `Kategorie enthält ${productCount} Produkte und kann nicht gelöscht werden.` },
-        { status: 409 }
-      );
-    }
-
-    await prisma.category.delete({ where: { id } });
+    await prisma.$transaction(async (tx) => {
+      const productCount = await tx.product.count({ where: { categoryId: id } });
+      if (productCount > 0) {
+        throw new ValidationError(`Kategorie kann nicht gelöscht werden: ${productCount} Produkte sind zugeordnet.`);
+      }
+      await tx.category.delete({ where: { id } });
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

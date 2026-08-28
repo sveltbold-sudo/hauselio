@@ -41,7 +41,7 @@ export default function CartCrossSell() {
           );
         }
       })
-      .catch(() => {})
+      .catch(() => { /* graceful degradation - cross-sell is non-critical */ })
       .finally(() => setLoading(false));
     return () => controller.abort();
   }, [items]);

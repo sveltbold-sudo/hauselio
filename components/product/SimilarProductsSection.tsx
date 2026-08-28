@@ -51,7 +51,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
           );
         }
       })
-      .catch(() => {})
+      .catch(() => { /* graceful degradation - similar products is non-critical */ })
       .finally(() => setLoading(false));
     return () => controller.abort();
   }, [currentProductId, categorySlug]);

@@ -210,6 +210,7 @@ describe("DELETE /api/admin/kategorien/[id]", () => {
 
 describe("PUT /api/admin/bewertungen/[id]", () => {
   it("approves review and recalculates rating", async () => {
+    mockPrisma.review.findUnique.mockResolvedValue({ id: "rev-1", productId: "prod-1" });
     mockPrisma.review.update.mockResolvedValue({ id: "rev-1", productId: "prod-1" });
     mockPrisma.review.aggregate.mockResolvedValue({ _avg: { rating: 4.0 }, _count: { rating: 5 } });
     mockPrisma.product.update.mockResolvedValue({});

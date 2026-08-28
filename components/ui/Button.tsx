@@ -25,17 +25,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus:ring-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl",
+        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl",
       gradient:
-        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus:ring-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl",
+        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] focus-visible:ring-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl",
       secondary:
-        "bg-[var(--color-secondary)] text-white hover:bg-[var(--color-secondary-hover)] focus:ring-[var(--color-secondary)] shadow-lg shadow-[var(--color-primary)]/20",
+        "bg-[var(--color-secondary)] text-white hover:bg-[var(--color-secondary-hover)] focus-visible:ring-[var(--color-secondary)] shadow-lg shadow-[var(--color-primary)]/20",
       outline:
-        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white focus:ring-[var(--color-primary)]",
+        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white focus-visible:ring-[var(--color-primary)]",
       ghost:
-        "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus:ring-[var(--color-primary)]",
+        "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:ring-[var(--color-primary)]",
       danger:
-        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 focus:ring-[var(--color-danger)] shadow-lg shadow-[var(--color-danger)]/20",
+        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 focus-visible:ring-[var(--color-danger)] shadow-lg shadow-[var(--color-danger)]/20",
     };
 
     const sizes = {

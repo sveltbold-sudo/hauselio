@@ -33,23 +33,32 @@ export async function PUT(
       );
     }
 
-    const review = await prisma.review.update({
-      where: { id },
-      data: { isApproved: parsed.data.isApproved },
-    });
+    const existingReview = await prisma.review.findUnique({ where: { id }, select: { productId: true } });
+    if (!existingReview) {
+      return NextResponse.json({ error: "Review nicht gefunden" }, { status: 404 });
+    }
 
-    const stats = await prisma.review.aggregate({
-      where: { productId: review.productId, isApproved: true },
-      _avg: { rating: true },
-      _count: { rating: true },
-    });
+    const review = await prisma.$transaction(async (tx) => {
+      const updated = await tx.review.update({
+        where: { id },
+        data: { isApproved: parsed.data.isApproved },
+      });
 
-    await prisma.product.update({
-      where: { id: review.productId },
-      data: {
-        rating: stats._avg.rating || 0,
-        reviewCount: stats._count.rating,
-      },
+      const stats = await tx.review.aggregate({
+        where: { productId: existingReview.productId, isApproved: true },
+        _avg: { rating: true },
+        _count: { rating: true },
+      });
+
+      await tx.product.update({
+        where: { id: existingReview.productId },
+        data: {
+          rating: stats._avg.rating || 0,
+          reviewCount: stats._count.rating,
+        },
+      });
+
+      return updated;
     });
 
     return NextResponse.json({ review });
@@ -75,23 +84,26 @@ export async function DELETE(
     const { id } = await params;
 
     const review = await prisma.review.findUnique({ where: { id }, select: { productId: true } });
-    await prisma.review.delete({ where: { id } });
 
-    if (review) {
-      const stats = await prisma.review.aggregate({
-        where: { productId: review.productId, isApproved: true },
-        _avg: { rating: true },
-        _count: { rating: true },
-      });
+    await prisma.$transaction(async (tx) => {
+      await tx.review.delete({ where: { id } });
 
-      await prisma.product.update({
-        where: { id: review.productId },
-        data: {
-          rating: stats._avg.rating || 0,
-          reviewCount: stats._count.rating,
-        },
-      });
-    }
+      if (review) {
+        const stats = await tx.review.aggregate({
+          where: { productId: review.productId, isApproved: true },
+          _avg: { rating: true },
+          _count: { rating: true },
+        });
+
+        await tx.product.update({
+          where: { id: review.productId },
+          data: {
+            rating: stats._avg.rating || 0,
+            reviewCount: stats._count.rating,
+          },
+        });
+      }
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

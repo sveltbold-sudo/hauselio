@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { clearAuthCookie } from "@/lib/auth";
 import { handleApiError } from "@/lib/api-helpers";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   try {
-    if (!await checkRateLimit("admin-logout", 20, 60_000)) {
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-logout:${ip}`, 20, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
     const response = NextResponse.json({ success: true });

@@ -95,6 +95,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                   key={product.id}
                   onClick={() => toggle(product.id)}
                   aria-pressed={isSelected}
+                  aria-label={`${product.name} ${isSelected ? "entfernen" : "hinzufügen"} experimente`}
                   className={`w-full flex items-center gap-3 rounded-xl p-3 min-h-[44px] border transition-colors transition-opacity duration-200 text-left ${
                     isSelected
                       ? "bg-white border-[var(--color-primary)]/20 shadow-sm"
