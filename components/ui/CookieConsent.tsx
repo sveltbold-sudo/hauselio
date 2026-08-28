@@ -81,6 +81,7 @@ export default function CookieConsent() {
         role="dialog"
         aria-modal="true"
         aria-label="Cookie-Einstellungen"
+        aria-describedby="cookie-desc"
         onKeyDown={handleKeyDown}
         className="fixed bottom-0 left-0 right-0 z-[60] p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
       >
@@ -93,7 +94,7 @@ export default function CookieConsent() {
             <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
               Cookie-Einstellungen
             </h3>
-            <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+            <p id="cookie-desc" className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
               Wir verwenden Cookies und Analyse-Tools (Vercel Analytics), um das
               Nutzererlebnis zu verbessern. Diese Daten helfen uns, die
               Performance unserer Website zu optimieren. Sie können jederzeit

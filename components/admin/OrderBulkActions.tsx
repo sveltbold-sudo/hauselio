@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
 interface OrderBulkActionsProps {
@@ -85,7 +86,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
           aria-expanded={showStatusMenu}
           className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
         >
-          Status ändern ▾
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Status ändern ▾"}
         </button>
         {showStatusMenu && (
           <div

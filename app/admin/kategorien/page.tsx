@@ -22,13 +22,15 @@ export default function KategorienPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", slug: "", description: "" });
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [, startTransition] = useTransition();
 
   const loadCategories = () => {
     fetch("/api/admin/kategorien")
       .then((r) => r.json())
       .then((data) => startTransition(() => setCategories(data.categories || [])))
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .catch((err) => { logger.error("Failed to load data", { error: err }); setError("Kategorien konnten nicht geladen werden."); })
       .finally(() => setLoading(false));
   };
 
@@ -38,6 +40,7 @@ export default function KategorienPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       const method = editingId ? "PUT" : "POST";
       const url = editingId ? `/api/admin/kategorien/${editingId}` : "/api/admin/kategorien";
@@ -54,6 +57,8 @@ export default function KategorienPage() {
     } catch (error) {
       logger.error("Kategorie speichern fehlgeschlagen", { error });
       toast.error(error instanceof Error ? error.message : "Fehler beim Speichern");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -149,7 +154,7 @@ export default function KategorienPage() {
                 <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
-                <button type="submit" className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)]">
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)]">
                   {editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -173,6 +178,8 @@ export default function KategorienPage() {
           <tbody>
             {loading ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden...</td></tr>
+            ) : error ? (
+              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">{error}</td></tr>
             ) : categories.map((cat) => (
               <tr key={cat.id} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                 <td className="px-4 py-3">

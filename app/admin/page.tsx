@@ -124,6 +124,7 @@ export default async function AdminDashboard() {
         {stats.map((stat) => (
           <div
             key={stat.name}
+            aria-label={`${stat.name}: ${stat.value}`}
             className="bg-white rounded-xl border border-[var(--color-border-light)] p-5"
           >
             <div className="flex items-center justify-between">

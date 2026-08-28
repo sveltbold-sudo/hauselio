@@ -103,6 +103,7 @@ function ProductTable({
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full hidden md:table">
+            <caption className="sr-only">Produkte</caption>
             <thead>
               <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
                 <th className="px-5 py-3 w-10">

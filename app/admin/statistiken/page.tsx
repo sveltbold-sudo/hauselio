@@ -56,7 +56,7 @@ export default function StatistikenPage() {
   }
 
   if (!stats) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Fehler beim Laden der Statistiken.</div>;
+    return <div className="p-8 text-center text-[var(--color-text-muted)]" role="alert">Fehler beim Laden der Statistiken.</div>;
   }
 
   return (

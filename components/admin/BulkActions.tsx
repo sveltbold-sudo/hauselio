@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Trash2, Package, PackageX } from "lucide-react";
+import { Trash2, Package, PackageX, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
 interface BulkActionsProps {
@@ -67,7 +67,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
         aria-label="Alle ausgewählten als verfügbar markieren"
         className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
-        <Package className="w-4 h-4" /> <span className="hidden sm:inline">Verfügbar</span>
+        {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Package className="w-4 h-4" />} <span className="hidden sm:inline">Verfügbar</span>
       </button>
       <button
         onClick={() => handleBulkStock(false)}
@@ -75,7 +75,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
         aria-label="Alle ausgewählten als nicht verfügbar markieren"
         className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
-        <PackageX className="w-4 h-4" /> <span className="hidden sm:inline">Nicht verfügbar</span>
+        {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <PackageX className="w-4 h-4" />} <span className="hidden sm:inline">Nicht verfügbar</span>
       </button>
       <button
         onClick={handleBulkDelete}
@@ -83,7 +83,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
         aria-label="Alle ausgewählten löschen"
         className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-[var(--color-danger)]/80 hover:bg-[var(--color-danger-hover)] rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
-        <Trash2 className="w-4 h-4" /> Löschen
+        {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />} Löschen
       </button>
       <button
         onClick={onClearSelection}

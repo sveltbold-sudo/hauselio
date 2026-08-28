@@ -104,7 +104,7 @@ export default function BewertungenPage() {
       {/* Reviews */}
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12 text-[var(--color-text-muted)]">Laden...</div>
+          <div className="text-center py-12 text-[var(--color-text-muted)]" role="status" aria-label="Wird geladen">Laden...</div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-12 text-[var(--color-text-muted)]">Keine Bewertungen gefunden.</div>
         ) : (
