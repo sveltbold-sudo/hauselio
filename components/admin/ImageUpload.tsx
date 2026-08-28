@@ -103,14 +103,14 @@ export default function ImageUpload({
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="px-3 py-1.5 bg-white text-[var(--color-text-primary)] rounded-lg text-sm font-medium hover:bg-[var(--color-bg-secondary)]"
+              className="px-3 py-1.5 bg-white text-[var(--color-text-primary)] rounded-lg text-sm font-medium hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
             >
               Ändern
             </button>
             <button
               type="button"
               onClick={handleRemove}
-              className="px-3 py-1.5 bg-[var(--color-danger)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-danger-hover)]"
+              className="px-3 py-1.5 bg-[var(--color-danger)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-danger-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
             >
               Entfernen
             </button>
@@ -128,6 +128,7 @@ export default function ImageUpload({
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
+          aria-label="Produktbild hochladen"
           className={`w-full h-48 border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-2 transition-colors ${
             isDragging
               ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 scale-[1.01]"

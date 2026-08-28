@@ -67,6 +67,7 @@ export default function NewsletterPage() {
     }
 
     if (sending) return;
+    if (!confirm(`Newsletter wirklich an ${activeCount} Abonnenten senden?`)) return;
     setSending(true);
     try {
       const res = await fetch("/api/admin/newsletter/send", {

@@ -64,27 +64,31 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
       <button
         onClick={() => handleBulkStock(true)}
         disabled={loading}
-        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+        aria-label="Alle ausgewählten als verfügbar markieren"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
         <Package className="w-4 h-4" /> <span className="hidden sm:inline">Verfügbar</span>
       </button>
       <button
         onClick={() => handleBulkStock(false)}
         disabled={loading}
-        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+        aria-label="Alle ausgewählten als nicht verfügbar markieren"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
         <PackageX className="w-4 h-4" /> <span className="hidden sm:inline">Nicht verfügbar</span>
       </button>
       <button
         onClick={handleBulkDelete}
         disabled={loading}
-        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-[var(--color-danger)]/80 hover:bg-[var(--color-danger-hover)] rounded-lg text-xs sm:text-sm font-medium transition-colors"
+        aria-label="Alle ausgewählten löschen"
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 bg-[var(--color-danger)]/80 hover:bg-[var(--color-danger-hover)] rounded-lg text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
         <Trash2 className="w-4 h-4" /> Löschen
       </button>
       <button
         onClick={onClearSelection}
-        className="px-2.5 sm:px-3 py-1.5 text-white/60 hover:text-white text-xs sm:text-sm font-medium transition-colors"
+        aria-label="Auswahl abbrechen"
+        className="px-2.5 sm:px-3 py-1.5 text-white/60 hover:text-white text-xs sm:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
         Abbrechen
       </button>

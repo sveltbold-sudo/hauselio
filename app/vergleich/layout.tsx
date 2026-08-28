@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Produktvergleich",
   description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen bei HAUSELIO.",
   alternates: { canonical: "/vergleich" },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Produktvergleich — HAUSELIO",
     description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen.",

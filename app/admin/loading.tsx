@@ -1,8 +1,8 @@
 export default function AdminDashboardLoading() {
   return (
-    <div className="animate-pulse">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {Array.from({ length: 4 }).map((_, i) => (
+    <div className="animate-pulse" role="status" aria-label="Wird geladen">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
             <div className="w-10 h-10 rounded-lg bg-[var(--color-bg-secondary)] mb-3" />
             <div className="h-4 w-20 bg-[var(--color-bg-secondary)] rounded mb-2" />

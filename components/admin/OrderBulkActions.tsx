@@ -99,7 +99,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
                 key={s.value}
                 role="menuitem"
                 onClick={() => handleBulkStatus(s.value)}
-                className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus:bg-[var(--color-bg-secondary)]"
+                className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]"
               >
                 {s.label}
               </button>
@@ -109,7 +109,8 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
       </div>
       <button
         onClick={onClearSelection}
-        className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors"
+        aria-label="Auswahl abbrechen"
+        className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
         Abbrechen
       </button>

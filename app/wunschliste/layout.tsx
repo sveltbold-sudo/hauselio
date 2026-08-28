@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Wunschliste",
   description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSELIO.",
   alternates: { canonical: "/wunschliste" },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Meine Wunschliste — HAUSELIO",
     description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste.",

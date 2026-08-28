@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
-import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { FREE_SHIPPING_THRESHOLD, TRUST_BAR_REVIEW_COUNT, KIYOH_REVIEW_COUNT } from "@/lib/constants";
 import NewsletterForm from "@/components/layout/NewsletterForm";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
@@ -58,11 +58,11 @@ export default function Footer() {
             <span className="text-xs text-white/60">Kundenbewertung:</span>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-[var(--color-accent)]">4,8/5</span>
-              <span className="text-xs text-white/60">— 342 Bewertungen</span>
+              <span className="text-xs text-white/60">— {TRUST_BAR_REVIEW_COUNT} Bewertungen</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-[var(--color-accent)]">9,2/10</span>
-              <span className="text-xs text-white/60">— 187 Bewertungen</span>
+              <span className="text-xs text-white/60">— {KIYOH_REVIEW_COUNT} Bewertungen</span>
             </div>
           </div>
         </div>
