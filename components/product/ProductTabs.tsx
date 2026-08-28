@@ -28,10 +28,10 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
           const currentIndex = tabs.indexOf(activeTab);
           if (e.key === "ArrowRight") {
             e.preventDefault();
-            setActiveTab(tabs[(currentIndex + 1) % tabs.length]);
+            setActiveTab(tabs[(currentIndex + 1) % tabs.length]!);
           } else if (e.key === "ArrowLeft") {
             e.preventDefault();
-            setActiveTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]);
+            setActiveTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]!);
           }
         }}
       >

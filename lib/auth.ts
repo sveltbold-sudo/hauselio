@@ -3,6 +3,35 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 import { UnauthorizedError } from "./errors";
+import { logger } from "./logger";
+
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+const useUpstash = Boolean(UPSTASH_URL && UPSTASH_TOKEN);
+
+async function redisSet(key: string, value: string, exSec: number): Promise<void> {
+  if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) return;
+  try {
+    await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}?EX=${exSec}`, {
+      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    });
+  } catch (err) {
+    logger.warn("auth", "Failed to set Redis key for token blacklist", { error: err });
+  }
+}
+
+async function redisExists(key: string): Promise<boolean> {
+  if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) return false;
+  try {
+    const res = await fetch(`${UPSTASH_URL}/exists/${encodeURIComponent(key)}`, {
+      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    });
+    const data = await res.json();
+    return data.result === 1;
+  } catch {
+    return false;
+  }
+}
 
 const DEV_SECRET_PREFIXES = [
   "hauselio-super-secret",
@@ -42,8 +71,18 @@ export function getJWTSecret(): Uint8Array {
 
 const COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY = "24h";
+const TOKEN_EXPIRY_SEC = 24 * 60 * 60;
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+
+export async function revokeToken(token: string): Promise<void> {
+  const key = `hauselio:blacklist:${token}`;
+  await redisSet(key, "1", TOKEN_EXPIRY_SEC);
+}
+
+export async function isTokenRevoked(token: string): Promise<boolean> {
+  return redisExists(`hauselio:blacklist:${token}`);
+}
 
 export interface AdminPayload {
   id: string;
@@ -109,6 +148,7 @@ export async function getAdminFromRequest(): Promise<AdminPayload | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
+  if (await isTokenRevoked(token)) return null;
   return verifyToken(token);
 }
 

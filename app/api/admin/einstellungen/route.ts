@@ -60,7 +60,7 @@ export async function PUT(request: NextRequest) {
     const parsed = UpdateSettingsSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: parsed.error.issues[0].message },
+        { error: parsed.error.issues[0]!.message },
         { status: 400 }
       );
     }

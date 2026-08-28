@@ -8,6 +8,14 @@ vi.mock("next/headers", () => ({
   }),
 }));
 
+vi.mock("@/lib/logger", () => ({
+  logger: {
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+  },
+}));
+
 const { handleApiError } = await import("@/lib/api-helpers");
 const { UnauthorizedError, NotFoundError, ValidationError } = await import("@/lib/errors");
 
@@ -83,17 +91,21 @@ describe("handleApiError", () => {
   });
 
   it("returns 400 for PrismaClientValidationError", () => {
-    const error = new Prisma.PrismaClientValidationError("Validation failed", {
-      clientVersion: "6.0.0",
-    });
+    const error = new Prisma.PrismaClientKnownRequestError(
+      "Validation failed",
+      { code: "P9999", clientVersion: "6.0.0" }
+    );
+    Object.setPrototypeOf(error, Prisma.PrismaClientValidationError.prototype);
     const res = handleApiError(error);
     expect(res.status).toBe(400);
   });
 
   it("returns 500 for PrismaClientUnknownRequestError", () => {
-    const error = new Prisma.PrismaClientUnknownRequestError("Unknown request error", {
-      clientVersion: "6.0.0",
-    });
+    const error = new Prisma.PrismaClientKnownRequestError(
+      "Unknown request error",
+      { code: "P9999", clientVersion: "6.0.0" }
+    );
+    Object.setPrototypeOf(error, Prisma.PrismaClientUnknownRequestError.prototype);
     const res = handleApiError(error);
     expect(res.status).toBe(500);
   });

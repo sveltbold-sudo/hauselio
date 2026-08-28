@@ -103,12 +103,12 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   }, [current, goTo, slides.length]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+    touchStartX.current = e.touches[0]!.clientX;
     setIsAutoPlaying(false);
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0]!.clientX;
   }, []);
 
   const handleTouchEnd = useCallback(() => {
@@ -128,7 +128,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
     return () => clearInterval(timer);
   }, [isAutoPlaying, next]);
 
-  const slide = slides[current];
+  const slide = slides[current]!;
   const discount = calcDiscount(slide.price, slide.originalPrice);
 
   return (

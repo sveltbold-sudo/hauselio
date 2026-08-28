@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     const parsed = KundenQuerySchema.safeParse(Object.fromEntries(searchParams));
     if (!parsed.success) {
       return NextResponse.json(
-        { error: parsed.error.issues[0].message },
+        { error: parsed.error.issues[0]!.message },
         { status: 400 }
       );
     }

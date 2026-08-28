@@ -49,11 +49,11 @@ export default function ProductImageGallery({
         onClick={onImageClick}
         aria-label="Bild vergrößern"
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
-        onTouchStart={(e) => setTouchStart({ x: e.touches[0].clientX, y: e.touches[0].clientY })}
+        onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
         onTouchEnd={(e) => {
           if (touchStart === null) return;
-          const diffX = touchStart.x - e.changedTouches[0].clientX;
-          const diffY = touchStart.y - e.changedTouches[0].clientY;
+          const diffX = touchStart.x - e.changedTouches[0]!.clientX;
+          const diffY = touchStart.y - e.changedTouches[0]!.clientY;
           if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
             if (diffX > 0 && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
             else if (diffX < 0 && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);

@@ -95,11 +95,11 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
         className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
         onClick={(e) => e.stopPropagation()}
         aria-live="polite"
-        onTouchStart={(e) => setTouchStart({ x: e.touches[0].clientX, y: e.touches[0].clientY })}
+        onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
         onTouchEnd={(e) => {
           if (touchStart === null) return;
-          const dx = touchStart.x - e.changedTouches[0].clientX;
-          const dy = touchStart.y - e.changedTouches[0].clientY;
+          const dx = touchStart.x - e.changedTouches[0]!.clientX;
+          const dy = touchStart.y - e.changedTouches[0]!.clientY;
           if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
             if (dx > 0) goNext();
             else if (dx < 0) goPrev();

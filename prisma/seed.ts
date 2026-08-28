@@ -660,8 +660,8 @@ async function main() {
     const created = await prisma.product.create({
       data: {
         ...productData,
-        categoryId: categoryMap[categorySlug],
-        brandId: brandMap[brandSlug],
+        categoryId: categoryMap[categorySlug]!,
+        brandId: brandMap[brandSlug]!,
         features: features || [],
         tags: tags || [],
       },
@@ -708,7 +708,7 @@ async function main() {
   for (const rec of productRecords) {
     const reviewCount = Math.floor(Math.random() * 3) + 1;
     for (let i = 0; i < reviewCount; i++) {
-      const review = sampleReviews[Math.floor(Math.random() * sampleReviews.length)];
+      const review = sampleReviews[Math.floor(Math.random() * sampleReviews.length)]!;
       const key = `${rec.id}|${review.authorName.toLowerCase().replace(/[^a-z]/g, "")}@example.de`;
       if (seenReviews.has(key)) continue;
       seenReviews.add(key);

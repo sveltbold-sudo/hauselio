@@ -80,7 +80,7 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
       totalErrors += records.length;
     }
 
-    cursor = products[products.length - 1].id;
+    cursor = products[products.length - 1]!.id;
   } while (cursor);
 
   return { indexed: totalIndexed, errors: totalErrors };

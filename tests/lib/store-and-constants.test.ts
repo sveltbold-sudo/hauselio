@@ -39,8 +39,8 @@ describe("cart store", () => {
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" });
     const { items } = useCartStore.getState();
     expect(items).toHaveLength(1);
-    expect(items[0].id).toBe("p1");
-    expect(items[0].quantity).toBe(1);
+    expect(items[0]!.id).toBe("p1");
+    expect(items[0]!.quantity).toBe(1);
     useCartStore.setState({ items: [] });
   });
 
@@ -49,7 +49,7 @@ describe("cart store", () => {
     const { addItem } = useCartStore.getState();
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" }, 3);
     const { items } = useCartStore.getState();
-    expect(items[0].quantity).toBe(3);
+    expect(items[0]!.quantity).toBe(3);
     useCartStore.setState({ items: [] });
   });
 
@@ -60,7 +60,7 @@ describe("cart store", () => {
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" });
     const { items } = useCartStore.getState();
     expect(items).toHaveLength(1);
-    expect(items[0].quantity).toBe(2);
+    expect(items[0]!.quantity).toBe(2);
     useCartStore.setState({ items: [] });
   });
 
@@ -79,7 +79,7 @@ describe("cart store", () => {
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" });
     useCartStore.getState().updateQuantity("p1", 5);
     const { items } = useCartStore.getState();
-    expect(items[0].quantity).toBe(5);
+    expect(items[0]!.quantity).toBe(5);
     useCartStore.setState({ items: [] });
   });
 
@@ -89,7 +89,7 @@ describe("cart store", () => {
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" });
     useCartStore.getState().updateQuantity("p1", 200);
     const { items } = useCartStore.getState();
-    expect(items[0].quantity).toBe(99);
+    expect(items[0]!.quantity).toBe(99);
     useCartStore.setState({ items: [] });
   });
 
@@ -99,7 +99,7 @@ describe("cart store", () => {
     addItem({ id: "p1", name: "Product 1", slug: "product-1", price: 99.99, image: "/img.jpg" });
     useCartStore.getState().updateQuantity("p1", 0);
     const { items } = useCartStore.getState();
-    expect(items[0].quantity).toBe(1);
+    expect(items[0]!.quantity).toBe(1);
     useCartStore.setState({ items: [] });
   });
 

@@ -93,7 +93,7 @@ async function audit(): Promise<AuditResult> {
       continue;
     }
 
-    const [urlSlug, filename] = parts;
+    const [urlSlug, filename] = parts as [string, string];
 
     // Check slug matches
     if (urlSlug !== img.product.slug) {

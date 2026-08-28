@@ -359,8 +359,8 @@ async function main() {
     await prisma.product.create({
       data: {
         ...productData,
-        categoryId: categoryMap[categorySlug],
-        brandId: brandMap[brandSlug],
+        categoryId: categoryMap[categorySlug]!,
+        brandId: brandMap[brandSlug]!,
         features: features || [],
         tags: tags || [],
       },

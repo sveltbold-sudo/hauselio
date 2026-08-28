@@ -42,7 +42,7 @@ async function main() {
 
       // Add images
       for (let i = 0; i < images.length; i++) {
-        const imageUrl = images[i].trim();
+        const imageUrl = images[i]!.trim();
         await prisma.productImage.create({
           data: {
             productId: product.id,

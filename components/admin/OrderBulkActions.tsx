@@ -35,7 +35,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
         } else {
           next = current > 0 ? current - 1 : items.length - 1;
         }
-        items[next].focus();
+        items[next]!.focus();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
