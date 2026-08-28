@@ -1,6 +1,6 @@
 export default function ShopLoading() {
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
       {/* Header skeleton */}
       <div className="mb-8">
         <div className="h-4 w-24 bg-[var(--color-bg-secondary)] rounded mb-4 animate-pulse" />

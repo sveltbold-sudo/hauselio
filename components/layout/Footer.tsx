@@ -47,7 +47,7 @@ export default function Footer() {
             {trustBadges.map((badge) => (
               <li key={badge.id} className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                  <badge.icon className="w-4 h-4 text-white/70" />
+                  <badge.icon className="w-4 h-4 text-white/70" aria-hidden="true" />
                 </div>
                 <span className="text-xs sm:text-sm text-white font-medium">{badge.label}</span>
               </li>
@@ -183,14 +183,14 @@ export default function Footer() {
                 href="mailto:support@hauselio.de"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="w-3.5 h-3.5" aria-hidden="true" />
                 support@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
-                <Phone className="w-3.5 h-3.5" />
+                <Phone className="w-3.5 h-3.5" aria-hidden="true" />
                 +49 (0)30 555 789 01
               </a>
             </div>

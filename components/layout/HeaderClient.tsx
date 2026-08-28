@@ -158,7 +158,7 @@ export default function HeaderClient() {
         >
           <div className="promo-banner">
             <div className="container-hauselio flex items-center justify-center h-8 gap-2 relative">
-              <span className="hidden sm:inline">🚚</span>
+              <span className="hidden sm:inline" aria-hidden="true">🚚</span>
               <span className="font-medium">
                 Kostenloser Versand ab {FREE_SHIPPING_THRESHOLD}€ · 30 Tage Rückgabe
               </span>

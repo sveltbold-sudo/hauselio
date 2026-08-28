@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main id="error-content" className="py-24 text-center max-w-2xl mx-auto px-4">
+    <main id="error-content" role="alert" className="py-24 text-center max-w-2xl mx-auto px-4">
       <div className="w-20 h-20 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-8">
         <AlertTriangle className="w-10 h-10 text-[var(--color-danger)]" />
       </div>

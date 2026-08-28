@@ -257,7 +257,7 @@ export default function BestellungPage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-6 sm:py-8">
+    <main className="container-hauselio py-6 sm:py-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <Link

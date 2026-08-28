@@ -77,11 +77,11 @@ export default function CartCrossSell() {
       <div className="space-y-3">
         {suggestions.map((item) => (
           <div key={item.id} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[var(--color-border-light)]">
-            <Link href={`/produkt/${item.slug}`} className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-[var(--color-bg-secondary)] shrink-0">
+            <Link href={`/produkt/${item.slug}`} aria-label={item.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-[var(--color-bg-secondary)] shrink-0">
               <ProductImage src={item.image} alt={item.name} size="sm" />
             </Link>
             <div className="flex-1 min-w-0">
-              <Link href={`/produkt/${item.slug}`} className="text-sm font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-1 block">
+              <Link href={`/produkt/${item.slug}`} aria-label={item.name} className="text-sm font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-1 block">
                 {item.name}
               </Link>
               <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5 tabular-nums">

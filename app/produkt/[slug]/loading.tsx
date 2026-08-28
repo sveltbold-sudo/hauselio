@@ -1,6 +1,6 @@
 export default function ProductDetailSkeleton() {
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
       {/* Breadcrumb skeleton */}
       <div className="flex items-center gap-2 mb-8">
         <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-16" />

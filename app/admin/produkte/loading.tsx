@@ -1,6 +1,6 @@
 export default function AdminProductsLoading() {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse" role="status" aria-label="Wird geladen">
       <div className="flex items-center justify-between mb-6">
         <div className="h-8 w-32 bg-[var(--color-border-light)] rounded" />
         <div className="h-10 w-36 bg-[var(--color-border-light)] rounded-xl" />

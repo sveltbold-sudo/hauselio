@@ -217,7 +217,7 @@ export default function MiniCart() {
                 </div>
                 {/* Delivery promise */}
                 <div className="flex items-center justify-center gap-2 mb-4 py-2.5 px-3 bg-[var(--color-success)]/10 rounded-xl text-sm text-[var(--color-success)]">
-                  <Truck className="w-4 h-4" />
+                  <Truck className="w-4 h-4" aria-hidden="true" />
                   <span className="font-medium">Kostenlose Lieferung</span>
                 </div>
                 <Link

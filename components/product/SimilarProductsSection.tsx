@@ -89,6 +89,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
           <Link
             key={product.id}
             href={`/produkt/${product.slug}`}
+            aria-label={product.name}
             className="group bg-white rounded-xl border border-[var(--color-border-light)] p-3 hover:shadow-md hover:border-[var(--color-primary)]/20 transition-colors transition-shadow"
           >
             <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden mb-3">

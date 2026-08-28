@@ -169,7 +169,8 @@ export default async function AdminDashboard() {
             </Link>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full" aria-label="Letzte Bestellungen">
+            <table className="w-full">
+              <caption className="sr-only">Letzte Bestellungen</caption>
               <thead>
                 <tr className="border-b border-[var(--color-border-light)]">
                   <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">

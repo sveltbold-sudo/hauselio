@@ -17,7 +17,7 @@ export default function UeberUnsError({
   }, [error]);
 
   return (
-    <div className="container-hauselio py-20 text-center">
+    <div role="alert" className="container-hauselio py-20 text-center">
       <div className="w-16 h-16 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-6">
         <AlertTriangle className="w-8 h-8 text-[var(--color-danger)]" />
       </div>

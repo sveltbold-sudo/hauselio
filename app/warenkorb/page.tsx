@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+    <main className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
