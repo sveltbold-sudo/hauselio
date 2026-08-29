@@ -35,8 +35,6 @@ export default function OrganizationJsonLd({
     },
     sameAs: [
       "https://www.instagram.com/hauselio",
-      "https://www.facebook.com/hauselio",
-      "https://www.pinterest.de/hauselio",
     ],
   };
 

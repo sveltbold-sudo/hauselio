@@ -49,7 +49,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
         </div>
 
         {/* Mobile: dark luxe horizontal scroll */}
-        <div className="sm:hidden -mx-[var(--container-padding)] px-[var(--container-padding)] bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6">
+        <div className="sm:hidden -mx-[var(--container-padding)] px-[var(--container-padding)] bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6 rounded-2xl mx-4">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {products.map((product, i) => (
               <div
@@ -66,7 +66,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
                   {i + 1}
                 </div>
                 {/* Card */}
-                <div>
+                <div className="rounded-2xl overflow-hidden shadow-lg">
                   <ProductCard product={product} />
                 </div>
               </div>

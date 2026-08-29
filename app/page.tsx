@@ -5,7 +5,7 @@ import dynamicImport from "next/dynamic";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { SITE_URL, TRUST_BAR_REVIEW_COUNT, KIYOH_REVIEW_COUNT } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 import ProductCard from "@/components/product/ProductCard";
 const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"));
@@ -364,12 +364,11 @@ export default async function HomePage() {
                 ))}
               </div>
               <span className="text-sm font-bold text-[var(--color-text-primary)]">4,8/5</span>
-              <span className="text-xs text-[var(--color-text-muted)]">— {TRUST_BAR_REVIEW_COUNT} Bewertungen</span>
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-[var(--color-text-primary)]">9,2/10</span>
-              <span className="text-xs text-[var(--color-text-muted)]">— {KIYOH_REVIEW_COUNT} Bewertungen</span>
+              <span className="text-xs text-[var(--color-text-muted)]">— KiyoBewertungen</span>
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">

@@ -9,7 +9,7 @@ import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
 import { navCategories } from "@/lib/navigation";
-import { TRUST_BAR_RATING, TRUST_BAR_REVIEW_COUNT, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { TRUST_BAR_RATING, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 
 export default function HeaderClient() {
   const pathname = usePathname();
@@ -226,7 +226,7 @@ export default function HeaderClient() {
 
             {/* Account */}
               <Link
-                href="/kontakt"
+                href="/konto"
                 className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
                 aria-label="Mein Konto"
             >
@@ -336,7 +336,6 @@ export default function HeaderClient() {
               </span>
               <span className="hidden xl:flex items-center gap-1">
                 <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span>
-                <span>({TRUST_BAR_REVIEW_COUNT})</span>
               </span>
             </div>
           </div>
@@ -498,7 +497,7 @@ export default function HeaderClient() {
 
             <div className="p-5 border-t border-[var(--color-border-light)] mt-2 space-y-1">
               <Link
-                href="/kontakt"
+                href="/konto"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
               >

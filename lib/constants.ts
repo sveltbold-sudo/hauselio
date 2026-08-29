@@ -4,8 +4,6 @@ export const FREE_SHIPPING_THRESHOLD = 50;
 export const SHIPPING_COST = 4.99;
 
 export const TRUST_BAR_RATING = 4.8;
-export const TRUST_BAR_REVIEW_COUNT = 342;
-export const KIYOH_REVIEW_COUNT = 187;
 
 export function getShippingCost(subtotal: number): number {
   return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;

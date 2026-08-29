@@ -200,6 +200,36 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   return (
     <main id="main-content" className="container-hauselio py-6 sm:py-8">
+      {/* ItemList JSON-LD for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "HAUSELIO Shop",
+            url: `${SITE_URL}/shop`,
+            itemListElement: formattedProducts.slice(0, 20).map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Product",
+                name: p.name,
+                image: p.image,
+                url: `${SITE_URL}/produkt/${p.slug}`,
+                offers: {
+                  "@type": "Offer",
+                  price: p.price.toFixed(2),
+                  priceCurrency: "EUR",
+                  availability: p.inStock !== false
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+                },
+              },
+            })),
+          }),
+        }}
+      />
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 

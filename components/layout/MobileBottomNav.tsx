@@ -8,7 +8,7 @@ import { useCartStore, selectItemCount } from "@/lib/store";
 const navItems = [
   { href: "/", icon: Home, label: "Start" },
   { href: "/kategorie/kueche", icon: Grid3X3, label: "Kategorien" },
-  { href: "/shop?suche=", icon: Search, label: "Suche" },
+  { href: "/shop", icon: Search, label: "Suche" },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
   { href: "/konto", icon: User, label: "Konto" },
 ];
@@ -24,7 +24,7 @@ export default function MobileBottomNav() {
     >
       <ul className="flex items-center justify-around h-14 px-2">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+          const isActive = pathname === item.href || (item.href !== "/" && item.href !== "/shop" && pathname.startsWith(item.href));
           return (
             <li key={item.href}>
               <Link

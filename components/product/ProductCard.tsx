@@ -83,7 +83,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Add-to-cart — bottom overlay like AO/Coolblue */}
         <div
-          className="absolute bottom-3 left-3 right-3 z-10 transition-opacity transition-transform duration-300 md:translate-y-0"
+          className="absolute bottom-3 left-3 right-3 z-10 opacity-0 group-hover:opacity-100 md:translate-y-0 transition-opacity transition-transform duration-300"
         >
           <AddToCartButton
             product={{

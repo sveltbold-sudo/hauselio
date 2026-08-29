@@ -53,9 +53,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {products.map((product) => (
               <div key={product.id} className="snap-start shrink-0 w-[260px]">
-                <div className="bg-white rounded-2xl shadow-sm border border-[var(--color-border-light)] overflow-hidden hover:shadow-md transition-shadow">
                   <ProductCard product={product} />
-                </div>
               </div>
             ))}
           </MobileHorizontalScroll>
