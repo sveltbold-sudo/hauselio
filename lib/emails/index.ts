@@ -2,21 +2,13 @@ import { getResendClient, FROM_EMAIL } from "@/lib/resend";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { createUnsubscribeToken } from "@/lib/auth";
+import { escapeHtml } from "@/lib/html";
 
 import { SITE_URL } from "@/lib/constants";
 
 // Deduplication guard for newsletter campaigns
 // Note: Per-invocation in serverless — acceptable since campaigns are admin-triggered and infrequent
 const activeCampaigns = new Map<string, number>();
-
-export function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
 
 function stripHtml(html: string): string {
   return html
