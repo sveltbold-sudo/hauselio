@@ -36,10 +36,15 @@ export async function POST(request: NextRequest) {
 
     const { firstName, lastName, email, subject, message } = parsed.data;
 
-    await Promise.all([
+    const results = await Promise.allSettled([
       sendContactForward({ firstName, lastName, email, subject, message }),
       sendContactAutoReply({ firstName, lastName, email }),
     ]);
+
+    const forwardResult = results[0];
+    if (forwardResult.status === "rejected") {
+      throw forwardResult.reason;
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
