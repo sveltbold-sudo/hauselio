@@ -32,6 +32,10 @@ export default function ShopFilterDrawer({
 
   useEffect(() => {
     if (!isOpen) return;
+
+    // Lock body scroll
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsOpen(false);
@@ -57,7 +61,10 @@ export default function ShopFilterDrawer({
       'a[href], button:not([disabled])'
     );
     firstFocusable?.focus();
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const activeCount = (selectedCategory ? 1 : 0) + (selectedBrand ? 1 : 0);

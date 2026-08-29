@@ -348,7 +348,9 @@ export default async function HomePage() {
 
   return (
     <main id="main-content">
-      <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte aus Deutschland</h1>
+      <h1 className="container-hauselio pt-8 pb-2 text-3xl sm:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight">
+        HAUSELIO — Moderne Haushaltsgeräte
+      </h1>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 
       {/* Trust scores — like Coolblue */}

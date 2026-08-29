@@ -226,7 +226,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   </span>
                   <span className="flex items-center gap-1">
                     <Shield className="w-4 h-4" aria-hidden="true" />
-                    5 J. Garantie
+                    Garantie bis 5 Jahre
                   </span>
                   <span className="flex items-center gap-1">
                     <RotateCcw className="w-4 h-4" aria-hidden="true" />

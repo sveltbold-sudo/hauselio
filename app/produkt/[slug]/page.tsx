@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "…"
-    : `Jetzt ${product.name} bei HAUSELIO kaufen. Ab €${priceStr}.`;
+    : `Jetzt ${product.name} bei HAUSELIO kaufen. Ab ${priceStr} €.`;
 
   return {
     title: product.name,

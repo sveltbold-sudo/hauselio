@@ -32,7 +32,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produkt/${product.slug}`}
-      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
+      className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow transition-transform duration-300 hover:border-[var(--color-border)] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 block h-full flex flex-col"
       aria-label={`${product.name} - ${formatPrice(product.price)}`}
     >
       {/* Image Container — clean like Coolblue */}
@@ -130,6 +130,11 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
+
+        {/* Availability */}
+        {product.inStock === false && (
+          <span className="text-xs font-semibold text-[var(--color-danger)] mt-1">Nicht verfügbar</span>
+        )}
 
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
