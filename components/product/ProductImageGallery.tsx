@@ -76,7 +76,7 @@ export default function ProductImageGallery({
           {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
         </div>
         {/* Wishlist button */}
-        <div className="absolute top-4 right-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 transition-opacity duration-300">
           <WishlistButton
             item={{
               id,

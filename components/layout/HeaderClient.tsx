@@ -326,15 +326,15 @@ export default function HeaderClient() {
                 <Truck className="w-3 h-3 text-[var(--color-success)]" />
                 Gratis ab {FREE_SHIPPING_THRESHOLD}€
               </span>
-              <span className="hidden xl:flex items-center gap-1">
+              <span className="hidden lg:flex items-center gap-1">
                 <Shield className="w-3 h-3 text-[var(--color-success)]" />
                 30 Tage Rückgabe
               </span>
-              <span className="hidden xl:flex items-center gap-1">
+              <span className="hidden lg:flex items-center gap-1">
                 <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
                 5 Jahre Garantie
               </span>
-              <span className="hidden 2xl:flex items-center gap-1">
+              <span className="hidden xl:flex items-center gap-1">
                 <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span>
                 <span>({TRUST_BAR_REVIEW_COUNT})</span>
               </span>
