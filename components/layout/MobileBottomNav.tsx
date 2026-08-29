@@ -10,7 +10,7 @@ const navItems = [
   { href: "/shop", icon: Grid3X3, label: "Kategorien" },
   { href: "/shop?suche=", icon: Search, label: "Suche" },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
-  { href: "/konto", icon: User, label: "Konto" },
+  { href: "/kontakt", icon: User, label: "Konto" },
 ];
 
 export default function MobileBottomNav() {

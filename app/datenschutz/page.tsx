@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Datenschutz" }]} />
       <h1 className="heading-1 mb-8">Datenschutzerklärung</h1>
 

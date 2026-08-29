@@ -80,7 +80,7 @@ export default function GarantiePage() {
         ]}
       />
 
-      <main className="container-hauselio py-8 sm:py-12 max-w-4xl">
+      <main id="main-content" className="container-hauselio py-8 sm:py-12 max-w-4xl">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>

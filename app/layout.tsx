@@ -37,8 +37,10 @@ export const metadata: Metadata = {
     "Smart Home",
   ],
   alternates: {
+    canonical: SITE_URL,
     languages: {
       "de": SITE_URL,
+      "de-DE": SITE_URL,
     },
   },
   openGraph: {
@@ -89,6 +91,7 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#FAFAF8" />
+        <link rel="sitemap" href="/sitemap.xml" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -104,7 +107,7 @@ export default function RootLayout({
         </a>
         <Header />
         <ToastProvider>
-          <div id="main-content" className="flex-1">
+          <div className="flex-1">
             {children}
           </div>
           <ClientProviders />

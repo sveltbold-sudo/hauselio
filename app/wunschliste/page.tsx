@@ -20,7 +20,7 @@ export default function WishlistPage() {
 
   if (!mounted) {
     return (
-    <main className="container-hauselio py-12">
+    <main id="main-content" className="container-hauselio py-12">
       <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded" />
           <div className="h-4 w-32 bg-[var(--color-bg-secondary)] rounded" />
@@ -30,7 +30,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <main className="container-hauselio py-12">
+    <main id="main-content" className="container-hauselio py-12">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Wunschliste" }]} />
 
       <p className="caption text-[var(--color-primary)] mb-3">Meine Wünsche</p>

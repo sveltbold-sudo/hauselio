@@ -67,6 +67,8 @@ const nextConfig: NextConfig = {
     { source: "/klima", destination: "/kategorie/klima", permanent: true },
     { source: "/reinigung", destination: "/kategorie/reinigung", permanent: true },
     { source: "/haushaltsgeraete", destination: "/kategorie/haushaltsgeraete", permanent: true },
+    { source: "/kategorien", destination: "/kategorie", permanent: true },
+    { source: "/anmelden", destination: "/kontakt", permanent: false },
   ],
   async headers() {
     return [

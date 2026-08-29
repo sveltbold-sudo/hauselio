@@ -33,7 +33,7 @@ export default function WarenkorbPage() {
 
   if (!mounted) {
     return (
-      <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4 sr-only">Warenkorb</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
@@ -45,7 +45,7 @@ export default function WarenkorbPage() {
 
   if (items.length === 0) {
     return (
-      <main className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <Image
           src="/images/illustrations/empty-cart.svg"
           alt="Leerer Warenkorb"
@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>

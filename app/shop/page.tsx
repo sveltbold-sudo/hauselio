@@ -199,7 +199,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <main className="container-hauselio py-6 sm:py-8">
+    <main id="main-content" className="container-hauselio py-6 sm:py-8">
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -440,7 +440,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5" aria-hidden="true">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-hidden="true">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />

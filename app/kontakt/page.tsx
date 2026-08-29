@@ -50,8 +50,80 @@ async function getSettings() {
 export default async function KontaktPage() {
   const settings = await getSettings();
 
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Kontakt — HAUSELIO",
+    url: `${SITE_URL}/kontakt`,
+    mainEntity: {
+      "@type": "Organization",
+      name: "HAUSELIO GmbH",
+      telephone: settings.contactPhone,
+      email: settings.contactEmail,
+      address: settings.contactAddress,
+    },
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Wie kann ich ein Produkt bestellen?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Wählen Sie Ihre Lieblingsprodukte im Shop aus, fügen Sie sie zum Warenkorb hinzu und folgen Sie dem Bestellprozess. Die Zahlung erfolgt per Überweisung (SEPA). Sie erhalten nach der Bestellung eine E-Mail mit den Bankverbindungen.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Wie lange dauert die Lieferung?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Die Lieferzeit beträgt in der Regel 2-5 Werktage nach Eingang der Zahlung. Bei großen Haushaltsgeräten wie Waschmaschinen oder Geschirrspülern können wir auch einen Wunschtermin vereinbaren.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Kann ich ein Gerät zurückgeben?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ja, Sie haben ein 30-tägiges Rückgaberecht. Die Rücksendung ist kostenlos. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir organisieren den Rückversand für Sie.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Welche Garantie bieten Sie?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Wir bieten eine erweiterte Garantie von bis zu 5 Jahren auf alle Geräte. Zusätzlich haben Sie die gesetzliche Gewährleistung. Bei Defekten übernehmen wir die Reparatur oder den Ersatz kostenfrei.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Kann ich eine Beratung vor dem Kauf erhalten?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Selbstverständlich! Unsere Experten beraten Sie gerne telefonisch, per E-Mail oder über unser Kontaktformular. Wir helfen Ihnen, das perfekte Gerät für Ihre Bedürfnisse zu finden.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Bieten Sie einen Anschlussservice an?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ja, bei vielen Geräten bieten wir einen kostenlosen Anschlussservice an. Bei der Bestellung können Sie angeben, ob Sie eine fachgerechte Installation wünschen.",
+        },
+      },
+    ],
+  };
+
   return (
-    <main id="kontakt-content">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <main id="main-content">
       <div className="container-hauselio py-6 sm:py-8">
         {/* Breadcrumb */}
         <Breadcrumb items={[{ label: "Kontakt" }]} />
@@ -81,5 +153,6 @@ export default async function KontaktPage() {
       </div>
       <FaqSection />
     </main>
+    </>
   );
 }
