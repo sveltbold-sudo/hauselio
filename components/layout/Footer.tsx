@@ -200,6 +200,7 @@ export default function Footer() {
                   width={32}
                   height={20}
                   className="h-4 w-auto opacity-80"
+                  loading="lazy"
                 />
               </div>
             ))}

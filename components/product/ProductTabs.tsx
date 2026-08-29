@@ -67,9 +67,13 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
       >
         {activeTab === "description" && (
           <div className="max-w-3xl">
-            <p className="text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
-              {description}
-            </p>
+            {description ? (
+              <p className="text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
+                {description}
+              </p>
+            ) : (
+              <p className="text-[var(--color-text-muted)]">Keine Beschreibung verfügbar.</p>
+            )}
           </div>
         )}
 
