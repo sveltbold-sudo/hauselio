@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Warenkorb | HAUSELIO",
+  title: "Warenkorb",
   description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
   robots: { index: false, follow: false },
   openGraph: {

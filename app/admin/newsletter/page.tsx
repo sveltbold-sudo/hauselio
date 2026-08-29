@@ -115,7 +115,7 @@ export default function NewsletterPage() {
   const activeCount = subscribers.filter((s) => s.isActive).length;
 
   return (
-    <div className="p-8">
+    <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Newsletter</h1>

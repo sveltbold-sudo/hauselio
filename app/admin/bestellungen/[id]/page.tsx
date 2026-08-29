@@ -200,7 +200,7 @@ export default async function AdminOrderDetailPage({
             </h2>
             <div className="space-y-2 text-sm">
               <p className="text-[var(--color-text-secondary)]">
-                <span className="font-medium">Methode:</span> Virement SEPA
+                <span className="font-medium">Methode:</span> {order.paymentMethod || "Überweisung (SEPA)"}
               </p>
               <p className="text-[var(--color-text-secondary)]">
                 <span className="font-medium">Status:</span>{" "}
