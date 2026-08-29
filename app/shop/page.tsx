@@ -171,28 +171,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     brands = brandsResult.status === "fulfilled" ? brandsResult.value : [];
     total = totalResult.status === "fulfilled" ? totalResult.value : 0;
 
-    if (productsResult.status === "rejected") {
-      logger.error("shop-products", productsResult.reason);
-      console.error("[SHOP-DIAG] products rejected:", JSON.stringify({ error: String(productsResult.reason), where }));
-    }
-    if (categoriesResult.status === "rejected") {
-      logger.error("shop-categories", categoriesResult.reason);
-      console.error("[SHOP-DIAG] categories rejected:", String(categoriesResult.reason));
-    }
-    if (brandsResult.status === "rejected") {
-      logger.error("shop-brands", brandsResult.reason);
-      console.error("[SHOP-DIAG] brands rejected:", String(brandsResult.reason));
-    }
-    if (totalResult.status === "rejected") {
-      logger.error("shop-count", totalResult.reason);
-      console.error("[SHOP-DIAG] count rejected:", String(totalResult.reason));
-    }
-    console.error("[SHOP-DIAG] results:", JSON.stringify({
-      products: productsResult.status,
-      categories: categoriesResult.status,
-      brands: brandsResult.status,
-      total: totalResult.status,
-    }));
+    if (productsResult.status === "rejected") logger.error("shop-products", productsResult.reason);
+    if (categoriesResult.status === "rejected") logger.error("shop-categories", categoriesResult.reason);
+    if (brandsResult.status === "rejected") logger.error("shop-brands", brandsResult.reason);
+    if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
   } catch (error) {
     logger.error("shop-page", error);
   }
