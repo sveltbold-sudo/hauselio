@@ -151,7 +151,7 @@ export default async function ProductPage({ params }: PageProps) {
       <ProductJsonLd
         name={product.name}
         description={product.description}
-        image={product.images[0]?.url || "/images/placeholder.jpg"}
+        image={product.images[0]?.url || "/images/placeholder-product.svg"}
         price={Number(product.price)}
         brand={product.brand?.name || "HAUSELIO"}
         slug={product.slug}

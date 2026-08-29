@@ -342,6 +342,10 @@ export default async function HomePage() {
     recommendedValue = recommendedValue.filter((r) => r.slug !== dealSlug);
   }
 
+  // Deduplicate: remove bestseller products from recommended
+  const bestsellerSlugs = new Set(bestsellersValue.map((b) => b.slug));
+  recommendedValue = recommendedValue.filter((r) => !bestsellerSlugs.has(r.slug));
+
   return (
     <main id="main-content">
       <h1 className="sr-only">HAUSELIO — Moderne Haushaltsgeräte aus Deutschland</h1>

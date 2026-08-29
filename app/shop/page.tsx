@@ -238,7 +238,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             Alle Produkte
           </Link>
           <Link
-            href="/shop?promo=true"
+            href={`/shop?promo=true${category ? `&category=${encodeURIComponent(category)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
             aria-pressed={promo === "true"}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               promo === "true"

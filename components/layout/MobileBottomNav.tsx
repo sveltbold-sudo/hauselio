@@ -7,10 +7,10 @@ import { useCartStore, selectItemCount } from "@/lib/store";
 
 const navItems = [
   { href: "/", icon: Home, label: "Start" },
-  { href: "/shop", icon: Grid3X3, label: "Kategorien" },
-  { href: "/shop", icon: Search, label: "Suche" },
+  { href: "/kategorie/kueche", icon: Grid3X3, label: "Kategorien" },
+  { href: "/shop?suche=", icon: Search, label: "Suche" },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
-  { href: "/kontakt", icon: User, label: "Konto" },
+  { href: "/konto", icon: User, label: "Konto" },
 ];
 
 export default function MobileBottomNav() {
