@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 const adminEmail = "admin@hauselio.de";
 
   const categories = [
-    { name: "Küche & Kochen", slug: "kueche", description: "Robots de cuisine, mixeurs, blenders et robots pâtissiers", image: "/images/categories/kueche.jpg", sortOrder: 0 },
-    { name: "Kaffee", slug: "kaffee", description: "Machines à café automatiques, expresso, capsules et filtre", image: "/images/categories/kaffee.jpg", sortOrder: 1 },
-    { name: "Reinigung", slug: "reinigung", description: "Aspirateurs sans fil, robots, balais et main", image: "/images/categories/reinigung.jpg", sortOrder: 2 },
-    { name: "Klima", slug: "klima", description: "Purificateurs, humidificateurs et climatisation", image: "/images/categories/klima.jpg", sortOrder: 3 },
-    { name: "Smart Home", slug: "smart-home", description: "Thermostats, éclairage, sécurité et automation", image: "/images/categories/smart-home.jpg", sortOrder: 4 },
-    { name: "Haushaltsgeräte", slug: "haushaltsgeraete", description: "Machines à laver, lave-vaisselle, réfrigérateurs et plus", image: "/images/categories/haushaltsgeraete.jpg", sortOrder: 5 },
+    { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },
+    { name: "Kaffee", slug: "kaffee", description: "Premium Kaffeemaschinen für den perfekten Genuss. Vollautomaten, Espresso-Maschinen und Filterkaffee.", image: "/images/categories/kaffee.jpg", sortOrder: 1 },
+    { name: "Reinigung", slug: "reinigung", description: "Effiziente Reinigungsgeräte für Ihr Zuhause. Staubsauger, Saugroboter und Dampfreiniger.", image: "/images/categories/reinigung.jpg", sortOrder: 2 },
+    { name: "Klima", slug: "klima", description: "Klimaanlagen und Luftreiniger für jedes Raumklima. Heizen, Kühlen und Luftreinigung.", image: "/images/categories/klima.jpg", sortOrder: 3 },
+    { name: "Smart Home", slug: "smart-home", description: "Intelligente Geräte für ein vernetztes Zuhause. Thermostate, Beleuchtung und Sicherheit.", image: "/images/categories/smart-home.jpg", sortOrder: 4 },
+    { name: "Haushaltsgeräte", slug: "haushaltsgeraete", description: "Waschmaschinen, Trockner, Kühlschränke, Geschirrspüler und mehr für den täglichen Bedarf.", image: "/images/categories/haushaltsgeraete.jpg", sortOrder: 5 },
   ];
 
 const brands = [
