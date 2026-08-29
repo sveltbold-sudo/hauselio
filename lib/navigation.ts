@@ -15,7 +15,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Küche & Kochen",
     href: "/kategorie/kueche",
-    image: "/images/categories/kueche.svg",
+    image: "/images/categories/kueche.jpg",
     description: "Hochwertige Küchengeräte für anspruchsvolle Köche",
     subcategories: [
       { name: "Thermomix", href: "/kategorie/kueche?brand=thermomix" },
@@ -27,7 +27,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Kaffee",
     href: "/kategorie/kaffee",
-    image: "/images/categories/kaffee.svg",
+    image: "/images/categories/kaffee.jpg",
     description: "Premium Kaffeemaschinen für den perfekten Genuss",
     subcategories: [
       { name: "Kaffeevollautomaten", href: "/kategorie/kaffee" },
@@ -38,7 +38,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Reinigung",
     href: "/kategorie/reinigung",
-    image: "/images/categories/reinigung.svg",
+    image: "/images/categories/reinigung.jpg",
     description: "Effiziente Reinigungsgeräte für Ihr Zuhause",
     subcategories: [
       { name: "Staubsauger", href: "/kategorie/reinigung" },
@@ -49,7 +49,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Klima",
     href: "/kategorie/klima",
-    image: "/images/categories/klima.svg",
+    image: "/images/categories/klima.jpg",
     description: "Klimaanlagen und Luftreiniger",
     subcategories: [
       { name: "Klimaanlagen", href: "/kategorie/klima" },
@@ -60,7 +60,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Smart Home",
     href: "/kategorie/smart-home",
-    image: "/images/categories/smart-home.svg",
+    image: "/images/categories/smart-home.jpg",
     description: "Intelligente Geräte für ein vernetztes Zuhause",
     subcategories: [
       { name: "Roboterstaubsauger", href: "/kategorie/smart-home" },
@@ -71,7 +71,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Haushaltsgeräte",
     href: "/kategorie/haushaltsgeraete",
-    image: "/images/categories/haushaltsgeraete.svg",
+    image: "/images/categories/haushaltsgeraete.jpg",
     description: "Waschmaschinen, Trockner, Kühlschränke & mehr",
     subcategories: [
       { name: "Waschmaschinen", href: "/kategorie/haushaltsgeraete" },
