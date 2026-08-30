@@ -133,7 +133,7 @@ export default function VersandPage() {
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 Nach Ihrer Bestellung erhalten Sie eine Bestätigungs-E-Mail mit
                 unseren Bankverbindungen. Bitte überweisen Sie den Gesamtbetrag
-                innerhalb von <strong>7 Tagen</strong> auf unser Konto. Nach
+                innerhalb von <strong>5 Werktagen</strong> auf unser Konto. Nach
                 Eingang der Zahlung wird Ihre Bestellung umgehend versendet.
               </p>
             </div>

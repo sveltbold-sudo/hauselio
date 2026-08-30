@@ -87,7 +87,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
       <BreadcrumbJsonLd
         items={[
           { name: "Startseite", url: "/" },
-          { name: "Shop", url: "/shop" },
+          { name: "Kategorien", url: "/kategorie" },
           { name: category.name, url: `/kategorie/${slug}` },
         ]}
       />

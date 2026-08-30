@@ -140,7 +140,6 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     <div className="container-hauselio py-6 lg:py-10 pb-20 lg:pb-10">
       <Breadcrumb
         items={[
-          { label: "Startseite", href: "/" },
           { label: "Shop", href: "/shop" },
           { label: product.categoryName, href: `/kategorie/${product.categorySlug}` },
           { label: product.name },

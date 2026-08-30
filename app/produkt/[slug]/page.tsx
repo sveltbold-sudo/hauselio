@@ -144,6 +144,7 @@ export default async function ProductPage({ params }: PageProps) {
       <BreadcrumbJsonLd
         items={[
           { name: "Startseite", url: "/" },
+          { name: "Kategorien", url: "/kategorie" },
           { name: product.category?.name || "Shop", url: `/kategorie/${product.category?.slug || ""}` },
           { name: product.name, url: `/produkt/${product.slug}` },
         ]}

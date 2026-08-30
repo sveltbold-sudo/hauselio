@@ -7,7 +7,7 @@ import { useCartStore, selectItemCount } from "@/lib/store";
 
 const navItems = [
   { href: "/", icon: Home, label: "Start" },
-  { href: "/kategorie/kueche", icon: Grid3X3, label: "Kategorien" },
+  { href: "/kategorie", icon: Grid3X3, label: "Kategorien" },
   { href: "/shop", icon: Search, label: "Suche" },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
   { href: "/konto", icon: User, label: "Konto" },
