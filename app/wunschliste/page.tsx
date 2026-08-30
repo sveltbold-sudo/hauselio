@@ -21,6 +21,7 @@ export default function WishlistPage() {
   if (!mounted) {
     return (
     <main id="main-content" className="container-hauselio py-12">
+      <h1 className="heading-1 mb-4">Wunschliste</h1>
       <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded" />
           <div className="h-4 w-32 bg-[var(--color-bg-secondary)] rounded" />

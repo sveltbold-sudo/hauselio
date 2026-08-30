@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Mein Konto | HAUSELIO",
+  title: "Mein Konto",
   description: "Verwalten Sie Ihre Bestellungen, Adressen und Kontodaten bei HAUSELIO.",
   alternates: { canonical: `${SITE_URL}/konto` },
   robots: { index: false, follow: true },

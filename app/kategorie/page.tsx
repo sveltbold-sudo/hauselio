@@ -10,7 +10,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Kategorien | HAUSELIO",
+  title: "Kategorien",
   description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten. Küche, Kaffee, Reinigung, Klima, Smart Home und mehr.",
   alternates: { canonical: `${SITE_URL}/kategorie` },
   openGraph: {
@@ -114,7 +114,7 @@ export default async function KategoriePage() {
                 </p>
                 <div className="mt-4 flex items-center text-sm font-semibold text-[var(--color-primary)] group-hover:gap-2 transition-transform">
                   Produkte ansehen
-                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </div>

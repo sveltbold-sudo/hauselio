@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Wunschliste | HAUSELIO",
+  title: "Wunschliste",
   description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSELIO.",
   alternates: { canonical: `${SITE_URL}/wunschliste` },
   robots: { index: false, follow: true },
