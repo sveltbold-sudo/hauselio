@@ -39,12 +39,36 @@ export async function POST(request: NextRequest) {
 
     const { ids, status } = parsed.data;
 
-    const result = await prisma.order.updateMany({
+    const { VALID_ORDER_TRANSITIONS } = await import("@/lib/admin-constants");
+    const orders = await prisma.order.findMany({
       where: { id: { in: ids } },
+      select: { id: true, status: true },
+    });
+
+    const validOrders = orders.filter((o) => {
+      const allowed = VALID_ORDER_TRANSITIONS[o.status] ?? [];
+      return allowed.includes(status);
+    });
+
+    if (validOrders.length === 0) {
+      return NextResponse.json(
+        { error: `Keine Bestellungen mit gültigem Statusübergang für → ${status}` },
+        { status: 400 }
+      );
+    }
+
+    const validIds = validOrders.map((o) => o.id);
+    const result = await prisma.order.updateMany({
+      where: { id: { in: validIds } },
       data: { status },
     });
 
-    return NextResponse.json({ count: result.count });
+    const skipped = ids.length - result.count;
+    return NextResponse.json({
+      count: result.count,
+      skipped,
+      message: skipped > 0 ? `${skipped} Bestellung(en) übersprungen (ungültiger Übergang)` : undefined,
+    });
   } catch (error) {
     return handleApiError(error);
   }

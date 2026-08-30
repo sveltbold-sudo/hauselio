@@ -22,13 +22,19 @@ import { logger } from "./logger";
  * - On self-hosted: requires a trusted reverse proxy that overwrites this header
  * - x-real-ip is a common alternative header set by Nginx/Caddy
  * - Falls back to "unknown" if no IP can be determined
+ *
+ * SECURITY: On Vercel, x-forwarded-for is safe because Vercel overwrites it.
+ * On self-hosted, ensure your reverse proxy overwrites this header.
+ * Do NOT trust x-forwarded-for from untrusted sources.
  */
 export function getClientIp(request: NextRequest): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
+  // On Vercel, x-forwarded-for is overwritten by Vercel with the real client IP
+  // On self-hosted, ensure your reverse proxy overwrites this header
+  const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const realIp = request.headers.get("x-real-ip");
+
+  // Prefer x-real-ip (set by Nginx/Caddy), fallback to x-forwarded-for (Vercel)
+  return realIp || forwardedFor || "unknown";
 }
 
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;

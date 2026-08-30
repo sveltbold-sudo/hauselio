@@ -8,6 +8,7 @@ interface ImageUploadProps {
   currentImage?: string;
   folder?: string;
   onUpload: (url: string, publicId: string) => void;
+  onRemove?: () => void;
   className?: string;
 }
 
@@ -15,6 +16,7 @@ export default function ImageUpload({
   currentImage,
   folder = "hauselio/products",
   onUpload,
+  onRemove,
   className = "",
 }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(currentImage || null);
@@ -22,6 +24,7 @@ export default function ImageUpload({
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,6 +41,13 @@ export default function ImageUpload({
       setError("Max. 5MB");
       return;
     }
+
+    // Cancel any in-progress upload
+    if (abortRef.current) {
+      abortRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     // Preview
     const reader = new FileReader();
@@ -56,6 +66,7 @@ export default function ImageUpload({
       const res = await fetch("/api/admin/upload", {
         method: "POST",
         body: formData,
+        signal: controller.signal,
       });
 
       const data = await res.json();
@@ -66,6 +77,7 @@ export default function ImageUpload({
 
       onUpload(data.url, data.publicId);
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setError(err instanceof Error ? err.message : "Upload fehlgeschlagen");
       setPreview(currentImage || null);
     } finally {
@@ -81,11 +93,15 @@ export default function ImageUpload({
   };
 
   const handleRemove = () => {
+    if (abortRef.current) {
+      abortRef.current.abort();
+    }
     setPreview(null);
     setError(null);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
+    onRemove?.();
   };
 
   return (

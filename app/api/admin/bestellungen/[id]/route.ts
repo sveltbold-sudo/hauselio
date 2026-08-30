@@ -39,6 +39,20 @@ export async function PUT(
 
     const { status, trackingNumber } = parsed.data;
 
+    const currentOrder = await prisma.order.findUnique({ where: { id }, select: { status: true } });
+    if (!currentOrder) {
+      return NextResponse.json({ error: "Bestellung nicht gefunden" }, { status: 404 });
+    }
+
+    const { VALID_ORDER_TRANSITIONS } = await import("@/lib/admin-constants");
+    const allowed = VALID_ORDER_TRANSITIONS[currentOrder.status] ?? [];
+    if (!allowed.includes(status)) {
+      return NextResponse.json(
+        { error: `Ungültiger Statusübergang: ${currentOrder.status} → ${status}` },
+        { status: 400 }
+      );
+    }
+
     const paymentStatusUpdate =
       status === "PAYMENT_CONFIRMED" ? "CONFIRMED"
       : status === "CANCELLED" ? "FAILED"

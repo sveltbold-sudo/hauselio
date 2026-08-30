@@ -22,10 +22,10 @@ export async function GET(request: NextRequest) {
     if (!settings) {
       settings = await prisma.siteSettings.create({
         data: {
-          bankIban: "DE89 3704 0044 0532 0130 00",
-          bankBic: "COBADEFFXXX",
+          bankIban: "",
+          bankBic: "",
           bankAccountName: "HAUSELIO GmbH",
-          bankName: "Commerzbank Berlin",
+          bankName: "",
           shippingInfo: "Kostenloser Versand ab 50€ Bestellwert.",
           contactEmail: "info@hauselio.de",
           contactPhone: "+49 (0)30 555 789 01",

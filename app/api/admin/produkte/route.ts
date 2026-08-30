@@ -42,8 +42,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const product = await prisma.product.create({
-      data: {
+    let product;
+    try {
+      product = await prisma.product.create({
+        data: {
         name: data.name,
         slug: data.slug,
         description: data.description,
@@ -70,6 +72,15 @@ export async function POST(request: NextRequest) {
           : undefined,
       },
     });
+    } catch (err) {
+      if (err && typeof err === "object" && "code" in err && err.code === "P2002") {
+        return NextResponse.json(
+          { error: "Ein Produkt mit diesem Slug existiert bereits (Race Condition)" },
+          { status: 409 }
+        );
+      }
+      throw err;
+    }
 
     try {
       await updateProductInAlgolia(product.id);

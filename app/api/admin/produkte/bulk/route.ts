@@ -41,6 +41,17 @@ export async function POST(request: NextRequest) {
     const { action, ids } = parsed.data;
 
     if (action === "delete") {
+      const orderItemCount = await prisma.orderItem.count({
+        where: { productId: { in: ids } },
+      });
+
+      if (orderItemCount > 0) {
+        return NextResponse.json(
+          { error: `${orderItemCount} Produkt(e) sind in Bestellungen verknüpft und können nicht gelöscht werden.` },
+          { status: 409 }
+        );
+      }
+
       const result = await prisma.product.deleteMany({
         where: { id: { in: ids } },
       });

@@ -53,6 +53,16 @@ export async function POST(request: NextRequest) {
     }
 
     const emails = subscribers.map((s) => s.email);
+
+    // Simple idempotency: check if a campaign with same subject was sent in last 5 minutes
+    const recentKey = `newsletter-campaign:${subject}`;
+    if (!await checkRateLimit(recentKey, 1, 300_000)) {
+      return NextResponse.json(
+        { error: "Diese Kampagne wurde kürzlich bereits gesendet. Bitte warten Sie 5 Minuten." },
+        { status: 429 }
+      );
+    }
+
     const result = await sendNewsletterCampaign({ subject, content: sanitizedContent, emails });
 
     return NextResponse.json({

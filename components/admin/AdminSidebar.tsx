@@ -55,7 +55,11 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
   }, [userMenuOpen]);
 
   const handleLogout = async () => {
-    await fetch("/api/admin/logout", { method: "POST" });
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {
+      // Logout request failed — still redirect to clear local state
+    }
     router.push("/admin/login");
     router.refresh();
   };
@@ -150,6 +154,11 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                   onKeyDown={(e) => {
                     if (e.key === "Escape") {
                       setUserMenuOpen(false);
+                    }
+                    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                      e.preventDefault();
+                      const menu = e.currentTarget.querySelector<HTMLElement>("[role='menuitem']");
+                      menu?.focus();
                     }
                   }}
                 >

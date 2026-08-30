@@ -21,16 +21,17 @@ export default function AdminLayoutClient({
   const pathname = usePathname();
   const router = useRouter();
 
-  // Skip auth check for login page
-  if (pathname.includes("/admin/login")) {
-    return <>{children}</>;
-  }
+  const isLoginPage = pathname.includes("/admin/login");
 
   useEffect(() => {
-    if (!admin) {
+    if (!isLoginPage && !admin) {
       router.replace("/admin/login");
     }
-  }, [admin, router]);
+  }, [admin, router, isLoginPage]);
+
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   if (!admin) {
     return (

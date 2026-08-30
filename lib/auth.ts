@@ -270,15 +270,17 @@ export async function recordFailedLogin(email: string): Promise<void> {
 
   if (!admin) return;
 
+  // Atomic: increment and check in one operation to prevent lockout bypass under concurrency
   const result = await prisma.adminUser.update({
     where: { id: admin.id },
     data: {
       failedAttempts: { increment: 1 },
     },
-    select: { failedAttempts: true },
+    select: { failedAttempts: true, lockedUntil: true },
   });
 
-  if (result.failedAttempts >= MAX_FAILED_ATTEMPTS) {
+  // Only lock if not already locked AND threshold reached
+  if (!result.lockedUntil && result.failedAttempts >= MAX_FAILED_ATTEMPTS) {
     await prisma.adminUser.update({
       where: { id: admin.id },
       data: { lockedUntil: new Date(Date.now() + LOCKOUT_DURATION_MS) },

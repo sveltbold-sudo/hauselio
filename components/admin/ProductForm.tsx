@@ -561,6 +561,9 @@ export default function ProductForm({
                 onUpload={(url) =>
                   setFormData((prev) => ({ ...prev, imageUrl: url }))
                 }
+                onRemove={() =>
+                  setFormData((prev) => ({ ...prev, imageUrl: "" }))
+                }
               />
             </div>
 

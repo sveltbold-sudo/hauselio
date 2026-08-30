@@ -27,6 +27,10 @@ interface PaginatedResponse {
     total: number;
     pages: number;
   };
+  stats: {
+    totalRevenue: number;
+    totalCustomers: number;
+  };
 }
 
 export default function KundenPage() {
@@ -57,9 +61,11 @@ export default function KundenPage() {
 
   const customers = useMemo(() => data?.customers ?? [], [data?.customers]);
   const pagination = data?.pagination;
+  const stats = data?.stats;
 
-  const totalRevenue = customers.reduce((sum, c) => sum + c.totalSpent, 0);
-  const avgRevenue = pagination && pagination.total > 0 ? totalRevenue / pagination.total : 0;
+  const totalRevenue = stats?.totalRevenue ?? 0;
+  const totalCustomers = stats?.totalCustomers ?? 0;
+  const avgRevenue = totalCustomers > 0 ? totalRevenue / totalCustomers : 0;
 
   return (
     <div>

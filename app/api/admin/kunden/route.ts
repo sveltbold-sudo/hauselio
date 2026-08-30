@@ -59,6 +59,14 @@ export async function GET(request: NextRequest) {
       _count: true,
     });
 
+    const allAggregated = await prisma.order.groupBy({
+      by: ["customerEmail"],
+      where: search ? {} : undefined,
+      _sum: { total: true },
+    });
+    const totalRevenue = allAggregated.reduce((sum, c) => sum + Number(c._sum.total || 0), 0);
+    const totalCustomers = allAggregated.length;
+
     const customerEmails = aggregatedCustomers.map((c) => c.customerEmail);
     const latestOrders = await prisma.order.findMany({
       where: { customerEmail: { in: customerEmails } },
@@ -107,6 +115,10 @@ export async function GET(request: NextRequest) {
         limit,
         total: totalCount.length,
         pages: Math.ceil(totalCount.length / limit),
+      },
+      stats: {
+        totalRevenue,
+        totalCustomers,
       },
     });
   } catch (error) {

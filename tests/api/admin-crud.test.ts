@@ -36,6 +36,7 @@ const mockPrisma = {
     delete: vi.fn().mockResolvedValue({}),
   },
   order: {
+    findUnique: vi.fn().mockResolvedValue(null),
     update: vi.fn().mockResolvedValue({}),
   },
   orderItem: {
@@ -256,6 +257,7 @@ describe("DELETE /api/admin/bewertungen/[id]", () => {
 
 describe("PUT /api/admin/bestellungen/[id]", () => {
   it("updates order status", async () => {
+    mockPrisma.order.findUnique.mockResolvedValue({ status: "PROCESSING" });
     mockPrisma.order.update.mockResolvedValue({
       id: "ord-1",
       orderNumber: "HL-240101-001",
