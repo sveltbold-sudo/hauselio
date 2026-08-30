@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
+import PressReviewsSection from "@/components/product/PressReviewsSection";
+import TestimonialsSection from "@/components/product/TestimonialsSection";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
@@ -163,6 +166,9 @@ export default async function ProductPage({ params }: PageProps) {
       />
       <main id="main-content">
         <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />
+        <CustomerReviewsSection productId={product.id} />
+        <PressReviewsSection />
+        <TestimonialsSection />
       </main>
     </>
   );

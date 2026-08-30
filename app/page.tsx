@@ -16,6 +16,7 @@ const RecommendedSection = dynamicImport(() => import("@/components/product/Reco
 
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"));
 import TestimonialsSection from "@/components/product/TestimonialsSection";
+import PressReviewsSection from "@/components/product/PressReviewsSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"));
 
 export const revalidate = 300;
@@ -415,6 +416,7 @@ export default async function HomePage() {
       {/* Für Sie empfohlen — top-rated */}
       {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
 
+      <PressReviewsSection />
       <TestimonialsSection />
       <RecentlyViewedSection />
       <NewsletterSection />

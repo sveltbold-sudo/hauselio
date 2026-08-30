@@ -189,7 +189,16 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <StarRating rating={product.rating} size="md" />
             <span className="text-sm text-[var(--color-text-secondary)]">{product.rating}</span>
             <span className="text-[var(--color-border)]">·</span>
-            <span className="text-sm text-[var(--color-text-muted)]">{product.reviewCount} Bewertungen</span>
+            <a
+              href="#kundenbewertungen"
+              className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:underline transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('[aria-label="Kundenbewertungen"]')?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              {product.reviewCount} Bewertungen
+            </a>
           </div>
 
           <div className="flex items-center gap-2 mb-4">

@@ -31,7 +31,24 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     return null;
   }
 
-  if (reviews.length === 0) return null;
+  if (reviews.length === 0) {
+    if (productId) {
+      return (
+        <section className="section-py bg-white" aria-label="Kundenbewertungen">
+          <div className="container-hauselio">
+            <div className="text-center py-12">
+              <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
+              <h2 className="heading-2 mb-4">Produktbewertungen</h2>
+              <p className="text-[var(--color-text-muted)] mb-6">
+                Für dieses Produkt liegen noch keine Bewertungen vor. Seien Sie der Erste!
+              </p>
+            </div>
+          </div>
+        </section>
+      );
+    }
+    return null;
+  }
 
   const totalReviews = reviews.length;
   const averageRating = reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews;
@@ -57,9 +74,14 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
       <div className="container-hauselio">
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
-          <h2 className="heading-2">Was unsere Kunden sagen</h2>
+          <h2 className="heading-2">
+            {productId ? "Produktbewertungen" : "Was unsere Kunden sagen"}
+          </h2>
           <p className="body-large mt-2">
-            Basierend auf {totalReviews} Bewertungen
+            {productId
+              ? `${totalReviews} ${totalReviews === 1 ? "Bewertung" : "Bewertungen"} für dieses Produkt`
+              : `Basierend auf ${totalReviews} Bewertungen`
+            }
           </p>
         </div>
 
