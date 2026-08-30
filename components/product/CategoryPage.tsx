@@ -17,6 +17,7 @@ interface CategoryPageProps {
   page?: number;
   sort?: string;
   brand?: string;
+  sub?: string;
 }
 
 export default async function CategoryPage({
@@ -26,6 +27,7 @@ export default async function CategoryPage({
   page = 1,
   sort = "newest",
   brand,
+  sub,
 }: CategoryPageProps) {
   const currentPage = Math.max(1, page);
   const skip = (currentPage - 1) * PAGE_SIZE;
@@ -39,6 +41,9 @@ export default async function CategoryPage({
   const where: Record<string, unknown> = { category: { slug } };
   if (brand) {
     where.brand = { slug: brand };
+  }
+  if (sub) {
+    where.subCategory = sub;
   }
 
   let products: {
@@ -56,9 +61,10 @@ export default async function CategoryPage({
   }[] = [];
   let total = 0;
   let brands: { name: string; slug: string; count: number }[] = [];
+  let subCategories: { name: string; count: number }[] = [];
 
   try {
-    const [raw, count, brandData] = await Promise.all([
+    const [raw, count, brandData, subData] = await Promise.all([
       prisma.product.findMany({
         where,
         include: {
@@ -79,6 +85,12 @@ export default async function CategoryPage({
         where: { products: { some: { category: { slug } } } },
         orderBy: { name: "asc" },
       }),
+      prisma.product.groupBy({
+        by: ["subCategory"],
+        where: { category: { slug }, subCategory: { not: null } },
+        _count: true,
+        orderBy: { _count: { subCategory: "desc" } },
+      }),
     ]);
     total = count;
     products = raw.map((p) => ({
@@ -92,10 +104,17 @@ export default async function CategoryPage({
       slug: b.slug,
       count: b._count.products,
     }));
+    subCategories = subData
+      .filter((s) => s.subCategory)
+      .map((s) => ({
+        name: s.subCategory!,
+        count: s._count,
+      }));
   } catch {
     products = [];
     total = 0;
     brands = [];
+    subCategories = [];
   }
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -119,6 +138,7 @@ export default async function CategoryPage({
     params.set("page", String(p));
     if (sort !== "newest") params.set("sort", sort);
     if (brand) params.set("brand", brand);
+    if (sub) params.set("sub", sub);
     return `/kategorie/${slug}?${params.toString()}`;
   }
 
@@ -141,6 +161,35 @@ export default async function CategoryPage({
         </p>
       </div>
 
+      {/* Subcategory pills */}
+      {subCategories.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          <Link
+            href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}`}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              !sub
+                ? "bg-[var(--color-primary)] text-white"
+                : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
+            }`}
+          >
+            Alle
+          </Link>
+          {subCategories.map((sc) => (
+            <Link
+              key={sc.name}
+              href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                sub === sc.name
+                  ? "bg-[var(--color-primary)] text-white"
+                  : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
+              }`}
+            >
+              {sc.name} ({sc.count})
+            </Link>
+          ))}
+        </div>
+      )}
+
       {/* Toolbar with sort + brand filter */}
       <Suspense fallback={<div className="h-12 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />}>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
@@ -158,14 +207,14 @@ export default async function CategoryPage({
             Keine Produkte in dieser Kategorie
           </h2>
           <p className="text-[var(--color-text-muted)] mb-6">
-            {brand ? `Keine Produkte von "${brand}" in dieser Kategorie.` : "Schauen Sie später wieder vorbei."}
+            {brand ? `Keine Produkte von "${brand}" in dieser Kategorie.` : sub ? `Keine Produkte in "${sub}".` : "Schauen Sie später wieder vorbei."}
           </p>
           <Link
-            href={brand ? `/kategorie/${slug}` : "/shop"}
+            href={brand ? `/kategorie/${slug}` : sub ? `/kategorie/${slug}` : "/shop"}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             <ShoppingBag className="w-4 h-4" />
-            {brand ? "Alle Marken anzeigen" : "Zum Shop"}
+            {brand ? "Alle Marken anzeigen" : sub ? "Alle Produkte anzeigen" : "Zum Shop"}
           </Link>
         </div>
       ) : (

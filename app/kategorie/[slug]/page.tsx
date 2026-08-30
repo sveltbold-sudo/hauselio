@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ page?: string; sort?: string; brand?: string }>;
+  searchParams: Promise<{ page?: string; sort?: string; brand?: string; sub?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -75,6 +75,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
   const sort = sp.sort || "newest";
   const brand = sp.brand || undefined;
+  const sub = sp.sub || undefined;
 
   const category = await getCategory(slug);
 
@@ -111,6 +112,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           page={page}
           sort={sort}
           brand={brand}
+          sub={sub}
         />
       </main>
     </>
