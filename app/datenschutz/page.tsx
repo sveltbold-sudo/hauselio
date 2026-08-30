@@ -143,6 +143,10 @@ export default function DatenschutzPage() {
             ist der Berliner Beauftragte für Datenschutz und Informationsfreiheit, Friedrichstraße 219, 10969 Berlin.
           </p>
         </section>
+
+        <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
+          Stand: August 2026
+        </p>
       </div>
     </main>
   );

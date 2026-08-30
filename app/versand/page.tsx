@@ -174,6 +174,10 @@ export default function VersandPage() {
           </p>
         </div>
       </section>
+
+      <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
+        Stand: August 2026
+      </p>
     </main>
   );
 }

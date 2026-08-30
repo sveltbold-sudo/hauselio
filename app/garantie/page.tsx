@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Garantie | HAUSELIO",
   description: "Informieren Sie sich über unsere Garantie- und Gewährleistungsbedingungen. Bis zu 5 Jahre Garantie auf ausgewählte Produkte.",
   alternates: { canonical: `${SITE_URL}/garantie` },
+  robots: { index: false, follow: false },
   openGraph: {
     title: "Garantie — HAUSELIO",
     description: "Garantie- und Gewährleistungsbedingungen bei HAUSELIO.",
@@ -187,6 +188,12 @@ export default function GarantiePage() {
           </div>
         </div>
       </main>
+
+      <div className="container-hauselio">
+        <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
+          Stand: August 2026
+        </p>
+      </div>
     </>
   );
 }
