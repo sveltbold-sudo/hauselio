@@ -11,6 +11,7 @@ import { formatPrice } from "@/lib/utils";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import DeliveryEstimate from "@/components/product/DeliveryEstimate";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity } = useCartStore();
@@ -69,6 +70,8 @@ export default function WarenkorbPage() {
 
   return (
     <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+      <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Warenkorb" }]} />
+
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>

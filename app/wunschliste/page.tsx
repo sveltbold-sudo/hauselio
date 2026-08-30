@@ -57,9 +57,9 @@ export default function WishlistPage() {
           <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
             <Heart className="w-10 h-10 text-[var(--color-text-muted)]" />
           </div>
-          <h2 className="heading-3 mb-2">
+          <h1 className="heading-3 mb-2">
             Ihre Wunschliste ist leer
-          </h2>
+          </h1>
           <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
             Durchstöbern Sie unseren Shop und speichern Sie Produkte, die Ihnen gefallen.
           </p>

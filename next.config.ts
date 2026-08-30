@@ -71,6 +71,7 @@ const nextConfig: NextConfig = {
     { source: "/haushaltsgeraete", destination: "/kategorie/haushaltsgeraete", permanent: true },
     { source: "/kategorien", destination: "/kategorie", permanent: true },
     { source: "/anmelden", destination: "/kontakt", permanent: false },
+    { source: "/suche", destination: "/shop", permanent: false },
   ],
   async headers() {
     return [
