@@ -141,6 +141,17 @@ export async function DELETE(
     }
     const { id } = await params;
 
+    const orderItemCount = await prisma.orderItem.count({
+      where: { productId: id },
+    });
+
+    if (orderItemCount > 0) {
+      return NextResponse.json(
+        { error: `Produkt kann nicht gelöscht werden — es ist in ${orderItemCount} Bestellung(en) verknüpft.` },
+        { status: 409 }
+      );
+    }
+
     await prisma.product.delete({
       where: { id },
     });

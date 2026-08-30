@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
-import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
+import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { logger } from "@/lib/logger";
 import OrderTable from "@/components/admin/OrderTable";
 
@@ -21,7 +21,9 @@ export default async function AdminOrdersPage({
   const skip = (page - 1) * limit;
 
   const where: Prisma.OrderWhereInput = {};
-  if (status) where.status = status as never;
+  if (status && ALLOWED_ORDER_STATUSES.includes(status as typeof ALLOWED_ORDER_STATUSES[number])) {
+    where.status = status as typeof ALLOWED_ORDER_STATUSES[number];
+  }
   if (q) {
     where.OR = [
       { orderNumber: { contains: q, mode: "insensitive" } },

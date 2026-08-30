@@ -98,7 +98,7 @@ export default function NewsletterPage() {
 
   const exportCSV = () => {
     const active = subscribers.filter((s) => s.isActive);
-    const csv = "E-Mail;Aktiv;Datum\n" + active.map((s) => `${s.email};${s.isActive};${s.createdAt}`).join("\n");
+    const csv = "E-Mail;Aktiv;Datum\n" + active.map((s) => `${s.email};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

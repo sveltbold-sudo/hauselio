@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 interface AdminLayoutClientProps {
@@ -18,15 +19,25 @@ export default function AdminLayoutClient({
   admin,
 }: AdminLayoutClientProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   // Skip auth check for login page
   if (pathname.includes("/admin/login")) {
     return <>{children}</>;
   }
 
-  // Admin is guaranteed by server-side redirect in layout.tsx
+  useEffect(() => {
+    if (!admin) {
+      router.replace("/admin/login");
+    }
+  }, [admin, router]);
+
   if (!admin) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-primary)]" />
+      </div>
+    );
   }
 
   return (

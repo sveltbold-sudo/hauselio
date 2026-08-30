@@ -117,6 +117,8 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankIban}
                 onChange={(e) => handleChange("bankIban", e.target.value)}
+                pattern="[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}"
+                title="Gültige IBAN (z.B. DE89 3704 0044 0532 0130 00)"
                 className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
               />
             </div>

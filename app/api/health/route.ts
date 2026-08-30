@@ -13,13 +13,12 @@ export async function GET() {
       database: "ok",
       productCount: count,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         status: "error",
         timestamp: new Date().toISOString(),
         database: "unreachable",
-        error: error instanceof Error ? error.message : String(error),
       },
       { status: 503 }
     );

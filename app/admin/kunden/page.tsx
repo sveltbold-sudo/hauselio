@@ -58,9 +58,8 @@ export default function KundenPage() {
   const customers = useMemo(() => data?.customers ?? [], [data?.customers]);
   const pagination = data?.pagination;
 
-  const filtered = useMemo(() => customers, [customers]);
-
   const totalRevenue = customers.reduce((sum, c) => sum + c.totalSpent, 0);
+  const avgRevenue = pagination && pagination.total > 0 ? totalRevenue / pagination.total : 0;
 
   return (
     <div>
@@ -92,7 +91,7 @@ export default function KundenPage() {
           <p className="text-sm text-[var(--color-text-muted)]">Ø Umsatz/Kunde</p>
           <p className="text-2xl font-bold text-[var(--color-text-primary)]">
             {customers.length > 0
-              ? new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(totalRevenue / customers.length)
+              ? new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(avgRevenue)
               : "0 €"}
           </p>
         </div>
@@ -131,14 +130,14 @@ export default function KundenPage() {
                   Laden…
                 </td>
               </tr>
-            ) : filtered.length === 0 ? (
+            ) : customers.length === 0 ? (
               <tr>
                 <td colSpan={5} className="px-4 py-12 text-center text-[var(--color-text-muted)]">
                   Keine Kunden gefunden.
                 </td>
               </tr>
             ) : (
-              filtered.map((customer) => (
+              customers.map((customer) => (
                 <tr key={customer.email} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                   <td className="px-4 py-3">
                     <div>

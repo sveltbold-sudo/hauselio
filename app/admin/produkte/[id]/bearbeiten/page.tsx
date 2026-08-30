@@ -111,6 +111,17 @@ export default function EditProductPage({
     );
   }
 
+  if (!initialData) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-[var(--color-text-muted)] mb-4">Produkt konnte nicht geladen werden.</p>
+        <a href="/admin/produkte" className="text-sm text-[var(--color-primary)] hover:underline">
+          Zurück zur Produktliste
+        </a>
+      </div>
+    );
+  }
+
   const handleSubmit = async (data: {
     name: string;
     slug: string;

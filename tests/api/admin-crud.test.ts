@@ -38,6 +38,9 @@ const mockPrisma = {
   order: {
     update: vi.fn().mockResolvedValue({}),
   },
+  orderItem: {
+    count: vi.fn().mockResolvedValue(0),
+  },
   review: {
     update: vi.fn().mockResolvedValue({}),
     delete: vi.fn().mockResolvedValue({}),
@@ -160,12 +163,22 @@ describe("PUT /api/admin/produkte/[id]", () => {
 
 describe("DELETE /api/admin/produkte/[id]", () => {
   it("deletes product", async () => {
+    mockPrisma.orderItem.count.mockResolvedValue(0);
     mockPrisma.product.delete.mockResolvedValue({});
 
     const { DELETE } = await import("@/app/api/admin/produkte/[id]/route");
     const req = makeRequest("http://localhost:3000/api/admin/produkte/prod-1", { method: "DELETE" });
     const res = await DELETE(req, { params: Promise.resolve({ id: "prod-1" }) });
     expect(res.status).toBe(200);
+  });
+
+  it("rejects delete when product has order items", async () => {
+    mockPrisma.orderItem.count.mockResolvedValue(3);
+
+    const { DELETE } = await import("@/app/api/admin/produkte/[id]/route");
+    const req = makeRequest("http://localhost:3000/api/admin/produkte/prod-1", { method: "DELETE" });
+    const res = await DELETE(req, { params: Promise.resolve({ id: "prod-1" }) });
+    expect(res.status).toBe(409);
   });
 });
 

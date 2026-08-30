@@ -42,6 +42,8 @@ export async function PUT(
     const paymentStatusUpdate =
       status === "PAYMENT_CONFIRMED" ? "CONFIRMED"
       : status === "CANCELLED" ? "FAILED"
+      : status === "SHIPPED" || status === "DELIVERED" ? "CONFIRMED"
+      : status === "PROCESSING" ? "CONFIRMED"
       : undefined;
 
     const order = await prisma.order.update({
