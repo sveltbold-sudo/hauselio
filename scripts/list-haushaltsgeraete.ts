@@ -4,12 +4,12 @@ const prisma = new PrismaClient();
 
 async function main() {
   const products = await prisma.product.findMany({
-    where: { category: { slug: 'klima' } },
+    where: { category: { slug: 'haushaltsgeraete' } },
     orderBy: { name: 'asc' },
     select: { slug: true, name: true, description: true, features: true, specs: { select: { id: true } } },
   });
 
-  console.log(`\n📦 Produkte in "Klima": ${products.length}\n`);
+  console.log(`\n📦 Produkte in "Haushaltsgeräte": ${products.length}\n`);
 
   let genericCount = 0;
   for (const p of products) {
