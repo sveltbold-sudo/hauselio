@@ -50,7 +50,10 @@ export default function KategorienPage() {
 
   const loadCategories = () => {
     fetch("/api/admin/kategorien")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load");
+        return r.json();
+      })
       .then((data) => startTransition(() => setCategories(data.categories || [])))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setError("Kategorien konnten nicht geladen werden."); })
       .finally(() => setLoading(false));

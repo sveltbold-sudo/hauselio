@@ -62,8 +62,11 @@ export default function ProductForm({
     isDirty.current = true;
   }, []);
 
+  const initialLoadDone = useRef(false);
+
   useEffect(() => {
     if (isSubmitting) return;
+    if (!initialLoadDone.current) return;
     isDirty.current = true;
   }, [formData, isSubmitting]);
 
@@ -72,6 +75,9 @@ export default function ProductForm({
        
       setFormData((prev) => ({ ...prev, ...initialData }));
       initialDataRef.current = initialData;
+      requestAnimationFrame(() => {
+        initialLoadDone.current = true;
+      });
     }
   }, [initialData]);
 

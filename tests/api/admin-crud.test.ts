@@ -32,6 +32,7 @@ const mockPrisma = {
     delete: vi.fn().mockResolvedValue({}),
   },
   category: {
+    count: vi.fn().mockResolvedValue(0),
     update: vi.fn().mockResolvedValue({}),
     delete: vi.fn().mockResolvedValue({}),
   },

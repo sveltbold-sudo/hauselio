@@ -20,8 +20,18 @@ async function redisSet(key: string, value: string, exSec: number): Promise<void
   }
 }
 
+const memoryBlacklist = new Map<string, number>();
+
 async function redisExists(key: string): Promise<boolean> {
-  if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) return false;
+  if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) {
+    const expiry = memoryBlacklist.get(key);
+    if (!expiry) return false;
+    if (Date.now() > expiry) {
+      memoryBlacklist.delete(key);
+      return false;
+    }
+    return true;
+  }
   try {
     const res = await fetch(`${UPSTASH_URL}/exists/${encodeURIComponent(key)}`, {
       headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
@@ -78,6 +88,9 @@ const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 export async function revokeToken(token: string): Promise<void> {
   const key = `hauselio:blacklist:${token}`;
   await redisSet(key, "1", TOKEN_EXPIRY_SEC);
+  if (!useUpstash) {
+    memoryBlacklist.set(key, Date.now() + TOKEN_EXPIRY_SEC * 1000);
+  }
 }
 
 export async function isTokenRevoked(token: string): Promise<boolean> {

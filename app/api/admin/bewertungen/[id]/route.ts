@@ -85,24 +85,26 @@ export async function DELETE(
 
     const review = await prisma.review.findUnique({ where: { id }, select: { productId: true } });
 
+    if (!review) {
+      return NextResponse.json({ error: "Review nicht gefunden" }, { status: 404 });
+    }
+
     await prisma.$transaction(async (tx) => {
       await tx.review.delete({ where: { id } });
 
-      if (review) {
-        const stats = await tx.review.aggregate({
-          where: { productId: review.productId, isApproved: true },
-          _avg: { rating: true },
-          _count: { rating: true },
-        });
+      const stats = await tx.review.aggregate({
+        where: { productId: review.productId, isApproved: true },
+        _avg: { rating: true },
+        _count: { rating: true },
+      });
 
-        await tx.product.update({
-          where: { id: review.productId },
-          data: {
-            rating: stats._avg.rating || 0,
-            reviewCount: stats._count.rating,
-          },
-        });
-      }
+      await tx.product.update({
+        where: { id: review.productId },
+        data: {
+          rating: stats._avg.rating || 0,
+          reviewCount: stats._count.rating,
+        },
+      });
     });
 
     return NextResponse.json({ success: true });

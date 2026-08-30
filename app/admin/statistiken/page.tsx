@@ -145,23 +145,24 @@ export default function StatistikenPage() {
             <p className="text-sm text-[var(--color-text-muted)]">Noch keine Verkäufe.</p>
           ) : (
             <div className="space-y-3">
-              {stats.topProducts.map((p, i) => {
+              {(() => {
                 const maxRevenue = Math.max(...stats.topProducts.map((t) => t.revenue));
-                const pct = maxRevenue > 0 ? (p.revenue / maxRevenue) * 100 : 0;
-                return (
-                  <div key={`${p.name}-${i}`} className="group">
-                    <div className="flex items-center justify-between py-1">
-                      <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-xs font-bold text-[var(--color-primary)]">
-                          {i + 1}
-                        </span>
-                        <span className="text-sm text-[var(--color-text-primary)] truncate max-w-[160px]">{p.name}</span>
+                return stats.topProducts.map((p, i) => {
+                  const pct = maxRevenue > 0 ? (p.revenue / maxRevenue) * 100 : 0;
+                  return (
+                    <div key={`${p.name}-${i}`} className="group">
+                      <div className="flex items-center justify-between py-1">
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 h-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-xs font-bold text-[var(--color-primary)]">
+                            {i + 1}
+                          </span>
+                          <span className="text-sm text-[var(--color-text-primary)] truncate max-w-[160px]">{p.name}</span>
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-semibold text-[var(--color-text-primary)]">
                           {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(p.revenue)}
                         </span>
-                        <span className="text-xs text-[var(--color-text-muted)] block">{p.orderCount}x verkauft</span>
+                         <span className="text-xs text-[var(--color-text-muted)] block">{p.orderCount}x verkauft</span>
                       </div>
                     </div>
                     <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
@@ -172,7 +173,8 @@ export default function StatistikenPage() {
                     </div>
                   </div>
                 );
-              })}
+              });
+              })()}
             </div>
           )}
         </div>
@@ -184,10 +186,11 @@ export default function StatistikenPage() {
             <p className="text-sm text-[var(--color-text-muted)]">Keine Daten verfügbar.</p>
           ) : (
             <div className="space-y-3">
-              {stats.categoryStats.map((cat, i) => {
+              {(() => {
                 const maxRevenue = Math.max(...stats.categoryStats.map((c) => c.totalRevenue));
-                const pct = maxRevenue > 0 ? (cat.totalRevenue / maxRevenue) * 100 : 0;
-                const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-accent)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
+                return stats.categoryStats.map((cat, i) => {
+                  const pct = maxRevenue > 0 ? (cat.totalRevenue / maxRevenue) * 100 : 0;
+                  const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-accent)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
                 return (
                   <div key={`${cat.name}-${i}`}>
                     <div className="flex items-center justify-between py-1">
@@ -207,7 +210,8 @@ export default function StatistikenPage() {
                     </div>
                   </div>
                 );
-              })}
+              });
+              })()}
             </div>
           )}
         </div>

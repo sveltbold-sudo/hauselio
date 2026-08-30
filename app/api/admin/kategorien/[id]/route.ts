@@ -68,6 +68,10 @@ export async function DELETE(
       if (productCount > 0) {
         throw new ValidationError(`Kategorie kann nicht gelöscht werden: ${productCount} Produkte sind zugeordnet.`);
       }
+      const childCount = await tx.category.count({ where: { parentId: id } });
+      if (childCount > 0) {
+        throw new ValidationError(`Kategorie kann nicht gelöscht werden: ${childCount} Unterkategorien sind zugeordnet.`);
+      }
       await tx.category.delete({ where: { id } });
     });
 

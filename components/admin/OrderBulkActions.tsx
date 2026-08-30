@@ -38,8 +38,17 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
         items[next]!.focus();
       }
     };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node) && buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
+        setShowStatusMenu(false);
+      }
+    };
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [showStatusMenu]);
 
   if (selectedIds.length === 0) return null;
