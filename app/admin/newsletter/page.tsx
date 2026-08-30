@@ -19,6 +19,7 @@ export default function NewsletterPage() {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
   const [campaignSubject, setCampaignSubject] = useState("");
   const [campaignContent, setCampaignContent] = useState("");
@@ -27,9 +28,12 @@ export default function NewsletterPage() {
 
   useEffect(() => {
     fetch("/api/admin/newsletter")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load");
+        return r.json();
+      })
       .then((data) => startTransition(() => setSubscribers(data.subscribers || [])))
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
   }, [startTransition]);
 
@@ -233,6 +237,8 @@ export default function NewsletterPage() {
           <tbody>
             {loading ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden…</td></tr>
+            ) : loadError ? (
+              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">Abonnenten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</td></tr>
             ) : filtered.length === 0 ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Abonnenten gefunden.</td></tr>
             ) : (

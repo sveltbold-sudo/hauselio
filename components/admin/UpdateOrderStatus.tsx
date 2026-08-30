@@ -43,7 +43,8 @@ export default function UpdateOrderStatus({
         toast.success("Status aktualisiert!");
         router.refresh();
       } else {
-        toast.error("Fehler beim Aktualisieren des Status.");
+        const data = await res.json().catch(() => null);
+        toast.error(data?.error || "Fehler beim Aktualisieren des Status.");
       }
     } catch {
       toast.error("Ein Fehler ist aufgetreten.");

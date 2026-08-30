@@ -54,6 +54,7 @@ export default function NewProductPage() {
         throw new Error(resData.error || "Fehler beim Erstellen");
       }
 
+      toast.success("Produkt erfolgreich erstellt!");
       router.push("/admin/produkte");
       router.refresh();
     } catch (err) {

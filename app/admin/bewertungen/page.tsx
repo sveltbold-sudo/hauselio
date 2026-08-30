@@ -24,13 +24,17 @@ export default function BewertungenPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
     fetch("/api/admin/bewertungen")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load");
+        return r.json();
+      })
       .then((data) => startTransition(() => setReviews(data.reviews || [])))
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
   }, [startTransition]);
 
@@ -105,6 +109,8 @@ export default function BewertungenPage() {
       <div className="space-y-4">
         {loading ? (
           <div className="text-center py-12 text-[var(--color-text-muted)]" role="status" aria-label="Wird geladen">Laden...</div>
+        ) : loadError ? (
+          <div className="text-center py-12 text-[var(--color-danger)]" role="alert">Bewertungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-12 text-[var(--color-text-muted)]">Keine Bewertungen gefunden.</div>
         ) : (

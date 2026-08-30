@@ -31,16 +31,20 @@ export default function EinstellungenPage() {
     contactAddress: "",
   });
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [saving, setSaving] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
     fetch("/api/admin/einstellungen")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load");
+        return r.json();
+      })
       .then((data) => {
         if (data.settings) startTransition(() => setSettings(data.settings));
       })
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
   }, [startTransition]);
 
@@ -53,7 +57,10 @@ export default function EinstellungenPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(settings),
       });
-      if (!res.ok) throw new Error("Fehler beim Speichern");
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Fehler beim Speichern");
+      }
       toast.success("Einstellungen gespeichert!");
     } catch {
       toast.error("Fehler beim Speichern.");
@@ -68,6 +75,19 @@ export default function EinstellungenPage() {
 
   if (loading) {
     return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden…</div>;
+  }
+
+  if (loadError) {
+    return (
+      <div className="max-w-3xl">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Einstellungen</h1>
+        </div>
+        <div className="bg-[var(--color-danger-light)] text-[var(--color-danger)] p-4 rounded-xl text-sm" role="alert">
+          Einstellungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.
+        </div>
+      </div>
+    );
   }
 
   return (

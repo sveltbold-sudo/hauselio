@@ -75,6 +75,7 @@ export default function KategorienPage() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Fehler beim Speichern");
+      toast.success(editingId ? "Kategorie aktualisiert!" : "Kategorie erstellt!");
       setShowForm(false);
       setEditingId(null);
       setForm({ name: "", slug: "", description: "" });
@@ -93,11 +94,12 @@ export default function KategorienPage() {
     setShowForm(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Kategorie wirklich löschen?")) return;
+  const handleDelete = async (id: string, name: string, productCount: number) => {
+    if (!confirm(`Kategorie "${name}" wirklich löschen?${productCount > 0 ? ` ${productCount} Produkte sind zugeordnet.` : ""}`)) return;
     try {
       const res = await fetch(`/api/admin/kategorien/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
+      toast.success("Kategorie gelöscht!");
       loadCategories();
     } catch (error) {
       logger.error("Kategorie löschen fehlgeschlagen", { error });
@@ -179,8 +181,8 @@ export default function KategorienPage() {
                 <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)]">
-                  {editingId ? "Speichern" : "Erstellen"}
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                  {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
             </form>
@@ -205,6 +207,8 @@ export default function KategorienPage() {
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden...</td></tr>
             ) : error ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">{error}</td></tr>
+            ) : categories.length === 0 ? (
+              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Kategorien gefunden.</td></tr>
             ) : categories.map((cat) => (
               <tr key={cat.id} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                 <td className="px-4 py-3">
@@ -224,7 +228,7 @@ export default function KategorienPage() {
                     <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" aria-hidden="true" />
                     </button>
-                    <button onClick={() => handleDelete(cat.id)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                    <button onClick={() => handleDelete(cat.id, cat.name, cat._count.products)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                       <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>

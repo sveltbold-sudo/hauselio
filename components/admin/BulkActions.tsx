@@ -17,7 +17,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
   if (selectedIds.length === 0) return null;
 
   const handleBulkDelete = async () => {
-    if (!confirm(`${selectedIds.length} Produkte wirklich löschen?`)) return;
+    if (!confirm(`${selectedIds.length} Produkte wirklich löschen? Dies kann nicht rückgängig gemacht werden.`)) return;
     setLoading(true);
     try {
       const res = await fetch("/api/admin/produkte/bulk", {
@@ -31,7 +31,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
       onClearSelection();
       onComplete();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Fehler");
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen der Produkte");
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,7 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
       onClearSelection();
       onComplete();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Fehler");
+      toast.error(err instanceof Error ? err.message : "Fehler beim Aktualisieren der Produkte");
     } finally {
       setLoading(false);
     }

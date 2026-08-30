@@ -71,7 +71,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
       onClearSelection();
       onComplete();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Fehler");
+      toast.error(err instanceof Error ? err.message : "Fehler bei der Statusaktualisierung");
     } finally {
       setLoading(false);
     }

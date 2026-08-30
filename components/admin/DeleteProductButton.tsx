@@ -59,7 +59,8 @@ export default function DeleteProductButton({
         toast.success("Produkt gelöscht!");
         router.refresh();
       } else {
-        toast.error("Fehler beim Löschen des Produkts.");
+        const data = await res.json().catch(() => null);
+        toast.error(data?.error || "Fehler beim Löschen des Produkts.");
       }
     } catch {
       toast.error("Ein Fehler ist aufgetreten.");

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { User, Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2 } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function KontoPage() {
@@ -12,19 +12,45 @@ export default function KontoPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    setName("Thomas Brenner");
-    setEmail("info@hauselio.de");
+    setError("");
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen");
+      setIsLoggedIn(true);
+      setName(data.admin?.name || email.split("@")[0]);
+      setEmail(email);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    setName("Neuer Kunde");
-    setEmail(email);
+    setError("");
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsLoggedIn(true);
+      setName(name || email.split("@")[0] || "Kunde");
+      setEmail(email);
+    } catch {
+      setError("Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isLoggedIn) {
@@ -122,6 +148,11 @@ export default function KontoPage() {
 
         {tab === "login" ? (
           <form onSubmit={handleLogin} className="space-y-4">
+            {error && (
+              <div role="alert" className="p-3 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-sm rounded-xl">
+                {error}
+              </div>
+            )}
             <div>
               <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
               <div className="relative">
@@ -161,9 +192,10 @@ export default function KontoPage() {
 
             <button
               type="submit"
-              className="w-full py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px]"
+              disabled={isLoading}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
             >
-              Anmelden
+              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird angemeldet…</> : "Anmelden"}
             </button>
 
             <p className="text-center text-xs text-[var(--color-text-muted)]">
@@ -174,6 +206,11 @@ export default function KontoPage() {
           </form>
         ) : (
           <form onSubmit={handleRegister} className="space-y-4">
+            {error && (
+              <div role="alert" className="p-3 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-sm rounded-xl">
+                {error}
+              </div>
+            )}
             <div>
               <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Name</label>
               <div className="relative">
@@ -229,9 +266,10 @@ export default function KontoPage() {
 
             <button
               type="submit"
-              className="w-full py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px]"
+              disabled={isLoading}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
             >
-              Konto erstellen
+              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird erstellt…</> : "Konto erstellen"}
             </button>
           </form>
         )}
