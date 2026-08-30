@@ -52,6 +52,7 @@ export default function AboutSection() {
                 alt="HAUSELIO Team"
                 width={500}
                 height={313}
+                sizes="(max-width: 768px) 100vw, 500px"
                 className="w-full h-auto object-cover"
               />
             </div>

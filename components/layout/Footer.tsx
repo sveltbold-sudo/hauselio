@@ -75,6 +75,7 @@ export default function Footer() {
                 alt="HAUSELIO"
                 width={110}
                 height={33}
+                sizes="110px"
                 className="h-8 w-auto brightness-0 invert"
               />
             </Link>

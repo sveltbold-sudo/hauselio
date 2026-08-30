@@ -116,6 +116,7 @@ export default function ProductImageGallery({
                   alt={`${name} ${i + 1}`}
                   width={80}
                   height={80}
+                  sizes="80px"
                   className="w-full h-full object-contain p-1.5"
                 />
                 {isLast && (

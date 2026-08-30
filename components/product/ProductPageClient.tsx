@@ -1,25 +1,28 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ShoppingBag, Share2, Truck, Check, Minus, Plus, CircleCheck, CircleX } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
 import ProductPaymentInfo from "@/components/product/ProductPaymentInfo";
-import ProductTabs from "@/components/product/ProductTabs";
 import WishlistButton from "@/components/product/WishlistButton";
-import SimilarProductsSection from "@/components/product/SimilarProductsSection";
 import CompareButton from "@/components/product/CompareButton";
-import FrequentlyBoughtTogether from "@/components/product/FrequentlyBoughtTogether";
-import RecentlyViewedSection, { trackRecentlyViewed } from "@/components/product/RecentlyViewedSection";
-import ImageLightbox from "@/components/ui/ImageLightbox";
+import { trackRecentlyViewed } from "@/components/product/RecentlyViewedSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import StarRating from "@/components/ui/StarRating";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import { getEstimatedDeliveryDate } from "@/lib/delivery";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
+
+const ProductTabs = dynamic(() => import("@/components/product/ProductTabs"), { ssr: true });
+const FrequentlyBoughtTogether = dynamic(() => import("@/components/product/FrequentlyBoughtTogether"), { ssr: false });
+const RecentlyViewedSection = dynamic(() => import("@/components/product/RecentlyViewedSection"), { ssr: false });
+const SimilarProductsSection = dynamic(() => import("@/components/product/SimilarProductsSection"), { ssr: false });
+const ImageLightbox = dynamic(() => import("@/components/ui/ImageLightbox"), { ssr: false });
 
 interface ProductSpec {
   key: string;
@@ -82,7 +85,8 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       isPromo: product.originalPrice !== null,
       brand: product.brand,
     });
-  }, [product]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id]);
 
   const discount = calcDiscount(product.price, product.originalPrice);
 

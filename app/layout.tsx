@@ -1,17 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import BackToTop from "@/components/layout/BackToTop";
 import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
-import CookieConsent from "@/components/ui/CookieConsent";
 import ClientProviders from "@/components/ui/ClientProviders";
-import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
+
+const Footer = dynamic(() => import("@/components/layout/Footer"), { ssr: true });
+const MobileBottomNav = dynamic(() => import("@/components/layout/MobileBottomNav"), { ssr: false });
+const BackToTop = dynamic(() => import("@/components/layout/BackToTop"), { ssr: false });
+const CookieConsent = dynamic(() => import("@/components/ui/CookieConsent"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",

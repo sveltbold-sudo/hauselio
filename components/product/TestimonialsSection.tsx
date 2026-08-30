@@ -166,6 +166,7 @@ export default async function TestimonialsSection() {
                     alt={testimonial.name}
                     width={40}
                     height={40}
+                    sizes="40px"
                     className="w-10 h-10 rounded-full object-cover"
                   />
                 ) : (

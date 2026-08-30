@@ -15,6 +15,7 @@ export default function NewsletterSection() {
           src="/images/illustrations/newsletter-bg.svg"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover"
         />
       </div>

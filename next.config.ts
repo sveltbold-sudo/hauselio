@@ -50,6 +50,7 @@ const nextConfig: NextConfig = {
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -61,6 +62,10 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "2mb",
     },
+    optimizePackageImports: ["lucide-react"],
+  },
+  compiler: {
+    removeConsole: { exclude: ["error"] },
   },
   redirects: async () => [
     { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
