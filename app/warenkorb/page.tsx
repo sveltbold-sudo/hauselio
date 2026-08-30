@@ -3,20 +3,25 @@ import { useState, useEffect } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
-import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard } from "lucide-react";
+import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard, Tag, Heart } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
 import CartCrossSell from "@/components/product/CartCrossSell";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
+import { useWishlistStore } from "@/lib/wishlist";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity } = useCartStore();
+  const { toggleItem, isInWishlist } = useWishlistStore();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [couponError, setCouponError] = useState("");
   const total = useCartStore(selectTotal);
   const itemCount = useCartStore(selectItemCount);
 
@@ -145,39 +150,69 @@ export default function WarenkorbPage() {
                     </button>
                   </div>
 
-                  {/* Remove */}
-                  {confirmDelete === item.id ? (
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          removeItem(item.id);
-                          setConfirmDelete(null);
-                        }}
-                        aria-label={`${item.name} entfernen bestätigen`}
-                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors"
-                      >
-                        Entfernen
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setConfirmDelete(null)}
-                        aria-label="Abbrechen"
-                        className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
-                      >
-                        Abbruch
-                      </button>
-                    </div>
-                  ) : (
+                  {/* Actions */}
+                  <div className="flex items-center gap-1">
+                    {/* Save for later */}
                     <button
                       type="button"
-                      onClick={() => setConfirmDelete(item.id)}
-                      aria-label={`${item.name} entfernen`}
-                      className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors duration-300"
+                      onClick={() => {
+                        toggleItem({
+                          id: item.id,
+                          name: item.name,
+                          slug: item.slug,
+                          price: item.price,
+                          originalPrice: item.originalPrice,
+                          image: item.image,
+                          brand: item.brand ?? "",
+                          rating: 0,
+                          reviewCount: 0,
+                        });
+                        removeItem(item.id);
+                      }}
+                      aria-label={isInWishlist(item.id) ? "Bereits auf der Wunschliste" : "Für später speichern"}
+                      className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-colors duration-300 ${
+                        isInWishlist(item.id)
+                          ? "text-[var(--color-danger)] bg-[var(--color-danger-light)]"
+                          : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10"
+                      }`}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Heart className={`w-4 h-4 ${isInWishlist(item.id) ? "fill-current" : ""}`} />
                     </button>
-                  )}
+
+                    {/* Remove */}
+                    {confirmDelete === item.id ? (
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            removeItem(item.id);
+                            setConfirmDelete(null);
+                          }}
+                          aria-label={`${item.name} entfernen bestätigen`}
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors"
+                        >
+                          Entfernen
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmDelete(null)}
+                          aria-label="Abbrechen"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
+                        >
+                          Abbruch
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDelete(item.id)}
+                        aria-label={`${item.name} entfernen`}
+                        className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors duration-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </li>
@@ -214,6 +249,59 @@ export default function WarenkorbPage() {
                   <span className="font-semibold text-[var(--color-success)]">-{formatPrice(totalSavings)}</span>
                 </div>
               )}
+
+              {/* Coupon code */}
+              <div className="pt-2">
+                {couponApplied ? (
+                  <div className="flex items-center justify-between bg-[var(--color-success)]/10 rounded-xl px-3 py-2.5">
+                    <div className="flex items-center gap-2">
+                      <Tag className="w-4 h-4 text-[var(--color-success)]" />
+                      <span className="text-sm font-semibold text-[var(--color-success)]">Gutschein angewendet!</span>
+                    </div>
+                    <button
+                      onClick={() => { setCouponApplied(false); setCouponCode(""); setCouponError(""); }}
+                      className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                    >
+                      Entfernen
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex gap-2">
+                      <div className="flex-1 relative">
+                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                        <input
+                          type="text"
+                          value={couponCode}
+                          onChange={(e) => { setCouponCode(e.target.value.toUpperCase()); setCouponError(""); }}
+                          placeholder="Gutscheincode"
+                          className="w-full pl-9 pr-3 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors"
+                        />
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (couponCode.trim()) {
+                            if (couponCode.trim().toUpperCase() === "HAUSELIO10") {
+                              setCouponApplied(true);
+                              setCouponError("");
+                            } else {
+                              setCouponError("Ungültiger Gutscheincode");
+                            }
+                          }
+                        }}
+                        disabled={!couponCode.trim()}
+                        className="px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        Anwenden
+                      </button>
+                    </div>
+                    {couponError && (
+                      <p className="text-xs text-[var(--color-danger)] mt-1.5" role="alert">{couponError}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">Versand</span>
                 <span className="font-semibold">

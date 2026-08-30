@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { X, BarChart3, Plus, ArrowRight } from "lucide-react";
+import { BarChart3, X, Trash2 } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
+import { formatPrice } from "@/lib/utils";
 
-interface ComparisonProduct {
+interface CompareItem {
   id: string;
   name: string;
   slug: string;
@@ -15,107 +16,115 @@ interface ComparisonProduct {
   brand: string;
   rating: number;
   reviewCount: number;
-  specs: { key: string; value: string }[];
+  specs?: { key: string; value: string }[];
 }
 
 export default function ComparisonBar() {
-  const [products, setProducts] = useState<ComparisonProduct[]>([]);
+  const [items, setItems] = useState<CompareItem[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-     
     setMounted(true);
-    const stored = localStorage.getItem("hauselio-comparison");
-    if (stored) {
-      try {
-        const parsed: unknown = JSON.parse(stored);
-        if (Array.isArray(parsed)) setProducts(parsed as ComparisonProduct[]);
-      } catch {}
-    }
-
-    const handleUpdate = () => {
-      const updated = localStorage.getItem("hauselio-comparison");
-      if (updated) {
+    const loadItems = () => {
+      const stored = localStorage.getItem("hauselio-comparison");
+      if (stored) {
         try {
-          const parsed: unknown = JSON.parse(updated);
-          if (Array.isArray(parsed)) setProducts(parsed as ComparisonProduct[]);
+          const parsed: unknown = JSON.parse(stored);
+          if (Array.isArray(parsed)) setItems(parsed);
         } catch {}
       } else {
-        setProducts([]);
+        setItems([]);
       }
     };
 
-    window.addEventListener("storage", handleUpdate);
-    window.addEventListener("comparison-updated", handleUpdate);
+    loadItems();
+    window.addEventListener("storage", loadItems);
+    window.addEventListener("comparison-updated", loadItems);
     return () => {
-      window.removeEventListener("storage", handleUpdate);
-      window.removeEventListener("comparison-updated", handleUpdate);
+      window.removeEventListener("storage", loadItems);
+      window.removeEventListener("comparison-updated", loadItems);
     };
   }, []);
 
-  const removeProduct = (id: string) => {
-    const updated = products.filter((p) => p.id !== id);
-    setProducts(updated);
+  const removeItem = (id: string) => {
+    const updated = items.filter((item) => item.id !== id);
     localStorage.setItem("hauselio-comparison", JSON.stringify(updated));
+    setItems(updated);
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
   const clearAll = () => {
-    setProducts([]);
     localStorage.removeItem("hauselio-comparison");
+    setItems([]);
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
-  if (!mounted || products.length === 0) return null;
+  if (!mounted || items.length === 0) return null;
 
   return (
-    <div className="fixed bottom-[72px] lg:bottom-0 left-0 right-0 z-[60] bg-white border-t border-[var(--color-border-light)] shadow-xl animate-slide-up" role="complementary" aria-label="Produktvergleich">
+    <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300">
       <div className="container-hauselio py-3">
-        <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-primary)]">
-            <BarChart3 className="w-4 h-4 text-[var(--color-primary)]" />
-            <span>Vergleichen ({products.length})</span>
+        <div className="flex items-center gap-4">
+          {/* Label */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <BarChart3 className="w-5 h-5 text-[var(--color-primary)]" />
+            <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+              Vergleich ({items.length}/4)
+            </span>
           </div>
 
-          <div className="flex-1 flex items-center gap-3 overflow-x-auto scrollbar-hide">
-            {products.map((product) => (
-              <div key={product.id} className="flex items-center gap-2 bg-[var(--color-bg-secondary)] rounded-lg px-3 py-1.5 shrink-0">
-                <div className="w-8 h-8 rounded overflow-hidden bg-white">
-                  <ProductImage src={product.image} alt={product.name} size="sm" />
+          {/* Items */}
+          <div className="flex-1 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="relative flex items-center gap-2 bg-[var(--color-bg-secondary)] rounded-xl px-3 py-2 shrink-0"
+              >
+                <div className="w-10 h-10 bg-white rounded-lg overflow-hidden flex-shrink-0">
+                  <ProductImage src={item.image} alt={item.name} size="sm" />
                 </div>
-                <span className="text-xs font-medium text-[var(--color-text-primary)] max-w-[120px] truncate">{product.name}</span>
+                <div className="min-w-0 max-w-[120px]">
+                  <p className="text-xs font-semibold text-[var(--color-text-primary)] truncate">{item.name}</p>
+                  <p className="text-xs font-bold text-[var(--color-primary)]">{formatPrice(item.price)}</p>
+                </div>
                 <button
-                  onClick={() => removeProduct(product.id)}
-                  className="flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors min-w-[44px] min-h-[44px] p-2.5"
-                  aria-label={`${product.name} entfernen`}
+                  onClick={() => removeItem(item.id)}
+                  aria-label={`${item.name} vom Vergleich entfernen`}
+                  className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3.5 h-3.5" />
                 </button>
               </div>
             ))}
-            {products.length < 4 && (
-              <Link
-                href="/shop"
-                className="flex items-center gap-1 text-xs text-[var(--color-primary)] hover:underline whitespace-nowrap min-h-[44px] py-2"
+
+            {/* Empty slots */}
+            {Array.from({ length: Math.max(0, 2 - items.length) }).map((_, i) => (
+              <div
+                key={`empty-${i}`}
+                className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0"
               >
-                <Plus className="w-3 h-3" />
-                Hinzufügen
-              </Link>
-            )}
+                <span className="text-xs text-[var(--color-text-muted)]">Produkt hinzufügen</span>
+              </div>
+            ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Actions */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={clearAll}
-              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors min-h-[44px] py-2"
+              className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors"
+              aria-label="Vergleich leeren"
             >
-              Leeren
+              <Trash2 className="w-4 h-4" />
             </button>
-            {products.length >= 2 && (
+            {items.length >= 2 && (
               <Link
-                href={`/vergleich?ids=${products.map((p) => p.id).join(",")}`}
-                className="flex items-center gap-1 px-4 py-3 min-h-[44px] bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                href={`/vergleich?ids=${items.map((i) => i.id).join(",")}`}
+                className="px-4 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors whitespace-nowrap"
               >
                 Vergleichen
-                <ArrowRight className="w-3 h-3" />
               </Link>
             )}
           </div>

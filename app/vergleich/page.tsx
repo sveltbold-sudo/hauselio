@@ -2,13 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { BarChart3, X, Star, Trash2 } from "lucide-react";
-import Breadcrumb from "@/components/ui/Breadcrumb";
+import { BarChart3, ShoppingBag, X, ArrowLeft } from "lucide-react";
+import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
-import AddToCartButton from "@/components/product/AddToCartButton";
-import { formatPrice } from "@/lib/utils";
+import StarRating from "@/components/ui/StarRating";
+import { formatPrice, calcDiscount } from "@/lib/utils";
+import { useCartStore } from "@/lib/store";
+import { useToast } from "@/components/ui/Toast";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
-interface ComparisonProduct {
+interface CompareItem {
   id: string;
   name: string;
   slug: string;
@@ -22,196 +25,169 @@ interface ComparisonProduct {
 }
 
 export default function VergleichPage() {
-  const [products, setProducts] = useState<ComparisonProduct[]>([]);
+  const [items, setItems] = useState<CompareItem[]>([]);
   const [mounted, setMounted] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+  const toast = useToast();
 
   useEffect(() => {
-     
     setMounted(true);
     const stored = localStorage.getItem("hauselio-comparison");
     if (stored) {
       try {
-        setProducts(JSON.parse(stored));
-      } catch {
-        setProducts([]);
-      }
+        const parsed: unknown = JSON.parse(stored);
+        if (Array.isArray(parsed)) setItems(parsed);
+      } catch {}
     }
   }, []);
 
-  const removeProduct = (id: string) => {
-    const updated = products.filter((p) => p.id !== id);
-    setProducts(updated);
+  const removeItem = (id: string) => {
+    const updated = items.filter((item) => item.id !== id);
     localStorage.setItem("hauselio-comparison", JSON.stringify(updated));
-  };
-
-  const clearAll = () => {
-    setProducts([]);
-    localStorage.removeItem("hauselio-comparison");
+    setItems(updated);
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hauselio section-py">
-        <h1 className="sr-only">Produktvergleich</h1>
-        <div className="animate-pulse space-y-6">
-          <div className="h-8 bg-[var(--color-bg-secondary)] rounded w-1/3" />
-          <div className="h-64 bg-[var(--color-bg-secondary)] rounded-2xl" />
+      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+        <h1 className="heading-2 mb-4">Produktvergleich</h1>
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
+          <div className="h-40 bg-[var(--color-bg-secondary)] rounded-xl" />
         </div>
       </main>
     );
   }
 
-  return (
-    <main id="main-content" className="container-hauselio section-py">
-      <Breadcrumb items={[{ label: "Produktvergleich" }]} />
+  if (items.length === 0) {
+    return (
+      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+        <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
+        <h1 className="heading-2 mb-4">Keine Produkte zum Vergleichen</h1>
+        <p className="body-large mb-10">
+          Fügen Sie Produkte hinzu, um sie miteinander zu vergleichen.
+        </p>
+        <Link href="/shop">
+          <Button size="lg">
+            <ShoppingBag className="w-5 h-5 mr-2" />
+            Produkte entdecken
+          </Button>
+        </Link>
+      </main>
+    );
+  }
 
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <p className="caption text-[var(--color-primary)] mb-3">Produktvergleich</p>
-          <h1 className="heading-1 flex items-center gap-3">
-            <BarChart3 className="w-8 h-8 text-[var(--color-primary)]" />
-            Produktvergleich
-          </h1>
-          <p className="text-[var(--color-text-muted)] mt-2">
-            {products.length > 0
-              ? `${products.length} Produkte vergleichen`
-              : "Vergleichen Sie Produkte Seite an Seite"}
-          </p>
-        </div>
-        {products.length > 0 && (
-          <button
-            onClick={() => { if (!window.confirm("Vergleich wirklich leeren?")) return; clearAll(); }}
-            className="flex items-center gap-1.5 text-sm min-h-[44px] px-3 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
-          >
-            <Trash2 className="w-4 h-4" />
-            Alle entfernen
-          </button>
-        )}
+  // Collect all unique spec keys
+  const allSpecKeys = Array.from(
+    new Set(items.flatMap((item) => item.specs?.map((s) => s.key) ?? []))
+  );
+
+  return (
+    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+      <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Vergleich" }]} />
+
+      <div className="mb-6 sm:mb-10">
+        <p className="caption text-[var(--color-primary)] mb-3">Vergleich</p>
+        <h1 className="heading-1">Produktvergleich</h1>
+        <p className="text-sm text-[var(--color-text-muted)] mt-1">
+          {items.length} Produkte vergleichen
+        </p>
       </div>
 
-      {products.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-8 text-center">
-          <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
-            <BarChart3 className="w-10 h-10 text-[var(--color-text-muted)]" />
-          </div>
-          <h2 className="heading-3 mb-2">
-            Produkte vergleichen
-          </h2>
-          <p className="text-[var(--color-text-muted)] mb-6 max-w-md mx-auto">
-            Fügen Sie Produkte hinzu, um Spezifikationen, Preise und Bewertungen direkt zu vergleichen.
-            Klicken Sie auf &quot;Vergleichen&quot; auf einer Produktseite, um Produkte hinzuzufügen.
-          </p>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
-          >
-            Produkte durchstöbern
-          </Link>
-        </div>
-      ) : (
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-x-auto">
-          <table className="w-full min-w-[600px] border-collapse">
-            <thead>
-              <tr>
-                <th className="p-6 border-b border-[var(--color-border-light)] text-left" scope="col">
-                  <span className="sr-only">Produkt</span>
-                </th>
-                {products.map((product) => (
-                  <th key={product.id} className="relative p-6 border-b border-[var(--color-border-light)] text-center" scope="col">
-                    <button
-                      onClick={() => removeProduct(product.id)}
-                      className="absolute top-3 right-3 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
-                      aria-label={`${product.name} aus Vergleich entfernen`}
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                    <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden mb-4">
-                      <ProductImage src={product.image} alt={product.name} size="lg" />
-                    </div>
-                    <Link href={`/produkt/${product.slug}`} className="block">
-                      <h3 className="font-semibold text-sm text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors line-clamp-2">
-                        {product.name}
-                      </h3>
-                    </Link>
-                    <p className="text-xs text-[var(--color-text-muted)] mt-1">{product.brand}</p>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {/* Price */}
-              <tr>
-                <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Preis</th>
-                {products.map((product) => (
-                  <td key={`price-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
-                    <p className="text-lg font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</p>
-                    {product.originalPrice && (
-                      <p className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</p>
-                    )}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Rating */}
-              <tr>
-                <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Bewertung</th>
-                {products.map((product) => (
-                  <td key={`rating-${product.id}`} className="p-6 border-b border-[var(--color-border-light)] text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Star className="w-4 h-4 text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" />
-                      <span className="font-semibold text-sm">{product.rating}</span>
-                      <span className="text-xs text-[var(--color-text-muted)]">({product.reviewCount})</span>
-                    </div>
-                  </td>
-                ))}
-              </tr>
-
-              {/* Specs if available */}
-              {products.some((p) => p.specs && p.specs.length > 0) && (
-                <tr>
-                  <th scope="row" className="p-6 border-b border-[var(--color-border-light)] text-left text-xs text-[var(--color-text-muted)] font-medium">Spezifikationen</th>
-                  {products.map((product) => (
-                    <td key={`specs-${product.id}`} className="p-6 border-b border-[var(--color-border-light)]">
-                      {product.specs && product.specs.length > 0 ? (
-                        <dl className="space-y-1.5">
-                          {product.specs.slice(0, 6).map((spec) => (
-                            <div key={spec.key} className="flex justify-between text-xs">
-                              <dt className="text-[var(--color-text-muted)]">{spec.key}</dt>
-                              <dd className="font-medium text-[var(--color-text-primary)]">{spec.value}</dd>
-                            </div>
-                          ))}
-                        </dl>
-                      ) : (
-                        <p className="text-xs text-[var(--color-text-muted)] text-center">—</p>
+      {/* Comparison table */}
+      <div className="overflow-x-auto -mx-5 px-5 pb-4">
+        <table className="w-full min-w-[600px] border-collapse">
+          {/* Product headers */}
+          <thead>
+            <tr>
+              <th className="w-[180px] p-3 text-left align-top"></th>
+              {items.map((item) => {
+                const discount = calcDiscount(item.price, item.originalPrice ?? null);
+                return (
+                  <th key={item.id} className="p-3 text-center align-top">
+                    <div className="relative bg-white rounded-2xl border border-[var(--color-border-light)] p-4">
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        aria-label={`${item.name} vom Vergleich entfernen`}
+                        className="absolute top-2 right-2 p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                      <Link href={`/produkt/${item.slug}`} className="block">
+                        <div className="w-24 h-24 mx-auto bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden mb-3">
+                          <ProductImage src={item.image} alt={item.name} size="md" />
+                        </div>
+                        {item.brand && (
+                          <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
+                            {item.brand}
+                          </p>
+                        )}
+                        <p className="text-sm font-semibold text-[var(--color-text-primary)] line-clamp-2 mb-2">
+                          {item.name}
+                        </p>
+                      </Link>
+                      <div className="flex items-center justify-center gap-1 mb-2">
+                        <StarRating rating={item.rating} size="sm" showCount count={item.reviewCount} />
+                      </div>
+                      <div className="flex items-baseline justify-center gap-2">
+                        <span className="text-lg font-extrabold text-[var(--color-text-primary)]">{formatPrice(item.price)}</span>
+                        {item.originalPrice && item.originalPrice > item.price && (
+                          <span className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(item.originalPrice)}</span>
+                        )}
+                      </div>
+                      {discount > 0 && (
+                        <span className="inline-block mt-1 px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-md">
+                          -{discount}%
+                        </span>
                       )}
-                    </td>
-                  ))}
-                </tr>
-              )}
+                      <Button
+                        onClick={() => {
+                          addItem({ id: item.id, name: item.name, slug: item.slug, price: item.price, image: item.image });
+                          toast.success("Zum Warenkorb hinzugefügt!");
+                        }}
+                        className="w-full mt-3"
+                        size="sm"
+                      >
+                        <ShoppingBag className="w-4 h-4 mr-1.5" />
+                        In den Warenkorb
+                      </Button>
+                    </div>
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
 
-              {/* Add to cart */}
-              <tr>
-                <th scope="row" className="p-6 text-left text-xs text-[var(--color-text-muted)] font-medium">
-                  <span className="sr-only">In den Warenkorb</span>
-                </th>
-                {products.map((product) => (
-                  <td key={`cart-${product.id}`} className="p-6 text-center">
-                    <AddToCartButton
-                      product={{
-                        id: product.id,
-                        name: product.name,
-                        slug: product.slug,
-                        price: product.price,
-                        image: product.image,
-                      }}
-                    />
-                  </td>
-                ))}
-              </tr>
+          {/* Spec rows */}
+          {allSpecKeys.length > 0 && (
+            <tbody>
+              {allSpecKeys.map((key, i) => (
+                <tr key={key} className={i % 2 === 0 ? "bg-[var(--color-bg-secondary)]" : ""}>
+                  <td className="p-3 text-sm font-semibold text-[var(--color-text-primary)]">{key}</td>
+                  {items.map((item) => {
+                    const spec = item.specs?.find((s) => s.key === key);
+                    return (
+                      <td key={item.id} className="p-3 text-sm text-center text-[var(--color-text-secondary)]">
+                        {spec?.value || "—"}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
             </tbody>
-          </table>
-        </div>
-      )}
+          )}
+        </table>
+      </div>
+
+      <Link
+        href="/shop"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mt-8"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Weiter einkaufen
+      </Link>
     </main>
   );
 }

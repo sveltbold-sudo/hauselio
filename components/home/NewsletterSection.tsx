@@ -23,11 +23,25 @@ export default function NewsletterSection() {
       <div className="relative container-hauselio text-center">
         <p className="caption text-white/50 mb-3">Newsletter</p>
         <h2 className="heading-2 text-white mb-2">
-          Bleiben Sie auf dem Laufenden
+          10% Rabatt auf Ihre erste Bestellung
         </h2>
-        <p className="text-sm text-white/60 mb-6 max-w-md mx-auto">
-          10% Rabatt auf Ihre erste Bestellung. Exklusive Angebote und Neuigkeiten direkt in Ihr Postfach.
+        <p className="text-sm text-white/60 mb-5 max-w-md mx-auto">
+          Melden Sie sich an und erhalten Sie exklusive Vorteile direkt in Ihr Postfach.
         </p>
+
+        {/* Value bullets */}
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 max-w-lg mx-auto">
+          {[
+            "Exklusive Angebote",
+            "Neue Produktlaunches",
+            "Ratgeber & Tipps",
+          ].map((item) => (
+            <div key={item} className="flex items-center gap-1.5 text-white/80 text-xs font-medium">
+              <Check className="w-3.5 h-3.5 text-[var(--color-success)]" />
+              {item}
+            </div>
+          ))}
+        </div>
 
         {isSubscribed ? (
           <div className="flex items-center justify-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-xl max-w-md mx-auto">
@@ -66,6 +80,9 @@ export default function NewsletterSection() {
 
         <p className="text-xs text-white/55 mt-3">
           Kein Spam. Abmeldung jederzeit möglich.
+        </p>
+        <p className="text-xs text-white/40 mt-1">
+          Über 2.500+ zufriedene Abonnenten
         </p>
       </div>
     </section>
