@@ -149,7 +149,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       }}
     >
       {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative h-[60vh] min-h-[380px] max-h-[500px]" aria-live="off">
+      <div className="lg:hidden relative h-[60vh] min-h-[380px] max-h-[500px]" aria-live="polite">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -277,7 +277,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       </div>
 
       {/* ── DESKTOP: Split layout ── */}
-      <div className="hidden lg:block relative bg-white" aria-live="off">
+      <div className="hidden lg:block relative bg-white" aria-live="polite">
         <div className="absolute inset-0 z-0">
           <Image
             src={slide.bgImage || "/images/hero-kitchen.jpg"}

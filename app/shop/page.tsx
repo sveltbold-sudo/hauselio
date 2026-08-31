@@ -300,7 +300,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
-              href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {categories.find((c) => c.slug === category)?.name || category}
@@ -309,7 +309,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {brand && (
             <Link
-              href={category ? `/shop?category=${category}${q ? `&q=${encodeURIComponent(q)}` : ""}` : q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {brand}
@@ -318,7 +318,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {promo === "true" && (
             <Link
-              href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); return p.toString() || "" })()}`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
               Angebote
@@ -327,7 +327,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {q && (
             <Link
-              href={category ? `/shop?category=${category}` : "/shop"}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); return p.toString() || "" })()}`}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
               Suche: {q}

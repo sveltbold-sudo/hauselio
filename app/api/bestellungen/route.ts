@@ -81,12 +81,12 @@ export async function POST(request: NextRequest) {
 
     // Apply coupon discount
     if (couponLabel) {
-      const validCoupons: Record<string, { discountPercent: number }> = {
-        HAUSELIO10: { discountPercent: 10 },
+      const couponDiscountMap: Record<string, number> = {
+        HAUSELIO10: 10,
       };
-      const couponData = validCoupons[(couponCode || "").toUpperCase()];
-      if (couponData) {
-        couponDiscount = Math.round(subtotal * (couponData.discountPercent / 100) * 100) / 100;
+      const discountPercent = couponDiscountMap[(couponCode || "").toUpperCase()] || 0;
+      if (discountPercent) {
+        couponDiscount = Math.round(subtotal * (discountPercent / 100) * 100) / 100;
       }
     }
 
