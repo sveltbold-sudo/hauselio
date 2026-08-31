@@ -74,7 +74,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const TRANSITION_MS = 700;
+  const TRANSITION_MS = 400;
 
   useEffect(() => {
     return () => {
@@ -149,7 +149,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       }}
     >
       {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative h-[85vh] min-h-[500px] max-h-[700px]" aria-live="off">
+      <div className="lg:hidden relative h-[60vh] min-h-[380px] max-h-[500px]" aria-live="off">
         {slides.map((s, i) => (
           <div
             key={s.id}

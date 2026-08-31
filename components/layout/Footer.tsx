@@ -9,14 +9,6 @@ import NewsletterForm from "@/components/layout/NewsletterForm";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
 
-const COOKIE_EVENT = "hauselio:open-cookie-settings";
-
-export function openCookieSettings() {
-  if (typeof window !== "undefined") {
-    window.dispatchEvent(new Event(COOKIE_EVENT));
-  }
-}
-
 const service = [
   { name: "Kontakt", href: "/kontakt" },
   { name: "Über uns", href: "/ueber-uns" },
@@ -192,12 +184,7 @@ export default function Footer() {
                   </li>
                 ))}
                 <li>
-                  <button
-                    onClick={openCookieSettings}
-                    className={footerLinkClass}
-                  >
-                    Cookie-Einstellungen
-                  </button>
+                  <CookieSettingsButton />
                 </li>
               </ul>
             </nav>

@@ -6,9 +6,10 @@ import { escapeHtml } from "@/lib/html";
 
 import { SITE_URL } from "@/lib/constants";
 
-// Deduplication guard for newsletter campaigns
-// Note: Per-invocation in serverless — acceptable since campaigns are admin-triggered and infrequent
 const activeCampaigns = new Map<string, number>();
+
+const SITE = "https://www.hausaura.de";
+const LOGO_URL = `${SITE}/logos/logosecondaire.png`;
 
 function stripHtml(html: string): string {
   return html
@@ -43,62 +44,91 @@ interface OrderEmailData {
 }
 
 function baseTemplate(content: string): string {
-  return `
-    <!DOCTYPE html>
-    <html lang="de">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background-color:#FAFAF8;">
-      <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAFAF8;padding:40px 20px;">
-        <tr>
-          <td align="center">
-            <table width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-              <tr>
-                <td style="background-color:#0A2540;padding:32px 40px;text-align:center;">
-                  <h1 style="color:#FFFFFF;font-size:24px;font-weight:800;margin:0;">HAUSAURA</h1>
-                  <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:8px 0 0 0;">Premium Haushaltsgeräte</p>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:40px;">
-                  ${content}
-                </td>
-              </tr>
-              <tr>
-                <td style="background-color:#F5F5F5;padding:24px 40px;text-align:center;border-top:1px solid #E8E8E8;">
-                  <p style="color:#6B7280;font-size:12px;margin:0;">
-                    HAUSAURA GmbH | Kastanienallee 42, 10435 Berlin | info@hausaura.de | +49 (0)30 555 789 01
-                  </p>
-                  <p style="color:#9CA3AF;font-size:11px;margin:8px 0 0 0;">
-                    <a href="${SITE_URL}/impressum" style="color:#6B7280;">Impressum</a> |
-                    <a href="${SITE_URL}/datenschutz" style="color:#6B7280;">Datenschutz</a>
-                  </p>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </body>
-    </html>
-  `;
+  return `<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body style="margin:0;padding:0;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#F0F2F5;-webkit-font-smoothing:antialiased;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F0F2F5;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+          <!-- Logo -->
+          <tr>
+            <td align="center" style="padding:0 0 24px 0;">
+              <a href="${SITE}" style="text-decoration:none;">
+                <img src="${LOGO_URL}" alt="HAUSAURA" width="180" style="display:block;height:auto;border:0;" />
+              </a>
+            </td>
+          </tr>
+
+          <!-- Main Card -->
+          <tr>
+            <td style="background-color:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+              ${content}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 0;text-align:center;">
+              <p style="color:#9CA3AF;font-size:11px;margin:0 0 4px 0;">
+                &copy; ${new Date().getFullYear()} HAUSAURA GmbH &middot; Kastanienallee 42, 10435 Berlin
+              </p>
+              <p style="color:#9CA3AF;font-size:11px;margin:0;">
+                <a href="${SITE}/impressum" style="color:#9CA3AF;text-decoration:underline;">Impressum</a>
+                &nbsp;&middot;&nbsp;
+                <a href="${SITE}/datenschutz" style="color:#9CA3AF;text-decoration:underline;">Datenschutz</a>
+                &nbsp;&middot;&nbsp;
+                <a href="mailto:info@hausaura.de" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+function headerBanner(title: string, subtitle: string, bgColor: string = "#0A2540"): string {
+  return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${bgColor};">
+    <tr>
+      <td style="padding:36px 40px 32px 40px;">
+        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${title}</h1>
+        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${subtitle}</p>
+      </td>
+    </tr>
+  </table>`;
+}
+
+function badge(text: string, bgColor: string, textColor: string): string {
+  return `<span style="display:inline-block;background-color:${bgColor};color:${textColor};font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;">${text}</span>`;
+}
+
+function divider(): string {
+  return `<div style="border-top:1px solid #E8ECF1;margin:0;"></div>`;
 }
 
 function orderItemsTable(items: OrderEmailData["items"]): string {
   return items
     .map(
       (item) => `
-      <tr>
-        <td style="padding:12px 0;border-bottom:1px solid #E8E8E8;font-size:14px;color:#1A1A1A;">
-          ${escapeHtml(item.name)} × ${item.quantity}
-        </td>
-        <td style="padding:12px 0;border-bottom:1px solid #E8E8E8;font-size:14px;color:#1A1A1A;text-align:right;">
-          ${formatPrice(item.price * item.quantity)}
-        </td>
-      </tr>
-    `
+    <tr>
+      <td style="padding:14px 0;border-bottom:1px solid #F0F2F5;font-size:14px;color:#1A1A1A;">
+        ${escapeHtml(item.name)}
+        <span style="color:#9CA3AF;font-size:13px;">&nbsp;&times;&nbsp;${item.quantity}</span>
+      </td>
+      <td style="padding:14px 0;border-bottom:1px solid #F0F2F5;font-size:14px;color:#1A1A1A;text-align:right;font-weight:600;">
+        ${formatPrice(item.price * item.quantity)}
+      </td>
+    </tr>`
     )
     .join("");
 }
@@ -112,6 +142,9 @@ async function getBankDetails() {
   };
 }
 
+// ─────────────────────────────────────────────
+// 1. ORDER CONFIRMATION
+// ─────────────────────────────────────────────
 export async function sendOrderConfirmation(data: OrderEmailData) {
   const { orderNumber, customerEmail, customerName, items, total, shippingCost } = data;
   const bank = await getBankDetails();
@@ -119,169 +152,277 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(orderNumber);
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;">Bestellbestätigung</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Vielen Dank für Ihre Bestellung, ${safeName}!
-    </p>
+    ${headerBanner("Bestellbest\u00e4tigung", `Bestellung ${safeOrderNumber} erfolgreich eingegangen`)}
 
-    <div style="background-color:#F5F5F5;border-radius:12px;padding:20px;margin-bottom:24px;">
-      <p style="color:#6B7280;font-size:12px;margin:0 0 4px 0;">Bestellnummer</p>
-      <p style="color:#0A2540;font-size:18px;font-weight:800;margin:0;">${safeOrderNumber}</p>
-    </div>
+    <div style="padding:36px 40px;">
 
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
-      <tr style="border-bottom:2px solid #E8E8E8;">
-        <td style="padding:8px 0;font-size:12px;color:#6B7280;font-weight:600;">ARTIKEL</td>
-        <td style="padding:8px 0;font-size:12px;color:#6B7280;font-weight:600;text-align:right;">PREIS</td>
-      </tr>
-      ${orderItemsTable(items)}
-    </table>
-
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td style="padding:4px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
-        <td style="padding:4px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(total)}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 0;font-size:14px;color:#6B7280;">Versand</td>
-        <td style="padding:4px 0;font-size:14px;color:${shippingCost === 0 ? "#16A34A" : "#1A1A1A"};text-align:right;">
-          ${shippingCost === 0 ? "Kostenlos" : formatPrice(shippingCost)}
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:12px 0 4px 0;font-size:16px;font-weight:700;color:#0A2540;border-top:2px solid #E8E8E8;">Gesamt</td>
-        <td style="padding:12px 0 4px 0;font-size:16px;font-weight:700;color:#0A2540;text-align:right;border-top:2px solid #E8E8E8;">${formatPrice(total + shippingCost)}</td>
-      </tr>
-    </table>
-
-    <div style="background-color:#FFF7ED;border:1px solid #FFEDD5;border-radius:12px;padding:20px;margin-top:24px;">
-      <h3 style="color:#0A2540;font-size:14px;font-weight:700;margin:0 0 8px 0;">Zahlungsinformationen</h3>
-      <p style="color:#6B7280;font-size:13px;margin:0 0 12px 0;">
-        Bitte überweisen Sie den Gesamtbetrag innerhalb von 5 Werktagen:
+      <!-- Greeting -->
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,<br/>
+        vielen Dank f\u00fcr Ihre Bestellung bei HAUSAURA! Wir haben Ihre Bestellung erhalten und bearbeiten diese jetzt.
       </p>
-      <table width="100%" cellpadding="0" cellspacing="0">
+
+      <!-- Order Number Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
         <tr>
-          <td style="padding:2px 0;font-size:13px;color:#6B7280;">Empfänger</td>
-          <td style="padding:2px 0;font-size:13px;color:#1A1A1A;text-align:right;font-weight:600;">${escapeHtml(bank.accountName)}</td>
-        </tr>
-        <tr>
-          <td style="padding:2px 0;font-size:13px;color:#6B7280;">IBAN</td>
-          <td style="padding:2px 0;font-size:13px;color:#1A1A1A;text-align:right;font-weight:600;">${escapeHtml(bank.iban)}</td>
-        </tr>
-        <tr>
-          <td style="padding:2px 0;font-size:13px;color:#6B7280;">BIC</td>
-          <td style="padding:2px 0;font-size:13px;color:#1A1A1A;text-align:right;font-weight:600;">${escapeHtml(bank.bic)}</td>
-        </tr>
-        <tr>
-          <td style="padding:2px 0;font-size:13px;color:#6B7280;">Verwendungszweck</td>
-          <td style="padding:2px 0;font-size:13px;color:#F5A623;text-align:right;font-weight:700;">${safeOrderNumber}</td>
+          <td style="background-color:#F0F4F8;border-radius:12px;padding:20px 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="color:#6B7280;font-size:11px;margin:0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Bestellnummer</p>
+                  <p style="color:#0A2540;font-size:20px;font-weight:800;margin:6px 0 0 0;letter-spacing:-0.5px;">${safeOrderNumber}</p>
+                </td>
+                <td align="right" valign="top">
+                  ${badge("Offen", "#FEF3C7", "#92400E")}
+                </td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </table>
+
+      ${divider()}
+
+      <!-- Items -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Bestellte Artikel</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          ${orderItemsTable(items)}
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(total)}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand</td>
+          <td style="padding:6px 0;font-size:14px;color:${shippingCost === 0 ? "#059669" : "#1A1A1A"};text-align:right;font-weight:${shippingCost === 0 ? "600" : "400"};">
+            ${shippingCost === 0 ? "Kostenlos" : formatPrice(shippingCost)}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;border-top:2px solid #0A2540;">Gesamtbetrag</td>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;text-align:right;border-top:2px solid #0A2540;">${formatPrice(total + shippingCost)}</td>
+        </tr>
+      </table>
+
+      ${divider()}
+
+      <!-- Payment Info -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Zahlungsinformationen</p>
+        <div style="background-color:#FFF8F0;border:1px solid #FFE4CC;border-radius:12px;padding:20px;">
+          <p style="color:#4B5563;font-size:13px;margin:0 0 12px 0;line-height:1.5;">
+            Bitte \u00fcberweisen Sie den Gesamtbetrag innerhalb von <strong>5 Werktagen</strong> auf folgendes Konto:
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">Empf\u00e4nger</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;">${escapeHtml(bank.accountName)}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">IBAN</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;font-family:monospace;">${escapeHtml(bank.iban)}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">BIC</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;font-family:monospace;">${escapeHtml(bank.bic)}</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0 4px 0;font-size:13px;color:#6B7280;">Verwendungszweck</td>
+              <td style="padding:8px 0 4px 0;font-size:14px;color:#D14A0C;text-align:right;font-weight:800;font-family:monospace;">${safeOrderNumber}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;padding:8px 0 0 0;">
+        <a href="${SITE}/bestellung/${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Bestellung ansehen
+        </a>
+      </div>
+
     </div>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: customerEmail,
-    subject: `Bestellbestätigung ${safeOrderNumber} – HAUSAURA`,
+    subject: `Bestellbest\u00e4tigung ${safeOrderNumber} \u2013 HAUSAURA`,
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 2. PAYMENT CONFIRMED
+// ─────────────────────────────────────────────
 export async function sendPaymentConfirmed(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
+  const safeName = escapeHtml(data.customerName);
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;">Zahlung bestätigt</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Ihre Zahlung für Bestellung ${safeOrderNumber} wurde erhalten.
-    </p>
-    <div style="background-color:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:20px;margin-bottom:24px;">
-      <p style="color:#16A34A;font-size:14px;font-weight:600;margin:0;">
-        Wir bereiten Ihre Bestellung nun zur Versendung vor.
+    ${headerBanner("Zahlung best\u00e4tigt", `Bestellung ${safeOrderNumber}`, "#059669")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
       </p>
+
+      <!-- Success Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:24px;text-align:center;">
+            <p style="font-size:32px;margin:0 0 8px 0;">&#x2705;</p>
+            <p style="color:#059669;font-size:16px;font-weight:700;margin:0 0 4px 0;">Zahlung eingegangen</p>
+            <p style="color:#6B7280;font-size:13px;margin:0;">Bestellung ${safeOrderNumber} wurde erfolgreich bezahlt.</p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Wir bereiten Ihre Bestellung nun zur Versendung vor. Sie erhalten eine weitere E-Mail, sobald Ihre Bestellung auf dem Weg zu Ihnen ist.
+      </p>
+
+      <div style="text-align:center;">
+        <a href="${SITE}/bestellung/${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Bestellung verfolgen
+        </a>
+      </div>
+
     </div>
-    <p style="color:#6B7280;font-size:14px;margin:0;">
-      Sie erhalten eine weitere E-Mail, sobald Ihre Bestellung versendet wurde.
-    </p>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Zahlung bestätigt ${safeOrderNumber} – HAUSAURA`,
+    subject: `Zahlung best\u00e4tigt ${safeOrderNumber} \u2013 HAUSAURA`,
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 3. SHIPPED CONFIRMATION
+// ─────────────────────────────────────────────
 export async function sendShippedConfirmation(
   data: OrderEmailData,
   trackingNumber: string
 ) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeTracking = escapeHtml(trackingNumber);
+  const safeName = escapeHtml(data.customerName);
   const trackingUrl = `https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?piececode=${encodeURIComponent(trackingNumber)}`;
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;">Versandbestätigung</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Ihre Bestellung ${safeOrderNumber} wurde versendet!
-    </p>
-    <div style="background-color:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:24px;">
-      <p style="color:#1D4ED8;font-size:14px;font-weight:600;margin:0 0 4px 0;">Sendungsverfolgung</p>
-      <p style="color:#0A2540;font-size:16px;font-weight:800;margin:0;">${safeTracking}</p>
+    ${headerBanner("Versandbest\u00e4tigung", `Bestellung ${safeOrderNumber} ist unterwegs`, "#1D4ED8")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,<br/>
+        great news! Ihre Bestellung wurde versendet und ist auf dem Weg zu Ihnen.
+      </p>
+
+      <!-- Tracking Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="color:#1D4ED8;font-size:11px;margin:0 0 4px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Sendungsverfolgung</p>
+                  <p style="color:#0A2540;font-size:18px;font-weight:800;margin:0;font-family:monospace;">${safeTracking}</p>
+                </td>
+                <td align="right" valign="middle">
+                  ${badge("Versendet", "#DBEAFE", "#1E40AF")}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Verfolgen Sie Ihre Sendung mit der obigen Nummer bei DHL. Die Lieferung erfolgt in der Regel innerhalb von 2\u20135 Werktagen.
+      </p>
+
+      <div style="text-align:center;">
+        <a href="${trackingUrl}" style="display:inline-block;background-color:#1D4ED8;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Sendung bei DHL verfolgen &#x2192;
+        </a>
+      </div>
+
     </div>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Sie können Ihre Sendung mit der obigen Nummer beim DHL Pakettracking verfolgen.
-    </p>
-    <a href="${trackingUrl}"
-       style="display:inline-block;background-color:#F5A623;color:#FFFFFF;font-weight:700;padding:12px 24px;border-radius:12px;text-decoration:none;font-size:14px;">
-      Sendung verfolgen →
-    </a>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} – HAUSAURA`,
+    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} \u2013 HAUSAURA`,
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 4. ORDER CANCELLED
+// ─────────────────────────────────────────────
 export async function sendOrderCancelled(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;">Bestellung storniert</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Sehr geehrte(r) ${safeName},
-    </p>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
-      Ihre Bestellung ${safeOrderNumber} wurde storniert.
-    </p>
-    <div style="background-color:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:20px;margin-bottom:24px;">
-      <p style="color:#DC2626;font-size:14px;font-weight:600;margin:0;">
-        Falls Sie eine Zahlung geleistet haben, wird diese innerhalb von 3-5 Werktagen erstattet.
+    ${headerBanner("Bestellung storniert", `Bestellung ${safeOrderNumber}`, "#DC2626")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
       </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Ihre Bestellung <strong>${safeOrderNumber}</strong> wurde storniert.
+      </p>
+
+      <!-- Info Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:20px;">
+            <p style="color:#DC2626;font-size:14px;font-weight:600;margin:0 0 4px 0;">Erstattung</p>
+            <p style="color:#6B7280;font-size:13px;margin:0;line-height:1.5;">
+              Falls Sie eine Zahlung geleistet haben, wird diese innerhalb von 3\u20135 Werktagen auf Ihr Konto zur\u00fcck\u00fcberwiesen.
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 8px 0;line-height:1.6;">
+        Bei Fragen zu dieser Stornierung stehen wir Ihnen gerne zur Verf\u00fcgung:
+      </p>
+
+      <div style="text-align:center;padding:8px 0;">
+        <a href="mailto:hilfe@hausaura.de" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Kontakt aufnehmen
+        </a>
+      </div>
+
     </div>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
-      Bei Fragen zu dieser Stornierung kontaktieren Sie uns bitte unter
-      <a href="mailto:hilfe@hausaura.de" style="color:#F5A623;">hilfe@hausaura.de</a>.
-    </p>
-    <p style="color:#6B7280;font-size:14px;margin:0;">
-      Mit freundlichen Grüßen,<br/>HAUSAURA Team
-    </p>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Bestellung ${safeOrderNumber} storniert – HAUSAURA`,
+    subject: `Bestellung ${safeOrderNumber} storniert \u2013 HAUSAURA`,
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 5. CONTACT FORWARD (to admin)
+// ─────────────────────────────────────────────
 export async function sendContactForward(data: {
   firstName: string;
   lastName: string;
@@ -298,35 +439,62 @@ export async function sendContactForward(data: {
   };
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 16px 0;">Neue Kontaktanfrage</h2>
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-      <tr>
-        <td style="padding:8px 0;font-size:13px;color:#6B7280;width:120px;">Von</td>
-        <td style="padding:8px 0;font-size:13px;color:#1A1A1A;font-weight:600;">${safe.firstName} ${safe.lastName}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 0;font-size:13px;color:#6B7280;">E-Mail</td>
-        <td style="padding:8px 0;font-size:13px;color:#1A1A1A;font-weight:600;">${safe.email}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 0;font-size:13px;color:#6B7280;">Betreff</td>
-        <td style="padding:8px 0;font-size:13px;color:#1A1A1A;font-weight:600;">${safe.subject}</td>
-      </tr>
-    </table>
-    <div style="background-color:#F5F5F5;border-radius:12px;padding:20px;">
-      <p style="color:#6B7280;font-size:12px;margin:0 0 8px 0;font-weight:600;">NACHRICHT</p>
-      <p style="color:#1A1A1A;font-size:14px;margin:0;white-space:pre-wrap;">${safe.message}</p>
+    ${headerBanner("Neue Kontaktanfrage", "Eingegangen \u00fcber das Kontaktformular")}
+
+    <div style="padding:36px 40px;">
+
+      <!-- Sender Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#F0F4F8;border-radius:12px;padding:20px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:3px 0;width:100px;font-size:13px;color:#6B7280;">Absender</td>
+                <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safe.firstName} ${safe.lastName}</td>
+              </tr>
+              <tr>
+                <td style="padding:3px 0;font-size:13px;color:#6B7280;">E-Mail</td>
+                <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;"><a href="mailto:${safe.email}" style="color:#0A2540;">${safe.email}</a></td>
+              </tr>
+              <tr>
+                <td style="padding:3px 0;font-size:13px;color:#6B7280;">Betreff</td>
+                <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safe.subject}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      ${divider()}
+
+      <!-- Message -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 12px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Nachricht</p>
+        <div style="background-color:#F9FAFB;border-left:3px solid #D14A0C;padding:16px 20px;border-radius:0 8px 8px 0;">
+          <p style="color:#374151;font-size:14px;margin:0;line-height:1.7;white-space:pre-wrap;">${safe.message}</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:8px 0;">
+        <a href="mailto:${safe.email}?subject=Re: ${encodeURIComponent(safe.subject)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Antworten
+        </a>
+      </div>
+
     </div>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: "hilfe@hausaura.de",
-    subject: `Kontakt: ${safe.subject}`,
+    subject: `[Kontakt] ${safe.subject}`,
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 6. CONTACT AUTO-REPLY (to customer)
+// ─────────────────────────────────────────────
 export async function sendContactAutoReply(data: {
   firstName: string;
   lastName: string;
@@ -338,20 +506,39 @@ export async function sendContactAutoReply(data: {
   };
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;">Vielen Dank für Ihre Nachricht!</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
-      Sehr geehrte(r) ${safe.firstName} ${safe.lastName},
-    </p>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
-      Wir haben Ihre Nachricht erhalten und melden uns innerhalb von 24 Stunden bei Ihnen.
-    </p>
-    <div style="background-color:#F5F5F5;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <p style="color:#6B7280;font-size:12px;margin:0 0 4px 0;">IHRE ANFRAGE</p>
-      <p style="color:#1A1A1A;font-size:14px;margin:0;">Wir werden uns schnellstmöglich bei Ihnen melden.</p>
+    ${headerBanner("Vielen Dank f\u00fcr Ihre Nachricht!", "Wir melden uns bei Ihnen")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safe.firstName} ${safe.lastName}</strong>,
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        vielen Dank f\u00fcr Ihre Nachricht! Wir haben Ihre Anfrage erhalten und melden uns innerhalb von <strong>24 Stunden</strong> bei Ihnen.
+      </p>
+
+      <!-- Info Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#F0F4F8;border-radius:12px;padding:20px;text-align:center;">
+            <p style="color:#6B7280;font-size:12px;margin:0 0 4px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Antwortzeit</p>
+            <p style="color:#0A2540;font-size:18px;font-weight:800;margin:0;">Innerhalb von 24 Stunden</p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        In der Zwischenzeit k\u00f6nnen Sie auch unsere <a href="${SITE}/kontakt#faq" style="color:#D14A0C;text-decoration:underline;">H\u00e4ufig gestellten Fragen</a> besuchen.
+      </p>
+
+      <div style="text-align:center;padding:8px 0;">
+        <a href="${SITE}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Zur\u00fcck zum Shop
+        </a>
+      </div>
+
     </div>
-    <p style="color:#6B7280;font-size:14px;margin:0;">
-      Mit freundlichen Grüßen,<br/>HAUSAURA Team
-    </p>
   `);
 
   return sendEmail({
@@ -362,39 +549,58 @@ export async function sendContactAutoReply(data: {
   });
 }
 
+// ─────────────────────────────────────────────
+// 7. NEWSLETTER CONFIRMATION
+// ─────────────────────────────────────────────
 export async function sendNewsletterConfirmation(email: string, confirmToken: string) {
   const confirmUrl = `${SITE_URL}/api/newsletter/confirm?token=${encodeURIComponent(confirmToken)}`;
 
   const html = baseTemplate(`
-    <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 8px 0;"> Newsletter bestätigen</h2>
-    <p style="color:#6B7280;font-size:14px;margin:0 0 24px 0;">
-      Vielen Dank für Ihre Anmeldung! Bitte bestätigen Sie Ihre E-Mail-Adresse, um den Newsletter zu erhalten.
-    </p>
-    <a href="${confirmUrl}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:12px;">
-      E-Mail bestätigen
-    </a>
-    <p style="color:#9CA3AF;font-size:12px;margin:24px 0 0 0;">
-      Dieser Link ist 24 Stunden gültig. Wenn Sie sich nicht für den HAUSAURA Newsletter angemeldet haben, können Sie diese E-Mail ignorieren.
-    </p>
+    ${headerBanner("Newsletter best\u00e4tigen", "Einen Schritt zum Empfang")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo!
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Vielen Dank f\u00fcr Ihre Anmeldung zu unserem Newsletter. Bitte best\u00e4tigen Sie Ihre E-Mail-Adresse, um den Newsletter zu erhalten.
+      </p>
+
+      <div style="text-align:center;padding:16px 0 24px 0;">
+        <a href="${confirmUrl}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:10px;">
+          E-Mail best\u00e4tigen
+        </a>
+      </div>
+
+      <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
+        <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
+          Dieser Link ist 24 Stunden g\u00fcltig. Wenn Sie sich nicht f\u00fcr den HAUSAURA Newsletter angemeldet haben, k\u00f6nnen Sie diese E-Mail ignorieren.
+        </p>
+      </div>
+
+    </div>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: email,
-    subject: "Newsletter bestätigen – HAUSAURA",
+    subject: "Newsletter best\u00e4tigen \u2013 HAUSAURA",
     html,
   });
 }
 
+// ─────────────────────────────────────────────
+// 8. NEWSLETTER CAMPAIGN
+// ─────────────────────────────────────────────
 export async function sendNewsletterCampaign(data: {
   subject: string;
   content: string;
   emails: string[];
 }) {
-  // Deduplication guard: prevent duplicate concurrent sends
   const campaignKey = `newsletter-campaign:${data.subject}:${data.emails.length}`;
   const now = Date.now();
-  // Clean up stale entries older than 5 minutes
   for (const [key, timestamp] of activeCampaigns) {
     if (now - timestamp > 5 * 60_000) activeCampaigns.delete(key);
   }
@@ -416,22 +622,38 @@ export async function sendNewsletterCampaign(data: {
         batch.map(async (email) => {
           const token = await createUnsubscribeToken(email);
           const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+
           const html = baseTemplate(`
-            <h2 style="color:#0A2540;font-size:20px;font-weight:700;margin:0 0 16px 0;">${safeSubject}</h2>
-            <div style="color:#6B7280;font-size:14px;line-height:1.7;">
-              ${safeContent}
-            </div>
-            <div style="margin-top:32px;padding-top:24px;border-top:1px solid #E8E8E8;">
-              <p style="color:#9CA3AF;font-size:12px;margin:0;">
-                Sie erhalten diese E-Mail, weil Sie sich für unseren Newsletter angemeldet haben.
-                <a href="${unsubscribeUrl}" style="color:#F5A623;">Abmelden</a>
-              </p>
+            ${headerBanner(safeSubject, "HAUSAURA Newsletter")}
+
+            <div style="padding:36px 40px;">
+
+              <div style="color:#4B5563;font-size:15px;line-height:1.7;">
+                ${safeContent}
+              </div>
+
+              ${divider()}
+
+              <div style="padding:20px 0 0 0;text-align:center;">
+                <a href="${SITE}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+                  Jetzt entdecken
+                </a>
+              </div>
+
+              <div style="padding:20px 0 0 0;text-align:center;">
+                <p style="color:#9CA3AF;font-size:12px;margin:0;">
+                  Sie erhalten diese E-Mail, weil Sie sich f\u00fcr unseren Newsletter angemeldet haben.
+                  <a href="${unsubscribeUrl}" style="color:#D14A0C;text-decoration:underline;">Abmelden</a>
+                </p>
+              </div>
+
             </div>
           `);
+
           return sendEmail({
             from: FROM_EMAIL,
             to: email,
-            subject: `${safeSubject} – HAUSAURA`,
+            subject: `${safeSubject} \u2013 HAUSAURA`,
             html,
           });
         })
