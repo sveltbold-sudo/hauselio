@@ -15,6 +15,7 @@ const MobileBottomNav = dynamic(() => import("@/components/layout/MobileBottomNa
 const BackToTop = dynamic(() => import("@/components/layout/BackToTop"), { ssr: false });
 const CookieConsent = dynamic(() => import("@/components/ui/CookieConsent"), { ssr: false });
 const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup"), { ssr: false });
+const WhatsAppChat = dynamic(() => import("@/components/ui/WhatsAppChat"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -121,6 +122,7 @@ export default function RootLayout({
         <LazyComparisonBar />
         <CookieConsent />
         <ExitIntentPopup />
+        <WhatsAppChat />
       </body>
     </html>
   );
