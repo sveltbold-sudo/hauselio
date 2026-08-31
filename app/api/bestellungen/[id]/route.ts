@@ -40,7 +40,7 @@ export async function GET(
       order: {
         id: order.id,
         orderNumber: order.orderNumber,
-        total: Number(order.subtotal) + Number(order.shippingCost),
+        total: Number(order.total),
         shippingCost: Number(order.shippingCost),
         status: order.status,
         items: order.items.map((item) => ({

@@ -6,7 +6,7 @@ vi.mock("@/lib/prisma", () => ({
   prisma: {
     siteSettings: {
       findFirst: vi.fn().mockResolvedValue({
-        bankAccountName: "HAUSAURA GmbH",
+        bankAccountName: "HAUSELIO GmbH",
         bankIban: "DE89370400440532013000",
         bankBic: "COBADEFFXXX",
       }),
@@ -18,7 +18,7 @@ vi.mock("@/lib/resend", () => ({
   getResendClient: () => ({
     emails: { send: vi.fn().mockResolvedValue({ id: "msg-1" }) },
   }),
-  FROM_EMAIL: "test@hausaura.de",
+  FROM_EMAIL: "test@hauselio.de",
 }));
 
 describe("Email functions", () => {

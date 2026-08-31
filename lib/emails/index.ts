@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/constants";
 
 const activeCampaigns = new Map<string, number>();
 
-const SITE = "https://www.hausaura.de";
+const SITE = "https://www.hauselio.de";
 const LOGO_URL = `${SITE}/logos/logosecondaire.png`;
 
 function stripHtml(html: string): string {
@@ -61,7 +61,7 @@ function baseTemplate(content: string): string {
           <tr>
             <td align="center" style="padding:0 0 24px 0;">
               <a href="${SITE}" style="text-decoration:none;">
-                <img src="${LOGO_URL}" alt="HAUSAURA" width="180" style="display:block;height:auto;border:0;" />
+                <img src="${LOGO_URL}" alt="HAUSELIO" width="180" style="display:block;height:auto;border:0;" />
               </a>
             </td>
           </tr>
@@ -77,14 +77,14 @@ function baseTemplate(content: string): string {
           <tr>
             <td style="padding:24px 0;text-align:center;">
               <p style="color:#9CA3AF;font-size:11px;margin:0 0 4px 0;">
-                &copy; ${new Date().getFullYear()} HAUSAURA GmbH &middot; Kastanienallee 42, 10435 Berlin
+                &copy; ${new Date().getFullYear()} HAUSELIO GmbH &middot; Kastanienallee 42, 10435 Berlin
               </p>
               <p style="color:#9CA3AF;font-size:11px;margin:0;">
                 <a href="${SITE}/impressum" style="color:#9CA3AF;text-decoration:underline;">Impressum</a>
                 &nbsp;&middot;&nbsp;
                 <a href="${SITE}/datenschutz" style="color:#9CA3AF;text-decoration:underline;">Datenschutz</a>
                 &nbsp;&middot;&nbsp;
-                <a href="mailto:info@hausaura.de" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
+                <a href="mailto:info@hauselio.de" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
               </p>
             </td>
           </tr>
@@ -136,7 +136,7 @@ function orderItemsTable(items: OrderEmailData["items"]): string {
 async function getBankDetails() {
   const settings = await prisma.siteSettings.findFirst();
   return {
-    accountName: settings?.bankAccountName || "HAUSAURA GmbH",
+    accountName: settings?.bankAccountName || "HAUSELIO GmbH",
     iban: settings?.bankIban || "",
     bic: settings?.bankBic || "",
   };
@@ -159,7 +159,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
       <!-- Greeting -->
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
         Hallo <strong style="color:#0A2540;">${safeName}</strong>,<br/>
-        vielen Dank f\u00fcr Ihre Bestellung bei HAUSAURA! Wir haben Ihre Bestellung erhalten und bearbeiten diese jetzt.
+        vielen Dank f\u00fcr Ihre Bestellung bei HAUSELIO! Wir haben Ihre Bestellung erhalten und bearbeiten diese jetzt.
       </p>
 
       <!-- Order Number Card -->
@@ -252,7 +252,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: customerEmail,
-    subject: `Bestellbest\u00e4tigung ${safeOrderNumber} \u2013 HAUSAURA`,
+    subject: `Bestellbest\u00e4tigung ${safeOrderNumber} \u2013 HAUSELIO`,
     html,
   });
 }
@@ -300,7 +300,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Zahlung best\u00e4tigt ${safeOrderNumber} \u2013 HAUSAURA`,
+    subject: `Zahlung best\u00e4tigt ${safeOrderNumber} \u2013 HAUSELIO`,
     html,
   });
 }
@@ -362,7 +362,7 @@ export async function sendShippedConfirmation(
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} \u2013 HAUSAURA`,
+    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} \u2013 HAUSELIO`,
     html,
   });
 }
@@ -404,7 +404,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
       </p>
 
       <div style="text-align:center;padding:8px 0;">
-        <a href="mailto:hilfe@hausaura.de" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="mailto:hilfe@hauselio.de" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Kontakt aufnehmen
         </a>
       </div>
@@ -415,7 +415,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Bestellung ${safeOrderNumber} storniert \u2013 HAUSAURA`,
+    subject: `Bestellung ${safeOrderNumber} storniert \u2013 HAUSELIO`,
     html,
   });
 }
@@ -486,7 +486,7 @@ export async function sendContactForward(data: {
 
   return sendEmail({
     from: FROM_EMAIL,
-    to: "hilfe@hausaura.de",
+    to: "hilfe@hauselio.de",
     subject: `[Kontakt] ${safe.subject}`,
     html,
   });
@@ -544,7 +544,7 @@ export async function sendContactAutoReply(data: {
   return sendEmail({
     from: FROM_EMAIL,
     to: data.email,
-    subject: "Ihre Nachricht bei HAUSAURA",
+    subject: "Ihre Nachricht bei HAUSELIO",
     html,
   });
 }
@@ -576,7 +576,7 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
 
       <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
         <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
-          Dieser Link ist 24 Stunden g\u00fcltig. Wenn Sie sich nicht f\u00fcr den HAUSAURA Newsletter angemeldet haben, k\u00f6nnen Sie diese E-Mail ignorieren.
+          Dieser Link ist 24 Stunden g\u00fcltig. Wenn Sie sich nicht f\u00fcr den HAUSELIO Newsletter angemeldet haben, k\u00f6nnen Sie diese E-Mail ignorieren.
         </p>
       </div>
 
@@ -586,7 +586,7 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
   return sendEmail({
     from: FROM_EMAIL,
     to: email,
-    subject: "Newsletter best\u00e4tigen \u2013 HAUSAURA",
+    subject: "Newsletter best\u00e4tigen \u2013 HAUSELIO",
     html,
   });
 }
@@ -624,7 +624,7 @@ export async function sendNewsletterCampaign(data: {
           const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
 
           const html = baseTemplate(`
-            ${headerBanner(safeSubject, "HAUSAURA Newsletter")}
+            ${headerBanner(safeSubject, "HAUSELIO Newsletter")}
 
             <div style="padding:36px 40px;">
 
@@ -653,7 +653,7 @@ export async function sendNewsletterCampaign(data: {
           return sendEmail({
             from: FROM_EMAIL,
             to: email,
-            subject: `${safeSubject} \u2013 HAUSAURA`,
+            subject: `${safeSubject} \u2013 HAUSELIO`,
             html,
           });
         })

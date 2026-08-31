@@ -28,7 +28,7 @@ function makeRequest(path: string, opts?: { method?: string; headers?: Record<st
   });
 }
 
-function makeAdminTokenPayload(id = "admin-1", email = "admin@hausaura.de") {
+function makeAdminTokenPayload(id = "admin-1", email = "admin@hauselio.de") {
   return { payload: { id, email, role: "ADMIN", iat: 1, exp: 9999999999 } };
 }
 
@@ -85,7 +85,7 @@ describe("middleware", () => {
   });
 
   it("rejects production dev-keyword JWT secrets", async () => {
-    process.env.JWT_SECRET = "hausaura-super-secret-key-for-dev";
+    process.env.JWT_SECRET = "hauselio-super-secret-key-for-dev";
     mockJwtVerify.mockRejectedValue(new Error("invalid"));
     const res = await middleware(makeRequest("/admin", {
       headers: { cookie: "admin_token=bad.jwt.token" },

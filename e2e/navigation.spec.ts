@@ -6,7 +6,7 @@ test.describe("Navigation", () => {
   });
 
   test("header contains site logo/name", async ({ page }) => {
-    const logo = page.locator('a[href="/"]').filter({ hasText: "HAUSAURA" });
+    const logo = page.locator('a[href="/"]').filter({ hasText: "HAUSELIO" });
     await expect(logo.first()).toBeVisible();
   });
 

@@ -1,4 +1,4 @@
--- HAUSAURA — Database Schema (idempotent)
+-- HAUSELIO — Database Schema (idempotent)
 -- Copier/coller dans Supabase > SQL Editor > Run
 -- Peut être exécuté plusieurs fois sans erreur
 

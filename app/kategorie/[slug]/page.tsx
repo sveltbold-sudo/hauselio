@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: category.name,
       description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
       url: `/kategorie/${slug}`,
-      siteName: "HAUSAURA",
+      siteName: "HAUSELIO",
       locale: "de_DE",
       type: "website",
       images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],

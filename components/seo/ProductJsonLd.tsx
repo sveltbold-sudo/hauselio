@@ -52,7 +52,7 @@ export default function ProductJsonLd({
       itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: "HAUSAURA GmbH",
+        name: "HAUSELIO GmbH",
       },
       shippingDetails: {
         "@type": "OfferShippingDetails",

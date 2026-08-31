@@ -5,13 +5,13 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
-  description: "Informationen zum Schutz Ihrer Daten bei der HAUSAURA GmbH.",
+  description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/datenschutz" },
   openGraph: {
-    title: "Datenschutzerklärung — HAUSAURA",
-    description: "Informationen zum Schutz Ihrer Daten bei der HAUSAURA GmbH.",
-    siteName: "HAUSAURA",
+    title: "Datenschutzerklärung — HAUSELIO",
+    description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
@@ -37,11 +37,11 @@ export default function DatenschutzPage() {
         <section>
           <h2 className="heading-3 mb-3">2. Verantwortliche Stelle</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@hausaura.de</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@hauselio.de</p>
           </div>
         </section>
 

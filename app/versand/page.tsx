@@ -6,13 +6,13 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Versandinformationen",
-  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA",
+  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO",
   robots: { index: false, follow: false },
   alternates: { canonical: "/versand" },
   openGraph: {
-    title: "Versandinformationen — HAUSAURA",
-    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA.",
-    siteName: "HAUSAURA",
+    title: "Versandinformationen — HAUSELIO",
+    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO.",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
@@ -164,7 +164,7 @@ export default function VersandPage() {
         </p>
         <div className="mt-4 bg-[var(--color-bg)] rounded-xl p-6">
           <p className="text-sm text-[var(--color-text-secondary)]">
-            <span className="font-medium">E-Mail:</span> hilfe@hausaura.de
+            <span className="font-medium">E-Mail:</span> hilfe@hauselio.de
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
             <span className="font-medium">Telefon:</span> +49 (0)30 555 789 01
