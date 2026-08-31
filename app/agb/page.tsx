@@ -6,21 +6,21 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Allgemeine Geschäftsbedingungen",
-  description: "AGB der HAUSELIO GmbH. Geschäftsbedingungen für den Online-Shop.",
+  description: "AGB der HAUSAURA GmbH. Geschäftsbedingungen für den Online-Shop.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "AGB — HAUSELIO",
-    description: "Allgemeine Geschäftsbedingungen der HAUSELIO GmbH.",
+    title: "AGB — HAUSAURA",
+    description: "Allgemeine Geschäftsbedingungen der HAUSAURA GmbH.",
     url: `${SITE_URL}/agb`,
-    siteName: "HAUSELIO",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
   alternates: { canonical: "/agb" },
   twitter: {
     card: "summary_large_image",
-    title: "AGB — HAUSELIO",
-    description: "Allgemeine Geschäftsbedingungen der HAUSELIO GmbH.",
+    title: "AGB — HAUSAURA",
+    description: "Allgemeine Geschäftsbedingungen der HAUSAURA GmbH.",
   },
 };
 
@@ -34,7 +34,7 @@ export default function AGBPage() {
         <section>
           <h2 className="heading-3 mb-3">§ 1 Geltungsbereich</h2>
           <p className="text-[var(--color-text-secondary)]">
-            (1) Diese Allgemeinen Geschäftsbedingungen (nachfolgend &quot;AGB&quot;) der HAUSELIO GmbH (nachfolgend
+            (1) Diese Allgemeinen Geschäftsbedingungen (nachfolgend &quot;AGB&quot;) der HAUSAURA GmbH (nachfolgend
             &quot;Verkäufer&quot;) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend
             &quot;Kunde&quot;) mit dem Verkäufer bezüglich der vom Verkäufer in seinem Online-Shop dargestellten
             Produkte abschließt. Die Einbeziehung von eigenen Bedingungen des Kunden wird hiermit

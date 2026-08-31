@@ -28,7 +28,7 @@ function makeRequest(path: string, opts?: { method?: string; headers?: Record<st
   });
 }
 
-function makeAdminTokenPayload(id = "admin-1", email = "admin@hauselio.de") {
+function makeAdminTokenPayload(id = "admin-1", email = "admin@hausaura.de") {
   return { payload: { id, email, role: "ADMIN", iat: 1, exp: 9999999999 } };
 }
 

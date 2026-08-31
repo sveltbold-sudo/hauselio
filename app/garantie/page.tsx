@@ -12,16 +12,16 @@ export const metadata: Metadata = {
   description: "Informieren Sie sich über unsere Garantie- und Gewährleistungsbedingungen. Bis zu 5 Jahre Garantie auf ausgewählte Produkte.",
   alternates: { canonical: `${SITE_URL}/garantie` },
   openGraph: {
-    title: "Garantie — HAUSELIO",
-    description: "Garantie- und Gewährleistungsbedingungen bei HAUSELIO.",
-    siteName: "HAUSELIO",
+    title: "Garantie — HAUSAURA",
+    description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Garantie — HAUSELIO",
-    description: "Garantie- und Gewährleistungsbedingungen bei HAUSELIO.",
+    title: "Garantie — HAUSAURA",
+    description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
   },
 };
 
@@ -85,7 +85,7 @@ export default function GarantiePage() {
 
         <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
         <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">
-          Bei HAUSELIO stehen wir hinter der Qualität unserer Produkte. Profitieren Sie von unserer umfassenden Garantie.
+          Bei HAUSAURA stehen wir hinter der Qualität unserer Produkte. Profitieren Sie von unserer umfassenden Garantie.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-16">
@@ -165,13 +165,13 @@ export default function GarantiePage() {
               </div>
             </a>
             <a
-              href="mailto:service@hauselio.de"
+              href="mailto:service@hausaura.de"
               className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               <Mail className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <div className="text-sm font-bold text-[var(--color-text-primary)]">E-Mail</div>
-                <div className="text-xs text-[var(--color-text-muted)]">service@hauselio.de</div>
+                <div className="text-xs text-[var(--color-text-muted)]">service@hausaura.de</div>
               </div>
             </a>
             <Link

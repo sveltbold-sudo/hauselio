@@ -22,7 +22,7 @@ test.describe("Barrierefreiheit Page", () => {
 
   test("displays contact information", async ({ page }) => {
     await page.goto("/barrierefreiheit");
-    await expect(page.getByText("barrierefreiheit@hauselio.de")).toBeVisible();
+    await expect(page.getByText("barrierefreiheit@hausaura.de")).toBeVisible();
     await expect(page.getByText("+49 (0)30 555 789 01")).toBeVisible();
   });
 
