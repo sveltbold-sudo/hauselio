@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import dynamic from "next/dynamic";
 import Header from "@/components/layout/Header";
+import ClientShell from "@/components/layout/ClientShell";
 import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
@@ -11,11 +12,6 @@ import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const Footer = dynamic(() => import("@/components/layout/Footer"), { ssr: true });
-const MobileBottomNav = dynamic(() => import("@/components/layout/MobileBottomNav"), { ssr: false });
-const BackToTop = dynamic(() => import("@/components/layout/BackToTop"), { ssr: false });
-const CookieConsent = dynamic(() => import("@/components/ui/CookieConsent"), { ssr: false });
-const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup"), { ssr: false });
-const WhatsAppChat = dynamic(() => import("@/components/ui/WhatsAppChat"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -117,12 +113,8 @@ export default function RootLayout({
           <ClientProviders />
         </ToastProvider>
         <Footer />
-        <MobileBottomNav />
-        <BackToTop />
+        <ClientShell />
         <LazyComparisonBar />
-        <CookieConsent />
-        <ExitIntentPopup />
-        <WhatsAppChat />
       </body>
     </html>
   );
