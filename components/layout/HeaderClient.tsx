@@ -71,7 +71,7 @@ export default function HeaderClient() {
   }, []);
 
   useEffect(() => {
-    if (!searchOpen) return;
+    if (!searchOpen || isMobile) return;
     const handlePointerDown = (e: PointerEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
         setSearchOpen(false);
@@ -81,19 +81,18 @@ export default function HeaderClient() {
     };
     document.addEventListener("pointerdown", handlePointerDown, { passive: true });
     return () => document.removeEventListener("pointerdown", handlePointerDown);
-  }, [searchOpen]);
+  }, [searchOpen, isMobile]);
 
   useEffect(() => {
-    if (searchOpen) {
-      requestAnimationFrame(() => {
-        if (window.innerWidth < 1024) {
-          mobileSearchInputRef.current?.focus();
-        } else {
-          searchInputRef.current?.focus();
-        }
-      });
-    }
-  }, [searchOpen]);
+    if (!searchOpen) return;
+    requestAnimationFrame(() => {
+      if (isMobile) {
+        mobileSearchInputRef.current?.focus();
+      } else {
+        searchInputRef.current?.focus();
+      }
+    });
+  }, [searchOpen, isMobile]);
 
   const handleMegaEnter = useCallback((href: string) => {
     if (megaCloseTimeoutRef.current) {
@@ -157,9 +156,9 @@ export default function HeaderClient() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
-  const handleSearchFocus = () => {
+  const handleSearchFocus = useCallback(() => {
     setSearchOpen(true);
-  };
+  }, []);
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!searchOpen) return;
@@ -272,16 +271,18 @@ export default function HeaderClient() {
                 className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
               />
             </div>
-            <SearchDropdown
-              isOpen={searchOpen}
-              onClose={() => setSearchOpen(false)}
-              query={searchQuery}
-              activeIndex={searchActiveIndex}
-              resultCount={searchResultCount}
-              onResultCountChange={setSearchResultCount}
-              onSelect={handleSearchSelect}
-              onClear={handleSearchClear}
-            />
+            {!isMobile && (
+              <SearchDropdown
+                isOpen={searchOpen}
+                onClose={() => setSearchOpen(false)}
+                query={searchQuery}
+                activeIndex={searchActiveIndex}
+                resultCount={searchResultCount}
+                onResultCountChange={setSearchResultCount}
+                onSelect={handleSearchSelect}
+                onClear={handleSearchClear}
+              />
+            )}
           </div>
 
           {/* Actions: Search (mobile) + Account + Wishlist + Cart + Menu */}
@@ -513,6 +514,11 @@ export default function HeaderClient() {
               onKeyDown={handleSearchKeyDown}
               placeholder="Was suchst du?"
               aria-label="Produkte suchen"
+              role="combobox"
+              aria-expanded={searchQuery.trim().length >= 2}
+              aria-controls={searchQuery.trim().length >= 2 ? "search-results-list" : undefined}
+              aria-autocomplete="list"
+              aria-activedescendant={searchActiveIndex >= 0 && searchActiveIndex < searchResultCount ? `search-result-${searchActiveIndex}` : undefined}
               className="flex-1 bg-transparent text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
             />
             <button
@@ -524,7 +530,7 @@ export default function HeaderClient() {
             </button>
           </div>
           <div className="flex-1 overflow-y-auto">
-            {searchQuery.trim().length >= 2 ? (
+            {isMobile && searchQuery.trim().length >= 2 ? (
               <SearchDropdown
                 isOpen={true}
                 onClose={() => { setSearchOpen(false); setSearchQuery(""); setSearchActiveIndex(-1); }}

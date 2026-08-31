@@ -16,6 +16,8 @@ interface ImageLightboxProps {
 export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [scale, setScale] = useState(1);
+  const lastTouchDistance = useRef<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +28,12 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
 
   const goNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
+    setScale(1);
   }, [images.length]);
 
   const goPrev = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setScale(1);
   }, [images.length]);
 
   useEffect(() => {
@@ -95,9 +99,31 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
         className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
         onClick={(e) => e.stopPropagation()}
         aria-live="polite"
-        onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
+        onTouchStart={(e) => {
+          if (e.touches.length === 2) {
+            const dx = e.touches[0]!.clientX - e.touches[1]!.clientX;
+            const dy = e.touches[0]!.clientY - e.touches[1]!.clientY;
+            lastTouchDistance.current = Math.sqrt(dx * dx + dy * dy);
+          } else {
+            setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY });
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length === 2 && lastTouchDistance.current !== null) {
+            e.preventDefault();
+            const dx = e.touches[0]!.clientX - e.touches[1]!.clientX;
+            const dy = e.touches[0]!.clientY - e.touches[1]!.clientY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const newScale = Math.min(3, Math.max(1, scale * (distance / lastTouchDistance.current)));
+            setScale(newScale);
+            lastTouchDistance.current = distance;
+          }
+        }}
         onTouchEnd={(e) => {
-          if (touchStart === null) return;
+          if (e.touches.length < 2) {
+            lastTouchDistance.current = null;
+          }
+          if (touchStart === null || e.changedTouches.length !== 1) return;
           const dx = touchStart.x - e.changedTouches[0]!.clientX;
           const dy = touchStart.y - e.changedTouches[0]!.clientY;
           if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
@@ -107,12 +133,14 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
           setTouchStart(null);
         }}
       >
-        <ProductImage
-          src={images[currentIndex]}
-          alt={`${productName} – Bild ${currentIndex + 1}`}
-          brand={brand}
-          size="lg"
-        />
+        <div style={{ transform: `scale(${scale})`, transition: "transform 0.1s ease-out" }}>
+          <ProductImage
+            src={images[currentIndex]}
+            alt={`${productName} – Bild ${currentIndex + 1}`}
+            brand={brand}
+            size="lg"
+          />
+        </div>
       </div>
 
       {images.length > 1 && (

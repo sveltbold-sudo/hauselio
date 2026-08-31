@@ -22,7 +22,7 @@ export default function MobileShopBar({ totalProducts, onScrollToTop }: MobileSh
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-white border-t border-[var(--color-border-light)] shadow-lg animate-slide-up safe-area-bottom" role="complementary" aria-label="Produktübersicht">
+    <div className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-white border-t border-[var(--color-border-light)] shadow-lg animate-slide-up safe-area-bottom" role="complementary" aria-label="Produktübersicht" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       <div className="flex items-center justify-between px-4 py-3">
         <button
           onClick={onScrollToTop || (() => {

@@ -44,7 +44,12 @@ export default function SearchDropdown({
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [nbHits, setNbHits] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isOpen) setAnimKey((k) => k + 1);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!query.trim() || query.trim().length < 2) {
@@ -98,15 +103,15 @@ export default function SearchDropdown({
       className={`${
         inline
           ? "relative"
-          : "absolute top-full left-0 right-0 mt-2 z-[55]"
+          : "absolute top-full left-0 right-0 mt-2 z-[60]"
       } bg-white transition-[opacity,visibility] duration-200 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       }`}
     >
-      <div className="py-1">
-        <div className="w-full">
+      <div className="w-full">
           {hasQuery && (
             <div
+              key={animKey}
               id="search-results-list"
               role="listbox"
               className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top"
@@ -206,6 +211,5 @@ export default function SearchDropdown({
           )}
         </div>
       </div>
-    </div>
   );
 }
