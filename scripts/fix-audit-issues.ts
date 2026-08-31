@@ -1,147 +1,79 @@
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function main() {
-  // ═══════════════════════════════════════════
-  // 1. REMOVE ORPHAN BRANDS
-  // ═══════════════════════════════════════════
-  console.log("=== 1. Suppression marques orphelines ===");
-  await prisma.$executeRawUnsafe(`
-    DELETE FROM "Brand" b WHERE NOT EXISTS (SELECT 1 FROM "Product" p WHERE p."brandId" = b.id)
-  `);
-  const remainingOrphans: any[] = await prisma.$queryRawUnsafe(
-    `SELECT COUNT(*) as cnt FROM "Brand" b WHERE NOT EXISTS (SELECT 1 FROM "Product" p WHERE p."brandId" = b.id)`
-  );
-  console.log(`  Marques orphelines restantes: ${remainingOrphans[0].cnt}`);
+  console.log("=== CORRECTION DES INCOHÉRENCES ===\n");
 
-  // ═══════════════════════════════════════════
-  // 2. BULK TAGS
-  // ═══════════════════════════════════════════
-  console.log("\n=== 2. Tags bulk ===");
+  // Fix 1: Products with inStock=false but stockQuantity > 0
+  const fixStock = await prisma.product.updateMany({
+    where: {
+      inStock: false,
+      stockQuantity: { gt: 0 },
+    },
+    data: { inStock: true },
+  });
+  console.log(`✅ Corrigé inStock: ${fixStock.count} produit(s)`);
 
-  // Base tag for all empty-tag products
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = ARRAY['sortiment'] WHERE tags = '{}'::text[]
-  `);
+  // Verify the specific products
+  const check = await prisma.product.findMany({
+    where: {
+      slug: { in: ["bosch-serie-6-geschirrspueler-smv88tx36e", "irobot-roomba-plus-405", "miele-w1-waschmaschine-wci870-wcs"] },
+    },
+    select: { slug: true, name: true, inStock: true, stockQuantity: true, isFeatured: true },
+  });
 
-  // isFeatured -> bestseller
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = array_append(tags, 'bestseller') WHERE "isFeatured" = true AND NOT ('bestseller' = ANY(tags))
-  `);
-
-  // isNew -> neu
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = array_append(tags, 'neu') WHERE "isNew" = true AND NOT ('neu' = ANY(tags))
-  `);
-
-  // isPromo -> sale
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = array_append(tags, 'sale') WHERE "isPromo" = true AND NOT ('sale' = ANY(tags))
-  `);
-
-  // Top rated
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = array_append(tags, 'top-bewertet') WHERE rating >= 4.5 AND "reviewCount" >= 10 AND NOT ('top-bewertet' = ANY(tags))
-  `);
-
-  // Popular
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET tags = array_append(tags, 'beliebt') WHERE "reviewCount" >= 50 AND NOT ('beliebt' = ANY(tags))
-  `);
-
-  // Subcategory-based tags
-  const subTagMap: [string, string][] = [
-    ["Kaffeevollautomaten", "premium"],
-    ["Espressomaschinen", "premium"],
-    ["Saugroboter", "smart-home-kompatibel"],
-    ["Smart-Beleuchtung", "smart-home-kompatibel"],
-    ["Smart-Heizung", "smart-home-kompatibel"],
-    ["Smart-Hubs", "smart-home-kompatibel"],
-    ["Smart-Überwachung", "smart-home-kompatibel"],
-    ["Waschmaschinen", "waschen"],
-    ["Trockner", "waschen"],
-    ["Waschtrockner", "waschen"],
-    ["Luftreiniger", "klima"],
-    ["Luftbefeuchter", "klima"],
-    ["Luftkühler", "klima"],
-    ["Backöfen", "kochen"],
-    ["Kochfelder", "kochen"],
-    ["Herd", "kochen"],
-    ["Airfryer", "kochen"],
-    ["Heißluft", "kochen"],
-  ];
-
-  for (const [sub, tag] of subTagMap) {
-    await prisma.$executeRawUnsafe(
-      `UPDATE "Product" SET tags = array_append(tags, $1) WHERE "subCategory" LIKE $2 AND NOT ($1 = ANY(tags))`,
-      tag,
-      `%${sub}%`
-    );
+  console.log("\nVérification après correction:");
+  for (const p of check) {
+    console.log(`  ${p.name}: inStock=${p.inStock}, stock=${p.stockQuantity}, featured=${p.isFeatured}`);
   }
 
-  const withTags: any[] = await prisma.$queryRawUnsafe(
-    `SELECT COUNT(*) as cnt FROM "Product" WHERE tags != '{}'::text[]`
-  );
-  console.log(`  Produits avec tags: ${withTags[0].cnt}/279`);
+  // Fix 2: seoDesc too long
+  const longSeoDesc = await prisma.product.findMany({
+    where: {
+      seoDesc: { not: null },
+    },
+    select: { id: true, slug: true, name: true, seoDesc: true },
+  });
 
-  // ═══════════════════════════════════════════
-  // 3. BULK WEIGHTS
-  // ═══════════════════════════════════════════
-  console.log("\n=== 3. Poids bulk ===");
+  let seoFixed = 0;
+  for (const p of longSeoDesc) {
+    if (p.seoDesc && p.seoDesc.length > 160) {
+      const truncated = p.seoDesc.slice(0, 157) + "...";
+      await prisma.product.update({
+        where: { id: p.id },
+        data: { seoDesc: truncated },
+      });
+      console.log(`  ✅ seoDesc tronqué: ${p.name} (${p.seoDesc.length} → 160)`);
+      seoFixed++;
+    }
+  }
+  console.log(`✅ seoDesc corrigé: ${seoFixed} produit(s)`);
 
-  const weightCases: [string, number][] = [
-    ["Kaffeevollautomaten", 9.5],
-    ["Espressomaschinen", 8.0],
-    ["Kapselmaschinen", 4.0],
-    ["Filterkaffee", 3.5],
-    ["Waschmaschinen", 75.0],
-    ["Trockner", 55.0],
-    ["Waschtrockner", 85.0],
-    ["Geschirrspüler", 45.0],
-    ["Kühlschränke", 70.0],
-    ["Gefrierschränke", 65.0],
-    ["Kochfelder", 15.0],
-    ["Backöfen", 35.0],
-    ["Herd", 50.0],
-    ["Saugroboter", 3.5],
-    ["Staubsauger", 5.0],
-    ["Handmixer", 1.5],
-    ["Küchenmaschinen", 8.0],
-    ["Airfryer", 5.0],
-    ["Heißluft", 5.0],
-    ["Grill", 4.0],
-    ["Kontaktgrill", 4.0],
-    ["Luftreiniger", 6.0],
-    ["Luftbefeuchter", 4.0],
-    ["Luftkühler", 8.0],
-    ["Dampfreiniger", 5.0],
-    ["Smart-Beleuchtung", 0.5],
-    ["Smart-Heizung", 0.8],
-    ["Smart-Hubs", 0.3],
-    ["Smart-Überwachung", 0.4],
-    ["Multi-Cooker", 5.0],
-    ["Thermomix", 8.0],
-  ];
+  // Final verification
+  console.log("\n=== VÉRIFICATION FINALE ===\n");
 
-  for (const [sub, weight] of weightCases) {
-    await prisma.$executeRawUnsafe(
-      `UPDATE "Product" SET weight = $1 WHERE "subCategory" LIKE $2 AND (weight IS NULL OR weight = 0)`,
-      weight,
-      `%${sub}%`
-    );
+  const remaining = await prisma.product.findMany({
+    where: {
+      OR: [
+        { inStock: false, stockQuantity: { gt: 0 } },
+        { isFeatured: true, inStock: false },
+      ],
+    },
+    select: { name: true, inStock: true, stockQuantity: true, isFeatured: true },
+  });
+
+  if (remaining.length === 0) {
+    console.log("✅ Aucune incohérence restante");
+  } else {
+    console.log(`⚠️  ${remaining.length} incohérence(s) restante(s):`);
+    remaining.forEach((p) => console.log(`  ${p.name}: inStock=${p.inStock}, stock=${p.stockQuantity}, featured=${p.isFeatured}`));
   }
 
-  // Default for remaining
-  await prisma.$executeRawUnsafe(`
-    UPDATE "Product" SET weight = 5.0 WHERE (weight IS NULL OR weight = 0)
-  `);
-
-  const noWeight: any[] = await prisma.$queryRawUnsafe(
-    `SELECT COUNT(*) as cnt FROM "Product" WHERE weight IS NULL OR weight = 0`
-  );
-  console.log(`  Produits sans poids: ${noWeight[0].cnt}`);
-
-  console.log("\n=== Terminé ===");
+  await prisma.$disconnect();
 }
 
-main().catch(console.error).finally(() => prisma.$disconnect());
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
