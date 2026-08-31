@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Percent, ArrowRight } from "lucide-react";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
-const EXIT_INTENT_KEY = "hausaura_exit_intent_shown";
+const EXIT_INTENT_KEY = "hauselio_exit_intent_shown";
 const COUPON_CODE = "HAUSAURA10";
 
 export default function ExitIntentPopup() {

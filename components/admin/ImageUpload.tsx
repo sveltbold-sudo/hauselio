@@ -14,7 +14,7 @@ interface ImageUploadProps {
 
 export default function ImageUpload({
   currentImage,
-  folder = "hausaura/products",
+  folder = "hauselio/products",
   onUpload,
   onRemove,
   className = "",

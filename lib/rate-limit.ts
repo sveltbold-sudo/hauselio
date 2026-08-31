@@ -54,7 +54,7 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
         redis: Redis.fromEnv(),
         limiter: Ratelimit.slidingWindow(maxRequests, `${windowSec} s`),
         analytics: true,
-        prefix: `hausaura:ratelimit:${key}`,
+        prefix: `hauselio:ratelimit:${key}`,
       })
     );
   }

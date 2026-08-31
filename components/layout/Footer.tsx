@@ -7,7 +7,7 @@ import NewsletterForm from "@/components/layout/NewsletterForm";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
 
-const COOKIE_EVENT = "hausaura:open-cookie-settings";
+const COOKIE_EVENT = "hauselio:open-cookie-settings";
 
 export function openCookieSettings() {
   if (typeof window !== "undefined") {
@@ -202,11 +202,11 @@ export default function Footer() {
 
             <div className="space-y-0">
               <a
-                href="mailto:hilfe@hausaura.de"
+                href="mailto:hilfe@hauselio.de"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                hilfe@hausaura.de
+                hilfe@hauselio.de
               </a>
               <a
                 href="tel:+493055578901"

@@ -69,7 +69,7 @@ function baseTemplate(content: string): string {
               <tr>
                 <td style="background-color:#F5F5F5;padding:24px 40px;text-align:center;border-top:1px solid #E8E8E8;">
                   <p style="color:#6B7280;font-size:12px;margin:0;">
-                    HAUSAURA GmbH | Kastanienallee 42, 10435 Berlin | info@hausaura.de | +49 (0)30 555 789 01
+                    HAUSELIO GmbH | Kastanienallee 42, 10435 Berlin | info@hauselio.de | +49 (0)30 555 789 01
                   </p>
                   <p style="color:#9CA3AF;font-size:11px;margin:8px 0 0 0;">
                     <a href="${SITE_URL}/impressum" style="color:#6B7280;">Impressum</a> |
@@ -106,7 +106,7 @@ function orderItemsTable(items: OrderEmailData["items"]): string {
 async function getBankDetails() {
   const settings = await prisma.siteSettings.findFirst();
   return {
-    accountName: settings?.bankAccountName || "HAUSAURA GmbH",
+    accountName: settings?.bankAccountName || "HAUSELIO GmbH",
     iban: settings?.bankIban || "",
     bic: settings?.bankBic || "",
   };
@@ -267,7 +267,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
     </div>
     <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
       Bei Fragen zu dieser Stornierung kontaktieren Sie uns bitte unter
-      <a href="mailto:hilfe@hausaura.de" style="color:#F5A623;">hilfe@hausaura.de</a>.
+      <a href="mailto:hilfe@hauselio.de" style="color:#F5A623;">hilfe@hauselio.de</a>.
     </p>
     <p style="color:#6B7280;font-size:14px;margin:0;">
       Mit freundlichen Grüßen,<br/>HAUSAURA Team
@@ -321,7 +321,7 @@ export async function sendContactForward(data: {
 
   return sendEmail({
     from: FROM_EMAIL,
-    to: "hilfe@hausaura.de",
+    to: "hilfe@hauselio.de",
     subject: `Kontakt: ${safe.subject}`,
     html,
   });

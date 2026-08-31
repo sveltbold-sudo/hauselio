@@ -32,11 +32,11 @@ EXCEPTION WHEN duplicate_column THEN NULL;
 END $$;
 
 INSERT INTO "AdminUser" ("id", "email", "password", "name", "role", "failedAttempts", "createdAt", "updatedAt")
-VALUES ('admin-001', 'admin@hausaura.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW());
+VALUES ('admin-001', 'admin@hauselio.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW());
 
 -- 2. Site Settings
 INSERT INTO "SiteSettings" ("id", "bankName", "bankIban", "bankBic", "bankAccountName", "shippingInfo", "contactEmail", "contactPhone", "contactAddress", "createdAt", "updatedAt")
-VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSAURA GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hausaura.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW());
+VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSELIO GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hauselio.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW());
 
 -- 3. Categories
 INSERT INTO "Category" ("id", "name", "slug", "description", "image", "sortOrder", "createdAt", "updatedAt") VALUES

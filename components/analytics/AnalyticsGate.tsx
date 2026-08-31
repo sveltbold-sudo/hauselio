@@ -12,7 +12,7 @@ export default function AnalyticsGate() {
     setConsent(getCookieConsent());
 
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "hausaura_cookie_consent") {
+      if (e.key === "hauselio_cookie_consent") {
         setConsent(e.newValue === "true");
       }
     };

@@ -165,13 +165,13 @@ export default function GarantiePage() {
               </div>
             </a>
             <a
-              href="mailto:service@hausaura.de"
+              href="mailto:service@hauselio.de"
               className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               <Mail className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <div className="text-sm font-bold text-[var(--color-text-primary)]">E-Mail</div>
-                <div className="text-xs text-[var(--color-text-muted)]">service@hausaura.de</div>
+                <div className="text-xs text-[var(--color-text-muted)]">service@hauselio.de</div>
               </div>
             </a>
             <Link

@@ -5,7 +5,7 @@ import { Cookie, X, Settings } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
-const CONSENT_KEY = "hausaura_cookie_consent";
+const CONSENT_KEY = "hauselio_cookie_consent";
 
 export interface CookiePreferences {
   essential: boolean;
@@ -109,8 +109,8 @@ export default function CookieConsent() {
       setVisible(true);
     };
 
-    window.addEventListener("hausaura:open-cookie-settings", handleOpenSettings);
-    return () => window.removeEventListener("hausaura:open-cookie-settings", handleOpenSettings);
+    window.addEventListener("hauselio:open-cookie-settings", handleOpenSettings);
+    return () => window.removeEventListener("hauselio:open-cookie-settings", handleOpenSettings);
   }, []);
 
   useScrollLock(visible);

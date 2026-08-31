@@ -35,7 +35,8 @@ export default function WarenkorbPage() {
     return sum;
   }, 0);
   const shippingCost = getShippingCost(total);
-  const finalTotal = total + shippingCost;
+  const couponDiscount = couponApplied ? total * 0.1 : 0;
+  const finalTotal = total - couponDiscount + shippingCost;
 
   if (!mounted) {
     return (
@@ -298,6 +299,9 @@ export default function WarenkorbPage() {
                     {couponError && (
                       <p className="text-xs text-[var(--color-danger)] mt-1.5" role="alert">{couponError}</p>
                     )}
+                    {couponApplied && (
+                      <p className="text-xs text-[var(--color-success)] mt-1.5">Gutschein angewendet! 10% Rabatt</p>
+                    )}
                   </div>
                 )}
               </div>
@@ -336,6 +340,12 @@ export default function WarenkorbPage() {
                 </div>
               )}
               <div className="border-t border-[var(--color-border-light)] pt-3">
+                {couponApplied && (
+                  <div className="flex justify-between text-sm mb-2">
+                    <span className="text-[var(--color-success)]">Rabatt (10%)</span>
+                    <span className="font-semibold text-[var(--color-success)]">-{formatPrice(couponDiscount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="font-semibold text-[var(--color-text-primary)]">Gesamt</span>
                   <span className="font-bold text-2xl text-[var(--color-text-primary)] tabular-nums">
