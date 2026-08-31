@@ -39,7 +39,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, firstName, lastName, phone, address, city, zip, country, notes, items } = parsed.data;
+    const { email, firstName, lastName, phone, address, city, zip, country, notes, items, couponCode } = parsed.data;
+
+    // Validate coupon server-side
+    let couponDiscount = 0;
+    let couponLabel = "";
+    if (couponCode) {
+      const validCoupons: Record<string, { discountPercent: number; label: string }> = {
+        HAUSELIO10: { discountPercent: 10, label: "10% Rabatt" },
+      };
+      const couponData = validCoupons[couponCode.toUpperCase()];
+      if (couponData) {
+        couponLabel = couponData.label;
+      }
+    }
 
     const productIds = items.map((item) => item.id);
     const products = await prisma.product.findMany({
@@ -65,7 +78,19 @@ export async function POST(request: NextRequest) {
     });
 
     const shippingCost = getShippingCost(subtotal);
-    const total = subtotal + shippingCost;
+
+    // Apply coupon discount
+    if (couponLabel) {
+      const validCoupons: Record<string, { discountPercent: number }> = {
+        HAUSELIO10: { discountPercent: 10 },
+      };
+      const couponData = validCoupons[(couponCode || "").toUpperCase()];
+      if (couponData) {
+        couponDiscount = Math.round(subtotal * (couponData.discountPercent / 100) * 100) / 100;
+      }
+    }
+
+    const total = subtotal - couponDiscount + shippingCost;
 
     const MAX_RETRIES = 5;
     let order;

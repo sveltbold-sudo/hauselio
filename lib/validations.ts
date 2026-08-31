@@ -14,6 +14,7 @@ export const CreateOrderSchema = z.object({
     id: z.string().min(1),
     quantity: z.number().int().min(1).max(99),
   })).min(1, "Mindestens ein Artikel erforderlich"),
+  couponCode: z.string().max(50).optional().nullable(),
 });
 
 export const LoginSchema = z.object({

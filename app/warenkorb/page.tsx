@@ -15,13 +15,13 @@ import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WarenkorbPage() {
-  const { items, removeItem, updateQuantity } = useCartStore();
+  const { items, removeItem, updateQuantity, coupon, applyCoupon, removeCoupon } = useCartStore();
   const { toggleItem, isInWishlist } = useWishlistStore();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [couponCode, setCouponCode] = useState("");
-  const [couponApplied, setCouponApplied] = useState(false);
   const [couponError, setCouponError] = useState("");
+  const [couponLoading, setCouponLoading] = useState(false);
   const total = useCartStore(selectTotal);
   const itemCount = useCartStore(selectItemCount);
 
@@ -35,7 +35,7 @@ export default function WarenkorbPage() {
     return sum;
   }, 0);
   const shippingCost = getShippingCost(total);
-  const couponDiscount = couponApplied ? total * 0.1 : 0;
+  const couponDiscount = coupon ? total * (coupon.discountPercent / 100) : 0;
   const finalTotal = total - couponDiscount + shippingCost;
 
   if (!mounted) {
@@ -253,14 +253,14 @@ export default function WarenkorbPage() {
 
               {/* Coupon code */}
               <div className="pt-2">
-                {couponApplied ? (
+                {coupon ? (
                   <div className="flex items-center justify-between bg-[var(--color-success)]/10 rounded-xl px-3 py-2.5">
                     <div className="flex items-center gap-2">
                       <Tag className="w-4 h-4 text-[var(--color-success)]" />
                       <span className="text-sm font-semibold text-[var(--color-success)]">Gutschein angewendet!</span>
                     </div>
                     <button
-                      onClick={() => { setCouponApplied(false); setCouponCode(""); setCouponError(""); }}
+                      onClick={() => { removeCoupon(); setCouponCode(""); setCouponError(""); }}
                       className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
                     >
                       Entfernen
@@ -280,27 +280,37 @@ export default function WarenkorbPage() {
                         />
                       </div>
                       <button
-                        onClick={() => {
-                          if (couponCode.trim()) {
-                            if (couponCode.trim().toUpperCase() === "HAUSAURA10") {
-                              setCouponApplied(true);
+                        onClick={async () => {
+                          if (!couponCode.trim()) return;
+                          setCouponLoading(true);
+                          setCouponError("");
+                          try {
+                            const res = await fetch("/api/coupon", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ code: couponCode.trim(), cartTotal: total }),
+                            });
+                            const data = await res.json();
+                            if (data.valid) {
+                              applyCoupon({ code: data.code, discountPercent: data.discountPercent, label: data.label });
                               setCouponError("");
                             } else {
-                              setCouponError("Ungültiger Gutscheincode");
+                              setCouponError(data.error || "Ungültiger Gutscheincode");
                             }
+                          } catch {
+                            setCouponError("Fehler bei der Gutscheinprüfung");
+                          } finally {
+                            setCouponLoading(false);
                           }
                         }}
-                        disabled={!couponCode.trim()}
+                        disabled={!couponCode.trim() || couponLoading}
                         className="px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
-                        Anwenden
+                        {couponLoading ? "Prüfe…" : "Anwenden"}
                       </button>
                     </div>
                     {couponError && (
                       <p className="text-xs text-[var(--color-danger)] mt-1.5" role="alert">{couponError}</p>
-                    )}
-                    {couponApplied && (
-                      <p className="text-xs text-[var(--color-success)] mt-1.5">Gutschein angewendet! 10% Rabatt</p>
                     )}
                   </div>
                 )}
@@ -340,9 +350,9 @@ export default function WarenkorbPage() {
                 </div>
               )}
               <div className="border-t border-[var(--color-border-light)] pt-3">
-                {couponApplied && (
+                {coupon && (
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-[var(--color-success)]">Rabatt (10%)</span>
+                    <span className="text-[var(--color-success)]">Rabatt ({coupon.label})</span>
                     <span className="font-semibold text-[var(--color-success)]">-{formatPrice(couponDiscount)}</span>
                   </div>
                 )}

@@ -28,7 +28,7 @@ type Step = "address" | "review";
 
 export default function BestellungPage() {
   const router = useRouter();
-  const { items, clearCart, updateQuantity, removeItem } = useCartStore();
+  const { items, clearCart, updateQuantity, removeItem, coupon } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("address");
@@ -57,7 +57,8 @@ export default function BestellungPage() {
 
   const total = useCartStore(selectTotal);
   const shippingCost = getShippingCost(total);
-  const finalTotal = total + shippingCost;
+  const couponDiscount = coupon ? total * (coupon.discountPercent / 100) : 0;
+  const finalTotal = total - couponDiscount + shippingCost;
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -212,6 +213,7 @@ export default function BestellungPage() {
             quantity: item.quantity,
             price: item.price,
           })),
+          couponCode: coupon?.code || undefined,
         }),
       });
 
@@ -227,7 +229,7 @@ export default function BestellungPage() {
       clearCartTimerRef.current = setTimeout(() => {
         sessionStorage.removeItem(`order_${data.order.orderNumber}`);
         clearCartTimerRef.current = null;
-      }, 5000);
+      }, 120000);
     } catch (error) {
       setOrderError(error instanceof Error ? error.message : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
     } finally {
@@ -710,6 +712,12 @@ export default function BestellungPage() {
                   )}
                 </span>
               </div>
+              {coupon && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-[var(--color-success)]">Rabatt ({coupon.label})</span>
+                  <span className="font-semibold text-[var(--color-success)]">-{formatPrice(couponDiscount)}</span>
+                </div>
+              )}
               <div className="border-t border-[var(--color-border-light)] pt-3">
                 <div className="flex justify-between">
                   <span className="font-semibold text-[var(--color-text-primary)]">Gesamt</span>

@@ -503,6 +503,14 @@ export default function HeaderClient() {
                 Mein Konto
               </Link>
               <Link
+                href="/wunschliste"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
+              >
+                <Heart className="w-4 h-4" />
+                Wunschliste
+              </Link>
+              <Link
                 href="/kontakt"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"

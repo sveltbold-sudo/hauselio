@@ -13,18 +13,28 @@ export interface CartItem {
   maxQuantity?: number;
 }
 
+export interface CouponData {
+  code: string;
+  discountPercent: number;
+  label: string;
+}
+
 interface CartState {
   items: CartItem[];
+  coupon: CouponData | null;
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  applyCoupon: (coupon: CouponData) => void;
+  removeCoupon: () => void;
 }
 
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
+      coupon: null,
 
       addItem: (item, quantity = 1) => {
         set((state) => {
@@ -63,10 +73,14 @@ export const useCartStore = create<CartState>()(
         }));
       },
 
-      clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [], coupon: null }),
+
+      applyCoupon: (coupon) => set({ coupon }),
+
+      removeCoupon: () => set({ coupon: null }),
     }),
     {
-      name: "hausaura-cart",
+      name: "hauselio-cart",
     }
   )
 );
