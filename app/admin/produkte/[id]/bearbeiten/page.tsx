@@ -30,6 +30,7 @@ interface Product {
   categoryId: string;
   brandId: string | null;
   inStock: boolean;
+  stockQuantity: number | null;
   isNew: boolean;
   isFeatured: boolean;
   weight: number | null;
