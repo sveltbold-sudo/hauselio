@@ -1,8 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { readdirSync } from "fs";
+import { join } from "path";
 
 const prisma = new PrismaClient();
+const IMAGES_DIR = join(process.cwd(), "public", "images", "products");
 
-const adminEmail = "admin@hauselio.de";
+const adminEmail = "admin@hausaura.de";
 
   const categories = [
     { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },
@@ -2092,7 +2095,7 @@ async function main() {
       bankAccountName: "HAUSAURA GmbH",
       bankName: "Commerzbank Berlin",
       shippingInfo: "Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.",
-      contactEmail: "info@hauselio.de",
+      contactEmail: "info@hausaura.de",
       contactPhone: "+49 (0)30 555 789 01",
       contactAddress: "Kastanienallee 42, 10435 Berlin",
     },
@@ -2129,7 +2132,34 @@ async function main() {
 
   const imageData: { url: string; alt: string; position: number; productId: string }[] = [];
   for (const rec of productRecords) {
-    imageData.push({ url: `/images/placeholder-product.svg`, alt: rec.slug, position: 0, productId: rec.id });
+    const productDir = join(IMAGES_DIR, rec.slug);
+    try {
+      const files = readdirSync(productDir);
+      const imageFiles = files
+        .filter((f) => f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith("-medium.webp"))
+        .sort((a, b) => {
+          const numA = parseInt(a.replace(/\.(png|jpg)$/, "").replace(/-medium\.webp$/, ""), 10);
+          const numB = parseInt(b.replace(/\.(png|jpg)$/, "").replace(/-medium\.webp$/, ""), 10);
+          return numA - numB;
+        });
+
+      // Deduplicate: prefer PNG > JPG > medium.webp for same number
+      const seen = new Set<number>();
+      const deduped: string[] = [];
+      for (const f of imageFiles) {
+        const num = parseInt(f.replace(/\.(png|jpg)$/, "").replace(/-medium\.webp$/, ""), 10);
+        if (!seen.has(num)) {
+          seen.add(num);
+          deduped.push(f);
+        }
+      }
+
+      for (let i = 0; i < deduped.length; i++) {
+        imageData.push({ url: `/images/products/${rec.slug}/${deduped[i]}`, alt: rec.slug, position: i, productId: rec.id });
+      }
+    } catch {
+      imageData.push({ url: `/images/placeholder-product.svg`, alt: rec.slug, position: 0, productId: rec.id });
+    }
   }
   await prisma.productImage.createMany({ data: imageData });
 
