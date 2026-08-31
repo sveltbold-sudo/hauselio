@@ -83,6 +83,7 @@ export default function EditProductPage({
           categoryId: p.categoryId,
           brandId: p.brandId || "",
           inStock: p.inStock,
+          stockQuantity: p.stockQuantity != null ? String(p.stockQuantity) : "",
           isNew: p.isNew,
           isFeatured: p.isFeatured,
           weight: p.weight ? String(p.weight) : "",
@@ -132,6 +133,7 @@ export default function EditProductPage({
     categoryId: string;
     brandId: string;
     inStock: boolean;
+    stockQuantity: string;
     isNew: boolean;
     isFeatured: boolean;
     weight: string;

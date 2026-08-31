@@ -17,6 +17,7 @@ interface Product {
   price: number;
   originalPrice: number | null;
   inStock: boolean;
+  stockQuantity: number | null;
   category: { name: string };
   brand: { name: string | null } | null;
   images: { url: string }[];
@@ -173,6 +174,9 @@ function ProductTable({
                 <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
                   Status
                 </th>
+                <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
+                  Bestand
+                </th>
                 <th className="text-right px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
                   Aktionen
                 </th>
@@ -246,6 +250,15 @@ function ProductTable({
                     >
                       {product.inStock ? "Verfügbar" : "Nicht verfügbar"}
                     </span>
+                  </td>
+                  <td className="px-5 py-3">
+                    {product.stockQuantity != null ? (
+                      <span className={`text-sm font-medium ${product.stockQuantity <= 5 ? "text-[var(--color-danger)]" : "text-[var(--color-text-primary)]"}`}>
+                        {product.stockQuantity}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-[var(--color-text-muted)]">—</span>
+                    )}
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-2">

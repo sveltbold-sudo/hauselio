@@ -7,7 +7,7 @@ export const CreateOrderSchema = z.object({
   phone: z.string().max(30).optional().nullable(),
   address: z.string().min(1, "Adresse ist erforderlich").max(200),
   city: z.string().min(1, "Stadt ist erforderlich").max(100),
-  zip: z.string().min(1, "PLZ ist erforderlich").max(10),
+  zip: z.string().min(1, "PLZ ist erforderlich").regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten (DE/AT/CH)").max(10),
   country: z.string().min(2).max(2).default("DE"),
   notes: z.string().max(2000).optional().nullable(),
   items: z.array(z.object({
@@ -40,6 +40,7 @@ export const CreateProductSchema = z.object({
   categoryId: z.string().min(1, "Kategorie ist erforderlich"),
   brandId: z.string().optional().nullable(),
   inStock: z.boolean().optional().default(true),
+  stockQuantity: z.number().min(0).optional().nullable(),
   isNew: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),
   weight: z.number().min(0).optional().nullable(),
@@ -65,4 +66,24 @@ export const UpdateSettingsSchema = z.object({
 
 export const CreateBrandSchema = z.object({
   name: z.string().min(1, "Markenname ist erforderlich").max(100),
+});
+
+export const RegisterSchema = z.object({
+  name: z.string().min(1, "Name ist erforderlich").max(100),
+  email: z.string().email("Ungültige E-Mail-Adresse").max(254),
+  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+});
+
+export const CustomerLoginSchema = z.object({
+  email: z.string().email("Ungültige E-Mail-Adresse").max(254),
+  password: z.string().min(1, "Passwort ist erforderlich").max(128),
+});
+
+export const UpdateProfileSchema = z.object({
+  name: z.string().min(1, "Name ist erforderlich").max(100).optional(),
+  phone: z.string().max(30).optional().nullable(),
+  address: z.string().max(200).optional().nullable(),
+  zip: z.string().regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten").optional().nullable(),
+  city: z.string().max(100).optional().nullable(),
+  country: z.string().min(2).max(2).optional(),
 });

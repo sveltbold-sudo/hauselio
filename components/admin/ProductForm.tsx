@@ -464,6 +464,27 @@ export default function ProductForm({
                       Verfügbar
                     </span>
                   </label>
+                  <div className="space-y-1.5">
+                    <label className="text-sm text-[var(--color-text-secondary)]">
+                      Bestandsmenge
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.stockQuantity}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          stockQuantity: e.target.value,
+                        }))
+                      }
+                      placeholder="z.B. 25"
+                      className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    />
+                    <p className="text-xs text-[var(--color-text-muted)]">
+                      Unter 5: &quot;Nur noch X auf Lager&quot; wird angezeigt
+                    </p>
+                  </div>
                   <label className="flex items-center gap-2">
                     <input
                       type="checkbox"
