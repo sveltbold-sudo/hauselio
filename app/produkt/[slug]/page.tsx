@@ -108,6 +108,7 @@ export default async function ProductPage({ params }: PageProps) {
     reviewCount: product.reviewCount,
     isNew: product.isNew,
     inStock: product.inStock,
+    stockQuantity: product.stockQuantity ?? null,
     brand: product.brand?.name || null,
     categoryName: product.category.name,
     categorySlug: product.category.slug,

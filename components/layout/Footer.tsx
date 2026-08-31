@@ -1,11 +1,19 @@
 import Link from "next/link";
-import { Mail, Phone, Truck, Shield, CreditCard, Headphones } from "lucide-react";
+import { Mail, Phone, Truck, Shield, CreditCard, Headphones, Lock, Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import NewsletterForm from "@/components/layout/NewsletterForm";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
+
+const COOKIE_EVENT = "hauselio:open-cookie-settings";
+
+export function openCookieSettings() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(COOKIE_EVENT));
+  }
+}
 
 const service = [
   { name: "Kontakt", href: "/kontakt" },
@@ -21,6 +29,7 @@ const legal = [
   { name: "Datenschutz", href: "/datenschutz" },
   { name: "AGB", href: "/agb" },
   { name: "Widerrufsrecht", href: "/widerruf" },
+  { name: "Barrierefreiheit", href: "/barrierefreiheit" },
 ];
 
 const trustBadges = [
@@ -59,6 +68,25 @@ export default function Footer() {
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-[var(--color-accent)]">9,2/10</span>
               <span className="text-xs text-white/60">— KiyoBewertungen</span>
+            </div>
+          </div>
+          {/* Trust seals */}
+          <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-2 text-white/60">
+              <Lock className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
+              <span className="text-xs font-medium">SSL-verschlüsselt</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/60">
+              <Shield className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
+              <span className="text-xs font-medium">TÜV-geprüft</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/60">
+              <Award className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
+              <span className="text-xs font-medium">Geprüfter Shop</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/60">
+              <BadgeCheck className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
+              <span className="text-xs font-medium">30 Tage Rückgaberecht</span>
             </div>
           </div>
         </div>
@@ -161,6 +189,14 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <button
+                    onClick={openCookieSettings}
+                    className={footerLinkClass}
+                  >
+                    Cookie-Einstellungen
+                  </button>
+                </li>
               </ul>
             </nav>
 

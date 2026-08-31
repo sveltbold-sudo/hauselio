@@ -49,6 +49,7 @@ interface Product {
   reviewCount: number;
   isNew: boolean;
   inStock: boolean;
+  stockQuantity: number | null;
   brand: string | null;
   categoryName: string;
   categorySlug: string;
@@ -213,7 +214,13 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               }
               {product.inStock ? "Auf Lager" : "Nicht verfügbar"}
             </span>
-            {product.inStock && product.reviewCount > 10 && (
+            {product.inStock && product.stockQuantity !== null && product.stockQuantity <= 5 && (
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-[var(--color-danger)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--color-danger)] animate-pulse" />
+                Nur noch {product.stockQuantity} auf Lager
+              </span>
+            )}
+            {product.inStock && product.reviewCount > 10 && product.stockQuantity !== null && product.stockQuantity > 5 && (
               <span className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
                 <span className="w-2 h-2 rounded-full bg-[var(--color-success)] animate-pulse" />
                 Beliebt bei unseren Kunden

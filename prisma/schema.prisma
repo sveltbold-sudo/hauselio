@@ -52,6 +52,7 @@ model Product {
   barcode       String?
   weight        Decimal?      @db.Decimal(8, 2)
   inStock       Boolean       @default(true)
+  stockQuantity Int?          @default(null)
   isFeatured    Boolean       @default(false)
   isNew         Boolean       @default(false)
   isPromo       Boolean       @default(false)

@@ -14,6 +14,7 @@ const Footer = dynamic(() => import("@/components/layout/Footer"), { ssr: true }
 const MobileBottomNav = dynamic(() => import("@/components/layout/MobileBottomNav"), { ssr: false });
 const BackToTop = dynamic(() => import("@/components/layout/BackToTop"), { ssr: false });
 const CookieConsent = dynamic(() => import("@/components/ui/CookieConsent"), { ssr: false });
+const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -119,6 +120,7 @@ export default function RootLayout({
         <BackToTop />
         <LazyComparisonBar />
         <CookieConsent />
+        <ExitIntentPopup />
       </body>
     </html>
   );
