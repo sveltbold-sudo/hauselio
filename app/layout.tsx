@@ -92,6 +92,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#FAFAF8" />
         <link rel="sitemap" href="/sitemap.xml" />
+        <link rel="manifest" href="/site.webmanifest" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
