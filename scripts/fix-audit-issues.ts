@@ -3,139 +3,143 @@ const prisma = new PrismaClient();
 
 async function main() {
   // ═══════════════════════════════════════════
-  // 1. REMOVE ORPHAN BRAND: siemens-eq
+  // 1. REMOVE ORPHAN BRANDS
   // ═══════════════════════════════════════════
-  console.log("=== 1. Marque orpheline siemens-eq ===");
-  const orphans = await prisma.brand.findMany({
-    where: {
-      products: { none: {} }
-    }
-  });
-  for (const b of orphans) {
-    await prisma.brand.delete({ where: { id: b.id } });
-    console.log(`  Supprimé: ${b.name} (${b.slug})`);
+  console.log("=== 1. Suppression marques orphelines ===");
+  await prisma.$executeRawUnsafe(`
+    DELETE FROM "Brand" b WHERE NOT EXISTS (SELECT 1 FROM "Product" p WHERE p."brandId" = b.id)
+  `);
+  const remainingOrphans: any[] = await prisma.$queryRawUnsafe(
+    `SELECT COUNT(*) as cnt FROM "Brand" b WHERE NOT EXISTS (SELECT 1 FROM "Product" p WHERE p."brandId" = b.id)`
+  );
+  console.log(`  Marques orphelines restantes: ${remainingOrphans[0].cnt}`);
+
+  // ═══════════════════════════════════════════
+  // 2. BULK TAGS
+  // ═══════════════════════════════════════════
+  console.log("\n=== 2. Tags bulk ===");
+
+  // Base tag for all empty-tag products
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = ARRAY['sortiment'] WHERE tags = '{}'::text[]
+  `);
+
+  // isFeatured -> bestseller
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = array_append(tags, 'bestseller') WHERE "isFeatured" = true AND NOT ('bestseller' = ANY(tags))
+  `);
+
+  // isNew -> neu
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = array_append(tags, 'neu') WHERE "isNew" = true AND NOT ('neu' = ANY(tags))
+  `);
+
+  // isPromo -> sale
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = array_append(tags, 'sale') WHERE "isPromo" = true AND NOT ('sale' = ANY(tags))
+  `);
+
+  // Top rated
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = array_append(tags, 'top-bewertet') WHERE rating >= 4.5 AND "reviewCount" >= 10 AND NOT ('top-bewertet' = ANY(tags))
+  `);
+
+  // Popular
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET tags = array_append(tags, 'beliebt') WHERE "reviewCount" >= 50 AND NOT ('beliebt' = ANY(tags))
+  `);
+
+  // Subcategory-based tags
+  const subTagMap: [string, string][] = [
+    ["Kaffeevollautomaten", "premium"],
+    ["Espressomaschinen", "premium"],
+    ["Saugroboter", "smart-home-kompatibel"],
+    ["Smart-Beleuchtung", "smart-home-kompatibel"],
+    ["Smart-Heizung", "smart-home-kompatibel"],
+    ["Smart-Hubs", "smart-home-kompatibel"],
+    ["Smart-Überwachung", "smart-home-kompatibel"],
+    ["Waschmaschinen", "waschen"],
+    ["Trockner", "waschen"],
+    ["Waschtrockner", "waschen"],
+    ["Luftreiniger", "klima"],
+    ["Luftbefeuchter", "klima"],
+    ["Luftkühler", "klima"],
+    ["Backöfen", "kochen"],
+    ["Kochfelder", "kochen"],
+    ["Herd", "kochen"],
+    ["Airfryer", "kochen"],
+    ["Heißluft", "kochen"],
+  ];
+
+  for (const [sub, tag] of subTagMap) {
+    await prisma.$executeRawUnsafe(
+      `UPDATE "Product" SET tags = array_append(tags, $1) WHERE "subCategory" LIKE $2 AND NOT ($1 = ANY(tags))`,
+      tag,
+      `%${sub}%`
+    );
   }
 
+  const withTags: any[] = await prisma.$queryRawUnsafe(
+    `SELECT COUNT(*) as cnt FROM "Product" WHERE tags != '{}'::text[]`
+  );
+  console.log(`  Produits avec tags: ${withTags[0].cnt}/279`);
+
   // ═══════════════════════════════════════════
-  // 2. ADD TAGS TO PRODUCTS WITHOUT TAGS
+  // 3. BULK WEIGHTS
   // ═══════════════════════════════════════════
-  console.log("\n=== 2. Ajout des tags ===");
+  console.log("\n=== 3. Poids bulk ===");
 
-  const noTagsProducts = await prisma.product.findMany({
-    where: { tags: { equals: [] } },
-    select: { id: true, slug: true, isFeatured: true, isNew: true, isPromo: true, rating: true, reviewCount: true, subCategory: true }
-  });
+  const weightCases: [string, number][] = [
+    ["Kaffeevollautomaten", 9.5],
+    ["Espressomaschinen", 8.0],
+    ["Kapselmaschinen", 4.0],
+    ["Filterkaffee", 3.5],
+    ["Waschmaschinen", 75.0],
+    ["Trockner", 55.0],
+    ["Waschtrockner", 85.0],
+    ["Geschirrspüler", 45.0],
+    ["Kühlschränke", 70.0],
+    ["Gefrierschränke", 65.0],
+    ["Kochfelder", 15.0],
+    ["Backöfen", 35.0],
+    ["Herd", 50.0],
+    ["Saugroboter", 3.5],
+    ["Staubsauger", 5.0],
+    ["Handmixer", 1.5],
+    ["Küchenmaschinen", 8.0],
+    ["Airfryer", 5.0],
+    ["Heißluft", 5.0],
+    ["Grill", 4.0],
+    ["Kontaktgrill", 4.0],
+    ["Luftreiniger", 6.0],
+    ["Luftbefeuchter", 4.0],
+    ["Luftkühler", 8.0],
+    ["Dampfreiniger", 5.0],
+    ["Smart-Beleuchtung", 0.5],
+    ["Smart-Heizung", 0.8],
+    ["Smart-Hubs", 0.3],
+    ["Smart-Überwachung", 0.4],
+    ["Multi-Cooker", 5.0],
+    ["Thermomix", 8.0],
+  ];
 
-  console.log(`  ${noTagsProducts.length} produits sans tags`);
-
-  let tagCount = 0;
-  for (const p of noTagsProducts) {
-    const tags: string[] = [];
-
-    if (p.isFeatured) tags.push("bestseller");
-    if (p.isNew) tags.push("neu");
-    if (p.isPromo) tags.push("sale");
-    if (Number(p.rating) >= 4.5 && p.reviewCount >= 10) tags.push("top-bewertet");
-    if (p.reviewCount >= 50) tags.push("beliebt");
-
-    // Subcategory-based tags
-    const sub = (p.subCategory || "").toLowerCase();
-    if (sub.includes("vollautomat") || sub.includes("espresso")) tags.push("premium");
-    if (sub.includes("saugroboter")) tags.push("smart-home-kompatibel");
-    if (sub.includes("klima") || sub.includes("luft")) tags.push("klima");
-    if (sub.includes("wasch") || sub.includes("trockner")) tags.push("waschen");
-    if (sub.includes("kochen") || sub.includes("back")) tags.push("kochen");
-
-    // Always add a base tag so no product has empty tags
-    if (tags.length === 0) tags.push("sortiment");
-
-    await prisma.product.update({
-      where: { id: p.id },
-      data: { tags }
-    });
-    tagCount++;
+  for (const [sub, weight] of weightCases) {
+    await prisma.$executeRawUnsafe(
+      `UPDATE "Product" SET weight = $1 WHERE "subCategory" LIKE $2 AND (weight IS NULL OR weight = 0)`,
+      weight,
+      `%${sub}%`
+    );
   }
-  console.log(`  Tags ajoutés à ${tagCount} produits`);
 
-  // ═══════════════════════════════════════════
-  // 3. ADD WEIGHT TO PRODUCTS WITHOUT WEIGHT
-  // ═══════════════════════════════════════════
-  console.log("\n=== 3. Ajout du poids ===");
+  // Default for remaining
+  await prisma.$executeRawUnsafe(`
+    UPDATE "Product" SET weight = 5.0 WHERE (weight IS NULL OR weight = 0)
+  `);
 
-  const noWeightProducts = await prisma.product.findMany({
-    where: { OR: [{ weight: null }, { weight: 0 }] },
-    select: { id: true, slug: true, subCategory: true, price: true }
-  });
-
-  console.log(`  ${noWeightProducts.length} produits sans poids`);
-
-  // Default weights by subcategory (in kg)
-  const weightDefaults: Record<string, number> = {
-    "Kaffeevollautomaten": 9.5,
-    "Espressomaschinen": 8.0,
-    "Kapselmaschinen": 4.0,
-    "Filterkaffee": 3.5,
-    "Waschmaschinen": 75.0,
-    "Trockner": 55.0,
-    "Waschtrockner": 85.0,
-    "Geschirrspüler": 45.0,
-    "Kühlschränke": 70.0,
-    "Gefrierschränke": 65.0,
-    "Kochfelder": 15.0,
-    "Backöfen": 35.0,
-    "Herd & Ceranfeld": 50.0,
-    "Saugroboter": 3.5,
-    "Staubsauger": 5.0,
-    "Handmixer": 1.5,
-    "Küchenmaschinen": 8.0,
-    "Airfryer": 5.0,
-    "Heißluft-Fritteusen": 5.0,
-    "Grill & Kontaktgrill": 4.0,
-    "Luftreiniger": 6.0,
-    "Luftbefeuchter": 4.0,
-    "Luftkühler": 8.0,
-    "Dampfreiniger": 5.0,
-    "Smart-Beleuchtung": 0.5,
-    "Smart-Heizung": 0.8,
-    "Smart-Hubs & Zubehör": 0.3,
-    "Smart-Überwachung": 0.4,
-    "Multi-Cooker": 5.0,
-    "Thermomix": 8.0,
-  };
-
-  let weightCount = 0;
-  for (const p of noWeightProducts) {
-    const sub = p.subCategory || "";
-    const defaultWeight = weightDefaults[sub] || 5.0;
-
-    // Slight variation based on price (more expensive = slightly heavier often)
-    const price = Number(p.price);
-    let weight = defaultWeight;
-    if (price > 2000) weight *= 1.2;
-    else if (price > 1000) weight *= 1.1;
-    else if (price < 100) weight *= 0.5;
-
-    // Round to 1 decimal
-    weight = Math.round(weight * 10) / 10;
-
-    await prisma.product.update({
-      where: { id: p.id },
-      data: { weight }
-    });
-    weightCount++;
-  }
-  console.log(`  Poids ajouté à ${weightCount} produits`);
-
-  // ═══════════════════════════════════════════
-  // VERIFICATION
-  // ═══════════════════════════════════════════
-  console.log("\n=== Vérification ===");
-  const remainingNoTags = await prisma.product.count({ where: { tags: { equals: [] } } });
-  const remainingNoWeight = await prisma.product.count({ where: { OR: [{ weight: null }, { weight: 0 }] } });
-  const orphanBrands = await prisma.brand.findMany({ where: { products: { none: {} } } });
-  console.log(`  Produits sans tags: ${remainingNoTags}`);
-  console.log(`  Produits sans poids: ${remainingNoWeight}`);
-  console.log(`  Marques orphelines: ${orphanBrands.length}`);
+  const noWeight: any[] = await prisma.$queryRawUnsafe(
+    `SELECT COUNT(*) as cnt FROM "Product" WHERE weight IS NULL OR weight = 0`
+  );
+  console.log(`  Produits sans poids: ${noWeight[0].cnt}`);
 
   console.log("\n=== Terminé ===");
 }
