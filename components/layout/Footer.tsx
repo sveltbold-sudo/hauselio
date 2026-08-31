@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones, Lock, Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
@@ -202,11 +204,11 @@ export default function Footer() {
 
             <div className="space-y-0">
               <a
-                href="mailto:hilfe@hauselio.de"
+                href="mailto:hilfe@hausaura.de"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                hilfe@hauselio.de
+                hilfe@hausaura.de
               </a>
               <a
                 href="tel:+493055578901"
