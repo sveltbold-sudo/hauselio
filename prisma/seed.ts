@@ -62,6 +62,18 @@ const brands = [
   { name: "Ring", slug: "ring", logo: "/images/brands/ring.svg" },
   { name: "Netatmo", slug: "netatmo", logo: "/images/brands/netatmo.svg" },
   { name: "IKEA", slug: "ikea", logo: "/images/brands/ikea.svg" },
+  { name: "Kenwood", slug: "kenwood", logo: "/images/brands/kenwood.svg" },
+  { name: "Russell Hobbs", slug: "russell-hobbs", logo: "/images/brands/russell-hobbs.svg" },
+  { name: "Braun", slug: "braun", logo: "/images/brands/braun.svg" },
+  { name: "Smeg", slug: "smeg", logo: "/images/brands/smeg.svg" },
+  { name: "Moulinex", slug: "moulinex", logo: "/images/brands/moulinex.svg" },
+  { name: "Black+Decker", slug: "black-decker", logo: "/images/brands/black-decker.svg" },
+  { name: "Lavazza", slug: "lavazza", logo: "/images/brands/lavazza.svg" },
+  { name: "Trotec", slug: "trotec", logo: "/images/brands/trotec.svg" },
+  { name: "Comfee", slug: "comfee", logo: "/images/brands/comfee.svg" },
+  { name: "Sichler", slug: "sichler", logo: "/images/brands/sichler.svg" },
+  { name: "Klarstein", slug: "klarstein", logo: "/images/brands/klarstein.svg" },
+  { name: "Midea", slug: "midea", logo: "/images/brands/midea.svg" },
 ];
 
 interface ProductData {
@@ -337,7 +349,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Foodi Multi Cooker Nc300", slug: "ninja-foodi-multi-cooker-nc300",
     description: "Ninja Foodi Multi Cooker Nc300 – hochwertiges Haushaltsgerät.", shortDesc: "Ninja Foodi Multi Cooker Nc300",
-    price: 1580, sku: "NINJAFOODIMULTI", inStock: true, isPromo: true,
+    price: 1580, originalPrice: 1817, sku: "NINJAFOODIMULTI", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "ninja",
     specs: []
   },
@@ -358,7 +370,7 @@ const products: ProductData[] = [
   {
     name: "Gastroback Advanced Dual Plus 40882", slug: "gastroback-advanced-dual-plus-40882",
     description: "Gastroback Advanced Dual Plus 40882 – hochwertiges Haushaltsgerät.", shortDesc: "Gastroback Advanced Dual Plus 40882",
-    price: 380, sku: "GASTROBACKAD2", inStock: true, isPromo: true,
+    price: 380, originalPrice: 437, sku: "GASTROBACKAD2", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 273, categorySlug: "kueche", brandSlug: "gastroback",
     specs: []
   },
@@ -379,14 +391,14 @@ const products: ProductData[] = [
   {
     name: "Russell Hobbs Hobbs Go Create Handmixer", slug: "russell-hobbs-go-create-handmixer",
     description: "Russell Hobbs Hobbs Go Create Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Russell Hobbs Hobbs Go Create Handmixer",
-    price: 1970, sku: "RUSSELLHOBBSGOC", inStock: true, isNew: true, isPromo: true,
-    rating: 4.7, reviewCount: 219, categorySlug: "kueche", brandSlug: "russell",
+    price: 1970, originalPrice: 2266, sku: "RUSSELLHOBBSGOC", inStock: true, isNew: true, isPromo: true,
+    rating: 4.7, reviewCount: 219, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: []
   },
   {
     name: "Bosch Mfq3540 Handmixer", slug: "bosch-mfq3540-handmixer",
     description: "Bosch Mfq3540 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Mfq3540 Handmixer",
-    price: 170, sku: "BOSCHMFQ3540HAN", inStock: true, isPromo: true,
+    price: 170, originalPrice: 195, sku: "BOSCHMFQ3540HAN", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 232, categorySlug: "kueche", brandSlug: "bosch",
     specs: []
   },
@@ -400,14 +412,14 @@ const products: ProductData[] = [
   {
     name: "AEG Hm 400 Handmixer", slug: "aeg-hm-400-handmixer",
     description: "AEG Hm 400 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "AEG Hm 400 Handmixer",
-    price: 830, sku: "AEGHM400HANDMIX", inStock: true, isPromo: true,
+    price: 830, originalPrice: 954, sku: "AEGHM400HANDMIX", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 110, categorySlug: "kueche", brandSlug: "aeg",
     specs: []
   },
   {
     name: "Braun Mq7 Multiquick Handmixer", slug: "braun-mq7-multiquick-handmixer",
     description: "Braun Mq7 Multiquick Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Braun Mq7 Multiquick Handmixer",
-    price: 2270, sku: "BRAUNMQ7MULTIQU", inStock: true, isPromo: true,
+    price: 2270, originalPrice: 2611, sku: "BRAUNMQ7MULTIQU", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 31, categorySlug: "kueche", brandSlug: "braun",
     specs: []
   },
@@ -435,21 +447,21 @@ const products: ProductData[] = [
   {
     name: "Russell Hobbs Hobbs Eagle 23211 Handmixer", slug: "russell-hobbs-eagle-23211-handmixer",
     description: "Russell Hobbs Hobbs Eagle 23211 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Russell Hobbs Hobbs Eagle 23211 Handmixer",
-    price: 2020, sku: "RUSSELLHOBBSEAG", inStock: true, isPromo: true,
-    rating: 4, reviewCount: 264, categorySlug: "kueche", brandSlug: "russell",
+    price: 2020, originalPrice: 2323, sku: "RUSSELLHOBBSEAG", inStock: true, isPromo: true,
+    rating: 4, reviewCount: 264, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: []
   },
   {
     name: "Moulinex Optichef Ht4101 Handmixer", slug: "moulinex-optichef-ht4101-handmixer",
     description: "Moulinex Optichef Ht4101 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Moulinex Optichef Ht4101 Handmixer",
-    price: 1120, sku: "MOULINEXOPTICHE", inStock: true, isNew: true, isPromo: true,
+    price: 1120, originalPrice: 1288, sku: "MOULINEXOPTICHE", inStock: true, isNew: true, isPromo: true,
     rating: 4.2, reviewCount: 247, categorySlug: "kueche", brandSlug: "moulinex",
     specs: []
   },
   {
     name: "Tefal Optichef Ht4508 Handmixer", slug: "tefal-optichef-ht4508-handmixer",
     description: "Tefal Optichef Ht4508 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Tefal Optichef Ht4508 Handmixer",
-    price: 1240, sku: "TEFALOPTICHEFHT", inStock: true, isPromo: true,
+    price: 1240, originalPrice: 1426, sku: "TEFALOPTICHEFHT", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 122, categorySlug: "kueche", brandSlug: "tefal",
     specs: []
   },
@@ -457,7 +469,7 @@ const products: ProductData[] = [
     name: "Black+Decker Decker 600w Handmixer", slug: "black-decker-600w-handmixer",
     description: "Black+Decker Decker 600w Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Black+Decker Decker 600w Handmixer",
     price: 570, sku: "BLACKDECKER600W", inStock: true,
-    rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "black",
+    rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "black-decker",
     specs: []
   },
   {
@@ -470,7 +482,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Mums2ew48 Kuechenmaschine", slug: "bosch-mums2ew48-kuechenmaschine",
     description: "Bosch Mums2ew48 Kuechenmaschine – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Mums2ew48 Kuechenmaschine",
-    price: 2160, sku: "BOSCHMUMS2EW48K", inStock: true, isPromo: true,
+    price: 2160, originalPrice: 2484, sku: "BOSCHMUMS2EW48K", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 266, categorySlug: "kueche", brandSlug: "bosch",
     specs: []
   },
@@ -484,14 +496,14 @@ const products: ProductData[] = [
   {
     name: "Kenwood Hm430 Handmixer", slug: "kenwood-hm430-handmixer",
     description: "Kenwood Hm430 Handmixer – hochwertiges Haushaltsgerät.", shortDesc: "Kenwood Hm430 Handmixer",
-    price: 1170, sku: "KENWOODHM430HAN", inStock: true, isPromo: true,
+    price: 1170, originalPrice: 1346, sku: "KENWOODHM430HAN", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 163, categorySlug: "kueche", brandSlug: "kenwood",
     specs: []
   },
   {
     name: "Jura E4 Platinum", slug: "jura-e4-platinum",
     description: "Jura E4 Platinum – hochwertiges Haushaltsgerät.", shortDesc: "Jura E4 Platinum",
-    price: 940, sku: "JURAE4PLATINUM", inStock: true, isPromo: true,
+    price: 940, originalPrice: 1081, sku: "JURAE4PLATINUM", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 83, categorySlug: "kaffee", brandSlug: "jura",
     specs: []
   },
@@ -526,7 +538,7 @@ const products: ProductData[] = [
   {
     name: "De'Longhi Primadonna Soul Ecam61075", slug: "delonghi-primadonna-soul-ecam61075",
     description: "De'Longhi Primadonna Soul Ecam61075 – hochwertiges Haushaltsgerät.", shortDesc: "De'Longhi Primadonna Soul Ecam61075",
-    price: 1980, sku: "DELONGHIPRIMADO", inStock: true, isPromo: true,
+    price: 1980, originalPrice: 2277, sku: "DELONGHIPRIMADO", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 308, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: []
   },
@@ -561,42 +573,42 @@ const products: ProductData[] = [
   {
     name: "Saeco Granarista Sm5580", slug: "saeco-granarista-sm5580",
     description: "Saeco Granarista Sm5580 – hochwertiges Haushaltsgerät.", shortDesc: "Saeco Granarista Sm5580",
-    price: 750, sku: "SAECOGRANARISTA", inStock: true, isPromo: true,
+    price: 750, originalPrice: 862, sku: "SAECOGRANARISTA", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 119, categorySlug: "kaffee", brandSlug: "saeco",
     specs: []
   },
   {
     name: "Krups Virtuoso Xp442c10", slug: "krups-virtuoso-xp442c10",
     description: "Krups Virtuoso Xp442c10 – hochwertiges Haushaltsgerät.", shortDesc: "Krups Virtuoso Xp442c10",
-    price: 2360, sku: "KRUPSVIRTUOSOXP", inStock: true, isPromo: true,
+    price: 2360, originalPrice: 2714, sku: "KRUPSVIRTUOSOXP", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 79, categorySlug: "kaffee", brandSlug: "krups",
     specs: []
   },
   {
     name: "Krups Evidence Plus Ea894c", slug: "krups-evidence-plus-ea894c",
     description: "Krups Evidence Plus Ea894c – hochwertiges Haushaltsgerät.", shortDesc: "Krups Evidence Plus Ea894c",
-    price: 1170, sku: "KRUPSEVIDENCEPL", inStock: true, isPromo: true,
+    price: 1170, originalPrice: 1346, sku: "KRUPSEVIDENCEPL", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 274, categorySlug: "kaffee", brandSlug: "krups",
     specs: []
   },
   {
     name: "Tchibo Barista Bean To Cup", slug: "tchibo-barista-bean-to-cup",
     description: "Tchibo Barista Bean To Cup – hochwertiges Haushaltsgerät.", shortDesc: "Tchibo Barista Bean To Cup",
-    price: 1600, sku: "TCHIBOBARISTABE", inStock: true, isPromo: true,
+    price: 1600, originalPrice: 1840, sku: "TCHIBOBARISTABE", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 286, categorySlug: "kaffee", brandSlug: "tchibo",
     specs: []
   },
   {
     name: "Tchibo Privilegio Bean To Cup", slug: "tchibo-privilegio-bean-to-cup",
     description: "Tchibo Privilegio Bean To Cup – hochwertiges Haushaltsgerät.", shortDesc: "Tchibo Privilegio Bean To Cup",
-    price: 2790, sku: "TCHIBOPRIVILEGI", inStock: true, isPromo: true,
+    price: 2790, originalPrice: 3208, sku: "TCHIBOPRIVILEGI", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 257, categorySlug: "haushaltsgeraete", brandSlug: "tchibo",
     specs: []
   },
   {
     name: "Melitta Purista Pure Black Neu", slug: "melitta-purista-pure-black-neu",
     description: "Melitta Purista Pure Black Neu – hochwertiges Haushaltsgerät.", shortDesc: "Melitta Purista Pure Black Neu",
-    price: 1310, sku: "MELITTAPURISTAP", inStock: true, isPromo: true,
+    price: 1310, originalPrice: 1506, sku: "MELITTAPURISTAP", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 217, categorySlug: "kaffee", brandSlug: "melitta",
     specs: []
   },
@@ -610,7 +622,7 @@ const products: ProductData[] = [
   {
     name: "Melitta Enjoy 5 Purge", slug: "melitta-enjoy-5-purge",
     description: "Melitta Enjoy 5 Purge – hochwertiges Haushaltsgerät.", shortDesc: "Melitta Enjoy 5 Purge",
-    price: 960, sku: "MELITTAENJOY5PU", inStock: true, isPromo: true,
+    price: 960, originalPrice: 1104, sku: "MELITTAENJOY5PU", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 67, categorySlug: "kaffee", brandSlug: "melitta",
     specs: []
   },
@@ -631,7 +643,7 @@ const products: ProductData[] = [
   {
     name: "Sage Barista Express Impress", slug: "sage-barista-express-impress",
     description: "Sage Barista Express Impress – hochwertiges Haushaltsgerät.", shortDesc: "Sage Barista Express Impress",
-    price: 1360, sku: "SAGEBARISTAEXPR", inStock: true, isPromo: true,
+    price: 1360, originalPrice: 1564, sku: "SAGEBARISTAEXPR", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 241, categorySlug: "haushaltsgeraete", brandSlug: "sage",
     specs: []
   },
@@ -659,7 +671,7 @@ const products: ProductData[] = [
   {
     name: "Gastroback Advanced Espresso 42602", slug: "gastroback-advanced-espresso-42602",
     description: "Gastroback Advanced Espresso 42602 – hochwertiges Haushaltsgerät.", shortDesc: "Gastroback Advanced Espresso 42602",
-    price: 330, sku: "GASTROBACKADVAN", inStock: true, isPromo: true,
+    price: 330, originalPrice: 379, sku: "GASTROBACKADVAN", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 96, categorySlug: "kueche", brandSlug: "gastroback",
     specs: []
   },
@@ -687,21 +699,21 @@ const products: ProductData[] = [
   {
     name: "Nespresso Vertuo Pop", slug: "nespresso-vertuo-pop",
     description: "Nespresso Vertuo Pop – hochwertiges Haushaltsgerät.", shortDesc: "Nespresso Vertuo Pop",
-    price: 690, sku: "NESPRESSOVERTUO", inStock: true, isPromo: true,
+    price: 690, originalPrice: 793, sku: "NESPRESSOVERTUO", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 42, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: []
   },
   {
     name: "Nespresso Citiz En895", slug: "nespresso-citiz-en895",
     description: "Nespresso Citiz En895 – hochwertiges Haushaltsgerät.", shortDesc: "Nespresso Citiz En895",
-    price: 1410, sku: "NESPRESSOCITIZE", inStock: true, isPromo: true,
+    price: 1410, originalPrice: 1621, sku: "NESPRESSOCITIZE", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 297, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: []
   },
   {
     name: "Lavazza A Modo Mio Jl01", slug: "lavazza-a-modo-mio-jl01",
     description: "Lavazza A Modo Mio Jl01 – hochwertiges Haushaltsgerät.", shortDesc: "Lavazza A Modo Mio Jl01",
-    price: 1430, sku: "LAVAZZAAMODOMIO", inStock: true, isPromo: true,
+    price: 1430, originalPrice: 1644, sku: "LAVAZZAAMODOMIO", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 82, categorySlug: "kaffee", brandSlug: "lavazza",
     specs: []
   },
@@ -715,7 +727,7 @@ const products: ProductData[] = [
   {
     name: "Dyson V12 Detect Slim", slug: "dyson-v12-detect-slim",
     description: "Dyson V12 Detect Slim – hochwertiges Haushaltsgerät.", shortDesc: "Dyson V12 Detect Slim",
-    price: 490, sku: "DYSONV12DETECTS", inStock: true, isPromo: true,
+    price: 490, originalPrice: 564, sku: "DYSONV12DETECTS", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 292, categorySlug: "reinigung", brandSlug: "dyson",
     specs: []
   },
@@ -778,14 +790,14 @@ const products: ProductData[] = [
   {
     name: "LG Cordzero A9 Kompressor", slug: "lg-cordzero-a9-kompressor",
     description: "LG Cordzero A9 Kompressor – hochwertiges Haushaltsgerät.", shortDesc: "LG Cordzero A9 Kompressor",
-    price: 1350, sku: "LGCORDZEROA9KOM", inStock: true, isFeatured: true, isPromo: true,
+    price: 1350, originalPrice: 1552, sku: "LGCORDZEROA9KOM", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.3, reviewCount: 70, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: []
   },
   {
     name: "LG Cordzero Thinq R9", slug: "lg-cordzero-thinq-r9",
     description: "LG Cordzero Thinq R9 – hochwertiges Haushaltsgerät.", shortDesc: "LG Cordzero Thinq R9",
-    price: 900, sku: "LGCORDZEROTHINQ", inStock: true, isPromo: true,
+    price: 900, originalPrice: 1035, sku: "LGCORDZEROTHINQ", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: []
   },
@@ -799,14 +811,14 @@ const products: ProductData[] = [
   {
     name: "Kärcher Vc3 Cordless", slug: "kaercher-vc3-cordless",
     description: "Kärcher Vc3 Cordless – hochwertiges Haushaltsgerät.", shortDesc: "Kärcher Vc3 Cordless",
-    price: 280, sku: "KAERCHERVC3CORD", inStock: true, isPromo: true,
+    price: 280, originalPrice: 322, sku: "KAERCHERVC3CORD", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 268, categorySlug: "reinigung", brandSlug: "kaercher",
     specs: []
   },
   {
     name: "Miele Triflex Hx2 Pro", slug: "miele-triflex-hx2-pro",
     description: "Miele Triflex Hx2 Pro – hochwertiges Haushaltsgerät.", shortDesc: "Miele Triflex Hx2 Pro",
-    price: 330, sku: "MIELETRIFLEXHX2", inStock: true, isPromo: true,
+    price: 330, originalPrice: 379, sku: "MIELETRIFLEXHX2", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 42, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: []
   },
@@ -855,7 +867,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie6 Bbh3d122", slug: "bosch-serie6-bbh3d122",
     description: "Bosch Serie6 Bbh3d122 – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Serie6 Bbh3d122",
-    price: 590, sku: "BOSCHSERIE6BBH3", inStock: true, isPromo: true,
+    price: 590, originalPrice: 679, sku: "BOSCHSERIE6BBH3", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: []
   },
@@ -876,7 +888,7 @@ const products: ProductData[] = [
   {
     name: "Vorwerk Kobold Vk200 Plus", slug: "vorwerk-kobold-vk200-plus",
     description: "Vorwerk Kobold Vk200 Plus – hochwertiges Haushaltsgerät.", shortDesc: "Vorwerk Kobold Vk200 Plus",
-    price: 1180, sku: "VORWERKKOBOLDVK", inStock: true, isPromo: true,
+    price: 1180, originalPrice: 1357, sku: "VORWERKKOBOLDVK", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 116, categorySlug: "haushaltsgeraete", brandSlug: "vorwerk",
     specs: []
   },
@@ -904,7 +916,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Speedi Sp101eu", slug: "ninja-speedi-sp101eu",
     description: "Ninja Speedi Sp101eu – hochwertiges Haushaltsgerät.", shortDesc: "Ninja Speedi Sp101eu",
-    price: 1500, sku: "NINJASPEEDISP10", inStock: true, isFeatured: true, isPromo: true,
+    price: 1500, originalPrice: 1725, sku: "NINJASPEEDISP10", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.4, reviewCount: 260, categorySlug: "haushaltsgeraete", brandSlug: "ninja",
     specs: []
   },
@@ -918,7 +930,7 @@ const products: ProductData[] = [
   {
     name: "Cosori Lite Airfryer 28l", slug: "cosori-lite-airfryer-28l",
     description: "Cosori Lite Airfryer 28l – hochwertiges Haushaltsgerät.", shortDesc: "Cosori Lite Airfryer 28l",
-    price: 280, sku: "COSORILITEAIRFR", inStock: true, isNew: true, isPromo: true,
+    price: 280, originalPrice: 322, sku: "COSORILITEAIRFR", inStock: true, isNew: true, isPromo: true,
     rating: 4.7, reviewCount: 123, categorySlug: "kueche", brandSlug: "cosori",
     specs: []
   },
@@ -960,7 +972,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq700 Induktionskochfeld Ex877ly44e", slug: "siemens-iq700-induktionskochfeld-ex877ly44e",
     description: "Siemens Iq700 Induktionskochfeld Ex877ly44e – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq700 Induktionskochfeld Ex877ly44e",
-    price: 2070, sku: "SIEMENSIQ700IND", inStock: true, isPromo: true,
+    price: 2070, originalPrice: 2381, sku: "SIEMENSIQ700IND", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 61, categorySlug: "kueche", brandSlug: "siemens",
     specs: []
   },
@@ -1009,7 +1021,7 @@ const products: ProductData[] = [
   {
     name: "Samsung Bespoke Slide In Range Nx60bb871112", slug: "samsung-bespoke-slide-in-range-nx60bb871112",
     description: "Samsung Bespoke Slide In Range Nx60bb871112 – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Bespoke Slide In Range Nx60bb871112",
-    price: 2740, sku: "SAMSUNGBESPOKES", inStock: true, isPromo: true,
+    price: 2740, originalPrice: 3151, sku: "SAMSUNGBESPOKES", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 269, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: []
   },
@@ -1023,15 +1035,15 @@ const products: ProductData[] = [
   {
     name: "Gastroback Design Pro 42621", slug: "gastroback-design-pro-42621",
     description: "Gastroback Design Pro 42621 – hochwertiges Haushaltsgerät.", shortDesc: "Gastroback Design Pro 42621",
-    price: 640, sku: "GASTROBACKDESIG", inStock: true, isNew: true, isPromo: true,
+    price: 640, originalPrice: 736, sku: "GASTROBACKDESIG", inStock: true, isNew: true, isPromo: true,
     rating: 4.3, reviewCount: 220, categorySlug: "kueche", brandSlug: "gastroback",
     specs: []
   },
   {
     name: "Russell Hobbs Hobbs Retro Air Fryer 24530", slug: "russell-hobbs-retro-air-fryer-24530",
     description: "Russell Hobbs Hobbs Retro Air Fryer 24530 – hochwertiges Haushaltsgerät.", shortDesc: "Russell Hobbs Hobbs Retro Air Fryer 24530",
-    price: 1530, sku: "RUSSELLHOBBSRET", inStock: true, isFeatured: true, isNew: true, isPromo: true,
-    rating: 4.2, reviewCount: 12, categorySlug: "kueche", brandSlug: "russell",
+    price: 1530, originalPrice: 1759, sku: "RUSSELLHOBBSRET", inStock: true, isFeatured: true, isNew: true, isPromo: true,
+    rating: 4.2, reviewCount: 12, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: []
   },
   {
@@ -1044,7 +1056,7 @@ const products: ProductData[] = [
   {
     name: "Moulinex Easy Fry Max Fx9029", slug: "moulinex-easy-fry-max-fx9029",
     description: "Moulinex Easy Fry Max Fx9029 – hochwertiges Haushaltsgerät.", shortDesc: "Moulinex Easy Fry Max Fx9029",
-    price: 1540, sku: "MOULINEXEASYFRY", inStock: true, isPromo: true,
+    price: 1540, originalPrice: 1771, sku: "MOULINEXEASYFRY", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 215, categorySlug: "haushaltsgeraete", brandSlug: "moulinex",
     specs: []
   },
@@ -1065,7 +1077,7 @@ const products: ProductData[] = [
   {
     name: "Miele W1 Waschmaschine Wsd163", slug: "miele-w1-waschmaschine-wsd163",
     description: "Miele W1 Waschmaschine Wsd163 – hochwertiges Haushaltsgerät.", shortDesc: "Miele W1 Waschmaschine Wsd163",
-    price: 1150, sku: "MIELEW1WASCH3", inStock: true, isPromo: true,
+    price: 1150, originalPrice: 1323, sku: "MIELEW1WASCH3", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 18, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: []
   },
@@ -1086,7 +1098,7 @@ const products: ProductData[] = [
   {
     name: "Miele Waschtrockner Wt1", slug: "miele-waschtrockner-wt1",
     description: "Miele Waschtrockner Wt1 – hochwertiges Haushaltsgerät.", shortDesc: "Miele Waschtrockner Wt1",
-    price: 1630, sku: "MIELEWASCHTROCK", inStock: true, isFeatured: true, isPromo: true,
+    price: 1630, originalPrice: 1874, sku: "MIELEWASCHTROCK", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.3, reviewCount: 291, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: []
   },
@@ -1107,21 +1119,21 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq700 Waschmaschine Wg44g2z0", slug: "siemens-iq700-waschmaschine-wg44g2z0",
     description: "Siemens Iq700 Waschmaschine Wg44g2z0 – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq700 Waschmaschine Wg44g2z0",
-    price: 2100, sku: "SIEMENSIQ700WAS", inStock: true, isFeatured: true, isPromo: true,
+    price: 2100, originalPrice: 2415, sku: "SIEMENSIQ700WAS", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.1, reviewCount: 149, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
   {
     name: "Siemens Iq700 Trockner Wt47w5600", slug: "siemens-iq700-trockner-wt47w5600",
     description: "Siemens Iq700 Trockner Wt47w5600 – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq700 Trockner Wt47w5600",
-    price: 940, sku: "SIEMENSIQ700TRO", inStock: true, isFeatured: true, isPromo: true,
+    price: 940, originalPrice: 1081, sku: "SIEMENSIQ700TRO", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.2, reviewCount: 290, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
   {
     name: "Samsung Ecobubble Ww90t554daw", slug: "samsung-ecobubble-ww90t554daw",
     description: "Samsung Ecobubble Ww90t554daw – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Ecobubble Ww90t554daw",
-    price: 2840, sku: "SAMSUNGECOBUBBL", inStock: true, isPromo: true,
+    price: 2840, originalPrice: 3266, sku: "SAMSUNGECOBUBBL", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 166, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: []
   },
@@ -1142,14 +1154,14 @@ const products: ProductData[] = [
   {
     name: "LG Washtower P9wba", slug: "lg-washtower-p9wba",
     description: "LG Washtower P9wba – hochwertiges Haushaltsgerät.", shortDesc: "LG Washtower P9wba",
-    price: 2120, sku: "LGWASHTOWERP9WB", inStock: true, isNew: true, isPromo: true,
+    price: 2120, originalPrice: 2438, sku: "LGWASHTOWERP9WB", inStock: true, isNew: true, isPromo: true,
     rating: 4, reviewCount: 254, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: []
   },
   {
     name: "AEG Lr9a80600 Waschmaschine", slug: "aeg-lr9a80600-waschmaschine",
     description: "AEG Lr9a80600 Waschmaschine – hochwertiges Haushaltsgerät.", shortDesc: "AEG Lr9a80600 Waschmaschine",
-    price: 2960, sku: "AEGLR9A80600WAS", inStock: true, isPromo: true,
+    price: 2960, originalPrice: 3404, sku: "AEGLR9A80600WAS", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 208, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: []
   },
@@ -1212,7 +1224,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq300 Waschmaschine Wg44g200", slug: "siemens-iq300-waschmaschine-wg44g200",
     description: "Siemens Iq300 Waschmaschine Wg44g200 – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq300 Waschmaschine Wg44g200",
-    price: 780, sku: "SIEMENSIQ300WAS", inStock: true, isPromo: true,
+    price: 780, originalPrice: 897, sku: "SIEMENSIQ300WAS", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 291, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
@@ -1233,7 +1245,7 @@ const products: ProductData[] = [
   {
     name: "Samsung Waschmaschine Ww90t684dln", slug: "samsung-waschmaschine-ww90t684dln",
     description: "Samsung Waschmaschine Ww90t684dln – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Waschmaschine Ww90t684dln",
-    price: 1540, sku: "SAMSUNGWASCHMAS", inStock: true, isPromo: true,
+    price: 1540, originalPrice: 1771, sku: "SAMSUNGWASCHMAS", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 126, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: []
   },
@@ -1247,7 +1259,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie6 Waschmaschine Wau28568", slug: "bosch-serie6-waschmaschine-wau28568",
     description: "Bosch Serie6 Waschmaschine Wau28568 – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Serie6 Waschmaschine Wau28568",
-    price: 2830, sku: "BOSCHSERIE6WASC", inStock: true, isPromo: true,
+    price: 2830, originalPrice: 3254, sku: "BOSCHSERIE6WASC", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 287, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: []
   },
@@ -1261,7 +1273,7 @@ const products: ProductData[] = [
   {
     name: "BEKO Trockner Dpy8534gxa1", slug: "beko-trockner-dpy8534gxa1",
     description: "BEKO Trockner Dpy8534gxa1 – hochwertiges Haushaltsgerät.", shortDesc: "BEKO Trockner Dpy8534gxa1",
-    price: 2690, sku: "BEKOTROCKNERDPY", inStock: true, isPromo: true,
+    price: 2690, originalPrice: 3093, sku: "BEKOTROCKNERDPY", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 152, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: []
   },
@@ -1282,14 +1294,14 @@ const products: ProductData[] = [
   {
     name: "Samsung Family Hub Rb38b7929s9", slug: "samsung-family-hub-rb38b7929s9",
     description: "Samsung Family Hub Rb38b7929s9 – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Family Hub Rb38b7929s9",
-    price: 290, sku: "SAMSUNGFAMILYHU", inStock: true, isNew: true, isPromo: true,
+    price: 290, originalPrice: 334, sku: "SAMSUNGFAMILYHU", inStock: true, isNew: true, isPromo: true,
     rating: 4.3, reviewCount: 104, categorySlug: "smart-home", brandSlug: "samsung",
     specs: []
   },
   {
     name: "Samsung Bespoke Lrfx28b3230s", slug: "samsung-bespoke-lrfx28b3230s",
     description: "Samsung Bespoke Lrfx28b3230s – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Bespoke Lrfx28b3230s",
-    price: 2900, sku: "SAMSUNGBESPOKEL", inStock: true, isPromo: true,
+    price: 2900, originalPrice: 3335, sku: "SAMSUNGBESPOKEL", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 94, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: []
   },
@@ -1310,7 +1322,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie6 Kuhlschrank Kgn36aw3a", slug: "bosch-serie6-kuhlschrank-kgn36aw3a",
     description: "Bosch Serie6 Kuhlschrank Kgn36aw3a – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Serie6 Kuhlschrank Kgn36aw3a",
-    price: 2270, sku: "BOSCHSERIE6KUHL", inStock: true, isPromo: true,
+    price: 2270, originalPrice: 2611, sku: "BOSCHSERIE6KUHL", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 306, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: []
   },
@@ -1331,14 +1343,14 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq500 Einbau Kuhlschrank Kg39eadla0", slug: "siemens-iq500-einbau-kuhlschrank-kg39eadla0",
     description: "Siemens Iq500 Einbau Kuhlschrank Kg39eadla0 – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq500 Einbau Kuhlschrank Kg39eadla0",
-    price: 2990, sku: "SIEMENSIQ5002", inStock: true, isPromo: true,
+    price: 2990, originalPrice: 3438, sku: "SIEMENSIQ5002", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 120, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
   {
     name: "Miele Kuhlschrank K2801sfvi", slug: "miele-kuhlschrank-k2801sfvi",
     description: "Miele Kuhlschrank K2801sfvi – hochwertiges Haushaltsgerät.", shortDesc: "Miele Kuhlschrank K2801sfvi",
-    price: 1110, sku: "MIELEKUHLSCHRAN", inStock: true, isPromo: true,
+    price: 1110, originalPrice: 1277, sku: "MIELEKUHLSCHRAN", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 218, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: []
   },
@@ -1359,7 +1371,7 @@ const products: ProductData[] = [
   {
     name: "Electrolux Lrb3643sw Kuhlschrank", slug: "electrolux-lrb3643sw-kuhlschrank",
     description: "Electrolux Lrb3643sw Kuhlschrank – hochwertiges Haushaltsgerät.", shortDesc: "Electrolux Lrb3643sw Kuhlschrank",
-    price: 570, sku: "ELECTROLUXLRB36", inStock: true, isFeatured: true, isPromo: true,
+    price: 570, originalPrice: 656, sku: "ELECTROLUXLRB36", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.7, reviewCount: 266, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: []
   },
@@ -1387,7 +1399,7 @@ const products: ProductData[] = [
   {
     name: "BEKO Rbst140k25w Kuhlschrank", slug: "beko-rbst140k25w-kuhlschrank",
     description: "BEKO Rbst140k25w Kuhlschrank – hochwertiges Haushaltsgerät.", shortDesc: "BEKO Rbst140k25w Kuhlschrank",
-    price: 2260, sku: "BEKORBST140K25W", inStock: true, isFeatured: true, isPromo: true,
+    price: 2260, originalPrice: 2599, sku: "BEKORBST140K25W", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.7, reviewCount: 58, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: []
   },
@@ -1408,7 +1420,7 @@ const products: ProductData[] = [
   {
     name: "Samsung Bespoke French Door Rf29a9675sr", slug: "samsung-bespoke-french-door-rf29a9675sr",
     description: "Samsung Bespoke French Door Rf29a9675sr – hochwertiges Haushaltsgerät.", shortDesc: "Samsung Bespoke French Door Rf29a9675sr",
-    price: 1950, sku: "SAMSUNGBESPOKEF", inStock: true, isFeatured: true, isPromo: true,
+    price: 1950, originalPrice: 2243, sku: "SAMSUNGBESPOKEF", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.9, reviewCount: 237, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: []
   },
@@ -1429,7 +1441,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq500 Einbau Tiefkuhlschrank Gi51nae20", slug: "siemens-iq500-einbau-tiefkuhlschrank-gi51nae20",
     description: "Siemens Iq500 Einbau Tiefkuhlschrank Gi51nae20 – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq500 Einbau Tiefkuhlschrank Gi51nae20",
-    price: 2840, sku: "SIEMENSIQ500EIN", inStock: true, isPromo: true,
+    price: 2840, originalPrice: 3266, sku: "SIEMENSIQ500EIN", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 251, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
@@ -1464,14 +1476,14 @@ const products: ProductData[] = [
   {
     name: "Miele Ta 2650 Wp", slug: "miele-ta-2650-wp",
     description: "Miele Ta 2650 Wp – hochwertiges Haushaltsgerät.", shortDesc: "Miele Ta 2650 Wp",
-    price: 1300, sku: "MIELETA2650WP", inStock: true, isPromo: true,
+    price: 1300, originalPrice: 1495, sku: "MIELETA2650WP", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 90, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: []
   },
   {
     name: "Bosch Serie4 Smv46mx01e", slug: "bosch-serie4-smv46mx01e",
     description: "Bosch Serie4 Smv46mx01e – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Serie4 Smv46mx01e",
-    price: 800, sku: "BOSCHSERIE4SMV4", inStock: true, isPromo: true,
+    price: 800, originalPrice: 920, sku: "BOSCHSERIE4SMV4", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 222, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: []
   },
@@ -1506,7 +1518,7 @@ const products: ProductData[] = [
   {
     name: "AEG Ffb62607pm", slug: "aeg-ffb62607pm",
     description: "AEG Ffb62607pm – hochwertiges Haushaltsgerät.", shortDesc: "AEG Ffb62607pm",
-    price: 2890, sku: "AEGFFB62607PM", inStock: true, isPromo: true,
+    price: 2890, originalPrice: 3323, sku: "AEGFFB62607PM", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 147, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: []
   },
@@ -1520,7 +1532,7 @@ const products: ProductData[] = [
   {
     name: "Electrolux Eeq53200l", slug: "electrolux-eeq53200l",
     description: "Electrolux Eeq53200l – hochwertiges Haushaltsgerät.", shortDesc: "Electrolux Eeq53200l",
-    price: 1800, sku: "ELECTROLUXEEQ53", inStock: true, isNew: true, isPromo: true,
+    price: 1800, originalPrice: 2070, sku: "ELECTROLUXEEQ53", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 73, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: []
   },
@@ -1541,7 +1553,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq300 Sk26e820eu", slug: "siemens-iq300-sk26e820eu",
     description: "Siemens Iq300 Sk26e820eu – hochwertiges Haushaltsgerät.", shortDesc: "Siemens Iq300 Sk26e820eu",
-    price: 730, sku: "SIEMENSIQ300SK2", inStock: true, isNew: true, isPromo: true,
+    price: 730, originalPrice: 839, sku: "SIEMENSIQ300SK2", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 248, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: []
   },
@@ -1569,7 +1581,7 @@ const products: ProductData[] = [
   {
     name: "LG Full Size Df455hms", slug: "lg-full-size-df455hms",
     description: "LG Full Size Df455hms – hochwertiges Haushaltsgerät.", shortDesc: "LG Full Size Df455hms",
-    price: 480, sku: "LGFULLSIZEDF455", inStock: true, isFeatured: true, isPromo: true,
+    price: 480, originalPrice: 552, sku: "LGFULLSIZEDF455", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.1, reviewCount: 226, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: []
   },
@@ -1598,21 +1610,21 @@ const products: ProductData[] = [
     name: "Stadler Form Form Oskar", slug: "stadler-form-oskar",
     description: "Stadler Form Form Oskar – hochwertiges Haushaltsgerät.", shortDesc: "Stadler Form Form Oskar",
     price: 660, sku: "STADLERFORMO2", inStock: true, isNew: true,
-    rating: 4.4, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler",
+    rating: 4.4, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler-form",
     specs: []
   },
   {
     name: "Stadler Form Form Oskar Little", slug: "stadler-form-oskar-little",
     description: "Stadler Form Form Oskar Little – hochwertiges Haushaltsgerät.", shortDesc: "Stadler Form Form Oskar Little",
-    price: 540, sku: "STADLERFORMOSKA", inStock: true, isPromo: true,
-    rating: 4.2, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler",
+    price: 540, originalPrice: 621, sku: "STADLERFORMOSKA", inStock: true, isPromo: true,
+    rating: 4.2, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler-form",
     specs: []
   },
   {
     name: "Stadler Form Form Viktor", slug: "stadler-form-viktor",
     description: "Stadler Form Form Viktor – hochwertiges Haushaltsgerät.", shortDesc: "Stadler Form Form Viktor",
     price: 440, sku: "STADLERFORMVIKT", inStock: true, isNew: true,
-    rating: 4.4, reviewCount: 227, categorySlug: "klima", brandSlug: "stadler",
+    rating: 4.4, reviewCount: 227, categorySlug: "klima", brandSlug: "stadler-form",
     specs: []
   },
   {
@@ -1625,7 +1637,7 @@ const products: ProductData[] = [
   {
     name: "Blueair Classic 480i", slug: "blueair-classic-480i",
     description: "Blueair Classic 480i – hochwertiges Haushaltsgerät.", shortDesc: "Blueair Classic 480i",
-    price: 610, sku: "BLUEAIRCLASSIC4", inStock: true, isPromo: true,
+    price: 610, originalPrice: 702, sku: "BLUEAIRCLASSIC4", inStock: true, isPromo: true,
     rating: 4, reviewCount: 11, categorySlug: "klima", brandSlug: "blueair",
     specs: []
   },
@@ -1660,7 +1672,7 @@ const products: ProductData[] = [
   {
     name: "Trotec Pac 3200 E", slug: "trotec-pac-3200-e",
     description: "Trotec Pac 3200 E – hochwertiges Haushaltsgerät.", shortDesc: "Trotec Pac 3200 E",
-    price: 320, sku: "TROTECPAC3200E", inStock: true, isFeatured: true, isPromo: true,
+    price: 320, originalPrice: 368, sku: "TROTECPAC3200E", inStock: true, isFeatured: true, isPromo: true,
     rating: 4, reviewCount: 38, categorySlug: "klima", brandSlug: "trotec",
     specs: []
   },
@@ -1674,7 +1686,7 @@ const products: ProductData[] = [
   {
     name: "Comfee Mpph 07crn7", slug: "comfee-mpph-07crn7",
     description: "Comfee Mpph 07crn7 – hochwertiges Haushaltsgerät.", shortDesc: "Comfee Mpph 07crn7",
-    price: 800, sku: "COMFEEMPPH07CRN", inStock: true, isPromo: true,
+    price: 800, originalPrice: 920, sku: "COMFEEMPPH07CRN", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 283, categorySlug: "haushaltsgeraete", brandSlug: "comfee",
     specs: []
   },
@@ -1703,7 +1715,7 @@ const products: ProductData[] = [
     name: "Stadler Form Form Airgoing Kne01", slug: "stadler-form-airgoing-kne01",
     description: "Stadler Form Form Airgoing Kne01 – hochwertiges Haushaltsgerät.", shortDesc: "Stadler Form Form Airgoing Kne01",
     price: 790, sku: "STADLERFORMAIRG", inStock: true, isFeatured: true,
-    rating: 4.3, reviewCount: 170, categorySlug: "klima", brandSlug: "stadler",
+    rating: 4.3, reviewCount: 170, categorySlug: "klima", brandSlug: "stadler-form",
     specs: []
   },
   {
@@ -1730,14 +1742,14 @@ const products: ProductData[] = [
   {
     name: "Midea Air Cool Maw08v1qwt", slug: "midea-air-cool-maw08v1qwt",
     description: "Midea Air Cool Maw08v1qwt – hochwertiges Haushaltsgerät.", shortDesc: "Midea Air Cool Maw08v1qwt",
-    price: 1850, sku: "MIDEAAIRCOOLMAW", inStock: true, isFeatured: true, isPromo: true,
+    price: 1850, originalPrice: 2128, sku: "MIDEAAIRCOOLMAW", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.5, reviewCount: 37, categorySlug: "haushaltsgeraete", brandSlug: "midea",
     specs: []
   },
   {
     name: "Dyson Big Quiet Formaldehyde N475", slug: "dyson-big-quiet-formaldehyde-n475",
     description: "Dyson Big Quiet Formaldehyde N475 – hochwertiges Haushaltsgerät.", shortDesc: "Dyson Big Quiet Formaldehyde N475",
-    price: 1600, sku: "DYSONBIGQUIETFO", inStock: true, isPromo: true,
+    price: 1600, originalPrice: 1840, sku: "DYSONBIGQUIETFO", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 230, categorySlug: "haushaltsgeraete", brandSlug: "dyson",
     specs: []
   },
@@ -1779,7 +1791,7 @@ const products: ProductData[] = [
   {
     name: "Philips Hue Starter Kit E14", slug: "philips-hue-starter-kit-e14",
     description: "Philips Hue Starter Kit E14 – hochwertiges Haushaltsgerät.", shortDesc: "Philips Hue Starter Kit E14",
-    price: 350, sku: "PHILIPSHUESTART", inStock: true, isNew: true, isPromo: true,
+    price: 350, originalPrice: 402, sku: "PHILIPSHUESTART", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 153, categorySlug: "smart-home", brandSlug: "philips",
     specs: []
   },
@@ -1800,7 +1812,7 @@ const products: ProductData[] = [
   {
     name: "Nanoleaf Shapes Triangles", slug: "nanoleaf-shapes-triangles",
     description: "Nanoleaf Shapes Triangles – hochwertiges Haushaltsgerät.", shortDesc: "Nanoleaf Shapes Triangles",
-    price: 190, sku: "NANOLEAFSHAPEST", inStock: true, isPromo: true,
+    price: 190, originalPrice: 218, sku: "NANOLEAFSHAPEST", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 105, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: []
   },
@@ -1870,7 +1882,7 @@ const products: ProductData[] = [
   {
     name: "Ring Alarm Security Kit 5", slug: "ring-alarm-security-kit-5",
     description: "Ring Alarm Security Kit 5 – hochwertiges Haushaltsgerät.", shortDesc: "Ring Alarm Security Kit 5",
-    price: 330, sku: "RINGALARMSECURI", inStock: true, isPromo: true,
+    price: 330, originalPrice: 379, sku: "RINGALARMSECURI", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 237, categorySlug: "smart-home", brandSlug: "ring",
     specs: []
   },
@@ -1905,7 +1917,7 @@ const products: ProductData[] = [
   {
     name: "Philips Hue Play Gradient Lightstrip 55\\", slug: "philips-hue-play-gradient-lightstrip-55",
     description: "Philips Hue Play Gradient Lightstrip 55\\ – hochwertiges Haushaltsgerät.", shortDesc: "Philips Hue Play Gradient Lightstrip 55\\",
-    price: 50, sku: "PHILIPSHUEPLAYG", inStock: true, isPromo: true,
+    price: 50, originalPrice: 57, sku: "PHILIPSHUEPLAYG", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 259, categorySlug: "smart-home", brandSlug: "philips",
     specs: []
   },
@@ -1919,14 +1931,14 @@ const products: ProductData[] = [
   {
     name: "Ring Floodlight Cam Wired Pro", slug: "ring-floodlight-cam-wired-pro",
     description: "Ring Floodlight Cam Wired Pro – hochwertiges Haushaltsgerät.", shortDesc: "Ring Floodlight Cam Wired Pro",
-    price: 130, sku: "RINGFLOODLIGHTC", inStock: true, isPromo: true,
+    price: 130, originalPrice: 150, sku: "RINGFLOODLIGHTC", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 305, categorySlug: "smart-home", brandSlug: "ring",
     specs: []
   },
   {
     name: "IKEA PARASOLL Tür-/Fensterkontakt", slug: "ikea-parasoll-door-window-sensor",
     description: "IKEA PARASOLL Tür-/Fensterkontakt – hochwertiges Haushaltsgerät.", shortDesc: "IKEA PARASOLL Tür-/Fensterkontakt",
-    price: 30, sku: "IKEAPARASOLLDOO", inStock: true, isPromo: true,
+    price: 30, originalPrice: 35, sku: "IKEAPARASOLLDOO", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 57, categorySlug: "smart-home", brandSlug: "ikea",
     specs: []
   },
@@ -1954,14 +1966,14 @@ const products: ProductData[] = [
   {
     name: "Nanoleaf Essential A19 Birne", slug: "nanoleaf-essential-a19-bulb",
     description: "Nanoleaf Essential A19 Birne – hochwertiges Haushaltsgerät.", shortDesc: "Nanoleaf Essential A19 Birne",
-    price: 200, sku: "NANOLEAFESSENTI", inStock: true, isPromo: true,
+    price: 200, originalPrice: 230, sku: "NANOLEAFESSENTI", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 51, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: []
   },
   {
     name: "Ring Alarm Flood & Freeze Sensor", slug: "ring-alarm-flood-freeze-sensor",
     description: "Ring Alarm Flood & Freeze Sensor – hochwertiges Haushaltsgerät.", shortDesc: "Ring Alarm Flood & Freeze Sensor",
-    price: 260, sku: "RINGALARMFLOODF", inStock: true, isPromo: true,
+    price: 260, originalPrice: 299, sku: "RINGALARMFLOODF", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 291, categorySlug: "smart-home", brandSlug: "ring",
     specs: []
   },
@@ -2038,7 +2050,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie 6 Geschirrspüler SMV88TX36E", slug: "bosch-serie6-smv88tx36e",
     description: "Bosch Serie 6 Geschirrspüler SMV88TX36E – hochwertiges Haushaltsgerät.", shortDesc: "Bosch Serie 6 Geschirrspüler SMV88TX36E",
-    price: 2200, sku: "BOSCHSERIE6SMV8", inStock: true, isPromo: true,
+    price: 2200, originalPrice: 2530, sku: "BOSCHSERIE6SMV8", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 72, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: []
   },
