@@ -1,11 +1,10 @@
-"use client";
-
 import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones, Lock, Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import NewsletterForm from "@/components/layout/NewsletterForm";
+import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
 
