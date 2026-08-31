@@ -33,7 +33,7 @@ async function main() {
   const count = await prisma.$queryRawUnsafe<{ count: bigint }[]>(
     'SELECT COUNT(*) as count FROM "Product" WHERE "stockQuantity" IS NOT NULL'
   );
-  console.log("Updated " + count[0].count + " products with stock quantities.");
+  console.log("Updated " + (count[0]?.count ?? 0) + " products with stock quantities.");
 }
 
 main()
