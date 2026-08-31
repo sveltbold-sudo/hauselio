@@ -57,7 +57,7 @@ function baseTemplate(content: string): string {
             <table width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.05);">
               <tr>
                 <td style="background-color:#0A2540;padding:32px 40px;text-align:center;">
-                  <h1 style="color:#FFFFFF;font-size:24px;font-weight:800;margin:0;">HAUSELIO</h1>
+                  <h1 style="color:#FFFFFF;font-size:24px;font-weight:800;margin:0;">HAUSAURA</h1>
                   <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:8px 0 0 0;">Premium Haushaltsgeräte</p>
                 </td>
               </tr>
@@ -69,7 +69,7 @@ function baseTemplate(content: string): string {
               <tr>
                 <td style="background-color:#F5F5F5;padding:24px 40px;text-align:center;border-top:1px solid #E8E8E8;">
                   <p style="color:#6B7280;font-size:12px;margin:0;">
-                    HAUSELIO GmbH | Kastanienallee 42, 10435 Berlin | info@hauselio.de | +49 (0)30 555 789 01
+                    HAUSAURA GmbH | Kastanienallee 42, 10435 Berlin | info@hausaura.de | +49 (0)30 555 789 01
                   </p>
                   <p style="color:#9CA3AF;font-size:11px;margin:8px 0 0 0;">
                     <a href="${SITE_URL}/impressum" style="color:#6B7280;">Impressum</a> |
@@ -106,7 +106,7 @@ function orderItemsTable(items: OrderEmailData["items"]): string {
 async function getBankDetails() {
   const settings = await prisma.siteSettings.findFirst();
   return {
-    accountName: settings?.bankAccountName || "HAUSELIO GmbH",
+    accountName: settings?.bankAccountName || "HAUSAURA GmbH",
     iban: settings?.bankIban || "",
     bic: settings?.bankBic || "",
   };
@@ -183,7 +183,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: customerEmail,
-    subject: `Bestellbestätigung ${safeOrderNumber} – HAUSELIO`,
+    subject: `Bestellbestätigung ${safeOrderNumber} – HAUSAURA`,
     html,
   });
 }
@@ -209,7 +209,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Zahlung bestätigt ${safeOrderNumber} – HAUSELIO`,
+    subject: `Zahlung bestätigt ${safeOrderNumber} – HAUSAURA`,
     html,
   });
 }
@@ -243,7 +243,7 @@ export async function sendShippedConfirmation(
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} – HAUSELIO`,
+    subject: `Ihre Bestellung wurde versendet ${safeOrderNumber} – HAUSAURA`,
     html,
   });
 }
@@ -267,17 +267,17 @@ export async function sendOrderCancelled(data: OrderEmailData) {
     </div>
     <p style="color:#6B7280;font-size:14px;margin:0 0 16px 0;">
       Bei Fragen zu dieser Stornierung kontaktieren Sie uns bitte unter
-      <a href="mailto:support@hauselio.de" style="color:#F5A623;">support@hauselio.de</a>.
+      <a href="mailto:hilfe@hausaura.de" style="color:#F5A623;">hilfe@hausaura.de</a>.
     </p>
     <p style="color:#6B7280;font-size:14px;margin:0;">
-      Mit freundlichen Grüßen,<br/>HAUSELIO Team
+      Mit freundlichen Grüßen,<br/>HAUSAURA Team
     </p>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Bestellung ${safeOrderNumber} storniert – HAUSELIO`,
+    subject: `Bestellung ${safeOrderNumber} storniert – HAUSAURA`,
     html,
   });
 }
@@ -321,7 +321,7 @@ export async function sendContactForward(data: {
 
   return sendEmail({
     from: FROM_EMAIL,
-    to: "support@hauselio.de",
+    to: "hilfe@hausaura.de",
     subject: `Kontakt: ${safe.subject}`,
     html,
   });
@@ -350,14 +350,14 @@ export async function sendContactAutoReply(data: {
       <p style="color:#1A1A1A;font-size:14px;margin:0;">Wir werden uns schnellstmöglich bei Ihnen melden.</p>
     </div>
     <p style="color:#6B7280;font-size:14px;margin:0;">
-      Mit freundlichen Grüßen,<br/>HAUSELIO Team
+      Mit freundlichen Grüßen,<br/>HAUSAURA Team
     </p>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: data.email,
-    subject: "Ihre Nachricht bei HAUSELIO",
+    subject: "Ihre Nachricht bei HAUSAURA",
     html,
   });
 }
@@ -374,14 +374,14 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
       E-Mail bestätigen
     </a>
     <p style="color:#9CA3AF;font-size:12px;margin:24px 0 0 0;">
-      Dieser Link ist 24 Stunden gültig. Wenn Sie sich nicht für den HAUSELIO Newsletter angemeldet haben, können Sie diese E-Mail ignorieren.
+      Dieser Link ist 24 Stunden gültig. Wenn Sie sich nicht für den HAUSAURA Newsletter angemeldet haben, können Sie diese E-Mail ignorieren.
     </p>
   `);
 
   return sendEmail({
     from: FROM_EMAIL,
     to: email,
-    subject: "Newsletter bestätigen – HAUSELIO",
+    subject: "Newsletter bestätigen – HAUSAURA",
     html,
   });
 }
@@ -431,7 +431,7 @@ export async function sendNewsletterCampaign(data: {
           return sendEmail({
             from: FROM_EMAIL,
             to: email,
-            subject: `${safeSubject} – HAUSELIO`,
+            subject: `${safeSubject} – HAUSAURA`,
             html,
           });
         })

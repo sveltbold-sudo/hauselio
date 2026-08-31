@@ -1,35 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { User, Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2 } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+
+interface Customer {
+  id: string;
+  email: string;
+  name: string;
+  phone?: string | null;
+  address?: string | null;
+  zip?: string | null;
+  city?: string | null;
+  country?: string | null;
+  createdAt?: string;
+}
 
 export default function KontoPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [customer, setCustomer] = useState<Customer | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [error, setError] = useState("");
+  const [profileError, setProfileError] = useState("");
+  const [profileSuccess, setProfileSuccess] = useState("");
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+
+  // Profile form state
+  const [profileName, setProfileName] = useState("");
+  const [profilePhone, setProfilePhone] = useState("");
+  const [profileAddress, setProfileAddress] = useState("");
+  const [profileZip, setProfileZip] = useState("");
+  const [profileCity, setProfileCity] = useState("");
+  const [profileCountry, setProfileCountry] = useState("DE");
+
+  useEffect(() => {
+    fetch("/api/customer/me")
+      .then((r) => {
+        if (!r.ok) return null;
+        return r.json();
+      })
+      .then((data) => {
+        if (data?.customer) {
+          setCustomer(data.customer);
+          setProfileName(data.customer.name || "");
+          setProfilePhone(data.customer.phone || "");
+          setProfileAddress(data.customer.address || "");
+          setProfileZip(data.customer.zip || "");
+          setProfileCity(data.customer.city || "");
+          setProfileCountry(data.customer.country || "DE");
+        }
+      })
+      .catch(() => {})
+      .finally(() => setIsAuthLoading(false));
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
     try {
-      const res = await fetch("/api/admin/login", {
+      const res = await fetch("/api/customer/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen");
-      setIsLoggedIn(true);
-      setName(data.admin?.name || email.split("@")[0]);
-      setEmail(email);
+      setCustomer(data.customer);
+      setProfileName(data.customer.name || "");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {
@@ -42,18 +88,77 @@ export default function KontoPage() {
     setError("");
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setIsLoggedIn(true);
-      setName(name || email.split("@")[0] || "Kunde");
-      setEmail(email);
-    } catch {
-      setError("Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.");
+      const res = await fetch("/api/customer/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Registrierung fehlgeschlagen");
+      setCustomer(data.customer);
+      setProfileName(data.customer.name || "");
+      setEmail("");
+      setPassword("");
+      setName("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (isLoggedIn) {
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/customer/logout", { method: "POST" });
+    } catch {}
+    setCustomer(null);
+    setProfileName("");
+    setProfilePhone("");
+    setProfileAddress("");
+    setProfileZip("");
+    setProfileCity("");
+    setProfileCountry("DE");
+  };
+
+  const handleProfileUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProfileError("");
+    setProfileSuccess("");
+    setIsProfileLoading(true);
+    try {
+      const res = await fetch("/api/customer/me", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: profileName,
+          phone: profilePhone || null,
+          address: profileAddress || null,
+          zip: profileZip || null,
+          city: profileCity || null,
+          country: profileCountry,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Fehler beim Speichern");
+      setCustomer((prev) => prev ? { ...prev, ...data.customer } : prev);
+      setProfileSuccess("Profil erfolgreich aktualisiert.");
+    } catch (err) {
+      setProfileError(err instanceof Error ? err.message : "Fehler beim Speichern.");
+    } finally {
+      setIsProfileLoading(false);
+    }
+  };
+
+  if (isAuthLoading) {
+    return (
+      <main id="main-content" className="container-hauselio py-20 text-center">
+        <h1 className="sr-only">Mein Konto</h1>
+        <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
+      </main>
+    );
+  }
+
+  if (customer) {
     return (
       <main id="main-content" className="container-hauselio py-12">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
@@ -61,25 +166,22 @@ export default function KontoPage() {
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-16 h-16 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-2xl font-bold">
-              {name.charAt(0)}
+              {customer.name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h1 className="heading-2">{name}</h1>
-              <p className="text-[var(--color-text-muted)] text-sm">{email}</p>
+              <h1 className="heading-2">{customer.name}</h1>
+              <p className="text-[var(--color-text-muted)] text-sm">{customer.email}</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link
-              href="/shop"
-              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow"
-            >
-              <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            <div className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] opacity-60">
+              <ShoppingBag className="w-5 h-5 text-[var(--color-text-muted)]" />
               <div>
-                <div className="font-bold text-sm">Meine Bestellungen</div>
-                <div className="text-xs text-[var(--color-text-muted)]">Bestellverlauf anzeigen</div>
+                <div className="font-bold text-sm text-[var(--color-text-muted)]">Meine Bestellungen</div>
+                <div className="text-xs text-[var(--color-text-muted)]">Noch keine Bestellungen</div>
               </div>
-            </Link>
+            </div>
 
             <Link
               href="/wunschliste"
@@ -92,16 +194,8 @@ export default function KontoPage() {
               </div>
             </Link>
 
-            <div className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)]">
-              <Settings className="w-5 h-5 text-[var(--color-primary)]" />
-              <div>
-                <div className="font-bold text-sm">Kontoeinstellungen</div>
-                <div className="text-xs text-[var(--color-text-muted)]">Persönliche Daten</div>
-              </div>
-            </div>
-
             <button
-              onClick={() => { setIsLoggedIn(false); setName(""); setEmail(""); setPassword(""); }}
+              onClick={handleLogout}
               className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left"
             >
               <LogOut className="w-5 h-5 text-[var(--color-danger)]" />
@@ -110,6 +204,119 @@ export default function KontoPage() {
                 <div className="text-xs text-[var(--color-text-muted)]">Konto verlassen</div>
               </div>
             </button>
+          </div>
+
+          {/* Profile form */}
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+            <h2 className="heading-3 mb-6 flex items-center gap-2">
+              <Settings className="w-5 h-5 text-[var(--color-primary)]" />
+              Kontoeinstellungen
+            </h2>
+
+            {profileSuccess && (
+              <div role="status" className="p-3 bg-[var(--color-success-light)] text-[var(--color-success)] text-sm rounded-xl mb-4">
+                {profileSuccess}
+              </div>
+            )}
+            {profileError && (
+              <div role="alert" className="p-3 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-sm rounded-xl mb-4">
+                {profileError}
+              </div>
+            )}
+
+            <form onSubmit={handleProfileUpdate} className="space-y-4">
+              <div>
+                <label htmlFor="profile-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Name</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                  <input
+                    id="profile-name"
+                    type="text"
+                    value={profileName}
+                    onChange={(e) => setProfileName(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="profile-phone" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Telefon (optional)</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                  <input
+                    id="profile-phone"
+                    type="tel"
+                    value={profilePhone}
+                    onChange={(e) => setProfilePhone(e.target.value)}
+                    placeholder="+49 ..."
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="profile-address" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Adresse (optional)</label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                  <input
+                    id="profile-address"
+                    type="text"
+                    value={profileAddress}
+                    onChange={(e) => setProfileAddress(e.target.value)}
+                    placeholder="Straße und Hausnummer"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label htmlFor="profile-zip" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">PLZ</label>
+                  <input
+                    id="profile-zip"
+                    type="text"
+                    value={profileZip}
+                    onChange={(e) => setProfileZip(e.target.value)}
+                    placeholder="10435"
+                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <label htmlFor="profile-city" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Stadt</label>
+                  <input
+                    id="profile-city"
+                    type="text"
+                    value={profileCity}
+                    onChange={(e) => setProfileCity(e.target.value)}
+                    placeholder="Berlin"
+                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="profile-country" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Land</label>
+                <select
+                  id="profile-country"
+                  value={profileCountry}
+                  onChange={(e) => setProfileCountry(e.target.value)}
+                  className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 min-h-[44px] text-sm text-[var(--color-text-primary)] shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                >
+                  <option value="DE">Deutschland</option>
+                  <option value="AT">Österreich</option>
+                  <option value="CH">Schweiz</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isProfileLoading}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+              >
+                {isProfileLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gespeichert…</> : "Profil speichern"}
+              </button>
+            </form>
           </div>
         </div>
       </main>
@@ -125,7 +332,7 @@ export default function KontoPage() {
 
         <div className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8">
           <button
-            onClick={() => setTab("login")}
+            onClick={() => { setTab("login"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "login"
                 ? "bg-white text-[var(--color-primary)] shadow-sm"
@@ -135,7 +342,7 @@ export default function KontoPage() {
             Anmelden
           </button>
           <button
-            onClick={() => setTab("register")}
+            onClick={() => { setTab("register"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "register"
                 ? "bg-white text-[var(--color-primary)] shadow-sm"

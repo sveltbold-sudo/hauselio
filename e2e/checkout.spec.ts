@@ -85,7 +85,7 @@ test.describe("Checkout Page", () => {
     await page.fill('input[name="zip"]', "123");
     await page.fill('input[name="city"]', "Berlin");
     await page.click('button:has-text("Bestellung aufgeben")');
-    await expect(page.getByText("PLZ muss genau 5 Ziffern")).toBeVisible();
+    await expect(page.getByText("PLZ muss 4 oder 5 Ziffern")).toBeVisible();
   });
 
   test("notes field is optional", async ({ page }) => {

@@ -5,6 +5,7 @@ import KontaktForm from "@/components/kontakt/KontaktForm";
 import FaqSection from "@/components/kontakt/FaqSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { SITE_URL } from "@/lib/constants";
+import { buildFaqJsonLd } from "@/lib/faq";
 
 export const revalidate = 86400;
 
@@ -64,60 +65,7 @@ export default async function KontaktPage() {
     },
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Wie kann ich ein Produkt bestellen?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Wählen Sie Ihre Lieblingsprodukte im Shop aus, fügen Sie sie zum Warenkorb hinzu und folgen Sie dem Bestellprozess. Die Zahlung erfolgt per Überweisung (SEPA). Sie erhalten nach der Bestellung eine E-Mail mit den Bankverbindungen.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Wie lange dauert die Lieferung?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Die Lieferzeit beträgt in der Regel 2-5 Werktage nach Eingang der Zahlung. Bei großen Haushaltsgeräten wie Waschmaschinen oder Geschirrspülern können wir auch einen Wunschtermin vereinbaren.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Kann ich ein Gerät zurückgeben?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Ja, Sie haben ein 30-tägiges Rückgaberecht. Die Rücksendung ist kostenlos. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir organisieren den Rückversand für Sie.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Welche Garantie bieten Sie?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Wir bieten eine erweiterte Garantie von bis zu 5 Jahren auf alle Geräte. Zusätzlich haben Sie die gesetzliche Gewährleistung. Bei Defekten übernehmen wir die Reparatur oder den Ersatz kostenfrei.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Kann ich eine Beratung vor dem Kauf erhalten?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Selbstverständlich! Unsere Experten beraten Sie gerne telefonisch, per E-Mail oder über unser Kontaktformular. Wir helfen Ihnen, das perfekte Gerät für Ihre Bedürfnisse zu finden.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Bieten Sie einen Anschlussservice an?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Ja, bei vielen Geräten bieten wir einen kostenlosen Anschlussservice an. Bei der Bestellung können Sie angeben, ob Sie eine fachgerechte Installation wünschen.",
-        },
-      },
-    ],
-  };
+  const faqJsonLd = buildFaqJsonLd();
 
   return (
     <>

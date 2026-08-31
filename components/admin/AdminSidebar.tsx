@@ -90,7 +90,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-white/10">
             <Link href="/admin" className="text-white font-extrabold text-xl">
-              HAUSELIO
+              HAUSAURA
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}

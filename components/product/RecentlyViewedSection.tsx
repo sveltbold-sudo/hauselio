@@ -19,7 +19,7 @@ interface ViewedProduct {
   brand?: string | null;
 }
 
-const STORAGE_KEY = "hauselio-recently-viewed";
+const STORAGE_KEY = "hausaura-recently-viewed";
 const MAX_ITEMS = 8;
 
 export function trackRecentlyViewed(product: ViewedProduct) {

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 200" width="900" height="200">
+  <!-- Brand Name: HAUSPURA -->
+  <!-- "HAUS" in Navy Blue, "PURA" in Orange -->
+  
+  <!-- HAUS - Navy Blue #1B2A4A -->
+  <text x="0" y="130" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="140" font-weight="700" letter-spacing="8" fill="#1B2A4A">HAUS</text>
+  
+  <!-- PURA - Orange #F58220 -->
+  <text x="410" y="130" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="140" font-weight="700" letter-spacing="8" fill="#F58220">PURA</text>
+  
+  <!-- Decorative line left -->
+  <line x1="0" y1="155" x2="200" y2="155" stroke="#1B2A4A" stroke-width="3"/>
+  
+  <!-- Tagline -->
+  <text x="215" y="170" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" letter-spacing="6" fill="#1B2A4A">MODERNE HAUSHALTSGERÄTE FÜR IHR ZUHAUSE</text>
+  
+  <!-- Decorative line right -->
+  <line x1="700" y1="155" x2="900" y2="155" stroke="#1B2A4A" stroke-width="3"/>
+</svg>

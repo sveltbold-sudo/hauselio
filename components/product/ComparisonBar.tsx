@@ -26,7 +26,7 @@ export default function ComparisonBar() {
   useEffect(() => {
     setMounted(true);
     const loadItems = () => {
-      const stored = localStorage.getItem("hauselio-comparison");
+      const stored = localStorage.getItem("hausaura-comparison");
       if (stored) {
         try {
           const parsed: unknown = JSON.parse(stored);
@@ -48,14 +48,14 @@ export default function ComparisonBar() {
 
   const removeItem = (id: string) => {
     const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("hauselio-comparison", JSON.stringify(updated));
+    localStorage.setItem("hausaura-comparison", JSON.stringify(updated));
     setItems(updated);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
   const clearAll = () => {
-    localStorage.removeItem("hauselio-comparison");
+    localStorage.removeItem("hausaura-comparison");
     setItems([]);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));

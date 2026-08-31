@@ -21,7 +21,7 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Stefan M.",
     location: "Berlin",
     rating: 5,
-    content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSELIO nur empfehlen!",
+    content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSAURA nur empfehlen!",
     product: "Jura E8 Platinum",
     avatar: null,
   },
@@ -100,7 +100,7 @@ export default async function TestimonialsSection() {
           <p className="caption text-[var(--color-accent)] mb-3">Kundenstimmen</p>
           <h2 className="heading-2 mb-3">Stimmen aus unserem Kundenkreis</h2>
           <p className="body-large max-w-2xl mx-auto">
-            Echte Bewertungen von zufriedenen HAUSELIO Kunden
+            Echte Bewertungen von zufriedenen HAUSAURA Kunden
           </p>
         </div>
 

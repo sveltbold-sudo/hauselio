@@ -8,7 +8,7 @@ interface OrganizationJsonLdProps {
 }
 
 export default function OrganizationJsonLd({
-  name = "HAUSELIO GmbH",
+  name = "HAUSAURA GmbH",
   url = SITE_URL,
   logo = `${SITE_URL}/logos/logoprincipale.png`,
   description = "Premium Haushaltsgeräte online kaufen. Miele, Bosch, Siemens, Dyson und weitere Top-Marken.",
@@ -20,6 +20,7 @@ export default function OrganizationJsonLd({
     url,
     logo,
     description,
+    email: "info@hausaura.de",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Kastanienallee 42",
@@ -34,7 +35,9 @@ export default function OrganizationJsonLd({
       availableLanguage: "German",
     },
     sameAs: [
-      "https://www.instagram.com/hauselio",
+      "https://www.instagram.com/hausaura",
+      "https://www.facebook.com/hausaura",
+      "https://www.linkedin.com/company/hausaura",
     ],
   };
 

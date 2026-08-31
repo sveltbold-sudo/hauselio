@@ -7,7 +7,7 @@ import NewsletterForm from "@/components/layout/NewsletterForm";
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
 
-const COOKIE_EVENT = "hauselio:open-cookie-settings";
+const COOKIE_EVENT = "hausaura:open-cookie-settings";
 
 export function openCookieSettings() {
   if (typeof window !== "undefined") {
@@ -100,7 +100,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-4">
               <Image
                 src="/logos/logosecondaire.png"
-                alt="HAUSELIO"
+                alt="HAUSAURA"
                 width={110}
                 height={33}
                 sizes="110px"
@@ -126,10 +126,10 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3">
               <a
-                href="https://www.instagram.com/hauselio"
+                href="https://www.instagram.com/hausaura"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="HAUSELIO auf Instagram"
+                aria-label="HAUSAURA auf Instagram"
                 className="w-11 h-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors duration-250"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -202,11 +202,11 @@ export default function Footer() {
 
             <div className="space-y-0">
               <a
-                href="mailto:support@hauselio.de"
+                href="mailto:hilfe@hausaura.de"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                support@hauselio.de
+                hilfe@hausaura.de
               </a>
               <a
                 href="tel:+493055578901"
@@ -245,7 +245,7 @@ export default function Footer() {
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/60">
-              © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
+              © {new Date().getFullYear()} HAUSAURA. Alle Rechte vorbehalten.
             </p>
           </div>
         </div>

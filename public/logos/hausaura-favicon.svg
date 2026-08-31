@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- HAUSAURA Favicon - HA Monogram -->
+  
+  <!-- Background circle - Navy Blue -->
+  <circle cx="32" cy="32" r="30" fill="#1B2A4A"/>
+  
+  <!-- H (left) - White -->
+  <rect x="10" y="14" width="5" height="36" fill="white"/>
+  <rect x="22" y="14" width="5" height="36" fill="white"/>
+  <rect x="10" y="29" width="17" height="5" fill="white"/>
+  
+  <!-- A (right) - Orange, matching E style -->
+  <rect x="30" y="14" width="5" height="36" fill="#F58220"/>
+  <rect x="30" y="14" width="18" height="5" fill="#F58220"/>
+  <rect x="30" y="29" width="14" height="5" fill="#F58220"/>
+  <rect x="30" y="45" width="18" height="5" fill="#F58220"/>
+</svg>

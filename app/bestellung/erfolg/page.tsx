@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import Input from "@/components/ui/Input";
-import { Check, Copy, ArrowRight, Download, AlertCircle } from "lucide-react";
+import { Check, Copy, ArrowRight, Download, AlertCircle, Truck } from "lucide-react";
 
 interface BankDetails {
   accountName: string;
@@ -119,6 +119,11 @@ export default function OrderSuccessPage() {
       <p className="text-sm text-[var(--color-text-muted)] mb-8">
         Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.
       </p>
+
+      <div className="flex items-center justify-center gap-2 text-sm text-[var(--color-text-secondary)] mb-8">
+        <Truck className="w-4 h-4 text-[var(--color-text-muted)]" />
+        <span>Voraussichtliche Lieferung: <strong>2-5 Werktage</strong> nach Zahlungseingang</span>
+      </div>
 
       {/* Email input form (shown when sessionStorage is empty) */}
       {showEmailForm && !orderEmail && (

@@ -584,7 +584,7 @@ export default function ProductForm({
               </h2>
               <ImageUpload
                 currentImage={formData.imageUrl || undefined}
-                folder="hauselio/products"
+                folder="hausaura/products"
                 onUpload={(url) =>
                   setFormData((prev) => ({ ...prev, imageUrl: url }))
                 }

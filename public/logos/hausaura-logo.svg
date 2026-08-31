@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180" width="900" height="180">
+  <!-- HAUSAURA Logo Text -->
+  <!-- "HAUS" in Navy Blue #1B2A4A -->
+  <!-- "AURA" in Orange #F58220 -->
+  
+  <!-- HAUS - Navy Blue -->
+  <text x="10" y="120" 
+        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="130" 
+        font-weight="700" 
+        letter-spacing="6" 
+        fill="#1B2A4A">HAUS</text>
+  
+  <!-- AURA - Orange -->
+  <text x="400" y="120" 
+        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="130" 
+        font-weight="700" 
+        letter-spacing="6" 
+        fill="#F58220">AURA</text>
+  
+  <!-- Decorative lines + tagline -->
+  <line x1="10" y1="145" x2="180" y2="145" stroke="#1B2A4A" stroke-width="2"/>
+  <text x="195" y="158" 
+        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="16" 
+        font-weight="400" 
+        letter-spacing="5" 
+        fill="#1B2A4A">MODERNE HAUSHALTSGERÄTE FÜR IHR ZUHAUSE</text>
+  <line x1="680" y1="145" x2="890" y2="145" stroke="#1B2A4A" stroke-width="2"/>
+</svg>

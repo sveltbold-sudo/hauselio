@@ -34,7 +34,7 @@ function getAdminClient(): Algoliasearch {
   return _adminClient;
 }
 
-export const PRODUCTS_INDEX = "hauselio_products";
+export const PRODUCTS_INDEX = "hausaura_products";
 
 export function getAlgoliaSearchClient() {
   return getSearchClient();

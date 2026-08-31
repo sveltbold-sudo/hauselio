@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
     url: SITE_URL,
-    siteName: "HAUSELIO",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
     images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
@@ -83,7 +83,7 @@ async function getFeaturedProducts() {
     reviewCount: p.reviewCount,
     isNew: p.isNew,
     isPromo: p.originalPrice !== null,
-    brand: p.brand?.name || "HAUSELIO",
+    brand: p.brand?.name || "HAUSAURA",
   }));
 }
 
@@ -107,7 +107,7 @@ async function getHeroSlides() {
       price: Number(p.price),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       tagline: p.isNew ? "Neuheit" : p.isPromo ? "Angebot" : "Premium Qualität",
-      subtitle: p.description?.slice(0, 120) || `${p.name} bei HAUSELIO entdecken.`,
+      subtitle: p.description?.slice(0, 120) || `${p.name} bei HAUSAURA entdecken.`,
       image: p.images[0]?.url || "/images/placeholder-product.svg",
       cta: "Jetzt ansehen",
     }));
@@ -159,7 +159,7 @@ async function getDailyDeal() {
   return {
     name: product.name,
     slug: product.slug,
-    brand: product.brand?.name || "HAUSELIO",
+    brand: product.brand?.name || "HAUSAURA",
     price: Number(product.price),
     originalPrice: Number(product.originalPrice),
     image: product.images[0]?.url || "/images/placeholder-product.svg",
@@ -350,7 +350,7 @@ export default async function HomePage() {
   return (
     <main id="main-content">
       <h1 className="container-hauselio pt-8 pb-2 text-3xl sm:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight">
-        HAUSELIO — Moderne Haushaltsgeräte
+        HAUSAURA — Moderne Haushaltsgeräte
       </h1>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 

@@ -14,6 +14,7 @@ import { getShippingCost, SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from "@/lib/c
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [bounceKey, setBounceKey] = useState(0);
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -21,7 +22,6 @@ export default function MiniCart() {
   const total = useCartStore(selectTotal);
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -29,10 +29,8 @@ export default function MiniCart() {
 
   const prevCount = useRef(itemCount);
   useEffect(() => {
-    if (itemCount !== prevCount.current && badgeRef.current) {
-      badgeRef.current.classList.remove("animate-bounce-in");
-      void badgeRef.current.offsetWidth;
-      badgeRef.current.classList.add("animate-bounce-in");
+    if (itemCount !== prevCount.current) {
+      setBounceKey((k) => k + 1);
       prevCount.current = itemCount;
     }
   }, [itemCount]);
@@ -104,7 +102,7 @@ export default function MiniCart() {
         <span className="hidden lg:inline text-sm font-medium">Warenkorb</span>
         {mounted && itemCount > 0 && (
           <span
-            ref={badgeRef}
+            key={bounceKey}
             aria-live="polite"
             aria-label={`${itemCount} Artikel im Warenkorb`}
             className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 animate-bounce-in"

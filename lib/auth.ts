@@ -44,7 +44,7 @@ async function redisExists(key: string): Promise<boolean> {
 }
 
 const DEV_SECRET_PREFIXES = [
-  "hauselio-super-secret",
+  "hausaura-super-secret",
   "test-secret",
   "dev-secret",
   "change-in-production",
@@ -86,7 +86,7 @@ const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 export async function revokeToken(token: string): Promise<void> {
-  const key = `hauselio:blacklist:${token}`;
+  const key = `hausaura:blacklist:${token}`;
   await redisSet(key, "1", TOKEN_EXPIRY_SEC);
   if (!useUpstash) {
     memoryBlacklist.set(key, Date.now() + TOKEN_EXPIRY_SEC * 1000);
@@ -94,7 +94,7 @@ export async function revokeToken(token: string): Promise<void> {
 }
 
 export async function isTokenRevoked(token: string): Promise<boolean> {
-  return redisExists(`hauselio:blacklist:${token}`);
+  return redisExists(`hausaura:blacklist:${token}`);
 }
 
 export interface AdminPayload {
@@ -123,8 +123,8 @@ export async function generateToken(payload: AdminPayload): Promise<string> {
   return new SignJWT(payload as unknown as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("hauselio-admin")
-    .setAudience("hauselio-admin")
+    .setIssuer("hausaura-admin")
+    .setAudience("hausaura-admin")
     .setExpirationTime(TOKEN_EXPIRY)
     .sign(getJWTSecret());
 }
@@ -133,8 +133,8 @@ export async function verifyToken(token: string): Promise<AdminPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
-      issuer: "hauselio-admin",
-      audience: "hauselio-admin",
+      issuer: "hausaura-admin",
+      audience: "hausaura-admin",
     });
     const p = payload as Record<string, unknown>;
     if (
@@ -185,8 +185,8 @@ export async function createUnsubscribeToken(email: string): Promise<string> {
   return new SignJWT({ email })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("hauselio-newsletter")
-    .setAudience("hauselio-unsubscribe")
+    .setIssuer("hausaura-newsletter")
+    .setAudience("hausaura-unsubscribe")
     .setExpirationTime("30d")
     .sign(getJWTSecret());
 }
@@ -195,8 +195,8 @@ export async function verifyUnsubscribeToken(token: string): Promise<string | nu
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
-      issuer: "hauselio-newsletter",
-      audience: "hauselio-unsubscribe",
+      issuer: "hausaura-newsletter",
+      audience: "hausaura-unsubscribe",
     });
     const p = payload as Record<string, unknown>;
     if (typeof p === "object" && p !== null && "email" in p && typeof p.email === "string") {
@@ -342,4 +342,160 @@ export async function authenticateAdmin(
     role: admin.role as "ADMIN" | "EDITOR",
     name: admin.name || undefined,
   };
+}
+
+// ═══════════════════════════════════════════
+// CUSTOMER AUTH
+// ═══════════════════════════════════════════
+
+const CUSTOMER_COOKIE = "customer_token";
+const CUSTOMER_TOKEN_EXPIRY = "7d";
+const CUSTOMER_TOKEN_EXPIRY_SEC = 7 * 24 * 60 * 60;
+const CUSTOMER_MAX_FAILED = 5;
+const CUSTOMER_LOCKOUT_MS = 15 * 60 * 1000;
+
+export interface CustomerPayload {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export async function generateCustomerToken(payload: CustomerPayload): Promise<string> {
+  return new SignJWT(payload as unknown as Record<string, unknown>)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setIssuer("hausaura-customer")
+    .setAudience("hausaura-customer")
+    .setExpirationTime(CUSTOMER_TOKEN_EXPIRY)
+    .sign(getJWTSecret());
+}
+
+export async function verifyCustomerToken(token: string): Promise<CustomerPayload | null> {
+  try {
+    const { payload } = await jwtVerify(token, getJWTSecret(), {
+      algorithms: ["HS256"],
+      issuer: "hausaura-customer",
+      audience: "hausaura-customer",
+    });
+    const p = payload as Record<string, unknown>;
+    if (typeof p === "object" && p !== null && "id" in p && "email" in p && "name" in p) {
+      return {
+        id: p.id as string,
+        email: p.email as string,
+        name: p.name as string,
+      };
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getCustomerFromRequest(): Promise<CustomerPayload | null> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(CUSTOMER_COOKIE)?.value;
+  if (!token) return null;
+  if (await isTokenRevoked(token)) return null;
+  return verifyCustomerToken(token);
+}
+
+export async function requireCustomer(): Promise<CustomerPayload> {
+  const customer = await getCustomerFromRequest();
+  if (!customer) {
+    throw new UnauthorizedError();
+  }
+  return customer;
+}
+
+export function setCustomerCookie(token: string, request?: { headers: Headers }) {
+  const secure = request ? isSecureRequest(request) : process.env.NODE_ENV === "production";
+  return {
+    [CUSTOMER_COOKIE]: {
+      value: token,
+      httpOnly: true,
+      secure,
+      sameSite: "lax" as const,
+      path: "/",
+      maxAge: CUSTOMER_TOKEN_EXPIRY_SEC,
+    },
+  };
+}
+
+export function clearCustomerCookie(request?: { headers: Headers }) {
+  const secure = request ? isSecureRequest(request) : process.env.NODE_ENV === "production";
+  return {
+    [CUSTOMER_COOKIE]: {
+      value: "",
+      httpOnly: true,
+      secure,
+      sameSite: "lax" as const,
+      path: "/",
+      maxAge: 0,
+    },
+  };
+}
+
+export async function checkCustomerLockout(email: string): Promise<{ locked: boolean; retryAfterMs: number }> {
+  const customer = await prisma.customer.findUnique({
+    where: { email },
+    select: { lockedUntil: true },
+  });
+  if (!customer || !customer.lockedUntil) return { locked: false, retryAfterMs: 0 };
+  const now = new Date();
+  if (now < customer.lockedUntil) {
+    return { locked: true, retryAfterMs: customer.lockedUntil.getTime() - now.getTime() };
+  }
+  await prisma.customer.update({
+    where: { email },
+    data: { failedAttempts: 0, lockedUntil: null },
+  });
+  return { locked: false, retryAfterMs: 0 };
+}
+
+export async function recordCustomerFailedLogin(email: string): Promise<void> {
+  const customer = await prisma.customer.findUnique({
+    where: { email },
+    select: { id: true },
+  });
+  if (!customer) return;
+  const result = await prisma.customer.update({
+    where: { id: customer.id },
+    data: { failedAttempts: { increment: 1 } },
+    select: { failedAttempts: true, lockedUntil: true },
+  });
+  if (!result.lockedUntil && result.failedAttempts >= CUSTOMER_MAX_FAILED) {
+    await prisma.customer.update({
+      where: { id: customer.id },
+      data: { lockedUntil: new Date(Date.now() + CUSTOMER_LOCKOUT_MS) },
+    });
+  }
+}
+
+export async function resetCustomerFailedLogins(email: string): Promise<void> {
+  try {
+    await prisma.customer.update({
+      where: { email },
+      data: { failedAttempts: 0, lockedUntil: null },
+    });
+  } catch {
+    // ignore
+  }
+}
+
+export async function authenticateCustomer(
+  email: string,
+  password: string
+): Promise<CustomerPayload | null> {
+  const customer = await prisma.customer.findUnique({
+    where: { email },
+    select: { id: true, email: true, name: true, password: true },
+  });
+  const hashToCheck = customer?.password || DUMMY_HASH;
+  const valid = await verifyPassword(password, hashToCheck);
+  if (!valid || !customer) return null;
+  await prisma.customer.update({
+    where: { id: customer.id },
+    data: { lastLogin: new Date() },
+  });
+  return { id: customer.id, email: customer.email, name: customer.name };
 }

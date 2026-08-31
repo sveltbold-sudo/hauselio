@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Star, ArrowRight } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
@@ -24,7 +24,8 @@ interface SearchDropdownProps {
   onClose: () => void;
   query: string;
   activeIndex: number;
-  onActiveIndexChange: (index: number) => void;
+  resultCount: number;
+  onResultCountChange: (count: number) => void;
   onSelect: (slug: string) => void;
   onClear: () => void;
 }
@@ -34,7 +35,8 @@ export default function SearchDropdown({
   onClose,
   query,
   activeIndex,
-  onActiveIndexChange,
+  resultCount,
+  onResultCountChange,
   onSelect,
   onClear,
 }: SearchDropdownProps) {
@@ -47,6 +49,7 @@ export default function SearchDropdown({
     if (!query.trim() || query.trim().length < 2) {
       setResults([]);
       setNbHits(0);
+      onResultCountChange(0);
       return;
     }
 
@@ -63,6 +66,7 @@ export default function SearchDropdown({
         if (!cancelled) {
           setResults(data.hits || []);
           setNbHits(data.nbHits || 0);
+          onResultCountChange(Math.min(6, data.nbHits || 0));
         }
       } catch {
         if (!cancelled) {
@@ -86,7 +90,6 @@ export default function SearchDropdown({
     onClear();
   }, [query, router, onClose, onClear]);
 
-  const hasResults = query.trim().length >= 2 && results.length > 0;
   const hasQuery = query.trim().length >= 2;
 
   return (

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════
-   HAUSELIO Design System v3.0
+   HAUSAURA Design System v3.0
    Inspired by Coolblue (trust) + MediaMarkt (bold) + AO (clean)
    ═══════════════════════════════════════════════════ */
 
@@ -520,6 +520,17 @@ a, button, input, select, textarea, [role="button"] {
 /* ═══════════════════════════════════════════════════
    Components
    ═══════════════════════════════════════════════════ */
+
+/* ── Sticky Header Offset ── */
+.scroll-margin-header {
+  scroll-margin-top: 5rem;
+}
+
+/* ── Touch Action ── */
+.touch-action-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* ── Section Spacing ── */
 .section-py {

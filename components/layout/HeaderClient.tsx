@@ -27,13 +27,13 @@ export default function HeaderClient() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const dismissed = sessionStorage.getItem("hauselio-promo-dismissed");
+    const dismissed = sessionStorage.getItem("hausaura-promo-dismissed");
     if (dismissed) setPromoDismissed(true);
   }, []);
 
   const dismissPromo = () => {
     setPromoDismissed(true);
-    sessionStorage.setItem("hauselio-promo-dismissed", "1");
+    sessionStorage.setItem("hausaura-promo-dismissed", "1");
   };
 
   useEffect(() => {
@@ -187,7 +187,7 @@ export default function HeaderClient() {
           <Link href="/" className="flex items-center shrink-0 group">
             <Image
               src="/logos/logoprincipale.png"
-              alt="HAUSELIO"
+              alt="HAUSAURA"
               width={160}
               height={50}
               priority

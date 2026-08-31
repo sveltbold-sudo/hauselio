@@ -6,7 +6,7 @@ export interface Subcategory {
 export interface NavCategory {
   name: string;
   href: string;
-  image: string;
+  icon: string;
   description: string;
   subcategories: Subcategory[];
 }
@@ -15,7 +15,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Küche & Kochen",
     href: "/kategorie/kueche",
-    image: "/images/categories/kueche.jpg",
+    icon: "kueche",
     description: "Hochwertige Küchengeräte für anspruchsvolle Köche",
     subcategories: [
       { name: "Küchenmaschinen", href: "/kategorie/kueche?sub=K%C3%BCchenmaschinen" },
@@ -30,7 +30,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Kaffee",
     href: "/kategorie/kaffee",
-    image: "/images/categories/kaffee.jpg",
+    icon: "kaffee",
     description: "Premium Kaffeemaschinen für den perfekten Genuss",
     subcategories: [
       { name: "Kaffeevollautomaten", href: "/kategorie/kaffee?sub=Kaffeevollautomaten" },
@@ -42,7 +42,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Reinigung",
     href: "/kategorie/reinigung",
-    image: "/images/categories/reinigung.jpg",
+    icon: "reinigung",
     description: "Effiziente Reinigungsgeräte für Ihr Zuhause",
     subcategories: [
       { name: "Staubsauger", href: "/kategorie/reinigung?sub=Staubsauger" },
@@ -53,7 +53,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Klima",
     href: "/kategorie/klima",
-    image: "/images/categories/klima.jpg",
+    icon: "klima",
     description: "Luftreiniger, Luftbefeuchter & Luftkühler",
     subcategories: [
       { name: "Luftreiniger", href: "/kategorie/klima?sub=Luftreiniger" },
@@ -64,7 +64,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Smart Home",
     href: "/kategorie/smart-home",
-    image: "/images/categories/smart-home.jpg",
+    icon: "smart-home",
     description: "Intelligente Geräte für ein vernetztes Zuhause",
     subcategories: [
       { name: "Smart-Beleuchtung", href: "/kategorie/smart-home?sub=Smart-Beleuchtung" },
@@ -76,7 +76,7 @@ export const navCategories: NavCategory[] = [
   {
     name: "Haushaltsgeräte",
     href: "/kategorie/haushaltsgeraete",
-    image: "/images/categories/haushaltsgeraete.jpg",
+    icon: "haushaltsgeraete",
     description: "Waschmaschinen, Trockner, Kühlschränke & mehr",
     subcategories: [
       { name: "Waschmaschinen", href: "/kategorie/haushaltsgeraete?sub=Waschmaschinen" },

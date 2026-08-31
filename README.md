@@ -1,4 +1,4 @@
-# HAUSELIO
+# HAUSAURA
 
 Premium E-Commerce für Haushaltsgeräte — Next.js 16, React 19, Prisma, Tailwind CSS v4.
 
@@ -55,4 +55,4 @@ Zie `.env.example` voor alle vereiste variabelen.
 
 ## License
 
-Proprietary — HAUSELIO GmbH
+Proprietary — HAUSAURA GmbH

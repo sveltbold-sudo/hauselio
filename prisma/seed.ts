@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const adminEmail = "admin@hauselio.de";
+const adminEmail = "admin@hausaura.de";
 
   const categories = [
     { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },
@@ -2089,10 +2089,10 @@ async function main() {
     data: {
       bankIban: "DE89 3704 0044 0532 0130 00",
       bankBic: "COBADEFFXXX",
-      bankAccountName: "HAUSELIO GmbH",
+      bankAccountName: "HAUSAURA GmbH",
       bankName: "Commerzbank Berlin",
       shippingInfo: "Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.",
-      contactEmail: "info@hauselio.de",
+      contactEmail: "info@hausaura.de",
       contactPhone: "+49 (0)30 555 789 01",
       contactAddress: "Kastanienallee 42, 10435 Berlin",
     },
@@ -2171,7 +2171,7 @@ async function main() {
       name: "Stefan M.",
       location: "Berlin",
       rating: 5,
-      content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSELIO nur empfehlen!",
+      content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSAURA nur empfehlen!",
       product: "Jura E8 Platinum",
       avatar: null,
       isApproved: true,
@@ -2211,7 +2211,7 @@ async function main() {
       name: "Michael S.",
       location: "Frankfurt",
       rating: 5,
-      content: "Der Dyson V15 Detect ist fantastisch. Das orange Licht zeigt jeden Staub. HAUSELIO hatte den besten Preis!",
+      content: "Der Dyson V15 Detect ist fantastisch. Das orange Licht zeigt jeden Staub. HAUSAURA hatte den besten Preis!",
       product: "Dyson V15 Detect",
       avatar: null,
       isApproved: true,
@@ -2281,7 +2281,7 @@ async function main() {
       name: "Christine W.",
       location: "Münster",
       rating: 5,
-      content: "Bin sehr zufrieden mit dem Vorwerk Kobold. HAUSELIO bietet wirklich faire Preise. Vielen Dank!",
+      content: "Bin sehr zufrieden mit dem Vorwerk Kobold. HAUSAURA bietet wirklich faire Preise. Vielen Dank!",
       product: "Vorwerk Kobold VK200",
       avatar: null,
       isApproved: true,
