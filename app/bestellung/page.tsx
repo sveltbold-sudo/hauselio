@@ -43,29 +43,6 @@ export default function BestellungPage() {
     setMounted(true);
   }, []);
 
-  // Pre-fill form from customer profile if logged in
-  useEffect(() => {
-    fetch("/api/customer/me")
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
-        if (data?.customer) {
-          const c = data.customer;
-          setFormData((prev) => ({
-            ...prev,
-            email: prev.email || c.email || "",
-            firstName: prev.firstName || c.name?.split(" ")[0] || "",
-            lastName: prev.lastName || c.name?.split(" ").slice(1).join(" ") || "",
-            phone: prev.phone || c.phone || "",
-            address: prev.address || c.address || "",
-            zip: prev.zip || c.zip || "",
-            city: prev.city || c.city || "",
-            country: prev.country || c.country || "DE",
-          }));
-        }
-      })
-      .catch(() => {});
-  }, []);
-
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",

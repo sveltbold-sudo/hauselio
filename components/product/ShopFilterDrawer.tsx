@@ -10,7 +10,6 @@ interface ShopFilterDrawerProps {
   brands: string[];
   selectedCategory?: string;
   selectedBrand?: string;
-  selectedSort: string;
 }
 
 export default function ShopFilterDrawer({
@@ -18,7 +17,6 @@ export default function ShopFilterDrawer({
   brands,
   selectedCategory,
   selectedBrand,
-  selectedSort,
 }: ShopFilterDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +92,6 @@ export default function ShopFilterDrawer({
           brands={brands}
           selectedCategory={selectedCategory}
           selectedBrand={selectedBrand}
-          selectedSort={selectedSort}
         />
       </aside>
 
@@ -125,7 +122,6 @@ export default function ShopFilterDrawer({
                 brands={brands}
                 selectedCategory={selectedCategory}
                 selectedBrand={selectedBrand}
-                selectedSort={selectedSort}
               />
             </div>
           </div>

@@ -8,6 +8,7 @@ import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, T
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
+import { useWishlistStore } from "@/lib/wishlist";
 import CategoryIcon from "@/components/ui/CategoryIcon";
 import { navCategories } from "@/lib/navigation";
 import { TRUST_BAR_RATING, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
@@ -242,10 +243,11 @@ export default function HeaderClient() {
             {/* Wishlist */}
             <Link
               href="/wunschliste"
-              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+              className="hidden lg:flex w-11 h-11 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] relative"
               aria-label="Wunschliste"
             >
               <Heart className="w-5 h-5" />
+              <WishlistBadge />
             </Link>
 
             {/* Cart */}
@@ -530,5 +532,15 @@ export default function HeaderClient() {
         </div>
       )}
     </header>
+  );
+}
+
+function WishlistBadge() {
+  const items = useWishlistStore((s) => s.items);
+  if (items.length === 0) return null;
+  return (
+    <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center bg-[var(--color-danger)] text-white text-[10px] font-bold rounded-full px-1">
+      {items.length > 99 ? "99+" : items.length}
+    </span>
   );
 }

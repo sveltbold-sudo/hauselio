@@ -353,7 +353,6 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           brands={brands.map((b) => b.name)}
           selectedCategory={category}
           selectedBrand={brand}
-          selectedSort={sort}
         />
 
         {/* Product grid */}

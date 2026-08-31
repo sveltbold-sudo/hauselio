@@ -8,7 +8,6 @@ interface ShopFiltersProps {
   brands: string[];
   selectedCategory?: string;
   selectedBrand?: string;
-  selectedSort: string;
 }
 
 export default function ShopFilters({
@@ -16,7 +15,6 @@ export default function ShopFilters({
   brands,
   selectedCategory,
   selectedBrand,
-  selectedSort,
 }: ShopFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,10 +28,6 @@ export default function ShopFilters({
     }
     params.delete("page");
     router.push(`/shop?${params.toString()}`);
-  };
-
-  const updateSort = (sort: string) => {
-    updateFilter("sort", sort);
   };
 
   const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price");
@@ -209,24 +203,6 @@ export default function ShopFilters({
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Sort */}
-      <div>
-        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">
-          Sortierung
-        </h3>
-        <select
-          value={selectedSort}
-          onChange={(e) => updateSort(e.target.value)}
-          aria-label="Sortierung"
-          className="w-full text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-2.5 bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
-        >
-          <option value="newest">Neueste</option>
-          <option value="price_asc">Preis aufsteigend</option>
-          <option value="price_desc">Preis absteigend</option>
-          <option value="rating">Beste Bewertung</option>
-        </select>
       </div>
     </div>
   );

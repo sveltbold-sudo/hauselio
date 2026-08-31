@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ProductImage from "@/components/product/ProductImage";
-import { formatPrice } from "@/lib/utils";
 
 interface Customer {
   id: string;
@@ -18,32 +16,6 @@ interface Customer {
   country?: string | null;
   createdAt?: string;
 }
-
-interface OrderItem {
-  name: string;
-  slug: string;
-  image: string | null;
-  quantity: number;
-  price: number;
-}
-
-interface Order {
-  id: string;
-  orderNumber: string;
-  status: string;
-  total: number;
-  shippingCost: number;
-  createdAt: string;
-  items: OrderItem[];
-}
-
-const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  PENDING_PAYMENT: { label: "Ausstehend", color: "text-[var(--color-warning)] bg-[var(--color-warning-light)]" },
-  PAID: { label: "Bezahlt", color: "text-[var(--color-primary)] bg-[var(--color-primary-50)]" },
-  SHIPPED: { label: "Versendet", color: "text-[var(--color-info)] bg-[var(--color-info-light)]" },
-  DELIVERED: { label: "Zugestellt", color: "text-[var(--color-success)] bg-[var(--color-success-light)]" },
-  CANCELLED: { label: "Storniert", color: "text-[var(--color-danger)] bg-[var(--color-danger-light)]" },
-};
 
 export default function KontoPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
@@ -58,9 +30,6 @@ export default function KontoPage() {
   const [profileError, setProfileError] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
   const [isProfileLoading, setIsProfileLoading] = useState(false);
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [ordersLoading, setOrdersLoading] = useState(false);
-  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
   // Profile form state
   const [profileName, setProfileName] = useState("");
@@ -85,13 +54,6 @@ export default function KontoPage() {
           setProfileZip(data.customer.zip || "");
           setProfileCity(data.customer.city || "");
           setProfileCountry(data.customer.country || "DE");
-          // Fetch orders
-          setOrdersLoading(true);
-          fetch(`/api/customer/orders?email=${encodeURIComponent(data.customer.email)}`)
-            .then((r) => r.json())
-            .then((d) => setOrders(d.orders || []))
-            .catch(() => {})
-            .finally(() => setOrdersLoading(false));
         }
       })
       .catch(() => {})
@@ -213,13 +175,11 @@ export default function KontoPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            <div className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)]">
-              <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
+            <div className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] opacity-60">
+              <ShoppingBag className="w-5 h-5 text-[var(--color-text-muted)]" />
               <div>
-                <div className="font-bold text-sm">Meine Bestellungen</div>
-                <div className="text-xs text-[var(--color-text-muted)]">
-                  {ordersLoading ? "Wird geladen…" : `${orders.length} Bestellung${orders.length !== 1 ? "en" : ""}`}
-                </div>
+                <div className="font-bold text-sm text-[var(--color-text-muted)]">Meine Bestellungen</div>
+                <div className="text-xs text-[var(--color-text-muted)]">Noch keine Bestellungen</div>
               </div>
             </div>
 
@@ -358,71 +318,6 @@ export default function KontoPage() {
               </button>
             </form>
           </div>
-
-          {/* Order History */}
-          {orders.length > 0 && (
-            <div className="mt-8 bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
-              <h2 className="heading-3 mb-6 flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
-                Bestellhistorie
-              </h2>
-              <div className="space-y-4">
-                {orders.map((order) => {
-                  const status = STATUS_LABELS[order.status] || { label: order.status, color: "text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)]" };
-                  const isExpanded = expandedOrder === order.id;
-                  return (
-                    <div key={order.id} className="border border-[var(--color-border-light)] rounded-xl overflow-hidden">
-                      <button
-                        onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
-                        className="w-full flex items-center justify-between p-4 hover:bg-[var(--color-bg-secondary)] transition-colors text-left"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div>
-                            <p className="text-sm font-semibold text-[var(--color-text-primary)]">#{order.orderNumber}</p>
-                            <p className="text-xs text-[var(--color-text-muted)]">
-                              {new Date(order.createdAt).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${status.color}`}>
-                            {status.label}
-                          </span>
-                          <span className="text-sm font-bold text-[var(--color-text-primary)] tabular-nums">
-                            {formatPrice(order.total)}
-                          </span>
-                        </div>
-                      </button>
-                      {isExpanded && (
-                        <div className="border-t border-[var(--color-border-light)] p-4 bg-[var(--color-bg-secondary)]/50">
-                          <ul className="space-y-3">
-                            {order.items.map((item, idx) => (
-                              <li key={idx} className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden flex-shrink-0">
-                                  <ProductImage src={item.image || ""} alt={item.name} size="sm" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <Link href={`/produkt/${item.slug}`} className="text-sm font-medium text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors truncate block">
-                                    {item.name}
-                                  </Link>
-                                  <p className="text-xs text-[var(--color-text-muted)]">{item.quantity} × {formatPrice(item.price)}</p>
-                                </div>
-                                <p className="text-sm font-semibold tabular-nums">{formatPrice(item.price * item.quantity)}</p>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="mt-3 pt-3 border-t border-[var(--color-border-light)] flex justify-between text-sm">
-                            <span className="text-[var(--color-text-muted)]">Versand</span>
-                            <span className="font-medium">{order.shippingCost === 0 ? "Kostenlos" : formatPrice(order.shippingCost)}</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
       </main>
     );
