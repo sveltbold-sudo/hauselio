@@ -4,10 +4,11 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useScrollLock } from "@/hooks/useScrollLock";
-import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw, User, ShoppingBag } from "lucide-react";
+import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, Truck, Shield, RotateCcw, User } from "lucide-react";
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
+import CategoryIcon from "@/components/ui/CategoryIcon";
 import { navCategories } from "@/lib/navigation";
 import { TRUST_BAR_RATING, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 
@@ -18,6 +19,7 @@ export default function HeaderClient() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchActiveIndex, setSearchActiveIndex] = useState(-1);
+  const [searchResultCount, setSearchResultCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
@@ -70,6 +72,10 @@ export default function HeaderClient() {
   useScrollLock(mobileMenuOpen);
 
   useEffect(() => {
+    if (!mobileMenuOpen) setExpandedMobileCat(null);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     if (!mobileMenuOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -112,10 +118,10 @@ export default function HeaderClient() {
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSearchActiveIndex((prev) => (prev < 5 ? prev + 1 : 0));
+      setSearchActiveIndex((prev) => (prev < searchResultCount - 1 ? prev + 1 : 0));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSearchActiveIndex((prev) => (prev > 0 ? prev - 1 : 5));
+      setSearchActiveIndex((prev) => (prev > 0 ? prev - 1 : searchResultCount - 1));
     } else if (e.key === "Enter" && searchActiveIndex >= 0) {
       // Handled by SearchDropdown's onSelect
     } else if (e.key === "Enter" && searchQuery.trim()) {
@@ -138,13 +144,13 @@ export default function HeaderClient() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 ${
+      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 touch-action-manipulation ${
         scrolled ? "shadow-[var(--shadow-md)]" : ""
       }`}
     >
       {/* Brand stripe — hidden when scrolled */}
       <div
-        className={`brand-stripe transition-[height,opacity] duration-300 overflow-hidden ${
+        className={`brand-stripe transition-[height,opacity] duration-300 overflow-hidden pt-[env(safe-area-inset-top,0px)] ${
           scrolled ? "h-0 opacity-0" : "opacity-100"
         }`}
       />
@@ -206,7 +212,7 @@ export default function HeaderClient() {
                 aria-expanded={searchOpen && searchQuery.trim().length >= 2}
                 aria-controls={searchOpen && searchQuery.trim().length >= 2 ? "search-results-list" : undefined}
                 aria-autocomplete="list"
-                aria-activedescendant={searchActiveIndex >= 0 ? `search-result-${searchActiveIndex}` : undefined}
+                aria-activedescendant={searchActiveIndex >= 0 && searchActiveIndex < searchResultCount ? `search-result-${searchActiveIndex}` : undefined}
                 className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
               />
             </div>
@@ -268,7 +274,8 @@ export default function HeaderClient() {
             onClose={() => setSearchOpen(false)}
             query={searchQuery}
             activeIndex={searchActiveIndex}
-            onActiveIndexChange={setSearchActiveIndex}
+            resultCount={searchResultCount}
+            onResultCountChange={setSearchResultCount}
             onSelect={handleSearchSelect}
             onClear={handleSearchClear}
           />
@@ -298,10 +305,6 @@ export default function HeaderClient() {
                       setActiveMega(null);
                       (e.target as HTMLElement).blur();
                     }
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setActiveMega(activeMega === cat.href ? null : cat.href);
-                    }
                   }}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
                   className={`header-nav-tab flex items-center gap-1 ${
@@ -312,6 +315,7 @@ export default function HeaderClient() {
                 >
                   {cat.name}
                   <ChevronDown
+                    aria-hidden="true"
                     className={`w-3 h-3 transition-transform duration-300 ${
                       activeMega === cat.href ? "rotate-180" : ""
                     }`}
@@ -337,6 +341,12 @@ export default function HeaderClient() {
               <span className="hidden xl:flex items-center gap-1">
                 <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span>
               </span>
+              {/* Payment icons */}
+              <span className="hidden 2xl:flex items-center gap-1.5 pl-3 border-l border-[var(--color-border-light)]">
+                <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">Vorkasse</span>
+                <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">SEPA</span>
+                <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">PayPal</span>
+              </span>
             </div>
           </div>
         </div>
@@ -355,14 +365,8 @@ export default function HeaderClient() {
               <div className="pt-1 pb-2">
                 <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-fit max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
                   <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
-                    <div className="w-12 h-12 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center">
-                      <Image
-                        src={cat.image}
-                        alt={cat.name}
-                        width={28}
-                        height={28}
-                        className="w-7 h-7 object-contain"
-                      />
+                    <div className="w-12 h-12 bg-[var(--color-accent-soft)] rounded-xl flex items-center justify-center">
+                      <CategoryIcon category={cat.icon} className="w-6 h-6 text-[var(--color-accent)]" />
                     </div>
                     <div>
                       <h3 className="font-bold text-[var(--color-text-primary)] text-sm">
@@ -452,14 +456,8 @@ export default function HeaderClient() {
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center gap-3.5 px-3 py-3 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-50)] hover:text-[var(--color-primary)] transition-colors duration-200 flex-1"
                       >
-                        <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center shrink-0">
-                          <Image
-                            src={cat.image}
-                            alt=""
-                            width={24}
-                            height={24}
-                            className="w-6 h-6 object-contain"
-                          />
+                        <div className="w-10 h-10 bg-[var(--color-accent-soft)] rounded-lg flex items-center justify-center shrink-0">
+                          <CategoryIcon category={cat.icon} className="w-5 h-5 text-[var(--color-accent)]" />
                         </div>
                         <span className="font-medium text-sm">{cat.name}</span>
                       </Link>

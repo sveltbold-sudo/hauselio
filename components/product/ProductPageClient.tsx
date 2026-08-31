@@ -213,6 +213,12 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               }
               {product.inStock ? "Auf Lager" : "Nicht verfügbar"}
             </span>
+            {product.inStock && product.reviewCount > 10 && (
+              <span className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--color-success)] animate-pulse" />
+                Beliebt bei unseren Kunden
+              </span>
+            )}
           </div>
 
           <div className="flex flex-wrap items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
@@ -237,7 +243,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
                 {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferzeit wird berechnet…"}
               </p>
-              <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€</p>
+              <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€ · Schnelle Bearbeitung</p>
             </div>
           </div>
 

@@ -79,7 +79,7 @@ export default function NewsletterSection() {
         )}
 
         <p className="text-xs text-white/55 mt-3">
-          Kein Spam. Abmeldung jederzeit möglich.
+          Kein Spam. Abmeldung jederzeit möglich. Bestätigung per Klick in der E-Mail.
         </p>
         <p className="text-xs text-white/40 mt-1">
           Über 2.500+ zufriedene Abonnenten
