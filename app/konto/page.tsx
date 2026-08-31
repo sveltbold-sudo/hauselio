@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 interface Customer {
@@ -15,6 +15,24 @@ interface Customer {
   city?: string | null;
   country?: string | null;
   createdAt?: string;
+}
+
+interface OrderItem {
+  name: string;
+  slug: string;
+  image: string | null;
+  quantity: number;
+  price: number;
+}
+
+interface Order {
+  id: string;
+  orderNumber: string;
+  status: "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+  total: number;
+  shippingCost: number;
+  createdAt: string;
+  items: OrderItem[];
 }
 
 export default function KontoPage() {
@@ -39,6 +57,11 @@ export default function KontoPage() {
   const [profileCity, setProfileCity] = useState("");
   const [profileCountry, setProfileCountry] = useState("DE");
 
+  // Orders state
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+
   useEffect(() => {
     fetch("/api/customer/me")
       .then((r) => {
@@ -59,6 +82,19 @@ export default function KontoPage() {
       .catch(() => {})
       .finally(() => setIsAuthLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!customer?.email) return;
+    setOrdersLoading(true);
+    fetch(`/api/customer/orders?email=${encodeURIComponent(customer.email)}`)
+      .then((r) => {
+        if (!r.ok) return { orders: [] };
+        return r.json();
+      })
+      .then((data) => setOrders(data.orders || []))
+      .catch(() => setOrders([]))
+      .finally(() => setOrdersLoading(false));
+  }, [customer?.email]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,11 +211,15 @@ export default function KontoPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            <div className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] opacity-60">
-              <ShoppingBag className="w-5 h-5 text-[var(--color-text-muted)]" />
-              <div>
-                <div className="font-bold text-sm text-[var(--color-text-muted)]">Meine Bestellungen</div>
-                <div className="text-xs text-[var(--color-text-muted)]">Noch keine Bestellungen</div>
+            <div
+              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow"
+            >
+              <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
+              <div className="flex-1">
+                <div className="font-bold text-sm">Meine Bestellungen</div>
+                <div className="text-xs text-[var(--color-text-muted)]">
+                  {ordersLoading ? "Wird geladen…" : orders.length === 0 ? "Noch keine Bestellungen" : `${orders.length} Bestellung${orders.length > 1 ? "en" : ""}`}
+                </div>
               </div>
             </div>
 
@@ -205,6 +245,103 @@ export default function KontoPage() {
               </div>
             </button>
           </div>
+
+          {/* Orders section */}
+          {orders.length > 0 && (
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] mb-10">
+              <div className="p-5 border-b border-[var(--color-border-light)]">
+                <h2 className="heading-3 flex items-center gap-2">
+                  <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
+                  Bestellungen
+                </h2>
+              </div>
+              <div className="divide-y divide-[var(--color-border-light)]">
+                {orders.map((order) => {
+                  const isExpanded = expandedOrder === order.id;
+                  const statusLabel: Record<string, string> = {
+                    PENDING: "Ausstehend",
+                    CONFIRMED: "Bestätigt",
+                    SHIPPED: "Versandt",
+                    DELIVERED: "Zugestellt",
+                    CANCELLED: "Storniert",
+                  };
+                  const statusColor: Record<string, string> = {
+                    PENDING: "bg-yellow-100 text-yellow-800",
+                    CONFIRMED: "bg-blue-100 text-blue-800",
+                    SHIPPED: "bg-purple-100 text-purple-800",
+                    DELIVERED: "bg-green-100 text-green-800",
+                    CANCELLED: "bg-red-100 text-red-800",
+                  };
+                  const orderDate = new Date(order.createdAt).toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  });
+                  return (
+                    <div key={order.id}>
+                      <button
+                        onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
+                        className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-1">
+                            <span className="font-bold text-sm text-[var(--color-text-primary)]">
+                              Bestell-Nr. {order.orderNumber}
+                            </span>
+                            <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor[order.status] || "bg-gray-100 text-gray-800"}`}>
+                              {statusLabel[order.status] || order.status}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)]">
+                            <span>{orderDate}</span>
+                            <span>Gesamtbetrag: {order.total.toFixed(2)} €</span>
+                          </div>
+                        </div>
+                        {isExpanded ? (
+                          <ChevronUp className="w-5 h-5 text-[var(--color-text-muted)] flex-shrink-0" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-[var(--color-text-muted)] flex-shrink-0" />
+                        )}
+                      </button>
+                      {isExpanded && (
+                        <div className="px-5 pb-5">
+                          <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wide mb-3">Artikel</h3>
+                          <div className="space-y-3">
+                            {order.items.map((item, idx) => (
+                              <div key={idx} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
+                                <div className="w-14 h-14 bg-white border border-[var(--color-border-light)] rounded-xl overflow-hidden flex-shrink-0">
+                                  {item.image ? (
+                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                  ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-[var(--color-text-muted)]">
+                                      <ShoppingBag className="w-5 h-5" />
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-semibold text-sm text-[var(--color-text-primary)] truncate">{item.name}</div>
+                                  <div className="text-xs text-[var(--color-text-muted)]">Menge: {item.quantity}</div>
+                                </div>
+                                <div className="text-sm font-bold text-[var(--color-text-primary)]">
+                                  {item.price.toFixed(2)} €
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 flex justify-end gap-4 text-sm">
+                            {order.shippingCost > 0 && (
+                              <span className="text-[var(--color-text-muted)]">Versand: {order.shippingCost.toFixed(2)} €</span>
+                            )}
+                            <span className="font-bold text-[var(--color-text-primary)]">Gesamt: {order.total.toFixed(2)} €</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Profile form */}
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
@@ -406,7 +543,7 @@ export default function KontoPage() {
             </button>
 
             <p className="text-center text-xs text-[var(--color-text-muted)]">
-              <Link href="/kontakt" className="text-[var(--color-primary)] hover:underline">
+              <Link href="/kontakt?betreff=Passwort+zur%C3%BCcksetzen" className="text-[var(--color-primary)] hover:underline">
                 Passwort vergessen?
               </Link>
             </p>

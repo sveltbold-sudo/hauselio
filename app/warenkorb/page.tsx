@@ -13,10 +13,12 @@ import { useWishlistStore } from "@/lib/wishlist";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { useToast } from "@/components/ui/Toast";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity, coupon, applyCoupon, removeCoupon } = useCartStore();
   const { toggleItem, isInWishlist } = useWishlistStore();
+  const toast = useToast();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [couponCode, setCouponCode] = useState("");
@@ -157,6 +159,7 @@ export default function WarenkorbPage() {
                     <button
                       type="button"
                       onClick={() => {
+                        const alreadyInWishlist = isInWishlist(item.id);
                         toggleItem({
                           id: item.id,
                           name: item.name,
@@ -169,6 +172,7 @@ export default function WarenkorbPage() {
                           reviewCount: 0,
                         });
                         removeItem(item.id);
+                        toast.success(alreadyInWishlist ? "Von der Wunschliste entfernt" : "Zur Wunschliste hinzugefügt");
                       }}
                       aria-label={isInWishlist(item.id) ? "Bereits auf der Wunschliste" : "Für später speichern"}
                       className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-colors duration-300 ${

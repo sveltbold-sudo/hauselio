@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { SlidersHorizontal, X } from "lucide-react";
 import ShopFilters from "@/components/product/ShopFilters";
 
@@ -20,13 +19,6 @@ export default function ShopFilterDrawer({
 }: ShopFilterDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Auto-close drawer on route change (filter select triggers router.push)
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname, searchParams]);
 
   useEffect(() => {
     if (!isOpen) return;

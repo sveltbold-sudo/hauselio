@@ -28,6 +28,7 @@ interface CartState {
   clearCart: () => void;
   applyCoupon: (coupon: CouponData) => void;
   removeCoupon: () => void;
+  updatePrice: (id: string, price: number) => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -78,6 +79,14 @@ export const useCartStore = create<CartState>()(
       applyCoupon: (coupon) => set({ coupon }),
 
       removeCoupon: () => set({ coupon: null }),
+
+      updatePrice: (id, price) => {
+        set((state) => ({
+          items: state.items.map((i) =>
+            i.id === id ? { ...i, price } : i
+          ),
+        }));
+      },
     }),
     {
       name: "hauselio-cart",

@@ -28,7 +28,7 @@ type Step = "address" | "review";
 
 export default function BestellungPage() {
   const router = useRouter();
-  const { items, clearCart, updateQuantity, removeItem, coupon } = useCartStore();
+  const { items, clearCart, removeItem, coupon, updatePrice } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("address");
@@ -37,11 +37,36 @@ export default function BestellungPage() {
   const [isValidating, setIsValidating] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sameAsShipping, setSameAsShipping] = useState(true);
-
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/customer/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.customer) {
+            setFormData((prev) => ({
+              ...prev,
+              email: prev.email || data.customer.email || "",
+              firstName: prev.firstName || (data.customer.name || "").split(" ")[0] || "",
+              lastName: prev.lastName || (data.customer.name || "").split(" ").slice(1).join(" ") || "",
+              phone: prev.phone || data.customer.phone || "",
+              address: prev.address || data.customer.address || "",
+              zip: prev.zip || data.customer.zip || "",
+              city: prev.city || data.customer.city || "",
+              country: prev.country || data.customer.country || "DE",
+            }));
+          }
+        }
+      } catch {
+        // Silently fail — user can fill manually
+      }
+    }
+    if (mounted) loadProfile();
+  }, [mounted]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -143,18 +168,12 @@ export default function BestellungPage() {
               newPrice: item.newPrice,
               quantity: item.quantity,
             });
-            updateQuantity(item.id, item.quantity);
+            updatePrice(item.id, item.newPrice);
           }
         }
 
         setPriceChanges(changes);
         setInvalidItems(invalid);
-
-        for (const item of data.items) {
-          if (item.valid && !item.priceChanged) {
-            updateQuantity(item.id, item.quantity);
-          }
-        }
 
         for (const inv of invalid) {
           removeItem(inv.id);
@@ -167,7 +186,7 @@ export default function BestellungPage() {
     }
 
     validateCart();
-  }, [items, removeItem, updateQuantity]);
+  }, [items, removeItem, updatePrice]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -482,20 +501,7 @@ export default function BestellungPage() {
                   </div>
                 </div>
 
-                {/* Same as shipping checkbox */}
-                <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={sameAsShipping}
-                      onChange={(e) => setSameAsShipping(e.target.checked)}
-                      className="w-4 h-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]/20"
-                    />
-                    <span className="text-sm text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors">
-                      Rechnungsadresse ist identisch mit Lieferadresse
-                    </span>
-                  </label>
-                </div>
+
               </div>
 
               {/* Notes */}
