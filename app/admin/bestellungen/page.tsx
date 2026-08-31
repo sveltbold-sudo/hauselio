@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
@@ -89,12 +90,12 @@ export default async function AdminOrdersPage({
             Filtern
           </button>
           {(status || q) && (
-            <a
+            <Link
               href="/admin/bestellungen"
               className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors"
             >
               Filter zurücksetzen
-            </a>
+            </Link>
           )}
         </form>
       </div>

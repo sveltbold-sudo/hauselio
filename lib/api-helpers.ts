@@ -5,7 +5,7 @@ import { logger } from "./logger";
 
 export function getExpectedOrigin(request: NextRequest): string {
   const proto = request.headers.get("x-forwarded-proto") || "https";
-  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "hauselio.de";
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "hausaura.de";
   return `${proto}://${host}`;
 }
 

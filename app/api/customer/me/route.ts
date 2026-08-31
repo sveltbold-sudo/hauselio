@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { UpdateProfileSchema } from "@/lib/validations";
-import { getCustomerFromRequest, hashPassword } from "@/lib/auth";
+import { getCustomerFromRequest } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { logger } from "@/lib/logger";
 

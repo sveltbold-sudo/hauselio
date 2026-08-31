@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCustomerFromRequest, revokeToken, clearCustomerCookie } from "@/lib/auth";
+import { revokeToken, clearCustomerCookie } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 import { cookies } from "next/headers";
 import { logger } from "@/lib/logger";
@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const auth = await getCustomerFromRequest();
     const cookieStore = await cookies();
     const token = cookieStore.get("customer_token")?.value;
 

@@ -282,7 +282,7 @@ export default function WarenkorbPage() {
                       <button
                         onClick={() => {
                           if (couponCode.trim()) {
-                            if (couponCode.trim().toUpperCase() === "HAUSELIO10") {
+                            if (couponCode.trim().toUpperCase() === "HAUSAURA10") {
                               setCouponApplied(true);
                               setCouponError("");
                             } else {

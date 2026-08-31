@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
     });
 
     return new NextResponse(
-      `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Abgemeldet</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Erfolgreich abgemeldet</h1><p style="color:#6B7280;">Sie erhalten keine Newsletter mehr von HAUSELIO.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
+      `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Abgemeldet</title></head><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#FAFAF8;"><div style="text-align:center;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h1 style="color:#0A2540;">Erfolgreich abgemeldet</h1><p style="color:#6B7280;">Sie erhalten keine Newsletter mehr von HAUSAURA.</p><a href="${safeSiteUrl}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#0A2540;color:white;border-radius:8px;text-decoration:none;">Zurück zur Startseite</a></div></body></html>`,
       { headers: { "Content-Type": "text/html; charset=utf-8" } }
     );
   } catch (error) {

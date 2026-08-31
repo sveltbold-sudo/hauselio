@@ -35,7 +35,6 @@ export default function SearchDropdown({
   onClose,
   query,
   activeIndex,
-  resultCount,
   onResultCountChange,
   onSelect,
   onClear,
@@ -82,7 +81,7 @@ export default function SearchDropdown({
       controller.abort();
       clearTimeout(timer);
     };
-  }, [query]);
+  }, [query, onResultCountChange]);
 
   const handleViewAll = useCallback(() => {
     router.push(`/shop?q=${encodeURIComponent(query.trim())}`);

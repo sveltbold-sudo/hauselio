@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId } from "react";
 
 let lockCount = 0;
 let savedOverflow = "";
 let savedPaddingRight = "";
 
 export function useScrollLock(isLocked: boolean) {
-  const idRef = useRef(Math.random().toString(36).slice(2, 9));
+  useId();
 
   useEffect(() => {
     if (isLocked) {

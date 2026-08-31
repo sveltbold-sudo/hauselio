@@ -5,13 +5,13 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
+  description: "Angaben gemäß § 5 TMG der HAUSAURA GmbH.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/impressum" },
   openGraph: {
-    title: "Impressum — HAUSELIO",
-    description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
-    siteName: "HAUSELIO",
+    title: "Impressum — HAUSAURA",
+    description: "Angaben gemäß § 5 TMG der HAUSAURA GmbH.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -27,7 +27,7 @@ export default function ImpressumPage() {
         <section>
           <h2 className="heading-3 mb-3">Angaben gemäß § 5 TMG</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
             <p className="text-[var(--color-text-secondary)]">Deutschland</p>
@@ -38,8 +38,8 @@ export default function ImpressumPage() {
           <h2 className="heading-3 mb-3">Kontakt</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: info@hauselio.de</p>
-            <p className="text-[var(--color-text-secondary)]">Website: www.hauselio.de</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: info@hausaura.de</p>
+            <p className="text-[var(--color-text-secondary)]">Website: www.hausaura.de</p>
           </div>
         </section>
 

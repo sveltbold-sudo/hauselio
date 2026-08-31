@@ -7,7 +7,6 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
-import ProductCard from "@/components/product/ProductCard";
 const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"));
 import ValuePropsSection from "@/components/product/ValuePropsSection";
 const DailyDealBanner = dynamicImport(() => import("@/components/product/DailyDealBanner"));
@@ -57,33 +56,6 @@ async function getCategories() {
     href: `/kategorie/${cat.slug}`,
     image: `/images/categories/${cat.slug}.jpg`,
     count: `${cat._count.products}+`,
-  }));
-}
-
-async function getFeaturedProducts() {
-  const products = await prisma.product.findMany({
-    where: { isFeatured: true },
-    include: {
-      brand: true,
-      category: true,
-      images: { take: 1, orderBy: { position: "asc" } },
-    },
-    orderBy: { createdAt: "desc" },
-    take: 4,
-  });
-
-  return products.map((p) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    price: Number(p.price),
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    image: p.images[0]?.url || "/images/placeholder-product.svg",
-    rating: Number(p.rating),
-    reviewCount: p.reviewCount,
-    isNew: p.isNew,
-    isPromo: p.originalPrice !== null,
-    brand: p.brand?.name || "HAUSAURA",
   }));
 }
 
@@ -203,36 +175,11 @@ const fallbackCategories = [
   { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", image: "/images/categories/haushaltsgeraete.jpg", count: "50+" },
 ];
 
-const fallbackProducts = [
-  { id: "1", name: "Thermomix TM7", slug: "thermomix-tm7", price: 1499, originalPrice: 1599, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 127, isNew: true, brand: "Vorwerk" },
-  { id: "2", name: "Dyson V15 Detect Absolute", slug: "dyson-v15-detect-absolute", price: 749, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.7, reviewCount: 89, isNew: true, brand: "Dyson" },
-  { id: "3", name: "Jura E8 Platinum", slug: "jura-e8-platinum", price: 1199, originalPrice: 1299, image: "/images/placeholder-product.svg", rating: 4.8, reviewCount: 156, isPromo: true, brand: "Jura" },
-  { id: "4", name: "Miele W1 Waschmaschine WCI870 WCS", slug: "miele-w1-waschmaschine-wci870", price: 1899, originalPrice: null, image: "/images/placeholder-product.svg", rating: 4.9, reviewCount: 203, isNew: false, brand: "Miele" },
-];
-
 function CategoriesSkeleton() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" aria-hidden="true">
       {[...Array(6)].map((_, i) => (
         <div key={i} className="rounded-2xl aspect-[4/3] bg-[var(--color-bg-secondary)] animate-pulse" />
-      ))}
-    </div>
-  );
-}
-
-function ProductsSkeleton() {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" aria-hidden="true">
-      {[...Array(4)].map((_, i) => (
-        <div key={i} className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
-          <div className="aspect-square bg-[var(--color-bg-secondary)]" />
-          <div className="p-4 space-y-2.5">
-            <div className="h-2.5 w-16 bg-[var(--color-bg-secondary)] rounded" />
-            <div className="h-3.5 w-full bg-[var(--color-bg-secondary)] rounded" />
-            <div className="h-3.5 w-3/4 bg-[var(--color-bg-secondary)] rounded" />
-            <div className="h-5 w-24 bg-[var(--color-bg-secondary)] rounded" />
-          </div>
-        </div>
       ))}
     </div>
   );
@@ -281,41 +228,6 @@ async function CategoriesSection() {
         </Link>
       ))}
     </div>
-  );
-}
-
-async function FeaturedProductsSection() {
-  let featuredProducts;
-  try {
-    featuredProducts = await getFeaturedProducts();
-    if (featuredProducts.length === 0) {
-      featuredProducts = fallbackProducts;
-    }
-  } catch (error) {
-    logger.error("Failed to fetch featured products", error);
-    featuredProducts = fallbackProducts;
-  }
-
-  return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
-        {featuredProducts.map((product, i) => (
-          <div
-            key={product.id}
-            className="animate-fade-in-up"
-            style={{ animationDelay: `${i * 80}ms` }}
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 text-center md:hidden">
-        <Link href="/shop" className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">
-          Alle ansehen
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
-    </>
   );
 }
 

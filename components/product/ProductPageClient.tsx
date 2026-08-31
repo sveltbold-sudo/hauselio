@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ShoppingBag, Share2, Truck, Check, Minus, Plus, CircleCheck, CircleX } from "lucide-react";

@@ -44,7 +44,7 @@ async function redisExists(key: string): Promise<boolean> {
 }
 
 const DEV_SECRET_PREFIXES = [
-  "hauselio-super-secret",
+  "hausaura-super-secret",
   "test-secret",
   "dev-secret",
   "change-in-production",
@@ -86,7 +86,7 @@ const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 export async function revokeToken(token: string): Promise<void> {
-  const key = `hauselio:blacklist:${token}`;
+  const key = `hausaura:blacklist:${token}`;
   await redisSet(key, "1", TOKEN_EXPIRY_SEC);
   if (!useUpstash) {
     memoryBlacklist.set(key, Date.now() + TOKEN_EXPIRY_SEC * 1000);
@@ -94,7 +94,7 @@ export async function revokeToken(token: string): Promise<void> {
 }
 
 export async function isTokenRevoked(token: string): Promise<boolean> {
-  return redisExists(`hauselio:blacklist:${token}`);
+  return redisExists(`hausaura:blacklist:${token}`);
 }
 
 export interface AdminPayload {
@@ -123,8 +123,8 @@ export async function generateToken(payload: AdminPayload): Promise<string> {
   return new SignJWT(payload as unknown as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("hauselio-admin")
-    .setAudience("hauselio-admin")
+    .setIssuer("hausaura-admin")
+    .setAudience("hausaura-admin")
     .setExpirationTime(TOKEN_EXPIRY)
     .sign(getJWTSecret());
 }
@@ -133,8 +133,8 @@ export async function verifyToken(token: string): Promise<AdminPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
-      issuer: "hauselio-admin",
-      audience: "hauselio-admin",
+      issuer: "hausaura-admin",
+      audience: "hausaura-admin",
     });
     const p = payload as Record<string, unknown>;
     if (
@@ -185,8 +185,8 @@ export async function createUnsubscribeToken(email: string): Promise<string> {
   return new SignJWT({ email })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("hauselio-newsletter")
-    .setAudience("hauselio-unsubscribe")
+    .setIssuer("hausaura-newsletter")
+    .setAudience("hausaura-unsubscribe")
     .setExpirationTime("30d")
     .sign(getJWTSecret());
 }
@@ -195,8 +195,8 @@ export async function verifyUnsubscribeToken(token: string): Promise<string | nu
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
-      issuer: "hauselio-newsletter",
-      audience: "hauselio-unsubscribe",
+      issuer: "hausaura-newsletter",
+      audience: "hausaura-unsubscribe",
     });
     const p = payload as Record<string, unknown>;
     if (typeof p === "object" && p !== null && "email" in p && typeof p.email === "string") {
@@ -364,8 +364,8 @@ export async function generateCustomerToken(payload: CustomerPayload): Promise<s
   return new SignJWT(payload as unknown as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("hauselio-customer")
-    .setAudience("hauselio-customer")
+    .setIssuer("hausaura-customer")
+    .setAudience("hausaura-customer")
     .setExpirationTime(CUSTOMER_TOKEN_EXPIRY)
     .sign(getJWTSecret());
 }
@@ -374,8 +374,8 @@ export async function verifyCustomerToken(token: string): Promise<CustomerPayloa
   try {
     const { payload } = await jwtVerify(token, getJWTSecret(), {
       algorithms: ["HS256"],
-      issuer: "hauselio-customer",
-      audience: "hauselio-customer",
+      issuer: "hausaura-customer",
+      audience: "hausaura-customer",
     });
     const p = payload as Record<string, unknown>;
     if (typeof p === "object" && p !== null && "id" in p && "email" in p && "name" in p) {

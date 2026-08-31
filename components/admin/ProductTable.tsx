@@ -123,7 +123,6 @@ function ProductTable({
                   onClick={() => handleSort("name")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("name"); } }}
                   tabIndex={0}
-                  role="button"
                   aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
@@ -136,7 +135,6 @@ function ProductTable({
                   onClick={() => handleSort("category")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("category"); } }}
                   tabIndex={0}
-                  role="button"
                   aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
@@ -149,7 +147,6 @@ function ProductTable({
                   onClick={() => handleSort("brand")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("brand"); } }}
                   tabIndex={0}
-                  role="button"
                   aria-sort={sortKey === "brand" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >
@@ -162,7 +159,6 @@ function ProductTable({
                   onClick={() => handleSort("price")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort("price"); } }}
                   tabIndex={0}
-                  role="button"
                   aria-sort={sortKey === "price" ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                   className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase cursor-pointer select-none hover:text-[var(--color-primary)]"
                 >

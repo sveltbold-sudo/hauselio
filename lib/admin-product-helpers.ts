@@ -1,5 +1,4 @@
 import type { ProductFormData } from "@/lib/admin-product-types";
-import { emptyFormData } from "@/lib/admin-product-types";
 
 type FormData = Omit<ProductFormData, "newFeature" | "newSpecKey" | "newSpecValue">;
 

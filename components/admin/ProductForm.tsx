@@ -58,10 +58,6 @@ export default function ProductForm({
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
-  const markDirty = useCallback(() => {
-    isDirty.current = true;
-  }, []);
-
   const initialLoadDone = useRef(false);
 
   useEffect(() => {

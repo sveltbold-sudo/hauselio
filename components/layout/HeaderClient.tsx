@@ -27,13 +27,13 @@ export default function HeaderClient() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const dismissed = sessionStorage.getItem("hauselio-promo-dismissed");
+    const dismissed = sessionStorage.getItem("hausaura-promo-dismissed");
     if (dismissed) setPromoDismissed(true);
   }, []);
 
   const dismissPromo = () => {
     setPromoDismissed(true);
-    sessionStorage.setItem("hauselio-promo-dismissed", "1");
+    sessionStorage.setItem("hausaura-promo-dismissed", "1");
   };
 
   useEffect(() => {

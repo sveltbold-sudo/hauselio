@@ -69,7 +69,7 @@ export default function OrderSuccessPage() {
         .then((data) => {
           if (data.bank) {
             setBankDetails({
-              accountName: data.bank.accountName || "HAUSELIO GmbH",
+              accountName: data.bank.accountName || "HAUSAURA GmbH",
               iban: data.bank.iban || "",
               bic: data.bank.bic || "",
             });

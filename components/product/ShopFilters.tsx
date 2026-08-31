@@ -164,7 +164,7 @@ export default function ShopFilters({
                   selectedBrand === brand ? null : brand
                 )
               }
-              aria-pressed={selectedBrand === brand}
+              aria-current={selectedBrand === brand ? "true" : undefined}
               className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
                 selectedBrand === brand
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"

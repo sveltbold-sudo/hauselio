@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText, ChevronDown } from "lucide-react";
+import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProductImage from "@/components/product/ProductImage";
