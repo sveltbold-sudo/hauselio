@@ -26,6 +26,13 @@ export default function HeaderClient() {
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
   const [promoDismissed, setPromoDismissed] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const megaCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (megaCloseTimeoutRef.current) clearTimeout(megaCloseTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem("hausaura-promo-dismissed");
@@ -53,11 +60,18 @@ export default function HeaderClient() {
   }, []);
 
   const handleMegaEnter = useCallback((href: string) => {
+    if (megaCloseTimeoutRef.current) {
+      clearTimeout(megaCloseTimeoutRef.current);
+      megaCloseTimeoutRef.current = null;
+    }
     setActiveMega(href);
   }, []);
 
   const handleMegaLeave = useCallback(() => {
-    setActiveMega(null);
+    megaCloseTimeoutRef.current = setTimeout(() => {
+      setActiveMega(null);
+      megaCloseTimeoutRef.current = null;
+    }, 120);
   }, []);
 
   const handleMegaFocus = useCallback((href: string) => {
@@ -357,11 +371,17 @@ export default function HeaderClient() {
         {navCategories.map((cat) => (
           <div
             key={`mega-${cat.href}`}
-            className={`absolute top-full left-0 right-0 z-[55] transition-[opacity,visibility] duration-200 ${
+            className={`mega-menu-panel absolute top-full left-0 right-0 z-[55] transition-[opacity,visibility] duration-200 ${
               activeMega === cat.href
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
             }`}
+            onMouseEnter={() => {
+              if (megaCloseTimeoutRef.current) {
+                clearTimeout(megaCloseTimeoutRef.current);
+                megaCloseTimeoutRef.current = null;
+              }
+            }}
           >
             <div className="container-hauselio">
               <div className="pt-1 pb-2">

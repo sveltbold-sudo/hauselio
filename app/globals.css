@@ -503,6 +503,16 @@ a, button, input, select, textarea, [role="button"] {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* ── Mega Menu Bridge ── */
+.mega-menu-panel::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
 /* ── Promo Banner ── */
 .promo-banner {
   background: var(--color-primary);
