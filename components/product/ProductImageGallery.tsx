@@ -104,28 +104,31 @@ export default function ProductImageGallery({
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="list">
-          {images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => onImageSelect(i)}
-              aria-label={`${name} Bild ${i + 1} anzeigen`}
-              className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 relative ${
-                activeImageIndex === i
-                  ? "border-[var(--color-primary)] shadow-sm"
-                  : "border-transparent hover:border-[var(--color-border)]"
-              }`}
-            >
-              <Image
-                src={img}
-                alt={`${name} ${i + 1}`}
-                width={80}
-                height={80}
-                sizes="80px"
-                className="w-full h-full object-contain p-1.5"
-              />
-            </button>
-          ))}
+        <div className="relative">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="list">
+            {images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => onImageSelect(i)}
+                aria-label={`${name} Bild ${i + 1} anzeigen`}
+                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 relative ${
+                  activeImageIndex === i
+                    ? "border-[var(--color-primary)] shadow-sm"
+                    : "border-transparent hover:border-[var(--color-border)]"
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`${name} ${i + 1}`}
+                  width={80}
+                  height={80}
+                  sizes="80px"
+                  className="w-full h-full object-contain p-1.5"
+                />
+              </button>
+            ))}
+          </div>
+          <div className="absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-[var(--color-bg)] to-transparent pointer-events-none" />
         </div>
       )}
     </div>

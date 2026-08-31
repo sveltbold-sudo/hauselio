@@ -23,6 +23,7 @@ interface ProductCardProps {
     isPromo?: boolean;
     brand?: string | null;
     inStock?: boolean;
+    stockQuantity?: number | null;
   };
 }
 
@@ -91,7 +92,12 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
               name: product.name,
               slug: product.slug,
               price: product.price,
+              originalPrice: product.originalPrice,
               image: product.image,
+              brand: product.brand ?? "",
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+              maxQuantity: product.stockQuantity ?? undefined,
             }}
           />
         </div>

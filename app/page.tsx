@@ -113,6 +113,7 @@ async function getBestsellers() {
     inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || null,
+    stockQuantity: p.stockQuantity ?? null,
   }));
 }
 
@@ -163,6 +164,7 @@ async function getRecommended() {
     inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || null,
+    stockQuantity: p.stockQuantity ?? null,
   }));
 }
 

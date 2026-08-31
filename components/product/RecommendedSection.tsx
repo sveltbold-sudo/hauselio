@@ -16,6 +16,7 @@ interface RecommendedProduct {
   inStock: boolean;
   isPromo: boolean;
   brand: string | null;
+  stockQuantity?: number | null;
 }
 
 interface RecommendedSectionProps {

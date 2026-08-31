@@ -16,6 +16,7 @@ interface BestsellerProduct {
   inStock: boolean;
   isPromo: boolean;
   brand: string | null;
+  stockQuantity?: number | null;
 }
 
 interface BestsellerSectionProps {

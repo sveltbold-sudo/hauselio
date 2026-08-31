@@ -24,7 +24,7 @@ export default function ShopSortSelect({ sort }: ShopSortSelectProps) {
         id="shop-sort"
         value={sort}
         onChange={(e) => handleChange(e.target.value)}
-        className="text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-3 min-h-[44px] text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 cursor-pointer"
+        className="text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-3 min-h-[44px] text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] cursor-pointer"
       >
         <option value="newest">Neueste</option>
         <option value="price_asc">Preis aufsteigend</option>

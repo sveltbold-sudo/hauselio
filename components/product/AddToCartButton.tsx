@@ -11,7 +11,12 @@ interface AddToCartButtonProps {
     name: string;
     slug: string;
     price: number;
+    originalPrice?: number | null;
     image: string;
+    brand?: string;
+    rating?: number;
+    reviewCount?: number;
+    maxQuantity?: number;
   };
 }
 
@@ -29,13 +34,16 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.price,
-      image: product.image,
-    });
+      addItem({
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        originalPrice: product.originalPrice ?? undefined,
+        image: product.image,
+        brand: product.brand ?? "",
+        maxQuantity: product.maxQuantity,
+      });
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
     window.dispatchEvent(new CustomEvent("cart:item-added"));

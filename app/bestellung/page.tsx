@@ -108,8 +108,15 @@ export default function BestellungPage() {
 
     if (!formData.zip.trim()) {
       newErrors.zip = "PLZ ist erforderlich";
-    } else if (!/^\d{4,5}$/.test(formData.zip)) {
-      newErrors.zip = "PLZ muss 4 oder 5 Ziffern enthalten (DE/AT/CH)";
+    } else {
+      const plzValid = formData.country === "DE"
+        ? /^\d{5}$/.test(formData.zip)
+        : /^\d{4}$/.test(formData.zip);
+      if (!plzValid) {
+        newErrors.zip = formData.country === "DE"
+          ? "Deutsche PLZ muss 5 Ziffern enthalten"
+          : "PLZ muss 4 Ziffern enthalten (AT/CH)";
+      }
     }
 
     if (!formData.city.trim()) {
@@ -121,6 +128,7 @@ export default function BestellungPage() {
   };
 
   const hasValidated = useRef(false);
+  const orderSubmitted = useRef(false);
   const clearCartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -175,8 +183,13 @@ export default function BestellungPage() {
         setPriceChanges(changes);
         setInvalidItems(invalid);
 
-        for (const inv of invalid) {
-          removeItem(inv.id);
+        if (invalid.length > 0) {
+          setOrderError(
+            `${invalid.length} Artikel wurden entfernt, da sie nicht mehr verfügbar sind: ${invalid.map((i) => i.error).join("; ")}`
+          );
+          for (const inv of invalid) {
+            removeItem(inv.id);
+          }
         }
       } catch {
         setOrderError("Preisüberprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.");
@@ -243,6 +256,7 @@ export default function BestellungPage() {
       }
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
+      orderSubmitted.current = true;
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
       clearCartTimerRef.current = setTimeout(() => {
@@ -257,11 +271,10 @@ export default function BestellungPage() {
   };
 
   useEffect(() => {
-    if (!mounted) return;
-    if (items.length === 0) {
+    if (mounted && items.length === 0 && !orderSubmitted.current && !isValidating) {
       router.replace("/warenkorb");
     }
-  }, [mounted, items.length, router]);
+  }, [mounted, items.length, isValidating, router]);
 
   if (!mounted) {
     return (

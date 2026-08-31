@@ -49,6 +49,7 @@ export default function ShopFilters({
               params.delete("page");
               router.push(`/shop?${params.toString()}`);
             }}
+            aria-label="Alle Filter zurücksetzen"
             className="text-xs text-[var(--color-primary)] hover:underline font-medium"
           >
             Zurücksetzen
@@ -158,7 +159,7 @@ export default function ShopFilters({
                   selectedBrand === brand ? null : brand
                 )
               }
-              aria-current={selectedBrand === brand ? "true" : undefined}
+              aria-pressed={selectedBrand === brand}
               className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
                 selectedBrand === brand
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"

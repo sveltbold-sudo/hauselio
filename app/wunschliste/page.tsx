@@ -144,9 +144,10 @@ export default function WunschlistePage() {
                         name: item.name,
                         slug: item.slug,
                         price: item.price,
+                        originalPrice: item.originalPrice,
                         image: item.image,
+                        brand: item.brand ?? "",
                       });
-                      removeItem(item.id);
                       toast.success("Zum Warenkorb hinzugefügt!");
                     }}
                     className="flex-1"

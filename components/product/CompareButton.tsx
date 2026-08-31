@@ -2,6 +2,7 @@
 
 import { BarChart3, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useToast } from "@/components/ui/Toast";
 
 interface CompareButtonProps {
   product: {
@@ -21,6 +22,7 @@ interface CompareButtonProps {
 export default function CompareButton({ product }: CompareButtonProps) {
   const [isComparing, setIsComparing] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     setMounted(true);
@@ -50,7 +52,10 @@ export default function CompareButton({ product }: CompareButtonProps) {
     if (isComparing) {
       items = items.filter((p) => p.id !== product.id);
     } else {
-      if (items.length >= 4) return;
+      if (items.length >= 4) {
+        toast.info("Maximal 4 Produkte zum Vergleich");
+        return;
+      }
       items.push({
         id: product.id,
         name: product.name,

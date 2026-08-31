@@ -25,7 +25,10 @@ export default function HeaderClient() {
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
   const [promoDismissed, setPromoDismissed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const megaCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -59,6 +62,39 @@ export default function HeaderClient() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const handlePointerDown = (e: PointerEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setSearchQuery("");
+        setSearchActiveIndex(-1);
+      }
+    };
+    document.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    if (searchOpen) {
+      requestAnimationFrame(() => {
+        if (window.innerWidth < 1024) {
+          mobileSearchInputRef.current?.focus();
+        } else {
+          searchInputRef.current?.focus();
+        }
+      });
+    }
+  }, [searchOpen]);
+
   const handleMegaEnter = useCallback((href: string) => {
     if (megaCloseTimeoutRef.current) {
       clearTimeout(megaCloseTimeoutRef.current);
@@ -85,6 +121,7 @@ export default function HeaderClient() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useScrollLock(mobileMenuOpen);
+  useScrollLock(searchOpen && isMobile);
 
   useEffect(() => {
     if (!mobileMenuOpen) setExpandedMobileCat(null);
@@ -128,7 +165,10 @@ export default function HeaderClient() {
     if (!searchOpen) return;
     if (e.key === "Escape") {
       setSearchOpen(false);
+      setSearchQuery("");
+      setSearchActiveIndex(-1);
       searchInputRef.current?.blur();
+      mobileSearchInputRef.current?.blur();
       return;
     }
     if (e.key === "ArrowDown") {
@@ -138,7 +178,8 @@ export default function HeaderClient() {
       e.preventDefault();
       setSearchActiveIndex((prev) => (prev > 0 ? prev - 1 : searchResultCount - 1));
     } else if (e.key === "Enter" && searchActiveIndex >= 0) {
-      // Handled by SearchDropdown's onSelect
+      e.preventDefault();
+      document.getElementById(`search-result-${searchActiveIndex}`)?.click();
     } else if (e.key === "Enter" && searchQuery.trim()) {
       router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
@@ -211,7 +252,7 @@ export default function HeaderClient() {
           </Link>
 
           {/* Search input — desktop */}
-          <div className="hidden lg:flex items-center flex-1 max-w-xl mx-4">
+          <div ref={searchContainerRef} className="hidden lg:flex items-center flex-1 max-w-xl mx-4 relative">
             <div className="relative w-full header-search-input">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[var(--color-text-muted)]" />
               <input
@@ -231,6 +272,16 @@ export default function HeaderClient() {
                 className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
               />
             </div>
+            <SearchDropdown
+              isOpen={searchOpen}
+              onClose={() => setSearchOpen(false)}
+              query={searchQuery}
+              activeIndex={searchActiveIndex}
+              resultCount={searchResultCount}
+              onResultCountChange={setSearchResultCount}
+              onSelect={handleSearchSelect}
+              onClear={handleSearchClear}
+            />
           </div>
 
           {/* Actions: Search (mobile) + Account + Wishlist + Cart + Menu */}
@@ -244,6 +295,25 @@ export default function HeaderClient() {
             >
               <Search className="w-5 h-5" />
             </button>
+
+            {/* Wishlist — mobile */}
+            <Link
+              href="/wunschliste"
+              className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors relative"
+              aria-label="Wunschliste"
+            >
+              <Heart className="w-5 h-5" />
+              <WishlistBadge />
+            </Link>
+
+            {/* Account — mobile */}
+            <Link
+              href="/konto"
+              className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
+              aria-label="Konto"
+            >
+              <User className="w-5 h-5" />
+            </Link>
 
             {/* Account */}
               <Link
@@ -281,20 +351,6 @@ export default function HeaderClient() {
               )}
             </button>
           </div>
-        </div>
-
-        {/* SearchDropdown — absolute, overlays content below header */}
-        <div className="absolute top-full left-0 right-0 z-[55]">
-          <SearchDropdown
-            isOpen={searchOpen}
-            onClose={() => setSearchOpen(false)}
-            query={searchQuery}
-            activeIndex={searchActiveIndex}
-            resultCount={searchResultCount}
-            onResultCountChange={setSearchResultCount}
-            onSelect={handleSearchSelect}
-            onClear={handleSearchClear}
-          />
         </div>
       </div>
 
@@ -443,6 +499,54 @@ export default function HeaderClient() {
           </div>
         ))}
       </nav>
+
+      {/* Mobile search overlay — full-screen */}
+      {searchOpen && (
+        <div className="lg:hidden fixed inset-0 top-0 z-[60] bg-white flex flex-col" role="dialog" aria-modal="true" aria-label="Suche">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border-light)]">
+            <Search className="w-5 h-5 text-[var(--color-text-muted)] shrink-0" />
+            <input
+              ref={mobileSearchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); setSearchActiveIndex(-1); }}
+              onKeyDown={handleSearchKeyDown}
+              placeholder="Was suchst du?"
+              aria-label="Produkte suchen"
+              className="flex-1 bg-transparent text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+            />
+            <button
+              onClick={() => { setSearchOpen(false); setSearchQuery(""); setSearchActiveIndex(-1); }}
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg transition-colors"
+              aria-label="Suche schließen"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            {searchQuery.trim().length >= 2 ? (
+              <SearchDropdown
+                isOpen={true}
+                onClose={() => { setSearchOpen(false); setSearchQuery(""); setSearchActiveIndex(-1); }}
+                query={searchQuery}
+                activeIndex={searchActiveIndex}
+                resultCount={searchResultCount}
+                onResultCountChange={setSearchResultCount}
+                onSelect={handleSearchSelect}
+                onClear={handleSearchClear}
+                inline
+              />
+            ) : (
+              <div className="p-6 text-center">
+                <Search className="w-8 h-8 text-[var(--color-text-muted)] mx-auto mb-3" />
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  Tippen Sie mindestens 2 Zeichen
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Mobile menu — slide-in from right */}
       {mobileMenuOpen && (

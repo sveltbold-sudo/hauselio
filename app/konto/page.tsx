@@ -161,6 +161,13 @@ export default function KontoPage() {
     setProfileError("");
     setProfileSuccess("");
     setIsProfileLoading(true);
+
+    if (profileZip && !/^\d{4,5}$/.test(profileZip)) {
+      setProfileError("PLZ muss 4 oder 5 Ziffern enthalten");
+      setIsProfileLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/customer/me", {
         method: "PUT",

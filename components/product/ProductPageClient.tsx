@@ -21,7 +21,7 @@ import { useToast } from "@/components/ui/Toast";
 const ProductTabs = dynamic(() => import("@/components/product/ProductTabs"), { ssr: true });
 const FrequentlyBoughtTogether = dynamic(() => import("@/components/product/FrequentlyBoughtTogether"), { ssr: false });
 const RecentlyViewedSection = dynamic(() => import("@/components/product/RecentlyViewedSection"), { ssr: false });
-const SimilarProductsSection = dynamic(() => import("@/components/product/SimilarProductsSection"), { ssr: false });
+const SimilarProductsSection = dynamic(() => import("@/components/product/SimilarProductsSection"), { ssr: true });
 const ImageLightbox = dynamic(() => import("@/components/ui/ImageLightbox"), { ssr: false });
 
 interface ProductSpec {

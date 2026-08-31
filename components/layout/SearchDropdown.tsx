@@ -28,6 +28,7 @@ interface SearchDropdownProps {
   onResultCountChange: (count: number) => void;
   onSelect: (slug: string) => void;
   onClear: () => void;
+  inline?: boolean;
 }
 
 export default function SearchDropdown({
@@ -38,6 +39,7 @@ export default function SearchDropdown({
   onResultCountChange,
   onSelect,
   onClear,
+  inline = false,
 }: SearchDropdownProps) {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -93,12 +95,16 @@ export default function SearchDropdown({
 
   return (
     <div
-      className={`border-t border-[var(--color-border-light)] bg-white transition-[opacity,visibility] duration-200 ${
+      className={`${
+        inline
+          ? "relative"
+          : "absolute top-full left-0 right-0 mt-2 z-[55]"
+      } bg-white transition-[opacity,visibility] duration-200 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       }`}
     >
-      <div className="container-hauselio py-5">
-        <div className="max-w-full sm:max-w-2xl mx-auto">
+      <div className="py-1">
+        <div className="w-full">
           {hasQuery && (
             <div
               id="search-results-list"

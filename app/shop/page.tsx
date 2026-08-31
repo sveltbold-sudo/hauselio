@@ -196,6 +196,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
+    stockQuantity: product.stockQuantity ?? null,
   }));
 
   return (
@@ -301,6 +302,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {category && (
             <Link
               href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              aria-label={`${categories.find((c) => c.slug === category)?.name || category} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {categories.find((c) => c.slug === category)?.name || category}
@@ -310,6 +312,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {brand && (
             <Link
               href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              aria-label={`${brand} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               {brand}
@@ -319,6 +322,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {promo === "true" && (
             <Link
               href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              aria-label="Angebote Filter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
               Angebote
@@ -328,6 +332,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {q && (
             <Link
               href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); return p.toString() || "" })()}`}
+              aria-label="Suche entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
               Suche: {q}
@@ -345,15 +350,26 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar filters — desktop inline / mobile drawer */}
-        <ShopFilterDrawer
-          categories={categories.map((c) => ({
-            name: c.name,
-            slug: c.slug,
-          }))}
-          brands={brands.map((b) => b.name)}
-          selectedCategory={category}
-          selectedBrand={brand}
-        />
+        <Suspense fallback={
+          <div className="space-y-4 animate-pulse">
+            <div className="h-8 bg-[var(--color-bg-secondary)] rounded-xl w-1/2" />
+            <div className="h-4 bg-[var(--color-bg-secondary)] rounded-lg w-3/4" />
+            <div className="h-4 bg-[var(--color-bg-secondary)] rounded-lg w-2/3" />
+            <div className="h-4 bg-[var(--color-bg-secondary)] rounded-lg w-3/4" />
+          </div>
+        }>
+          <ShopFilterDrawer
+            categories={categories.map((c) => ({
+              name: c.name,
+              slug: c.slug,
+            }))}
+            brands={brands.map((b) => b.name)}
+            selectedCategory={category}
+            selectedBrand={brand}
+            price={price}
+            promo={promo}
+          />
+        </Suspense>
 
         {/* Product grid */}
         <div className="flex-1 min-w-0">
@@ -394,7 +410,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {formattedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
@@ -469,7 +485,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-hidden="true">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" aria-hidden="true">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
           <div className="aspect-square bg-[var(--color-bg-secondary)]" />
