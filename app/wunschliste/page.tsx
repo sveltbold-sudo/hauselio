@@ -1,25 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ShoppingBag, Trash2, Heart, ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice, calcDiscount } from "@/lib/utils";
-import { useWishlistStore } from "@/lib/wishlist";
+import { useWishlistStore, type WishlistItem } from "@/lib/wishlist";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WunschlistePage() {
-  const { items, removeItem, clearWishlist } = useWishlistStore();
-  const addItem = useCartStore((state) => state.addItem);
-  const toast = useToast();
   const [mounted, setMounted] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const toast = useToast();
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     setMounted(true);
+    // Read initial state from store
+    setWishlistItems(useWishlistStore.getState().items);
+
+    // Subscribe to store changes
+    const unsub = useWishlistStore.subscribe((state) => {
+      setWishlistItems(state.items);
+    });
+    return unsub;
+  }, []);
+
+  const removeItem = useCallback((id: string) => {
+    useWishlistStore.getState().removeItem(id);
+  }, []);
+
+  const clearAll = useCallback(() => {
+    useWishlistStore.getState().clearWishlist();
   }, []);
 
   if (!mounted) {
@@ -34,7 +49,7 @@ export default function WunschlistePage() {
     );
   }
 
-  if (items.length === 0) {
+  if (wishlistItems.length === 0) {
     return (
       <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
         <Heart className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
@@ -62,13 +77,13 @@ export default function WunschlistePage() {
           <p className="caption text-[var(--color-primary)] mb-3">Merkliste</p>
           <h1 className="heading-1">Wunschliste</h1>
           <p className="text-sm text-[var(--color-text-muted)] mt-1">
-            {items.length} {items.length === 1 ? "Produkt" : "Produkte"}
+            {wishlistItems.length} {wishlistItems.length === 1 ? "Produkt" : "Produkte"}
           </p>
         </div>
         <button
           onClick={() => {
             if (window.confirm("Möchten Sie wirklich alle Produkte von der Wunschliste entfernen?")) {
-              clearWishlist();
+              clearAll();
               toast.success("Wunschliste geleert");
             }
           }}
@@ -80,7 +95,7 @@ export default function WunschlistePage() {
 
       {/* Items grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {items.map((item, i) => {
+        {wishlistItems.map((item, i) => {
           const discount = calcDiscount(item.price, item.originalPrice ?? null);
           return (
             <div
