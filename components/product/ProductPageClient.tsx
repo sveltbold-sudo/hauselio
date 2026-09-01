@@ -235,7 +235,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <span className="text-sm font-semibold text-[var(--color-success)]">Auf Lager</span>
           </div>
 
-          <div className="flex items-center gap-3 p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
+          <div className="flex items-center gap-3 p-2.5 sm:p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
             <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />
             <div>
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
@@ -255,7 +255,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               >
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="px-4 py-3 font-bold tabular-nums min-w-[48px] text-center text-sm" aria-live="polite">
+              <span className="px-3 sm:px-4 py-2.5 sm:py-3 font-bold tabular-nums min-w-[48px] text-center text-sm" aria-live="polite">
                 {quantity}
               </span>
               <button
@@ -279,7 +279,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               ) : (
                 <>
                   <ShoppingBag className="w-5 h-5 mr-2" />
-                  In den Warenkorb · {formatPrice(product.price)}
+                  <span className="whitespace-nowrap text-xs sm:text-sm">In den Warenkorb · {formatPrice(product.price)}</span>
                 </>
               )}
             </Button>

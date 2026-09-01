@@ -80,7 +80,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 md:py-10 lg:py-12 pb-20 lg:pb-8">
       <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Warenkorb" }]} />
 
       {/* Header */}
@@ -97,11 +97,11 @@ export default function WarenkorbPage() {
           {items.map((item, i) => (
             <li
               key={item.id}
-              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 flex gap-4 sm:gap-5 animate-fade-in-up list-none"
+              className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5 lg:p-6 flex gap-4 sm:gap-5 animate-fade-in-up list-none"
               style={{ animationDelay: `${i * 50}ms` }}
             >
               {/* Image */}
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden flex-shrink-0">
                 <ProductImage
                   src={item.image}
                   alt={item.name}

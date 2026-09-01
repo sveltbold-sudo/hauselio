@@ -250,15 +250,15 @@ export default function HeaderClient() {
           <div className="promo-banner">
             <div className="container-hausaura flex items-center justify-center h-8 gap-2 relative">
               <span className="hidden sm:inline" aria-hidden="true">🚚</span>
-              <span className="font-medium">
+              <span className="font-medium text-xs sm:text-sm">
                 Kostenloser Versand ab {FREE_SHIPPING_THRESHOLD}€ · 30 Tage Rückgabe
               </span>
               <button
                 onClick={dismissPromo}
                 aria-label="Banner schließen"
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function HeaderClient() {
           </div>
 
           {/* Actions: Search (mobile) + Account + Wishlist + Cart + Menu */}
-          <div className="flex items-center gap-0.5 ml-auto">
+          <div className="flex items-center gap-1 sm:gap-0.5 ml-auto">
             {/* Mobile: search icon */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
@@ -641,7 +641,7 @@ export default function HeaderClient() {
                             key={sub.name}
                             href={sub.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block px-3 py-2 rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors duration-200"
+                            className="block px-3 py-2.5 min-h-[44px] rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] transition-colors duration-200"
                           >
                             {sub.name}
                           </Link>

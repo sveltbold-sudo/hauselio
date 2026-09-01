@@ -303,13 +303,13 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         </div>
 
         <div className="relative z-10 container-hausaura py-14 lg:py-16 xl:py-20">
-          <div className={`grid grid-cols-2 gap-12 xl:gap-16 items-center ${prefersReduced ? "" : "animate-fade-in-up"}`}>
+          <div className={`grid grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center ${prefersReduced ? "" : "animate-fade-in-up"}`}>
             {/* Text */}
             <div>
               <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
                 {slide.brand}
               </span>
-              <h2 className="text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">
                 {slide.name}
               </h2>
               <p className="text-lg xl:text-xl font-semibold text-[var(--color-text-primary)] mb-3">

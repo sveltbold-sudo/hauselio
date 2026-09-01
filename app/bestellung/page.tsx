@@ -310,7 +310,7 @@ export default function BestellungPage() {
           </span>
           <span className="hidden sm:inline">Warenkorb</span>
         </Link>
-        <div className="w-8 h-px bg-[var(--color-border)]" />
+        <div className="w-4 sm:w-8 h-px bg-[var(--color-border)]" />
         <span
           className={`flex items-center gap-2 text-sm font-bold ${step === "address" ? "text-[var(--color-primary)]" : "text-[var(--color-success)]"}`}
           aria-current={step === "address" ? "step" : undefined}
@@ -320,7 +320,7 @@ export default function BestellungPage() {
           </span>
           <span className="hidden sm:inline">Adresse</span>
         </span>
-        <div className="w-8 h-px bg-[var(--color-border)]" />
+        <div className="w-4 sm:w-8 h-px bg-[var(--color-border)]" />
         <span className={`flex items-center gap-2 text-sm font-bold ${step === "review" ? "text-[var(--color-primary)]" : "text-[var(--color-text-muted)]"}`}>
           <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === "review" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"}`}>
             3

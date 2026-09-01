@@ -101,7 +101,7 @@ export default function Footer() {
                 loading="lazy"
               />
             </Link>
-            <p className="text-sm text-white/70 leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-white/70 leading-relaxed mb-6">
               Moderne Haushaltsgeräte für ein komfortables Zuhause.
               Qualität, Innovation und Service — direkt aus Deutschland.
             </p>

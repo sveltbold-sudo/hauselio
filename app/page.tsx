@@ -278,7 +278,7 @@ export default async function HomePage() {
       <ThermomixSection />
 
       {/* Trust scores — like Coolblue */}
-      <section className="py-6 border-b border-[var(--color-border-light)]">
+      <section className="py-6 lg:py-8 border-b border-[var(--color-border-light)]">
         <div className="container-hausaura">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
             <div className="flex items-center gap-2">

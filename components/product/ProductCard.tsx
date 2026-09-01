@@ -105,7 +105,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Content — clean like Coolblue */}
-      <div className="p-4 flex-1 flex flex-col">
+      <div className="p-3 sm:p-4 flex-1 flex flex-col">
         {/* Brand */}
         {product.brand && (
           <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
@@ -114,7 +114,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Name */}
-        <h3 className="font-semibold text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+        <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
           {product.name}
         </h3>
 
@@ -140,7 +140,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
-          <Truck className="w-3 h-3 text-[var(--color-text-muted)]" />
+          <Truck className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[var(--color-text-muted)]" />
           <DeliveryEstimate />
         </div>
       </div>

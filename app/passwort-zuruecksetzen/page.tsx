@@ -75,7 +75,7 @@ function PasswortZuruecksetzenForm() {
   if (!token) {
     if (emailSent) {
       return (
-        <main id="main-content" className="container-hausaura py-12">
+        <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurücksetzen" }]} />
 
           <div className="max-w-md mx-auto text-center">
@@ -86,7 +86,7 @@ function PasswortZuruecksetzenForm() {
             </p>
             <Link
               href="/konto"
-              className="inline-block px-6 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+              className="px-6 py-3 min-h-[44px] inline-flex items-center bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
             >
               Zurück zur Anmeldung
             </Link>
@@ -96,7 +96,7 @@ function PasswortZuruecksetzenForm() {
     }
 
     return (
-      <main id="main-content" className="container-hausaura py-12">
+      <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort vergessen" }]} />
 
         <div className="max-w-md mx-auto">
@@ -137,7 +137,7 @@ function PasswortZuruecksetzenForm() {
           </form>
 
           <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
-            <Link href="/konto" className="text-[var(--color-primary)] hover:underline">
+            <Link href="/konto" className="py-3 min-h-[44px] inline-block text-[var(--color-primary)] hover:underline">
               Zurück zur Anmeldung
             </Link>
           </p>
@@ -149,7 +149,7 @@ function PasswortZuruecksetzenForm() {
   // Token present → success state
   if (success) {
     return (
-      <main id="main-content" className="container-hausaura py-12">
+      <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurückgesetzt" }]} />
 
         <div className="max-w-md mx-auto text-center">
@@ -160,7 +160,7 @@ function PasswortZuruecksetzenForm() {
           </p>
           <Link
             href="/konto"
-            className="inline-block px-6 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+            className="px-6 py-3 min-h-[44px] inline-flex items-center bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             Jetzt anmelden
           </Link>
@@ -171,7 +171,7 @@ function PasswortZuruecksetzenForm() {
 
   // Token present → show password reset form
   return (
-    <main id="main-content" className="container-hausaura py-12">
+    <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurücksetzen" }]} />
 
       <div className="max-w-md mx-auto">

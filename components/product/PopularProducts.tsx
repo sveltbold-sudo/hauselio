@@ -35,7 +35,7 @@ export default function PopularProducts() {
         <p className="caption text-[var(--color-primary)] mb-4 text-center">
           Beliebte Produkte
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
@@ -54,7 +54,7 @@ export default function PopularProducts() {
       <p className="caption text-[var(--color-primary)] mb-4 text-center">
         Beliebte Produkte
       </p>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {products.map((p) => (
           <ProductCard
             key={p.id}

@@ -48,7 +48,7 @@ export default function ProductImageGallery({
         type="button"
         onClick={onImageClick}
         aria-label="Bild vergrößern"
-        className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left"
+        className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left active:scale-[0.98] transition-transform duration-150"
         onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
         onTouchEnd={(e) => {
           if (touchStart === null) return;
@@ -111,7 +111,7 @@ export default function ProductImageGallery({
                 key={i}
                 onClick={() => onImageSelect(i)}
                 aria-label={`${name} Bild ${i + 1} anzeigen`}
-                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 relative ${
+                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 active:scale-95 transition-transform relative ${
                   activeImageIndex === i
                     ? "border-[var(--color-primary)] shadow-sm"
                     : "border-transparent hover:border-[var(--color-border)]"

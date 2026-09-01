@@ -143,7 +143,7 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="container-hausaura py-8">
+    <div className="container-hausaura py-6 sm:py-8 lg:py-10">
       {/* Breadcrumb */}
       <Breadcrumb
         items={[
@@ -153,7 +153,7 @@ export default async function CategoryPage({
       />
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <h1 className="heading-1">{title}</h1>
         <p className="body-large mt-2">{description}</p>
       </div>

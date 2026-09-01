@@ -5,6 +5,7 @@ import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import DOMPurify from "isomorphic-dompurify";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,8 @@ export default function NewsletterPage() {
   const [campaignContent, setCampaignContent] = useState("");
   const [sending, setSending] = useState(false);
   const [previewTab, setPreviewTab] = useState<"edit" | "preview">("edit");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [showSendConfirm, setShowSendConfirm] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
@@ -56,13 +59,19 @@ export default function NewsletterPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Abonnent wirklich löschen?")) return;
+    setDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
     try {
-      const res = await fetch(`/api/admin/newsletter/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/newsletter/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
-      setSubscribers((prev) => prev.filter((s) => s.id !== id));
+      setSubscribers((prev) => prev.filter((s) => s.id !== deleteId));
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
+    } finally {
+      setDeleteId(null);
     }
   };
 
@@ -73,7 +82,11 @@ export default function NewsletterPage() {
     }
 
     if (sending) return;
-    if (!confirm(`Newsletter wirklich an ${activeCount} Abonnenten senden?`)) return;
+    setShowSendConfirm(true);
+  };
+
+  const confirmSend = async () => {
+    setShowSendConfirm(false);
     setSending(true);
     try {
       const res = await fetch("/api/admin/newsletter/send", {
@@ -104,7 +117,13 @@ export default function NewsletterPage() {
   };
 
   const exportCSV = () => {
-    const csv = "E-Mail;Aktiv;Datum\n" + subscribers.map((s) => `${s.email};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
+    const escapeCSV = (val: string) => {
+      if (val.includes(";") || val.includes('"') || val.includes("\n")) {
+        return `"${val.replace(/"/g, '""')}"`;
+      }
+      return val;
+    };
+    const csv = "E-Mail;Aktiv;Datum\n" + subscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -324,6 +343,23 @@ export default function NewsletterPage() {
           </tbody>
         </table>
       </div>
+      <ConfirmDialog
+        open={!!deleteId}
+        title="Abonnent löschen"
+        message="Möchten Sie diesen Abonnenten wirklich dauerhaft löschen?"
+        confirmLabel="Löschen"
+        danger
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
+      <ConfirmDialog
+        open={showSendConfirm}
+        title="Newsletter senden"
+        message={`Newsletter wirklich an ${activeCount} aktive Abonnenten senden?`}
+        confirmLabel="Senden"
+        onConfirm={confirmSend}
+        onCancel={() => setShowSendConfirm(false)}
+      />
     </div>
   );
 }

@@ -159,7 +159,7 @@ export default function CartCrossSell() {
       </h3>
       <div className="space-y-3">
         {suggestions.map((item) => (
-          <div key={item.id} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[var(--color-border-light)]">
+          <div key={item.id} className="flex items-center gap-3 bg-white rounded-xl p-2.5 sm:p-3 border border-[var(--color-border-light)]">
             <Link href={`/produkt/${item.slug}`} aria-label={item.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-[var(--color-bg-secondary)] shrink-0">
               <ProductImage src={item.image} alt={item.name} size="sm" />
             </Link>

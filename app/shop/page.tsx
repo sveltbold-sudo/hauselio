@@ -282,7 +282,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
 
       {/* Free shipping banner */}
-      <div className="mb-6 px-4 py-2.5 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-xl text-center">
+      <div className="mb-6 py-2.5 bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 rounded-xl text-center">
         <p className="text-sm text-[var(--color-text-secondary)]">
           <span className="font-semibold text-[var(--color-success)]">Kostenloser Versand</span> ab 50€ Bestellwert
         </p>
@@ -392,7 +392,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* Sidebar filters — desktop inline / mobile drawer */}
         <Suspense fallback={
           <div className="space-y-4 animate-pulse">
@@ -436,7 +436,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {/* Products grid */}
           <Suspense fallback={<ProductGridSkeleton />}>
             {formattedProducts.length === 0 ? (
-              <div className="text-center py-20" role="status" aria-live="polite">
+              <div className="text-center py-12 sm:py-20" role="status" aria-live="polite">
                 <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
                   <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
                 </div>

@@ -37,7 +37,7 @@ export default function ShopFilters({
   const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price") || selectedRating;
 
   return (
-    <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5">
+    <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5">
       <div className="flex items-center justify-between mb-5">
         <h2 className="font-bold text-[var(--color-text-primary)] flex items-center gap-2 text-sm">
           <SlidersHorizontal className="w-4 h-4" />
