@@ -33,6 +33,8 @@ export default function HeaderClient() {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const megaCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const megaNavRef = useRef<HTMLElement>(null);
+  const [megaPos, setMegaPos] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
 
   useEffect(() => {
     return () => {
@@ -97,10 +99,20 @@ export default function HeaderClient() {
     });
   }, [searchOpen, isMobile]);
 
-  const handleMegaEnter = useCallback((href: string) => {
+  const handleMegaEnter = useCallback((href: string, e: React.MouseEvent) => {
     if (megaCloseTimeoutRef.current) {
       clearTimeout(megaCloseTimeoutRef.current);
       megaCloseTimeoutRef.current = null;
+    }
+    const tab = e.currentTarget;
+    const nav = megaNavRef.current;
+    if (tab && nav) {
+      const tabRect = tab.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      setMegaPos({
+        left: tabRect.left - navRect.left,
+        width: tabRect.width,
+      });
     }
     setActiveMega(href);
   }, []);
@@ -361,6 +373,7 @@ export default function HeaderClient() {
 
       {/* Category navigation tabs — desktop */}
       <nav
+        ref={megaNavRef}
         aria-label="Kategorien"
         className="hidden lg:block relative border-t border-[var(--color-border-light)]"
         onMouseLeave={handleMegaLeave}
@@ -371,7 +384,7 @@ export default function HeaderClient() {
               <div
                 key={cat.href}
                 className="relative shrink-0"
-                onMouseEnter={() => handleMegaEnter(cat.href)}
+                onMouseEnter={(e) => handleMegaEnter(cat.href, e)}
               >
                 <Link
                   href={cat.href}
@@ -443,7 +456,14 @@ export default function HeaderClient() {
           >
             <div className="container-hausaura">
               <div className="pt-1 pb-2">
-                <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-fit max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
+                <div
+                  className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}
+                  style={{
+                    marginLeft: `${megaPos.left}px`,
+                    width: "fit-content",
+                    maxWidth: `calc(100vw - ${megaPos.left}px - 1rem)`,
+                  }}
+                >
                   <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
                     <div className="w-12 h-12 bg-[var(--color-accent-soft)] rounded-xl flex items-center justify-center">
                       <CategoryIcon category={cat.icon} className="w-6 h-6 text-[var(--color-accent)]" />
