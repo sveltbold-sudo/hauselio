@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, Plus, X, Check } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
 import Button from "@/components/ui/Button";
@@ -46,6 +46,7 @@ export default function ProductForm({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showSavedHint, setShowSavedHint] = useState(false);
   const isDirty = useRef(false);
   const initialDataRef = useRef(initialData);
 
@@ -178,6 +179,14 @@ export default function ProductForm({
     const cleanup = handleKeyDown();
     return cleanup;
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (!isSubmitting && !showSavedHint) return;
+    if (showSavedHint) {
+      const timer = setTimeout(() => setShowSavedHint(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isSubmitting, showSavedHint]);
 
   const isDisabled = isLoading || isSubmitting;
 
@@ -654,6 +663,9 @@ export default function ProductForm({
             >
               {isDisabled ? loadingLabel : submitLabel}
             </Button>
+            <p className="text-xs text-[var(--color-text-muted)] text-center mt-2">
+              Tastenkürzel: <kbd className="px-1.5 py-0.5 bg-[var(--color-bg)] rounded border border-[var(--color-border-light)] text-[var(--color-text-secondary)] font-mono">Strg</kbd> + <kbd className="px-1.5 py-0.5 bg-[var(--color-bg)] rounded border border-[var(--color-border-light)] text-[var(--color-text-secondary)] font-mono">S</kbd> zum Speichern
+            </p>
           </div>
         </div>
       </form>
