@@ -5,7 +5,7 @@ import { join } from "path";
 const prisma = new PrismaClient();
 const IMAGES_DIR = join(process.cwd(), "public", "images", "products");
 
-const adminEmail = "admin@hauselio.de";
+const adminEmail = "admin@hausaura.de";
 
   const categories = [
     { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },
@@ -3986,7 +3986,7 @@ async function main() {
       bankAccountName: "HAUSELIO GmbH",
       bankName: "Commerzbank Berlin",
       shippingInfo: "Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.",
-      contactEmail: "info@hauselio.de",
+      contactEmail: "info@hausaura.de",
       contactPhone: "+49 (0)30 555 789 01",
       contactAddress: "Kastanienallee 42, 10435 Berlin",
     },
