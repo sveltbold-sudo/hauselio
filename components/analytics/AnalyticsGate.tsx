@@ -2,8 +2,9 @@
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import GoogleAnalytics from "./GoogleAnalytics";
 import { getCookieConsent } from "@/components/ui/CookieConsent";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 export default function AnalyticsGate() {
   const [consent, setConsent] = useState<boolean | null>(null);
@@ -26,6 +27,9 @@ export default function AnalyticsGate() {
     <>
       <Analytics />
       <SpeedInsights />
+      <Suspense fallback={null}>
+        <GoogleAnalytics />
+      </Suspense>
     </>
   );
 }

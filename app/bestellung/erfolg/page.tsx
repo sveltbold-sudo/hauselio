@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/utils";
 import Input from "@/components/ui/Input";
 import PaymentTimeline from "@/components/ui/PaymentTimeline";
 import { Check, Copy, ArrowRight, AlertCircle, Truck, Clock, Shield, HelpCircle, ChevronDown } from "lucide-react";
+import { trackPurchase } from "@/lib/analytics";
 
 interface BankDetails {
   accountName: string;
@@ -93,7 +94,10 @@ export default function OrderSuccessPage() {
           if (!r.ok) throw new Error("Bestellung nicht gefunden");
           return r.json();
         })
-        .then((data) => setOrder(data.order))
+        .then((data) => {
+          setOrder(data.order);
+          trackPurchase(data.order.orderNumber, data.order.total, data.order.items.length);
+        })
         .catch(() => {
           setOrderError("Bestellung konnte nicht geladen werden. Bitte überprüfen Sie Ihre E-Mail und Bestellnummer.");
         })

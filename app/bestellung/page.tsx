@@ -10,6 +10,7 @@ import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { trackBeginCheckout } from "@/lib/analytics";
 
 interface PriceChange {
   id: string;
@@ -239,6 +240,7 @@ export default function BestellungPage() {
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
       orderSubmitted.current = true;
+      trackBeginCheckout(finalTotal, items.length);
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
       clearCartTimerRef.current = setTimeout(() => {

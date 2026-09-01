@@ -8,6 +8,7 @@ import { Search, Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight, Heart, T
 import Image from "next/image";
 import MiniCart from "@/components/layout/MiniCart";
 import SearchDropdown from "@/components/layout/SearchDropdown";
+import { trackSearch } from "@/lib/analytics";
 import { useWishlistStore } from "@/lib/wishlist";
 import CategoryIcon from "@/components/ui/CategoryIcon";
 import { navCategories } from "@/lib/navigation";
@@ -180,6 +181,7 @@ export default function HeaderClient() {
       e.preventDefault();
       document.getElementById(`search-result-${searchActiveIndex}`)?.click();
     } else if (e.key === "Enter" && searchQuery.trim()) {
+      trackSearch(searchQuery.trim());
       router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
       setSearchQuery("");

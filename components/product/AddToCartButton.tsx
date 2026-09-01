@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { ShoppingBag, Check } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useCartStore } from "@/lib/store";
+import { trackAddToCart } from "@/lib/analytics";
 
 interface AddToCartButtonProps {
   product: {
@@ -44,8 +45,15 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
         image: product.image,
         brand: product.brand ?? "",
         categorySlug: product.categorySlug,
-
       });
+    trackAddToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      category: product.categorySlug,
+      brand: product.brand,
+    });
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
     window.dispatchEvent(new CustomEvent("cart:item-added"));

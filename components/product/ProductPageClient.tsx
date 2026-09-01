@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
 import ProductPaymentInfo from "@/components/product/ProductPaymentInfo";
+import { trackViewItem } from "@/lib/analytics";
 import WishlistButton from "@/components/product/WishlistButton";
 import CompareButton from "@/components/product/CompareButton";
 import { trackRecentlyViewed } from "@/components/product/RecentlyViewedSection";
@@ -83,6 +84,13 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       isNew: product.isNew,
       isPromo: product.originalPrice !== null,
       brand: product.brand,
+    });
+    trackViewItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.categorySlug || undefined,
+      brand: product.brand || undefined,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product.id]);
