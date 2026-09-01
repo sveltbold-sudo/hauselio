@@ -19,7 +19,7 @@ test.describe("Contact Page", () => {
   });
 
   test("displays contact information", async ({ page }) => {
-    const email = page.getByText("info@hausaura.de");
+    const email = page.getByText("info@hauselio.de");
     const phone = page.getByText("+49");
     const address = page.getByText("Kastanienallee");
 

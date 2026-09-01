@@ -21,8 +21,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
-    template: "%s | HAUSAURA",
+    default: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
+    template: "%s | HAUSELIO",
   },
   description:
     "Entdecken Sie hochwertige Küchengeräte, Kaffeevollautomaten, Staubsauger und Smart Home Lösungen. Moderne Haushaltsgeräte für ein komfortables Zuhause.",
@@ -42,18 +42,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
+    title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
     url: SITE_URL,
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSAURA — Premium Haushaltsgeräte" }],
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSELIO — Premium Haushaltsgeräte" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
+    title: "HAUSELIO — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],

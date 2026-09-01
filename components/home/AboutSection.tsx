@@ -4,19 +4,19 @@ import { ArrowRight, Award } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Über HAUSAURA">
+    <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Über HAUSELIO">
       <div className="container-hauselio">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Content */}
           <div>
-            <p className="caption text-[var(--color-accent)] mb-3">Über HAUSAURA</p>
+            <p className="caption text-[var(--color-accent)] mb-3">Über HAUSELIO</p>
             <h2 className="heading-2 mb-6">
               Ihr Partner für<br className="hidden sm:block" />
               <span className="text-[var(--color-primary)]">moderne Haushaltsgeräte</span>
             </h2>
             <div className="space-y-3 sm:space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
               <p>
-                HAUSAURA steht für hochwertige Haushaltsgeräte zu fairen Preisen.
+                HAUSELIO steht für hochwertige Haushaltsgeräte zu fairen Preisen.
                 Wir bieten Ihnen eine kuratierte Auswahl an Premium-Geräten von
                 führenden Marken wie Miele, Bosch, Siemens und Dyson.
               </p>
@@ -49,7 +49,7 @@ export default function AboutSection() {
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/about-team.jpg"
-                alt="HAUSAURA Team"
+                alt="HAUSELIO Team"
                 width={500}
                 height={313}
                 sizes="(max-width: 768px) 100vw, 500px"

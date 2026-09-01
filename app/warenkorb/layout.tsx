@@ -3,20 +3,20 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Warenkorb",
-  description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
+  description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Warenkorb | HAUSAURA",
-    description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
+    title: "Warenkorb | HAUSELIO",
+    description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
     url: `${SITE_URL}/warenkorb`,
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Warenkorb | HAUSAURA",
-    description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
+    title: "Warenkorb | HAUSELIO",
+    description: "Überprüfen Sie Ihre Bestellung im HAUSELIO Warenkorb.",
   },
   alternates: { canonical: `${SITE_URL}/warenkorb` },
 };

@@ -11,25 +11,25 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Kontakt",
-  description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
+  description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
   alternates: { canonical: "/kontakt" },
   openGraph: {
-    title: "Kontakt — HAUSAURA",
-    description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht.",
+    title: "Kontakt — HAUSELIO",
+    description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht.",
     url: `${SITE_URL}/kontakt`,
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kontakt — HAUSAURA",
-    description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht.",
+    title: "Kontakt — HAUSELIO",
+    description: "Kontaktieren Sie HAUSELIO — per E-Mail, Telefon oder persönlicher Nachricht.",
   },
 };
 
 const fallbackSettings = {
-  contactEmail: "info@hausaura.de",
+  contactEmail: "info@hauselio.de",
   contactPhone: "+49 (0)30 555 789 01",
   contactAddress: "Kastanienallee 42, 10435 Berlin",
 };
@@ -54,11 +54,11 @@ export default async function KontaktPage() {
   const contactJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Kontakt — HAUSAURA",
+    name: "Kontakt — HAUSELIO",
     url: `${SITE_URL}/kontakt`,
     mainEntity: {
       "@type": "Organization",
-      name: "HAUSAURA GmbH",
+      name: "HAUSELIO GmbH",
       telephone: settings.contactPhone,
       email: settings.contactEmail,
       address: settings.contactAddress,

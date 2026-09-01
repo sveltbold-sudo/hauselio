@@ -8,20 +8,20 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Über uns",
-  description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
+  description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
   alternates: { canonical: "/ueber-uns" },
   openGraph: {
-    title: "Über HAUSAURA — Ihr Partner für Haushaltsgeräte",
-    description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
+    title: "Über HAUSELIO — Ihr Partner für Haushaltsgeräte",
+    description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
     url: `${SITE_URL}/ueber-uns`,
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Über HAUSAURA",
-    description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte.",
+    title: "Über HAUSELIO",
+    description: "Erfahren Sie mehr über HAUSELIO — Ihr Partner für hochwertige Haushaltsgeräte.",
   },
 };
 
@@ -64,12 +64,12 @@ export default function UeberUnsPage() {
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
-        <p className="caption text-[var(--color-primary)] mb-3">Über HAUSAURA</p>
+        <p className="caption text-[var(--color-primary)] mb-3">Über HAUSELIO</p>
         <h1 className="heading-1 mb-4">
-          Über HAUSAURA
+          Über HAUSELIO
         </h1>
         <p className="body-large">
-          HAUSAURA wurde mit einer klaren Vision gegründet: hochwertige Haushaltsgeräte
+          HAUSELIO wurde mit einer klaren Vision gegründet: hochwertige Haushaltsgeräte
           zugänglich, transparent und servicestark zu machen.
         </p>
       </div>
@@ -80,7 +80,7 @@ export default function UeberUnsPage() {
           <h2 className="heading-2 mb-6">Unsere Geschichte</h2>
           <div className="space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
             <p>
-              HAUSAURA ist ein deutscher Online-Shop für hochwertige Haushaltsgeräte.
+              HAUSELIO ist ein deutscher Online-Shop für hochwertige Haushaltsgeräte.
               Von der Kaffeemaschine bis zum Staubsauger — wir bieten eine kuraterte Auswahl
               an Produkten namhafter Hersteller, die Ihr Zuhause komfortabler machen.
             </p>
@@ -139,7 +139,7 @@ export default function UeberUnsPage() {
         <h2 className="heading-2 mb-4 text-white">Überzeugen Sie sich selbst</h2>
         <p className="text-white/70 mb-8 max-w-xl mx-auto">
           Entdecken Sie unser Sortiment an hochwertigen Haushaltsgeräten und erleben Sie
-          den HAUSAURA Unterschied.
+          den HAUSELIO Unterschied.
         </p>
         <Link
           href="/shop"

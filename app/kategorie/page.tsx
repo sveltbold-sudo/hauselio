@@ -14,15 +14,15 @@ export const metadata: Metadata = {
   description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten. Küche, Kaffee, Reinigung, Klima, Smart Home und mehr.",
   alternates: { canonical: `${SITE_URL}/kategorie` },
   openGraph: {
-    title: "Kategorien — HAUSAURA",
+    title: "Kategorien — HAUSELIO",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kategorien — HAUSAURA",
+    title: "Kategorien — HAUSELIO",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
   },
 };

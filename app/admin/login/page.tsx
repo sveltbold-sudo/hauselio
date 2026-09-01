@@ -22,7 +22,7 @@ function LoginForm() {
   const redirect = rawRedirect.startsWith("/admin") ? rawRedirect : "/admin";
 
   useEffect(() => {
-    document.title = "Admin-Anmeldung | HAUSAURA";
+    document.title = "Admin-Anmeldung | HAUSELIO";
   }, []);
 
   const isLocked = lockoutSeconds > 0;
@@ -91,7 +91,7 @@ function LoginForm() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-extrabold text-[var(--color-primary)]">
-            HAUSAURA
+            HAUSELIO
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mt-2">
             Admin-Bereich
@@ -145,7 +145,7 @@ function LoginForm() {
                   disabled={lockoutSeconds > 0}
                   aria-describedby={error ? "login-error" : undefined}
                   className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="admin@hausaura.de"
+                  placeholder="admin@hauselio.de"
                 />
               </div>
             </div>
@@ -199,7 +199,7 @@ function LoginForm() {
         </div>
 
         <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
-          HAUSAURA Admin Panel © 2026
+          HAUSELIO Admin Panel © 2026
         </p>
       </div>
     </div>

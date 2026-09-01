@@ -17,7 +17,7 @@
   
   <!-- Sign -->
   <rect x="160" y="65" width="80" height="20" rx="4" fill="#0A2540"/>
-  <text x="200" y="79" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="white">HAUSAURA</text>
+  <text x="200" y="79" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="white">HAUSELIO</text>
   
   <!-- People silhouettes -->
   <circle cx="80" cy="220" r="15" fill="#CBD5E1"/>

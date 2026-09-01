@@ -38,13 +38,13 @@ export default function HeaderClient() {
   }, []);
 
   useEffect(() => {
-    const dismissed = sessionStorage.getItem("hausaura-promo-dismissed");
+    const dismissed = sessionStorage.getItem("hauselio-promo-dismissed");
     if (dismissed) setPromoDismissed(true);
   }, []);
 
   const dismissPromo = () => {
     setPromoDismissed(true);
-    sessionStorage.setItem("hausaura-promo-dismissed", "1");
+    sessionStorage.setItem("hauselio-promo-dismissed", "1");
   };
 
   useEffect(() => {
@@ -242,7 +242,7 @@ export default function HeaderClient() {
           <Link href="/" className="flex items-center shrink-0 group">
             <Image
               src="/logos/logoprincipale.png"
-              alt="HAUSAURA"
+              alt="HAUSELIO"
               width={160}
               height={50}
               priority

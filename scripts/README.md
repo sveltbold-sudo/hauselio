@@ -1,4 +1,4 @@
-# HAUSAURA — Scripts de maintenance
+# HAUSELIO — Scripts de maintenance
 
 Ce dossier contient les scripts utilisés pour l'enrichissement, la vérification et la maintenance de la base de données.
 

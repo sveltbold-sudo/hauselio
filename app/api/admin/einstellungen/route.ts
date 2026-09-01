@@ -24,10 +24,10 @@ export async function GET(request: NextRequest) {
         data: {
           bankIban: "",
           bankBic: "",
-          bankAccountName: "HAUSAURA GmbH",
+          bankAccountName: "HAUSELIO GmbH",
           bankName: "",
           shippingInfo: "Kostenloser Versand ab 50€ Bestellwert.",
-          contactEmail: "info@hausaura.de",
+          contactEmail: "info@hauselio.de",
           contactPhone: "+49 (0)30 555 789 01",
           contactAddress: "Kastanienallee 42, 10435 Berlin",
         },

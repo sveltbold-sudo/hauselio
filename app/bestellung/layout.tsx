@@ -3,20 +3,20 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Bestellung",
-  description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
+  description: "Schließen Sie Ihre Bestellung bei HAUSELIO ab.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Bestellung | HAUSAURA",
-    description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
+    title: "Bestellung | HAUSELIO",
+    description: "Schließen Sie Ihre Bestellung bei HAUSELIO ab.",
     url: `${SITE_URL}/bestellung`,
-    siteName: "HAUSAURA",
+    siteName: "HAUSELIO",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bestellung | HAUSAURA",
-    description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
+    title: "Bestellung | HAUSELIO",
+    description: "Schließen Sie Ihre Bestellung bei HAUSELIO ab.",
   },
   alternates: { canonical: `${SITE_URL}/bestellung` },
 };

@@ -1,5 +1,5 @@
 /**
- * Structured logger for HAUSAURA.
+ * Structured logger for HAUSELIO.
  *
  * In production: logs minimal info (no secrets, no internal details).
  * In development: full error details for debugging.
@@ -22,7 +22,7 @@ export const logger = {
       };
       console.error(JSON.stringify(entryWithError));
     } else {
-      console.error(`[HAUSAURA] ${context}:`, error, extra);
+      console.error(`[HAUSELIO] ${context}:`, error, extra);
     }
   },
 
@@ -39,7 +39,7 @@ export const logger = {
     if (isProd) {
       console.warn(JSON.stringify(entry));
     } else {
-      console.warn(`[HAUSAURA] ${context}: ${message}`, extra);
+      console.warn(`[HAUSELIO] ${context}: ${message}`, extra);
     }
   },
 
@@ -56,7 +56,7 @@ export const logger = {
     if (isProd) {
       console.log(JSON.stringify(entry));
     } else {
-      console.log(`[HAUSAURA] ${context}: ${message}`, extra);
+      console.log(`[HAUSELIO] ${context}: ${message}`, extra);
     }
   },
 };

@@ -1,4 +1,4 @@
--- HAUSAURA — Seed Data
+-- HAUSELIO — Seed Data
 -- Exécuter APRÈS schema.sql dans Supabase SQL Editor
 -- Supprime les anciennes données puis réinsère (idempotent)
 
@@ -32,11 +32,11 @@ EXCEPTION WHEN duplicate_column THEN NULL;
 END $$;
 
 INSERT INTO "AdminUser" ("id", "email", "password", "name", "role", "failedAttempts", "createdAt", "updatedAt")
-VALUES ('admin-001', 'admin@hausaura.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW());
+VALUES ('admin-001', 'admin@hauselio.de', '$2b$12$X6IA3ezAD0t5/6SoVy3HLeDY33i2R8DcsC3v30KPHFHROpyvAjvge', 'Admin', 'ADMIN', 0, NOW(), NOW());
 
 -- 2. Site Settings
 INSERT INTO "SiteSettings" ("id", "bankName", "bankIban", "bankBic", "bankAccountName", "shippingInfo", "contactEmail", "contactPhone", "contactAddress", "createdAt", "updatedAt")
-VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSAURA GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hausaura.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW());
+VALUES ('settings-001', 'Commerzbank Berlin', 'DE89 3704 0044 0532 0130 00', 'COBADEFFXXX', 'HAUSELIO GmbH', 'Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.', 'info@hauselio.de', '+49 (0)30 555 789 01', 'Kastanienallee 42, 10435 Berlin', NOW(), NOW());
 
 -- 3. Categories
 INSERT INTO "Category" ("id", "name", "slug", "description", "image", "sortOrder", "createdAt", "updatedAt") VALUES
@@ -82,7 +82,7 @@ INSERT INTO "Brand" ("id", "name", "slug", "logo", "createdAt", "updatedAt") VAL
 
 -- 5. Products
 INSERT INTO "Product" ("id", "name", "slug", "description", "shortDesc", "price", "originalPrice", "sku", "inStock", "isFeatured", "isNew", "isPromo", "rating", "reviewCount", "features", "tags", "seoTitle", "seoDesc", "categoryId", "brandId", "weight", "createdAt", "updatedAt") VALUES
-('prod-001', 'Thermomix TM7', 'thermomix-tm7', 'Der neue Thermomix TM7 - noch leistungsstärker, vielseitiger und benutzerfreundlicher. Über 80 Kochfunktionen in einem Gerät.', 'Das ultimative Küchengerät mit 80+ Funktionen', 1499.00, 1599.00, 'TM7-2026', true, true, true, false, 4.9, 127, ARRAY['80+ Kochfunktionen', '6,8 Zoll TFT-Display', 'WLAN & App-Steuerung', 'Selbstreinigung'], ARRAY['bestseller', 'premium', 'smart-home'], 'Thermomix TM7 kaufen – HAUSAURA', 'Der neue Thermomix TM7 mit 80+ Funktionen. Kostenloser Versand ab 50€.', 'cat-kueche', 'br-vorwerk', 7.95, NOW(), NOW()),
+('prod-001', 'Thermomix TM7', 'thermomix-tm7', 'Der neue Thermomix TM7 - noch leistungsstärker, vielseitiger und benutzerfreundlicher. Über 80 Kochfunktionen in einem Gerät.', 'Das ultimative Küchengerät mit 80+ Funktionen', 1499.00, 1599.00, 'TM7-2026', true, true, true, false, 4.9, 127, ARRAY['80+ Kochfunktionen', '6,8 Zoll TFT-Display', 'WLAN & App-Steuerung', 'Selbstreinigung'], ARRAY['bestseller', 'premium', 'smart-home'], 'Thermomix TM7 kaufen – HAUSELIO', 'Der neue Thermomix TM7 mit 80+ Funktionen. Kostenloser Versand ab 50€.', 'cat-kueche', 'br-vorwerk', 7.95, NOW(), NOW()),
 ('prod-002', 'Thermomix TM6', 'thermomix-tm6', 'Der bewährte Thermomix TM6 - zuverlässig, leistungsstark und vielseitig.', 'Bewährte Qualität mit 40+ Funktionen', 1399.00, NULL, 'TM6-2025', true, true, false, false, 4.8, 342, ARRAY['40+ Kochfunktionen', 'Cookidoo-Zugang', 'Selbstreinigung', '5,5 Zoll Display'], ARRAY[]::TEXT[], NULL, NULL, 'cat-kueche', 'br-vorwerk', 7.95, NOW(), NOW()),
 ('prod-003', 'KitchenAid Artisan Küchenmaschine 5KSM175PSE', 'kitchenaid-artisan-5ksm175pse', 'Die KitchenAid Artisan Küchenmaschine - ikonisches Design trifft auf professionelle Leistung.', 'Ikonische Küchenmaschine mit 4,8L Schüssel', 549.00, 599.00, 'KA-ART-5KSM', true, true, false, true, 4.8, 289, ARRAY['4,8L Edelstahlschüssel', '10 Geschwindigkeiten', 'Planetarische Bewegung'], ARRAY['bestseller', 'design-klassiker'], NULL, NULL, 'cat-kueche', 'br-kitchenaid', 10.5, NOW(), NOW()),
 ('prod-004', 'Bosch Serie 6 Freistehender Herd HKH634ES5', 'bosch-serie-6-herd-hkh634es5', 'Der Bosch Serie 6 Herd mit 4 Induktionsherdfeldern und 66L Backofen.', 'Induktionsherd mit PerfectBake Technologie', 1899.00, NULL, 'BSH-HKH634ES5', true, false, false, false, 4.7, 78, ARRAY['4 Induktionsherdfelder', '66L Backofen', 'PerfectBake', 'PerfectRoast'], ARRAY[]::TEXT[], NULL, NULL, 'cat-kueche', 'br-bosch', 62, NOW(), NOW()),

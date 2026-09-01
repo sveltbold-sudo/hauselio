@@ -6,7 +6,7 @@ test.describe("Homepage", () => {
   });
 
   test("has correct title and meta description", async ({ page }) => {
-    await expect(page).toHaveTitle(/HAUSAURA/);
+    await expect(page).toHaveTitle(/HAUSELIO/);
     const desc = await page.locator('meta[name="description"]').getAttribute("content");
     expect(desc).toBeTruthy();
     expect(desc!.length).toBeGreaterThan(20);

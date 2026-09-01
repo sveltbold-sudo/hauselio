@@ -452,7 +452,7 @@ describe("GET /api/bank", () => {
     mockPrisma.siteSettings.findFirst.mockResolvedValue({
       bankIban: "DE89370400440532013000",
       bankBic: "COBADEFFXXX",
-      bankAccountName: "HAUSAURA GmbH",
+      bankAccountName: "HAUSELIO GmbH",
       bankName: "Test Bank",
     } as never);
 

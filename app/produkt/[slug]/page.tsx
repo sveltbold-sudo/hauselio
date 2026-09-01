@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "…"
-    : `Jetzt ${product.name} bei HAUSAURA kaufen. Ab ${priceStr} €.`;
+    : `Jetzt ${product.name} bei HAUSELIO kaufen. Ab ${priceStr} €.`;
 
   return {
     title: product.name,
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: product.name,
       description: desc,
       url: `${baseUrl}/produkt/${slug}`,
-      siteName: "HAUSAURA",
+      siteName: "HAUSELIO",
       locale: "de_DE",
       type: "website",
       images: product.images[0]?.url
@@ -158,7 +158,7 @@ export default async function ProductPage({ params }: PageProps) {
         description={product.description}
         image={product.images[0]?.url || "/images/placeholder-product.svg"}
         price={Number(product.price)}
-        brand={product.brand?.name || "HAUSAURA"}
+        brand={product.brand?.name || "HAUSELIO"}
         slug={product.slug}
         sku={product.sku || product.slug}
         rating={Number(product.rating)}

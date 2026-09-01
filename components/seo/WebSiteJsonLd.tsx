@@ -7,7 +7,7 @@ interface WebSiteJsonLdProps {
 }
 
 export default function WebSiteJsonLd({
-  name = "HAUSAURA",
+  name = "HAUSELIO",
   url = SITE_URL,
   searchUrl = `${SITE_URL}/shop?q={search_term_string}`,
 }: WebSiteJsonLdProps) {
