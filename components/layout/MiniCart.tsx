@@ -174,8 +174,9 @@ export default function MiniCart() {
                         onClick={() =>
                           updateQuantity(item.id, Math.max(1, item.quantity - 1))
                         }
+                        disabled={item.quantity <= 1}
                         aria-label="Menge verringern"
-                        className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:pointer-events-none"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -193,7 +194,11 @@ export default function MiniCart() {
                       </button>
                     </div>
                     <button
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => {
+                        if (window.confirm(`${item.name} aus dem Warenkorb entfernen?`)) {
+                          removeItem(item.id);
+                        }
+                      }}
                       aria-label="Artikel entfernen"
                       className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >

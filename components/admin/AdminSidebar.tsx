@@ -196,8 +196,13 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
                     }
                     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
                       e.preventDefault();
-                      const menu = e.currentTarget.querySelector<HTMLElement>("[role='menuitem']");
-                      menu?.focus();
+                      const items = Array.from(e.currentTarget.querySelectorAll<HTMLElement>("[role='menuitem']"));
+                      if (items.length === 0) return;
+                      const current = items.findIndex((el) => el === document.activeElement);
+                      const next = e.key === "ArrowDown"
+                        ? current < items.length - 1 ? current + 1 : 0
+                        : current > 0 ? current - 1 : items.length - 1;
+                      items[next]?.focus();
                     }
                   }}
                 >

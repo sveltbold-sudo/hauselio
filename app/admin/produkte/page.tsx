@@ -39,6 +39,7 @@ export default async function AdminProductsPage({
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
   let total = 0;
+  let dbError = false;
 
   try {
     [products, categories, brands, total] = await Promise.all([
@@ -59,10 +60,10 @@ export default async function AdminProductsPage({
     ]);
   } catch (error) {
     logger.error("admin/produkte: DB error", error);
+    dbError = true;
   }
 
   const totalPages = Math.ceil(total / limit);
-  const dbError = products.length === 0 && total === 0;
 
   return (
     <div>
@@ -128,12 +129,12 @@ export default async function AdminProductsPage({
             Filtern
           </button>
           {(category || brand || q) && (
-            <a
+            <Link
               href="/admin/produkte"
               className="px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors"
             >
               Filter zurücksetzen
-            </a>
+            </Link>
           )}
         </form>
       </div>

@@ -3,6 +3,9 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { z } from "zod";
+
+const RangeSchema = z.enum(["all", "7d", "30d", "90d"]);
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +20,8 @@ export async function GET(request: NextRequest) {
     await requireAdmin();
 
     const { searchParams } = new URL(request.url);
-    const range = searchParams.get("range") || "all";
+    const rangeResult = RangeSchema.safeParse(searchParams.get("range") || "all");
+    const range = rangeResult.success ? rangeResult.data : "all";
     const now = new Date();
     let dateFrom: Date | undefined;
     if (range === "7d") {
@@ -35,7 +39,6 @@ export async function GET(request: NextRequest) {
       totalOrders,
       totalProducts,
       pendingOrders,
-      activeProducts,
       topProducts,
       recentOrders,
       categoryStats,
@@ -45,7 +48,6 @@ export async function GET(request: NextRequest) {
       prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
-      prisma.product.count(),
       prisma.orderItem.groupBy({
         by: ["productId"],
         _sum: { price: true },
@@ -128,7 +130,7 @@ export async function GET(request: NextRequest) {
       totalOrders,
       totalProducts,
       pendingOrders,
-      activeProducts,
+      activeProducts: totalProducts,
       avgOrderValue,
       topProducts: topProductsWithNames,
       recentOrders,

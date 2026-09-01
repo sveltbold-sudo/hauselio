@@ -33,6 +33,7 @@ export default function EinstellungenPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const isDirty = useRef(false);
   const initialSettingsRef = useRef<Settings | null>(null);
   const [, startTransition] = useTransition();
@@ -63,8 +64,21 @@ export default function EinstellungenPage() {
       .finally(() => setLoading(false));
   }, [startTransition]);
 
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (settings.bankIban && !/^[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}$/.test(settings.bankIban)) {
+      newErrors.bankIban = "Ungültige IBAN (z.B. DE89 3704 0044 0532 0130 00)";
+    }
+    if (settings.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.contactEmail)) {
+      newErrors.contactEmail = "Ungültige E-Mail-Adresse";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setSaving(true);
     try {
       const res = await fetch("/api/admin/einstellungen", {
@@ -158,10 +172,10 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.bankIban}
                 onChange={(e) => handleChange("bankIban", e.target.value)}
-                pattern="[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}"
-                title="Gültige IBAN (z.B. DE89 3704 0044 0532 0130 00)"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                placeholder="DE89 3704 0044 0532 0130 00"
+                className={`w-full px-3 py-3 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${errors.bankIban ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
               />
+              {errors.bankIban && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.bankIban}</p>}
             </div>
             <div>
               <label htmlFor="bankBic" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">BIC</label>
@@ -195,8 +209,9 @@ export default function EinstellungenPage() {
                 type="email"
                 value={settings.contactEmail}
                 onChange={(e) => handleChange("contactEmail", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                className={`w-full px-3 py-3 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${errors.contactEmail ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
               />
+              {errors.contactEmail && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.contactEmail}</p>}
             </div>
             <div>
               <label htmlFor="contactPhone" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Telefon</label>

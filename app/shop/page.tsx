@@ -114,7 +114,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     where.category = { slug: category };
   }
   if (brand) {
-    where.brand = { name: brand };
+    where.brand = { name: { equals: brand, mode: "insensitive" } };
   }
   if (q) {
     where.OR = [

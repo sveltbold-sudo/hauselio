@@ -24,7 +24,7 @@ type Step = "address" | "review";
 
 export default function BestellungPage() {
   const router = useRouter();
-  const { items, clearCart, coupon, updatePrice } = useCartStore();
+  const { items, clearCart, coupon, updatePrice, removeItem } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("address");
@@ -159,9 +159,13 @@ export default function BestellungPage() {
         const data = await res.json();
 
         const changes: PriceChange[] = [];
+        const invalidItems: string[] = [];
 
         for (const item of data.items) {
-          if (item.valid && item.priceChanged) {
+          if (!item.valid) {
+            invalidItems.push(item.name || item.id);
+            removeItem(item.id);
+          } else if (item.priceChanged) {
             changes.push({
               id: item.id,
               name: item.name,
@@ -171,6 +175,12 @@ export default function BestellungPage() {
             });
             updatePrice(item.id, item.newPrice);
           }
+        }
+
+        if (invalidItems.length > 0) {
+          setOrderError(
+            `${invalidItems.length === 1 ? "Ein Artikel ist" : `${invalidItems.length} Artikel sind`} nicht mehr verfügbar und wurde aus dem Warenkorb entfernt: ${invalidItems.join(", ")}`
+          );
         }
 
         setPriceChanges(changes);

@@ -24,12 +24,12 @@ export async function GET(request: NextRequest) {
         data: {
           bankIban: "",
           bankBic: "",
-          bankAccountName: "HAUSAURA GmbH",
+          bankAccountName: "",
           bankName: "",
-          shippingInfo: "Kostenloser Versand ab 50€ Bestellwert.",
-          contactEmail: "info@HAUSAURA.de",
-          contactPhone: "+49 (0)30 555 789 01",
-          contactAddress: "Kastanienallee 42, 10435 Berlin",
+          shippingInfo: "",
+          contactEmail: "",
+          contactPhone: "",
+          contactAddress: "",
         },
       });
     }

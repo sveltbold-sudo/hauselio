@@ -249,7 +249,7 @@ export default function KategorienPage() {
       <ConfirmDialog
         open={!!deleteTarget}
         title={`Kategorie "${deleteTarget?.name}" löschen`}
-        message={deleteTarget?.count ? `${deleteTarget.count} Produkte sind dieser Kategorie zugeordnet. Diese Zuordnung wird entfernt.` : "Möchten Sie diese Kategorie wirklich löschen?"}
+        message={deleteTarget?.count ? `${deleteTarget.count} Produkte sind dieser Kategorie zugeordnet. Die Kategorie kann erst gelöscht werden, wenn keine Produkte mehr zugeordnet sind.` : "Möchten Sie diese Kategorie wirklich löschen?"}
         confirmLabel="Löschen"
         danger
         onConfirm={confirmDelete}

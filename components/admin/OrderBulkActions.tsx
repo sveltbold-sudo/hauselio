@@ -84,7 +84,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
   }));
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-6 py-4 flex items-center gap-4">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-[calc(100vw-2rem)]">
       <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
       <div className="w-px h-6 bg-white/20" />
       <div className="relative">

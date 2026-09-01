@@ -135,16 +135,16 @@ export default function ProductForm({
     }
     const price = parseFloat(formData.price);
     if (isNaN(price) || price <= 0) {
-      newErrors.price = "Der Preis muss groesser als 0 sein.";
+      newErrors.price = "Der Preis muss größer als 0 sein.";
     }
     if (formData.originalPrice) {
       const orig = parseFloat(formData.originalPrice);
       if (!isNaN(orig) && orig <= price) {
-        newErrors.originalPrice = "Der Originalpreis musshoeher als der Verkaufspreis sein.";
+        newErrors.originalPrice = "Der Originalpreis muss höher als der Verkaufspreis sein.";
       }
     }
     if (!formData.categoryId) {
-      newErrors.categoryId = "Bitte waehlen Sie eine Kategorie.";
+      newErrors.categoryId = "Bitte wählen Sie eine Kategorie.";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
