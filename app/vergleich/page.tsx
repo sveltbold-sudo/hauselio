@@ -90,7 +90,7 @@ export default function VergleichPage() {
 
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Vergleich</p>
-        <h1 className="heading-1">Produktvergleich</h1>
+        <h1 className="heading-1 mb-4">Produktvergleich</h1>
         <p className="text-sm text-[var(--color-text-muted)] mt-1">
           {items.length} Produkte vergleichen
         </p>

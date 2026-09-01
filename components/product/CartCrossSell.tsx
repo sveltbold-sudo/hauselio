@@ -24,25 +24,108 @@ export default function CartCrossSell() {
   const toast = useToast();
 
   useEffect(() => {
+    if (items.length === 0) {
+      setLoading(false);
+      setSuggestions([]);
+      return;
+    }
+
     const controller = new AbortController();
-    const cartIds = items.map((i) => i.id);
-    fetch(`/api/products?limit=3&exclude=${cartIds.join(",")}`, { signal: controller.signal })
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data.products)) {
-          setSuggestions(
-            data.products.map((p: { id: string; name: string; slug: string; price: number; images?: string[] }) => ({
-              id: p.id,
-              name: p.name,
-              slug: p.slug,
-              price: p.price,
-              image: p.images?.[0] || "/images/placeholder-product.svg",
-            }))
+
+    const fetchRelated = async () => {
+      try {
+        const cartIds = new Set(items.map((i) => i.id));
+        const knownCategorySlugs = items
+          .map((i) => i.categorySlug)
+          .filter((s): s is string => Boolean(s));
+
+        let targetCategory: string | null = null;
+
+        if (knownCategorySlugs.length > 0) {
+          const counts: Record<string, number> = {};
+          for (const slug of knownCategorySlugs) {
+            counts[slug] = (counts[slug] || 0) + 1;
+          }
+          targetCategory = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+        } else {
+          const res = await fetch(
+            `/api/products?limit=100&sort=newest`,
+            { signal: controller.signal }
           );
+          if (!res.ok) return;
+          const data = await res.json();
+          if (!Array.isArray(data.products)) return;
+
+          const available = data.products.filter(
+            (p: { id: string }) => !cartIds.has(p.id)
+          );
+
+          if (available.length === 0) return;
+
+          const catCounts: Record<string, number> = {};
+          for (const p of available) {
+            const cat = (p as { categorySlug?: string }).categorySlug;
+            if (cat) catCounts[cat] = (catCounts[cat] || 0) + 1;
+          }
+
+          const sorted = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+          if (sorted.length > 0) {
+            targetCategory = sorted[0]![0];
+          }
         }
-      })
-      .catch(() => { /* graceful degradation - cross-sell is non-critical */ })
-      .finally(() => setLoading(false));
+
+        if (!targetCategory) {
+          const res = await fetch(
+            `/api/products?limit=3&sort=newest`,
+            { signal: controller.signal }
+          );
+          if (!res.ok) return;
+          const data = await res.json();
+          if (Array.isArray(data.products)) {
+            setSuggestions(
+              data.products
+                .filter((p: { id: string }) => !cartIds.has(p.id))
+                .slice(0, 3)
+                .map((p: { id: string; name: string; slug: string; price: number; images?: string[] }) => ({
+                  id: p.id,
+                  name: p.name,
+                  slug: p.slug,
+                  price: p.price,
+                  image: p.images?.[0] || "/images/placeholder-product.svg",
+                }))
+            );
+          }
+          return;
+        }
+
+        const res = await fetch(
+          `/api/products?category=${encodeURIComponent(targetCategory)}&limit=10`,
+          { signal: controller.signal }
+        );
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!Array.isArray(data.products)) return;
+
+        const related = data.products
+          .filter((p: { id: string }) => !cartIds.has(p.id))
+          .slice(0, 3)
+          .map((p: { id: string; name: string; slug: string; price: number; images?: string[] }) => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            price: p.price,
+            image: p.images?.[0] || "/images/placeholder-product.svg",
+          }));
+
+        setSuggestions(related);
+      } catch {
+        /* graceful degradation - cross-sell is non-critical */
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRelated();
     return () => controller.abort();
   }, [items]);
 
@@ -50,7 +133,7 @@ export default function CartCrossSell() {
     return (
       <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 lg:p-6" role="status"><span className="sr-only">Wird geladen...</span>
         <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4">
-          Kunden kauften auch
+          Passend dazu
         </h3>
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
@@ -72,7 +155,7 @@ export default function CartCrossSell() {
   return (
     <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-5 lg:p-6">
       <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4">
-        Kunden kauften auch
+        Passend dazu
       </h3>
       <div className="space-y-3">
         {suggestions.map((item) => (

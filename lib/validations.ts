@@ -88,3 +88,12 @@ export const UpdateProfileSchema = z.object({
   city: z.string().max(100).optional().nullable(),
   country: z.string().min(2).max(2).optional(),
 });
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().email("Ungültige E-Mail-Adresse").max(254),
+});
+
+export const ResetPasswordSchema = z.object({
+  token: z.string().min(1, "Token ist erforderlich"),
+  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+});

@@ -71,7 +71,7 @@ export default async function KategoriePage() {
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 
-          <h1 className="heading-1 mb-3">Unsere Kategorien</h1>
+          <h1 className="heading-1 mb-4">Unsere Kategorien</h1>
           <p className="body-large max-w-2xl">
             Entdecken Sie unser Sortiment an Premium-Haushaltsgeräten. Finden Sie das perfekte Gerät für Ihr Zuhause.
           </p>

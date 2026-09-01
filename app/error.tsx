@@ -22,7 +22,7 @@ export default function Error({
         <AlertTriangle className="w-10 h-10 text-[var(--color-danger)]" />
       </div>
 
-      <h1 className="heading-2 mb-4">Etwas ist schiefgelaufen</h1>
+      <h1 className="heading-1 mb-4">Etwas ist schiefgelaufen</h1>
 
       <p className="body-large mb-10">
         Es tut uns leid, ein unerwarteter Fehler ist aufgetreten. Bitte

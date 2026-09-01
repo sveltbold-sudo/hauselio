@@ -16,7 +16,7 @@ const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFi
 
 export const revalidate = 300;
 
-function shopUrl(page: number, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string) {
+function shopUrl(page: number, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
   const params = new URLSearchParams();
   params.set("page", String(page));
   if (category) params.set("category", category);
@@ -25,6 +25,7 @@ function shopUrl(page: number, category?: string, brand?: string, q?: string, so
   if (sort && sort !== "newest") params.set("sort", sort);
   if (price) params.set("price", price);
   if (promo) params.set("promo", promo);
+  if (rating) params.set("rating", rating);
   return `/shop?${params.toString()}`;
 }
 
@@ -158,6 +159,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
   let total = 0;
   let categoryCounts: Record<string, number> = {};
+  const ratingCounts: Record<number, number> = {};
 
   try {
     const [productsResult, categoriesResult, brandsResult, totalResult, categoryCountsResult] = await Promise.allSettled([
@@ -201,6 +203,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     if (brandsResult.status === "rejected") logger.error("shop-brands", brandsResult.reason);
     if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
     if (categoryCountsResult.status === "rejected") logger.error("shop-category-counts", categoryCountsResult.reason);
+
+    const allRatings = await prisma.product.findMany({ select: { rating: true } });
+    for (let level = 1; level <= 5; level++) {
+      ratingCounts[level] = allRatings.filter(
+        (p) => Math.round(Number(p.rating)) === level
+      ).length;
+    }
   } catch (error) {
     logger.error("shop-page", error);
   }
@@ -222,6 +231,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
+    categorySlug: product.category?.slug || null,
     stockQuantity: product.stockQuantity ?? null,
   }));
 
@@ -261,7 +271,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       {/* Header */}
       <div className="mb-6 sm:mb-8">
         <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
-        <h1 className="heading-1">
+        <h1 className="heading-1 mb-4">
           {q ? `Suchergebnisse für "${q}"` : "Alle Produkte"}
         </h1>
         <p className="body-large mt-2">
@@ -321,11 +331,11 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
 
       {/* Active filter chips */}
-      {(category || brand || promo === "true" || q) && (
+      {(category || brand || promo === "true" || q || rating) && (
         <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
               aria-label={`${categories.find((c) => c.slug === category)?.name || category} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -335,7 +345,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {brand && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
               aria-label={`${brand} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -345,7 +355,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {promo === "true" && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
               aria-label="Angebote Filter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
@@ -355,11 +365,21 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {q && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
               aria-label="Suche entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
               Suche: {q}
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          {rating && (
+            <Link
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              aria-label="Bewertungsfilter entfernen"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+            >
+              Ab {rating}★
               <X className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           )}
@@ -390,6 +410,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             brands={brands.map((b) => b.name)}
             selectedCategory={category}
             selectedBrand={brand}
+            selectedRating={rating}
+            ratingCounts={ratingCounts}
             price={price}
             promo={promo}
           />
@@ -452,7 +474,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide justify-center">
                   {page > 1 && (
                     <Link
-                      href={shopUrl(page - 1, category, brand, q, sort, price, promo)}
+                      href={shopUrl(page - 1, category, brand, q, sort, price, promo, rating)}
                       className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                       aria-label="Vorherige Seite"
                     >
@@ -474,7 +496,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                     return (
                       <Link
                         key={p}
-                        href={shopUrl(p, category, brand, q, sort, price, promo)}
+                        href={shopUrl(p, category, brand, q, sort, price, promo, rating)}
                         aria-current={p === page ? "page" : undefined}
                         className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                           p === page
@@ -488,7 +510,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   })}
                   {page < totalPages && (
                     <Link
-                      href={shopUrl(page + 1, category, brand, q, sort, price, promo)}
+                      href={shopUrl(page + 1, category, brand, q, sort, price, promo, rating)}
                       className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                       aria-label="Nächste Seite"
                     >

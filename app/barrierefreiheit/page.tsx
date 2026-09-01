@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function BarrierefreiheitPage() {
   return (
-    <main id="main-content" className="container-hausaura py-16 max-w-3xl">
+    <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Barrierefreiheit" }]} />
       <h1 className="heading-1 mb-8">Barrierefreiheitserklärung</h1>
 
@@ -135,9 +135,7 @@ export default function BarrierefreiheitPage() {
             <li>Reduzierte Bewegung (prefers-reduced-motion) wird unterstützt</li>
           </ul>
         </section>
-      </div>
 
-      <div className="container-hausaura">
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
           Stand: August 2026
         </p>

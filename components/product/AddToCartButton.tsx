@@ -14,6 +14,7 @@ interface AddToCartButtonProps {
     originalPrice?: number | null;
     image: string;
     brand?: string;
+    categorySlug?: string;
     rating?: number;
     reviewCount?: number;
 
@@ -42,6 +43,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
         originalPrice: product.originalPrice ?? undefined,
         image: product.image,
         brand: product.brand ?? "",
+        categorySlug: product.categorySlug,
 
       });
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

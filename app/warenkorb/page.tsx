@@ -86,7 +86,7 @@ export default function WarenkorbPage() {
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <p className="caption text-[var(--color-primary)] mb-3">Einkauf</p>
-        <h1 className="heading-1">Warenkorb</h1>
+        <h1 className="heading-1 mb-4">Warenkorb</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">

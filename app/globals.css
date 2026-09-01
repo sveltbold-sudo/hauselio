@@ -709,11 +709,6 @@ a, button, input, select, textarea, [role="button"] {
   animation: bounce-in 0.3s ease-out;
 }
 
-/* ── Auto-scroll progress indicator ── */
-@keyframes shrink {
-  from { width: 100%; }
-  to { width: 0%; }
-}
 
 /* ═══════════════════════════════════════════════════
    Reduced Motion

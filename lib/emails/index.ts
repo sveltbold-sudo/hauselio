@@ -598,7 +598,54 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
 }
 
 // ─────────────────────────────────────────────
-// 8. NEWSLETTER CAMPAIGN
+// 8. PASSWORD RESET
+// ─────────────────────────────────────────────
+export async function sendPasswordResetEmail(
+  email: string,
+  name: string,
+  token: string
+) {
+  const resetUrl = `${SITE_URL}/passwort-zuruecksetzen?token=${encodeURIComponent(token)}`;
+  const safeName = escapeHtml(name);
+
+  const html = baseTemplate(`
+    ${headerBanner("Passwort zurücksetzen", "Ihre Anfrage zur Passwortänderung")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Wir haben eine Anfrage zum Zurücksetzen Ihres Passworts erhalten. Klicken Sie auf den folgenden Button, um ein neues Passwort festzulegen:
+      </p>
+
+      <div style="text-align:center;padding:16px 0 24px 0;">
+        <a href="${resetUrl}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:10px;">
+          Passwort zurücksetzen
+        </a>
+      </div>
+
+      <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
+        <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
+          Dieser Link ist <strong>1 Stunde</strong> gültig. Wenn Sie Ihr Passwort nicht zurücksetzen wollten, können Sie diese E-Mail ignorieren.
+        </p>
+      </div>
+
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: email,
+    subject: "Passwort zurücksetzen \u2013 HAUSAURA",
+    html,
+  });
+}
+
+// ─────────────────────────────────────────────
+// 9. NEWSLETTER CAMPAIGN
 // ─────────────────────────────────────────────
 export async function sendNewsletterCampaign(data: {
   subject: string;

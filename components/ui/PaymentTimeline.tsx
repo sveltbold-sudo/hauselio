@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Clock, CreditCard, Truck, Package } from "lucide-react";
+import { Check, CreditCard, Truck, Package } from "lucide-react";
 
 interface PaymentTimelineProps {
   currentStep: "ordered" | "payment-pending" | "payment-received" | "shipped" | "delivered";

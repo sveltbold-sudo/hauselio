@@ -290,7 +290,7 @@ export default function BestellungPage() {
           Zurück zum Warenkorb
         </Link>
         <p className="caption text-[var(--color-primary)] mb-3">Checkout</p>
-        <h1 className="heading-1">Sicher bestellen</h1>
+        <h1 className="heading-1 mb-4">Sicher bestellen</h1>
         <p className="text-sm text-[var(--color-text-muted)] mt-1 flex items-center gap-1.5">
           <User className="w-4 h-4" />
           Kein Konto erforderlich · Schnell & einfach

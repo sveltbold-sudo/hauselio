@@ -83,7 +83,7 @@ export default function GarantiePage() {
       <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-4xl">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
-        <h1 className="heading-1 mb-4">Garantie & Gewährleistung</h1>
+        <h1 className="heading-1 mb-8">Garantie & Gewährleistung</h1>
         <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">
           Bei HAUSAURA stehen wir hinter der Qualität unserer Produkte. Profitieren Sie von unserer umfassenden Garantie.
         </p>
@@ -186,13 +186,11 @@ export default function GarantiePage() {
             </Link>
           </div>
         </div>
-      </main>
 
-      <div className="container-hausaura">
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
           Stand: August 2026
         </p>
-      </div>
+      </main>
     </>
   );
 }

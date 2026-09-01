@@ -75,7 +75,7 @@ export default function WunschlistePage() {
       <div className="flex items-center justify-between mb-6 sm:mb-10">
         <div>
           <p className="caption text-[var(--color-primary)] mb-3">Merkliste</p>
-          <h1 className="heading-1">Wunschliste</h1>
+          <h1 className="heading-1 mb-4">Wunschliste</h1>
           <p className="text-sm text-[var(--color-text-muted)] mt-1">
             {wishlistItems.length} {wishlistItems.length === 1 ? "Produkt" : "Produkte"}
           </p>

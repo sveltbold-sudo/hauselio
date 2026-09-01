@@ -80,7 +80,7 @@ export default async function KontaktPage() {
         <div className="mb-8 sm:mb-12">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
             <div>
-              <h1 className="heading-1">So erreichen Sie uns</h1>
+              <h1 className="heading-1 mb-4">So erreichen Sie uns</h1>
               <p className="body-large mt-2">
                 Wir sind für Sie da — per E-Mail, Telefon oder persönlicher Nachricht.
               </p>

@@ -473,7 +473,7 @@ export default function KontoPage() {
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
 
       <div className="max-w-md mx-auto">
-        <h1 className="heading-1 text-center mb-8">Mein Konto</h1>
+        <h1 className="heading-1 text-center mb-4">Mein Konto</h1>
 
         <div className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8">
           <button
@@ -551,7 +551,7 @@ export default function KontoPage() {
             </button>
 
             <p className="text-center text-xs text-[var(--color-text-muted)]">
-              <Link href="/kontakt?betreff=Passwort+zur%C3%BCcksetzen" className="text-[var(--color-primary)] hover:underline">
+              <Link href="/passwort-zuruecksetzen" className="text-[var(--color-primary)] hover:underline">
                 Passwort vergessen?
               </Link>
             </p>

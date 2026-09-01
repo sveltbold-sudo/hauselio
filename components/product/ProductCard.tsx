@@ -22,6 +22,7 @@ interface ProductCardProps {
     isNew?: boolean;
     isPromo?: boolean;
     brand?: string | null;
+    categorySlug?: string | null;
 
   };
 }
@@ -94,6 +95,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
               originalPrice: product.originalPrice,
               image: product.image,
               brand: product.brand ?? "",
+              categorySlug: product.categorySlug ?? undefined,
               rating: product.rating,
               reviewCount: product.reviewCount,
 

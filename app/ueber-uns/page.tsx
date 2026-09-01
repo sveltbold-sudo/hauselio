@@ -65,7 +65,7 @@ export default function UeberUnsPage() {
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
         <p className="caption text-[var(--color-primary)] mb-3">Über HAUSAURA</p>
-        <h1 className="heading-1 mb-4">
+        <h1 className="heading-1 mb-8">
           Über HAUSAURA
         </h1>
         <p className="body-large">

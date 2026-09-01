@@ -97,6 +97,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       slug: product.slug,
       price: product.price,
       image: product.images[0] || "/images/placeholder-product.svg",
+      categorySlug: product.categorySlug,
     }, quantity);
     toast.success(`${quantity > 1 ? quantity + " Artikel" : "Artikel"} zum Warenkorb hinzugefügt!`);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
