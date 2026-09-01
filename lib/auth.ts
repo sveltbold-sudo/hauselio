@@ -52,44 +52,78 @@ const DEV_SECRET_PREFIXES = [
   "super-secret",
 ];
 
-export function getJWTSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) {
-    throw new Error("JWT_SECRET environment variable is required");
-  }
+function validateSecret(secret: string, name: string): void {
   if (secret.length < 32) {
-    throw new Error("JWT_SECRET must be at least 32 characters long");
+    throw new Error(`${name} must be at least 32 characters long`);
   }
   if (process.env.NODE_ENV === "production") {
     const lower = secret.toLowerCase();
     for (const prefix of DEV_SECRET_PREFIXES) {
       if (lower.includes(prefix)) {
         throw new Error(
-          "JWT_SECRET appears to be a development value. Generate a secure secret with: openssl rand -base64 48"
+          `${name} appears to be a development value. Generate a secure secret with: openssl rand -base64 48`
         );
       }
     }
     const uniqueChars = new Set(secret).size;
     if (uniqueChars < 10) {
       throw new Error(
-        "JWT_SECRET has too little entropy. Generate a secure secret with: openssl rand -base64 48"
+        `${name} has too little entropy. Generate a secure secret with: openssl rand -base64 48`
       );
     }
   }
+}
+
+function encodeSecret(secret: string): Uint8Array {
   return new TextEncoder().encode(secret);
+}
+
+export function getJWTSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET environment variable is required");
+  validateSecret(secret, "JWT_SECRET");
+  return encodeSecret(secret);
+}
+
+export function getAdminJWTSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET_ADMIN || process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET_ADMIN (or JWT_SECRET) environment variable is required");
+  validateSecret(secret, "JWT_SECRET_ADMIN");
+  return encodeSecret(secret);
+}
+
+export function getCustomerJWTSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET_CUSTOMER || process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET_CUSTOMER (or JWT_SECRET) environment variable is required");
+  validateSecret(secret, "JWT_SECRET_CUSTOMER");
+  return encodeSecret(secret);
+}
+
+export function getUnsubscribeJWTSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET_UNSUBSCRIBE || process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET_UNSUBSCRIBE (or JWT_SECRET) environment variable is required");
+  validateSecret(secret, "JWT_SECRET_UNSUBSCRIBE");
+  return encodeSecret(secret);
 }
 
 const COOKIE_NAME = "admin_token";
 const TOKEN_EXPIRY = "24h";
 const TOKEN_EXPIRY_SEC = 24 * 60 * 60;
+// In production without Upstash, tokens cannot be reliably revoked across
+// serverless instances. Use a short expiry as a safety net.
+const EFFECTIVE_TOKEN_EXPIRY = (process.env.NODE_ENV === "production" && !useUpstash) ? "1h" : TOKEN_EXPIRY;
+const EFFECTIVE_TOKEN_EXPIRY_SEC = (process.env.NODE_ENV === "production" && !useUpstash) ? 3600 : TOKEN_EXPIRY_SEC;
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 export async function revokeToken(token: string): Promise<void> {
   const key = `HAUSAURA:blacklist:${token}`;
-  await redisSet(key, "1", TOKEN_EXPIRY_SEC);
+  await redisSet(key, "1", EFFECTIVE_TOKEN_EXPIRY_SEC);
   if (!useUpstash) {
-    memoryBlacklist.set(key, Date.now() + TOKEN_EXPIRY_SEC * 1000);
+    memoryBlacklist.set(key, Date.now() + EFFECTIVE_TOKEN_EXPIRY_SEC * 1000);
+    if (process.env.NODE_ENV === "production") {
+      logger.warn("auth", "Token revocation uses in-memory fallback — not shared across serverless instances. Configure UPSTASH_REDIS_REST_URL for production.");
+    }
   }
 }
 
@@ -102,6 +136,7 @@ export interface AdminPayload {
   email: string;
   role: "ADMIN" | "EDITOR";
   name?: string;
+  lastLoginAt?: number;
 }
 
 export async function hashPassword(password: string): Promise<string> {
@@ -125,13 +160,13 @@ export async function generateToken(payload: AdminPayload): Promise<string> {
     .setIssuedAt()
     .setIssuer("HAUSAURA-admin")
     .setAudience("HAUSAURA-admin")
-    .setExpirationTime(TOKEN_EXPIRY)
-    .sign(getJWTSecret());
+    .setExpirationTime(EFFECTIVE_TOKEN_EXPIRY)
+    .sign(getAdminJWTSecret());
 }
 
 export async function verifyToken(token: string): Promise<AdminPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, getJWTSecret(), {
+    const { payload } = await jwtVerify(token, getAdminJWTSecret(), {
       algorithms: ["HS256"],
       issuer: "HAUSAURA-admin",
       audience: "HAUSAURA-admin",
@@ -144,12 +179,14 @@ export async function verifyToken(token: string): Promise<AdminPayload | null> {
       "email" in p &&
       "role" in p
     ) {
-      return {
+      const result: AdminPayload = {
         id: p.id as string,
         email: p.email as string,
         role: p.role as "ADMIN" | "EDITOR",
         name: (p.name as string) || undefined,
+        lastLoginAt: typeof p.lastLoginAt === "number" ? p.lastLoginAt : undefined,
       };
+      return result;
     }
     return null;
   } catch {
@@ -162,7 +199,24 @@ export async function getAdminFromRequest(): Promise<AdminPayload | null> {
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
   if (await isTokenRevoked(token)) return null;
-  return verifyToken(token);
+  const payload = await verifyToken(token);
+  if (!payload) return null;
+
+  // Token rotation: reject tokens issued before the last login
+  if (payload.lastLoginAt) {
+    const admin = await prisma.adminUser.findUnique({
+      where: { id: payload.id },
+      select: { lastLogin: true },
+    });
+    if (admin?.lastLogin) {
+      const lastLoginSec = Math.floor(admin.lastLogin.getTime() / 1000);
+      if (payload.lastLoginAt < lastLoginSec) {
+        return null;
+      }
+    }
+  }
+
+  return payload;
 }
 
 export async function requireAdmin(): Promise<AdminPayload> {
@@ -188,12 +242,12 @@ export async function createUnsubscribeToken(email: string): Promise<string> {
     .setIssuer("HAUSAURA-newsletter")
     .setAudience("HAUSAURA-unsubscribe")
     .setExpirationTime("30d")
-    .sign(getJWTSecret());
+    .sign(getUnsubscribeJWTSecret());
 }
 
 export async function verifyUnsubscribeToken(token: string): Promise<string | null> {
   try {
-    const { payload } = await jwtVerify(token, getJWTSecret(), {
+    const { payload } = await jwtVerify(token, getUnsubscribeJWTSecret(), {
       algorithms: ["HS256"],
       issuer: "HAUSAURA-newsletter",
       audience: "HAUSAURA-unsubscribe",
@@ -230,7 +284,7 @@ export function setAuthCookie(token: string, request?: { headers: Headers }) {
       secure,
       sameSite: "lax" as const,
       path: "/",
-      maxAge: 24 * 60 * 60,
+      maxAge: EFFECTIVE_TOKEN_EXPIRY_SEC,
     },
   };
 }
@@ -331,9 +385,10 @@ export async function authenticateAdmin(
 
   if (!admin) return null;
 
+  const loginTime = new Date();
   await prisma.adminUser.update({
     where: { id: admin.id },
-    data: { lastLogin: new Date() },
+    data: { lastLogin: loginTime },
   });
 
   return {
@@ -341,6 +396,7 @@ export async function authenticateAdmin(
     email: admin.email,
     role: admin.role as "ADMIN" | "EDITOR",
     name: admin.name || undefined,
+    lastLoginAt: Math.floor(loginTime.getTime() / 1000),
   };
 }
 
@@ -367,12 +423,12 @@ export async function generateCustomerToken(payload: CustomerPayload): Promise<s
     .setIssuer("HAUSAURA-customer")
     .setAudience("HAUSAURA-customer")
     .setExpirationTime(CUSTOMER_TOKEN_EXPIRY)
-    .sign(getJWTSecret());
+    .sign(getCustomerJWTSecret());
 }
 
 export async function verifyCustomerToken(token: string): Promise<CustomerPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, getJWTSecret(), {
+    const { payload } = await jwtVerify(token, getCustomerJWTSecret(), {
       algorithms: ["HS256"],
       issuer: "HAUSAURA-customer",
       audience: "HAUSAURA-customer",

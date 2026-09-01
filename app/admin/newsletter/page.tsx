@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
+import DOMPurify from "isomorphic-dompurify";
 
 export const dynamic = "force-dynamic";
 
@@ -209,7 +210,7 @@ export default function NewsletterPage() {
                   </div>
                   <div
                     className="p-4 bg-white min-h-[200px] prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{ __html: campaignContent || "<p class='text-[var(--color-text-muted)]'>Kein Inhalt eingegeben.</p>" }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(campaignContent || "<p class='text-[var(--color-text-muted)]'>Kein Inhalt eingegeben.</p>", { ALLOWED_TAGS: ["h1","h2","h3","h4","p","br","hr","strong","em","b","i","u","s","a","ul","ol","li","table","thead","tbody","tr","th","td","img","div","span","blockquote","pre","code","sub","sup","small","mark"], ALLOWED_ATTR: ["href","src","alt","width","height","class","style","target","rel","title","align","valign","border","cellpadding","cellspacing","bgcolor","color","face","size"] }) }}
                   />
                 </div>
               )}
