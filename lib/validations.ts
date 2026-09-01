@@ -40,8 +40,6 @@ export const CreateProductSchema = z.object({
   originalPrice: z.number().min(0).max(999999.99).optional().nullable(),
   categoryId: z.string().min(1, "Kategorie ist erforderlich"),
   brandId: z.string().optional().nullable(),
-  inStock: z.boolean().optional().default(true),
-  stockQuantity: z.number().min(0).optional().nullable(),
   isNew: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),
   weight: z.number().min(0).optional().nullable(),

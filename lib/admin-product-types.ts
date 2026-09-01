@@ -7,8 +7,6 @@ export interface ProductFormData {
   originalPrice: string;
   categoryId: string;
   brandId: string;
-  inStock: boolean;
-  stockQuantity: string;
   isNew: boolean;
   isFeatured: boolean;
   weight: string;
@@ -41,8 +39,6 @@ export const emptyFormData: ProductFormData = {
   originalPrice: "",
   categoryId: "",
   brandId: "",
-  inStock: true,
-  stockQuantity: "",
   isNew: false,
   isFeatured: false,
   weight: "",

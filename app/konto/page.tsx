@@ -475,8 +475,12 @@ export default function KontoPage() {
       <div className="max-w-md mx-auto">
         <h1 className="heading-1 text-center mb-4">Mein Konto</h1>
 
-        <div className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8">
+        <div role="tablist" aria-label="Anmeldung oder Registrierung" className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8">
           <button
+            role="tab"
+            id="tab-login"
+            aria-selected={tab === "login"}
+            aria-controls="panel-login"
             onClick={() => { setTab("login"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "login"
@@ -487,6 +491,10 @@ export default function KontoPage() {
             Anmelden
           </button>
           <button
+            role="tab"
+            id="tab-register"
+            aria-selected={tab === "register"}
+            aria-controls="panel-register"
             onClick={() => { setTab("register"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "register"
@@ -499,17 +507,18 @@ export default function KontoPage() {
         </div>
 
         {tab === "login" ? (
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" onSubmit={handleLogin} className="space-y-4">
             {error && (
               <div role="alert" className="p-3 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-sm rounded-xl">
                 {error}
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
+              <label htmlFor="login-email" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="login-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -521,10 +530,11 @@ export default function KontoPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort</label>
+              <label htmlFor="login-password" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="login-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -535,6 +545,7 @@ export default function KontoPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -557,17 +568,18 @@ export default function KontoPage() {
             </p>
           </form>
         ) : (
-          <form onSubmit={handleRegister} className="space-y-4">
+          <form id="panel-register" role="tabpanel" aria-labelledby="tab-register" onSubmit={handleRegister} className="space-y-4">
             {error && (
               <div role="alert" className="p-3 bg-[var(--color-danger-light)] text-[var(--color-danger)] text-sm rounded-xl">
                 {error}
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Name</label>
+              <label htmlFor="register-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Name</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="register-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -579,10 +591,11 @@ export default function KontoPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
+              <label htmlFor="register-email" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="register-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -594,10 +607,11 @@ export default function KontoPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort</label>
+              <label htmlFor="register-password" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="register-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -609,6 +623,7 @@ export default function KontoPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}

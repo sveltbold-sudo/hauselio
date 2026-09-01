@@ -24,7 +24,6 @@ interface ProductRecord extends Record<string, unknown> {
   isNew: boolean;
   isPromo: boolean;
   description: string;
-  inStock: boolean;
 }
 
 function formatProduct(product: ProductWithRelations): ProductRecord {
@@ -43,7 +42,6 @@ function formatProduct(product: ProductWithRelations): ProductRecord {
     isNew: product.isNew,
     isPromo: product.isPromo,
     description: product.description,
-    inStock: product.inStock,
   };
 }
 

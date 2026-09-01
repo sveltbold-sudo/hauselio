@@ -51,8 +51,6 @@ model Product {
   sku           String?       @unique
   barcode       String?
   weight        Decimal?      @db.Decimal(8, 2)
-  inStock       Boolean       @default(true)
-  stockQuantity Int?
   isFeatured    Boolean       @default(false)
   isNew         Boolean       @default(false)
   isPromo       Boolean       @default(false)
@@ -137,6 +135,7 @@ model Order {
   shippingCost      Decimal       @db.Decimal(10, 2) @default(0)
   trackingNumber    String?
   subtotal          Decimal       @db.Decimal(10, 2)
+  couponDiscount    Decimal       @db.Decimal(10, 2) @default(0)
   total             Decimal       @db.Decimal(10, 2)
   items             OrderItem[]
   createdAt         DateTime      @default(now())
