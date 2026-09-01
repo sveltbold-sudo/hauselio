@@ -13,6 +13,11 @@ const UpdateOrderSchema = z.object({
   trackingNumber: z.string().max(50).optional().nullable(),
 });
 
+const PatchOrderSchema = z.object({
+  adminNotes: z.string().max(2000).optional(),
+  trackingNumber: z.string().max(50).optional().nullable(),
+});
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -103,6 +108,46 @@ export async function PUT(
     } catch (emailError) {
       logger.error("order-status-email", emailError);
     }
+
+    return NextResponse.json({ order });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
+    await requireAdmin();
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-bestellung-patch:${ip}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+    const { id } = await params;
+    const body = await request.json();
+    const parsed = PatchOrderSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]!.message },
+        { status: 400 }
+      );
+    }
+
+    const { adminNotes, trackingNumber } = parsed.data;
+
+    const order = await prisma.order.update({
+      where: { id },
+      data: {
+        ...(adminNotes !== undefined && { adminNotes }),
+        ...(trackingNumber !== undefined && { trackingNumber: trackingNumber || null }),
+      },
+    });
 
     return NextResponse.json({ order });
   } catch (error) {

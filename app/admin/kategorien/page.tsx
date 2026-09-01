@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash2, X } from "lucide-react";
 import { slugify } from "@/lib/utils";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
 interface Category {
   id: string;
@@ -24,6 +25,7 @@ export default function KategorienPage() {
   const [form, setForm] = useState({ name: "", slug: "", description: "" });
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string; count: number } | null>(null);
   const [, startTransition] = useTransition();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -95,15 +97,21 @@ export default function KategorienPage() {
   };
 
   const handleDelete = async (id: string, name: string, productCount: number) => {
-    if (!confirm(`Kategorie "${name}" wirklich löschen?${productCount > 0 ? ` ${productCount} Produkte sind zugeordnet.` : ""}`)) return;
+    setDeleteTarget({ id, name, count: productCount });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      const res = await fetch(`/api/admin/kategorien/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/kategorien/${deleteTarget.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
       toast.success("Kategorie gelöscht!");
       loadCategories();
     } catch (error) {
       logger.error("Kategorie löschen fehlgeschlagen", { error });
       toast.error(error instanceof Error ? error.message : "Fehler beim Löschen");
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -238,6 +246,15 @@ export default function KategorienPage() {
           </tbody>
         </table>
       </div>
+      <ConfirmDialog
+        open={!!deleteTarget}
+        title={`Kategorie "${deleteTarget?.name}" löschen`}
+        message={deleteTarget?.count ? `${deleteTarget.count} Produkte sind dieser Kategorie zugeordnet. Diese Zuordnung wird entfernt.` : "Möchten Sie diese Kategorie wirklich löschen?"}
+        confirmLabel="Löschen"
+        danger
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }

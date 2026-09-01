@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
+import OrderNotes from "@/components/admin/OrderNotes";
 
 export const dynamic = "force-dynamic";
 
@@ -129,31 +130,19 @@ export default async function AdminOrderDetailPage({
           </div>
 
           {/* Notes */}
-          {(order.customerNotes || order.adminNotes) && (
+          <OrderNotes
+            orderId={order.id}
+            initialAdminNotes={order.adminNotes || ""}
+            initialTrackingNumber={order.trackingNumber || ""}
+          />
+          {order.customerNotes && (
             <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
               <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
-                Notizen
+                Kundennotizen
               </h2>
-              {order.customerNotes && (
-                <div className="mb-4">
-                  <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase mb-1">
-                    Kundennotizen
-                  </p>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    {order.customerNotes}
-                  </p>
-                </div>
-              )}
-              {order.adminNotes && (
-                <div>
-                  <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase mb-1">
-                    Admin-Notizen
-                  </p>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    {order.adminNotes}
-                  </p>
-                </div>
-              )}
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                {order.customerNotes}
+              </p>
             </div>
           )}
         </div>

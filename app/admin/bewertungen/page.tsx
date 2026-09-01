@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { Star, Check, X, Trash2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
 export const dynamic = "force-dynamic";
 
@@ -23,20 +24,29 @@ export default function BewertungenPage() {
   const toast = useToast();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, pages: 0 });
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    fetch("/api/admin/bewertungen")
+    setLoading(true);
+    fetch(`/api/admin/bewertungen?page=${page}&limit=20&filter=${filter}`)
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
-      .then((data) => startTransition(() => setReviews(data.reviews || [])))
+      .then((data) => {
+        startTransition(() => {
+          setReviews(data.reviews || []);
+          if (data.pagination) setPagination(data.pagination);
+        });
+      })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
-  }, [startTransition]);
+  }, [page, filter, startTransition]);
 
   const handleApprove = async (id: string, approved: boolean) => {
     try {
@@ -55,21 +65,21 @@ export default function BewertungenPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Bewertung wirklich löschen?")) return;
-    try {
-      const res = await fetch(`/api/admin/bewertungen/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Fehler beim Löschen");
-      setReviews((prev) => prev.filter((r) => r.id !== id));
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
-    }
+    setDeleteId(id);
   };
 
-  const filtered = reviews.filter((r) => {
-    if (filter === "pending") return !r.isApproved;
-    if (filter === "approved") return r.isApproved;
-    return true;
-  });
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+    try {
+      const res = await fetch(`/api/admin/bewertungen/${deleteId}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Fehler beim Löschen");
+      setReviews((prev) => prev.filter((r) => r.id !== deleteId));
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
+    } finally {
+      setDeleteId(null);
+    }
+  };
 
   const pendingCount = reviews.filter((r) => !r.isApproved).length;
 
@@ -92,7 +102,7 @@ export default function BewertungenPage() {
         {(["all", "pending", "approved"] as const).map((f) => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
+            onClick={() => { setFilter(f); setPage(1); }}
             aria-pressed={filter === f}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f
@@ -111,10 +121,10 @@ export default function BewertungenPage() {
           <div className="text-center py-12 text-[var(--color-text-muted)]" role="status" aria-label="Wird geladen">Laden...</div>
         ) : loadError ? (
           <div className="text-center py-12 text-[var(--color-danger)]" role="alert">Bewertungen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</div>
-        ) : filtered.length === 0 ? (
+        ) : reviews.length === 0 ? (
           <div className="text-center py-12 text-[var(--color-text-muted)]">Keine Bewertungen gefunden.</div>
         ) : (
-          filtered.map((review) => (
+          reviews.map((review) => (
             <div
               key={review.id}
               className={`bg-white rounded-xl border p-5 ${
@@ -196,6 +206,38 @@ export default function BewertungenPage() {
           ))
         )}
       </div>
+      {pagination.pages > 1 && (
+        <div className="flex items-center justify-between mt-6">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            Seite {pagination.page} von {pagination.pages}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Zurück
+            </button>
+            <button
+              onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))}
+              disabled={page === pagination.pages}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Weiter
+            </button>
+          </div>
+        </div>
+      )}
+      <ConfirmDialog
+        open={!!deleteId}
+        title="Bewertung löschen"
+        message="Möchten Sie diese Bewertung wirklich dauerhaft löschen?"
+        confirmLabel="Löschen"
+        danger
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </div>
   );
 }

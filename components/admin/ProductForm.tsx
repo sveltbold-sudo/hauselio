@@ -618,6 +618,9 @@ export default function ProductForm({
                     }
                     className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
+                  <p className={`mt-1 text-xs ${formData.seoTitle.length > 55 ? "text-[var(--color-accent)]" : "text-[var(--color-text-muted)]"}`}>
+                    {formData.seoTitle.length}/60 Zeichen
+                  </p>
                 </div>
                 <div>
                   <label htmlFor="metaDescription" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -636,6 +639,9 @@ export default function ProductForm({
                     }
                     className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
                   />
+                  <p className={`mt-1 text-xs ${formData.seoDesc.length > 150 ? "text-[var(--color-accent)]" : "text-[var(--color-text-muted)]"}`}>
+                    {formData.seoDesc.length}/160 Zeichen
+                  </p>
                 </div>
               </div>
             </div>

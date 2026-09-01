@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useRef } from "react";
 import { Save, Building2, Truck, Globe } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
@@ -33,7 +33,19 @@ export default function EinstellungenPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [saving, setSaving] = useState(false);
+  const isDirty = useRef(false);
+  const initialSettingsRef = useRef<Settings | null>(null);
   const [, startTransition] = useTransition();
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty.current) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
   useEffect(() => {
     fetch("/api/admin/einstellungen")
@@ -42,7 +54,10 @@ export default function EinstellungenPage() {
         return r.json();
       })
       .then((data) => {
-        if (data.settings) startTransition(() => setSettings(data.settings));
+        if (data.settings) {
+          startTransition(() => setSettings(data.settings));
+          initialSettingsRef.current = data.settings;
+        }
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
@@ -62,6 +77,8 @@ export default function EinstellungenPage() {
         throw new Error(data?.error || "Fehler beim Speichern");
       }
       toast.success("Einstellungen gespeichert!");
+      isDirty.current = false;
+      initialSettingsRef.current = settings;
     } catch {
       toast.error("Fehler beim Speichern.");
     } finally {
@@ -70,7 +87,11 @@ export default function EinstellungenPage() {
   };
 
   const handleChange = (field: keyof Settings, value: string) => {
-    setSettings((prev) => ({ ...prev, [field]: value }));
+    setSettings((prev) => {
+      const next = { ...prev, [field]: value };
+      isDirty.current = JSON.stringify(next) !== JSON.stringify(initialSettingsRef.current);
+      return next;
+    });
   };
 
   if (loading) {

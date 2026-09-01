@@ -2,7 +2,7 @@
 
 import { useMemo, useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-import { Search, Mail, Phone, MapPin } from "lucide-react";
+import { Search, Mail, Phone, MapPin, ArrowUpDown } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
@@ -39,6 +39,8 @@ export default function KundenPage() {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState<"name" | "orders" | "spent" | "lastOrder">("lastOrder");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [, startTransition] = useTransition();
@@ -50,7 +52,7 @@ export default function KundenPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}`)
+    fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}&sort=${sortField}&dir=${sortDir}`)
       .then((r) => r.json())
       .then((d: PaginatedResponse) => startTransition(() => setData(d)))
       .catch((err) => {
@@ -58,7 +60,7 @@ export default function KundenPage() {
         setError(true);
       })
       .finally(() => setLoading(false));
-  }, [page, debouncedSearch, startTransition]);
+  }, [page, debouncedSearch, sortField, sortDir, startTransition]);
 
   const customers = useMemo(() => data?.customers ?? [], [data?.customers]);
   const pagination = data?.pagination;
@@ -123,11 +125,23 @@ export default function KundenPage() {
           <caption className="sr-only">Kundenliste</caption>
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Kunde</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
+                <button onClick={() => { setSortField("name"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                  Kunde <ArrowUpDown className="w-3 h-3" />
+                </button>
+              </th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden md:table-cell">Kontakt</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden lg:table-cell">Adresse</th>
-              <th className="text-center px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Bestellungen</th>
-              <th className="text-right px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">Umsatz</th>
+              <th className="text-center px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
+                <button onClick={() => { setSortField("orders"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                  Bestellungen <ArrowUpDown className="w-3 h-3" />
+                </button>
+              </th>
+              <th className="text-right px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
+                <button onClick={() => { setSortField("spent"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                  Umsatz <ArrowUpDown className="w-3 h-3" />
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>

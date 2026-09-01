@@ -113,9 +113,17 @@ export default function EditProductPage({
     return (
       <div className="text-center py-20">
         <p className="text-[var(--color-text-muted)] mb-4">Produkt konnte nicht geladen werden.</p>
-        <a href="/admin/produkte" className="text-sm text-[var(--color-primary)] hover:underline">
-          Zurück zur Produktliste
-        </a>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+          >
+            Erneut versuchen
+          </button>
+          <a href="/admin/produkte" className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:underline">
+            Zurück zur Produktliste
+          </a>
+        </div>
       </div>
     );
   }

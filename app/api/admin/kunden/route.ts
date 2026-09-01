@@ -9,6 +9,8 @@ const KundenQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   search: z.string().max(200).default(""),
+  sort: z.enum(["name", "orders", "spent", "lastOrder"]).default("lastOrder"),
+  dir: z.enum(["asc", "desc"]).default("desc"),
 });
 
 export async function GET(request: NextRequest) {
@@ -30,7 +32,7 @@ export async function GET(request: NextRequest) {
         { status: 400 }
       );
     }
-    const { page, limit, search } = parsed.data;
+    const { page, limit, search, sort, dir } = parsed.data;
 
     const where = search
       ? {
@@ -106,6 +108,21 @@ export async function GET(request: NextRequest) {
         totalSpent: Number(agg._sum.total || 0),
         lastOrderAt: agg._max.createdAt ?? new Date(),
       };
+    });
+
+    customers.sort((a, b) => {
+      const d = dir === "asc" ? 1 : -1;
+      switch (sort) {
+        case "name":
+          return d * `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`);
+        case "orders":
+          return d * (a.orderCount - b.orderCount);
+        case "spent":
+          return d * (a.totalSpent - b.totalSpent);
+        case "lastOrder":
+        default:
+          return d * (new Date(a.lastOrderAt).getTime() - new Date(b.lastOrderAt).getTime());
+      }
     });
 
     return NextResponse.json({

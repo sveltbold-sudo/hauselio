@@ -42,6 +42,8 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!userMenuOpen) return;
@@ -53,6 +55,33 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [userMenuOpen]);
+
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSidebarOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !sidebarRef.current) return;
+      const focusable = sidebarRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0]!;
+      const last = focusable[focusable.length - 1]!;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [sidebarOpen]);
 
   const handleLogout = async () => {
     try {
@@ -82,6 +111,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
 
       {/* Sidebar */}
       <aside
+        ref={sidebarRef}
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-[var(--color-primary)] transform transition-transform duration-300 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -93,6 +123,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
               HAUSAURA
             </Link>
             <button
+              ref={closeButtonRef}
               onClick={() => setSidebarOpen(false)}
               aria-label="Menü schließen"
               className="lg:hidden text-white/70 hover:text-white"

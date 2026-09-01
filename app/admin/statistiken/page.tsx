@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useCallback } from "react";
-import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
+import { TrendingUp, TrendingDown, Package, ShoppingCart, Users, Minus } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
@@ -89,8 +89,8 @@ export default function StatistikenPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-success)]/10 flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
             </div>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">Gesamtumsatz</p>
@@ -101,7 +101,7 @@ export default function StatistikenPage() {
 
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
               <ShoppingCart className="w-5 h-5 text-[var(--color-accent)]" aria-hidden="true" />
             </div>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
@@ -114,8 +114,8 @@ export default function StatistikenPage() {
 
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-success)]/10 flex items-center justify-center">
-              <Package className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
+              <Package className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
             </div>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
               {stats.activeProducts} aktiv
@@ -127,8 +127,8 @@ export default function StatistikenPage() {
 
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
-              <Users className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <Users className="w-5 h-5 text-[var(--color-accent)]" aria-hidden="true" />
             </div>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">Kunden</p>
@@ -188,29 +188,35 @@ export default function StatistikenPage() {
             <div className="space-y-3">
               {(() => {
                 const maxRevenue = Math.max(...stats.categoryStats.map((c) => c.totalRevenue));
+                const categoryColors = [
+                  "bg-[var(--color-primary)]",
+                  "bg-[var(--color-accent)]",
+                  "bg-[var(--color-success)]",
+                  "bg-[var(--color-primary)]",
+                  "bg-[var(--color-accent)]",
+                ];
                 return stats.categoryStats.map((cat, i) => {
                   const pct = maxRevenue > 0 ? (cat.totalRevenue / maxRevenue) * 100 : 0;
-                  const colors = ["bg-[var(--color-primary)]", "bg-[var(--color-accent)]", "bg-[var(--color-success)]", "bg-[var(--color-primary)]", "bg-[var(--color-text-muted)]"];
-                return (
-                  <div key={`${cat.name}-${i}`}>
-                    <div className="flex items-center justify-between py-1">
-                      <div>
-                        <span className="text-sm text-[var(--color-text-primary)]">{cat.name}</span>
-                        <span className="text-xs text-[var(--color-text-muted)] block">{cat.productCount} Produkte</span>
+                  return (
+                    <div key={`${cat.name}-${i}`}>
+                      <div className="flex items-center justify-between py-1">
+                        <div>
+                          <span className="text-sm text-[var(--color-text-primary)]">{cat.name}</span>
+                          <span className="text-xs text-[var(--color-text-muted)] block">{cat.productCount} Produkte</span>
+                        </div>
+                        <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+                          {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(cat.totalRevenue)}
+                        </span>
                       </div>
-                      <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-                        {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(cat.totalRevenue)}
-                      </span>
+                      <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
+                        <div
+                          className={`h-full ${categoryColors[i % categoryColors.length]} rounded-full transition-transform duration-500`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
-                      <div
-                        className={`h-full ${colors[i % colors.length]} rounded-full transition-transform duration-500`}
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              });
+                  );
+                });
               })()}
             </div>
           )}

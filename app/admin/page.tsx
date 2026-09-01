@@ -24,7 +24,6 @@ async function fetchDashboardData() {
     totalRevenue,
     totalCustomers,
     recentOrders,
-    unavailableProducts,
   ] = await Promise.all([
     prisma.order.count(),
     prisma.product.count(),
@@ -36,13 +35,9 @@ async function fetchDashboardData() {
       orderBy: { createdAt: "desc" },
       include: { items: true },
     }),
-    prisma.product.findMany({
-      take: 10,
-      select: { id: true, name: true, slug: true, price: true },
-    }),
   ]);
 
-  return { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, unavailableProducts };
+  return { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders };
 }
 
 export default async function AdminDashboard() {
@@ -77,7 +72,7 @@ export default async function AdminDashboard() {
     );
   }
 
-  const { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, unavailableProducts } = data;
+  const { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders } = data;
 
   const stats = [
     {
@@ -154,9 +149,9 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Recent Orders */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-[var(--color-border-light)]">
+        <div className="bg-white rounded-xl border border-[var(--color-border-light)]">
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
             <h2 className="font-bold text-[var(--color-text-primary)]">
               Neueste Bestellungen
@@ -235,49 +230,6 @@ export default async function AdminDashboard() {
                 )}
               </tbody>
             </table>
-          </div>
-        </div>
-
-        {/* Unavailable Products */}
-        <div className="bg-white rounded-xl border border-[var(--color-border-light)]">
-          <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
-            <h2 className="font-bold text-[var(--color-text-primary)]">
-              Nicht verfügbar
-            </h2>
-            <Link
-              href="/admin/produkte"
-              className="text-sm font-medium text-[var(--color-primary)] hover:underline"
-            >
-              Alle ansehen
-            </Link>
-          </div>
-          <div className="p-5">
-            {unavailableProducts.length === 0 ? (
-              <p className="text-sm text-[var(--color-text-muted)] text-center py-4">
-                Alle Produkte sind verfügbar.
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {unavailableProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className="flex items-center justify-between py-2 border-b border-[var(--color-border-light)] last:border-0"
-                  >
-                    <div>
-                      <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">
-                        {product.name}
-                      </p>
-                      <p className="text-xs text-[var(--color-text-muted)]">
-                        {formatPrice(Number(product.price))}
-                      </p>
-                    </div>
-                    <span className="inline-flex px-2 py-0.5 bg-[var(--color-danger-light)] text-[var(--color-danger)] rounded text-xs font-semibold">
-                      Ausverkauft
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>
