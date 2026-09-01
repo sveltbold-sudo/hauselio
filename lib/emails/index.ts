@@ -39,6 +39,8 @@ interface OrderEmailData {
   customerEmail: string;
   customerName: string;
   items: { name: string; quantity: number; price: number }[];
+  subtotal: number;
+  couponDiscount: number;
   total: number;
   shippingCost: number;
 }
@@ -146,7 +148,7 @@ async function getBankDetails() {
 // 1. ORDER CONFIRMATION
 // ─────────────────────────────────────────────
 export async function sendOrderConfirmation(data: OrderEmailData) {
-  const { orderNumber, customerEmail, customerName, items, total, shippingCost } = data;
+  const { orderNumber, customerEmail, customerName, items, subtotal, couponDiscount, total, shippingCost } = data;
   const bank = await getBankDetails();
   const safeName = escapeHtml(customerName);
   const safeOrderNumber = escapeHtml(orderNumber);
@@ -195,8 +197,12 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
       <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
         <tr>
           <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
-          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(total)}</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(subtotal)}</td>
         </tr>
+        ${couponDiscount > 0 ? `<tr>
+          <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt (HAUSAURA10)</td>
+          <td style="padding:6px 0;font-size:14px;color:#059669;text-align:right;font-weight:600;">-${formatPrice(couponDiscount)}</td>
+        </tr>` : ""}
         <tr>
           <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand</td>
           <td style="padding:6px 0;font-size:14px;color:${shippingCost === 0 ? "#059669" : "#1A1A1A"};text-align:right;font-weight:${shippingCost === 0 ? "600" : "400"};">
@@ -205,7 +211,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
         </tr>
         <tr>
           <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;border-top:2px solid #0A2540;">Gesamtbetrag</td>
-          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;text-align:right;border-top:2px solid #0A2540;">${formatPrice(total + shippingCost)}</td>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;text-align:right;border-top:2px solid #0A2540;">${formatPrice(total)}</td>
         </tr>
       </table>
 
@@ -241,7 +247,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
 
       <!-- CTA -->
       <div style="text-align:center;padding:8px 0 0 0;">
-        <a href="${SITE}/bestellung/${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung ansehen
         </a>
       </div>
@@ -289,7 +295,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
       </p>
 
       <div style="text-align:center;">
-        <a href="${SITE}/bestellung/${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung verfolgen
         </a>
       </div>

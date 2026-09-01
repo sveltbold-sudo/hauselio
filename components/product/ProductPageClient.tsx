@@ -240,6 +240,9 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
                 <span className="text-sm font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-2 py-0.5 rounded-md">
                   -{discount}%
                 </span>
+                <span className="text-sm font-semibold text-[var(--color-success)]">
+                  Sie sparen {formatPrice(product.originalPrice - product.price)}
+                </span>
               </>
             )}
           </div>

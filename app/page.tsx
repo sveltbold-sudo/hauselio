@@ -263,7 +263,7 @@ export default async function HomePage() {
 
   return (
     <main id="main-content">
-      <h1 className="container-hausaura pt-8 pb-2 text-3xl sm:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight">
+      <h1 className="heading-1 container-hausaura pt-8 pb-2 text-[var(--color-text-primary)]">
         HAUSAURA — Moderne Haushaltsgeräte
       </h1>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
@@ -281,11 +281,12 @@ export default async function HomePage() {
                 ))}
               </div>
               <span className="text-sm font-bold text-[var(--color-text-primary)]">4,8/5</span>
+              <span className="text-xs text-[var(--color-text-muted)]">· 2.500+ Bewertungen</span>
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-[var(--color-text-primary)]">9,2/10</span>
-              <span className="text-xs text-[var(--color-text-muted)]">— KiyoBewertungen</span>
+              <span className="text-xs text-[var(--color-text-muted)]">· KiyoBewertungen</span>
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">

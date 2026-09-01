@@ -162,6 +162,8 @@ export async function POST(request: NextRequest) {
         customerEmail: email,
         customerName: `${firstName} ${lastName}`,
         items: emailItems,
+        subtotal,
+        couponDiscount,
         total: total,
         shippingCost,
       });
@@ -182,6 +184,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Security note: This endpoint allows unauthenticated order lookup by email + orderNumber.
+// This is intentional for a Vorkasse-only shop where customers (who may not have an account)
+// need to check order status after checkout. The combination of orderNumber + email provides
+// reasonable security: orderNumber is a unique identifier not easily guessable, and the
+// customer must know both values. Rate limiting (5 req/min/IP) mitigates brute-force attempts.
 export async function GET(request: NextRequest) {
   try {
     const ip = getClientIp(request);

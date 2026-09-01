@@ -29,6 +29,8 @@ describe("Email functions", () => {
       customerEmail: "test@example.de",
       customerName: "Max Mustermann",
       items: [{ name: "Jura E8", quantity: 1, price: 1199.0 }],
+      subtotal: 1199.0,
+      couponDiscount: 0,
       total: 1199.0,
       shippingCost: 0,
     });

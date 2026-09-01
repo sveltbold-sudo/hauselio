@@ -87,7 +87,7 @@ export default function KontoPage() {
   useEffect(() => {
     if (!customer?.email) return;
     setOrdersLoading(true);
-    fetch(`/api/customer/orders?email=${encodeURIComponent(customer.email)}`)
+    fetch("/api/customer/orders")
       .then((r) => {
         if (!r.ok) return { orders: [] };
         return r.json();

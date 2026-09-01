@@ -81,9 +81,16 @@ export default function NewsletterSection() {
         <p className="text-xs text-white/55 mt-3">
           Kein Spam. Abmeldung jederzeit möglich. Bestätigung per Klick in der E-Mail.
         </p>
-        <p className="text-xs text-white/40 mt-1">
-          Über 2.500+ zufriedene Abonnenten
-        </p>
+        <div className="flex items-center justify-center gap-2 mt-3">
+          <div className="flex -space-x-1.5">
+            {[0,1,2].map((i) => (
+              <div key={i} className="w-5 h-5 rounded-full bg-white/20 border border-white/30" />
+            ))}
+          </div>
+          <p className="text-xs font-semibold text-white/70">
+            Schließen Sie sich 2.500+ zufriedenen Abonnenten an
+          </p>
+        </div>
       </div>
     </section>
   );

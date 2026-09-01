@@ -1,15 +1,20 @@
 ﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
-import { X, Percent, ArrowRight } from "lucide-react";
+import { X, Percent, ArrowRight, Clock, Mail } from "lucide-react";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
 const EXIT_INTENT_KEY = "HAUSAURA_exit_intent_shown";
 const COUPON_CODE = "HAUSAURA10";
+const COUNTDOWN_MINUTES = 10;
 
 export default function ExitIntentPopup() {
   const [visible, setVisible] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [remaining, setRemaining] = useState(COUNTDOWN_MINUTES * 60);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,6 +39,12 @@ export default function ExitIntentPopup() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!visible || remaining <= 0) return;
+    const timer = setInterval(() => setRemaining((r) => r - 1), 1000);
+    return () => clearInterval(timer);
+  }, [visible, remaining]);
+
   useScrollLock(visible);
 
   const handleClose = () => {
@@ -48,6 +59,27 @@ export default function ExitIntentPopup() {
       setTimeout(() => setCopied(false), 2000);
     } catch {}
   };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || submitting) return;
+    setSubmitting(true);
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setSubmitted(true);
+    } catch {
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const seconds = String(remaining % 60).padStart(2, "0");
 
   if (!visible) return null;
 
@@ -71,6 +103,12 @@ export default function ExitIntentPopup() {
             <X className="w-5 h-5" />
           </button>
 
+          {/* Countdown banner */}
+          <div className="bg-[var(--color-accent)] text-white text-center py-2 px-4 text-sm font-semibold flex items-center justify-center gap-2">
+            <Clock className="w-4 h-4" />
+            <span>Angebot endet in {minutes}:{seconds}</span>
+          </div>
+
           {/* Content */}
           <div className="p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 bg-[var(--color-accent)]/10 rounded-2xl flex items-center justify-center">
@@ -80,7 +118,7 @@ export default function ExitIntentPopup() {
             <h3 className="text-2xl font-extrabold text-[var(--color-text-primary)] mb-2">
               Warten Sie!
             </h3>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
               Nutzen Sie unseren exklusiven Newsletter-Rabatt und sparen Sie <strong>10%</strong> auf Ihre erste Bestellung.
             </p>
 
@@ -100,9 +138,44 @@ export default function ExitIntentPopup() {
               </div>
             </div>
 
-            <p className="text-xs text-[var(--color-text-muted)] mb-6">
-              Gelten auf alle Produkte · Kein Mindestbestellwert
+            <p className="text-xs text-[var(--color-text-muted)] mb-4">
+              Nur für Erstkunden · Kein Mindestbestellwert
             </p>
+
+            {/* Email capture */}
+            {!submitted ? (
+              <form onSubmit={handleEmailSubmit} className="mb-6">
+                <p className="text-xs text-[var(--color-text-muted)] mb-2">
+                  Newsletter abonnieren für eksklusive Angebote:
+                </p>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="ihre@email.de"
+                      required
+                      className="w-full pl-9 pr-3 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="px-4 py-2.5 bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+                  >
+                    {submitting ? "..." : "OK"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm text-green-700 font-medium">
+                  ✓ Vielen Dank! Bestätigen Sie Ihre E-Mail-Adresse.
+                </p>
+              </div>
+            )}
 
             {/* CTA */}
             <button

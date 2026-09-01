@@ -76,6 +76,8 @@ export async function PUT(
 
     try {
       const customerName = `${order.customerFirstName} ${order.customerLastName}`;
+      const orderTotal = Number(order.total);
+      const orderShipping = Number(order.shippingCost);
       const emailData = {
         orderNumber: order.orderNumber,
         customerEmail: order.customerEmail,
@@ -85,8 +87,10 @@ export async function PUT(
           quantity: item.quantity,
           price: Number(item.price),
         })),
-        total: Number(order.total),
-        shippingCost: Number(order.shippingCost),
+        subtotal: orderTotal - orderShipping,
+        couponDiscount: 0,
+        total: orderTotal,
+        shippingCost: orderShipping,
       };
 
       if (status === "PAYMENT_CONFIRMED") {

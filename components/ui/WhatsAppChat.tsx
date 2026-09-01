@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, Clock } from "lucide-react";
 
 const WHATSAPP_NUMBER = "+4917612345678";
 const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSAURA.";
@@ -9,6 +9,7 @@ const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSAURA.";
 export default function WhatsAppChat() {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [pulse, setPulse] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -24,6 +25,12 @@ export default function WhatsAppChat() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const timer = setTimeout(() => setPulse(false), 6000);
+    return () => clearTimeout(timer);
+  }, [visible]);
 
   const handleDismiss = () => {
     setVisible(false);
@@ -51,17 +58,21 @@ export default function WhatsAppChat() {
           <X className="w-3.5 h-3.5" />
         </button>
         <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
-          Fragen? 💬
+          Fragen? Schreiben Sie uns!
         </p>
-        <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-          Schreiben Sie uns auf WhatsApp — wir antworten schnell und unkompliziert.
+        <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-2">
+          Schnelle Hilfe per WhatsApp — wir antworten innerhalb weniger Stunden.
         </p>
+        <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-text-muted)]">
+          <Clock className="w-3 h-3" />
+          <span>Mo–Fr 9–18 Uhr</span>
+        </div>
       </div>
 
       {/* Button */}
       <button
         onClick={handleOpen}
-        className="w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+        className={`w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 ${pulse ? "animate-pulse" : ""}`}
         aria-label="WhatsApp Chat öffnen"
       >
         <MessageCircle className="w-7 h-7 text-white" />

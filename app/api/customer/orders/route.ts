@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { requireCustomer } from "@/lib/auth";
+import { UnauthorizedError } from "@/lib/errors";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,14 +14,15 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
-
-    if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json(
-        { error: "Gültige E-Mail-Adresse erforderlich" },
-        { status: 400 }
-      );
+    let email: string;
+    try {
+      const customer = await requireCustomer();
+      email = customer.email;
+    } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
+      }
+      throw error;
     }
 
     const orders = await prisma.order.findMany({

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { handleApiError } from "@/lib/api-helpers";
+import { requireCustomer } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,6 +13,8 @@ export async function GET(request: NextRequest) {
         { status: 429, headers: { "Retry-After": "60" } }
       );
     }
+
+    await requireCustomer();
 
     const settings = await prisma.siteSettings.findFirst();
 

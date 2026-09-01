@@ -1224,7 +1224,7 @@ const products: ProductData[] = [
     name: "Sage The Oracle Touch", slug: "sage-the-oracle-touch",
     description: "Die Sage The Oracle Touch ist die ultimative Premium-Espressomaschine mit Touchdisplay. Das 4-Zoll-Farbtouchdisplay zeigt alle Brühoptionen übersichtlich an. Die automatische Milchaufschäumung erzeugt in Sekunden perfekten Cappuccino-Schaum. Die 58mm-Brühgruppe aus Edelstahl sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Die 6 voreingestellten Spezialitäten bieten Vielseitigkeit. Das elegante Design in Edelstahl passt in jede Küche. Das absolute Flaggschiff für Home-Baristas.", shortDesc: "Sage-Flaggschiff mit Touchdisplay und automatischer Milchaufschäumung",
     price: 2420, sku: "SAGETHEORACLETO", inStock: true,
-    rating: 4.2, reviewCount: 179, categorySlug: "haushaltsgeraete", brandSlug: "sage",
+    rating: 4.2, reviewCount: 179, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
       { key: "Display", value: "4-Zoll Farbtouch" },
       { key: "Brühgruppe", value: "58mm Edelstahl" },
@@ -1238,7 +1238,7 @@ const products: ProductData[] = [
     name: "Sage The Dual Boiler", slug: "sage-the-dual-boiler",
     description: "Die Sage The Dual Boiler ist eine Premium-Espressomaschine mit 2 Heizsystemen. Die 2 separaten Heizsysteme ermöglichen gleichzeitiges Brühen und Aufschäumen. Die 58mm-Brühgruppe aus Edelstahl sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Der Crona-Milchaufschäumer erzeugt cremigen Mikroschaum. Die Präzisions-Dosierung ermöglicht individuelle Einstellungen. Das elegante Design in Edelstahl passt in jede Küche. Das Premium-Modell für anspruchsvolle Baristas.", shortDesc: "Sage-Premium-Espressomaschine mit Dual Boiler und PID",
     price: 1760, sku: "SAGETHEDUALBOIL", inStock: true,
-    rating: 4.3, reviewCount: 176, categorySlug: "haushaltsgeraete", brandSlug: "sage",
+    rating: 4.3, reviewCount: 176, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
       { key: "Brühgruppe", value: "58mm Edelstahl" },
       { key: "Heizsystem", value: "2 separaten Thermojet" },
@@ -1252,7 +1252,7 @@ const products: ProductData[] = [
     name: "Gastroback Design Espresso 42603", slug: "gastroback-design-espresso-42603",
     description: "Der Gastroback Design Espresso 42603 ist eine elegante Espressomaschine mit 15 bar Bruck. Die Edelstahl-Brühgruppe sorgt für gleichmäßige Extraktion. Der integrierte Milchaufschäumer erzeugt cremigen Milchschaum. Die einfache Ein-Tassen- und Zwei-Tassen-Brühung ermöglicht individuelle Zubereitung. Die Edelstahl-Tasse wärmt die Tasse vor. Das elegante Design in Schwarz und Edelstahl passt zu jeder Kücheneinrichtung. Perfekt für alle, die Espresso-Genuss im stilvollen Design suchen.", shortDesc: "Elegante Espressomaschine mit 15 bar und integriertem Milchaufschäumer",
     price: 1760, sku: "GASTROBACKDE2", inStock: true,
-    rating: 4.5, reviewCount: 132, categorySlug: "kueche", brandSlug: "gastroback",
+    rating: 4.5, reviewCount: 132, categorySlug: "kaffee", brandSlug: "gastroback",
     specs: [
       { key: "Brühdruck", value: "15 bar" },
       { key: "Milchaufschäumer", value: "Integriert" },
@@ -1265,7 +1265,7 @@ const products: ProductData[] = [
     name: "Gastroback Advanced Espresso 42602", slug: "gastroback-advanced-espresso-42602",
     description: "Der Gastroback Advanced Espresso 42602 ist eine semi-automatische Espressomaschine mit 20 bar Druck. Die Edelstahl-Brühgruppe sorgt für gleichmäßige Extraktion. Der integrierte Milchaufschäumer erzeugt cremigen Milchschaum. Die 2 separaten Heizsysteme ermöglichen gleichzeitiges Brühen und Aufschäumen. Die Edelstahl-Tasse wärmt die Tasse vor. Das kompakte Design passt in jede Küche. Perfekt für Einsteiger, die Espresso-Genuss im Profi-Format suchen.", shortDesc: "Semi-automatische Espressomaschine mit 20 bar und 2 Heizsystemen",
     price: 330, originalPrice: 379, sku: "GASTROBACKADVAN", inStock: true, isPromo: true,
-    rating: 4.3, reviewCount: 96, categorySlug: "kueche", brandSlug: "gastroback",
+    rating: 4.3, reviewCount: 96, categorySlug: "kaffee", brandSlug: "gastroback",
     specs: [
       { key: "Brühdruck", value: "20 bar" },
       { key: "Heizsystem", value: "2 separates Thermoblock" },
@@ -1357,7 +1357,7 @@ const products: ProductData[] = [
   },
   {
     name: "Lavazza A Modo Mio Jl01", slug: "lavazza-a-modo-mio-jl01",
-    description: "Die Lavazza A Modo Mio JL01 ist ein kompakter Kapselkaffeemacher im typischen Lavazza-Design. Das专利的A Modo Mio-System extrahiert Kaffee mit optimalem Druck für authentischen italienischen Espresso. Die Kapseln sind speziell für die ideale Extraktionszeit entwickelt. Die Maschine bringt sich in 25 Sekunden auf Betriebstemperatur. Die abnehmbare Auffangschale passt für große und kleine Tassen. Das kompakte Design von nur 20 cm Breite passt in jede Küche. Die Lavazza-Blend-Kapseln bieten authentischen italienischen Kaffee-Geschmack. Perfekt für alle, die italienischen Espresso ohne Aufwand genießen wollen.", shortDesc: "Kompakter Lavazza-Kapselkaffeemacher für authentischen italienischen Espresso",
+    description: "Die Lavazza A Modo Mio JL01 ist ein kompakter Kapselkaffeemacher im typischen Lavazza-Design. Das patentierte A Modo Mio-System extrahiert Kaffee mit optimalem Druck für authentischen italienischen Espresso. Die Kapseln sind speziell für die ideale Extraktionszeit entwickelt. Die Maschine bringt sich in 25 Sekunden auf Betriebstemperatur. Die abnehmbare Auffangschale passt für große und kleine Tassen. Das kompakte Design von nur 20 cm Breite passt in jede Küche. Die Lavazza-Blend-Kapseln bieten authentischen italienischen Kaffee-Geschmack. Perfekt für alle, die italienischen Espresso ohne Aufwand genießen wollen.", shortDesc: "Kompakter Lavazza-Kapselkaffeemacher für authentischen italienischen Espresso",
     price: 1430, originalPrice: 1644, sku: "LAVAZZAAMODOMIO", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 82, categorySlug: "kaffee", brandSlug: "lavazza",
     specs: [
@@ -1417,7 +1417,7 @@ const products: ProductData[] = [
   },
   {
     name: "Roborock S8 Maxv Ultra", slug: "roborock-s8-maxv-ultra",
-    description: "Der Roborock S8 MaxV Ultra ist der Premium-Saugroboter mit intelligenter KI-Navigation. Die 8200 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die ReactiveAI 2.0-Technologie erkennt Hindernisse und vermeidet Kollisionen. Die VibraRise 2.0-Wischtechnologie schrubbt den Boden mit 3000 Vibrationen pro Minute. Die automatische Staubertertiung bei满gedocktem Base-Station bis zu 7 Wochen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das absolute Flaggschiff für makellose Sauberkeit.", shortDesc: "Premium-Saugroboter mit 8200 Pa, ReactiveAI und VibraRise Wischtechnologie",
+    description: "Der Roborock S8 MaxV Ultra ist der Premium-Saugroboter mit intelligenter KI-Navigation. Die 8200 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die ReactiveAI 2.0-Technologie erkennt Hindernisse und vermeidet Kollisionen. Die VibraRise 2.0-Wischtechnologie schrubbt den Boden mit 3000 Vibrationen pro Minute. Die automatische Staubertertiung bei voll gedocktem Base-Station bis zu 7 Wochen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das absolute Flaggschiff für makellose Sauberkeit.", shortDesc: "Premium-Saugroboter mit 8200 Pa, ReactiveAI und VibraRise Wischtechnologie",
     price: 550, sku: "ROBOROCKS8MAXVU", inStock: true,
     rating: 4.2, reviewCount: 156, categorySlug: "reinigung", brandSlug: "roborock",
     specs: [
@@ -1431,7 +1431,7 @@ const products: ProductData[] = [
   },
   {
     name: "Roborock Q8 Max Plus", slug: "roborock-q8-max-plus",
-    description: "Der Roborock Q8 Max+ ist ein intelligenter Saugroboter mit Wischfunktion und automatischer Staubertertiung. Die 5500 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die LiDAR-Navigation erkennt den Grundriss und plant optimale Reinigungswege. Die 300 ml Wasserbehälter Wischt feucht den Boden. Die automatische Staubertertiung bei满gedocktem Base-Station bis zu 7 Wochen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Perfekt für die automatische Reinigung von großen Wohnungen.", shortDesc: "Intelligenter Saug-Wisch-Roboter mit LiDAR und automatischer Entleerung",
+    description: "Der Roborock Q8 Max+ ist ein intelligenter Saugroboter mit Wischfunktion und automatischer Staubertertiung. Die 5500 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die LiDAR-Navigation erkennt den Grundriss und plant optimale Reinigungswege. Die 300 ml Wasserbehälter Wischt feucht den Boden. Die automatische Staubertertiung bei voll gedocktem Base-Station bis zu 7 Wochen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Perfekt für die automatische Reinigung von großen Wohnungen.", shortDesc: "Intelligenter Saug-Wisch-Roboter mit LiDAR und automatischer Entleerung",
     price: 630, sku: "ROBOROCKQ8MAXPL", inStock: true,
     rating: 4.7, reviewCount: 63, categorySlug: "reinigung", brandSlug: "roborock",
     specs: [
@@ -1445,7 +1445,7 @@ const products: ProductData[] = [
   },
   {
     name: "iRobot Roomba J9 Plus", slug: "irobot-roomba-j9-plus",
-    description: "Der iRobot Roomba j9+ ist der Premium-Saugroboter von iRobot mit fortschrittlicher Navigation. Die 3-Stufen-Reinigungssystem saugt gründlich auf allen Böden. Die PrecisionVision-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die Smart-Mapping-Technologie lernt die Grundrisse Ihres Zuhauses. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die automatische Staubertertiung bei满gedocktem Base-Station. Die intelligente Erkennung von verschmutzten Bereichen für gründliche Reinigung. Das Premium-Modell für maximale Reinigungsleistung.", shortDesc: "Premium-Saugroboter mit PrecisionVision und automatischer Staubertertiung",
+    description: "Der iRobot Roomba j9+ ist der Premium-Saugroboter von iRobot mit fortschrittlicher Navigation. Die 3-Stufen-Reinigungssystem saugt gründlich auf allen Böden. Die PrecisionVision-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die Smart-Mapping-Technologie lernt die Grundrisse Ihres Zuhauses. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die intelligente Erkennung von verschmutzten Bereichen für gründliche Reinigung. Das Premium-Modell für maximale Reinigungsleistung.", shortDesc: "Premium-Saugroboter mit PrecisionVision und automatischer Staubertertiung",
     price: 290, sku: "IROBOTROOMBAJ9P", inStock: true, isNew: true,
     rating: 4.5, reviewCount: 38, categorySlug: "reinigung", brandSlug: "irobot",
     specs: [
@@ -1459,7 +1459,7 @@ const products: ProductData[] = [
   },
   {
     name: "iRobot Roomba Combo J5 Plus", slug: "irobot-roomba-combo-j5-plus",
-    description: "Der iRobot Roomba Combo j5+ ist ein intelligenter Saugroboter mit Wischfunktion. Die 3-Stufen-Reinigungssystem saugt und wischt automatisch. Die PrecisionVision-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die Smart-Mapping-Technologie lernt die Grundrisse Ihres Zuhauses. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Die automatische Staubertertiung bei满gedocktem Base-Station. Perfekt für die automatische Reinigung von harten Böden und Teppichen.", shortDesc: "Intelligenter Saug-Wisch-Roboter mit PrecisionVision und Smart Mapping",
+    description: "Der iRobot Roomba Combo j5+ ist ein intelligenter Saugroboter mit Wischfunktion. Die 3-Stufen-Reinigungssystem saugt und wischt automatisch. Die PrecisionVision-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die Smart-Mapping-Technologie lernt die Grundrisse Ihres Zuhauses. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Die automatische Staubertertiung bei voll gedocktem Base-Station. Perfekt für die automatische Reinigung von harten Böden und Teppichen.", shortDesc: "Intelligenter Saug-Wisch-Roboter mit PrecisionVision und Smart Mapping",
     price: 680, sku: "IROBOTROOMBACOM", inStock: true,
     rating: 4, reviewCount: 29, categorySlug: "reinigung", brandSlug: "irobot",
     specs: [
@@ -1473,9 +1473,9 @@ const products: ProductData[] = [
   },
   {
     name: "Xiaomi Robot Vacuum X10 Plus", slug: "xiaomi-robot-vacuum-x10-plus",
-    description: "Der Xiaomi Robot Vacuum X10+ ist ein intelligenter Saugroboter mit LDS-Navigation. Die LDS-Navigation erkennt den Grundriss und plant optimale Reinigungswege. Die 4000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei满gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das Preis-Leistungs-Wunder für automatische Reinigung.", shortDesc: "Xiaomi-Saugroboter mit LDS-Navigation und automatischer Entleerung",
+    description: "Der Xiaomi Robot Vacuum X10+ ist ein intelligenter Saugroboter mit LDS-Navigation. Die LDS-Navigation erkennt den Grundriss und plant optimale Reinigungswege. Die 4000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das Preis-Leistungs-Wunder für automatische Reinigung.", shortDesc: "Xiaomi-Saugroboter mit LDS-Navigation und automatischer Entleerung",
     price: 2080, sku: "XIAOMIROBOTVACU", inStock: true, isFeatured: true,
-    rating: 4.2, reviewCount: 117, categorySlug: "haushaltsgeraete", brandSlug: "xiaomi",
+    rating: 4.2, reviewCount: 117, categorySlug: "reinigung", brandSlug: "xiaomi",
     specs: [
       { key: "Saugkraft", value: "4000 Pa" },
       { key: "Navigation", value: "LDS Laser" },
@@ -1501,9 +1501,9 @@ const products: ProductData[] = [
   },
   {
     name: "Samsung Jet Bot Ai Plus Vr50t9990", slug: "samsung-jet-bot-ai-plus-vr50t9990",
-    description: "Der Samsung Jet Bot AI+ VR50T9990 ist ein intelligenter Saugroboter mit KI-Navigation. Die KI-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die 3D-Sensorik scannt den Raum in Echtzeit. Die automatische Staubertertiung bei满gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Live-View-Kamera zeigt den Live-Feed des Roboters. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Samsung-Flaggschiff-Saugroboter mit KI und 5100 Pa Saugkraft",
+    description: "Der Samsung Jet Bot AI+ VR50T9990 ist ein intelligenter Saugroboter mit KI-Navigation. Die KI-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die 3D-Sensorik scannt den Raum in Echtzeit. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Live-View-Kamera zeigt den Live-Feed des Roboters. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Samsung-Flaggschiff-Saugroboter mit KI und 5100 Pa Saugkraft",
     price: 1710, sku: "SAMSUNGJETBOTAI", inStock: true,
-    rating: 4.6, reviewCount: 151, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
+    rating: 4.6, reviewCount: 151, categorySlug: "reinigung", brandSlug: "samsung",
     specs: [
       { key: "Saugkraft", value: "5100 Pa" },
       { key: "Navigation", value: "KI + 3D-Sensorik" },
@@ -1516,7 +1516,7 @@ const products: ProductData[] = [
     name: "LG Cordzero A9 Kompressor", slug: "lg-cordzero-a9-kompressor",
     description: "Der LG CordZero A9 Kompressor ist ein kabelloser Akkusauger mit Kompressor-Technologie. Die Kompressor-Technologie sorgt für konstante Saugleistung. Die 2 Batterien bieten bis zu 80 Minuten Laufzeit. Die Power-Funktion erhöht die Saugleistung für schwere Verschmutzungen. Die Smart-Inverter-Motor arbeitet besonders leise und langlebig. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Perfekt für gründliches Saugen.", shortDesc: "Kabelloser Akkusauger mit Kompressor und 80 Min. Laufzeit",
     price: 1350, originalPrice: 1552, sku: "LGCORDZEROA9KOM", inStock: true, isFeatured: true, isPromo: true,
-    rating: 4.3, reviewCount: 70, categorySlug: "haushaltsgeraete", brandSlug: "lg",
+    rating: 4.3, reviewCount: 70, categorySlug: "reinigung", brandSlug: "lg",
     specs: [
       { key: "Laufzeit", value: "Bis zu 80 Minuten" },
       { key: "Technologie", value: "Kompressor" },
@@ -1527,9 +1527,9 @@ const products: ProductData[] = [
   },
   {
     name: "LG Cordzero Thinq R9", slug: "lg-cordzero-thinq-r9",
-    description: "Der LG CordZero ThinQ R9 ist ein intelligenter Saugroboter mit AI-Navigation. Die AI-Navigation erkennt Hindernisse und plant optimale Reinigungswege. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei满gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Intelligenter Saugroboter mit AI-Navigation und 5100 Pa Saugkraft",
+    description: "Der LG CordZero ThinQ R9 ist ein intelligenter Saugroboter mit AI-Navigation. Die AI-Navigation erkennt Hindernisse und plant optimale Reinigungswege. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Intelligenter Saugroboter mit AI-Navigation und 5100 Pa Saugkraft",
     price: 900, originalPrice: 1035, sku: "LGCORDZEROTHINQ", inStock: true, isPromo: true,
-    rating: 4.1, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "lg",
+    rating: 4.1, reviewCount: 303, categorySlug: "reinigung", brandSlug: "lg",
     specs: [
       { key: "Saugkraft", value: "5100 Pa" },
       { key: "Navigation", value: "AI (LiDAR + Kamera)" },
@@ -1570,7 +1570,7 @@ const products: ProductData[] = [
     name: "Miele Triflex Hx2 Pro", slug: "miele-triflex-hx2-pro",
     description: "Die Miele Triflex HX2 Pro ist ein kabelloser Akkusauger im 3-in-1-Design. Die 3-in-1-Funktionalität ermöglicht Saugen als Hand-, Stiel- oder Stecksauger. Die 3D-Drallbürste sorgt für gründliches Saugen auf allen Böden. Die Varta-Li-Ionen-Batterie bietet bis zu 60 Minuten Laufzeit. Die elektrostatische Aufladung verhindert Haarverfilzung. Die ComfortFunktion sorgt für ergonomisches Saugen. Das elegante Design passt zu jeder Haushaltsführung. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser 3-in-1-Akkusauger mit 60 Min. Laufzeit und 3D-Drallbürste",
     price: 330, originalPrice: 379, sku: "MIELETRIFLEXHX2", inStock: true, isPromo: true,
-    rating: 4.5, reviewCount: 42, categorySlug: "haushaltsgeraete", brandSlug: "miele",
+    rating: 4.5, reviewCount: 42, categorySlug: "reinigung", brandSlug: "miele",
     specs: [
       { key: "Laufzeit", value: "Bis zu 60 Minuten" },
       { key: "Design", value: "3-in-1" },
@@ -1583,7 +1583,7 @@ const products: ProductData[] = [
     name: "Miele Scout Rx3 Home Vision", slug: "miele-scout-rx3-home-vision",
     description: "Der Miele Scout RX3 Home Vision ist ein intelligenter Saugroboter mit 3D-Navigation. Die 3D-Navigation erkennt Hindernisse und plant optimale Reinigungswege. Die 3000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Home Vision-Kamera zeigt den Live-Feed des Roboters. Die automatische Rückkehrladung ist standard. Das Premium-Modell für automatische Reinigung.", shortDesc: "Miele-Saugroboter mit 3D-Navigation und Home Vision",
     price: 1130, sku: "MIELESCOUTRX3HO", inStock: true,
-    rating: 4, reviewCount: 268, categorySlug: "haushaltsgeraete", brandSlug: "miele",
+    rating: 4, reviewCount: 268, categorySlug: "reinigung", brandSlug: "miele",
     specs: [
       { key: "Saugkraft", value: "3000 Pa" },
       { key: "Navigation", value: "3D" },
@@ -1596,7 +1596,7 @@ const products: ProductData[] = [
     name: "Philips 8000 Series Led", slug: "philips-8000-series-led",
     description: "Die Philips 8000 Series LED ist ein Premium-Traubsauger mit LED-Technologie. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die 18V-Li-Ionen-Batterie bietet bis zu 60 Minuten Laufzeit. Die PowerBlade-Technologie sorgt für maximale Saugleistung. Die TriActive-Türbürste entfernt Staub gründlich. Die EasyClean-Technologie ermöglicht einfache Reinigung der Bürste. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das Premium-Modell für makellose Sauberkeit.", shortDesc: "Philips-Premium-Traubsauger mit LED und 60 Min. Laufzeit",
     price: 1480, sku: "PHILIPS8000SERI", inStock: true, isFeatured: true,
-    rating: 4.4, reviewCount: 198, categorySlug: "haushaltsgeraete", brandSlug: "philips",
+    rating: 4.4, reviewCount: 198, categorySlug: "reinigung", brandSlug: "philips",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 60 Minuten" },
@@ -1609,7 +1609,7 @@ const products: ProductData[] = [
     name: "Philips Powerproactive", slug: "philips-powerproactive",
     description: "Die Philips PowerProActive ist ein kabelloser Akkusauger mit PowerCyclone-Technologie. Die PowerCyclone-Technologie erzeugt starke Saugkraft. Die 18V-Li-Ionen-Batterie bietet bis zu 50 Minuten Laufzeit. Die LED-Beleuchtung am Saugkopf macht Staub sichtbar. Die TriActive-Bürste entfernt Staub gründlich. Die Easy-Entleerung erfordert keinen Kontakt mit Staub. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Perfekt für alltägliches Saugen.", shortDesc: "Kabelloser Philips-Akkusauger mit PowerCyclone und 50 Min.",
     price: 600, sku: "PHILIPSPOWERPRO", inStock: true,
-    rating: 4, reviewCount: 138, categorySlug: "haushaltsgeraete", brandSlug: "philips",
+    rating: 4, reviewCount: 138, categorySlug: "reinigung", brandSlug: "philips",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 50 Minuten" },
@@ -1622,7 +1622,7 @@ const products: ProductData[] = [
     name: "Electrolux 800 Animalcare", slug: "electrolux-800-animalcare",
     description: "Der Electrolux 800 AnimalCare ist ein kabelloser Akkusauger für Tierhaarbesitzer. Die PowerPro-Bürste entfernt Tierhaare gründlich. Die 18V-Li-Ionen-Batterie bietet bis zu 50 Minuten Laufzeit. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die Easy-Empty-Entleerung erfordert keinen Kontakt mit Staub. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das elegante Design passt zu jeder Haushaltsführung. Perfekt für Tierbesitzer.", shortDesc: "Kabelloser Akkusauger mit PowerPro-Bürste für Tierhaar",
     price: 2990, sku: "ELECTROLUX800AN", inStock: true,
-    rating: 4.5, reviewCount: 80, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
+    rating: 4.5, reviewCount: 80, categorySlug: "reinigung", brandSlug: "electrolux",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 50 Minuten" },
@@ -1635,7 +1635,7 @@ const products: ProductData[] = [
     name: "AEG Well Q7 Animal", slug: "aeg-well-q7-animal",
     description: "Der AEG Well Q7 Animal ist ein kabelloser Akkusauger für Tierhaarbesitzer. Die Battery-Health-Anzeige zeigt den Ladezustand an. Die Motorized-Brushroll entfernt Tierhaare gründlich. Die 2-in-1-Funktionalität ermöglicht das Saugen von Böden und Polstern. Die Easy-Release-Entleerung erfordert keinen Kontakt mit Staub. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das elegante Design in various Farben passt zu jeder Haushaltsführung. Perfekt für Tierbesitzer.", shortDesc: "Kabelloser Akkusauger mit Tierhaar-Bürste und Battery-Health",
     price: 2030, sku: "AEGWELLQ7ANIMAL", inStock: true,
-    rating: 4.6, reviewCount: 129, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
+    rating: 4.6, reviewCount: 129, categorySlug: "reinigung", brandSlug: "aeg",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 50 Minuten" },
@@ -1648,7 +1648,7 @@ const products: ProductData[] = [
     name: "Bosch Unlimited Serie8 Bss81pob", slug: "bosch-unlimited-serie8-bss81pob",
     description: "Der Bosch Unlimited Serie 8 BSS81POB ist ein Premium-kabelloser Akkusauger mit Exchangeable-Battery-System. Die austauschbare Batterie ermöglicht unbegrenzte Laufzeit. Die AllFloor-HighPower-Bürste sorgt für gründliches Saugen. Die LED-Beleuchtung am Saugkopf macht Staub sichtbar. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das Premium-Design in various Farben passt zu jeder Haushaltsführung. Das absolute Flaggschiff für kabelloses Saugen.", shortDesc: "Premium-kabelloser Akkusauger mit austauschbarer Batterie",
     price: 1580, sku: "BOSCHUNLIMITEDS", inStock: true,
-    rating: 4.4, reviewCount: 63, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
+    rating: 4.4, reviewCount: 63, categorySlug: "reinigung", brandSlug: "bosch",
     specs: [
       { key: "Akku", value: "18V Li-Ionen (austauschbar)" },
       { key: "Laufzeit", value: "Bis zu 40 Minuten (pro Batterie)" },
@@ -1660,7 +1660,7 @@ const products: ProductData[] = [
     name: "Bosch Serie6 Bbh3d122", slug: "bosch-serie6-bbh3d122",
     description: "Der Bosch Serie 6 BBH3D122 ist ein kabelloser Akkusauger mit AllFloor-HighPower-Bürste. Die AllFloor-HighPower-Bürste sorgt für gründliches Saugen auf allen Böden. Die 18V-Li-Ionen-Batterie bietet bis zu 40 Minuten Laufzeit. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die Easy-Klick-Aufnahme ermöglicht schnellen Wechsel der Aufsätze. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das kompakte Design passt in jede Küche. Perfekt für schnelle und gründliche Reinigung.", shortDesc: "Kabelloser Bosch-Akkusauger mit AllFloor-HighPower-Bürste",
     price: 590, originalPrice: 679, sku: "BOSCHSERIE6BBH3", inStock: true, isPromo: true,
-    rating: 4.5, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
+    rating: 4.5, reviewCount: 303, categorySlug: "reinigung", brandSlug: "bosch",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 40 Minuten" },
@@ -1672,7 +1672,7 @@ const products: ProductData[] = [
     name: "Siemens Rs5 Pro", slug: "siemens-rs5-pro",
     description: "Der Siemens RS5 Pro ist ein intelligenter Saugroboter mit iSensoric-Technologie. Die iSensoric-Technologie erkennt Hindernisse und vermeidet Kollisionen. Die 4000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das kompakte Design erreicht alle Ecken. Perfekt für automatische Reinigung.", shortDesc: "Intelligenter Saugroboter mit iSensoric und 4000 Pa Saugkraft",
     price: 2960, sku: "SIEMENSRS5PRO", inStock: true,
-    rating: 4.6, reviewCount: 46, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
+    rating: 4.6, reviewCount: 46, categorySlug: "reinigung", brandSlug: "siemens",
     specs: [
       { key: "Saugkraft", value: "4000 Pa" },
       { key: "Navigation", value: "iSensoric" },
@@ -1685,7 +1685,7 @@ const products: ProductData[] = [
     name: "Samsung Bespoke Jet Complete", slug: "samsung-bespoke-jet-complete",
     description: "Der Samsung Bespoke Jet Complete ist ein kabelloser Akkusauger im Premium-Design. Die 210W Motorleistung sorgt für starke Saugkraft. Die 60 Minuten Laufzeit reicht für große Reinigungen. Die Multiple-Floor-Brush entfernt Staub von jedem Boden. Die LED-Beleuchtung am Saugkopf macht Staub sichtbar. Die easy-reach-Düse erreicht schwer zugängliche Stellen. Die automatische Rückkehrladung ist standard. Das elegante Bespoke-Design passt zu jeder Haushaltsführung.", shortDesc: "Samsung-Premium-Akkusauger mit 210W und Bespoke-Design",
     price: 2790, sku: "SAMSUNGBESPOKEJ", inStock: true,
-    rating: 4.1, reviewCount: 230, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
+    rating: 4.1, reviewCount: 230, categorySlug: "reinigung", brandSlug: "samsung",
     specs: [
       { key: "Leistung", value: "210W" },
       { key: "Laufzeit", value: "Bis zu 60 Minuten" },
@@ -1697,7 +1697,7 @@ const products: ProductData[] = [
     name: "Vorwerk Kobold Vk200 Plus", slug: "vorwerk-kobold-vk200-plus",
     description: "Der Vorwerk Kobold VK200 Plus ist die Premium-Version des Kobold VK200 mit erweitertem Zubehör. Die Power-Brush VB1000 entfernt Staub und Schmutz gründlich. Die eigene Kinematik sorgt für optimale Bodenkontaktaufnahme. Die 2-in-1-Funktionalität ermöglicht das Saugen von Teppichen und Böden. Die kompakte Bauform lässt sich platzsparend aufbewahren. Die hohe Saugleistung entfernt selbst feinsten Staub. Das Premium-Design mit erweitertem Zubehör. Das ultimative Flaggschiff für makellose Sauberkeit.", shortDesc: "Vorwerk-Flaggschiff mit VB1000 und erweitertem Premium-Zubehör",
     price: 1180, originalPrice: 1357, sku: "VORWERKKOBOLDVK", inStock: true, isPromo: true,
-    rating: 4.4, reviewCount: 116, categorySlug: "haushaltsgeraete", brandSlug: "vorwerk",
+    rating: 4.4, reviewCount: 116, categorySlug: "reinigung", brandSlug: "vorwerk",
     specs: [
       { key: "Technologie", value: "Power-Brush VB1000" },
       { key: "Saugleistung", value: "Ultimativ" },
@@ -1708,9 +1708,9 @@ const products: ProductData[] = [
   },
   {
     name: "Ninja Detect Duo Cordless", slug: "ninja-detect-duo-cordless",
-    description: "Der Ninja Detect Duo Cordless ist ein kabelloser Akkusauger mit Detect-Technologie. Die Detect-Technologie erkennt不同e Böden und passt die Saugleistung an. Die 2 Batterien bieten bis zu 80 Minuten Laufzeit. Die Power-Funktion erhöht die Saugleistung für schwere Verschmutzungen. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das elegante Design passt zu jeder Haushaltsführung. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser Ninja-Akkusauger mit Detect-Technologie und 80 Min.",
+    description: "Der Ninja Detect Duo Cordless ist ein kabelloser Akkusauger mit Detect-Technologie. Die Detect-Technologie erkennt unterschiedliche Böden und passt die Saugleistung an. Die 2 Batterien bieten bis zu 80 Minuten Laufzeit. Die Power-Funktion erhöht die Saugleistung für schwere Verschmutzungen. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das elegante Design passt zu jeder Haushaltsführung. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser Ninja-Akkusauger mit Detect-Technologie und 80 Min.",
     price: 1750, sku: "NINJADETECTDUOC", inStock: true,
-    rating: 4.7, reviewCount: 265, categorySlug: "haushaltsgeraete", brandSlug: "ninja",
+    rating: 4.7, reviewCount: 265, categorySlug: "reinigung", brandSlug: "ninja",
     specs: [
       { key: "Laufzeit", value: "Bis zu 80 Minuten" },
       { key: "Technologie", value: "Detect" },
@@ -1750,7 +1750,7 @@ const products: ProductData[] = [
     name: "Ninja Speedi Sp101eu", slug: "ninja-speedi-sp101eu",
     description: "Der Ninja Speedi SP101EU ist ein multifunktionaler Heißluft-Fritteuse mit Speedi-Technologie. Die Speedi-Technologie kocht bis zu 30% schneller als herkömmliche Methoden. Die 10 Funktionen bieten maximale Vielseitigkeit. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das kompakte Design passt in jede Küche. Perfekt für schnelles und gesundes Garen.", shortDesc: "Ninja-Heißluft-Fritteuse mit Speedi und 10 Funktionen",
     price: 1500, originalPrice: 1725, sku: "NINJASPEEDISP10", inStock: true, isFeatured: true, isPromo: true,
-    rating: 4.4, reviewCount: 260, categorySlug: "haushaltsgeraete", brandSlug: "ninja",
+    rating: 4.4, reviewCount: 260, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
       { key: "Kapazität", value: "3,8 Liter" },
       { key: "Funktionen", value: "10" },
@@ -1789,7 +1789,7 @@ const products: ProductData[] = [
     name: "Tefal Easy Fry Max Ey4018", slug: "tefal-easy-fry-max-ey4018",
     description: "Die Tefal Easy Fry Max EY4018 ist ein kompakter Heißluft-Fritteuse für kleine Portionen. Die 4,2 Liter Kapazität eignet sich für kleine bis mittlere Haushalte. Die 8 Funktionen bieten Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das elegante Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Kompakte Heißluft-Fritteuse mit 4,2L und 8 Funktionen",
     price: 2750, sku: "TEFALEASYFRYMAX", inStock: true,
-    rating: 4.8, reviewCount: 282, categorySlug: "haushaltsgeraete", brandSlug: "tefal",
+    rating: 4.8, reviewCount: 282, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
       { key: "Kapazität", value: "4,2 Liter" },
       { key: "Funktionen", value: "8" },
@@ -1981,7 +1981,7 @@ const products: ProductData[] = [
     name: "Gastroback Design Pro 42621", slug: "gastroback-design-pro-42621",
     description: "Der Gastroback Design Pro 42621 ist eine professionelle Espressomaschine mit 20 bar Druck. Die Edelstahl-Brühgruppe im 58mm-Format sorgt für gleichmäßige Extraktion. Der Crona-Milchaufschäumer erzeugt cremigen Mikroschaum. Die 2 separaten Heizsysteme ermöglichen gleichzeitiges Brühen und Aufschäumen. Die digitale Anzeige zeigt Temperatur und Brühzeit an. Das elegante Design in Edelstahl unterstreicht den Premium-Anspruch. Perfekt für anspruchsvolle Espresso-Liebhaber.", shortDesc: "Professionelle Espressomaschine mit 58mm-Brühgruppe und 2 Heizsystemen",
     price: 640, originalPrice: 736, sku: "GASTROBACKDESIG", inStock: true, isNew: true, isPromo: true,
-    rating: 4.3, reviewCount: 220, categorySlug: "kueche", brandSlug: "gastroback",
+    rating: 4.3, reviewCount: 220, categorySlug: "kaffee", brandSlug: "gastroback",
     specs: [
       { key: "Brühdruck", value: "20 bar" },
       { key: "Brühgruppe", value: "58mm Edelstahl" },
@@ -2023,7 +2023,7 @@ const products: ProductData[] = [
     name: "Moulinex Easy Fry Max Fx9029", slug: "moulinex-easy-fry-max-fx9029",
     description: "Die Moulinex Easy Fry Max FX9029 ist ein kompakter Heißluft-Fritteuse für kleine Portionen. Die 4,1 Liter Kapazität eignet sich für kleine bis mittlere Haushalte. Die 8 Funktionen bieten Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das elegante Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Kompakte Moulinex-Heißluft-Fritteuse mit 4,1L und 8 Funktionen",
     price: 1540, originalPrice: 1771, sku: "MOULINEXEASYFRY", inStock: true, isPromo: true,
-    rating: 4.4, reviewCount: 215, categorySlug: "haushaltsgeraete", brandSlug: "moulinex",
+    rating: 4.4, reviewCount: 215, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
       { key: "Kapazität", value: "4,1 Liter" },
       { key: "Funktionen", value: "8" },
@@ -2036,7 +2036,7 @@ const products: ProductData[] = [
     name: "Kenwood Multipro Express Fdm79190ba", slug: "kenwood-multipro-express-fdm79190ba",
     description: "Die Kenwood Multipro Express FDM79190BA ist eine Premium-Küchenmaschine mit 1500 Watt Leistung. Das planetarische Mischsystem sorgt für gleichmäßige Ergebnisse. Die 10 Geschwindigkeitsstufen und der Pulsbetrieb ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – Knethaken, Schneebesen, Saftpresse – bieten maximale Vielseitigkeit. Der abnehmbare 6,7-Liter-Rüssel ist spülmaschinenfeste. Die LED-Anzeige zeigt Geschwindigkeit und Timer an. Das elegante Design in Rot passt zu jeder Kücheneinrichtung. Ein Premium-Küchenhelfer.", shortDesc: "Premium-Küchenmaschine mit 1500W, Saftpresse und 6,7L-Rüssel",
     price: 1510, sku: "KENWOODMULTIPRO", inStock: true,
-    rating: 4.8, reviewCount: 184, categorySlug: "haushaltsgeraete", brandSlug: "kenwood",
+    rating: 4.8, reviewCount: 184, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
       { key: "Leistung", value: "1500 Watt" },
       { key: "Rüsselvolumen", value: "6,7 Liter" },
@@ -2894,9 +2894,9 @@ const products: ProductData[] = [
   },
   {
     name: "AEG Ffb62607pm", slug: "aeg-ffb62607pm",
-    description: "Der AEG FFB62607PM ist ein kabelloser Akkusauger mit Power for ALL-Allianz. Die 18V-Li-Ionen-Batterie bietet bis zu 50 Minuten Laufzeit. Der EasyRest-Halterung ermöglicht das Abstellen des Saugers an Arbeitsflächen. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die Bürste mit Auto-Adjust-Technologie passt sich automatisch an不同的 Böden an. Die hygienische Entleerung erfordert keinen Kontakt mit Staub. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser Akkusauger mit 50 Min. Laufzeit und Auto-Adjust-Bürste",
+    description: "Der AEG FFB62607PM ist ein kabelloser Akkusauger mit Power for ALL-Allianz. Die 18V-Li-Ionen-Batterie bietet bis zu 50 Minuten Laufzeit. Der EasyRest-Halterung ermöglicht das Abstellen des Saugers an Arbeitsflächen. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die Bürste mit Auto-Adjust-Technologie passt sich automatisch an unterschiedlichen Böden an. Die hygienische Entleerung erfordert keinen Kontakt mit Staub. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser Akkusauger mit 50 Min. Laufzeit und Auto-Adjust-Bürste",
     price: 2890, originalPrice: 3323, sku: "AEGFFB62607PM", inStock: true, isPromo: true,
-    rating: 4.6, reviewCount: 147, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
+    rating: 4.6, reviewCount: 147, categorySlug: "reinigung", brandSlug: "aeg",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
       { key: "Laufzeit", value: "Bis zu 50 Minuten" },
@@ -2984,7 +2984,7 @@ const products: ProductData[] = [
   },
   {
     name: "Haier Dw14 Bk3aeu", slug: "haier-dw14-bk3aeu",
-    description: "Die Haier DW14 BK3AEU ist ein freistehender Geschirrspüler mit OLED-Display. Die 14 Gedecke Kapazität eignet sich für große Haushalte. Die 9 Programme und 5 Zusatzfunktionen bieten individuelle Einstellungen. Die A+++ Energiesiegel sorgt für Energieeffizienz. Die自动 reinigungssystem automatisiert die Reinigung. Die ChildLock-Sicherheit verhindert unbeabsichtigtes Öffnen. Die einfache Bedienung mit OLED-Display ist intuitiv. Perfekt für große Familien.", shortDesc: "Großer Geschirrspüler mit OLED-Display und 14 Gedecken",
+    description: "Die Haier DW14 BK3AEU ist ein freistehender Geschirrspüler mit OLED-Display. Die 14 Gedecke Kapazität eignet sich für große Haushalte. Die 9 Programme und 5 Zusatzfunktionen bieten individuelle Einstellungen. Die A+++ Energiesiegel sorgt für Energieeffizienz. Die automatische Reinigungssystem automatisiert die Reinigung. Die ChildLock-Sicherheit verhindert unbeabsichtigtes Öffnen. Die einfache Bedienung mit OLED-Display ist intuitiv. Perfekt für große Familien.", shortDesc: "Großer Geschirrspüler mit OLED-Display und 14 Gedecken",
     price: 470, sku: "HAIERDW14BK3AEU", inStock: true,
     rating: 4.7, reviewCount: 52, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
@@ -3221,7 +3221,7 @@ const products: ProductData[] = [
     name: "Comfee Mpph 07crn7", slug: "comfee-mpph-07crn7",
     description: "Die Comfee MPPH-07CRN7 ist ein tragbarer Luftkühler für kleine Räume. Die 7000 BTU Kühlleistung kühlt Räume bis zu 15 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Luftentfeuchtungsfunktion reduziert die Luftfeuchtigkeit. Die Fernbedienung ermöglicht bequeme Steuerung. Das kompakte Design mit Rollen ermöglicht einfache Bewegung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für kleine Räume und single Wohnungen.", shortDesc: "Tragbarer Luftkühler mit 7000 BTU und Fernbedienung",
     price: 800, originalPrice: 920, sku: "COMFEEMPPH07CRN", inStock: true, isPromo: true,
-    rating: 4.3, reviewCount: 283, categorySlug: "haushaltsgeraete", brandSlug: "comfee",
+    rating: 4.3, reviewCount: 283, categorySlug: "klima", brandSlug: "comfee",
     specs: [
       { key: "Kühlleistung", value: "7000 BTU" },
       { key: "Raumgröße", value: "Bis zu 15 m²" },
@@ -3234,7 +3234,7 @@ const products: ProductData[] = [
     name: "Comfee Mpph 12crn7", slug: "comfee-mpph-12crn7",
     description: "Die Comfee MPPH-12CRN7 ist ein tragbarer Luftkühler für mittlere Räume. Die 12000 BTU Kühlleistung kühlt Räume bis zu 25 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Luftentfeuchtungsfunktion reduziert die Luftfeuchtigkeit. Die Fernbedienung ermöglicht bequeme Steuerung. Das kompakte Design mit Rollen ermöglicht einfache Bewegung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für mittlere Räume.", shortDesc: "Tragbarer Luftkühler mit 12000 BTU für mittlere Räume",
     price: 2180, sku: "COMFEEMPPH12CRN", inStock: true,
-    rating: 4.3, reviewCount: 298, categorySlug: "haushaltsgeraete", brandSlug: "comfee",
+    rating: 4.3, reviewCount: 298, categorySlug: "klima", brandSlug: "comfee",
     specs: [
       { key: "Kühlleistung", value: "12000 BTU" },
       { key: "Raumgröße", value: "Bis zu 25 m²" },
@@ -3247,7 +3247,7 @@ const products: ProductData[] = [
     name: "Sichler Pac Wk 10", slug: "sichler-pac-wk-10",
     description: "Die Sichler PAC WK 10 ist ein tragbarer Luftkühler für kleine Räume. Die 10000 BTU Kühlleistung kühlt Räume bis zu 20 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Luftentfeuchtungsfunktion reduziert die Luftfeuchtigkeit. Die Fernbedienung ermöglicht bequeme Steuerung. Das kompakte Design mit Rollen ermöglicht einfache Bewegung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für kleine Räume.", shortDesc: "Tragbarer Luftkühler mit 10000 BTU und Fernbedienung",
     price: 2480, sku: "SICHLERPACWK10", inStock: true, isFeatured: true,
-    rating: 4.7, reviewCount: 108, categorySlug: "haushaltsgeraete", brandSlug: "sichler",
+    rating: 4.7, reviewCount: 108, categorySlug: "klima", brandSlug: "sichler",
     specs: [
       { key: "Kühlleistung", value: "10000 BTU" },
       { key: "Raumgröße", value: "Bis zu 20 m²" },
@@ -3260,7 +3260,7 @@ const products: ProductData[] = [
     name: "Klarstein Fresh Breeze Xl", slug: "klarstein-fresh-breeze-xl",
     description: "Der Klarstein Fresh Breeze XL ist ein tragbarer Luftkühler für große Räume. Die 14000 BTU Kühlleistung kühlt Räume bis zu 30 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Luftentfeuchtungsfunktion reduziert die Luftfeuchtigkeit. Die Fernbedienung ermöglicht bequeme Steuerung. Das kompakte Design mit Rollen ermöglicht einfache Bewegung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für große Räume und Büros.", shortDesc: "Tragbarer Luftkühler mit 14000 BTU für große Räume",
     price: 470, sku: "KLARSTEINFRESHB", inStock: true,
-    rating: 4.1, reviewCount: 95, categorySlug: "haushaltsgeraete", brandSlug: "klarstein",
+    rating: 4.1, reviewCount: 95, categorySlug: "klima", brandSlug: "klarstein",
     specs: [
       { key: "Kühlleistung", value: "14000 BTU" },
       { key: "Raumgröße", value: "Bis zu 30 m²" },
@@ -3315,7 +3315,7 @@ const products: ProductData[] = [
     name: "Klarstein Skyscraper Ice", slug: "klarstein-skyscraper-ice",
     description: "Der Klarstein Skyscraper Ice ist ein eleganter Raumkühler mit ionisierter Luft. Die 9000 BTU Kühlleistung kühlt Räume bis zu 20 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Ionisierungsfunktion reinigt die Luft. Die Fernbedienung ermöglicht bequeme Steuerung. Das schlanke Turm-Design passt in jede Raumgestaltung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für moderne Wohnungen.", shortDesc: "Eleganter Turm-Raumkühler mit 9000 BTU und Ionisierung",
     price: 2400, sku: "KLARSTEINSKYSCR", inStock: true,
-    rating: 4.2, reviewCount: 21, categorySlug: "haushaltsgeraete", brandSlug: "klarstein",
+    rating: 4.2, reviewCount: 21, categorySlug: "klima", brandSlug: "klarstein",
     specs: [
       { key: "Kühlleistung", value: "9000 BTU" },
       { key: "Raumgröße", value: "Bis zu 20 m²" },
@@ -3328,7 +3328,7 @@ const products: ProductData[] = [
     name: "Midea Air Cool Maw08v1qwt", slug: "midea-air-cool-maw08v1qwt",
     description: "Die Midea Air Cool MAW08V1QWT ist ein tragbarer Luftkühler für kleine Räume. Die 8000 BTU Kühlleistung kühlt Räume bis zu 18 m². Die 3 Kühlstufen bieten individuelle Einstellungen. Die Luftentfeuchtungsfunktion reduziert die Luftfeuchtigkeit. Die Fernbedienung ermöglicht bequeme Steuerung. Das kompakte Design mit Rollen ermöglicht einfache Bewegung. Die_Timer-Funktion ermöglicht automatisches Ein- und Ausschalten. Perfekt für kleine Räume.", shortDesc: "Tragbarer Luftkühler mit 8000 BTU für kleine Räume",
     price: 1850, originalPrice: 2128, sku: "MIDEAAIRCOOLMAW", inStock: true, isFeatured: true, isPromo: true,
-    rating: 4.5, reviewCount: 37, categorySlug: "haushaltsgeraete", brandSlug: "midea",
+    rating: 4.5, reviewCount: 37, categorySlug: "klima", brandSlug: "midea",
     specs: [
       { key: "Kühlleistung", value: "8000 BTU" },
       { key: "Raumgröße", value: "Bis zu 18 m²" },
@@ -3339,9 +3339,9 @@ const products: ProductData[] = [
   },
   {
     name: "Dyson Big Quiet Formaldehyde N475", slug: "dyson-big-quiet-formaldehyde-n475",
-    description: "Der Dyson Big Quiet Formaldehyde N475 ist ein leistungsstarker kabelloser Akkusauger mit Formaldehyd-Sensor. Die开学-Funktion zerstört Formaldehyd kontinuierlich. Die 261 AW Saugleistung entfernt Staub und Schmutz gründlich. Die HEPA-Filterung fängt 99,99% der Allergene ab. Die 60 Minuten Laufzeit reicht für große Reinigungen. Das LCD-Display zeigt Echtzeitdaten über die Reinigung. Das absolute Flaggschiff für saubere Luft und makellose Sauberkeit.", shortDesc: "Dyson-Flaggschiff mit Formaldehyd-Sensor und 261 AW Saugleistung",
+    description: "Der Dyson Big Quiet Formaldehyde N475 ist ein leistungsstarker kabelloser Akkusauger mit Formaldehyd-Sensor. Die Formaldehydzerstörungs-Funktion zerstört Formaldehyd kontinuierlich. Die 261 AW Saugleistung entfernt Staub und Schmutz gründlich. Die HEPA-Filterung fängt 99,99% der Allergene ab. Die 60 Minuten Laufzeit reicht für große Reinigungen. Das LCD-Display zeigt Echtzeitdaten über die Reinigung. Das absolute Flaggschiff für saubere Luft und makellose Sauberkeit.", shortDesc: "Dyson-Flaggschiff mit Formaldehyd-Sensor und 261 AW Saugleistung",
     price: 1600, originalPrice: 1840, sku: "DYSONBIGQUIETFO", inStock: true, isPromo: true,
-    rating: 4.6, reviewCount: 230, categorySlug: "haushaltsgeraete", brandSlug: "dyson",
+    rating: 4.6, reviewCount: 230, categorySlug: "reinigung", brandSlug: "dyson",
     specs: [
       { key: "Leistung", value: "261 AW" },
       { key: "Filter", value: "HEPA (99,99%)" },
@@ -3570,7 +3570,7 @@ const products: ProductData[] = [
   },
   {
     name: "IKEA DIRIGERA Hub", slug: "ikea-dirigera-hub",
-    description: "Die IKEA DIRIGERA Hub ist die zentrale Steuerungseinheit für Ihr smartes Zuhause. Das Hub verbindet alle IKEA TRADFRI- und DIRIGERA-fähigen Geräte über Zigbee 3.0. Die intuitive App-Steuerung ermöglicht die Einrichtung und Steuerung aller Geräte über Smartphone. Die Kompatibilität mit Matter und Thread sorgt für zukunftssichere Konnektivität. Die kompakte Bauform lässt sich dezent in jeder Ecke platzieren. Die einfache Einrichtung in wenigen Minuten macht den Einstieg in die Smart-Home-Welt kinderleicht. Die雷迪格拉-Unterstützung für bis zu 50 Geräte bietet Platz für Erweiterungen. Das Herzstück für ein vernetztes Zuhause.", shortDesc: "Zentrale Smart-Home-Steuerung mit Zigbee 3.0, Matter und Thread",
+    description: "Die IKEA DIRIGERA Hub ist die zentrale Steuerungseinheit für Ihr smartes Zuhause. Das Hub verbindet alle IKEA TRADFRI- und DIRIGERA-fähigen Geräte über Zigbee 3.0. Die intuitive App-Steuerung ermöglicht die Einrichtung und Steuerung aller Geräte über Smartphone. Die Kompatibilität mit Matter und Thread sorgt für zukunftssichere Konnektivität. Die kompakte Bauform lässt sich dezent in jeder Ecke platzieren. Die einfache Einrichtung in wenigen Minuten macht den Einstieg in die Smart-Home-Welt kinderleicht. Die DIRIGERA-Unterstützung für bis zu 50 Geräte bietet Platz für Erweiterungen. Das Herzstück für ein vernetztes Zuhause.", shortDesc: "Zentrale Smart-Home-Steuerung mit Zigbee 3.0, Matter und Thread",
     price: 160, sku: "IKEADIRIGERAHUB", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 185, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
@@ -3921,7 +3921,7 @@ const products: ProductData[] = [
   },
   {
     name: "Bosch Serie 6 Geschirrspüler SMV88TX36E", slug: "bosch-serie6-smv88tx36e",
-    description: "Die Bosch Serie 6 SMV88TX36E ist ein Premium-Geschirrspüler mit Zeolith-Trocknung und PerfectDry. Die Zeolith-Trocknung sorgt für brillante Trocknungsergebnisse. Die PerfectDry-Technologie passt die Trocknung an不同的 Geschirrtype an. Die VarioSpeed Plus-Funktion verkürzt die Spüldauer um bis zu 66%. Die 14 Gedecke Kapazität eignet sich für große Haushalte. Die A+++ Energiesiegel sorgt für Energieeffizienz. Die Home-Connect-App ermöglicht die Fernbedienung. Das Premium-Modell für brillante Ergebnisse.", shortDesc: "Premium-Geschirrspüler mit Zeolith, PerfectDry und Home Connect",
+    description: "Die Bosch Serie 6 SMV88TX36E ist ein Premium-Geschirrspüler mit Zeolith-Trocknung und PerfectDry. Die Zeolith-Trocknung sorgt für brillante Trocknungsergebnisse. Die PerfectDry-Technologie passt die Trocknung an unterschiedlichen Geschirrtype an. Die VarioSpeed Plus-Funktion verkürzt die Spüldauer um bis zu 66%. Die 14 Gedecke Kapazität eignet sich für große Haushalte. Die A+++ Energiesiegel sorgt für Energieeffizienz. Die Home-Connect-App ermöglicht die Fernbedienung. Das Premium-Modell für brillante Ergebnisse.", shortDesc: "Premium-Geschirrspüler mit Zeolith, PerfectDry und Home Connect",
     price: 2200, originalPrice: 2530, sku: "BOSCHSERIE6SMV8", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 72, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
@@ -4091,7 +4091,7 @@ async function main() {
       name: "Stefan M.",
       location: "Berlin",
       rating: 5,
-      content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSAURA nur empfehlen!",
+      content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSELIO nur empfehlen!",
       product: "Jura E8 Platinum",
       avatar: null,
       isApproved: true,
@@ -4131,7 +4131,7 @@ async function main() {
       name: "Michael S.",
       location: "Frankfurt",
       rating: 5,
-      content: "Der Dyson V15 Detect ist fantastisch. Das orange Licht zeigt jeden Staub. HAUSAURA hatte den besten Preis!",
+      content: "Der Dyson V15 Detect ist fantastisch. Das orange Licht zeigt jeden Staub. HAUSELIO hatte den besten Preis!",
       product: "Dyson V15 Detect",
       avatar: null,
       isApproved: true,
@@ -4201,7 +4201,7 @@ async function main() {
       name: "Christine W.",
       location: "Münster",
       rating: 5,
-      content: "Bin sehr zufrieden mit dem Vorwerk Kobold. HAUSAURA bietet wirklich faire Preise. Vielen Dank!",
+      content: "Bin sehr zufrieden mit dem Vorwerk Kobold. HAUSELIO bietet wirklich faire Preise. Vielen Dank!",
       product: "Vorwerk Kobold VK200",
       avatar: null,
       isApproved: true,

@@ -141,6 +141,9 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         {product.inStock === false && (
           <span className="text-xs font-semibold text-[var(--color-danger)] mt-1">Nicht verfügbar</span>
         )}
+        {product.inStock !== false && product.stockQuantity != null && product.stockQuantity <= 5 && product.stockQuantity > 0 && (
+          <span className="text-xs font-semibold text-[var(--color-warning)] mt-1">Nur noch {product.stockQuantity} auf Lager</span>
+        )}
 
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">

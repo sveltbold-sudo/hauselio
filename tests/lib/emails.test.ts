@@ -58,6 +58,8 @@ describe("getBankDetails helper", () => {
       customerEmail: "test@example.de",
       customerName: "Test User",
       items: [{ name: "Product", quantity: 1, price: 99.99 }],
+      subtotal: 99.99,
+      couponDiscount: 0,
       total: 99.99,
       shippingCost: 0,
     });
