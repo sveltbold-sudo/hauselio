@@ -1,0 +1,70 @@
+import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { CreateTestimonialSchema } from "@/lib/validations";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-testimonial-update:${ip}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
+    await requireAdmin();
+    const { id } = await params;
+    const body = await request.json();
+    const parsed = CreateTestimonialSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0]!.message }, { status: 400 });
+    }
+
+    const existing = await prisma.testimonial.findUnique({ where: { id } });
+    if (!existing) {
+      return NextResponse.json({ error: "Testimonial nicht gefunden" }, { status: 404 });
+    }
+
+    const testimonial = await prisma.testimonial.update({
+      where: { id },
+      data: parsed.data,
+    });
+
+    return NextResponse.json({ testimonial });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const ip = getClientIp(_request);
+    if (!await checkRateLimit(`admin-testimonial-delete:${ip}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+
+    await requireAdmin();
+    const { id } = await params;
+
+    const existing = await prisma.testimonial.findUnique({ where: { id } });
+    if (!existing) {
+      return NextResponse.json({ error: "Testimonial nicht gefunden" }, { status: 404 });
+    }
+
+    await prisma.testimonial.delete({ where: { id } });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}

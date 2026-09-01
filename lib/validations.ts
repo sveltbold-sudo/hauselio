@@ -95,3 +95,36 @@ export const ResetPasswordSchema = z.object({
   token: z.string().min(1, "Token ist erforderlich"),
   password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
 });
+
+export const CreateCouponSchema = z.object({
+  code: z.string().min(1, "Gutscheincode ist erforderlich").max(50).regex(/^[A-Z0-9]+(-[A-Z0-9]+)*$/, "Code darf nur Großbuchstaben, Zahlen und Bindestriche enthalten"),
+  discountPercent: z.number().int().min(1, "Mindestens 1%").max(100, "Maximal 100%"),
+  maxUses: z.number().int().min(0).default(0),
+  expiresAt: z.string().datetime().optional().nullable(),
+  isActive: z.boolean().default(true),
+});
+
+export const CreateTestimonialSchema = z.object({
+  name: z.string().min(1, "Name ist erforderlich").max(100),
+  location: z.string().max(100).optional().nullable(),
+  rating: z.number().int().min(1).max(5),
+  content: z.string().min(1, "Inhalt ist erforderlich").max(2000),
+  product: z.string().max(200).optional().nullable(),
+  avatar: z.string().max(500).optional().nullable(),
+  isApproved: z.boolean().default(false),
+  isFeatured: z.boolean().default(false),
+});
+
+export const CreateAdminSchema = z.object({
+  email: z.string().email("Ungültige E-Mail-Adresse").max(254),
+  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+  name: z.string().max(100).optional().nullable(),
+  role: z.enum(["ADMIN", "EDITOR"]).default("ADMIN"),
+});
+
+export const UpdateAdminSchema = z.object({
+  email: z.string().email("Ungültige E-Mail-Adresse").max(254).optional(),
+  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128).optional(),
+  name: z.string().max(100).optional().nullable(),
+  role: z.enum(["ADMIN", "EDITOR"]).optional(),
+});

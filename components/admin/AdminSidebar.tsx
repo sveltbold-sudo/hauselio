@@ -17,6 +17,9 @@ import {
   Users,
   Tag,
   BarChart3,
+  Ticket,
+  MessageSquareQuote,
+  Shield,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -30,9 +33,12 @@ const navigation = [
   { name: "Bestellungen", href: "/admin/bestellungen", icon: ShoppingCart },
   { name: "Kunden", href: "/admin/kunden", icon: Users },
   { name: "Bewertungen", href: "/admin/bewertungen", icon: Star },
+  { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
   { name: "Kategorien", href: "/admin/kategorien", icon: Tag },
+  { name: "Gutscheine", href: "/admin/coupons", icon: Ticket },
   { name: "Newsletter", href: "/admin/newsletter", icon: Mail },
   { name: "Statistiken", href: "/admin/statistiken", icon: BarChart3 },
+  { name: "Admins", href: "/admin/admin-users", icon: Shield },
   { name: "Einstellungen", href: "/admin/einstellungen", icon: Settings },
 ];
 
