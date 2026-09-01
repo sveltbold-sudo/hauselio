@@ -65,7 +65,7 @@ export default function PressReviewsSection({
 }: PressReviewsSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Pressestimmen">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Vertrauen</p>

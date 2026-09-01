@@ -290,7 +290,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/30" />
         </div>
 
-        <div className="relative z-10 container-HAUSAURA py-14 lg:py-16 xl:py-20">
+        <div className="relative z-10 container-hausaura py-14 lg:py-16 xl:py-20">
           <div className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
             {/* Text */}
             <div>

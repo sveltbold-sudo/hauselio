@@ -94,7 +94,7 @@ export default async function TestimonialsSection() {
 
   return (
     <section className="section-py" aria-label="Kundenstimmen">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kundenstimmen</p>

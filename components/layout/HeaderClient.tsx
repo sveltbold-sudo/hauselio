@@ -218,7 +218,7 @@ export default function HeaderClient() {
           }`}
         >
           <div className="promo-banner">
-            <div className="container-HAUSAURA flex items-center justify-center h-8 gap-2 relative">
+            <div className="container-hausaura flex items-center justify-center h-8 gap-2 relative">
               <span className="hidden sm:inline" aria-hidden="true">🚚</span>
               <span className="font-medium">
                 Kostenloser Versand ab {FREE_SHIPPING_THRESHOLD}€ · 30 Tage Rückgabe
@@ -236,7 +236,7 @@ export default function HeaderClient() {
       )}
 
       {/* Main header row: Logo | Search | Actions */}
-      <div className="container-HAUSAURA relative">
+      <div className="container-hausaura relative">
         <div className="flex items-center gap-2 sm:gap-4 h-14 md:h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0 group">
@@ -361,7 +361,7 @@ export default function HeaderClient() {
         className="hidden lg:block relative border-t border-[var(--color-border-light)]"
         onMouseLeave={handleMegaLeave}
       >
-        <div className="container-HAUSAURA">
+        <div className="container-hausaura">
           <div className="flex items-center gap-1 h-11">
             {navCategories.map((cat) => (
               <div
@@ -440,7 +440,7 @@ export default function HeaderClient() {
               }
             }}
           >
-            <div className="container-HAUSAURA">
+            <div className="container-hausaura">
               <div className="pt-1 pb-2">
                 <div className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 w-fit max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}>
                   <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">

@@ -28,7 +28,7 @@ const defaultBrands: Brand[] = [
 export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Unsere Marken">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Marken</p>

@@ -58,7 +58,7 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
 
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Zuletzt angesehen">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         <div className="flex items-center gap-2 mb-6">
           <Clock className="w-5 h-5 text-[var(--color-text-muted)]" />
           <h2 className="heading-3">

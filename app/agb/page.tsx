@@ -26,11 +26,11 @@ export const metadata: Metadata = {
 
 export default function AGBPage() {
   return (
-    <main id="main-content" className="container-HAUSAURA py-16 max-w-3xl">
+    <main id="main-content" className="container-hausaura py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "AGB" }]} />
       <h1 className="heading-1 mb-8">Allgemeine Geschäftsbedingungen</h1>
 
-      <div className="prose-HAUSAURA space-y-8">
+      <div className="prose-hausaura space-y-8">
         <section>
           <h2 className="heading-3 mb-3">§ 1 Geltungsbereich</h2>
           <p className="text-[var(--color-text-secondary)]">

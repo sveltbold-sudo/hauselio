@@ -49,7 +49,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
 
   return (
     <section className="section-py bg-white" aria-label="Angebot des Tages">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         <div className="bg-gradient-to-r from-[var(--color-danger)] to-[var(--color-danger-hover)] rounded-2xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Content */}

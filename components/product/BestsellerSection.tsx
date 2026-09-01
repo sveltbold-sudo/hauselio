@@ -28,7 +28,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
 
   return (
     <section className="section-py bg-white" aria-label="Bestseller">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
             <div className="flex items-center gap-2 mb-3">

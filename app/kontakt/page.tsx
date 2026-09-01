@@ -72,7 +72,7 @@ export default async function KontaktPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <main id="main-content">
-      <div className="container-HAUSAURA py-6 sm:py-8">
+      <div className="container-hausaura py-6 sm:py-8">
         {/* Breadcrumb */}
         <Breadcrumb items={[{ label: "Kontakt" }]} />
 

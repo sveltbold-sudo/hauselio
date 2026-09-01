@@ -20,7 +20,7 @@ export default function NewsletterSection() {
         />
       </div>
       
-      <div className="relative container-HAUSAURA text-center">
+      <div className="relative container-hausaura text-center">
         <p className="caption text-white/50 mb-3">Newsletter</p>
         <h2 className="heading-2 text-white mb-2">
           10% Rabatt auf Ihre erste Bestellung

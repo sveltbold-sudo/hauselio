@@ -42,7 +42,7 @@ export default function Footer() {
     <footer className="bg-[var(--color-secondary)] text-white pb-[env(safe-area-inset-bottom,0px)]">
       {/* Trust badges bar */}
       <div className="border-b border-white/10">
-        <div className="container-HAUSAURA py-6">
+        <div className="container-hausaura py-6">
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" role="list">
             {trustBadges.map((badge) => (
               <li key={badge.id} className="flex items-center gap-2.5">
@@ -87,7 +87,7 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="container-HAUSAURA py-8 sm:py-12">
+      <div className="container-hausaura py-8 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
           {/* Brand + Newsletter */}
           <div className="lg:col-span-4">
@@ -211,7 +211,7 @@ export default function Footer() {
 
       {/* Bottom bar — payment methods + copyright */}
       <div className="border-t border-white/10">
-        <div className="container-HAUSAURA py-5">
+        <div className="container-hausaura py-5">
           {/* Payment methods — icon only */}
           <div className="flex flex-wrap justify-center gap-3 mb-4">
             {paymentMethods.map((method) => (

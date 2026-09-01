@@ -42,7 +42,7 @@ const valueProps = [
 export default function ValuePropsSection() {
   return (
     <section aria-label="Unsere Vorteile" className="section-py bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-light)]">
-      <div className="container-HAUSAURA">
+      <div className="container-hausaura">
         <h2 className="sr-only">Ihre Vorteile bei HAUSAURA</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3" role="list">
           {valueProps.map((prop, i) => {

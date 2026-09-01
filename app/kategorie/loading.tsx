@@ -1,6 +1,6 @@
 ﻿export default function KategorieLoading() {
   return (
-    <div className="container-HAUSAURA py-8" role="status" aria-label="Wird geladen">
+    <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">
         <div className="mb-10">
           <div className="h-3 w-24 bg-[var(--color-border-light)] rounded mb-4" />

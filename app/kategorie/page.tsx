@@ -67,7 +67,7 @@ export default async function KategoriePage() {
         ]}
       />
 
-      <div className="container-HAUSAURA py-12">
+      <div className="container-hausaura py-12">
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 

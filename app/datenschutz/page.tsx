@@ -19,11 +19,11 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main id="main-content" className="container-HAUSAURA py-16 max-w-3xl">
+    <main id="main-content" className="container-hausaura py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Datenschutz" }]} />
       <h1 className="heading-1 mb-8">Datenschutzerklärung</h1>
 
-      <div className="prose-HAUSAURA space-y-8">
+      <div className="prose-hausaura space-y-8">
         <section>
           <h2 className="heading-3 mb-3">1. Datenschutz auf einen Blick</h2>
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Allgemeine Hinweise</h3>

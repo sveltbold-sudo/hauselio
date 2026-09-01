@@ -145,7 +145,7 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="container-HAUSAURA py-8">
+    <div className="container-hausaura py-8">
       {/* Breadcrumb */}
       <Breadcrumb
         items={[

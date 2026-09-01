@@ -60,7 +60,7 @@ const values = [
 
 export default function UeberUnsPage() {
   return (
-    <main id="main-content" className="container-HAUSAURA py-6 sm:py-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8">
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">
