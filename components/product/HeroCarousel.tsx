@@ -71,12 +71,14 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   const [current, setCurrent] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const TRANSITION_MS = 400;
 
   useEffect(() => {
+    setMounted(true);
     return () => {
       if (transitionTimeoutRef.current) {
         clearTimeout(transitionTimeoutRef.current);
@@ -130,6 +132,14 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
   const slide = slides[current]!;
   const discount = calcDiscount(slide.price, slide.originalPrice);
+
+  if (!mounted) {
+    return (
+      <section className="relative w-full" aria-label="Produkt-Highlights">
+        <div className="relative h-[60vh] min-h-[380px] max-h-[500px] bg-[var(--color-bg-secondary)] animate-pulse" />
+      </section>
+    );
+  }
 
   return (
     <section
