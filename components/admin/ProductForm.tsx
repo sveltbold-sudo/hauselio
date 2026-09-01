@@ -46,6 +46,7 @@ export default function ProductForm({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSavedHint, setShowSavedHint] = useState(false);
   const isDirty = useRef(false);
   const initialDataRef = useRef(initialData);
@@ -154,11 +155,14 @@ export default function ProductForm({
     e.preventDefault();
     if (!validate()) return;
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- exclude UI-only fields from submission
       const { newFeature, newSpecKey, newSpecValue, ...submitData } = formData;
       await onSubmit(submitData);
       isDirty.current = false;
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Ein Fehler ist aufgetreten.");
     } finally {
       setIsSubmitting(false);
     }
@@ -656,6 +660,11 @@ export default function ProductForm({
             </div>
 
             {/* Submit */}
+            {submitError && (
+              <div className="p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 rounded-xl text-sm text-[var(--color-danger)]">
+                {submitError}
+              </div>
+            )}
             <Button
               type="submit"
               disabled={isDisabled}

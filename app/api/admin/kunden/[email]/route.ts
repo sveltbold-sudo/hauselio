@@ -21,6 +21,13 @@ export async function GET(
     const { email } = await params;
     const decodedEmail = decodeURIComponent(email);
 
+    if (!decodedEmail || !decodedEmail.includes("@") || decodedEmail.length > 254) {
+      return NextResponse.json(
+        { error: "Ungültige E-Mail-Adresse." },
+        { status: 400 }
+      );
+    }
+
     const orders = await prisma.order.findMany({
       where: { customerEmail: decodedEmail },
       orderBy: { createdAt: "desc" },

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { getJWTSecret, isTokenRevoked } from "@/lib/auth";
+import { getAdminJWTSecret, isTokenRevoked } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
@@ -39,7 +39,7 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      const { payload } = await jwtVerify(token, getJWTSecret(), {
+      const { payload } = await jwtVerify(token, getAdminJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-admin",
       });

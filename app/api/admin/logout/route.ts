@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { clearAuthCookie, revokeToken } from "@/lib/auth";
+import { clearAuthCookie, revokeToken, requireAdmin } from "@/lib/auth";
 import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { cookies } from "next/headers";
@@ -10,6 +10,8 @@ export async function POST(request: NextRequest) {
     if (!await checkRateLimit(`admin-logout:${ip}`, 20, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
+
+    await requireAdmin();
 
     const cookieStore = await cookies();
     const token = cookieStore.get("admin_token")?.value;
