@@ -4,7 +4,7 @@ export const CreateOrderSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
   firstName: z.string().min(1, "Vorname ist erforderlich").max(100),
   lastName: z.string().min(1, "Nachname ist erforderlich").max(100),
-  phone: z.string().max(30).optional().nullable(),
+  phone: z.string().max(30).regex(/^[\d\s\+\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
   address: z.string().min(1, "Adresse ist erforderlich").max(200),
   city: z.string().min(1, "Stadt ist erforderlich").max(100),
   zip: z.string().min(1, "PLZ ist erforderlich").regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten (DE/AT/CH)").max(10),
@@ -80,7 +80,7 @@ export const CustomerLoginSchema = z.object({
 
 export const UpdateProfileSchema = z.object({
   name: z.string().min(1, "Name ist erforderlich").max(100).optional(),
-  phone: z.string().max(30).optional().nullable(),
+  phone: z.string().max(30).regex(/^[\d\s\+\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
   address: z.string().max(200).optional().nullable(),
   zip: z.string().regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten").optional().nullable(),
   city: z.string().max(100).optional().nullable(),

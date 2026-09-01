@@ -32,7 +32,7 @@ export default function NewsletterPage() {
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    fetch("/api/admin/newsletter")
+    fetch("/api/admin/newsletter?limit=1000")
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();

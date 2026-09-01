@@ -19,9 +19,13 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "50", 10) || 50));
+    const search = searchParams.get("search")?.trim() || "";
+
+    const where = search ? { email: { contains: search, mode: "insensitive" as const } } : {};
 
     const [subscribers, total] = await Promise.all([
       prisma.newsletter.findMany({
+        where,
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
@@ -33,7 +37,7 @@ export async function GET(request: NextRequest) {
           createdAt: true,
         },
       }),
-      prisma.newsletter.count(),
+      prisma.newsletter.count({ where }),
     ]);
 
     return NextResponse.json({

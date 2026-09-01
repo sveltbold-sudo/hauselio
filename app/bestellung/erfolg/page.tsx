@@ -160,17 +160,17 @@ export default function OrderSuccessPage() {
         </p>
       </div>
 
-      {/* Reservation timer */}
+      {/* Payment reminder */}
       {remaining > 0 && (
         <div
-          role="timer"
+          role="status"
           aria-live="polite"
           aria-atomic="true"
           className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6"
         >
           <Clock className="w-4 h-4 text-[var(--color-primary)]" />
           <span className="text-sm font-medium text-[var(--color-primary)]">
-            Bestellung für {timerMin}:{timerSec} Minuten reserviert
+            Bitte bezahlen Sie innerhalb von {timerMin}:{timerSec} Minuten
           </span>
         </div>
       )}

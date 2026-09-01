@@ -232,7 +232,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
           <div className="flex items-center gap-2 mb-4">
             <Check className="w-4 h-4 text-[var(--color-success)]" />
-            <span className="text-sm font-semibold text-[var(--color-success)]">Auf Lager</span>
+            <span className="text-sm font-semibold text-[var(--color-success)]">Sofort versandfertig</span>
           </div>
 
           <div className="flex items-center gap-3 p-2.5 sm:p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
