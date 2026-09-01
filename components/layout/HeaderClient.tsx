@@ -135,7 +135,7 @@ export default function HeaderClient() {
     megaCloseTimeoutRef.current = setTimeout(() => {
       setActiveMega(null);
       megaCloseTimeoutRef.current = null;
-    }, 120);
+    }, 80);
   }, []);
 
   const handleMegaFocus = useCallback((href: string) => {
@@ -390,7 +390,6 @@ export default function HeaderClient() {
         ref={megaNavRef}
         aria-label="Kategorien"
         className="hidden lg:block relative border-t border-[var(--color-border-light)]"
-        onMouseLeave={handleMegaLeave}
       >
         <div className="container-hausaura">
           <div className="flex items-center gap-1 h-11">
@@ -399,6 +398,7 @@ export default function HeaderClient() {
                 key={cat.href}
                 className="relative shrink-0"
                 onMouseEnter={(e) => handleMegaEnter(cat.href, e)}
+                onMouseLeave={handleMegaLeave}
               >
                 <Link
                   href={cat.href}
@@ -460,13 +460,6 @@ export default function HeaderClient() {
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
             }`}
-            onMouseEnter={() => {
-              if (megaCloseTimeoutRef.current) {
-                clearTimeout(megaCloseTimeoutRef.current);
-                megaCloseTimeoutRef.current = null;
-              }
-            }}
-            onMouseLeave={handleMegaLeave}
           >
             <div className="container-hausaura">
               <div className="pt-1 pb-2">
