@@ -8,6 +8,7 @@ import { getShippingCost } from "@/lib/constants";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
 import { ValidationError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
+import { getCustomerFromRequest } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,6 +41,17 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, firstName, lastName, phone, address, city, zip, country, notes, items, couponCode } = parsed.data;
+
+    // Optional: link order to logged-in customer account
+    let customerId: string | null = null;
+    try {
+      const customer = await getCustomerFromRequest();
+      if (customer) {
+        customerId = customer.id;
+      }
+    } catch {
+      // Guest checkout — no customer linked
+    }
 
     // Validate coupon server-side
     let couponDiscount = 0;
@@ -97,6 +109,7 @@ export async function POST(request: NextRequest) {
           return tx.order.create({
             data: {
               orderNumber: generateOrderNumber(),
+              customerId: customerId || undefined,
               customerEmail: email,
               customerFirstName: firstName,
               customerLastName: lastName,

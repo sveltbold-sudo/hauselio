@@ -15,9 +15,11 @@ export async function GET(request: NextRequest) {
     }
 
     let email: string;
+    let customerId: string;
     try {
       const customer = await requireCustomer();
       email = customer.email;
+      customerId = customer.id;
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
@@ -27,7 +29,10 @@ export async function GET(request: NextRequest) {
 
     const orders = await prisma.order.findMany({
       where: {
-        customerEmail: { equals: email, mode: "insensitive" },
+        OR: [
+          { customerId },
+          { customerEmail: { equals: email, mode: "insensitive" } },
+        ],
       },
       include: {
         items: {

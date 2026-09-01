@@ -726,3 +726,46 @@ export async function sendNewsletterCampaign(data: {
     activeCampaigns.delete(campaignKey);
   }
 }
+
+export async function sendEmailVerification(data: {
+  to: string;
+  name: string;
+  verificationUrl: string;
+}) {
+  const safeName = escapeHtml(data.name);
+
+  const html = baseTemplate(`
+    ${headerBanner("E-Mail verifizieren", "Bestätigen Sie Ihre E-Mail-Adresse")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        Vielen Dank für Ihre Registrierung bei HAUSAURA. Klicken Sie auf den folgenden Button, um Ihre E-Mail-Adresse zu verifizieren:
+      </p>
+
+      <div style="text-align:center;padding:16px 0 24px 0;">
+        <a href="${data.verificationUrl}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:10px;">
+          E-Mail verifizieren
+        </a>
+      </div>
+
+      <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
+        <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
+          Dieser Link ist <strong>24 Stunden</strong> gültig. Wenn Sie sich nicht bei HAUSAURA registriert haben, können Sie diese E-Mail ignorieren.
+        </p>
+      </div>
+
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: data.to,
+    subject: "E-Mail verifizieren \u2013 HAUSAURA",
+    html,
+  });
+}

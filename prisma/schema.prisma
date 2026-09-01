@@ -272,6 +272,7 @@ model Customer {
   zip            String?
   city           String?
   country        String?   @default("DE")
+  emailVerified  DateTime?
   failedAttempts Int       @default(0)
   lockedUntil    DateTime?
   lastLogin      DateTime?
@@ -279,6 +280,17 @@ model Customer {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
+  @@index([email])
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  email     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
   @@index([email])
 }
 

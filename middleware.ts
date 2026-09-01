@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { getJWTSecret } from "@/lib/auth";
+import { getJWTSecret, isTokenRevoked } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
@@ -41,8 +41,18 @@ export async function middleware(request: NextRequest) {
     try {
       const { payload } = await jwtVerify(token, getJWTSecret(), {
         algorithms: ["HS256"],
-        issuer: "hausaura-admin",
+        issuer: "HAUSAURA-admin",
       });
+
+      if (await isTokenRevoked(token)) {
+        if (isAdminRoute) {
+          return NextResponse.redirect(new URL("/admin/login", request.url));
+        }
+        return NextResponse.json(
+          { error: "Token widerrufen" },
+          { status: 401 }
+        );
+      }
 
       const now = Math.floor(Date.now() / 1000);
       if (payload.exp && payload.exp < now) {
