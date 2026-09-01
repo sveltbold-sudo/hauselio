@@ -5,7 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import Input from "@/components/ui/Input";
-import { Check, Copy, ArrowRight, Download, AlertCircle, Truck } from "lucide-react";
+import PaymentTimeline from "@/components/ui/PaymentTimeline";
+import { Check, Copy, ArrowRight, AlertCircle, Truck, Clock, Shield, HelpCircle, ChevronDown } from "lucide-react";
 
 interface BankDetails {
   accountName: string;
@@ -32,6 +33,25 @@ function getOrderCouponDiscount(order: Order): number {
   return diff > 0.01 ? Math.round(diff * 100) / 100 : 0;
 }
 
+const faqItems = [
+  {
+    q: "Wann muss ich überweisen?",
+    a: "Bitte überweisen Sie den Betrag innerhalb von 5 Werktagen. Ihre Bestellung wird danach umgehend versendet.",
+  },
+  {
+    q: "Was passiert, wenn ich nicht überweise?",
+    a: "Ohne Zahlungseingang können wir Ihre Bestellung leider nicht bearbeiten. Sie können jederzeit eine neue Bestellung aufgeben.",
+  },
+  {
+    q: "Kann ich eine andere Zahlungsmethode verwenden?",
+    a: "Derzeit bieten wir ausschließlich die Zahlung per Überweisung (Vorkasse) an – für maximale Sicherheit Ihrer Daten.",
+  },
+  {
+    q: "Wann wird mein Paket versendet?",
+    a: "Sobald Ihre Zahlung bei uns eingegangen ist, wird Ihre Bestellung innerhalb von 1-2 Werktagen versendet.",
+  },
+];
+
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order");
@@ -57,6 +77,14 @@ export default function OrderSuccessPage() {
     }
     return false;
   });
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState(30 * 60);
+
+  useEffect(() => {
+    if (!orderId || orderLoading || order) return;
+    const timer = setInterval(() => setRemaining((r) => (r > 0 ? r - 1 : 0)), 1000);
+    return () => clearInterval(timer);
+  }, [orderId, orderLoading, order]);
 
   useEffect(() => {
     if (orderId && orderEmail) {
@@ -94,6 +122,9 @@ export default function OrderSuccessPage() {
     setTimeout(() => setCopied(null), 2000);
   };
 
+  const timerMin = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const timerSec = String(remaining % 60).padStart(2, "0");
+
   if (!orderId) {
     return (
       <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
@@ -113,20 +144,34 @@ export default function OrderSuccessPage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-16 text-center max-w-2xl mx-auto">
+    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto">
       {/* Success Icon */}
-      <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
-        <Check className="w-10 h-10 text-[var(--color-success)]" />
+      <div className="text-center mb-8">
+        <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-6 animate-scale-in">
+          <Check className="w-10 h-10 text-[var(--color-success)]" />
+        </div>
+        <h1 className="heading-2 mb-3">Vielen Dank für Ihre Bestellung!</h1>
+        <p className="body-large text-[var(--color-text-secondary)]">
+          Ihre Bestellung wurde erfolgreich aufgegeben.
+        </p>
       </div>
 
-      <h1 className="heading-2 mb-4">Vielen Dank für Ihre Bestellung!</h1>
-      <p className="body-large mb-2">
-        Ihre Bestellung wurde erfolgreich aufgegeben.
-      </p>
-      <p className="text-sm text-[var(--color-text-muted)] mb-8">
-        Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.
-      </p>
+      {/* Reservation timer */}
+      {remaining > 0 && (
+        <div className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6">
+          <Clock className="w-4 h-4 text-[var(--color-primary)]" />
+          <span className="text-sm font-medium text-[var(--color-primary)]">
+            Bestellung für {timerMin}:{timerSec} Minuten reserviert
+          </span>
+        </div>
+      )}
 
+      {/* Timeline */}
+      <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 mb-6">
+        <PaymentTimeline currentStep="payment-pending" />
+      </div>
+
+      {/* Delivery estimate */}
       <div className="flex items-center justify-center gap-2 text-sm text-[var(--color-text-secondary)] mb-8">
         <Truck className="w-4 h-4 text-[var(--color-text-muted)]" />
         <span>Voraussichtliche Lieferung: <strong>2-5 Werktage</strong> nach Zahlungseingang</span>
@@ -192,18 +237,16 @@ export default function OrderSuccessPage() {
       {order && (
         <>
           {/* Order Number */}
-          <div className="bg-[var(--color-bg)] rounded-2xl p-6 mb-6">
-            <p className="text-sm text-[var(--color-text-muted)] mb-2">
-              Bestellnummer
-            </p>
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-6 text-center">
+            <p className="text-sm text-[var(--color-text-muted)] mb-2">Bestellnummer</p>
             <div className="flex items-center justify-center gap-2">
-                <p className="text-xl font-extrabold text-[var(--color-primary)]">
+              <p className="text-2xl font-extrabold text-[var(--color-primary)] tracking-tight">
                 {order.orderNumber}
               </p>
               <button
                 onClick={() => copyToClipboard(order.orderNumber, "orderNumber")}
                 aria-label="Bestellnummer kopieren"
-                className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
               >
                 {copied === "orderNumber" ? (
                   <Check className="w-4 h-4 text-[var(--color-success)]" />
@@ -212,7 +255,106 @@ export default function OrderSuccessPage() {
                 )}
               </button>
             </div>
+            <p className="text-xs text-[var(--color-text-muted)] mt-2">
+              Die Bestätigungs-E-Mail wurde an <strong>{orderEmail || "Ihre E-Mail-Adresse"}</strong> gesendet.
+            </p>
           </div>
+
+          {/* ═══ PAYMENT INSTRUCTIONS ═══ */}
+          {bankDetails && (
+            <div className="bg-white rounded-2xl border-2 border-[var(--color-primary)]/20 p-6 mb-6 text-left">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)] flex items-center justify-center">
+                  <span className="text-white text-lg font-bold">€</span>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg text-[var(--color-text-primary)]">
+                    Zahlungsinformationen
+                  </h2>
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    Bitte überweisen Sie innerhalb von 5 Werktagen
+                  </p>
+                </div>
+              </div>
+
+              {/* Amount - HERO */}
+              <div className="bg-[var(--color-primary)] text-white rounded-xl p-4 mb-4 text-center">
+                <p className="text-xs text-white/70 mb-1 uppercase tracking-wider font-medium">Zu zahlender Betrag</p>
+                <p className="text-3xl font-extrabold tracking-tight">{formatPrice(order.total)}</p>
+              </div>
+
+              {/* Reference - HERO */}
+              <div className="bg-[var(--color-accent-light)] border border-[var(--color-accent)]/20 rounded-xl p-4 mb-4 text-center">
+                <p className="text-xs text-[var(--color-text-muted)] mb-1 uppercase tracking-wider font-medium">Verwendungszweck</p>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-2xl font-extrabold text-[var(--color-accent)] tracking-wider font-mono">
+                    {order.orderNumber}
+                  </p>
+                  <button
+                    onClick={() => copyToClipboard(order.orderNumber, "reference")}
+                    aria-label="Verwendungszweck kopieren"
+                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-white rounded-lg transition-colors"
+                  >
+                    {copied === "reference" ? <Check className="w-4 h-4 text-[var(--color-success)]" /> : <Copy className="w-4 h-4" />}
+                  </button>
+                </div>
+                <p className="text-[10px] text-[var(--color-text-muted)] mt-1">
+                  Ohne Verwendungszweck kann Ihre Bestellung nicht zugeordnet werden
+                </p>
+              </div>
+
+              {/* Bank details */}
+              <div className="bg-[var(--color-bg-secondary)] rounded-xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-[var(--color-text-muted)]">Empfänger</p>
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)]">{bankDetails.accountName}</p>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(bankDetails.accountName, "name")}
+                    aria-label="Empfängername kopieren"
+                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                  >
+                    {copied === "name" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-[var(--color-text-muted)]">IBAN</p>
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono tracking-wide">{bankDetails.iban}</p>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(bankDetails.iban, "iban")}
+                    aria-label="IBAN kopieren"
+                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                  >
+                    {copied === "iban" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-[var(--color-text-muted)]">BIC</p>
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono">{bankDetails.bic}</p>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(bankDetails.bic, "bic")}
+                    aria-label="BIC kopieren"
+                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                  >
+                    {copied === "bic" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Security note */}
+              <div className="flex items-start gap-2 mt-4 p-3 bg-[var(--color-success-light)] border border-[var(--color-success)]/20 rounded-xl">
+                <Shield className="w-4 h-4 text-[var(--color-success)] shrink-0 mt-0.5" />
+                <p className="text-xs text-[var(--color-text-secondary)]">
+                  <strong>Sicherheit:</strong> Ihre Daten werden SSL-verschlüsselt übertragen. Wir speichern keine Bankdaten und haben keinen Zugriff auf Ihr Konto.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Order Summary */}
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-6 text-left">
@@ -253,106 +395,32 @@ export default function OrderSuccessPage() {
             </div>
           </div>
 
-          {/* Payment Instructions - SEPA */}
-          {bankDetails && (
-            <div className="bg-[var(--color-bg)] rounded-2xl border-2 border-[var(--color-primary)]/20 p-6 mb-8 text-left">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center">
-                  <Download className="w-5 h-5 text-[var(--color-primary)]" />
-                </div>
-                <div>
-                  <h2 className="font-bold text-[var(--color-text-primary)]">
-                    Zahlungsinformationen
-                  </h2>
-                  <p className="text-xs text-[var(--color-text-muted)]">
-                    SEPA-Überweisung · 5 Werktage
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Bitte überweisen Sie den Gesamtbetrag innerhalb von <strong>5 Werktagen</strong> auf
-                folgendes Konto:
-              </p>
-
-              <div className="bg-white rounded-xl p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-[var(--color-text-muted)]">Empfänger</p>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)]">{bankDetails.accountName}</p>
-                  </div>
+          {/* ═══ FAQ ═══ */}
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-8 text-left">
+            <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-[var(--color-primary)]" />
+              Häufige Fragen zur Zahlung
+            </h2>
+            <div className="divide-y divide-[var(--color-border-light)]">
+              {faqItems.map((item, i) => (
+                <div key={i}>
                   <button
-                    onClick={() => copyToClipboard(bankDetails.accountName, "name")}
-                    aria-label="Empfängername kopieren"
-                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full flex items-center justify-between py-3 text-left"
+                    aria-expanded={openFaq === i}
                   >
-                    {copied === "name" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span className="text-sm font-semibold text-[var(--color-text-primary)]">{item.q}</span>
+                    <ChevronDown className={`w-4 h-4 text-[var(--color-text-muted)] transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`} />
                   </button>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-[var(--color-text-muted)]">IBAN</p>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono tracking-wide">{bankDetails.iban}</p>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard(bankDetails.iban, "iban")}
-                    aria-label="IBAN kopieren"
-                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
-                  >
-                    {copied === "iban" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-[var(--color-text-muted)]">BIC</p>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono">{bankDetails.bic}</p>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard(bankDetails.bic, "bic")}
-                    aria-label="BIC kopieren"
-                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
-                  >
-                    {copied === "bic" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-                <div className="flex items-center justify-between border-t border-[var(--color-border-light)] pt-3">
-                  <div>
-                    <p className="text-xs text-[var(--color-text-muted)]">Verwendungszweck</p>
-                    <p className="text-lg font-extrabold text-[var(--color-primary)]">{order.orderNumber}</p>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard(order.orderNumber, "reference")}
-                    aria-label="Verwendungszweck kopieren"
-                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
-                  >
-                    {copied === "reference" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-[var(--color-text-muted)]">Betrag</p>
-                    <p className="text-lg font-extrabold text-[var(--color-primary)]">
-                      {formatPrice(order.total)}
+                  {openFaq === i && (
+                    <p className="text-sm text-[var(--color-text-secondary)] pb-3 leading-relaxed">
+                      {item.a}
                     </p>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard(formatPrice(order.total), "amount")}
-                    aria-label="Betrag kopieren"
-                    className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-colors"
-                  >
-                    {copied === "amount" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
+                  )}
                 </div>
-              </div>
-
-              <div className="mt-4 p-3 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
-                <p className="text-xs text-[var(--color-text-secondary)]">
-                  <strong>Hinweis:</strong> Ihre Bestellung wird erst nach Eingang der Zahlung versendet.
-                  Bitte geben Sie die Bestellnummer als Verwendungszweck an.
-                </p>
-              </div>
+              ))}
             </div>
-          )}
+          </div>
         </>
       )}
 

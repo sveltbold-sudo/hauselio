@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText } from "lucide-react";
+import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText, Lock, Clock, HelpCircle } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProductImage from "@/components/product/ProductImage";
@@ -571,29 +571,44 @@ export default function BestellungPage() {
                 </h2>
                 <div className="bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-3">
-                    <CreditCard className="w-5 h-5 text-[var(--color-primary)]" />
+                    <div className="w-10 h-10 rounded-lg bg-[var(--color-primary)] flex items-center justify-center">
+                      <CreditCard className="w-5 h-5 text-white" />
+                    </div>
                     <div>
                       <p className="font-semibold text-[var(--color-text-primary)]">
-                        Überweisung (SEPA)
+                        Überweisung (Vorkasse)
                       </p>
                       <p className="text-sm text-[var(--color-text-secondary)]">
-                        Keine sensiblen Daten nötig — sicher & datenschutzkonform
+                        Sicher & datenschutzkonform
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-3 mt-3">
-                    <p className="text-xs text-[var(--color-text-muted)] mb-2 font-medium">So funktioniert&apos;s:</p>
-                    <ol className="text-xs text-[var(--color-text-secondary)] space-y-1.5 list-decimal list-inside">
-                      <li>Bestellung abschließen</li>
-                      <li>Bankverbindung per E-Mail erhalten</li>
-                      <li>Überweisung tätigen (Vorkasse)</li>
-                      <li>Ware wird nach Zahlungseingang versendet</li>
-                    </ol>
+                  <div className="bg-white rounded-lg p-4 mt-3">
+                    <p className="text-xs text-[var(--color-text-muted)] mb-3 font-medium uppercase tracking-wider">So geht es weiter:</p>
+                    <div className="space-y-3">
+                      {[
+                        { step: "1", text: "Bestellung abschließen", icon: CheckIcon },
+                        { step: "2", text: "Bankverbindung per E-Mail erhalten", icon: HelpCircle },
+                        { step: "3", text: "Überweisung tätigen (innerhalb 5 Werktagen)", icon: Clock },
+                        { step: "4", text: "Versand nach Zahlungseingang", icon: Truck },
+                      ].map((item) => (
+                        <div key={item.step} className="flex items-center gap-3">
+                          <span className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                            {item.step}
+                          </span>
+                          <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-                  <Truck className="w-4 h-4 text-[var(--color-text-muted)]" />
+                <div className="mt-4 flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                  <Truck className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
                   <span>Voraussichtliche Lieferung: <strong>2-5 Werktage</strong> nach Zahlungseingang</span>
+                </div>
+                <div className="mt-3 flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                  <Lock className="w-4 h-4 text-[var(--color-success)] shrink-0" />
+                  <span>SSL-verschlüsselt · Keine sensiblen Daten nötig</span>
                 </div>
               </div>
 
@@ -602,7 +617,7 @@ export default function BestellungPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                     <Shield className="w-4 h-4 text-[var(--color-success)]" />
-                    <span>Datenverschlüsselung (SSL)</span>
+                    <span>SSL-Verschlüsselung</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                     <Truck className="w-4 h-4 text-[var(--color-success)]" />
@@ -613,9 +628,13 @@ export default function BestellungPage() {
                     <span>30 Tage Rückgaberecht</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
-                    <CreditCard className="w-4 h-4 text-[var(--color-success)]" />
+                    <Lock className="w-4 h-4 text-[var(--color-success)]" />
                     <span>Keine versteckten Kosten</span>
                   </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+                  <CreditCard className="w-4 h-4 text-[var(--color-success)]" />
+                  <span>Kein Konto erforderlich · Keine Kreditkarte nötig</span>
                 </div>
               </div>
 
