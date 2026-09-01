@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface MobileHorizontalScrollProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export default function MobileHorizontalScroll({
   autoScrollInterval = 7000,
 }: MobileHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
@@ -48,9 +50,9 @@ export default function MobileHorizontalScroll({
     const isAtEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
 
     if (isAtEnd) {
-      el.scrollTo({ left: 0, behavior: "smooth" });
+      el.scrollTo({ left: 0, behavior: prefersReduced ? "auto" : "smooth" });
     } else {
-      el.scrollBy({ left: cardWidth + gap, behavior: "smooth" });
+      el.scrollBy({ left: cardWidth + gap, behavior: prefersReduced ? "auto" : "smooth" });
     }
   }, [isPaused]);
 
@@ -77,7 +79,7 @@ export default function MobileHorizontalScroll({
     const cardWidth = el.children[0]?.getBoundingClientRect().width || 280;
     el.scrollBy({
       left: direction === "left" ? -cardWidth - 16 : cardWidth + 16,
-      behavior: "smooth",
+      behavior: prefersReduced ? "auto" : "smooth",
     });
     setIsPaused(true);
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
@@ -134,7 +136,7 @@ export default function MobileHorizontalScroll({
       {/* Auto-scroll indicator */}
       {!isPaused && autoScrollInterval > 0 && (
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--color-border-light)] rounded-full overflow-hidden z-10">
-          <div className="h-full bg-[var(--color-primary)]/40 rounded-full animate-[shrink_7s_linear_infinite]" />
+          <div className={`h-full bg-[var(--color-primary)]/40 rounded-full ${prefersReduced ? "" : "animate-[shrink_7s_linear_infinite]"}`} />
         </div>
       )}
     </div>

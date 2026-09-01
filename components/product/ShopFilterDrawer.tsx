@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import ShopFilters from "@/components/product/ShopFilters";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface ShopFilterDrawerProps {
   categories: { name: string; slug: string }[];
@@ -27,6 +28,7 @@ export default function ShopFilterDrawer({
 }: ShopFilterDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -107,10 +109,10 @@ export default function ShopFilterDrawer({
       {isOpen && (
         <div className="lg:hidden fixed inset-0 z-[90]" role="dialog" aria-modal="true" aria-label="Filter">
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
+            className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${prefersReduced ? "" : "animate-fade-in"}`}
             onClick={() => setIsOpen(false)}
           />
-          <div ref={drawerRef} id="shop-filter-drawer" className="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] animate-slide-in-left overflow-y-auto">
+          <div ref={drawerRef} id="shop-filter-drawer" className={`absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] overflow-y-auto ${prefersReduced ? "" : "animate-slide-in-left"}`}>
             <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
               <h2 className="font-bold text-[var(--color-text-primary)] flex items-center gap-2 text-sm">
                 <SlidersHorizontal className="w-4 h-4" />

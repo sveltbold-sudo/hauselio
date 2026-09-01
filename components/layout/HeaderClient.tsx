@@ -13,10 +13,12 @@ import { useWishlistStore } from "@/lib/wishlist";
 import CategoryIcon from "@/components/ui/CategoryIcon";
 import { navCategories } from "@/lib/navigation";
 import { TRUST_BAR_RATING, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function HeaderClient() {
   const pathname = usePathname();
   const router = useRouter();
+  const prefersReduced = useReducedMotion();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -561,10 +563,10 @@ export default function HeaderClient() {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-0 z-[60]" role="dialog" aria-modal="true" aria-label="Menü">
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
+            className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${prefersReduced ? "" : "animate-fade-in"}`}
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div ref={mobileMenuRef} className="absolute right-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] animate-slide-in-right overflow-y-auto">
+          <div ref={mobileMenuRef} className={`absolute right-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] overflow-y-auto ${prefersReduced ? "" : "animate-slide-in-right"}`}>
             <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
               <h2 className="font-bold text-[var(--color-text-primary)]">Menü</h2>
               <button
@@ -582,8 +584,8 @@ export default function HeaderClient() {
                 return (
                   <div
                     key={cat.href}
-                    className="animate-fade-in-up"
-                    style={{ animationDelay: `${i * 40}ms` }}
+                    className={`${prefersReduced ? "" : "animate-fade-in-up"}`}
+                    style={prefersReduced ? undefined : { animationDelay: `${i * 40}ms` }}
                   >
                     <div className="flex items-center">
                       <Link

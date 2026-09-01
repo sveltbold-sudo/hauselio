@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, RotateCcw } from "lucide-react";
 import { formatPrice, calcDiscount } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface Slide {
   id: string;
@@ -68,6 +69,7 @@ const defaultSlides: Slide[] = [
 
 export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) {
   const slides = propSlides && propSlides.length > 0 ? propSlides : defaultSlides;
+  const prefersReduced = useReducedMotion();
   const [current, setCurrent] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -136,7 +138,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   if (!mounted) {
     return (
       <section className="relative w-full" aria-label="Produkt-Highlights">
-        <div className="relative h-[60vh] min-h-[380px] max-h-[500px] bg-[var(--color-bg-secondary)] animate-pulse" />
+        <div className={`relative h-[60vh] min-h-[380px] max-h-[500px] bg-[var(--color-bg-secondary)] ${prefersReduced ? "" : "animate-pulse"}`} />
       </section>
     );
   }
@@ -163,7 +165,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {slides.map((s, i) => (
           <div
             key={s.id}
-            className={`absolute inset-0 transition-opacity duration-700 ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            className={`absolute inset-0 ${prefersReduced ? "" : "transition-opacity duration-700"} ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
             aria-hidden={i !== current}
           >
             {/* Full-bleed product image */}
@@ -301,7 +303,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         </div>
 
         <div className="relative z-10 container-hausaura py-14 lg:py-16 xl:py-20">
-          <div className="grid grid-cols-2 gap-12 xl:gap-16 items-center animate-fade-in-up">
+          <div className={`grid grid-cols-2 gap-12 xl:gap-16 items-center ${prefersReduced ? "" : "animate-fade-in-up"}`}>
             {/* Text */}
             <div>
               <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
@@ -369,7 +371,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   src={slide.image}
                   alt={slide.name}
                   fill
-                  className="object-contain p-8 xl:p-10 transition-transform duration-700 hover:scale-105"
+                  className={`object-contain p-8 xl:p-10 ${prefersReduced ? "" : "transition-transform duration-700 hover:scale-105"}`}
                   priority
                   sizes="480px"
                 />

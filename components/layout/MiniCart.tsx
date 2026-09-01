@@ -10,9 +10,11 @@ import ProductImage from "@/components/product/ProductImage";
 import Button from "@/components/ui/Button";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { getShippingCost, SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
+  const prefersReduced = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [bounceKey, setBounceKey] = useState(0);
   const items = useCartStore((state) => state.items);
@@ -105,7 +107,7 @@ export default function MiniCart() {
             key={bounceKey}
             aria-live="polite"
             aria-label={`${itemCount} Artikel im Warenkorb`}
-            className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 animate-bounce-in"
+            className={`absolute -top-0.5 -right-0.5 min-w-[20px] h-5 bg-[var(--color-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center px-1 ${prefersReduced ? "" : "animate-bounce-in"}`}
           >
             {itemCount}
           </span>
@@ -114,7 +116,7 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className="absolute right-0 top-full mt-2 w-[calc(100dvw-2rem)] sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] animate-scale-in origin-top-right" role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className={`absolute right-0 top-full mt-2 w-[calc(100dvw-2rem)] sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] origin-top-right ${prefersReduced ? "" : "animate-scale-in"}`} role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
             <h3 className="font-bold text-[var(--color-text-primary)]">

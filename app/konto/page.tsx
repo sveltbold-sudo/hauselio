@@ -476,12 +476,28 @@ export default function KontoPage() {
       <div className="max-w-md mx-auto">
         <h1 className="heading-1 text-center mb-4">Mein Konto</h1>
 
-        <div role="tablist" aria-label="Anmeldung oder Registrierung" className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8">
+        <div
+          role="tablist"
+          aria-label="Anmeldung oder Registrierung"
+          className="flex bg-[var(--color-bg-secondary)] rounded-xl p-1 mb-8"
+          onKeyDown={(e) => {
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              setTab("register");
+              setError("");
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              setTab("login");
+              setError("");
+            }
+          }}
+        >
           <button
             role="tab"
             id="tab-login"
             aria-selected={tab === "login"}
             aria-controls="panel-login"
+            tabIndex={tab === "login" ? 0 : -1}
             onClick={() => { setTab("login"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "login"
@@ -496,6 +512,7 @@ export default function KontoPage() {
             id="tab-register"
             aria-selected={tab === "register"}
             aria-controls="panel-register"
+            tabIndex={tab === "register" ? 0 : -1}
             onClick={() => { setTab("register"); setError(""); }}
             className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "register"

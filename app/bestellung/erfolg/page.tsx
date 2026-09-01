@@ -162,7 +162,12 @@ export default function OrderSuccessPage() {
 
       {/* Reservation timer */}
       {remaining > 0 && (
-        <div className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6">
+        <div
+          role="timer"
+          aria-live="polite"
+          aria-atomic="true"
+          className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6"
+        >
           <Clock className="w-4 h-4 text-[var(--color-primary)]" />
           <span className="text-sm font-medium text-[var(--color-primary)]">
             Bestellung für {timerMin}:{timerSec} Minuten reserviert
