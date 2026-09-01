@@ -7,6 +7,7 @@ import { Trash2, ShoppingBag, ArrowLeft, Truck, Shield, CreditCard, Tag, Heart }
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
 import CartCrossSell from "@/components/product/CartCrossSell";
+import PopularProducts from "@/components/product/PopularProducts";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore, selectItemCount, selectTotal } from "@/lib/store";
 import { useWishlistStore } from "@/lib/wishlist";
@@ -72,6 +73,8 @@ export default function WarenkorbPage() {
             Jetzt einkaufen
           </Button>
         </Link>
+
+        <PopularProducts />
       </main>
     );
   }
@@ -397,7 +400,7 @@ export default function WarenkorbPage() {
             <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
               <p className="text-xs text-[var(--color-text-muted)] mb-2">Sicher bezahlen mit:</p>
               <div className="flex flex-wrap gap-2">
-                {["Vorkasse", "SEPA-Überweisung"].map((method) => (
+                {["Überweisung (Vorkasse)"].map((method) => (
                   <span
                     key={method}
                     className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-xs font-medium text-[var(--color-text-muted)]"

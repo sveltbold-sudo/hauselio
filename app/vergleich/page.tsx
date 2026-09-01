@@ -32,7 +32,7 @@ export default function VergleichPage() {
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("hausaura-comparison");
+    const stored = localStorage.getItem("HAUSAURA-comparison");
     if (stored) {
       try {
         const parsed: unknown = JSON.parse(stored);
@@ -43,7 +43,7 @@ export default function VergleichPage() {
 
   const removeItem = (id: string) => {
     const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("hausaura-comparison", JSON.stringify(updated));
+    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(updated));
     setItems(updated);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));

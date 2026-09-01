@@ -22,7 +22,7 @@ const valueProps = [
   {
     icon: CreditCard,
     title: "Sichere Zahlung",
-    description: "SEPA-Überweisung",
+    description: "Überweisung (Vorkasse)",
     color: "text-[var(--color-text-secondary)]",
   },
   {

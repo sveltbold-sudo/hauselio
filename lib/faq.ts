@@ -6,7 +6,7 @@ export interface FaqItem {
 export const faqItems: FaqItem[] = [
   {
     question: "Wie kann ich ein Produkt bestellen?",
-    answer: "Wählen Sie Ihre Lieblingsprodukte im Shop aus, fügen Sie sie zum Warenkorb hinzu und folgen Sie dem Bestellprozess. Die Zahlung erfolgt per Überweisung (SEPA). Sie erhalten nach der Bestellung eine E-Mail mit den Bankverbindungen.",
+    answer: "Wählen Sie Ihre Lieblingsprodukte im Shop aus, fügen Sie sie zum Warenkorb hinzu und folgen Sie dem Bestellprozess. Die Zahlung erfolgt per Überweisung (Vorkasse). Sie erhalten nach der Bestellung eine E-Mail mit den Bankverbindungen.",
   },
   {
     question: "Wie lange dauert die Lieferung?",

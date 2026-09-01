@@ -266,7 +266,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               ) : (
                 <>
                   <ShoppingBag className="w-5 h-5 mr-2" />
-                  In den Warenkorb
+                  In den Warenkorb · {formatPrice(product.price)}
                 </>
               )}
             </Button>

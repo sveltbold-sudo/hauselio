@@ -124,7 +124,7 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
                 Zahlung
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                Die Zahlung erfolgt ausschließlich per Überweisung (SEPA). Nach
+                Die Zahlung erfolgt ausschließlich per Überweisung (Vorkasse). Nach
                 Ihrer Bestellung erhalten Sie eine E-Mail mit den
                 Bankverbindungen.
               </p>

@@ -82,7 +82,7 @@ export default function AGBPage() {
             jeweiligen Produktseite im &quot;Warenkorb&quot; vor Abschluss des Bestellvorgangs mitgeteilt werden.
           </p>
           <p className="text-[var(--color-text-secondary)] mt-3">
-            (2) Die Zahlung erfolgt ausschließlich per SEPA-Überweisung. Die Zahlungsfrist beträgt 5
+            (2) Die Zahlung erfolgt ausschließlich per Überweisung (Vorkasse). Die Zahlungsfrist beträgt 5
             Werktage nach Abschluss des Vertrages.
           </p>
         </section>

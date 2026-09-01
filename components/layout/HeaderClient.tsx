@@ -417,8 +417,6 @@ export default function HeaderClient() {
               {/* Payment icons */}
               <span className="hidden 2xl:flex items-center gap-1.5 pl-3 border-l border-[var(--color-border-light)]">
                 <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">Vorkasse</span>
-                <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">SEPA</span>
-                <span className="px-1.5 py-0.5 bg-[var(--color-bg-secondary)] rounded text-[10px] font-bold text-[var(--color-text-muted)]">PayPal</span>
               </span>
             </div>
           </div>

@@ -13,7 +13,7 @@ export default function WhatsAppChat() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const wasDismissed = sessionStorage.getItem("whatsapp_dismissed");
+    const wasDismissed = sessionStorage.getItem("HAUSAURA-whatsapp-dismissed");
     if (wasDismissed) {
       setDismissed(true);
       return;
@@ -35,7 +35,7 @@ export default function WhatsAppChat() {
   const handleDismiss = () => {
     setVisible(false);
     setDismissed(true);
-    sessionStorage.setItem("whatsapp_dismissed", "1");
+    sessionStorage.setItem("HAUSAURA-whatsapp-dismissed", "1");
   };
 
   const handleOpen = () => {

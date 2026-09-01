@@ -128,7 +128,7 @@ export default function VersandPage() {
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
-                Überweisung (SEPA)
+                Überweisung (Vorkasse)
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 Nach Ihrer Bestellung erhalten Sie eine Bestätigungs-E-Mail mit

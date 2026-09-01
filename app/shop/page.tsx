@@ -87,6 +87,7 @@ interface ShopPageProps {
     q?: string;
     price?: string;
     promo?: string;
+    rating?: string;
   }>;
 }
 
@@ -97,6 +98,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const q = params.q;
   const price = params.price;
   const sort = params.sort || "newest";
+  const rating = params.rating;
   const page = Math.max(1, parseInt(params.page || "1") || 1);
   const limit = 20;
   const skip = (page - 1) * limit;
@@ -134,11 +136,18 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       where.price = priceFilter;
     }
   }
+  if (rating) {
+    const minRating = Number(rating);
+    if (!isNaN(minRating) && minRating >= 1 && minRating <= 5) {
+      where.rating = { gte: minRating };
+    }
+  }
 
   let orderBy: Prisma.ProductOrderByWithRelationInput = { createdAt: "desc" };
   if (sort === "price_asc") orderBy = { price: "asc" };
   if (sort === "price_desc") orderBy = { price: "desc" };
   if (sort === "rating") orderBy = { rating: "desc" };
+  if (sort === "popular") orderBy = { reviewCount: "desc" };
   if (sort === "name") orderBy = { name: "asc" };
 
   type ProductWithRelations = Prisma.ProductGetPayload<{
@@ -148,9 +157,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
   let total = 0;
+  let categoryCounts: Record<string, number> = {};
 
   try {
-    const [productsResult, categoriesResult, brandsResult, totalResult] = await Promise.allSettled([
+    const [productsResult, categoriesResult, brandsResult, totalResult, categoryCountsResult] = await Promise.allSettled([
       prisma.product.findMany({
         where,
         include: {
@@ -165,6 +175,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       prisma.category.findMany({ orderBy: { name: "asc" } }),
       prisma.brand.findMany({ orderBy: { name: "asc" } }),
       prisma.product.count({ where }),
+      prisma.product.groupBy({
+        by: ["categoryId"],
+        _count: { id: true },
+      }),
     ]);
 
     products = productsResult.status === "fulfilled" ? productsResult.value : [];
@@ -172,10 +186,21 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     brands = brandsResult.status === "fulfilled" ? brandsResult.value : [];
     total = totalResult.status === "fulfilled" ? totalResult.value : 0;
 
+    if (categoryCountsResult.status === "fulfilled") {
+      const allCategories = categories;
+      const countMap: Record<string, number> = {};
+      categoryCountsResult.value.forEach((row) => {
+        const cat = allCategories.find((c) => c.id === row.categoryId);
+        if (cat) countMap[cat.slug] = row._count.id;
+      });
+      categoryCounts = countMap;
+    }
+
     if (productsResult.status === "rejected") logger.error("shop-products", productsResult.reason);
     if (categoriesResult.status === "rejected") logger.error("shop-categories", categoriesResult.reason);
     if (brandsResult.status === "rejected") logger.error("shop-brands", brandsResult.reason);
     if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
+    if (categoryCountsResult.status === "rejected") logger.error("shop-category-counts", categoryCountsResult.reason);
   } catch (error) {
     logger.error("shop-page", error);
   }
@@ -289,7 +314,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   : "bg-white border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] hover:shadow-sm"
               }`}
             >
-              {cat.name}
+              {cat.name}{categoryCounts[cat.slug] !== undefined ? ` (${categoryCounts[cat.slug]})` : ""}
             </Link>
           ))}
         </nav>

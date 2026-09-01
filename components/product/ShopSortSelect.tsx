@@ -27,6 +27,7 @@ export default function ShopSortSelect({ sort }: ShopSortSelectProps) {
         className="text-sm border border-[var(--color-border-light)] rounded-xl px-3 py-3 min-h-[44px] text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] cursor-pointer"
       >
         <option value="newest">Neueste</option>
+        <option value="popular">Beliebteste</option>
         <option value="price_asc">Preis aufsteigend</option>
         <option value="price_desc">Preis absteigend</option>
         <option value="rating">Beste Bewertung</option>

@@ -23,7 +23,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "Moderne Haushaltsgeräte aus Deutschland",
   description:
-    "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. SEPA-Überweisung.",
+    "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. Überweisung (Vorkasse).",
   alternates: {
     canonical: "/",
   },
@@ -266,6 +266,9 @@ export default async function HomePage() {
       <h1 className="heading-1 container-hausaura pt-8 pb-2 text-[var(--color-text-primary)]">
         HAUSAURA — Moderne Haushaltsgeräte
       </h1>
+      <p className="container-hausaura text-[var(--color-text-secondary)] text-sm sm:text-base mb-4 -mt-1">
+        Bis zu 40% sparen auf Markengeräte · Kostenloser Versand ab 50€
+      </p>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 
       {/* Trust scores — like Coolblue */}

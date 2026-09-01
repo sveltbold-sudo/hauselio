@@ -62,7 +62,7 @@ const defaultSlides: Slide[] = [
     subtitle: "P.E.P. Technologie für perfekten Espresso.",
     image: "/images/products/jura-e8-platinum/1.png",
     bgImage: "/images/hero-coffee.jpg",
-    cta: "Jetzt ansehen",
+    cta: "Angebot sichern",
   },
 ];
 

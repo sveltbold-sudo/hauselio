@@ -104,7 +104,7 @@ export default function DatenschutzPage() {
         <section>
           <h2 className="heading-3 mb-3">7. Zahlungsabwicklung</h2>
           <p className="text-[var(--color-text-secondary)]">
-            Wir bieten ausschließlich die Zahlungsart SEPA-Überweisung an. Bei dieser Zahlungsart erfolgt die
+            Wir bieten ausschließlich die Zahlungsart Überweisung (Vorkasse) an. Bei dieser Zahlungsart erfolgt die
             Zahlungsabwicklung über unseren Zahlungsdienstleister. Ihre Zahlungsdaten werden ausschließlich
             zur Durchführung der Überweisung verwendet und nicht von uns gespeichert.
           </p>

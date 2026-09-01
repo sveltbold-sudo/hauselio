@@ -9,6 +9,8 @@ interface ShopFilterDrawerProps {
   brands: string[];
   selectedCategory?: string;
   selectedBrand?: string;
+  selectedRating?: string;
+  ratingCounts?: Record<number, number>;
   price?: string;
   promo?: string;
 }
@@ -18,6 +20,8 @@ export default function ShopFilterDrawer({
   brands,
   selectedCategory,
   selectedBrand,
+  selectedRating,
+  ratingCounts,
   price,
   promo,
 }: ShopFilterDrawerProps) {
@@ -66,6 +70,7 @@ export default function ShopFilterDrawer({
     selectedBrand,
     price,
     promo === "true" ? "promo" : null,
+    selectedRating,
   ].filter(Boolean).length;
 
   return (
@@ -93,6 +98,8 @@ export default function ShopFilterDrawer({
           brands={brands}
           selectedCategory={selectedCategory}
           selectedBrand={selectedBrand}
+          selectedRating={selectedRating}
+          ratingCounts={ratingCounts}
         />
       </aside>
 
@@ -123,6 +130,8 @@ export default function ShopFilterDrawer({
                 brands={brands}
                 selectedCategory={selectedCategory}
                 selectedBrand={selectedBrand}
+                selectedRating={selectedRating}
+                ratingCounts={ratingCounts}
               />
             </div>
           </div>

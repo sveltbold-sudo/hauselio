@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Percent, ArrowRight, Clock, Mail } from "lucide-react";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
-const EXIT_INTENT_KEY = "HAUSAURA_exit_intent_shown";
+const EXIT_INTENT_KEY = "HAUSAURA-exit-intent-shown";
 const COUPON_CODE = "HAUSAURA10";
 const COUNTDOWN_MINUTES = 10;
 

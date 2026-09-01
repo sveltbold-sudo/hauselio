@@ -1,13 +1,15 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal, X, Tag, Package } from "lucide-react";
+import { SlidersHorizontal, X, Tag, Package, Star } from "lucide-react";
 
 interface ShopFiltersProps {
   categories: { name: string; slug: string }[];
   brands: string[];
   selectedCategory?: string;
   selectedBrand?: string;
+  selectedRating?: string;
+  ratingCounts?: Record<number, number>;
 }
 
 export default function ShopFilters({
@@ -15,6 +17,8 @@ export default function ShopFilters({
   brands,
   selectedCategory,
   selectedBrand,
+  selectedRating,
+  ratingCounts = {},
 }: ShopFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,7 +34,7 @@ export default function ShopFilters({
     router.push(`/shop?${params.toString()}`);
   };
 
-  const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price");
+  const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price") || selectedRating;
 
   return (
     <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5">
@@ -46,6 +50,7 @@ export default function ShopFilters({
               params.delete("category");
               params.delete("brand");
               params.delete("price");
+              params.delete("rating");
               params.delete("page");
               router.push(`/shop?${params.toString()}`);
             }}
@@ -92,6 +97,18 @@ export default function ShopFilters({
               {searchParams.get("price") === "2000-" && "Über 2.000€"}
               <button
                 onClick={() => updateFilter("price", null)}
+                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
+                aria-label="Filter entfernen"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          {selectedRating && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary)] rounded-lg text-xs font-semibold">
+              Ab {selectedRating}★
+              <button
+                onClick={() => updateFilter("rating", null)}
                 className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
                 aria-label="Filter entfernen"
               >
@@ -203,6 +220,52 @@ export default function ShopFilters({
               {range.label}
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Star rating filter */}
+      <div className="mb-6">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-3 flex items-center gap-1.5">
+          <Star className="w-3 h-3" />
+          Bewertung
+        </h3>
+        <div className="space-y-0.5">
+          {[5, 4, 3, 2, 1].map((rating) => {
+            const count = ratingCounts[rating] ?? 0;
+            const isActive = selectedRating === String(rating);
+            return (
+              <button
+                key={rating}
+                onClick={() =>
+                  updateFilter(
+                    "rating",
+                    isActive ? null : String(rating)
+                  )
+                }
+                aria-pressed={isActive}
+                className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
+                  isActive
+                    ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
+                    : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
+                }`}
+              >
+                <span className="flex items-center gap-0.5" aria-hidden="true">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      className={`w-3.5 h-3.5 ${
+                        s <= rating
+                          ? "fill-[var(--color-warning)] text-[var(--color-warning)]"
+                          : "fill-none text-[var(--color-text-muted)]/30"
+                      }`}
+                    />
+                  ))}
+                </span>
+                <span className="flex-1 text-left">{rating}★ &amp; mehr</span>
+                <span className="text-xs text-[var(--color-text-muted)] tabular-nums">({count})</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
