@@ -29,8 +29,6 @@ interface Product {
   originalPrice: number | null;
   categoryId: string;
   brandId: string | null;
-  inStock: boolean;
-  stockQuantity: number | null;
   isNew: boolean;
   isFeatured: boolean;
   weight: number | null;
@@ -83,8 +81,6 @@ export default function EditProductPage({
           originalPrice: p.originalPrice ? String(p.originalPrice) : "",
           categoryId: p.categoryId,
           brandId: p.brandId || "",
-          inStock: p.inStock,
-          stockQuantity: p.stockQuantity != null ? String(p.stockQuantity) : "",
           isNew: p.isNew,
           isFeatured: p.isFeatured,
           weight: p.weight ? String(p.weight) : "",
@@ -133,8 +129,6 @@ export default function EditProductPage({
     originalPrice: string;
     categoryId: string;
     brandId: string;
-    inStock: boolean;
-    stockQuantity: string;
     isNew: boolean;
     isFeatured: boolean;
     weight: string;

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
@@ -289,14 +290,14 @@ export default function KontoPage() {
                     <div key={order.id}>
                       <button
                         onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
-                        className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center gap-4 p-5 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-1">
                             <span className="font-bold text-sm text-[var(--color-text-primary)]">
                               Bestell-Nr. {order.orderNumber}
                             </span>
-                            <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor[order.status] || "bg-gray-100 text-gray-800"}`}>
+                            <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]"}`}>
                               {statusLabel[order.status] || order.status}
                             </span>
                           </div>
@@ -316,10 +317,10 @@ export default function KontoPage() {
                           <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wide mb-3">Artikel</h3>
                           <div className="space-y-3">
                             {order.items.map((item, idx) => (
-                              <div key={idx} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
+                              <div key={idx} className="flex items-center gap-4 p-3 bg-[var(--color-bg-secondary)] rounded-xl">
                                 <div className="w-14 h-14 bg-white border border-[var(--color-border-light)] rounded-xl overflow-hidden flex-shrink-0">
                                   {item.image ? (
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                    <Image src={item.image} alt={item.name} width={56} height={56} className="w-full h-full object-cover" />
                                   ) : (
                                     <div className="w-full h-full flex items-center justify-center text-[var(--color-text-muted)]">
                                       <ShoppingBag className="w-5 h-5" />

@@ -110,10 +110,8 @@ async function getBestsellers() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
-    inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || null,
-    stockQuantity: p.stockQuantity ?? null,
   }));
 }
 
@@ -161,10 +159,8 @@ async function getRecommended() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
-    inStock: p.inStock,
     isPromo: p.originalPrice !== null,
     brand: p.brand?.name || null,
-    stockQuantity: p.stockQuantity ?? null,
   }));
 }
 

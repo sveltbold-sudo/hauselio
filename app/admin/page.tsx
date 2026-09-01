@@ -37,7 +37,6 @@ async function fetchDashboardData() {
       include: { items: true },
     }),
     prisma.product.findMany({
-      where: { inStock: false },
       take: 10,
       select: { id: true, name: true, slug: true, price: true },
     }),

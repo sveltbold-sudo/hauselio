@@ -107,6 +107,7 @@ export async function POST(request: NextRequest) {
               customerCountry: country || "DE",
               customerNotes: notes || null,
               subtotal,
+              couponDiscount,
               shippingCost,
               total,
               items: {

@@ -58,7 +58,6 @@ export default async function CategoryPage({
     isPromo: boolean;
     brand: { name: string; slug: string } | null;
     images: { url: string }[];
-    stockQuantity?: number | null;
   }[] = [];
   let total = 0;
   let brands: { name: string; slug: string; count: number }[] = [];
@@ -132,7 +131,6 @@ export default async function CategoryPage({
     isNew: product.isNew,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
-    stockQuantity: product.stockQuantity ?? null,
   }));
 
   function pageUrl(p: number) {

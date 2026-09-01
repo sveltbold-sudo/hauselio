@@ -3,10 +3,7 @@ interface BreadcrumbItem {
   url: string;
 }
 
-import { SITE_URL } from "@/lib/constants";
-
 export default function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
-  
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -14,7 +11,7 @@ export default function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] })
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+      item: item.url,
     })),
   };
 

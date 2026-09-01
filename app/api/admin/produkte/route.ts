@@ -54,8 +54,6 @@ export async function POST(request: NextRequest) {
         originalPrice: data.originalPrice || null,
         categoryId: data.categoryId,
         brandId: data.brandId || null,
-        inStock: data.inStock,
-        stockQuantity: data.stockQuantity ?? null,
         isNew: data.isNew,
         isFeatured: data.isFeatured,
         weight: data.weight || null,

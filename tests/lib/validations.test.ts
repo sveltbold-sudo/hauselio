@@ -133,12 +133,6 @@ describe("CreateProductSchema", () => {
   it("rejects empty name", () => {
     expect(CreateProductSchema.safeParse({ ...validProduct, name: "" }).success).toBe(false);
   });
-
-  it("defaults inStock to true", () => {
-    const result = CreateProductSchema.safeParse(validProduct);
-    expect(result.success).toBe(true);
-    if (result.success) expect(result.data.inStock).toBe(true);
-  });
 });
 
 describe("UpdateSettingsSchema", () => {

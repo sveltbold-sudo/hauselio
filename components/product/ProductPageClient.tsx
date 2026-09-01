@@ -48,9 +48,6 @@ interface Product {
   rating: number;
   reviewCount: number;
   isNew: boolean;
-  inStock: boolean;
-  stockQuantity: number | null;
-
   brand: string | null;
   categoryName: string;
   categorySlug: string;
@@ -226,20 +223,8 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           </div>
 
           <div className="flex items-center gap-2 mb-4">
-            {product.inStock ? (
-              product.stockQuantity !== null && product.stockQuantity <= 5 ? (
-                <>
-                  <span className="text-sm font-semibold text-amber-600">Nur noch {product.stockQuantity} auf Lager</span>
-                </>
-              ) : (
-                <>
-                  <Check className="w-4 h-4 text-[var(--color-success)]" />
-                  <span className="text-sm font-semibold text-[var(--color-success)]">Auf Lager</span>
-                </>
-              )
-            ) : (
-              <span className="text-sm font-semibold text-[var(--color-text-muted)]">Nicht verfügbar</span>
-            )}
+            <Check className="w-4 h-4 text-[var(--color-success)]" />
+            <span className="text-sm font-semibold text-[var(--color-success)]">Auf Lager</span>
           </div>
 
           <div className="flex items-center gap-3 p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
@@ -275,7 +260,6 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             </div>
             <Button
               onClick={handleAddToCart}
-              disabled={!product.inStock}
               className={`flex-1 transition-colors duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
               size="lg"
             >
@@ -284,13 +268,11 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
                   <Check className="w-5 h-5 mr-2" />
                   Hinzugefügt!
                 </>
-              ) : product.inStock ? (
+              ) : (
                 <>
                   <ShoppingBag className="w-5 h-5 mr-2" />
                   In den Warenkorb · {formatPrice(product.price)}
                 </>
-              ) : (
-                "Nicht verfügbar"
               )}
             </Button>
           </div>
@@ -341,12 +323,11 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           </div>
           <Button
             onClick={handleAddToCart}
-            disabled={!product.inStock}
-            aria-label={added ? "Zum Warenkorb hinzugefügt" : product.inStock ? "In den Warenkorb" : "Nicht verfügbar"}
+            aria-label={added ? "Zum Warenkorb hinzugefügt" : "In den Warenkorb"}
             className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
             size="md"
           >
-            {added ? <Check className="w-4 h-4" /> : product.inStock ? <><ShoppingBag className="w-4 h-4" /> <span className="hidden sm:inline">In den Warenkorb</span></> : "Nicht verfügbar"}
+            {added ? <Check className="w-4 h-4" /> : <><ShoppingBag className="w-4 h-4" /> <span className="hidden sm:inline">In den Warenkorb</span></>}
           </Button>
         </div>
       </div>

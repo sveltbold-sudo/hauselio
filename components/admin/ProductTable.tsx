@@ -16,8 +16,6 @@ interface Product {
   slug: string;
   price: number;
   originalPrice: number | null;
-  inStock: boolean;
-  stockQuantity: number | null;
   category: { name: string };
   brand: { name: string | null } | null;
   images: { url: string }[];
@@ -237,24 +235,12 @@ function ProductTable({
                     )}
                   </td>
                   <td className="px-5 py-3">
-                    <span
-                      className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${
-                        product.inStock
-                          ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
-                          : "bg-[var(--color-danger-light)] text-[var(--color-danger)]"
-                      }`}
-                    >
-                      {product.inStock ? "Verfügbar" : "Nicht verfügbar"}
+                    <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-[var(--color-success)]/10 text-[var(--color-success)]">
+                      Verfügbar
                     </span>
                   </td>
                   <td className="px-5 py-3">
-                    {product.stockQuantity != null ? (
-                      <span className={`text-sm font-medium ${product.stockQuantity <= 5 ? "text-[var(--color-danger)]" : "text-[var(--color-text-primary)]"}`}>
-                        {product.stockQuantity}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-[var(--color-text-muted)]">—</span>
-                    )}
+                    <span className="text-sm text-[var(--color-text-muted)]">—</span>
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-2">
@@ -335,14 +321,8 @@ function ProductTable({
                         {product.category.name} · {product.brand?.name || "—"}
                       </p>
                     </div>
-                    <span
-                      className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 ${
-                        product.inStock
-                          ? "bg-[var(--color-success)]/10 text-[var(--color-success)]"
-                          : "bg-[var(--color-danger)]/10 text-[var(--color-danger)]"
-                      }`}
-                    >
-                      {product.inStock ? "Verfügbar" : "Nicht verfügbar"}
+                    <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 bg-[var(--color-success)]/10 text-[var(--color-success)]">
+                      Verfügbar
                     </span>
                   </div>
                   <div className="flex items-center justify-between mt-2">

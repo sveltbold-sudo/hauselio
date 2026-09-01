@@ -13,10 +13,8 @@ interface RecommendedProduct {
   rating: number;
   reviewCount: number;
   isNew: boolean;
-  inStock: boolean;
   isPromo: boolean;
   brand: string | null;
-  stockQuantity?: number | null;
 }
 
 interface RecommendedSectionProps {

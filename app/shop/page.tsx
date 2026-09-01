@@ -9,6 +9,7 @@ import ProductCard from "@/components/product/ProductCard";
 import ShopSortSelect from "@/components/product/ShopSortSelect";
 import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
@@ -228,11 +229,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     rating: Number(product.rating),
     reviewCount: product.reviewCount,
     isNew: product.isNew,
-    inStock: product.inStock,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
     categorySlug: product.category?.slug || null,
-    stockQuantity: product.stockQuantity ?? null,
   }));
 
   return (
@@ -265,6 +264,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           }),
         }}
       />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: SITE_URL }, { name: "Shop", url: `${SITE_URL}/shop` }]} />
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -367,7 +367,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <Link
               href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
               aria-label="Suche entfernen"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
               Suche: {q}
               <X className="w-3.5 h-3.5" aria-hidden="true" />
@@ -385,7 +385,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors"
           >
             Alle entfernen
           </Link>

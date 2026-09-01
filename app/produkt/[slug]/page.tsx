@@ -107,8 +107,6 @@ export default async function ProductPage({ params }: PageProps) {
     rating: Number(product.rating),
     reviewCount: product.reviewCount,
     isNew: product.isNew,
-    inStock: product.inStock,
-    stockQuantity: product.stockQuantity ?? null,
     brand: product.brand?.name || null,
     categoryName: product.category.name,
     categorySlug: product.category.slug,
@@ -163,7 +161,7 @@ export default async function ProductPage({ params }: PageProps) {
         sku={product.sku || product.slug}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
-        availability={product.inStock ? "InStock" : "OutOfStock"}
+        availability="InStock"
       />
       <main id="main-content">
         <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />

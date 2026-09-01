@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
-      prisma.product.count({ where: { inStock: true } }),
+      prisma.product.count(),
       prisma.orderItem.groupBy({
         by: ["productId"],
         _sum: { price: true },

@@ -11,11 +11,6 @@ const BulkActionSchema = z.discriminatedUnion("action", [
     action: z.literal("delete"),
     ids: z.array(z.string().uuid()).min(1).max(50),
   }),
-  z.object({
-    action: z.literal("updateStock"),
-    ids: z.array(z.string().uuid()).min(1).max(50),
-    inStock: z.boolean(),
-  }),
 ]);
 
 export async function POST(request: NextRequest) {
@@ -57,17 +52,6 @@ export async function POST(request: NextRequest) {
       });
       for (const id of ids) {
         try { await deleteProductFromAlgolia(id); } catch { /* ignore */ }
-      }
-      return NextResponse.json({ count: result.count });
-    }
-
-    if (action === "updateStock") {
-      const result = await prisma.product.updateMany({
-        where: { id: { in: ids } },
-        data: { inStock: parsed.data.inStock },
-      });
-      for (const id of ids) {
-        try { await updateProductInAlgolia(id); } catch { /* ignore */ }
       }
       return NextResponse.json({ count: result.count });
     }

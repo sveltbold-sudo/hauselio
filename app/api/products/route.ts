@@ -67,7 +67,6 @@ export async function GET(request: NextRequest) {
           reviewCount: true,
           isNew: true,
           isPromo: true,
-          inStock: true,
           brand: { select: { name: true } },
           category: { select: { name: true, slug: true } },
           images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },

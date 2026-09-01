@@ -14,7 +14,6 @@ interface ViewedProduct {
   rating: number;
   reviewCount: number;
   isNew?: boolean;
-  inStock?: boolean;
   isPromo?: boolean;
   brand?: string | null;
 }

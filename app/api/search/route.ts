@@ -86,7 +86,6 @@ export async function GET(request: NextRequest) {
             { description: { contains: searchQuery, mode: "insensitive" } },
             { brand: { name: { contains: searchQuery, mode: "insensitive" } } },
           ],
-          inStock: true,
         },
         select: {
           id: true,
@@ -112,7 +111,6 @@ export async function GET(request: NextRequest) {
             { description: { contains: searchQuery, mode: "insensitive" } },
             { brand: { name: { contains: searchQuery, mode: "insensitive" } } },
           ],
-          inStock: true,
         },
       }),
     ]);
