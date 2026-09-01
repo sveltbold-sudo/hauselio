@@ -156,9 +156,6 @@ export default async function CategoryPage({
       <div className="mb-8">
         <h1 className="heading-1">{title}</h1>
         <p className="body-large mt-2">{description}</p>
-        <p className="text-sm text-[var(--color-text-muted)] mt-2">
-          {total} {total === 1 ? "Produkt" : "Produkte"} in dieser Kategorie
-        </p>
       </div>
 
       {/* Subcategory pills */}
@@ -285,7 +282,7 @@ export default async function CategoryPage({
           )}
         </>
       )}
-      <MobileShopBar totalProducts={total} />
+      <MobileShopBar />
     </div>
   );
 }

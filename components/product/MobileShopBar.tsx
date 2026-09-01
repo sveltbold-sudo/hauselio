@@ -4,11 +4,10 @@ import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 
 interface MobileShopBarProps {
-  totalProducts: number;
   onScrollToTop?: () => void;
 }
 
-export default function MobileShopBar({ totalProducts, onScrollToTop }: MobileShopBarProps) {
+export default function MobileShopBar({ onScrollToTop }: MobileShopBarProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -35,9 +34,7 @@ export default function MobileShopBar({ totalProducts, onScrollToTop }: MobileSh
           Nach oben
         </button>
 
-        <span className="text-xs text-[var(--color-text-muted)]">
-          {totalProducts} Produkte
-        </span>
+
       </div>
     </div>
   );

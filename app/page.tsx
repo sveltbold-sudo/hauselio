@@ -230,9 +230,6 @@ async function CategoriesSection() {
             <h3 className="font-bold text-sm text-white mb-0.5 leading-tight">
               {cat.name}
             </h3>
-            <p className="text-xs text-white/70 font-medium">
-              {cat.count} Produkte
-            </p>
           </div>
         </Link>
       ))}

@@ -422,9 +422,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {/* Toolbar */}
           <div className="flex items-center justify-between mb-4 sm:mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-4 sm:px-5 py-3">
             <p className="text-sm text-[var(--color-text-secondary)]">
-              <span className="font-bold text-[var(--color-text-primary)]">{total}</span> {total === 1 ? "Produkt" : "Produkte"}
               {category && (
-                <span className="text-[var(--color-text-muted)] ml-1">
+                <span className="text-[var(--color-text-muted)]">
                   in {categories.find((c) => c.slug === category)?.name || category}
                 </span>
               )}
@@ -526,7 +525,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
       {/* Spacer for MobileShopBar on mobile */}
       <div className="h-16 lg:hidden" />
-      <MobileShopBar totalProducts={total} />
+      <MobileShopBar />
     </main>
   );
 }
