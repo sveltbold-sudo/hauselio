@@ -87,7 +87,7 @@ export default function WunschlistePage() {
               toast.success("Wunschliste geleert");
             }
           }}
-          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-2 min-h-[44px]"
         >
           Alle entfernen
         </button>

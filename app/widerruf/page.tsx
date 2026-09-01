@@ -109,7 +109,7 @@ export default function WiderrufPage() {
               senden Sie es zurück.)
             </p>
             <div className="space-y-4 text-[var(--color-text-secondary)]">
-              <p>An: HAUSAURA GmbH, Kastanienallee 42, 10435 Berlin, E-Mail: widerruf@hausaura.de</p>
+              <p className="break-words">An: HAUSAURA GmbH, Kastanienallee 42, 10435 Berlin, E-Mail: widerruf@hausaura.de</p>
               <p>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf
                 der folgenden Waren (*) / die Erbringung der folgenden Dienstleistung (*):</p>
               <p>Bestellt am (*) / erhalten am (*):</p>

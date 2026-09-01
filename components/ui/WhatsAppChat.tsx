@@ -54,7 +54,7 @@ export default function WhatsAppChat() {
       <div className="relative bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-4 max-w-[260px]">
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-full hover:bg-[var(--color-bg-secondary)] transition-colors"
+          className="absolute top-2 right-2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-full hover:bg-[var(--color-bg-secondary)] transition-colors"
           aria-label="Schließen"
         >
           <X className="w-3.5 h-3.5" />

@@ -195,7 +195,7 @@ export default function ShopFilters({
           <Tag className="w-3 h-3" />
           Preisbereich
         </h3>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {[
             { label: "Bis 500€", value: "0-500" },
             { label: "500–1.000€", value: "500-1000" },
@@ -211,7 +211,7 @@ export default function ShopFilters({
                 )
               }
               aria-pressed={searchParams.get("price") === range.value}
-               className={`px-3 py-2.5 min-h-[44px] rounded-lg text-xs font-semibold border transition-colors duration-200 whitespace-nowrap ${
+               className={`px-3 py-2.5 min-h-[44px] rounded-lg text-[11px] sm:text-xs font-semibold border transition-colors duration-200 ${
                 searchParams.get("price") === range.value
                   ? "bg-[var(--color-primary-50)] border-[var(--color-primary)]/20 text-[var(--color-primary)]"
                   : "border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]/20"

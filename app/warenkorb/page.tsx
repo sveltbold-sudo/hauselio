@@ -239,7 +239,7 @@ export default function WarenkorbPage() {
 
         {/* Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 sticky top-24">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 lg:sticky lg:top-24">
             <h2 className="heading-3 mb-6">
               Zusammenfassung
             </h2>

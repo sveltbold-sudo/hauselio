@@ -353,7 +353,7 @@ export default function KontoPage() {
           )}
 
           {/* Profile form */}
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
             <h2 className="heading-3 mb-6 flex items-center gap-2">
               <Settings className="w-5 h-5 text-[var(--color-primary)]" />
               Kontoeinstellungen
@@ -416,7 +416,7 @@ export default function KontoPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label htmlFor="profile-zip" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">PLZ</label>
                   <input
@@ -564,7 +564,7 @@ export default function KontoPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -642,7 +642,7 @@ export default function KontoPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>

@@ -175,11 +175,11 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.max(1, item.quantity - 1))
                         }
                         aria-label="Menge verringern"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-10 text-center text-sm font-medium tabular-nums" aria-live="polite">
+                      <span className="w-8 sm:w-10 text-center text-sm font-medium tabular-nums" aria-live="polite">
                         {item.quantity}
                       </span>
                       <button
@@ -187,7 +187,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.min(99, item.quantity + 1))
                         }
                         aria-label="Menge erhöhen"
-                        className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Plus className="w-3 h-3" />
                       </button>

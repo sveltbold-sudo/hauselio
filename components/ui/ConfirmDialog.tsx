@@ -61,7 +61,7 @@ export default function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60]"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
@@ -98,13 +98,13 @@ export default function ConfirmDialog({
           <button
             ref={cancelRef}
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+            className="px-4 py-2.5 min-h-[44px] text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
           >
             {cancelLabel}
           </button>
           <button
             onClick={onConfirm}
-            className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-lg text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
               danger
                 ? "bg-[var(--color-danger)] hover:bg-[var(--color-danger-hover)]"
                 : "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"

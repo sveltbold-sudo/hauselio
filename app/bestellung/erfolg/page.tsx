@@ -188,7 +188,7 @@ export default function OrderSuccessPage() {
 
       {/* Email input form (shown when sessionStorage is empty) */}
       {showEmailForm && !orderEmail && (
-        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-8 text-left">
+        <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-8 text-left">
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
             Geben Sie die E-Mail-Adresse ein, die Sie bei der Bestellung verwendet haben:
           </p>
@@ -237,7 +237,7 @@ export default function OrderSuccessPage() {
 
       {/* Error state */}
       {orderError && !orderLoading && (
-        <div aria-live="polite" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-6 mb-8 text-center">
+        <div aria-live="polite" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-4 sm:p-6 mb-8 text-center">
           <AlertCircle className="w-8 h-8 text-[var(--color-danger)] mx-auto mb-3" />
           <p className="text-sm text-[var(--color-text-secondary)] font-medium">{orderError}</p>
         </div>
@@ -246,7 +246,7 @@ export default function OrderSuccessPage() {
       {order && (
         <>
           {/* Order Number */}
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-6 text-center">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-center">
             <p className="text-sm text-[var(--color-text-muted)] mb-2">Bestellnummer</p>
             <div className="flex items-center justify-center gap-2">
               <p className="text-2xl font-extrabold text-[var(--color-primary)] tracking-tight">
@@ -271,7 +271,7 @@ export default function OrderSuccessPage() {
 
           {/* ═══ PAYMENT INSTRUCTIONS ═══ */}
           {bankDetails && (
-            <div className="bg-white rounded-2xl border-2 border-[var(--color-primary)]/20 p-6 mb-6 text-left">
+            <div className="bg-white rounded-2xl border-2 border-[var(--color-primary)]/20 p-4 sm:p-6 mb-6 text-left">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)] flex items-center justify-center">
                   <span className="text-white text-lg font-bold">€</span>
@@ -366,7 +366,7 @@ export default function OrderSuccessPage() {
           )}
 
           {/* Order Summary */}
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-6 text-left">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-left">
             <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
               Zusammenfassung
             </h2>
@@ -405,7 +405,7 @@ export default function OrderSuccessPage() {
           </div>
 
           {/* ═══ FAQ ═══ */}
-          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 mb-8 text-left">
+          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-8 text-left">
             <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-[var(--color-primary)]" />
               Häufige Fragen zur Zahlung

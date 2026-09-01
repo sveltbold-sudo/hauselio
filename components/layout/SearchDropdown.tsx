@@ -114,7 +114,7 @@ export default function SearchDropdown({
               key={animKey}
               id="search-results-list"
               role="listbox"
-              className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top"
+              className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top max-h-[60vh] overflow-y-auto"
             >
               {loading ? (
                 <div className="p-8 text-center">
@@ -147,7 +147,7 @@ export default function SearchDropdown({
                         </div>
                         <div className="flex-1 min-w-0">
                           {hit.brand && (
-                            <p className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                            <p className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider truncate">
                               {hit.brand}
                             </p>
                           )}

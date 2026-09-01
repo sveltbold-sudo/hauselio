@@ -138,7 +138,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   if (!mounted) {
     return (
       <section className="relative w-full" aria-label="Produkt-Highlights">
-        <div className={`relative h-[60vh] min-h-[380px] max-h-[500px] bg-[var(--color-bg-secondary)] ${prefersReduced ? "" : "animate-pulse"}`} />
+        <div className={`relative h-[55vh] min-h-[340px] max-h-[480px] bg-[var(--color-bg-secondary)] ${prefersReduced ? "" : "animate-pulse"}`} />
       </section>
     );
   }
@@ -161,7 +161,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       }}
     >
       {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative h-[60vh] min-h-[380px] max-h-[500px]" aria-live="polite">
+      <div className="lg:hidden relative h-[55vh] min-h-[340px] max-h-[480px]" aria-live="polite">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -199,7 +199,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
               {/* Bottom: text + CTA */}
               <div>
-                <h2 className="text-3xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
                   {s.name}
                 </h2>
                 <p className="text-sm font-semibold text-white/90 mb-1 drop-shadow">

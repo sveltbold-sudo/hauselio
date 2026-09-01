@@ -105,7 +105,7 @@ export default function BarrierefreiheitPage() {
               Allgemeine Schlichtungsstelle des Bundes<br />
               Representativesstraße 10<br />
               77654 Offenburg<br />
-              <a href="https://www.ergaenzende-schlichtung.de" className="text-[var(--color-primary)] hover:underline" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.ergaenzende-schlichtung.de" className="text-[var(--color-primary)] hover:underline break-all" target="_blank" rel="noopener noreferrer">
                 www.ergaenzende-schlichtung.de
               </a>
             </p>

@@ -97,7 +97,7 @@ export default function ExitIntentPopup() {
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors z-10"
+            className="absolute top-4 right-4 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors z-10"
             aria-label="Schließen"
           >
             <X className="w-5 h-5" />

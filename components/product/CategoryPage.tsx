@@ -163,7 +163,7 @@ export default async function CategoryPage({
         <div className="flex flex-wrap gap-2 mb-6">
           <Link
             href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}`}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
               !sub
                 ? "bg-[var(--color-primary)] text-white"
                 : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
@@ -175,7 +175,7 @@ export default async function CategoryPage({
             <Link
               key={sc.name}
               href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}`}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
                 sub === sc.name
                   ? "bg-[var(--color-primary)] text-white"
                   : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
@@ -258,7 +258,7 @@ export default async function CategoryPage({
                     key={p}
                     href={pageUrl(p)}
                     aria-current={p === currentPage ? "page" : undefined}
-                    className={`min-w-[40px] h-10 flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
                       p === currentPage
                         ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
                         : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"

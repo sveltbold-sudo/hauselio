@@ -97,7 +97,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={t.id}
             onMouseEnter={() => handleMouseEnter(t.id)}
             onMouseLeave={() => handleMouseLeave(t.id)}
-            className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg max-w-sm ${
+            className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-sm ${
               t.removing ? "animate-slide-out-right" : "animate-slide-in-right"
             } ${bgColors[t.type]}`}
           >
