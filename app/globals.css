@@ -483,6 +483,10 @@ a, button, input, select, textarea, [role="button"] {
   color: var(--color-text-primary);
   background: var(--color-bg-secondary);
 }
+.header-nav-tab.hovered {
+  color: var(--color-primary);
+  background: var(--color-primary-50);
+}
 .header-nav-tab.active {
   color: var(--color-primary);
   background: var(--color-primary-50);
@@ -499,7 +503,6 @@ a, button, input, select, textarea, [role="button"] {
   border-radius: 1px;
   transition: transform 0.2s ease;
 }
-.header-nav-tab:hover::after,
 .header-nav-tab.active::after {
   transform: translateX(-50%) scaleX(1);
 }

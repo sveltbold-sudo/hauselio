@@ -381,9 +381,11 @@ export default function HeaderClient() {
                   }}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
                   className={`header-nav-tab flex items-center gap-1 ${
-                    activeMega === cat.href || pathname.startsWith(cat.href)
+                    pathname.startsWith(cat.href)
                       ? "active"
-                      : ""
+                      : activeMega === cat.href
+                        ? "hovered"
+                        : ""
                   }`}
                 >
                   {cat.name}
@@ -437,6 +439,7 @@ export default function HeaderClient() {
                 megaCloseTimeoutRef.current = null;
               }
             }}
+            onMouseLeave={handleMegaLeave}
           >
             <div className="container-hausaura">
               <div className="pt-1 pb-2">
