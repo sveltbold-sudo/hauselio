@@ -251,8 +251,11 @@ export default function ProductForm({
                         description: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] resize-none"
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 resize-y ${
+                      errors.description ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
+                    }`}
                   />
+                  {errors.description && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.description}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-shortdesc" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -424,7 +427,7 @@ export default function ProductForm({
                     id="product-price"
                     type="number"
                     step="0.01"
-                    min="0"
+                    min="0.01"
                     required
                     value={formData.price}
                     onChange={(e) =>
@@ -433,8 +436,11 @@ export default function ProductForm({
                         price: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+                      errors.price ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
+                    }`}
                   />
+                  {errors.price && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.price}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-original-price" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -452,8 +458,11 @@ export default function ProductForm({
                         originalPrice: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+                      errors.originalPrice ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
+                    }`}
                   />
+                  {errors.originalPrice && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.originalPrice}</p>}
                 </div>
                 <div>
                   <label htmlFor="weight" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -530,15 +539,18 @@ export default function ProductForm({
                         categoryId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+                      errors.categoryId ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
+                    }`}
                   >
-                    <option value="">Kategorie wählen</option>
+                    <option value="">Kategorie waehlen</option>
                     {categories.map((cat) => (
                       <option key={cat.id} value={cat.id}>
                         {cat.name}
                       </option>
                     ))}
                   </select>
+                  {errors.categoryId && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.categoryId}</p>}
                 </div>
                 <div>
                   <label htmlFor="brandId" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">

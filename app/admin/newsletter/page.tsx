@@ -24,6 +24,7 @@ export default function NewsletterPage() {
   const [campaignSubject, setCampaignSubject] = useState("");
   const [campaignContent, setCampaignContent] = useState("");
   const [sending, setSending] = useState(false);
+  const [previewTab, setPreviewTab] = useState<"edit" | "preview">("edit");
   const [, startTransition] = useTransition();
 
   useEffect(() => {
@@ -93,6 +94,7 @@ export default function NewsletterPage() {
       setShowCompose(false);
       setCampaignSubject("");
       setCampaignContent("");
+      setPreviewTab("edit");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler beim Senden");
     } finally {
@@ -164,15 +166,53 @@ export default function NewsletterPage() {
               />
             </div>
             <div>
-              <label htmlFor="campaign-content" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">Inhalt (HTML) *</label>
-              <textarea
-                id="campaign-content"
-                rows={8}
-                value={campaignContent}
-                onChange={(e) => setCampaignContent(e.target.value)}
-                placeholder="<h2>Überschrift</h2><p>Ihr Text hier…</p>"
-                className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 resize-none"
-              />
+              <div className="flex items-center gap-2 mb-1.5">
+                <label htmlFor="campaign-content" className="text-sm font-semibold text-[var(--color-text-primary)]">Inhalt (HTML) *</label>
+                <div className="flex items-center gap-1 ml-auto">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewTab("edit")}
+                    className={`px-2 py-0.5 text-xs font-medium rounded transition-colors ${
+                      previewTab === "edit"
+                        ? "bg-[var(--color-primary)] text-white"
+                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                    }`}
+                  >
+                    Bearbeiten
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewTab("preview")}
+                    className={`px-2 py-0.5 text-xs font-medium rounded transition-colors ${
+                      previewTab === "preview"
+                        ? "bg-[var(--color-primary)] text-white"
+                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                    }`}
+                  >
+                    Vorschau
+                  </button>
+                </div>
+              </div>
+              {previewTab === "edit" ? (
+                <textarea
+                  id="campaign-content"
+                  rows={8}
+                  value={campaignContent}
+                  onChange={(e) => setCampaignContent(e.target.value)}
+                  placeholder="<h2>Ueberschrift</h2><p>Ihr Text hier...</p>"
+                  className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 resize-none"
+                />
+              ) : (
+                <div className="border border-[var(--color-border)] rounded-xl overflow-hidden">
+                  <div className="bg-[var(--color-bg)] px-4 py-2 border-b border-[var(--color-border-light)]">
+                    <p className="text-xs text-[var(--color-text-muted)]">Vorschau — {campaignSubject || "(kein Betreff)"}</p>
+                  </div>
+                  <div
+                    className="p-4 bg-white min-h-[200px] prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: campaignContent || "<p class='text-[var(--color-text-muted)]'>Kein Inhalt eingegeben.</p>" }}
+                  />
+                </div>
+              )}
             </div>
             <div className="flex gap-2">
               <button

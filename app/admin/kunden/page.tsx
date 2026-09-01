@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useEffect, useState, useTransition } from "react";
+import Link from "next/link";
 import { Search, Mail, Phone, MapPin } from "lucide-react";
 import { logger } from "@/lib/logger";
 
@@ -146,12 +147,12 @@ export default function KundenPage() {
               customers.map((customer) => (
                 <tr key={customer.email} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                   <td className="px-4 py-3">
-                    <div>
-                      <p className="font-semibold text-[var(--color-text-primary)]">
+                    <Link href={`/admin/kunden/${encodeURIComponent(customer.email)}`} className="block">
+                      <p className="font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)]">
                         {customer.firstName} {customer.lastName}
                       </p>
                       <p className="text-xs text-[var(--color-text-muted)]">{customer.email}</p>
-                    </div>
+                    </Link>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
                     {customer.phone && (

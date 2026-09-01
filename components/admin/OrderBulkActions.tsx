@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
 
 interface OrderBulkActionsProps {
   selectedIds: string[];
@@ -77,13 +78,10 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
     }
   };
 
-  const statuses = [
-    { value: "PAYMENT_CONFIRMED", label: "Bezahlt" },
-    { value: "PROCESSING", label: "In Bearbeitung" },
-    { value: "SHIPPED", label: "Versendet" },
-    { value: "DELIVERED", label: "Geliefert" },
-    { value: "CANCELLED", label: "Storniert" },
-  ];
+  const statuses = (["PAYMENT_CONFIRMED", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"] as const).map((value) => ({
+    value,
+    label: ORDER_STATUS_LABELS[value],
+  }));
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-6 py-4 flex items-center gap-4">
