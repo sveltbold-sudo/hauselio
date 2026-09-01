@@ -100,7 +100,7 @@ export default function ComparisonBar() {
             ))}
 
             {/* Empty slots */}
-            {Array.from({ length: Math.max(0, 2 - items.length) }).map((_, i) => (
+            {Array.from({ length: Math.max(0, 4 - items.length) }).map((_, i) => (
               <div
                 key={`empty-${i}`}
                 className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0"

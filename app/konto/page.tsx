@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { formatPrice } from "@/lib/utils";
 
 interface Customer {
   id: string;
@@ -301,7 +302,7 @@ export default function KontoPage() {
                           </div>
                           <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)]">
                             <span>{orderDate}</span>
-                            <span>Gesamtbetrag: {order.total.toFixed(2)} €</span>
+                            <span>Gesamtbetrag: {formatPrice(order.total)}</span>
                           </div>
                         </div>
                         {isExpanded ? (
@@ -329,17 +330,17 @@ export default function KontoPage() {
                                   <div className="font-semibold text-sm text-[var(--color-text-primary)] truncate">{item.name}</div>
                                   <div className="text-xs text-[var(--color-text-muted)]">Menge: {item.quantity}</div>
                                 </div>
-                                <div className="text-sm font-bold text-[var(--color-text-primary)]">
-                                  {item.price.toFixed(2)} €
-                                </div>
+                                  <div className="text-sm font-bold text-[var(--color-text-primary)]">
+                                    {formatPrice(item.price)}
+                                  </div>
                               </div>
                             ))}
                           </div>
                           <div className="mt-4 flex justify-end gap-4 text-sm">
                             {order.shippingCost > 0 && (
-                              <span className="text-[var(--color-text-muted)]">Versand: {order.shippingCost.toFixed(2)} €</span>
+                              <span className="text-[var(--color-text-muted)]">Versand: {formatPrice(order.shippingCost)}</span>
                             )}
-                            <span className="font-bold text-[var(--color-text-primary)]">Gesamt: {order.total.toFixed(2)} €</span>
+                            <span className="font-bold text-[var(--color-text-primary)]">Gesamt: {formatPrice(order.total)}</span>
                           </div>
                         </div>
                       )}

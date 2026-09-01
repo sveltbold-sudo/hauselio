@@ -139,6 +139,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (sort === "price_asc") orderBy = { price: "asc" };
   if (sort === "price_desc") orderBy = { price: "desc" };
   if (sort === "rating") orderBy = { rating: "desc" };
+  if (sort === "name") orderBy = { name: "asc" };
 
   type ProductWithRelations = Prisma.ProductGetPayload<{
     include: { category: true; brand: true; images: { take: 1; orderBy: { position: "asc" } } };

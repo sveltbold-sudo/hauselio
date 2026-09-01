@@ -25,6 +25,13 @@ interface Order {
   }[];
 }
 
+function getOrderCouponDiscount(order: Order): number {
+  const itemsSubtotal = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const expectedTotal = itemsSubtotal - 0 + order.shippingCost;
+  const diff = expectedTotal - order.total;
+  return diff > 0.01 ? Math.round(diff * 100) / 100 : 0;
+}
+
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order");
@@ -225,8 +232,14 @@ export default function OrderSuccessPage() {
             <div className="border-t border-[var(--color-border-light)] pt-3 space-y-1">
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">Zwischensumme</span>
-                <span>{formatPrice(order.total - order.shippingCost)}</span>
+                <span>{formatPrice(order.items.reduce((sum, item) => sum + item.price * item.quantity, 0))}</span>
               </div>
+              {getOrderCouponDiscount(order) > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-[var(--color-success)]">Rabatt</span>
+                  <span className="text-[var(--color-success)]">-{formatPrice(getOrderCouponDiscount(order))}</span>
+                </div>
+              )}
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">Versand</span>
                 <span className={order.shippingCost === 0 ? "text-[var(--color-success)]" : ""}>

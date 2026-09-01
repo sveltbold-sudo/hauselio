@@ -34,7 +34,6 @@ const trustBadges = [
 
 const paymentMethods = [
   { name: "Vorkasse", icon: "/images/payments/vorkasse.svg" },
-  { name: "SEPA", icon: "/images/payments/sepa.svg" },
   { name: "PayPal", icon: "/images/payments/paypal.svg" },
 ];
 

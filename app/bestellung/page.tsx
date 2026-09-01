@@ -37,6 +37,18 @@ export default function BestellungPage() {
   const [isValidating, setIsValidating] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+    city: "",
+    zip: "",
+    country: "DE",
+    notes: "",
+  });
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -58,6 +70,7 @@ export default function BestellungPage() {
               zip: prev.zip || data.customer.zip || "",
               city: prev.city || data.customer.city || "",
               country: prev.country || data.customer.country || "DE",
+              notes: prev.notes,
             }));
           }
         }
@@ -67,18 +80,6 @@ export default function BestellungPage() {
     }
     if (mounted) loadProfile();
   }, [mounted]);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    address: "",
-    city: "",
-    zip: "",
-    country: "DE",
-    notes: "",
-  });
 
   const total = useCartStore(selectTotal);
   const shippingCost = getShippingCost(total);

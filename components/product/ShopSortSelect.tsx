@@ -30,6 +30,7 @@ export default function ShopSortSelect({ sort }: ShopSortSelectProps) {
         <option value="price_asc">Preis aufsteigend</option>
         <option value="price_desc">Preis absteigend</option>
         <option value="rating">Beste Bewertung</option>
+        <option value="name">Name A–Z</option>
       </select>
     </div>
   );
