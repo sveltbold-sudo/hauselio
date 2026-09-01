@@ -385,12 +385,8 @@ export default function HeaderClient() {
                   }}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
                   className={`header-nav-tab flex items-center gap-1 ${
-                    pathname.startsWith(cat.href)
-                      ? "active"
-                      : activeMega === cat.href
-                        ? "hovered"
-                        : ""
-                  }`}
+                    pathname.startsWith(cat.href) ? "active" : ""
+                  } ${activeMega === cat.href ? "hovered" : ""}`}
                 >
                   {cat.name}
                   <ChevronDown

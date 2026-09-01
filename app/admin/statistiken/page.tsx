@@ -157,23 +157,23 @@ export default function StatistikenPage() {
                             {i + 1}
                           </span>
                           <span className="text-sm text-[var(--color-text-primary)] truncate max-w-[160px]">{p.name}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+                            {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(p.revenue)}
+                          </span>
+                          <span className="text-xs text-[var(--color-text-muted)] block">{p.orderCount}x verkauft</span>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-                          {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(p.revenue)}
-                        </span>
-                         <span className="text-xs text-[var(--color-text-muted)] block">{p.orderCount}x verkauft</span>
+                      <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
+                          style={{ width: `${pct}%` }}
+                        />
                       </div>
                     </div>
-                    <div className="h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-[var(--color-primary)] rounded-full transition-transform duration-500"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              });
+                  );
+                });
               })()}
             </div>
           )}

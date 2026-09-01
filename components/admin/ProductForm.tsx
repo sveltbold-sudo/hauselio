@@ -45,6 +45,7 @@ export default function ProductForm({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const isDirty = useRef(false);
   const initialDataRef = useRef(initialData);
 
@@ -123,8 +124,34 @@ export default function ProductForm({
     }));
   };
 
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim() || formData.name.trim().length < 3) {
+      newErrors.name = "Name muss mindestens 3 Zeichen lang sein.";
+    }
+    if (!formData.description.trim() || formData.description.trim().length < 10) {
+      newErrors.description = "Beschreibung muss mindestens 10 Zeichen lang sein.";
+    }
+    const price = parseFloat(formData.price);
+    if (isNaN(price) || price <= 0) {
+      newErrors.price = "Der Preis muss groesser als 0 sein.";
+    }
+    if (formData.originalPrice) {
+      const orig = parseFloat(formData.originalPrice);
+      if (!isNaN(orig) && orig <= price) {
+        newErrors.originalPrice = "Der Originalpreis musshoeher als der Verkaufspreis sein.";
+      }
+    }
+    if (!formData.categoryId) {
+      newErrors.categoryId = "Bitte waehlen Sie eine Kategorie.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setIsSubmitting(true);
     try {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- exclude UI-only fields from submission
@@ -189,8 +216,11 @@ export default function ProductForm({
                     required
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+                      errors.name ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
+                    }`}
                   />
+                  {errors.name && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-slug" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">

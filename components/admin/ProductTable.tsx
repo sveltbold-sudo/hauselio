@@ -165,12 +165,6 @@ function ProductTable({
                     <SortIcon active={sortKey === "price"} dir={sortDir} />
                   </span>
                 </th>
-                <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                  Status
-                </th>
-                <th className="text-left px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                  Bestand
-                </th>
                 <th className="text-right px-5 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
                   Aktionen
                 </th>
@@ -235,14 +229,6 @@ function ProductTable({
                     )}
                   </td>
                   <td className="px-5 py-3">
-                    <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-[var(--color-success)]/10 text-[var(--color-success)]">
-                      Verfügbar
-                    </span>
-                  </td>
-                  <td className="px-5 py-3">
-                    <span className="text-sm text-[var(--color-text-muted)]">—</span>
-                  </td>
-                  <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-2">
                       <a
                         href={`/produkt/${product.slug}`}
@@ -271,7 +257,7 @@ function ProductTable({
               {products.length === 0 && (
                 <tr>
                   <td
-                    colSpan={8}
+                    colSpan={6}
                     className="px-5 py-12 text-center text-sm text-[var(--color-text-muted)]"
                   >
                     Keine Produkte gefunden.
@@ -321,9 +307,6 @@ function ProductTable({
                         {product.category.name} · {product.brand?.name || "—"}
                       </p>
                     </div>
-                    <span className="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 bg-[var(--color-success)]/10 text-[var(--color-success)]">
-                      Verfügbar
-                    </span>
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <p className="text-sm font-bold text-[var(--color-text-primary)]">
