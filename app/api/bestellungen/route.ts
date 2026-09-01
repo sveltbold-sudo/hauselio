@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     const productIds = items.map((item) => item.id);
     const products = await prisma.product.findMany({
       where: { id: { in: productIds } },
-      select: { id: true, price: true, name: true, inStock: true },
+      select: { id: true, price: true, name: true },
     });
 
     const productMap = new Map(products.map((p) => [p.id, p]));
@@ -67,9 +67,6 @@ export async function POST(request: NextRequest) {
       const product = productMap.get(item.id);
       if (!product) {
         throw new ValidationError("Ein oder mehrere Produkte sind nicht verfügbar");
-      }
-      if (!product.inStock) {
-        throw new ValidationError(`${product.name} ist leider nicht verfügbar`);
       }
       const quantity = Math.max(1, Math.min(99, item.quantity));
       const price = Number(product.price);
@@ -97,16 +94,6 @@ export async function POST(request: NextRequest) {
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
         order = await prisma.$transaction(async (tx) => {
-          // Atomically reserve stock — only set inStock=false if currently true
-          for (const item of validatedItems) {
-            const result = await tx.product.updateMany({
-              where: { id: item.productId, inStock: true },
-              data: { inStock: false },
-            });
-            if (result.count === 0) {
-              throw new Error("Produkt nicht mehr verfügbar");
-            }
-          }
           return tx.order.create({
             data: {
               orderNumber: generateOrderNumber(),

@@ -10,7 +10,7 @@ export interface CartItem {
   image: string;
   brand?: string;
   quantity: number;
-  maxQuantity?: number;
+
 }
 
 export interface CouponData {
@@ -46,7 +46,7 @@ export const useCartStore = create<CartState>()(
             return {
               items: state.items.map((i) =>
                 i.id === item.id
-                  ? { ...i, quantity: Math.min(i.quantity + qty, i.maxQuantity ?? 99) }
+                  ? { ...i, quantity: i.quantity + qty }
                   : i
               ),
             };
@@ -68,7 +68,7 @@ export const useCartStore = create<CartState>()(
         set((state) => ({
           items: state.items.map((i) =>
             i.id === id
-              ? { ...i, quantity: Math.min(Math.max(1, quantity), i.maxQuantity ?? 99) }
+              ? { ...i, quantity: Math.max(1, quantity) }
               : i
           ),
         }));

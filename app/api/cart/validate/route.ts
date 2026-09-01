@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         slug: true,
         price: true,
         originalPrice: true,
-        inStock: true,
+
         images: {
           take: 1,
           orderBy: { position: "asc" },
@@ -75,14 +75,6 @@ export async function POST(request: NextRequest) {
         };
       }
 
-      if (!product.inStock) {
-        return {
-          id: product.id,
-          valid: false,
-          error: `${product.name} ist leider nicht verfügbar`,
-        };
-      }
-
       const currentPrice = Number(product.price);
       if (Math.abs(item.price - currentPrice) > 0.01) {
         return {
@@ -96,7 +88,6 @@ export async function POST(request: NextRequest) {
           slug: product.slug,
           image: product.images[0]?.url || "/images/placeholder-product.svg",
           quantity: item.quantity,
-          maxQuantity: 99,
         };
       }
 
@@ -109,7 +100,6 @@ export async function POST(request: NextRequest) {
         price: currentPrice,
         image: product.images[0]?.url || "/images/placeholder-product.svg",
         quantity: item.quantity,
-        maxQuantity: 99,
       };
     });
 

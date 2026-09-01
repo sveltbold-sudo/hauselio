@@ -223,9 +223,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   "@type": "Offer",
                   price: p.price.toFixed(2),
                   priceCurrency: "EUR",
-                  availability: p.inStock !== false
-                    ? "https://schema.org/InStock"
-                    : "https://schema.org/OutOfStock",
+                  availability: "https://schema.org/InStock",
                 },
               },
             })),

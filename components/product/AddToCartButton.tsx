@@ -16,7 +16,7 @@ interface AddToCartButtonProps {
     brand?: string;
     rating?: number;
     reviewCount?: number;
-    maxQuantity?: number;
+
   };
 }
 
@@ -42,7 +42,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
         originalPrice: product.originalPrice ?? undefined,
         image: product.image,
         brand: product.brand ?? "",
-        maxQuantity: product.maxQuantity,
+
       });
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);

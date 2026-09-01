@@ -19,21 +19,15 @@ interface PriceChange {
   quantity: number;
 }
 
-interface InvalidItem {
-  id: string;
-  error: string;
-}
-
 type Step = "address" | "review";
 
 export default function BestellungPage() {
   const router = useRouter();
-  const { items, clearCart, removeItem, coupon, updatePrice } = useCartStore();
+  const { items, clearCart, coupon, updatePrice } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("address");
   const [priceChanges, setPriceChanges] = useState<PriceChange[]>([]);
-  const [invalidItems, setInvalidItems] = useState<InvalidItem[]>([]);
   const [isValidating, setIsValidating] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -164,12 +158,9 @@ export default function BestellungPage() {
         const data = await res.json();
 
         const changes: PriceChange[] = [];
-        const invalid: InvalidItem[] = [];
 
         for (const item of data.items) {
-          if (!item.valid) {
-            invalid.push({ id: item.id, error: item.error });
-          } else if (item.priceChanged) {
+          if (item.valid && item.priceChanged) {
             changes.push({
               id: item.id,
               name: item.name,
@@ -182,16 +173,6 @@ export default function BestellungPage() {
         }
 
         setPriceChanges(changes);
-        setInvalidItems(invalid);
-
-        if (invalid.length > 0) {
-          setOrderError(
-            `${invalid.length} Artikel wurden entfernt, da sie nicht mehr verfügbar sind: ${invalid.map((i) => i.error).join("; ")}`
-          );
-          for (const inv of invalid) {
-            removeItem(inv.id);
-          }
-        }
       } catch {
         setOrderError("Preisüberprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.");
       } finally {
@@ -200,7 +181,7 @@ export default function BestellungPage() {
     }
 
     validateCart();
-  }, [items, removeItem, updatePrice]);
+  }, [items, updatePrice]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -362,21 +343,6 @@ export default function BestellungPage() {
                   <span className="font-bold text-[var(--color-text-primary)]">{formatPrice(change.newPrice * change.quantity)}</span>
                 </span>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Invalid items warnings */}
-      {invalidItems.length > 0 && (
-        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-5 mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <AlertTriangle className="w-5 h-5 text-[var(--color-danger)]" />
-            <h2 className="font-bold text-[var(--color-danger)]">Nicht verfügbare Artikel</h2>
-          </div>
-          <div className="space-y-1">
-            {invalidItems.map((item) => (
-              <p key={item.id} className="text-sm text-[var(--color-text-secondary)]">{item.error}</p>
             ))}
           </div>
         </div>
@@ -659,7 +625,7 @@ export default function BestellungPage() {
                 className="w-full shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl"
                 size="lg"
                 isLoading={isLoading}
-                disabled={isValidating || invalidItems.length > 0}
+                disabled={isValidating}
               >
                 <CheckIcon className="w-5 h-5 mr-2" />
                 Jetzt verbindlich bestellen · {formatPrice(finalTotal)}
