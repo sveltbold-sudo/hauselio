@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { BarChart3, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -30,7 +30,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
 
   useEffect(() => {
     if (!mounted) return;
-    const stored = localStorage.getItem("hauselio-comparison");
+    const stored = localStorage.getItem("HAUSAURA-comparison");
     if (stored) {
       try {
         const parsed: unknown = JSON.parse(stored);
@@ -42,7 +42,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
   }, [product.id, mounted]);
 
   const toggleCompare = () => {
-    const stored = localStorage.getItem("hauselio-comparison");
+    const stored = localStorage.getItem("HAUSAURA-comparison");
     let items: CompareButtonProps["product"][] = [];
     try {
       const parsed: unknown = stored ? JSON.parse(stored) : [];
@@ -70,7 +70,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
       });
     }
 
-    localStorage.setItem("hauselio-comparison", JSON.stringify(items));
+    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(items));
     setIsComparing(!isComparing);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));

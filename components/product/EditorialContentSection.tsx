@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
@@ -50,7 +50,7 @@ interface EditorialContentSectionProps {
 export default function EditorialContentSection({ items = defaultEditorialContent }: EditorialContentSectionProps) {
   return (
     <section className="section-py bg-white" aria-label="Magazin und Ratgeber">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Magazin</p>

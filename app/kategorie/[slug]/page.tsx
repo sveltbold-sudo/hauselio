@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import { prisma } from "@/lib/prisma";
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: category.name,
       description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
       url: `/kategorie/${slug}`,
-      siteName: "HAUSELIO",
+      siteName: "HAUSAURA",
       locale: "de_DE",
       type: "website",
       images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],

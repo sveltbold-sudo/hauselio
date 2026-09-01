@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 
 test.describe("Barrierefreiheit Page", () => {
   test("page loads and has correct heading", async ({ page }) => {
@@ -22,7 +22,7 @@ test.describe("Barrierefreiheit Page", () => {
 
   test("displays contact information", async ({ page }) => {
     await page.goto("/barrierefreiheit");
-    await expect(page.getByText("barrierefreiheit@hauselio.de")).toBeVisible();
+    await expect(page.getByText("barrierefreiheit@HAUSAURA.de")).toBeVisible();
     await expect(page.getByText("+49 (0)30 555 789 01")).toBeVisible();
   });
 

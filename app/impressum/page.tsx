@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
+  description: "Angaben gemäß § 5 TMG der HAUSAURA GmbH.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/impressum" },
   openGraph: {
-    title: "Impressum — HAUSELIO",
-    description: "Angaben gemäß § 5 TMG der HAUSELIO GmbH.",
-    siteName: "HAUSELIO",
+    title: "Impressum — HAUSAURA",
+    description: "Angaben gemäß § 5 TMG der HAUSAURA GmbH.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -19,15 +19,15 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-HAUSAURA py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Impressum" }]} />
       <h1 className="heading-1 mb-8">Impressum</h1>
 
-      <div className="prose-hauselio space-y-8">
+      <div className="prose-HAUSAURA space-y-8">
         <section>
           <h2 className="heading-3 mb-3">Angaben gemäß § 5 TMG</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
             <p className="text-[var(--color-text-secondary)]">Deutschland</p>
@@ -38,8 +38,8 @@ export default function ImpressumPage() {
           <h2 className="heading-3 mb-3">Kontakt</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: info@hauselio.de</p>
-            <p className="text-[var(--color-text-secondary)]">Website: www.hauselio.de</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: info@HAUSAURA.de</p>
+            <p className="text-[var(--color-text-secondary)]">Website: www.HAUSAURA.de</p>
           </div>
         </section>
 

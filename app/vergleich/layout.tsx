@@ -3,14 +3,14 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Produktvergleich",
-  description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen bei HAUSELIO.",
+  description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen bei HAUSAURA.",
   alternates: { canonical: "/vergleich" },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Produktvergleich — HAUSELIO",
+    title: "Produktvergleich — HAUSAURA",
     description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen.",
     url: `${SITE_URL}/vergleich`,
-    siteName: "HAUSELIO",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },

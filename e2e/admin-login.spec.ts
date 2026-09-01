@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 
 test.describe("Admin Login", () => {
   test.beforeEach(async ({ page }) => {
@@ -6,7 +6,7 @@ test.describe("Admin Login", () => {
   });
 
   test("displays login form with heading", async ({ page }) => {
-    await expect(page.locator("h1")).toContainText("HAUSELIO");
+    await expect(page.locator("h1")).toContainText("HAUSAURA");
     await expect(page.locator("h2")).toContainText("Anmeldung");
   });
 
@@ -47,7 +47,7 @@ test.describe("Admin Login", () => {
 
   test("has admin panel branding", async ({ page }) => {
     await expect(page.getByText("Admin-Bereich")).toBeVisible();
-    await expect(page.getByText("HAUSELIO Admin Panel")).toBeVisible();
+    await expect(page.getByText("HAUSAURA Admin Panel")).toBeVisible();
   });
 
   test("form has proper labels", async ({ page }) => {

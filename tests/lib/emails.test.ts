@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+﻿import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("@/lib/prisma", () => ({
   prisma: {
@@ -12,7 +12,7 @@ vi.mock("@/lib/resend", () => ({
   getResendClient: () => ({
     emails: { send: vi.fn() },
   }),
-  FROM_EMAIL: "test@hauselio.de",
+  FROM_EMAIL: "test@HAUSAURA.de",
 }));
 
 describe("getBankDetails helper", () => {
@@ -46,7 +46,7 @@ describe("getBankDetails helper", () => {
   it("sendOrderConfirmation uses bank details", async () => {
     const { prisma } = await import("@/lib/prisma");
     vi.mocked(prisma.siteSettings.findFirst).mockResolvedValue({
-      bankAccountName: "HAUSELIO GmbH",
+      bankAccountName: "HAUSAURA GmbH",
       bankIban: "DE89370400440532013000",
       bankBic: "COBADEFFXXX",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

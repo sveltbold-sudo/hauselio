@@ -32,7 +32,7 @@ export default function VergleichPage() {
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("hauselio-comparison");
+    const stored = localStorage.getItem("hausaura-comparison");
     if (stored) {
       try {
         const parsed: unknown = JSON.parse(stored);
@@ -43,7 +43,7 @@ export default function VergleichPage() {
 
   const removeItem = (id: string) => {
     const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("hauselio-comparison", JSON.stringify(updated));
+    localStorage.setItem("hausaura-comparison", JSON.stringify(updated));
     setItems(updated);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));
@@ -51,7 +51,7 @@ export default function VergleichPage() {
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4">Produktvergleich</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
@@ -63,7 +63,7 @@ export default function VergleichPage() {
 
   if (items.length === 0) {
     return (
-      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
         <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
         <h1 className="heading-2 mb-4">Keine Produkte zum Vergleichen</h1>
         <p className="body-large mb-10">
@@ -85,7 +85,7 @@ export default function VergleichPage() {
   );
 
   return (
-    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-20 lg:pb-8">
       <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Vergleich" }]} />
 
       <div className="mb-6 sm:mb-10">

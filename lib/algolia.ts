@@ -1,4 +1,4 @@
-import { algoliasearch, type Algoliasearch } from "algoliasearch";
+﻿import { algoliasearch, type Algoliasearch } from "algoliasearch";
 import { logger } from "@/lib/logger";
 
 const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
@@ -34,7 +34,7 @@ function getAdminClient(): Algoliasearch {
   return _adminClient;
 }
 
-export const PRODUCTS_INDEX = "hauselio_products";
+export const PRODUCTS_INDEX = "HAUSAURA_products";
 
 export function getAlgoliaSearchClient() {
   return getSearchClient();

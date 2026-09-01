@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { X, Percent, ArrowRight } from "lucide-react";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
-const EXIT_INTENT_KEY = "hauselio_exit_intent_shown";
-const COUPON_CODE = "HAUSELIO10";
+const EXIT_INTENT_KEY = "HAUSAURA_exit_intent_shown";
+const COUPON_CODE = "HAUSAURA10";
 
 export default function ExitIntentPopup() {
   const [visible, setVisible] = useState(false);

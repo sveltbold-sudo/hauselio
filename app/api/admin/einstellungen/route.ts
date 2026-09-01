@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
@@ -24,10 +24,10 @@ export async function GET(request: NextRequest) {
         data: {
           bankIban: "",
           bankBic: "",
-          bankAccountName: "HAUSELIO GmbH",
+          bankAccountName: "HAUSAURA GmbH",
           bankName: "",
           shippingInfo: "Kostenloser Versand ab 50€ Bestellwert.",
-          contactEmail: "info@hauselio.de",
+          contactEmail: "info@HAUSAURA.de",
           contactPhone: "+49 (0)30 555 789 01",
           contactAddress: "Kastanienallee 42, 10435 Berlin",
         },

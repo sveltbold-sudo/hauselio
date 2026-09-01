@@ -3,21 +3,21 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Wunschliste",
-  description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSELIO.",
+  description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSAURA.",
   alternates: { canonical: `${SITE_URL}/wunschliste` },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Wunschliste | HAUSELIO",
-    description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSELIO.",
+    title: "Wunschliste | HAUSAURA",
+    description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSAURA.",
     url: `${SITE_URL}/wunschliste`,
-    siteName: "HAUSELIO",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wunschliste | HAUSELIO",
-    description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSELIO.",
+    title: "Wunschliste | HAUSAURA",
+    description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSAURA.",
   },
 };
 

@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+﻿import { Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { logger } from "@/lib/logger";
 import ReviewFilters from "./ReviewFilters";
@@ -35,7 +35,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     if (productId) {
       return (
         <section className="section-py bg-white" aria-label="Kundenbewertungen">
-          <div className="container-hauselio">
+          <div className="container-HAUSAURA">
             <div className="text-center py-12">
               <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
               <h2 className="heading-2 mb-4">Produktbewertungen</h2>
@@ -71,7 +71,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
 
   return (
     <section className="section-py bg-white" aria-label="Kundenbewertungen">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
           <h2 className="heading-2">

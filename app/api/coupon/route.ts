@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 const COUPONS: Record<string, { discountPercent: number; label: string; minCart?: number; maxUses?: number }> = {
-  HAUSELIO10: { discountPercent: 10, label: "10% Rabatt" },
+  HAUSAURA10: { discountPercent: 10, label: "10% Rabatt" },
 };
 
 export async function POST(request: NextRequest) {

@@ -39,7 +39,7 @@ export default function WunschlistePage() {
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4">Wunschliste</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
@@ -51,7 +51,7 @@ export default function WunschlistePage() {
 
   if (wishlistItems.length === 0) {
     return (
-      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
         <Heart className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
         <h1 className="heading-2 mb-4">Ihre Wunschliste ist leer</h1>
         <p className="body-large mb-10">
@@ -68,7 +68,7 @@ export default function WunschlistePage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-6 sm:py-8 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-20 lg:pb-8">
       <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Wunschliste" }]} />
 
       {/* Header */}

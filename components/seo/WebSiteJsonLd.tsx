@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/constants";
+﻿import { SITE_URL } from "@/lib/constants";
 
 interface WebSiteJsonLdProps {
   name?: string;
@@ -7,7 +7,7 @@ interface WebSiteJsonLdProps {
 }
 
 export default function WebSiteJsonLd({
-  name = "HAUSELIO",
+  name = "HAUSAURA",
   url = SITE_URL,
   searchUrl = `${SITE_URL}/shop?q={search_term_string}`,
 }: WebSiteJsonLdProps) {

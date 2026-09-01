@@ -1,6 +1,6 @@
-export default function ProduktLoading() {
+﻿export default function ProduktLoading() {
   return (
-    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
+    <div className="container-HAUSAURA py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">
         <div className="flex items-center gap-2 mb-8">
           <div className="h-3 w-12 bg-[var(--color-border-light)] rounded" />

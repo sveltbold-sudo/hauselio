@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import Link from "next/link";
 import { PackageOpen, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -145,7 +145,7 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="container-hauselio py-8">
+    <div className="container-HAUSAURA py-8">
       {/* Breadcrumb */}
       <Breadcrumb
         items={[

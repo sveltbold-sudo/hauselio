@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
 
 const WHATSAPP_NUMBER = "+4917612345678";
-const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSELIO.";
+const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSAURA.";
 
 export default function WhatsAppChat() {
   const [visible, setVisible] = useState(false);

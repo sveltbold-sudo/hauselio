@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import Image from "next/image";
@@ -14,7 +14,7 @@ interface ImageUploadProps {
 
 export default function ImageUpload({
   currentImage,
-  folder = "hauselio/products",
+  folder = "HAUSAURA/products",
   onUpload,
   onRemove,
   className = "",

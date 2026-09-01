@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
@@ -580,7 +580,7 @@ export default function ProductForm({
               </h2>
               <ImageUpload
                 currentImage={formData.imageUrl || undefined}
-                folder="hauselio/products"
+                folder="HAUSAURA/products"
                 onUpload={(url) =>
                   setFormData((prev) => ({ ...prev, imageUrl: url }))
                 }

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 
 test.describe("Contact Page", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +19,7 @@ test.describe("Contact Page", () => {
   });
 
   test("displays contact information", async ({ page }) => {
-    const email = page.getByText("info@hauselio.de");
+    const email = page.getByText("info@HAUSAURA.de");
     const phone = page.getByText("+49");
     const address = page.getByText("Kastanienallee");
 

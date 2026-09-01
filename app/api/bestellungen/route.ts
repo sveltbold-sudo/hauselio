@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils";
 import { sendOrderConfirmation } from "@/lib/emails";
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     let couponLabel = "";
     if (couponCode) {
       const validCoupons: Record<string, { discountPercent: number; label: string }> = {
-        HAUSELIO10: { discountPercent: 10, label: "10% Rabatt" },
+        HAUSAURA10: { discountPercent: 10, label: "10% Rabatt" },
       };
       const couponData = validCoupons[couponCode.toUpperCase()];
       if (couponData) {
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     // Apply coupon discount
     if (couponLabel) {
       const couponDiscountMap: Record<string, number> = {
-        HAUSELIO10: 10,
+        HAUSAURA10: 10,
       };
       const discountPercent = couponDiscountMap[(couponCode || "").toUpperCase()] || 0;
       if (discountPercent) {

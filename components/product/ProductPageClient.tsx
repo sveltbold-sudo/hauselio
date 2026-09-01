@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -142,7 +142,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
   };
 
   return (
-    <div className="container-hauselio py-6 lg:py-10 pb-20 lg:pb-10">
+    <div className="container-HAUSAURA py-6 lg:py-10 pb-20 lg:pb-10">
       <Breadcrumb
         items={[
           { label: "Shop", href: "/shop" },

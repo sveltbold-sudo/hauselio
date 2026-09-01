@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+﻿import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 
 vi.mock("next/headers", () => ({
@@ -452,7 +452,7 @@ describe("GET /api/bank", () => {
     mockPrisma.siteSettings.findFirst.mockResolvedValue({
       bankIban: "DE89370400440532013000",
       bankBic: "COBADEFFXXX",
-      bankAccountName: "HAUSELIO GmbH",
+      bankAccountName: "HAUSAURA GmbH",
       bankName: "Test Bank",
     } as never);
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
@@ -14,15 +14,15 @@ export const metadata: Metadata = {
   description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten. Küche, Kaffee, Reinigung, Klima, Smart Home und mehr.",
   alternates: { canonical: `${SITE_URL}/kategorie` },
   openGraph: {
-    title: "Kategorien — HAUSELIO",
+    title: "Kategorien — HAUSAURA",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
-    siteName: "HAUSELIO",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kategorien — HAUSELIO",
+    title: "Kategorien — HAUSAURA",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
   },
 };
@@ -67,7 +67,7 @@ export default async function KategoriePage() {
         ]}
       />
 
-      <div className="container-hauselio py-12">
+      <div className="container-HAUSAURA py-12">
         <div className="mb-10">
           <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
 

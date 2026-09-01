@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Truck, Package, Landmark } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
@@ -6,13 +6,13 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Versandinformationen",
-  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO",
+  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA",
   robots: { index: false, follow: false },
   alternates: { canonical: "/versand" },
   openGraph: {
-    title: "Versandinformationen — HAUSELIO",
-    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSELIO.",
-    siteName: "HAUSELIO",
+    title: "Versandinformationen — HAUSAURA",
+    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -39,7 +39,7 @@ const shippingMethods = [
 
 export default function VersandPage() {
   return (
-    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-HAUSAURA py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
@@ -164,7 +164,7 @@ export default function VersandPage() {
         </p>
         <div className="mt-4 bg-[var(--color-bg)] rounded-xl p-6">
           <p className="text-sm text-[var(--color-text-secondary)]">
-            <span className="font-medium">E-Mail:</span> hilfe@hauselio.de
+            <span className="font-medium">E-Mail:</span> hilfe@HAUSAURA.de
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
             <span className="font-medium">Telefon:</span> +49 (0)30 555 789 01

@@ -8,7 +8,7 @@ export default function GarantieError({
   reset: () => void;
 }) {
   return (
-    <div role="alert" className="container-hauselio py-12 lg:py-20">
+    <div role="alert" className="container-hausaura py-12 lg:py-20">
       <div className="text-center max-w-md mx-auto">
         <h1 className="heading-2 mb-4">Fehler beim Laden</h1>
         <p className="text-[var(--color-text-secondary)] mb-6">

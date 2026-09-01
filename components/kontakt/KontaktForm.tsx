@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Clock, MessageSquare } from "lucide-react";
@@ -202,7 +202,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                 <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
               </div>
               <span className="font-medium">
-                HAUSELIO GmbH
+                HAUSAURA GmbH
                 <br />
                 {addressLines.map((line, i) => (
                   <span key={i}>{line}{i < addressLines.length - 1 ? <br /> : ""}</span>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -17,7 +17,7 @@ export default function BestellungError({
   }, [error]);
 
   return (
-    <div role="alert" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+    <div role="alert" className="container-HAUSAURA py-24 text-center max-w-2xl mx-auto">
       <div className="w-20 h-20 rounded-full bg-[var(--color-danger-light)] flex items-center justify-center mx-auto mb-8">
         <AlertTriangle className="w-10 h-10 text-[var(--color-danger)]" />
       </div>

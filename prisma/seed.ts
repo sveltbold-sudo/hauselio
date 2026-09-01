@@ -5,7 +5,7 @@ import { join } from "path";
 const prisma = new PrismaClient();
 const IMAGES_DIR = join(process.cwd(), "public", "images", "products");
 
-const adminEmail = "admin@hausaura.de";
+const adminEmail = "admin@hauselio.de";
 
   const categories = [
     { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },
@@ -107,13 +107,13 @@ const products: ProductData[] = [
     price: 1499, originalPrice: 1599, sku: "TM7-2026", inStock: true, isFeatured: true, isNew: true,
     rating: 4.9, reviewCount: 127, categorySlug: "kueche", brandSlug: "thermomix", weight: 7.95, tags: ["bestseller"],
     specs: [
-      { name: "Leistung", value: "1800 W" },
-      { name: "Gewicht", value: "9.5 kg" },
-      { name: "Abmessungen", value: "40x45x45 cm" },
-      { name: "Material", value: "Glas" },
-      { name: "Farbe", value: "Silber" },
-      { name: "Garantie", value: "3 Jahre" },
-      { name: "Energieeffizienzklasse", value: "A++" },
+      { key: "Leistung", value: "1800 W" },
+      { key: "Gewicht", value: "9.5 kg" },
+      { key: "Abmessungen", value: "40x45x45 cm" },
+      { key: "Material", value: "Glas" },
+      { key: "Farbe", value: "Silber" },
+      { key: "Garantie", value: "3 Jahre" },
+      { key: "Energieeffizienzklasse", value: "A++" },
     ]
   },
   {
@@ -122,13 +122,13 @@ const products: ProductData[] = [
     price: 1399, sku: "TM6-2025", inStock: true, isFeatured: true,
     rating: 4.8, reviewCount: 342, categorySlug: "kueche", brandSlug: "thermomix", tags: ["bestseller"],
     specs: [
-      { name: "Funktionen", value: "20+ Funktionen" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Temperaturbereich", value: "37-160°C" },
-      { name: "Geschwindigkeit", value: "40-10.700 U/min" },
-      { name: "Kapazität", value: "2,2 Liter" },
-      { name: "Gewicht", value: "7,95 kg" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Funktionen", value: "20+ Funktionen" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Temperaturbereich", value: "37-160°C" },
+      { key: "Geschwindigkeit", value: "40-10.700 U/min" },
+      { key: "Kapazität", value: "2,2 Liter" },
+      { key: "Gewicht", value: "7,95 kg" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -137,12 +137,12 @@ const products: ProductData[] = [
     price: 549, originalPrice: 599, sku: "KA-ART-5KSM", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.8, reviewCount: 289, categorySlug: "kueche", brandSlug: "kitchenaid", weight: 10.5, tags: ["bestseller"],
     specs: [
-      { name: "Leistung", value: "300 Watt" },
-      { name: "Rüsselvolumen", value: "4,8 Liter" },
-      { name: "Geschwindigkeiten", value: "10 + Puls" },
-      { name: "Mischsystem", value: "Planetarisch" },
-      { name: "Aufätze", value: "Knethaken, Schneebesen, Kneter" },
-      { name: "Farbe", value: "Verschiedene Farben" },
+      { key: "Leistung", value: "300 Watt" },
+      { key: "Rüsselvolumen", value: "4,8 Liter" },
+      { key: "Geschwindigkeiten", value: "10 + Puls" },
+      { key: "Mischsystem", value: "Planetarisch" },
+      { key: "Aufätze", value: "Knethaken, Schneebesen, Kneter" },
+      { key: "Farbe", value: "Verschiedene Farben" },
     ]
   },
   {
@@ -151,12 +151,12 @@ const products: ProductData[] = [
     price: 1899, sku: "BSH-HKH634ES5", inStock: true,
     rating: 4.7, reviewCount: 78, categorySlug: "kueche", brandSlug: "bosch", weight: 62,
     specs: [
-      { name: "Kochfeld", value: "Induktion, 4 Felder" },
-      { name: "Backofen", value: "Multifunktional, 8 Funktionen" },
-      { name: "Backofenvolumen", value: "66 Liter" },
-      { name: "Energieklasse", value: "A" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Edelstahl/Schwarz" },
+      { key: "Kochfeld", value: "Induktion, 4 Felder" },
+      { key: "Backofen", value: "Multifunktional, 8 Funktionen" },
+      { key: "Backofenvolumen", value: "66 Liter" },
+      { key: "Energieklasse", value: "A" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Edelstahl/Schwarz" },
     ]
   },
   {
@@ -165,13 +165,13 @@ const products: ProductData[] = [
     price: 1299, sku: "SI-HB778GES0", inStock: true, isNew: true,
     rating: 4.8, reviewCount: 45, categorySlug: "kueche", brandSlug: "siemens", weight: 38,
     specs: [
-      { name: "Funktionen", value: "14 Backfunktionen" },
-      { name: "Backofenvolumen", value: "71 Liter" },
-      { name: "Technologie", value: "3D-Heißluft" },
-      { name: "Reinigung", value: "Pyrolyse" },
-      { name: "Steuerung", value: "TFT-Touchdisplay" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Energieklasse", value: "A" },
+      { key: "Funktionen", value: "14 Backfunktionen" },
+      { key: "Backofenvolumen", value: "71 Liter" },
+      { key: "Technologie", value: "3D-Heißluft" },
+      { key: "Reinigung", value: "Pyrolyse" },
+      { key: "Steuerung", value: "TFT-Touchdisplay" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Energieklasse", value: "A" },
     ]
   },
   {
@@ -180,12 +180,12 @@ const products: ProductData[] = [
     price: 2499, sku: "GAG-V200-IND", inStock: true,
     rating: 4.9, reviewCount: 34, categorySlug: "kueche", brandSlug: "gaggenau",
     specs: [
-      { name: "Kochfelder", value: "2 Induktionskochfelder" },
-      { name: "Technologie", value: "Induktion" },
-      { name: "Funktionen", value: "PowerBoost" },
-      { name: "Steuerung", value: "Berührungselemente" },
-      { name: "Breite", value: "30 cm" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kochfelder", value: "2 Induktionskochfelder" },
+      { key: "Technologie", value: "Induktion" },
+      { key: "Funktionen", value: "PowerBoost" },
+      { key: "Steuerung", value: "Berührungselemente" },
+      { key: "Breite", value: "30 cm" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -194,14 +194,14 @@ const products: ProductData[] = [
     price: 1199, originalPrice: 1299, sku: "JURA-E8-PL", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.8, reviewCount: 156, categorySlug: "kaffee", brandSlug: "jura", weight: 9.6, tags: ["bestseller"],
     specs: [
-      { name: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
-      { name: "Brühtechnologie", value: "P.E.P." },
-      { name: "Kaffeespezialitäten", value: "7 Sorten" },
-      { name: "Wasserkapazität", value: "1,9 Liter" },
-      { name: "Bohnenbehälter", value: "280 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
+      { key: "Brühtechnologie", value: "P.E.P." },
+      { key: "Kaffeespezialitäten", value: "7 Sorten" },
+      { key: "Wasserkapazität", value: "1,9 Liter" },
+      { key: "Bohnenbehälter", value: "280 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -210,14 +210,14 @@ const products: ProductData[] = [
     price: 2199, sku: "JURA-Z10-PL", inStock: true, isFeatured: true, isNew: true,
     rating: 4.9, reviewCount: 67, categorySlug: "kaffee", brandSlug: "jura", weight: 12.3, tags: ["bestseller"],
     specs: [
-      { name: "Mahlwerk", value: "Professionelles Aromamahlwerk" },
-      { name: "Brühtechnologie", value: "P.E.P." },
-      { name: "Kaffeespezialitäten", value: "32 Sorten inkl. Cold Brew" },
-      { name: "Wasserkapazität", value: "2,4 Liter" },
-      { name: "Bohnenbehälter", value: "280 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "App-Steuerung", value: "JURA Smart Connect" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Professionelles Aromamahlwerk" },
+      { key: "Brühtechnologie", value: "P.E.P." },
+      { key: "Kaffeespezialitäten", value: "32 Sorten inkl. Cold Brew" },
+      { key: "Wasserkapazität", value: "2,4 Liter" },
+      { key: "Bohnenbehälter", value: "280 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "App-Steuerung", value: "JURA Smart Connect" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -226,14 +226,14 @@ const products: ProductData[] = [
     price: 349, sku: "DEL-ECAM22110B", inStock: true,
     rating: 4.5, reviewCount: 892, categorySlug: "kaffee", brandSlug: "delonghi", weight: 9,
     specs: [
-      { name: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
-      { name: "Milchsystem", value: "LatteCrema automatisch" },
-      { name: "Kaffeespezialitäten", value: "Cappuccino, Espresso, Kaffee" },
-      { name: "Wasserkapazität", value: "1,8 Liter" },
-      { name: "Bohnenbehälter", value: "270 g" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
+      { key: "Milchsystem", value: "LatteCrema automatisch" },
+      { key: "Kaffeespezialitäten", value: "Cappuccino, Espresso, Kaffee" },
+      { key: "Wasserkapazität", value: "1,8 Liter" },
+      { key: "Bohnenbehälter", value: "270 g" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -242,14 +242,14 @@ const products: ProductData[] = [
     price: 99, sku: "NES-VPOP-PLUS", inStock: true, isNew: true,
     rating: 4.3, reviewCount: 234, categorySlug: "kaffee", brandSlug: "nespresso", weight: 3.5,
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Vertuo" },
-      { name: "Technologie", value: "Centrifusion" },
-      { name: "Tassengrößen", value: "5 Größen" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Kapseln", value: "Nespresso Vertuo" },
-      { name: "Abmessungen", value: "14 x 32 x 30 cm" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Vertuo" },
+      { key: "Technologie", value: "Centrifusion" },
+      { key: "Tassengrößen", value: "5 Größen" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Kapseln", value: "Nespresso Vertuo" },
+      { key: "Abmessungen", value: "14 x 32 x 30 cm" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -258,14 +258,14 @@ const products: ProductData[] = [
     price: 249, sku: "MEL-PURISTA", inStock: true,
     rating: 4.6, reviewCount: 445, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
-      { name: "Mahlwerk", value: "3-stufig" },
-      { name: "Kaffeeart", value: "Filterkaffee" },
-      { name: "Kannenkapazität", value: "10 Tassen / 1,25 Liter" },
-      { name: "Wasserkapazität", value: "1,0 Liter" },
-      { name: "Bohnenbehälter", value: "200 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Heißwasserausgang", value: "Ja" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "3-stufig" },
+      { key: "Kaffeeart", value: "Filterkaffee" },
+      { key: "Kannenkapazität", value: "10 Tassen / 1,25 Liter" },
+      { key: "Wasserkapazität", value: "1,0 Liter" },
+      { key: "Bohnenbehälter", value: "200 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Heißwasserausgang", value: "Ja" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -274,14 +274,14 @@ const products: ProductData[] = [
     price: 699, sku: "BREV-BEI", inStock: true,
     rating: 4.7, reviewCount: 156, categorySlug: "kaffee", brandSlug: "breville", weight: 11.5,
     specs: [
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Mahlwerk", value: "Kegelmahlwerk Edelstahl" },
-      { name: "Mahlgrade", value: "25 Stufen" },
-      { name: "Wasserkapazität", value: "2,5 Liter" },
-      { name: "Bohnenbehälter", value: "120 g" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Abmessungen", value: "30 x 30 x 35 cm" },
-      { name: "Garantie", value: "3 Jahre" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Mahlwerk", value: "Kegelmahlwerk Edelstahl" },
+      { key: "Mahlgrade", value: "25 Stufen" },
+      { key: "Wasserkapazität", value: "2,5 Liter" },
+      { key: "Bohnenbehälter", value: "120 g" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Abmessungen", value: "30 x 30 x 35 cm" },
+      { key: "Garantie", value: "3 Jahre" },
     ]
   },
   {
@@ -290,12 +290,12 @@ const products: ProductData[] = [
     price: 749, sku: "DY-V15-ABS", inStock: true, isFeatured: true, isNew: true,
     rating: 4.7, reviewCount: 89, categorySlug: "reinigung", brandSlug: "dyson", weight: 3.1, tags: ["bestseller"],
     specs: [
-      { name: "Leistung", value: "230 AW" },
-      { name: "Motor", value: "Dyson Hyperdymium" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Filter", value: "HEPA (99,99%)" },
-      { name: "Gewicht", value: "3,1 kg" },
-      { name: "Farbe", value: "Gold/Nickel" },
+      { key: "Leistung", value: "230 AW" },
+      { key: "Motor", value: "Dyson Hyperdymium" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Filter", value: "HEPA (99,99%)" },
+      { key: "Gewicht", value: "3,1 kg" },
+      { key: "Farbe", value: "Gold/Nickel" },
     ]
   },
   {
@@ -304,12 +304,12 @@ const products: ProductData[] = [
     price: 949, sku: "DY-GEN5-ABS", inStock: true,
     rating: 4.8, reviewCount: 45, categorySlug: "reinigung", brandSlug: "dyson", weight: 3.5,
     specs: [
-      { name: "Leistung", value: "230 AW" },
-      { name: "Motor", value: "Dyson Hyperdymium 125.000 min-1" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Filter", value: "HEPA (99,99%)" },
-      { name: "Gewicht", value: "3,5 kg" },
-      { name: "Farbe", value: "Gelb/Nickel" },
+      { key: "Leistung", value: "230 AW" },
+      { key: "Motor", value: "Dyson Hyperdymium 125.000 min-1" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Filter", value: "HEPA (99,99%)" },
+      { key: "Gewicht", value: "3,5 kg" },
+      { key: "Farbe", value: "Gelb/Nickel" },
     ]
   },
   {
@@ -318,26 +318,26 @@ const products: ProductData[] = [
     price: 549, sku: "DY-BBAP", inStock: true,
     rating: 4.5, reviewCount: 187, categorySlug: "reinigung", brandSlug: "dyson", weight: 7.2,
     specs: [
-      { name: "Technologie", value: "Dyson-Zyklon" },
-      { name: "Leistung", value: "79.000 G" },
-      { name: "Filter", value: "2 Tierklassen-Filter" },
-      { name: "Gewicht", value: "3,2 kg" },
-      { name: "Volumen", value: "0,76 Liter" },
-      { name: "Farbe", value: "Nickel/Rot" },
+      { key: "Technologie", value: "Dyson-Zyklon" },
+      { key: "Leistung", value: "79.000 G" },
+      { key: "Filter", value: "2 Tierklassen-Filter" },
+      { key: "Gewicht", value: "3,2 kg" },
+      { key: "Volumen", value: "0,76 Liter" },
+      { key: "Farbe", value: "Nickel/Rot" },
     ]
   },
   {
     name: "Kärcher SC 4 EasyFix Premium", slug: "kaercher-sc4-easyfix-premium",
-    description: "Der Kärcher SC4 EasyFix Premium ist ein dampfreiniger für gründliche Reinigung ohne Chemikalien. Die EasyFix-Wischvorrichtung ermöglicht das Reinigen großer Flächen. Die 2000 Watt Heizung erzeugt permanenten Dampf für不间断 Reinigung. Die verschiedenen Düsen bieten Werkzeuge für jeden Einsatzzweck. Die abnehmbare 0,5-Liter-Wassertanks erlauben kurze Pausen zum Nachfüllen. Die Kindersicherung verhindert unbeabsichtigtes Einschalten. Die kompakte Bauform lässt sich platzsparend aufbewahren. Perfekt für chemiefreie Reinigung von Böden, Fliesen und Gläsern.", shortDesc: "Dampfreiniger mit EasyFix und 2000W für chemiefreie Reinigung",
+    description: "Der Kärcher SC4 EasyFix Premium ist ein dampfreiniger für gründliche Reinigung ohne Chemikalien. Die EasyFix-Wischvorrichtung ermöglicht das Reinigen großer Flächen. Die 2000 Watt Heizung erzeugt permanenten Dampf für kontinuierliche Reinigung. Die verschiedenen Düsen bieten Werkzeuge für jeden Einsatzzweck. Die abnehmbare 0,5-Liter-Wassertanks erlauben kurze Pausen zum Nachfüllen. Die Kindersicherung verhindert unbeabsichtigtes Einschalten. Die kompakte Bauform lässt sich platzsparend aufbewahren. Perfekt für chemiefreie Reinigung von Böden, Fliesen und Gläsern.", shortDesc: "Dampfreiniger mit EasyFix und 2000W für chemiefreie Reinigung",
     price: 229, sku: "KA-SC4-EFP", inStock: true,
     rating: 4.7, reviewCount: 567, categorySlug: "reinigung", brandSlug: "kaercher", weight: 6,
     specs: [
-      { name: "Leistung", value: "2000 Watt" },
-      { name: "Dampfdruck", value: "3,5 bar" },
-      { name: "Wassertank", value: "0,5 Liter (entnehmbar)" },
-      { name: "Aufheizzeit", value: "4 Minuten" },
-      { name: "Gewicht", value: "4,3 kg" },
-      { name: "Farbe", value: "Gelb/Schwarz" },
+      { key: "Leistung", value: "2000 Watt" },
+      { key: "Dampfdruck", value: "3,5 bar" },
+      { key: "Wassertank", value: "0,5 Liter (entnehmbar)" },
+      { key: "Aufheizzeit", value: "4 Minuten" },
+      { key: "Gewicht", value: "4,3 kg" },
+      { key: "Farbe", value: "Gelb/Schwarz" },
     ]
   },
   {
@@ -346,12 +346,12 @@ const products: ProductData[] = [
     price: 899, sku: "DY-PUR-BQF", inStock: true, isFeatured: true,
     rating: 4.7, reviewCount: 67, categorySlug: "klima", brandSlug: "dyson", weight: 8.5, tags: ["bestseller"],
     specs: [
-      { name: "Filter", value: "HEPA (99,97%)" },
-      { name: "Funktionen", value: "Luftreinigung + Ventilator" },
-      { name: "Oszillation", value: "350°" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "25-55 dB(A)" },
-      { name: "Farbe", value: "Nickel/Gold" },
+      { key: "Filter", value: "HEPA (99,97%)" },
+      { key: "Funktionen", value: "Luftreinigung + Ventilator" },
+      { key: "Oszillation", value: "350°" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "25-55 dB(A)" },
+      { key: "Farbe", value: "Nickel/Gold" },
     ]
   },
   {
@@ -360,12 +360,12 @@ const products: ProductData[] = [
     price: 499, originalPrice: 549, sku: "DY-TP09", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 123, categorySlug: "klima", brandSlug: "dyson",
     specs: [
-      { name: "Filter", value: "HEPA (99,97%)" },
-      { name: "Funktionen", value: "Luftreinigung + Ventilator" },
-      { name: "Oszillation", value: "350°" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "28-59 dB(A)" },
-      { name: "Farbe", value: "Weiß/Bronze" },
+      { key: "Filter", value: "HEPA (99,97%)" },
+      { key: "Funktionen", value: "Luftreinigung + Ventilator" },
+      { key: "Oszillation", value: "350°" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "28-59 dB(A)" },
+      { key: "Farbe", value: "Weiß/Bronze" },
     ]
   },
   {
@@ -374,26 +374,26 @@ const products: ProductData[] = [
     price: 189, sku: "SF-OSKAR-BIG", inStock: true,
     rating: 4.4, reviewCount: 234, categorySlug: "klima", brandSlug: "stadler-form",
     specs: [
-      { name: "Befeuchtungsprinzip", value: "Verdunstung" },
-      { name: "Tankkapazität", value: "6 Liter" },
-      { name: "Raumgröße", value: "Bis zu 40 m²" },
-      { name: "Lautstärke", value: "28-36 dB(A)" },
-      { name: "Leistung", value: "12-20 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Befeuchtungsprinzip", value: "Verdunstung" },
+      { key: "Tankkapazität", value: "6 Liter" },
+      { key: "Raumgröße", value: "Bis zu 40 m²" },
+      { key: "Lautstärke", value: "28-36 dB(A)" },
+      { key: "Leistung", value: "12-20 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
     name: "tado° Smart Thermostat Starter Kit V3+", slug: "tado-smart-thermostat-v3plus",
-    description: "Der Tado Smart Thermostat V3+ ist ein intelligentes Thermostat für die Heizungssteuerung. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Die Luftqualitätsmessung informiert über die Raumluft. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Intelligentes Thermostat mit Geofencing und App-Steuerung",
+    description: "Der Tado Smart Thermostat V3+ ist ein intelligentes Thermostat für die Heizungssteuerung. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Die Luftqualitätsmessung informiert über die Raumluft. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Intelligentes Thermostat mit Geofencing und App-Steuerung",
     price: 149, originalPrice: 199, sku: "TADO-V3PLUS-SK", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.6, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "tado", tags: ["bestseller"],
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Funktionen", value: "Geofencing, Timer, Luftqualität" },
-      { name: "Kompatibilität", value: "Alle Heizungstypen" },
-      { name: "Energieeinsparung", value: "Bis zu 28%" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Funktionen", value: "Geofencing, Timer, Luftqualität" },
+      { key: "Kompatibilität", value: "Alle Heizungstypen" },
+      { key: "Energieeinsparung", value: "Bis zu 28%" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -402,25 +402,25 @@ const products: ProductData[] = [
     price: 1699, sku: "MIELE-G7966", inStock: true, isFeatured: true,
     rating: 4.9, reviewCount: 89, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 38, tags: ["bestseller"],
     specs: [
-      { name: "Kapazität", value: "16 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "12 + 6 Zusatzfunktionen" },
-      { name: "Dosierung", value: "AutoDos + Dosierhilfe" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "16 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "12 + 6 Zusatzfunktionen" },
+      { key: "Dosierung", value: "AutoDos + Dosierhilfe" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
     name: "tado° Smart AC Control V3+", slug: "tado-smart-ac-control-v3plus",
-    description: "Die Tado Smart AC Control V3+ ist ein smarter WLAN-Controller für Klimaanlagen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die Energieberichtsfunktion zeigt den Stromverbrauch an. Die Luftqualitätsmessung informiert über die Raumluft. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Perfekt für die intelligente Steuerung Ihrer Klimaanlage.", shortDesc: "Smarter WLAN-Controller für Klimaanlagen mit Geofencing",
+    description: "Die Tado Smart AC Control V3+ ist ein smarter WLAN-Controller für Klimaanlagen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die Energieberichtsfunktion zeigt den Stromverbrauch an. Die Luftqualitätsmessung informiert über die Raumluft. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Perfekt für die intelligente Steuerung Ihrer Klimaanlage.", shortDesc: "Smarter WLAN-Controller für Klimaanlagen mit Geofencing",
     price: 99, sku: "TADO-ACV3", inStock: true,
     rating: 4.5, reviewCount: 567, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Konnektivität", value: "WLAN, Infrarot" },
-      { name: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
-      { name: "Kompatibilität", value: "Die党派 Klimaanlagen" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Konnektivität", value: "WLAN, Infrarot" },
+      { key: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
+      { key: "Kompatibilität", value: "Die meisten Klimaanlagen" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -429,12 +429,12 @@ const products: ProductData[] = [
     price: 149, originalPrice: 179, sku: "PH-HUE-SK-E27", inStock: true,
     rating: 4.7, reviewCount: 2345, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Protokoll", value: "Zigbee (via Hue Bridge)" },
-      { name: "Lichtstrom", value: "100-2200 Lumen" },
-      { name: "Farbtemperatur", value: "2200-6500K" },
-      { name: "Leistung", value: "8,06 Watt pro Lampe" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Fassung", value: "E27" },
+      { key: "Protokoll", value: "Zigbee (via Hue Bridge)" },
+      { key: "Lichtstrom", value: "100-2200 Lumen" },
+      { key: "Farbtemperatur", value: "2200-6500K" },
+      { key: "Leistung", value: "8,06 Watt pro Lampe" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Fassung", value: "E27" },
     ]
   },
   {
@@ -443,12 +443,12 @@ const products: ProductData[] = [
     price: 199, sku: "NANO-SH-HEX", inStock: true,
     rating: 4.4, reviewCount: 345, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Panels", value: "7 pro Starter Kit" },
-      { name: "Lichtstrom", value: "140 Lumen pro Panel" },
-      { name: "Leistung", value: "9 Watt pro Panel" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Wi-Fi, Bluetooth" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Panels", value: "7 pro Starter Kit" },
+      { key: "Lichtstrom", value: "140 Lumen pro Panel" },
+      { key: "Leistung", value: "9 Watt pro Panel" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Wi-Fi, Bluetooth" },
     ]
   },
   {
@@ -457,11 +457,11 @@ const products: ProductData[] = [
     price: 199, sku: "RING-VDB4", inStock: true,
     rating: 4.5, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Sprachfunktion", value: "Zweistiguous" },
-      { name: "Speicherung", value: "Ring Protect (Abonnement)" },
-      { name: "Installation", value: "Kabellos oder verkabelt" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Sprachfunktion", value: "Zweistiguous" },
+      { key: "Speicherung", value: "Ring Protect (Abonnement)" },
+      { key: "Installation", value: "Kabellos oder verkabelt" },
     ]
   },
   {
@@ -470,11 +470,11 @@ const products: ProductData[] = [
     price: 1499, sku: "LB-KGN36VI3", inStock: true,
     rating: 4.8, reviewCount: 134, categorySlug: "haushaltsgeraete", brandSlug: "liebherr", weight: 93,
     specs: [
-      { name: "Volumen", value: "348 Liter" },
-      { name: "Kühltechnologie", value: "BioFresh + NoFrost" },
-      { name: "Kühlschrank", value: "253 Liter" },
-      { name: "Gefrierfach", value: "95 Liter" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "348 Liter" },
+      { key: "Kühltechnologie", value: "BioFresh + NoFrost" },
+      { key: "Kühlschrank", value: "253 Liter" },
+      { key: "Gefrierfach", value: "95 Liter" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -483,12 +483,12 @@ const products: ProductData[] = [
     price: 1899, sku: "MIELE-WCI870", inStock: true, isFeatured: true,
     rating: 4.9, reviewCount: 203, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 87, tags: ["bestseller"],
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1600 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "TwinDos" },
-      { name: "Programme", value: "20" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1600 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "TwinDos" },
+      { key: "Programme", value: "20" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -497,11 +497,11 @@ const products: ProductData[] = [
     price: 2840, sku: "LIEBHERRMONOSGN", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 62, categorySlug: "haushaltsgeraete", brandSlug: "liebherr",
     specs: [
-      { name: "Volumen", value: "388 Liter" },
-      { name: "Kühltechnologie", value: "BioFresh + NoFrost" },
-      { name: "Steuerung", value: "SmartDevice App" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "388 Liter" },
+      { key: "Kühltechnologie", value: "BioFresh + NoFrost" },
+      { key: "Steuerung", value: "SmartDevice App" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -510,11 +510,11 @@ const products: ProductData[] = [
     price: 1699, sku: "MIELE-TRK845", inStock: true,
     rating: 4.8, reviewCount: 156, categorySlug: "haushaltsgeraete", brandSlug: "miele", weight: 62,
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Kondensation" },
-      { name: "Energieklasse", value: "B" },
-      { name: "Programme", value: "12" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Kondensation" },
+      { key: "Energieklasse", value: "B" },
+      { key: "Programme", value: "12" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -523,11 +523,11 @@ const products: ProductData[] = [
     price: 2499, sku: "SAM-FH-RB38B", inStock: true, isNew: true,
     rating: 4.6, reviewCount: 67, categorySlug: "haushaltsgeraete", brandSlug: "samsung", weight: 115,
     specs: [
-      { name: "Volumen", value: "385 Liter" },
-      { name: "Kühltechnologie", value: "Twin Cooling Plus" },
-      { name: "Design", value: "Bespoke" },
-      { name: "Steuerung", value: "Family Hub Display" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "385 Liter" },
+      { key: "Kühltechnologie", value: "Twin Cooling Plus" },
+      { key: "Design", value: "Bespoke" },
+      { key: "Steuerung", value: "Family Hub Display" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -536,12 +536,12 @@ const products: ProductData[] = [
     price: 899, sku: "BSH-WGG244Z00", inStock: true,
     rating: 4.7, reviewCount: 312, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 74,
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS automatisch" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS automatisch" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -550,12 +550,12 @@ const products: ProductData[] = [
     price: 699, originalPrice: 799, sku: "SAM-WW90TP", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 567, categorySlug: "haushaltsgeraete", brandSlug: "samsung", weight: 65,
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Technologie", value: "EcoBubble + AI" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Technologie", value: "EcoBubble + AI" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -564,12 +564,12 @@ const products: ProductData[] = [
     price: 770, sku: "KITCHENAIDAR2", inStock: true,
     rating: 4.3, reviewCount: 260, categorySlug: "kueche", brandSlug: "kitchenaid",
     specs: [
-      { name: "Leistung", value: "250 Watt" },
-      { name: "Rüsselvolumen", value: "3,3 Liter" },
-      { name: "Geschwindigkeiten", value: "10 + Puls" },
-      { name: "Mischsystem", value: "Planetarisch" },
-      { name: "Aufätze", value: "Knethaken, Schneebesen" },
-      { name: "Farbe", value: "Verschiedene Farben" },
+      { key: "Leistung", value: "250 Watt" },
+      { key: "Rüsselvolumen", value: "3,3 Liter" },
+      { key: "Geschwindigkeiten", value: "10 + Puls" },
+      { key: "Mischsystem", value: "Planetarisch" },
+      { key: "Aufätze", value: "Knethaken, Schneebesen" },
+      { key: "Farbe", value: "Verschiedene Farben" },
     ]
   },
   {
@@ -578,13 +578,13 @@ const products: ProductData[] = [
     price: 1660, sku: "VORWERKTHERMOMI", inStock: true,
     rating: 4, reviewCount: 237, categorySlug: "kueche", brandSlug: "vorwerk",
     specs: [
-      { name: "Funktionen", value: "12+ Funktionen" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Temperaturbereich", value: "37-120°C" },
-      { name: "Geschwindigkeit", value: "40-10.700 U/min" },
-      { name: "Kapazität", value: "2,2 Liter" },
-      { name: "Gewicht", value: "7,95 kg" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Funktionen", value: "12+ Funktionen" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Temperaturbereich", value: "37-120°C" },
+      { key: "Geschwindigkeit", value: "40-10.700 U/min" },
+      { key: "Kapazität", value: "2,2 Liter" },
+      { key: "Gewicht", value: "7,95 kg" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -593,11 +593,11 @@ const products: ProductData[] = [
     price: 1730, sku: "SAGETHEBAKERYBO", inStock: true,
     rating: 4.4, reviewCount: 65, categorySlug: "kueche", brandSlug: "sage",
     specs: [
-      { name: "Leistung", value: "600 Watt" },
-      { name: "Geschwindigkeiten", value: "8 Stufen" },
-      { name: "Funktion", value: "Integrierte Waage" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Farbe", value: "Bürstmetall" },
+      { key: "Leistung", value: "600 Watt" },
+      { key: "Geschwindigkeiten", value: "8 Stufen" },
+      { key: "Funktion", value: "Integrierte Waage" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Farbe", value: "Bürstmetall" },
     ]
   },
   {
@@ -606,12 +606,12 @@ const products: ProductData[] = [
     price: 1580, originalPrice: 1817, sku: "NINJAFOODIMULTI", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
-      { name: "Kapazität", value: "6 Liter" },
-      { name: "Funktionen", value: "8 Funktionen inkl. Sous-Vide" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Temperaturbereich", value: "40-175°C" },
-      { name: "Gewicht", value: "5,8 kg" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "6 Liter" },
+      { key: "Funktionen", value: "8 Funktionen inkl. Sous-Vide" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Temperaturbereich", value: "40-175°C" },
+      { key: "Gewicht", value: "5,8 kg" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -620,11 +620,11 @@ const products: ProductData[] = [
     price: 1080, sku: "WMFKITCHENMI2", inStock: true,
     rating: 4.7, reviewCount: 276, categorySlug: "kueche", brandSlug: "wmf",
     specs: [
-      { name: "Leistung", value: "400 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Cromargan® Edelstahl" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Leistung", value: "400 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Cromargan® Edelstahl" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -633,11 +633,11 @@ const products: ProductData[] = [
     price: 540, sku: "TEFALJAMIEOLIVE", inStock: true,
     rating: 4.2, reviewCount: 166, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
-      { name: "Material", value: "Hartanodise Aluminium" },
-      { name: "Set-Inhalt", value: "Kasserole, Bräter, Pfanne" },
-      { name: "Herdtyp", value: "Alle inkl. Induktion" },
-      { name: "Reinigung", value: "Spülmaschinenfest" },
-      { name: "Farbe", value: "Anthrazit" },
+      { key: "Material", value: "Hartanodise Aluminium" },
+      { key: "Set-Inhalt", value: "Kasserole, Bräter, Pfanne" },
+      { key: "Herdtyp", value: "Alle inkl. Induktion" },
+      { key: "Reinigung", value: "Spülmaschinenfest" },
+      { key: "Farbe", value: "Anthrazit" },
     ]
   },
   {
@@ -646,23 +646,23 @@ const products: ProductData[] = [
     price: 380, originalPrice: 437, sku: "GASTROBACKAD2", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 273, categorySlug: "kueche", brandSlug: "gastroback",
     specs: [
-      { name: "Leistung", value: "2 x 300 Watt" },
-      { name: "Geschwindigkeiten", value: "6 + 2 Turbo" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Leistung", value: "2 x 300 Watt" },
+      { key: "Geschwindigkeiten", value: "6 + 2 Turbo" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
     name: "Vorwerk Kobold VK200", slug: "vorwerk-kobold-vk200",
     description: "Der Vorwerk Kobold VK200 ist ein Premium-Staubsauger mit revolutionärer Reinigungstechnologie. Die Power-Brush VB1000 entfernt Staub und Schmutz gründlich. Die eigene Kinematik sorgt für optimale Bodenkontaktaufnahme. Die 2-in-1-Funktionalität ermöglicht das Saugen von Teppichen und Böden. Die kompakte Bauform lässt sich platzsparend aufbewahren. Die hohe Saugleistung entfernt selbst feinsten Staub. Das Premium-Design in various Farben passt zu jeder Haushaltsführung. Das Flaggschiff für makellose Sauberkeit.", shortDesc: "Vorwerk-Premium-Staubsauger mit Power-Brush und revolutionärer Technologie",
     price: 840, sku: "VORWERKKOBOL2", inStock: true,
-    rating: 4.5, reviewCount: 236, categorySlug: "haushaltsgeraete", brandSlug: "vorwerk",
+    rating: 4.5, reviewCount: 236, categorySlug: "reinigung", brandSlug: "vorwerk",
     specs: [
-      { name: "Technologie", value: "Power-Brush VB1000" },
-      { name: "Saugleistung", value: "Premium" },
-      { name: "Gewicht", value: "7,3 kg" },
-      { name: "Farbe", value: "Verschiedene" },
+      { key: "Technologie", value: "Power-Brush VB1000" },
+      { key: "Saugleistung", value: "Premium" },
+      { key: "Gewicht", value: "7,3 kg" },
+      { key: "Farbe", value: "Verschiedene" },
     ]
   },
   {
@@ -671,12 +671,12 @@ const products: ProductData[] = [
     price: 1880, sku: "KENWOODCHEFXLEL", inStock: true, isFeatured: true,
     rating: 4.1, reviewCount: 303, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
-      { name: "Leistung", value: "1700 Watt" },
-      { name: "Rüsselvolumen", value: "6,7 Liter" },
-      { name: "Geschwindigkeiten", value: "8 + Puls" },
-      { name: "Mischsystem", value: "Planetarisch" },
-      { name: "Aufätze", value: "Knethaken, Schneebesen, Kartoffelstab" },
-      { name: "Farbe", value: "Rot" },
+      { key: "Leistung", value: "1700 Watt" },
+      { key: "Rüsselvolumen", value: "6,7 Liter" },
+      { key: "Geschwindigkeiten", value: "8 + Puls" },
+      { key: "Mischsystem", value: "Planetarisch" },
+      { key: "Aufätze", value: "Knethaken, Schneebesen, Kartoffelstab" },
+      { key: "Farbe", value: "Rot" },
     ]
   },
   {
@@ -685,10 +685,10 @@ const products: ProductData[] = [
     price: 1970, originalPrice: 2266, sku: "RUSSELLHOBBSGOC", inStock: true, isNew: true, isPromo: true,
     rating: 4.7, reviewCount: 219, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
-      { name: "Leistung", value: "300 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Farbe", value: "Rot/Weiß" },
+      { key: "Leistung", value: "300 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Farbe", value: "Rot/Weiß" },
     ]
   },
   {
@@ -697,11 +697,11 @@ const products: ProductData[] = [
     price: 170, originalPrice: 195, sku: "BOSCHMFQ3540HAN", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 232, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
-      { name: "Leistung", value: "450 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "450 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -710,11 +710,11 @@ const products: ProductData[] = [
     price: 1700, sku: "ELECTROLUXASSIS", inStock: true,
     rating: 4.4, reviewCount: 298, categorySlug: "kueche", brandSlug: "electrolux",
     specs: [
-      { name: "Leistung", value: "900 Watt" },
-      { name: "Geschwindigkeiten", value: "Variabel + Turbo" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Leistung", value: "900 Watt" },
+      { key: "Geschwindigkeiten", value: "Variabel + Turbo" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -723,12 +723,12 @@ const products: ProductData[] = [
     price: 830, originalPrice: 954, sku: "AEGHM400HANDMIX", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 110, categorySlug: "kueche", brandSlug: "aeg",
     specs: [
-      { name: "Leistung", value: "400 Watt" },
-      { name: "Geschwindigkeiten", value: "5 + Turbo" },
-      { name: "Gewicht", value: "0,9 kg" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze, Kunststoff-Gehäuse" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "400 Watt" },
+      { key: "Geschwindigkeiten", value: "5 + Turbo" },
+      { key: "Gewicht", value: "0,9 kg" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze, Kunststoff-Gehäuse" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -737,11 +737,11 @@ const products: ProductData[] = [
     price: 2270, originalPrice: 2611, sku: "BRAUNMQ7MULTIQU", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 31, categorySlug: "kueche", brandSlug: "braun",
     specs: [
-      { name: "Leistung", value: "600 Watt" },
-      { name: "Geschwindigkeiten", value: "5 + Turbo" },
-      { name: "Aufsätze", value: "PowerBell Schneebesen, Knethaken" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "600 Watt" },
+      { key: "Geschwindigkeiten", value: "5 + Turbo" },
+      { key: "Aufsätze", value: "PowerBell Schneebesen, Knethaken" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -750,11 +750,11 @@ const products: ProductData[] = [
     price: 610, sku: "PHILIPSHR3655HA", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 26, categorySlug: "kueche", brandSlug: "philips",
     specs: [
-      { name: "Leistung", value: "450 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "450 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -763,11 +763,11 @@ const products: ProductData[] = [
     price: 2210, sku: "SMEGHMF01HANDMI", inStock: true, isNew: true,
     rating: 4.6, reviewCount: 118, categorySlug: "kueche", brandSlug: "smeg",
     specs: [
-      { name: "Leistung", value: "400 Watt" },
-      { name: "Geschwindigkeiten", value: "9 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufätze" },
-      { name: "Farbe", value: "Verschiedene Farben" },
+      { key: "Leistung", value: "400 Watt" },
+      { key: "Geschwindigkeiten", value: "9 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufätze" },
+      { key: "Farbe", value: "Verschiedene Farben" },
     ]
   },
   {
@@ -776,11 +776,11 @@ const products: ProductData[] = [
     price: 580, sku: "SMEG50ERJAHREHM", inStock: true,
     rating: 4.7, reviewCount: 302, categorySlug: "kueche", brandSlug: "smeg",
     specs: [
-      { name: "Leistung", value: "400 Watt" },
-      { name: "Geschwindigkeiten", value: "9 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Design", value: "50er-Jahre-Retro" },
-      { name: "Farbe", value: "Verschiedene Farben" },
+      { key: "Leistung", value: "400 Watt" },
+      { key: "Geschwindigkeiten", value: "9 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Design", value: "50er-Jahre-Retro" },
+      { key: "Farbe", value: "Verschiedene Farben" },
     ]
   },
   {
@@ -789,11 +789,11 @@ const products: ProductData[] = [
     price: 2020, originalPrice: 2323, sku: "RUSSELLHOBBSEAG", inStock: true, isPromo: true,
     rating: 4, reviewCount: 264, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
-      { name: "Leistung", value: "400 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze, Chrom-Gehäuse" },
-      { name: "Farbe", value: "Chrom" },
+      { key: "Leistung", value: "400 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze, Chrom-Gehäuse" },
+      { key: "Farbe", value: "Chrom" },
     ]
   },
   {
@@ -802,11 +802,11 @@ const products: ProductData[] = [
     price: 1120, originalPrice: 1288, sku: "MOULINEXOPTICHE", inStock: true, isNew: true, isPromo: true,
     rating: 4.2, reviewCount: 247, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
-      { name: "Leistung", value: "450 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "450 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -815,11 +815,11 @@ const products: ProductData[] = [
     price: 1240, originalPrice: 1426, sku: "TEFALOPTICHEFHT", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 122, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
-      { name: "Leistung", value: "450 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "450 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -828,11 +828,11 @@ const products: ProductData[] = [
     price: 570, sku: "BLACKDECKER600W", inStock: true,
     rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "black-decker",
     specs: [
-      { name: "Leistung", value: "600 Watt" },
-      { name: "Geschwindigkeiten", value: "6 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen, 1 Kartoffelstab" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß/Orange" },
+      { key: "Leistung", value: "600 Watt" },
+      { key: "Geschwindigkeiten", value: "6 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen, 1 Kartoffelstab" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß/Orange" },
     ]
   },
   {
@@ -841,11 +841,11 @@ const products: ProductData[] = [
     price: 1390, sku: "KITCHENAIDARTIS", inStock: true,
     rating: 4.2, reviewCount: 292, categorySlug: "kueche", brandSlug: "kitchenaid",
     specs: [
-      { name: "Leistung", value: "85 Watt" },
-      { name: "Geschwindigkeiten", value: "9 + Boost" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Verschiedene Farben" },
+      { key: "Leistung", value: "85 Watt" },
+      { key: "Geschwindigkeiten", value: "9 + Boost" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Verschiedene Farben" },
     ]
   },
   {
@@ -854,12 +854,12 @@ const products: ProductData[] = [
     price: 2160, originalPrice: 2484, sku: "BOSCHMUMS2EW48K", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 266, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Rüsselvolumen", value: "3,9 Liter" },
-      { name: "Geschwindigkeiten", value: "4 + Puls" },
-      { name: "Mischsystem", value: "Planetarisch" },
-      { name: "Aufsätze", value: "Knethaken, Schneebesen, Kneter" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Rüsselvolumen", value: "3,9 Liter" },
+      { key: "Geschwindigkeiten", value: "4 + Puls" },
+      { key: "Mischsystem", value: "Planetarisch" },
+      { key: "Aufsätze", value: "Knethaken, Schneebesen, Kneter" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -868,10 +868,10 @@ const products: ProductData[] = [
     price: 2170, sku: "MOULINEXQUICKMI", inStock: true, isNew: true,
     rating: 4.8, reviewCount: 227, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
-      { name: "Leistung", value: "300 Watt" },
-      { name: "Geschwindigkeiten", value: "4 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "300 Watt" },
+      { key: "Geschwindigkeiten", value: "4 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -880,11 +880,11 @@ const products: ProductData[] = [
     price: 1170, originalPrice: 1346, sku: "KENWOODHM430HAN", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 163, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
-      { name: "Leistung", value: "450 Watt" },
-      { name: "Geschwindigkeiten", value: "5 Stufen" },
-      { name: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
-      { name: "Material", value: "Edelstahl-Aufsätze" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Leistung", value: "450 Watt" },
+      { key: "Geschwindigkeiten", value: "5 Stufen" },
+      { key: "Aufsätze", value: "2 Knethaken, 2 Schneebesen" },
+      { key: "Material", value: "Edelstahl-Aufsätze" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -893,14 +893,14 @@ const products: ProductData[] = [
     price: 940, originalPrice: 1081, sku: "JURAE4PLATINUM", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 83, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
-      { name: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
-      { name: "Brühtechnologie", value: "P.E.P." },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Milchgetränke" },
-      { name: "Wasserkapazität", value: "1,9 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
+      { key: "Brühtechnologie", value: "P.E.P." },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Milchgetränke" },
+      { key: "Wasserkapazität", value: "1,9 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -909,14 +909,14 @@ const products: ProductData[] = [
     price: 2060, sku: "JURAS8CHROME", inStock: true,
     rating: 4.7, reviewCount: 268, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
-      { name: "Display", value: "4,3 Zoll Touch" },
-      { name: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
-      { name: "Brühtechnologie", value: "P.E.P." },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Bohnenbehälter", value: "280 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Display", value: "4,3 Zoll Touch" },
+      { key: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
+      { key: "Brühtechnologie", value: "P.E.P." },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Bohnenbehälter", value: "280 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -925,14 +925,14 @@ const products: ProductData[] = [
     price: 1240, sku: "JURAD6DARKINOX", inStock: true,
     rating: 4.9, reviewCount: 14, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Wasserkapazität", value: "1,9 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
-      { name: "Mahlwerk", value: "Feines Edelstahl-Mahlwerk" },
-      { name: "Brühtechnologie", value: "P.E.P." },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Wasserkapazität", value: "1,9 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Feines Edelstahl-Mahlwerk" },
+      { key: "Brühtechnologie", value: "P.E.P." },
     ]
   },
   {
@@ -941,14 +941,14 @@ const products: ProductData[] = [
     price: 1090, sku: "DELONGHIMAGNIFI", inStock: true,
     rating: 4.1, reviewCount: 35, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
-      { name: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
-      { name: "Milchsystem", value: "LatteCrema automatisch" },
-      { name: "Kaffeespezialitäten", value: "8 Sorten" },
-      { name: "Wasserkapazität", value: "1,8 Liter" },
-      { name: "Bohnenbehälter", value: "270 g" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
+      { key: "Milchsystem", value: "LatteCrema automatisch" },
+      { key: "Kaffeespezialitäten", value: "8 Sorten" },
+      { key: "Wasserkapazität", value: "1,8 Liter" },
+      { key: "Bohnenbehälter", value: "270 g" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -957,14 +957,14 @@ const products: ProductData[] = [
     price: 1200, sku: "DELONGHIDINAMIC", inStock: true, isNew: true,
     rating: 4.5, reviewCount: 78, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
-      { name: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
-      { name: "Milchsystem", value: "Automatisch Latte Crema" },
-      { name: "Kaffeespezialitäten", value: "12 Sorten" },
-      { name: "Wasserkapazität", value: "1,8 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
+      { key: "Milchsystem", value: "Automatisch Latte Crema" },
+      { key: "Kaffeespezialitäten", value: "12 Sorten" },
+      { key: "Wasserkapazität", value: "1,8 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -973,14 +973,14 @@ const products: ProductData[] = [
     price: 1980, originalPrice: 2277, sku: "DELONGHIPRIMADO", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 308, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
-      { name: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
-      { name: "Milchsystem", value: "LatteCrema Premium" },
-      { name: "Kaffeespezialitäten", value: "12 Sorten" },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Bohnenbehälter", value: "300 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "App-Steuerung", value: "Ja (Connession)" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
+      { key: "Milchsystem", value: "LatteCrema Premium" },
+      { key: "Kaffeespezialitäten", value: "12 Sorten" },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Bohnenbehälter", value: "300 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "App-Steuerung", value: "Ja (Connession)" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -989,14 +989,14 @@ const products: ProductData[] = [
     price: 950, sku: "SIEMENSEQ9PLUSS", inStock: true,
     rating: 4.9, reviewCount: 100, categorySlug: "kaffee", brandSlug: "siemens",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "autoMilk automatisch" },
-      { name: "Kaffeespezialitäten", value: "10 Sorten" },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Bohnenbehälter", value: "300 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "App-Steuerung", value: "Home Connect" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "autoMilk automatisch" },
+      { key: "Kaffeespezialitäten", value: "10 Sorten" },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Bohnenbehälter", value: "300 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "App-Steuerung", value: "Home Connect" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1005,14 +1005,14 @@ const products: ProductData[] = [
     price: 2030, sku: "SIEMENSEQ500PLU", inStock: true,
     rating: 4.2, reviewCount: 130, categorySlug: "kaffee", brandSlug: "siemens",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "autoMilk automatisch" },
-      { name: "Kaffeespezialitäten", value: "8 Sorten" },
-      { name: "Wasserkapazität", value: "1,7 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "App-Steuerung", value: "Home Connect" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "autoMilk automatisch" },
+      { key: "Kaffeespezialitäten", value: "8 Sorten" },
+      { key: "Wasserkapazität", value: "1,7 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "App-Steuerung", value: "Home Connect" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1021,14 +1021,14 @@ const products: ProductData[] = [
     price: 1710, sku: "SIEMENSEQ300S30", inStock: true,
     rating: 4.2, reviewCount: 304, categorySlug: "kaffee", brandSlug: "siemens",
     specs: [
-      { name: "Mahlwerk", value: "3-stufig" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,4 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "3-stufig" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,4 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1037,14 +1037,14 @@ const products: ProductData[] = [
     price: 2380, sku: "SAECOXELSISSM87", inStock: true,
     rating: 4.1, reviewCount: 62, categorySlug: "kaffee", brandSlug: "saeco",
     specs: [
-      { name: "Mahlwerk", value: "12-stufig, gehärteter Stahl" },
-      { name: "Milchsystem", value: "HygieSteaM automatisch" },
-      { name: "Kaffeespezialitäten", value: "6 Sorten" },
-      { name: "Wasserkapazität", value: "2,5 Liter" },
-      { name: "Bohnenbehälter", value: "300 g" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "12-stufig, gehärteter Stahl" },
+      { key: "Milchsystem", value: "HygieSteaM automatisch" },
+      { key: "Kaffeespezialitäten", value: "6 Sorten" },
+      { key: "Wasserkapazität", value: "2,5 Liter" },
+      { key: "Bohnenbehälter", value: "300 g" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1053,14 +1053,14 @@ const products: ProductData[] = [
     price: 750, originalPrice: 862, sku: "SAECOGRANARISTA", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 119, categorySlug: "kaffee", brandSlug: "saeco",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1069,14 +1069,14 @@ const products: ProductData[] = [
     price: 2360, originalPrice: 2714, sku: "KRUPSVIRTUOSOXP", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 79, categorySlug: "kaffee", brandSlug: "krups",
     specs: [
-      { name: "Mahlwerk", value: "Edelstahl, 3 Stufen" },
-      { name: "Kaffeespezialitäten", value: "15 Sorten" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Wasserkapazität", value: "2,5 Liter" },
-      { name: "Bohnenbehälter", value: "270 g" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Edelstahl, 3 Stufen" },
+      { key: "Kaffeespezialitäten", value: "15 Sorten" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Wasserkapazität", value: "2,5 Liter" },
+      { key: "Bohnenbehälter", value: "270 g" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1085,14 +1085,14 @@ const products: ProductData[] = [
     price: 1170, originalPrice: 1346, sku: "KRUPSEVIDENCEPL", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 274, categorySlug: "kaffee", brandSlug: "krups",
     specs: [
-      { name: "Mahlwerk", value: "4-stufig" },
-      { name: "Heizung", value: "Thermoblock" },
-      { name: "Kaffeespezialitäten", value: "8 Sorten" },
-      { name: "Wasserkapazität", value: "2,2 Liter" },
-      { name: "Bohnenbehälter", value: "270 g" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "4-stufig" },
+      { key: "Heizung", value: "Thermoblock" },
+      { key: "Kaffeespezialitäten", value: "8 Sorten" },
+      { key: "Wasserkapazität", value: "2,2 Liter" },
+      { key: "Bohnenbehälter", value: "270 g" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1101,29 +1101,29 @@ const products: ProductData[] = [
     price: 1600, originalPrice: 1840, sku: "TCHIBOBARISTABE", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 286, categorySlug: "kaffee", brandSlug: "tchibo",
     specs: [
-      { name: "Mahlwerk", value: "Edelstahl" },
-      { name: "Intensitätsstufen", value: "3 Stufen" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "Edelstahl" },
+      { key: "Intensitätsstufen", value: "3 Stufen" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
     name: "Tchibo Privilegio Bean To Cup", slug: "tchibo-privilegio-bean-to-cup",
     description: "Die Tchibo Privilegio Bean to Cup ist ein Premium-Kaffeevollautomat mit edlem Metall-Design. Das feinste Mahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Die One-Touch-Funktion bereitet Espresso, Kaffee, Cappuccino und Latte Macchiato zu. Der integrierte Milchschaumer erzeugt cremigen Milchschaum. Die 3 Intensitätsstufen bieten individuelle Einstellungen. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Das Premium-Design in various Farben passt zu jeder Kücheneinrichtung. Perfekt für anspruchsvolle Kaffeegenießer.", shortDesc: "Premium-Vollautomat mit Metall-Design und 3 Intensitätsstufen",
     price: 2790, originalPrice: 3208, sku: "TCHIBOPRIVILEGI", inStock: true, isPromo: true,
-    rating: 4.6, reviewCount: 257, categorySlug: "haushaltsgeraete", brandSlug: "tchibo",
+    rating: 4.6, reviewCount: 257, categorySlug: "kaffee", brandSlug: "tchibo",
     specs: [
-      { name: "Mahlwerk", value: "Edelstahl" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Farbe", value: "Metall/Schwarz" },
+      { key: "Mahlwerk", value: "Edelstahl" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Farbe", value: "Metall/Schwarz" },
     ]
   },
   {
@@ -1132,14 +1132,14 @@ const products: ProductData[] = [
     price: 1310, originalPrice: 1506, sku: "MELITTAPURISTAP", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 217, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1148,14 +1148,14 @@ const products: ProductData[] = [
     price: 650, sku: "MELITTALOOKVSTY", inStock: true,
     rating: 4.1, reviewCount: 170, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1164,14 +1164,14 @@ const products: ProductData[] = [
     price: 960, originalPrice: 1104, sku: "MELITTAENJOY5PU", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 67, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
-      { name: "Mahlwerk", value: "5-stufig" },
-      { name: "Milchsystem", value: "Automatisch" },
-      { name: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Bohnenbehälter", value: "250 g" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Mahlwerk", value: "5-stufig" },
+      { key: "Milchsystem", value: "Automatisch" },
+      { key: "Kaffeespezialitäten", value: "Espresso, Kaffee, Cappuccino, Latte Macchiato" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Bohnenbehälter", value: "250 g" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1180,14 +1180,14 @@ const products: ProductData[] = [
     price: 1720, sku: "BREVILLEBARI2", inStock: true,
     rating: 4.9, reviewCount: 281, categorySlug: "kaffee", brandSlug: "breville",
     specs: [
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Mahlwerk", value: "Kegelmahlwerk Edelstahl" },
-      { name: "Temperaturregulator", value: "PID" },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Bohnenbehälter", value: "270 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Mahlgrade", value: "30 Stufen" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Mahlwerk", value: "Kegelmahlwerk Edelstahl" },
+      { key: "Temperaturregulator", value: "PID" },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Bohnenbehälter", value: "270 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Mahlgrade", value: "30 Stufen" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1196,28 +1196,28 @@ const products: ProductData[] = [
     price: 1230, sku: "BREVILLEBARISTA", inStock: true,
     rating: 4.8, reviewCount: 107, categorySlug: "kaffee", brandSlug: "breville",
     specs: [
-      { name: "Display", value: "4-Zoll Farbtouch" },
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Mahlwerk", value: "Kegelmahlwerk" },
-      { name: "Wasserkapazität", value: "2,8 Liter" },
-      { name: "Bohnenbehälter", value: "120 g" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Rezept-Speicher", value: "6 Plätze" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Display", value: "4-Zoll Farbtouch" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Mahlwerk", value: "Kegelmahlwerk" },
+      { key: "Wasserkapazität", value: "2,8 Liter" },
+      { key: "Bohnenbehälter", value: "120 g" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Rezept-Speicher", value: "6 Plätze" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
     name: "Sage Barista Express Impress", slug: "sage-barista-express-impress",
     description: "Die Sage Barista Express Impress ist eine Premium-Espressomaschine mit integriertem Mahlwerk. Das Impression-Dosing-System misst die Bohnenmenge automatisch präzise. Das Kegelmahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Der Crona-Milchaufschäumer erzeugt cremigen Mikroschaum. Die 58mm-Brühgruppe sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Das elegante Design in Edelstahl passt in jede Küche. Das absolute Flaggschiff für Home-Baristas.", shortDesc: "Sage-Premium-Espressomaschine mit Impression-Dosing und 58mm-Gruppe",
     price: 1360, originalPrice: 1564, sku: "SAGEBARISTAEXPR", inStock: true, isPromo: true,
-    rating: 4.7, reviewCount: 241, categorySlug: "haushaltsgeraete", brandSlug: "sage",
+    rating: 4.7, reviewCount: 241, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Mahlwerk", value: "Kegelmahlwerk" },
-      { name: "Temperaturregelung", value: "PID" },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Mahlwerk", value: "Kegelmahlwerk" },
+      { key: "Temperaturregelung", value: "PID" },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -1226,12 +1226,12 @@ const products: ProductData[] = [
     price: 2420, sku: "SAGETHEORACLETO", inStock: true,
     rating: 4.2, reviewCount: 179, categorySlug: "haushaltsgeraete", brandSlug: "sage",
     specs: [
-      { name: "Display", value: "4-Zoll Farbtouch" },
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Temperaturregelung", value: "PID" },
-      { name: "Spezialitäten", value: "6 Sorten" },
-      { name: "Wasserkapazität", value: "2,5 Liter" },
-      { name: "Leistung", value: "2400 Watt" },
+      { key: "Display", value: "4-Zoll Farbtouch" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Temperaturregelung", value: "PID" },
+      { key: "Spezialitäten", value: "6 Sorten" },
+      { key: "Wasserkapazität", value: "2,5 Liter" },
+      { key: "Leistung", value: "2400 Watt" },
     ]
   },
   {
@@ -1240,12 +1240,12 @@ const products: ProductData[] = [
     price: 1760, sku: "SAGETHEDUALBOIL", inStock: true,
     rating: 4.3, reviewCount: 176, categorySlug: "haushaltsgeraete", brandSlug: "sage",
     specs: [
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Heizsystem", value: "2 separaten Thermojet" },
-      { name: "Temperaturregelung", value: "PID" },
-      { name: "Wasserkapazität", value: "2,5 Liter" },
-      { name: "Leistung", value: "2400 Watt" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Heizsystem", value: "2 separaten Thermojet" },
+      { key: "Temperaturregelung", value: "PID" },
+      { key: "Wasserkapazität", value: "2,5 Liter" },
+      { key: "Leistung", value: "2400 Watt" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -1254,11 +1254,11 @@ const products: ProductData[] = [
     price: 1760, sku: "GASTROBACKDE2", inStock: true,
     rating: 4.5, reviewCount: 132, categorySlug: "kueche", brandSlug: "gastroback",
     specs: [
-      { name: "Brühdruck", value: "15 bar" },
-      { name: "Milchaufschäumer", value: "Integriert" },
-      { name: "Wasserkapazität", value: "1,5 Liter" },
-      { name: "Leistung", value: "1350 Watt" },
-      { name: "Farbe", value: "Schwarz/Edelstahl" },
+      { key: "Brühdruck", value: "15 bar" },
+      { key: "Milchaufschäumer", value: "Integriert" },
+      { key: "Wasserkapazität", value: "1,5 Liter" },
+      { key: "Leistung", value: "1350 Watt" },
+      { key: "Farbe", value: "Schwarz/Edelstahl" },
     ]
   },
   {
@@ -1267,12 +1267,12 @@ const products: ProductData[] = [
     price: 330, originalPrice: 379, sku: "GASTROBACKADVAN", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 96, categorySlug: "kueche", brandSlug: "gastroback",
     specs: [
-      { name: "Brühdruck", value: "20 bar" },
-      { name: "Heizsystem", value: "2 separates Thermoblock" },
-      { name: "Milchaufschäumer", value: "Integriert" },
-      { name: "Wasserkapazität", value: "1,8 Liter" },
-      { name: "Leistung", value: "1450 Watt" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Brühdruck", value: "20 bar" },
+      { key: "Heizsystem", value: "2 separates Thermoblock" },
+      { key: "Milchaufschäumer", value: "Integriert" },
+      { key: "Wasserkapazität", value: "1,8 Liter" },
+      { key: "Leistung", value: "1450 Watt" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -1281,14 +1281,14 @@ const products: ProductData[] = [
     price: 2440, sku: "NESPRESSOLATTIS", inStock: true, isFeatured: true, isNew: true,
     rating: 4.9, reviewCount: 117, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Original" },
-      { name: "Brühdruck", value: "19 bar" },
-      { name: "Milchsystem", value: "Fresh-Foam automatisch" },
-      { name: "Tassenfunktionen", value: "6 Sorten" },
-      { name: "Wasserkapazität", value: "1,0 Liter" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Aufheizzeit", value: "25 Sekunden" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Original" },
+      { key: "Brühdruck", value: "19 bar" },
+      { key: "Milchsystem", value: "Fresh-Foam automatisch" },
+      { key: "Tassenfunktionen", value: "6 Sorten" },
+      { key: "Wasserkapazität", value: "1,0 Liter" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Aufheizzeit", value: "25 Sekunden" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1297,14 +1297,14 @@ const products: ProductData[] = [
     price: 1960, sku: "NESPRESSOESSENZ", inStock: true,
     rating: 4.4, reviewCount: 260, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Original" },
-      { name: "Brühdruck", value: "19 bar" },
-      { name: "Tassenfunktionen", value: "Espresso, Lungo" },
-      { name: "Wasserkapazität", value: "0,6 Liter" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Aufheizzeit", value: "30 Sekunden" },
-      { name: "Breite", value: "11 cm" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Original" },
+      { key: "Brühdruck", value: "19 bar" },
+      { key: "Tassenfunktionen", value: "Espresso, Lungo" },
+      { key: "Wasserkapazität", value: "0,6 Liter" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Aufheizzeit", value: "30 Sekunden" },
+      { key: "Breite", value: "11 cm" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1313,14 +1313,14 @@ const products: ProductData[] = [
     price: 1440, sku: "NESPRESSOVER2", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 86, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Vertuo" },
-      { name: "Technologie", value: "Centrifusion" },
-      { name: "Tassengrößen", value: "Espresso bis Alto (535 ml)" },
-      { name: "Wasserkapazität", value: "1,7 Liter" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Aufheizzeit", value: "30 Sekunden" },
-      { name: "Kapseln", value: "Nespresso Vertuo" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Vertuo" },
+      { key: "Technologie", value: "Centrifusion" },
+      { key: "Tassengrößen", value: "Espresso bis Alto (535 ml)" },
+      { key: "Wasserkapazität", value: "1,7 Liter" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Aufheizzeit", value: "30 Sekunden" },
+      { key: "Kapseln", value: "Nespresso Vertuo" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1329,14 +1329,14 @@ const products: ProductData[] = [
     price: 690, originalPrice: 793, sku: "NESPRESSOVERTUO", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 42, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Vertuo" },
-      { name: "Technologie", value: "Centrifusion" },
-      { name: "Tassengrößen", value: "5 Größen" },
-      { name: "Wasserkapazität", value: "0,8 Liter" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Breite", value: "14 cm" },
-      { name: "Kapseln", value: "Nespresso Vertuo" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Vertuo" },
+      { key: "Technologie", value: "Centrifusion" },
+      { key: "Tassengrößen", value: "5 Größen" },
+      { key: "Wasserkapazität", value: "0,8 Liter" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Breite", value: "14 cm" },
+      { key: "Kapseln", value: "Nespresso Vertuo" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1345,14 +1345,14 @@ const products: ProductData[] = [
     price: 1410, originalPrice: 1621, sku: "NESPRESSOCITIZE", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 297, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
-      { name: "Kaffeesystem", value: "Nespresso Original" },
-      { name: "Brühdruck", value: "19 bar" },
-      { name: "Milchsystem", value: "Abnehmbarer Milchtank" },
-      { name: "Wasserkapazität", value: "1,0 Liter" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Aufheizzeit", value: "25 Sekunden" },
-      { name: "Breite", value: "23 cm" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Nespresso Original" },
+      { key: "Brühdruck", value: "19 bar" },
+      { key: "Milchsystem", value: "Abnehmbarer Milchtank" },
+      { key: "Wasserkapazität", value: "1,0 Liter" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Aufheizzeit", value: "25 Sekunden" },
+      { key: "Breite", value: "23 cm" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1361,14 +1361,14 @@ const products: ProductData[] = [
     price: 1430, originalPrice: 1644, sku: "LAVAZZAAMODOMIO", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 82, categorySlug: "kaffee", brandSlug: "lavazza",
     specs: [
-      { name: "Kaffeesystem", value: "Lavazza A Modo Mio" },
-      { name: "Brühdruck", value: "10 bar" },
-      { name: "Wasserkapazität", value: "1,0 Liter" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Aufheizzeit", value: "25 Sekunden" },
-      { name: "Kapselkompatibilität", value: "Lavazza A Modo Mio" },
-      { name: "Abmessungen", value: "20 x 30 x 35 cm" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Lavazza A Modo Mio" },
+      { key: "Brühdruck", value: "10 bar" },
+      { key: "Wasserkapazität", value: "1,0 Liter" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Aufheizzeit", value: "25 Sekunden" },
+      { key: "Kapselkompatibilität", value: "Lavazza A Modo Mio" },
+      { key: "Abmessungen", value: "20 x 30 x 35 cm" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1377,14 +1377,14 @@ const products: ProductData[] = [
     price: 470, sku: "LAVAZZAIDOLACLT", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 267, categorySlug: "kaffee", brandSlug: "lavazza",
     specs: [
-      { name: "Kaffeesystem", value: "Lavazza Idola" },
-      { name: "Tassengrößen", value: "Ristretto, Espresso, Lungo" },
-      { name: "Brühdruck", value: "10 bar" },
-      { name: "Wasserkapazität", value: "0,8 Liter" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Breite", value: "15 cm" },
-      { name: "Energiesparmodus", value: "Ja" },
-      { name: "Garantie", value: "2 Jahre" },
+      { key: "Kaffeesystem", value: "Lavazza Idola" },
+      { key: "Tassengrößen", value: "Ristretto, Espresso, Lungo" },
+      { key: "Brühdruck", value: "10 bar" },
+      { key: "Wasserkapazität", value: "0,8 Liter" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Breite", value: "15 cm" },
+      { key: "Energiesparmodus", value: "Ja" },
+      { key: "Garantie", value: "2 Jahre" },
     ]
   },
   {
@@ -1393,12 +1393,12 @@ const products: ProductData[] = [
     price: 490, originalPrice: 564, sku: "DYSONV12DETECTS", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 292, categorySlug: "reinigung", brandSlug: "dyson",
     specs: [
-      { name: "Leistung", value: "150 AW" },
-      { name: "Motor", value: "Dyson Hyperdymium" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Filter", value: "5-stufig" },
-      { name: "Gewicht", value: "2,2 kg" },
-      { name: "Farbe", value: "Gelb/Nickel" },
+      { key: "Leistung", value: "150 AW" },
+      { key: "Motor", value: "Dyson Hyperdymium" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Filter", value: "5-stufig" },
+      { key: "Gewicht", value: "2,2 kg" },
+      { key: "Farbe", value: "Gelb/Nickel" },
     ]
   },
   {
@@ -1407,12 +1407,12 @@ const products: ProductData[] = [
     price: 490, sku: "DYSONV8ABSOLUTE", inStock: true,
     rating: 4.4, reviewCount: 301, categorySlug: "reinigung", brandSlug: "dyson",
     specs: [
-      { name: "Leistung", value: "151 AW" },
-      { name: "Motor", value: "Dyson V8" },
-      { name: "Laufzeit", value: "Bis zu 40 Minuten" },
-      { name: "Filter", value: "Whole-machine" },
-      { name: "Gewicht", value: "2,6 kg" },
-      { name: "Farbe", value: "Nickel/Blau" },
+      { key: "Leistung", value: "151 AW" },
+      { key: "Motor", value: "Dyson V8" },
+      { key: "Laufzeit", value: "Bis zu 40 Minuten" },
+      { key: "Filter", value: "Whole-machine" },
+      { key: "Gewicht", value: "2,6 kg" },
+      { key: "Farbe", value: "Nickel/Blau" },
     ]
   },
   {
@@ -1421,12 +1421,12 @@ const products: ProductData[] = [
     price: 550, sku: "ROBOROCKS8MAXVU", inStock: true,
     rating: 4.2, reviewCount: 156, categorySlug: "reinigung", brandSlug: "roborock",
     specs: [
-      { name: "Saugkraft", value: "8200 Pa" },
-      { name: "Navigation", value: "ReactiveAI 2.0" },
-      { name: "Wischtechnologie", value: "VibraRise 2.0" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Saugkraft", value: "8200 Pa" },
+      { key: "Navigation", value: "ReactiveAI 2.0" },
+      { key: "Wischtechnologie", value: "VibraRise 2.0" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1435,12 +1435,12 @@ const products: ProductData[] = [
     price: 630, sku: "ROBOROCKQ8MAXPL", inStock: true,
     rating: 4.7, reviewCount: 63, categorySlug: "reinigung", brandSlug: "roborock",
     specs: [
-      { name: "Saugkraft", value: "5500 Pa" },
-      { name: "Navigation", value: "LiDAR" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Wasserbehälter", value: "300 ml" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Saugkraft", value: "5500 Pa" },
+      { key: "Navigation", value: "LiDAR" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Wasserbehälter", value: "300 ml" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -1449,12 +1449,12 @@ const products: ProductData[] = [
     price: 290, sku: "IROBOTROOMBAJ9P", inStock: true, isNew: true,
     rating: 4.5, reviewCount: 38, categorySlug: "reinigung", brandSlug: "irobot",
     specs: [
-      { name: "Reinigung", value: "3-Stufen Saugsystem" },
-      { name: "Navigation", value: "PrecisionVision" },
-      { name: "Laufzeit", value: "Bis zu 75 Minuten" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Gewicht", value: "3,4 kg" },
-      { name: "Farbe", value: "Grau/Schwarz" },
+      { key: "Reinigung", value: "3-Stufen Saugsystem" },
+      { key: "Navigation", value: "PrecisionVision" },
+      { key: "Laufzeit", value: "Bis zu 75 Minuten" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Gewicht", value: "3,4 kg" },
+      { key: "Farbe", value: "Grau/Schwarz" },
     ]
   },
   {
@@ -1463,12 +1463,12 @@ const products: ProductData[] = [
     price: 680, sku: "IROBOTROOMBACOM", inStock: true,
     rating: 4, reviewCount: 29, categorySlug: "reinigung", brandSlug: "irobot",
     specs: [
-      { name: "Reinigung", value: "Saugen & Wischen" },
-      { name: "Navigation", value: "PrecisionVision" },
-      { name: "Laufzeit", value: "Bis zu 75 Minuten" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Gewicht", value: "3,1 kg" },
-      { name: "Farbe", value: "Grau" },
+      { key: "Reinigung", value: "Saugen & Wischen" },
+      { key: "Navigation", value: "PrecisionVision" },
+      { key: "Laufzeit", value: "Bis zu 75 Minuten" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Gewicht", value: "3,1 kg" },
+      { key: "Farbe", value: "Grau" },
     ]
   },
   {
@@ -1477,12 +1477,12 @@ const products: ProductData[] = [
     price: 2080, sku: "XIAOMIROBOTVACU", inStock: true, isFeatured: true,
     rating: 4.2, reviewCount: 117, categorySlug: "haushaltsgeraete", brandSlug: "xiaomi",
     specs: [
-      { name: "Saugkraft", value: "4000 Pa" },
-      { name: "Navigation", value: "LDS Laser" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Wasserbehälter", value: "200 ml" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Saugkraft", value: "4000 Pa" },
+      { key: "Navigation", value: "LDS Laser" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Wasserbehälter", value: "200 ml" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1491,12 +1491,12 @@ const products: ProductData[] = [
     price: 390, sku: "XIAOMIROBOROCKP", inStock: true, isNew: true,
     rating: 4.8, reviewCount: 87, categorySlug: "reinigung", brandSlug: "xiaomi",
     specs: [
-      { name: "Saugkraft", value: "4000 Pa" },
-      { name: "Navigation", value: "LiDAR" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Wasserbehälter", value: "200 ml" },
-      { name: "Gewicht", value: "3,6 kg" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Saugkraft", value: "4000 Pa" },
+      { key: "Navigation", value: "LiDAR" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Wasserbehälter", value: "200 ml" },
+      { key: "Gewicht", value: "3,6 kg" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1505,11 +1505,11 @@ const products: ProductData[] = [
     price: 1710, sku: "SAMSUNGJETBOTAI", inStock: true,
     rating: 4.6, reviewCount: 151, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Saugkraft", value: "5100 Pa" },
-      { name: "Navigation", value: "KI + 3D-Sensorik" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Basisstation", value: "Ja (automatische Entleerung)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Saugkraft", value: "5100 Pa" },
+      { key: "Navigation", value: "KI + 3D-Sensorik" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Basisstation", value: "Ja (automatische Entleerung)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1518,11 +1518,11 @@ const products: ProductData[] = [
     price: 1350, originalPrice: 1552, sku: "LGCORDZEROA9KOM", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.3, reviewCount: 70, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Laufzeit", value: "Bis zu 80 Minuten" },
-      { name: "Technologie", value: "Kompressor" },
-      { name: "Motor", value: "Smart Inverter" },
-      { name: "Gewicht", value: "2,7 kg" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Laufzeit", value: "Bis zu 80 Minuten" },
+      { key: "Technologie", value: "Kompressor" },
+      { key: "Motor", value: "Smart Inverter" },
+      { key: "Gewicht", value: "2,7 kg" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1531,11 +1531,11 @@ const products: ProductData[] = [
     price: 900, originalPrice: 1035, sku: "LGCORDZEROTHINQ", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Saugkraft", value: "5100 Pa" },
-      { name: "Navigation", value: "AI (LiDAR + Kamera)" },
-      { name: "Laufzeit", value: "Bis zu 180 Minuten" },
-      { name: "Wasserbehälter", value: "200 ml" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Saugkraft", value: "5100 Pa" },
+      { key: "Navigation", value: "AI (LiDAR + Kamera)" },
+      { key: "Laufzeit", value: "Bis zu 180 Minuten" },
+      { key: "Wasserbehälter", value: "200 ml" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1544,12 +1544,12 @@ const products: ProductData[] = [
     price: 720, sku: "KAERCHERVC5CORD", inStock: true,
     rating: 4.8, reviewCount: 153, categorySlug: "reinigung", brandSlug: "kaercher",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 30 Minuten" },
-      { name: "Aufladung", value: "3 Stunden" },
-      { name: "Volumen", value: "0,2 Liter" },
-      { name: "Gewicht", value: "1,5 kg" },
-      { name: "Farbe", value: "Schwarz/Orange" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 30 Minuten" },
+      { key: "Aufladung", value: "3 Stunden" },
+      { key: "Volumen", value: "0,2 Liter" },
+      { key: "Gewicht", value: "1,5 kg" },
+      { key: "Farbe", value: "Schwarz/Orange" },
     ]
   },
   {
@@ -1558,12 +1558,12 @@ const products: ProductData[] = [
     price: 280, originalPrice: 322, sku: "KAERCHERVC3CORD", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 268, categorySlug: "reinigung", brandSlug: "kaercher",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 30 Minuten" },
-      { name: "Aufladung", value: "3 Stunden" },
-      { name: "Volumen", value: "0,2 Liter" },
-      { name: "Gewicht", value: "2,2 kg" },
-      { name: "Farbe", value: "Schwarz/Orange" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 30 Minuten" },
+      { key: "Aufladung", value: "3 Stunden" },
+      { key: "Volumen", value: "0,2 Liter" },
+      { key: "Gewicht", value: "2,2 kg" },
+      { key: "Farbe", value: "Schwarz/Orange" },
     ]
   },
   {
@@ -1572,11 +1572,11 @@ const products: ProductData[] = [
     price: 330, originalPrice: 379, sku: "MIELETRIFLEXHX2", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 42, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Design", value: "3-in-1" },
-      { name: "Bürste", value: "3D-Drallbürste" },
-      { name: "Gewicht", value: "2,6 kg" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Design", value: "3-in-1" },
+      { key: "Bürste", value: "3D-Drallbürste" },
+      { key: "Gewicht", value: "2,6 kg" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1585,11 +1585,11 @@ const products: ProductData[] = [
     price: 1130, sku: "MIELESCOUTRX3HO", inStock: true,
     rating: 4, reviewCount: 268, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Saugkraft", value: "3000 Pa" },
-      { name: "Navigation", value: "3D" },
-      { name: "Laufzeit", value: "Bis zu 120 Minuten" },
-      { name: "Wasserbehälter", value: "200 ml" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Saugkraft", value: "3000 Pa" },
+      { key: "Navigation", value: "3D" },
+      { key: "Laufzeit", value: "Bis zu 120 Minuten" },
+      { key: "Wasserbehälter", value: "200 ml" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1598,11 +1598,11 @@ const products: ProductData[] = [
     price: 1480, sku: "PHILIPS8000SERI", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 198, categorySlug: "haushaltsgeraete", brandSlug: "philips",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Technologie", value: "PowerBlade" },
-      { name: "Gewicht", value: "3,4 kg" },
-      { name: "Farbe", value: "Anthrazit" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Technologie", value: "PowerBlade" },
+      { key: "Gewicht", value: "3,4 kg" },
+      { key: "Farbe", value: "Anthrazit" },
     ]
   },
   {
@@ -1611,11 +1611,11 @@ const products: ProductData[] = [
     price: 600, sku: "PHILIPSPOWERPRO", inStock: true,
     rating: 4, reviewCount: 138, categorySlug: "haushaltsgeraete", brandSlug: "philips",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 50 Minuten" },
-      { name: "Technologie", value: "PowerCyclone" },
-      { name: "Gewicht", value: "3,0 kg" },
-      { name: "Farbe", value: "Lila" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 50 Minuten" },
+      { key: "Technologie", value: "PowerCyclone" },
+      { key: "Gewicht", value: "3,0 kg" },
+      { key: "Farbe", value: "Lila" },
     ]
   },
   {
@@ -1624,11 +1624,11 @@ const products: ProductData[] = [
     price: 2990, sku: "ELECTROLUX800AN", inStock: true,
     rating: 4.5, reviewCount: 80, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 50 Minuten" },
-      { name: "Gewicht", value: "2,9 kg" },
-      { name: "Besonderheit", value: "Tierhaar-optimiert" },
-      { name: "Farbe", value: "Titan/Dunkelgrau" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 50 Minuten" },
+      { key: "Gewicht", value: "2,9 kg" },
+      { key: "Besonderheit", value: "Tierhaar-optimiert" },
+      { key: "Farbe", value: "Titan/Dunkelgrau" },
     ]
   },
   {
@@ -1637,11 +1637,11 @@ const products: ProductData[] = [
     price: 2030, sku: "AEGWELLQ7ANIMAL", inStock: true,
     rating: 4.6, reviewCount: 129, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 50 Minuten" },
-      { name: "Gewicht", value: "2,7 kg" },
-      { name: "Besonderheit", value: "Tierhaar-optimiert" },
-      { name: "Farbe", value: "Titan/Dunkelgrau" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 50 Minuten" },
+      { key: "Gewicht", value: "2,7 kg" },
+      { key: "Besonderheit", value: "Tierhaar-optimiert" },
+      { key: "Farbe", value: "Titan/Dunkelgrau" },
     ]
   },
   {
@@ -1650,10 +1650,10 @@ const products: ProductData[] = [
     price: 1580, sku: "BOSCHUNLIMITEDS", inStock: true,
     rating: 4.4, reviewCount: 63, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen (austauschbar)" },
-      { name: "Laufzeit", value: "Bis zu 40 Minuten (pro Batterie)" },
-      { name: "Gewicht", value: "3,0 kg" },
-      { name: "Farbe", value: "Anthrazit/Gold" },
+      { key: "Akku", value: "18V Li-Ionen (austauschbar)" },
+      { key: "Laufzeit", value: "Bis zu 40 Minuten (pro Batterie)" },
+      { key: "Gewicht", value: "3,0 kg" },
+      { key: "Farbe", value: "Anthrazit/Gold" },
     ]
   },
   {
@@ -1662,10 +1662,10 @@ const products: ProductData[] = [
     price: 590, originalPrice: 679, sku: "BOSCHSERIE6BBH3", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 303, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 40 Minuten" },
-      { name: "Gewicht", value: "3,0 kg" },
-      { name: "Farbe", value: "Weiß/Anthrazit" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 40 Minuten" },
+      { key: "Gewicht", value: "3,0 kg" },
+      { key: "Farbe", value: "Weiß/Anthrazit" },
     ]
   },
   {
@@ -1674,11 +1674,11 @@ const products: ProductData[] = [
     price: 2960, sku: "SIEMENSRS5PRO", inStock: true,
     rating: 4.6, reviewCount: 46, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Saugkraft", value: "4000 Pa" },
-      { name: "Navigation", value: "iSensoric" },
-      { name: "Laufzeit", value: "Bis zu 120 Minuten" },
-      { name: "Wasserbehälter", value: "200 ml" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Saugkraft", value: "4000 Pa" },
+      { key: "Navigation", value: "iSensoric" },
+      { key: "Laufzeit", value: "Bis zu 120 Minuten" },
+      { key: "Wasserbehälter", value: "200 ml" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -1687,10 +1687,10 @@ const products: ProductData[] = [
     price: 2790, sku: "SAMSUNGBESPOKEJ", inStock: true,
     rating: 4.1, reviewCount: 230, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Leistung", value: "210W" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Gewicht", value: "2,7 kg" },
-      { name: "Farbe", value: "Bespoke (verschiedene)" },
+      { key: "Leistung", value: "210W" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Gewicht", value: "2,7 kg" },
+      { key: "Farbe", value: "Bespoke (verschiedene)" },
     ]
   },
   {
@@ -1699,11 +1699,11 @@ const products: ProductData[] = [
     price: 1180, originalPrice: 1357, sku: "VORWERKKOBOLDVK", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 116, categorySlug: "haushaltsgeraete", brandSlug: "vorwerk",
     specs: [
-      { name: "Technologie", value: "Power-Brush VB1000" },
-      { name: "Saugleistung", value: "Ultimativ" },
-      { name: "Zubehör", value: "Erweitertes Premium-Paket" },
-      { name: "Gewicht", value: "7,5 kg" },
-      { name: "Farbe", value: "Verschiedene" },
+      { key: "Technologie", value: "Power-Brush VB1000" },
+      { key: "Saugleistung", value: "Ultimativ" },
+      { key: "Zubehör", value: "Erweitertes Premium-Paket" },
+      { key: "Gewicht", value: "7,5 kg" },
+      { key: "Farbe", value: "Verschiedene" },
     ]
   },
   {
@@ -1712,10 +1712,10 @@ const products: ProductData[] = [
     price: 1750, sku: "NINJADETECTDUOC", inStock: true,
     rating: 4.7, reviewCount: 265, categorySlug: "haushaltsgeraete", brandSlug: "ninja",
     specs: [
-      { name: "Laufzeit", value: "Bis zu 80 Minuten" },
-      { name: "Technologie", value: "Detect" },
-      { name: "Gewicht", value: "3,5 kg" },
-      { name: "Farbe", value: "Anthrazit" },
+      { key: "Laufzeit", value: "Bis zu 80 Minuten" },
+      { key: "Technologie", value: "Detect" },
+      { key: "Gewicht", value: "3,5 kg" },
+      { key: "Farbe", value: "Anthrazit" },
     ]
   },
   {
@@ -1724,12 +1724,12 @@ const products: ProductData[] = [
     price: 540, sku: "NINJAFOODIDUALZ", inStock: true,
     rating: 4.8, reviewCount: 115, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
-      { name: "Kapazität", value: "7,6 Liter (2 Zonen)" },
-      { name: "Funktionen", value: "Airfry, Backen, Braten, Grillen, Trocknen, Rehydratieren" },
-      { name: "Leistung", value: "2400 Watt" },
-      { name: "Temperaturbereich", value: "40-240°C" },
-      { name: "Gewicht", value: "8,2 kg" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "7,6 Liter (2 Zonen)" },
+      { key: "Funktionen", value: "Airfry, Backen, Braten, Grillen, Trocknen, Rehydratieren" },
+      { key: "Leistung", value: "2400 Watt" },
+      { key: "Temperaturbereich", value: "40-240°C" },
+      { key: "Gewicht", value: "8,2 kg" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1738,12 +1738,12 @@ const products: ProductData[] = [
     price: 1040, sku: "NINJAFOODIMAXAF", inStock: true,
     rating: 4.7, reviewCount: 118, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
-      { name: "Kapazität", value: "7,6 Liter" },
-      { name: "Funktionen", value: "7 Funktionen inkl. Dehydrieren" },
-      { name: "Leistung", value: "2400 Watt" },
-      { name: "Temperaturbereich", value: "40-240°C" },
-      { name: "Gewicht", value: "8,5 kg" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "7,6 Liter" },
+      { key: "Funktionen", value: "7 Funktionen inkl. Dehydrieren" },
+      { key: "Leistung", value: "2400 Watt" },
+      { key: "Temperaturbereich", value: "40-240°C" },
+      { key: "Gewicht", value: "8,5 kg" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1752,11 +1752,11 @@ const products: ProductData[] = [
     price: 1500, originalPrice: 1725, sku: "NINJASPEEDISP10", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.4, reviewCount: 260, categorySlug: "haushaltsgeraete", brandSlug: "ninja",
     specs: [
-      { name: "Kapazität", value: "3,8 Liter" },
-      { name: "Funktionen", value: "10" },
-      { name: "Leistung", value: "1750 Watt" },
-      { name: "Temperaturbereich", value: "40-240°C" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "3,8 Liter" },
+      { key: "Funktionen", value: "10" },
+      { key: "Leistung", value: "1750 Watt" },
+      { key: "Temperaturbereich", value: "40-240°C" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1765,11 +1765,11 @@ const products: ProductData[] = [
     price: 2120, sku: "COSORIPRO2AIRFR", inStock: true, isNew: true,
     rating: 4.6, reviewCount: 12, categorySlug: "kueche", brandSlug: "cosori",
     specs: [
-      { name: "Kapazität", value: "5,5 Liter" },
-      { name: "Funktionen", value: "13" },
-      { name: "Leistung", value: "1700 Watt" },
-      { name: "Temperaturbereich", value: "75-230°C" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "5,5 Liter" },
+      { key: "Funktionen", value: "13" },
+      { key: "Leistung", value: "1700 Watt" },
+      { key: "Temperaturbereich", value: "75-230°C" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1778,11 +1778,11 @@ const products: ProductData[] = [
     price: 280, originalPrice: 322, sku: "COSORILITEAIRFR", inStock: true, isNew: true, isPromo: true,
     rating: 4.7, reviewCount: 123, categorySlug: "kueche", brandSlug: "cosori",
     specs: [
-      { name: "Kapazität", value: "28 Liter" },
-      { name: "Funktionen", value: "11" },
-      { name: "Leistung", value: "1800 Watt" },
-      { name: "Temperaturbereich", value: "40-230°C" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "28 Liter" },
+      { key: "Funktionen", value: "11" },
+      { key: "Leistung", value: "1800 Watt" },
+      { key: "Temperaturbereich", value: "40-230°C" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1791,11 +1791,11 @@ const products: ProductData[] = [
     price: 2750, sku: "TEFALEASYFRYMAX", inStock: true,
     rating: 4.8, reviewCount: 282, categorySlug: "haushaltsgeraete", brandSlug: "tefal",
     specs: [
-      { name: "Kapazität", value: "4,2 Liter" },
-      { name: "Funktionen", value: "8" },
-      { name: "Leistung", value: "1700 Watt" },
-      { name: "Temperaturbereich", value: "80-200°C" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "4,2 Liter" },
+      { key: "Funktionen", value: "8" },
+      { key: "Leistung", value: "1700 Watt" },
+      { key: "Temperaturbereich", value: "80-200°C" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1804,11 +1804,11 @@ const products: ProductData[] = [
     price: 310, sku: "TEFALOPTIGRILLP", inStock: true,
     rating: 4.3, reviewCount: 199, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
-      { name: "Leistung", value: "2000 Watt" },
-      { name: "Grillprogramme", value: "6 Stück" },
-      { name: "Grillfläche", value: "XL" },
-      { name: "Reinigung", value: "Spülmaschinenfest" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Leistung", value: "2000 Watt" },
+      { key: "Grillprogramme", value: "6 Stück" },
+      { key: "Grillfläche", value: "XL" },
+      { key: "Reinigung", value: "Spülmaschinenfest" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1817,11 +1817,11 @@ const products: ProductData[] = [
     price: 1760, sku: "TEFALEASYGRILLP", inStock: true,
     rating: 4.1, reviewCount: 123, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
-      { name: "Leistung", value: "2500 Watt" },
-      { name: "Temperaturstufen", value: "2 Stufen" },
-      { name: "Grillfläche", value: "Auto-Adapt-System" },
-      { name: "Reinigung", value: "Antihaft, spülmaschinenfest" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Leistung", value: "2500 Watt" },
+      { key: "Temperaturstufen", value: "2 Stufen" },
+      { key: "Grillfläche", value: "Auto-Adapt-System" },
+      { key: "Reinigung", value: "Antihaft, spülmaschinenfest" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1830,11 +1830,11 @@ const products: ProductData[] = [
     price: 680, sku: "WMFKITCHENMINIS", inStock: true,
     rating: 4.1, reviewCount: 283, categorySlug: "kueche", brandSlug: "wmf",
     specs: [
-      { name: "Leistung", value: "1800 Watt" },
-      { name: "Grillfläche", value: "Antihaft" },
-      { name: "Material", value: "Cromargan® Edelstahl" },
-      { name: "Breite", value: "30 cm" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Leistung", value: "1800 Watt" },
+      { key: "Grillfläche", value: "Antihaft" },
+      { key: "Material", value: "Cromargan® Edelstahl" },
+      { key: "Breite", value: "30 cm" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -1843,12 +1843,12 @@ const products: ProductData[] = [
     price: 660, sku: "BOSCHSERIE6INDU", inStock: true, isFeatured: true,
     rating: 4.5, reviewCount: 146, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
-      { name: "Kochfelder", value: "4 Induktionskochfelder" },
-      { name: "Technologie", value: "FlexInduction" },
-      { name: "Funktionen", value: "PowerBoost, PerfectFry" },
-      { name: "Steuerung", value: "LED-Schieberegler" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kochfelder", value: "4 Induktionskochfelder" },
+      { key: "Technologie", value: "FlexInduction" },
+      { key: "Funktionen", value: "PowerBoost, PerfectFry" },
+      { key: "Steuerung", value: "LED-Schieberegler" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1857,12 +1857,12 @@ const products: ProductData[] = [
     price: 2070, originalPrice: 2381, sku: "SIEMENSIQ700IND", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 61, categorySlug: "kueche", brandSlug: "siemens",
     specs: [
-      { name: "Kochfelder", value: "4 Induktionskochfelder" },
-      { name: "Technologie", value: "FlexInduction" },
-      { name: "Funktionen", value: "PowerBoost, perfectFry" },
-      { name: "Steuerung", value: "Schieberegler" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kochfelder", value: "4 Induktionskochfelder" },
+      { key: "Technologie", value: "FlexInduction" },
+      { key: "Funktionen", value: "PowerBoost, perfectFry" },
+      { key: "Steuerung", value: "Schieberegler" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1871,12 +1871,12 @@ const products: ProductData[] = [
     price: 880, sku: "GAGGENAUVARIO40", inStock: true, isFeatured: true,
     rating: 4.1, reviewCount: 139, categorySlug: "kueche", brandSlug: "gaggenau",
     specs: [
-      { name: "Kochfelder", value: "4 Induktionskochfelder" },
-      { name: "Technologie", value: "Induktion" },
-      { name: "Funktionen", value: "PowerBoost" },
-      { name: "Steuerung", value: "Berührungselemente" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kochfelder", value: "4 Induktionskochfelder" },
+      { key: "Technologie", value: "Induktion" },
+      { key: "Funktionen", value: "PowerBoost" },
+      { key: "Steuerung", value: "Berührungselemente" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -1885,12 +1885,12 @@ const products: ProductData[] = [
     price: 440, sku: "NEFFB3ACS7AH0BA", inStock: true, isNew: true,
     rating: 4.3, reviewCount: 16, categorySlug: "kueche", brandSlug: "neff",
     specs: [
-      { name: "Funktionen", value: "8 Backfunktionen" },
-      { name: "Backofenvolumen", value: "71 Liter" },
-      { name: "Technologie", value: "3D-Heißluft" },
-      { name: "Reinigung", value: "Easy-Clean" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Funktionen", value: "8 Backfunktionen" },
+      { key: "Backofenvolumen", value: "71 Liter" },
+      { key: "Technologie", value: "3D-Heißluft" },
+      { key: "Reinigung", value: "Easy-Clean" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1899,13 +1899,13 @@ const products: ProductData[] = [
     price: 1510, sku: "BOSCHSERIE8BACK", inStock: true,
     rating: 4.2, reviewCount: 175, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
-      { name: "Funktionen", value: "14 Backfunktionen" },
-      { name: "Backofenvolumen", value: "71 Liter" },
-      { name: "Technologie", value: "3D-Heißluft" },
-      { name: "Reinigung", value: "Pyrolyse SelfCleaning" },
-      { name: "Steuerung", value: "TFT-Touchdisplay" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Energieklasse", value: "A" },
+      { key: "Funktionen", value: "14 Backfunktionen" },
+      { key: "Backofenvolumen", value: "71 Liter" },
+      { key: "Technologie", value: "3D-Heißluft" },
+      { key: "Reinigung", value: "Pyrolyse SelfCleaning" },
+      { key: "Steuerung", value: "TFT-Touchdisplay" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Energieklasse", value: "A" },
     ]
   },
   {
@@ -1914,12 +1914,12 @@ const products: ProductData[] = [
     price: 1880, sku: "MIELEH7464BPBAC", inStock: true,
     rating: 4.1, reviewCount: 34, categorySlug: "kueche", brandSlug: "miele",
     specs: [
-      { name: "Funktionen", value: "12 Backfunktionen" },
-      { name: "Backofenvolumen", value: "76 Liter" },
-      { name: "Reinigung", value: "Pyrolyse SelfCleaning" },
-      { name: "Steuerung", value: "Touchdisplay" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Energieklasse", value: "A+1" },
+      { key: "Funktionen", value: "12 Backfunktionen" },
+      { key: "Backofenvolumen", value: "76 Liter" },
+      { key: "Reinigung", value: "Pyrolyse SelfCleaning" },
+      { key: "Steuerung", value: "Touchdisplay" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Energieklasse", value: "A+1" },
     ]
   },
   {
@@ -1928,13 +1928,13 @@ const products: ProductData[] = [
     price: 510, sku: "AEGBPE842720MBA", inStock: true,
     rating: 4.6, reviewCount: 103, categorySlug: "kueche", brandSlug: "aeg",
     specs: [
-      { name: "Funktionen", value: "8 Backfunktionen" },
-      { name: "Technologie", value: "SteamBoost" },
-      { name: "Backofenvolumen", value: "77 Liter" },
-      { name: "Reinigung", value: "Pyrolyse" },
-      { name: "Steuerung", value: "TFT-Touchdisplay" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Energieklasse", value: "A" },
+      { key: "Funktionen", value: "8 Backfunktionen" },
+      { key: "Technologie", value: "SteamBoost" },
+      { key: "Backofenvolumen", value: "77 Liter" },
+      { key: "Reinigung", value: "Pyrolyse" },
+      { key: "Steuerung", value: "TFT-Touchdisplay" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Energieklasse", value: "A" },
     ]
   },
   {
@@ -1943,12 +1943,12 @@ const products: ProductData[] = [
     price: 2240, sku: "ELECTROLUXOEO7G", inStock: true,
     rating: 4.2, reviewCount: 212, categorySlug: "kueche", brandSlug: "electrolux",
     specs: [
-      { name: "Funktionen", value: "5 Backfunktionen" },
-      { name: "Technologie", value: "SteamBoost" },
-      { name: "Backofenvolumen", value: "72 Liter" },
-      { name: "Reinigung", value: "Easy-Clean" },
-      { name: "Breite", value: "60 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Funktionen", value: "5 Backfunktionen" },
+      { key: "Technologie", value: "SteamBoost" },
+      { key: "Backofenvolumen", value: "72 Liter" },
+      { key: "Reinigung", value: "Easy-Clean" },
+      { key: "Breite", value: "60 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -1957,11 +1957,11 @@ const products: ProductData[] = [
     price: 2740, originalPrice: 3151, sku: "SAMSUNGBESPOKES", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 269, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Kochfeld", value: "Ceran 5 Felder" },
-      { name: "Backofen", value: "6 Funktionen inkl. Heißluft" },
-      { name: "Funktionen", value: "Air-Fry, Steam-Assist" },
-      { name: "Steuerung", value: "SmartThings App" },
-      { name: "Breite", value: "76 cm" },
+      { key: "Kochfeld", value: "Ceran 5 Felder" },
+      { key: "Backofen", value: "6 Funktionen inkl. Heißluft" },
+      { key: "Funktionen", value: "Air-Fry, Steam-Assist" },
+      { key: "Steuerung", value: "SmartThings App" },
+      { key: "Breite", value: "76 cm" },
     ]
   },
   {
@@ -1970,11 +1970,11 @@ const products: ProductData[] = [
     price: 1240, sku: "LGINSTAVIEWRANG", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 186, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Kochfeld", value: "Ceran 5 Felder" },
-      { name: "Backofen", value: "6 Funktionen inkl. Heißluft" },
-      { name: "Technologie", value: "InstaView, ProBake" },
-      { name: "Steuerung", value: "SmartThings App" },
-      { name: "Breite", value: "60 cm" },
+      { key: "Kochfeld", value: "Ceran 5 Felder" },
+      { key: "Backofen", value: "6 Funktionen inkl. Heißluft" },
+      { key: "Technologie", value: "InstaView, ProBake" },
+      { key: "Steuerung", value: "SmartThings App" },
+      { key: "Breite", value: "60 cm" },
     ]
   },
   {
@@ -1983,13 +1983,13 @@ const products: ProductData[] = [
     price: 640, originalPrice: 736, sku: "GASTROBACKDESIG", inStock: true, isNew: true, isPromo: true,
     rating: 4.3, reviewCount: 220, categorySlug: "kueche", brandSlug: "gastroback",
     specs: [
-      { name: "Brühdruck", value: "20 bar" },
-      { name: "Brühgruppe", value: "58mm Edelstahl" },
-      { name: "Heizsystem", value: "2 separates Thermoblock" },
-      { name: "Milchaufschäumer", value: "Crona" },
-      { name: "Wasserkapazität", value: "2,0 Liter" },
-      { name: "Leistung", value: "1600 Watt" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Brühdruck", value: "20 bar" },
+      { key: "Brühgruppe", value: "58mm Edelstahl" },
+      { key: "Heizsystem", value: "2 separates Thermoblock" },
+      { key: "Milchaufschäumer", value: "Crona" },
+      { key: "Wasserkapazität", value: "2,0 Liter" },
+      { key: "Leistung", value: "1600 Watt" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -1998,25 +1998,25 @@ const products: ProductData[] = [
     price: 1530, originalPrice: 1759, sku: "RUSSELLHOBBSRET", inStock: true, isFeatured: true, isNew: true, isPromo: true,
     rating: 4.2, reviewCount: 12, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
-      { name: "Funktionen", value: "Airfry, Backen, Grillen" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Temperaturbereich", value: "80-200°C" },
-      { name: "Farbe", value: "Retro-Verschiedene" },
-      { name: "Kapazität", value: "3,8 Liter" },
+      { key: "Funktionen", value: "Airfry, Backen, Grillen" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Temperaturbereich", value: "80-200°C" },
+      { key: "Farbe", value: "Retro-Verschiedene" },
+      { key: "Kapazität", value: "3,8 Liter" },
     ]
   },
   {
     name: "De'Longhi Multifry Fh1394", slug: "delonghi-multifry-fh1394",
     description: "Die De'Longhi Multifry FH1394 ist ein multifunktionaler Heißluft-Fritteuse mit 2 Kochbereichen. Die 2 Kochbereiche ermöglichen das Gleichzeitiges Zubereiten von 2 Gerichten. Die Heat-Distribution-Technologie sorgt für gleichmäßiges Garen. Die 2,5 Liter Kapazität eignet sich für kleine bis mittlere Portionen. Die abnehmbaren Teile sind spülmaschinenfest. Die einfache Bedienung mit Drehregler ist intuitiv. Das kompakte Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Heißluft-Fritteuse mit 2 Kochbereichen und Heat-Distribution",
     price: 1760, sku: "DELONGHIMULTIFR", inStock: true, isNew: true,
-    rating: 4.6, reviewCount: 284, categorySlug: "kaffee", brandSlug: "delonghi",
+    rating: 4.6, reviewCount: 284, categorySlug: "kueche", brandSlug: "delonghi",
     specs: [
-      { name: "Kapazität", value: "2,5 Liter" },
-      { name: "Funktionen", value: "Heißluft, Frittieren, Garen" },
-      { name: "Leistung", value: "1400 Watt" },
-      { name: "Temperaturbereich", value: "80-200°C" },
-      { name: "Kochbereiche", value: "2" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "2,5 Liter" },
+      { key: "Funktionen", value: "Heißluft, Frittieren, Garen" },
+      { key: "Leistung", value: "1400 Watt" },
+      { key: "Temperaturbereich", value: "80-200°C" },
+      { key: "Kochbereiche", value: "2" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -2025,11 +2025,11 @@ const products: ProductData[] = [
     price: 1540, originalPrice: 1771, sku: "MOULINEXEASYFRY", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 215, categorySlug: "haushaltsgeraete", brandSlug: "moulinex",
     specs: [
-      { name: "Kapazität", value: "4,1 Liter" },
-      { name: "Funktionen", value: "8" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Temperaturbereich", value: "80-200°C" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Kapazität", value: "4,1 Liter" },
+      { key: "Funktionen", value: "8" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Temperaturbereich", value: "80-200°C" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -2038,11 +2038,11 @@ const products: ProductData[] = [
     price: 1510, sku: "KENWOODMULTIPRO", inStock: true,
     rating: 4.8, reviewCount: 184, categorySlug: "haushaltsgeraete", brandSlug: "kenwood",
     specs: [
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Rüsselvolumen", value: "6,7 Liter" },
-      { name: "Geschwindigkeiten", value: "10 + Puls" },
-      { name: "Aufätze", value: "Knethaken, Schneebesen, Saftpresse" },
-      { name: "Farbe", value: "Rot" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Rüsselvolumen", value: "6,7 Liter" },
+      { key: "Geschwindigkeiten", value: "10 + Puls" },
+      { key: "Aufätze", value: "Knethaken, Schneebesen, Saftpresse" },
+      { key: "Farbe", value: "Rot" },
     ]
   },
   {
@@ -2051,11 +2051,11 @@ const products: ProductData[] = [
     price: 340, sku: "SAGETHEAIRFRYER", inStock: true,
     rating: 4.3, reviewCount: 228, categorySlug: "kueche", brandSlug: "sage",
     specs: [
-      { name: "Kapazität", value: "4,0 Liter" },
-      { name: "Funktionen", value: "7 Funktionen" },
-      { name: "Leistung", value: "1800 Watt" },
-      { name: "Temperaturbereich", value: "80-230°C" },
-      { name: "Farbe", value: "Bürstmetall" },
+      { key: "Kapazität", value: "4,0 Liter" },
+      { key: "Funktionen", value: "7 Funktionen" },
+      { key: "Leistung", value: "1800 Watt" },
+      { key: "Temperaturbereich", value: "80-230°C" },
+      { key: "Farbe", value: "Bürstmetall" },
     ]
   },
   {
@@ -2064,12 +2064,12 @@ const products: ProductData[] = [
     price: 1150, originalPrice: 1323, sku: "MIELEW1WASCH3", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 18, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1600 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Steuerung", value: "Miele@home App" },
-      { name: "Programme", value: "20" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1600 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Steuerung", value: "Miele@home App" },
+      { key: "Programme", value: "20" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2078,12 +2078,12 @@ const products: ProductData[] = [
     price: 2890, sku: "MIELEW1WASCH2", inStock: true,
     rating: 4, reviewCount: 263, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1600 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "TwinDos + CapDosing" },
-      { name: "Programme", value: "20" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1600 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "TwinDos + CapDosing" },
+      { key: "Programme", value: "20" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2092,11 +2092,11 @@ const products: ProductData[] = [
     price: 1440, sku: "MIELET1TROCK2", inStock: true, isNew: true,
     rating: 4.9, reviewCount: 268, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "12" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "12" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2105,12 +2105,12 @@ const products: ProductData[] = [
     price: 1630, originalPrice: 1874, sku: "MIELEWASCHTROCK", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.3, reviewCount: 291, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Waschkapazität", value: "6 kg" },
-      { name: "Trocknungskapazität", value: "5 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "20" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Waschkapazität", value: "6 kg" },
+      { key: "Trocknungskapazität", value: "5 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "20" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2119,12 +2119,12 @@ const products: ProductData[] = [
     price: 2860, sku: "BOSCHSERIE8WASC", inStock: true,
     rating: 4.9, reviewCount: 261, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS" },
-      { name: "Technologie", value: "ActiveOxygen" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS" },
+      { key: "Technologie", value: "ActiveOxygen" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2133,11 +2133,11 @@ const products: ProductData[] = [
     price: 370, sku: "BOSCHSERIE6TROC", inStock: true, isNew: true,
     rating: 4.1, reviewCount: 59, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2146,12 +2146,12 @@ const products: ProductData[] = [
     price: 2100, originalPrice: 2415, sku: "SIEMENSIQ700WAS", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.1, reviewCount: 149, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS" },
-      { name: "Technologie", value: "waterPerfect" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS" },
+      { key: "Technologie", value: "waterPerfect" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2160,11 +2160,11 @@ const products: ProductData[] = [
     price: 940, originalPrice: 1081, sku: "SIEMENSIQ700TRO", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.2, reviewCount: 290, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2173,12 +2173,12 @@ const products: ProductData[] = [
     price: 2840, originalPrice: 3266, sku: "SAMSUNGECOBUBBL", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 166, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Technologie", value: "EcoBubble" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Technologie", value: "EcoBubble" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2187,11 +2187,11 @@ const products: ProductData[] = [
     price: 1330, sku: "SAMSUNGTROCKNER", inStock: true,
     rating: 4.8, reviewCount: 295, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Trocknungsart", value: "Kondensation" },
-      { name: "Energieklasse", value: "B" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Trocknungsart", value: "Kondensation" },
+      { key: "Energieklasse", value: "B" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2200,12 +2200,12 @@ const products: ProductData[] = [
     price: 1390, sku: "LGTURBOWASHWV91", inStock: true,
     rating: 4.6, reviewCount: 235, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Kapazität", value: "14 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Technologie", value: "TurboWash" },
-      { name: "Programme", value: "16" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "14 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Technologie", value: "TurboWash" },
+      { key: "Programme", value: "16" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2214,11 +2214,11 @@ const products: ProductData[] = [
     price: 2120, originalPrice: 2438, sku: "LGWASHTOWERP9WB", inStock: true, isNew: true, isPromo: true,
     rating: 4, reviewCount: 254, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Waschkapazität", value: "13 kg" },
-      { name: "Trocknungskapazität", value: "10 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Steuerung", value: "SmartThinQ App" },
-      { name: "Abmessungen", value: "60 x 166 x 65 cm" },
+      { key: "Waschkapazität", value: "13 kg" },
+      { key: "Trocknungskapazität", value: "10 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Steuerung", value: "SmartThinQ App" },
+      { key: "Abmessungen", value: "60 x 166 x 65 cm" },
     ]
   },
   {
@@ -2227,12 +2227,12 @@ const products: ProductData[] = [
     price: 2960, originalPrice: 3404, sku: "AEGLR9A80600WAS", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 208, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1600 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Motor", value: "ÖkoInverter" },
-      { name: "Wasserverbrauch", value: "10,9 Liter" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1600 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Motor", value: "ÖkoInverter" },
+      { key: "Wasserverbrauch", value: "10,9 Liter" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2241,12 +2241,12 @@ const products: ProductData[] = [
     price: 310, sku: "AEGTR9A865RTROC", inStock: true,
     rating: 4.1, reviewCount: 245, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Motor", value: "ÖkoInverter" },
-      { name: "Restfeuchte", value: "Sensorgesteuert" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Motor", value: "ÖkoInverter" },
+      { key: "Restfeuchte", value: "Sensorgesteuert" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2255,12 +2255,12 @@ const products: ProductData[] = [
     price: 540, sku: "ELECTROLUXEW7F3", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 50, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Programme", value: "12" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Programme", value: "12" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2269,11 +2269,11 @@ const products: ProductData[] = [
     price: 2660, sku: "ELECTROLUXEW7H3", inStock: true,
     rating: 4.8, reviewCount: 280, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Sensoren", value: "Temperatur und Feuchtigkeit" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Sensoren", value: "Temperatur und Feuchtigkeit" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2282,12 +2282,12 @@ const products: ProductData[] = [
     price: 480, sku: "HAIERHW100B1439", inStock: true,
     rating: 4.8, reviewCount: 174, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
-      { name: "Kapazität", value: "10 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Motor", value: "Direct-Motion" },
-      { name: "Programme", value: "16" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "10 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Motor", value: "Direct-Motion" },
+      { key: "Programme", value: "16" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2296,11 +2296,11 @@ const products: ProductData[] = [
     price: 530, sku: "HAIERHD100A2939", inStock: true,
     rating: 4.1, reviewCount: 74, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
-      { name: "Kapazität", value: "10 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "10 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2309,12 +2309,12 @@ const products: ProductData[] = [
     price: 1520, sku: "BEKOWRS55P12SWW", inStock: true,
     rating: 4.5, reviewCount: 51, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Kapazität", value: "5 kg" },
-      { name: "Schleuderdrehzahl", value: "1200 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Motor", value: "ProSmart-Inverter" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 45 cm" },
+      { key: "Kapazität", value: "5 kg" },
+      { key: "Schleuderdrehzahl", value: "1200 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Motor", value: "ProSmart-Inverter" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 45 cm" },
     ]
   },
   {
@@ -2323,11 +2323,11 @@ const products: ProductData[] = [
     price: 1610, sku: "BEKODP8534GXA1T", inStock: true,
     rating: 4.1, reviewCount: 107, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2336,12 +2336,12 @@ const products: ProductData[] = [
     price: 1100, sku: "BOSCHSERIE2WASC", inStock: true, isNew: true,
     rating: 4.9, reviewCount: 54, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2350,12 +2350,12 @@ const products: ProductData[] = [
     price: 780, originalPrice: 897, sku: "SIEMENSIQ300WAS", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 291, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2364,12 +2364,12 @@ const products: ProductData[] = [
     price: 740, sku: "MIELEW1WASCHMAS", inStock: true,
     rating: 4.2, reviewCount: 27, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Schleuderdrehzahl", value: "1600 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "TwinDos + CapDosing" },
-      { name: "Steuerung", value: "Miele@home App" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Schleuderdrehzahl", value: "1600 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "TwinDos + CapDosing" },
+      { key: "Steuerung", value: "Miele@home App" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2378,11 +2378,11 @@ const products: ProductData[] = [
     price: 1340, sku: "MIELET1TROCKNER", inStock: true,
     rating: 4.1, reviewCount: 20, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "12" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "12" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2391,12 +2391,12 @@ const products: ProductData[] = [
     price: 1540, originalPrice: 1771, sku: "SAMSUNGWASCHMAS", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 126, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Besonderheit", value: "SuperSpeed" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Besonderheit", value: "SuperSpeed" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2405,12 +2405,12 @@ const products: ProductData[] = [
     price: 530, sku: "LGWASCHMASCHINE", inStock: true,
     rating: 4, reviewCount: 49, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Kapazität", value: "11 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Technologie", value: "TurboWash" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "11 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Technologie", value: "TurboWash" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2419,12 +2419,12 @@ const products: ProductData[] = [
     price: 2830, originalPrice: 3254, sku: "BOSCHSERIE6WASC", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 287, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Dosierung", value: "i-DOS" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Dosierung", value: "i-DOS" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2433,12 +2433,12 @@ const products: ProductData[] = [
     price: 2020, sku: "SIEMENSWASCHMAS", inStock: true, isFeatured: true,
     rating: 4.3, reviewCount: 110, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "9 kg" },
-      { name: "Schleuderdrehzahl", value: "1400 U/min" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Technologie", value: "waterPerfect" },
-      { name: "Programme", value: "14" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "9 kg" },
+      { key: "Schleuderdrehzahl", value: "1400 U/min" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Technologie", value: "waterPerfect" },
+      { key: "Programme", value: "14" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2447,11 +2447,11 @@ const products: ProductData[] = [
     price: 2690, originalPrice: 3093, sku: "BEKOTROCKNERDPY", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 152, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Kapazität", value: "8 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "15" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "8 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "15" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2460,10 +2460,10 @@ const products: ProductData[] = [
     price: 2860, sku: "LIEBHERRMONOKUH", inStock: true,
     rating: 4.3, reviewCount: 219, categorySlug: "haushaltsgeraete", brandSlug: "liebherr",
     specs: [
-      { name: "Volumen", value: "354 Liter" },
-      { name: "Kühltechnologie", value: "BioFresh" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "354 Liter" },
+      { key: "Kühltechnologie", value: "BioFresh" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -2472,25 +2472,25 @@ const products: ProductData[] = [
     price: 2370, sku: "LIEBHERRKOMFORT", inStock: true,
     rating: 4.6, reviewCount: 147, categorySlug: "haushaltsgeraete", brandSlug: "liebherr",
     specs: [
-      { name: "Volumen", value: "359 Liter" },
-      { name: "Kühltechnologie", value: "BioFresh + NoFrost" },
-      { name: "Kühlschrank", value: "264 Liter" },
-      { name: "Gefrierfach", value: "95 Liter" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "359 Liter" },
+      { key: "Kühltechnologie", value: "BioFresh + NoFrost" },
+      { key: "Kühlschrank", value: "264 Liter" },
+      { key: "Gefrierfach", value: "95 Liter" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
     name: "Samsung Family Hub Rb38b7929s9", slug: "samsung-family-hub-rb38b7929s9",
-    description: "Der Samsung Family Hub RB38B7929S9 ist ein Premium-Kühlschrank mit 38 cm Breite und Family-Hub-Technologie. Das 21,5-Zoll-Touchdisplay ermöglicht die Fernbedienung und Information. Die Smart-Home-Integration steuert kompatible Geräte über das Display. Die Interior-Cam zeigt den Inhalt des Kühlschranks auf dem Smartphone. Die Twin-Cooling-Plus-Technologie hält Lebensmittel frisch. Die No-Frost-Technologie verhindert Eisbildung. Die的能量效率klasse A++ sorgt für Energieeinsparung. Das Family Hub macht den Kühlschrank zum digitalen Herzstück der Küche.", shortDesc: "Premium-Kühlschrank mit 21,5\" Touchdisplay und Family Hub",
+    description: "Der Samsung Family Hub RB38B7929S9 ist ein Premium-Kühlschrank mit 38 cm Breite und Family-Hub-Technologie. Das 21,5-Zoll-Touchdisplay ermöglicht die Fernbedienung und Information. Die Smart-Home-Integration steuert kompatible Geräte über das Display. Die Interior-Cam zeigt den Inhalt des Kühlschranks auf dem Smartphone. Die Twin-Cooling-Plus-Technologie hält Lebensmittel frisch. Die No-Frost-Technologie verhindert Eisbildung. Die Energieeffizienzklasse A++ sorgt für Energieeinsparung. Das Family Hub macht den Kühlschrank zum digitalen Herzstück der Küche.", shortDesc: "Premium-Kühlschrank mit 21,5\" Touchdisplay und Family Hub",
     price: 290, originalPrice: 334, sku: "SAMSUNGFAMILYHU", inStock: true, isNew: true, isPromo: true,
     rating: 4.3, reviewCount: 104, categorySlug: "smart-home", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "385 Liter" },
-      { name: "Display", value: "21,5 Zoll Touch" },
-      { name: "Kühltechnologie", value: "Twin-Cooling-Plus" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "59,5 x 185 x 64,8 cm" },
-      { name: "Farbe", value: "Edelstahl" },
+      { key: "Volumen", value: "385 Liter" },
+      { key: "Display", value: "21,5 Zoll Touch" },
+      { key: "Kühltechnologie", value: "Twin-Cooling-Plus" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "59,5 x 185 x 64,8 cm" },
+      { key: "Farbe", value: "Edelstahl" },
     ]
   },
   {
@@ -2499,11 +2499,11 @@ const products: ProductData[] = [
     price: 2900, originalPrice: 3335, sku: "SAMSUNGBESPOKEL", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 94, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "553 Liter" },
-      { name: "Kühltechnologie", value: "Twin Cooling Plus" },
-      { name: "Design", value: "Bespoke Counter Depth" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 178 x 68 cm" },
+      { key: "Volumen", value: "553 Liter" },
+      { key: "Kühltechnologie", value: "Twin Cooling Plus" },
+      { key: "Design", value: "Bespoke Counter Depth" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 178 x 68 cm" },
     ]
   },
   {
@@ -2512,11 +2512,11 @@ const products: ProductData[] = [
     price: 370, sku: "SAMSUNGSIDEBYSI", inStock: true, isFeatured: true, isNew: true,
     rating: 4, reviewCount: 292, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "617 Liter" },
-      { name: "Kühltechnologie", value: "Twin Cooling Plus" },
-      { name: "Design", value: "Side-by-Side" },
-      { name: "Steuerung", value: "Family Hub Display" },
-      { name: "Abmessungen", value: "91 x 180 x 72 cm" },
+      { key: "Volumen", value: "617 Liter" },
+      { key: "Kühltechnologie", value: "Twin Cooling Plus" },
+      { key: "Design", value: "Side-by-Side" },
+      { key: "Steuerung", value: "Family Hub Display" },
+      { key: "Abmessungen", value: "91 x 180 x 72 cm" },
     ]
   },
   {
@@ -2525,10 +2525,10 @@ const products: ProductData[] = [
     price: 2710, sku: "SAMSUNGGEFRIERS", inStock: true,
     rating: 4, reviewCount: 137, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "324 Liter" },
-      { name: "Gefriertechnologie", value: "NoFrost" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "324 Liter" },
+      { key: "Gefriertechnologie", value: "NoFrost" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -2537,11 +2537,11 @@ const products: ProductData[] = [
     price: 2270, originalPrice: 2611, sku: "BOSCHSERIE6KUHL", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 306, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Volumen", value: "324 Liter" },
-      { name: "Kühltechnologie", value: "FreshSense + NoFrost" },
-      { name: "Kühlschrank", value: "238 Liter" },
-      { name: "Gefrierfach", value: "86 Liter" },
-      { name: "Abmessungen", value: "60 x 186 x 65 cm" },
+      { key: "Volumen", value: "324 Liter" },
+      { key: "Kühltechnologie", value: "FreshSense + NoFrost" },
+      { key: "Kühlschrank", value: "238 Liter" },
+      { key: "Gefrierfach", value: "86 Liter" },
+      { key: "Abmessungen", value: "60 x 186 x 65 cm" },
     ]
   },
   {
@@ -2550,11 +2550,11 @@ const products: ProductData[] = [
     price: 2580, sku: "BOSCHSERIE4EINB", inStock: true,
     rating: 4.3, reviewCount: 194, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Volumen", value: "266 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Luftzirkulation", value: "MultiAirflow" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "266 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Luftzirkulation", value: "MultiAirflow" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2563,11 +2563,11 @@ const products: ProductData[] = [
     price: 1300, sku: "SIEMENSIQ700KUH", inStock: true,
     rating: 4.7, reviewCount: 214, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Volumen", value: "366 Liter" },
-      { name: "Kühltechnologie", value: "hyperFresh + noFrost" },
-      { name: "Steuerung", value: "voiceControl" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "366 Liter" },
+      { key: "Kühltechnologie", value: "hyperFresh + noFrost" },
+      { key: "Steuerung", value: "voiceControl" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -2576,11 +2576,11 @@ const products: ProductData[] = [
     price: 2990, originalPrice: 3438, sku: "SIEMENSIQ5002", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 120, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Volumen", value: "308 Liter" },
-      { name: "Kühltechnologie", value: "hyperFresh + noFrost" },
-      { name: "Steuerung", value: "voiceControl" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "308 Liter" },
+      { key: "Kühltechnologie", value: "hyperFresh + noFrost" },
+      { key: "Steuerung", value: "voiceControl" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2589,11 +2589,11 @@ const products: ProductData[] = [
     price: 1110, originalPrice: 1277, sku: "MIELEKUHLSCHRAN", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 218, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Volumen", value: "278 Liter" },
-      { name: "Kühltechnologie", value: "PerfectFresh" },
-      { name: "Luftverteilung", value: "DynaCool" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "278 Liter" },
+      { key: "Kühltechnologie", value: "PerfectFresh" },
+      { key: "Luftverteilung", value: "DynaCool" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2602,11 +2602,11 @@ const products: ProductData[] = [
     price: 2140, sku: "MIELEMASTERCOOL", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 164, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "33 Flaschen" },
-      { name: "Temperaturen", value: "2 Zonen" },
-      { name: "Kühltechnologie", value: "Kompressor" },
-      { name: "Beleuchtung", value: "LED" },
-      { name: "Abmessungen", value: "59,5 x 185 x 60 cm" },
+      { key: "Kapazität", value: "33 Flaschen" },
+      { key: "Temperaturen", value: "2 Zonen" },
+      { key: "Kühltechnologie", value: "Kompressor" },
+      { key: "Beleuchtung", value: "LED" },
+      { key: "Abmessungen", value: "59,5 x 185 x 60 cm" },
     ]
   },
   {
@@ -2615,11 +2615,11 @@ const products: ProductData[] = [
     price: 680, sku: "AEGRCB53426TXKU", inStock: true,
     rating: 4.3, reviewCount: 201, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Volumen", value: "526 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Dispenser", value: "Wasserspender" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 178 x 71 cm" },
+      { key: "Volumen", value: "526 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Dispenser", value: "Wasserspender" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 178 x 71 cm" },
     ]
   },
   {
@@ -2628,11 +2628,11 @@ const products: ProductData[] = [
     price: 570, originalPrice: 656, sku: "ELECTROLUXLRB36", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.7, reviewCount: 266, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Volumen", value: "360 Liter" },
-      { name: "Kühltechnologie", value: "TwinTech NoFrost" },
-      { name: "Schubladen", value: "MultiBox" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "360 Liter" },
+      { key: "Kühltechnologie", value: "TwinTech NoFrost" },
+      { key: "Schubladen", value: "MultiBox" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -2641,11 +2641,11 @@ const products: ProductData[] = [
     price: 530, sku: "HAIERMONOKUHLSC", inStock: true,
     rating: 4.3, reviewCount: 170, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
-      { name: "Volumen", value: "264 Liter" },
-      { name: "Kühltechnologie", value: "Total-NoFrost" },
-      { name: "Luftzirkulation", value: "Multi-Airflow" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "264 Liter" },
+      { key: "Kühltechnologie", value: "Total-NoFrost" },
+      { key: "Luftzirkulation", value: "Multi-Airflow" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2654,11 +2654,11 @@ const products: ProductData[] = [
     price: 2980, sku: "HAIERSIDEBYSIDE", inStock: true,
     rating: 4.3, reviewCount: 28, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
-      { name: "Volumen", value: "521 Liter" },
-      { name: "Kühltechnologie", value: "Total-NoFrost" },
-      { name: "Dispenser", value: "Wasserspender" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 175 x 71 cm" },
+      { key: "Volumen", value: "521 Liter" },
+      { key: "Kühltechnologie", value: "Total-NoFrost" },
+      { key: "Dispenser", value: "Wasserspender" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 175 x 71 cm" },
     ]
   },
   {
@@ -2667,11 +2667,11 @@ const products: ProductData[] = [
     price: 430, sku: "BEKOGNE134620XK", inStock: true,
     rating: 4.8, reviewCount: 147, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Volumen", value: "462 Liter" },
-      { name: "Kühltechnologie", value: "NeoFrost" },
-      { name: "Dispenser", value: "Wasserspender" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 175 x 71 cm" },
+      { key: "Volumen", value: "462 Liter" },
+      { key: "Kühltechnologie", value: "NeoFrost" },
+      { key: "Dispenser", value: "Wasserspender" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 175 x 71 cm" },
     ]
   },
   {
@@ -2680,10 +2680,10 @@ const products: ProductData[] = [
     price: 2260, originalPrice: 2599, sku: "BEKORBST140K25W", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.7, reviewCount: 58, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Volumen", value: "139 Liter" },
-      { name: "Kühltechnologie", value: "Statisch" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 82 x 55 cm" },
+      { key: "Volumen", value: "139 Liter" },
+      { key: "Kühltechnologie", value: "Statisch" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 82 x 55 cm" },
     ]
   },
   {
@@ -2692,11 +2692,11 @@ const products: ProductData[] = [
     price: 780, sku: "VZUGRQ4601KUHLS", inStock: true, isFeatured: true,
     rating: 4.1, reviewCount: 31, categorySlug: "haushaltsgeraete", brandSlug: "vzug",
     specs: [
-      { name: "Volumen", value: "267 Liter" },
-      { name: "Kühltechnologie", value: "CoolEfficiency noFrost" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Herkunft", value: "Schweiz" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "267 Liter" },
+      { key: "Kühltechnologie", value: "CoolEfficiency noFrost" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Herkunft", value: "Schweiz" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2705,10 +2705,10 @@ const products: ProductData[] = [
     price: 600, sku: "LIEBHERRMONOKEF", inStock: true, isNew: true,
     rating: 4.4, reviewCount: 207, categorySlug: "haushaltsgeraete", brandSlug: "liebherr",
     specs: [
-      { name: "Volumen", value: "354 Liter" },
-      { name: "Gefriertechnologie", value: "NoFrost" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "354 Liter" },
+      { key: "Gefriertechnologie", value: "NoFrost" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -2717,11 +2717,11 @@ const products: ProductData[] = [
     price: 1950, originalPrice: 2243, sku: "SAMSUNGBESPOKEF", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.9, reviewCount: 237, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "668 Liter" },
-      { name: "Kühltechnologie", value: "Twin Cooling Plus" },
-      { name: "Design", value: "French Door" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 180 x 72 cm" },
+      { key: "Volumen", value: "668 Liter" },
+      { key: "Kühltechnologie", value: "Twin Cooling Plus" },
+      { key: "Design", value: "French Door" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 180 x 72 cm" },
     ]
   },
   {
@@ -2730,10 +2730,10 @@ const products: ProductData[] = [
     price: 1420, sku: "SAMSUNGTIEFKUHL", inStock: true,
     rating: 4.6, reviewCount: 162, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Volumen", value: "500 Liter" },
-      { name: "Gefriertechnologie", value: "NoFrost" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "91 x 185 x 72 cm" },
+      { key: "Volumen", value: "500 Liter" },
+      { key: "Gefriertechnologie", value: "NoFrost" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "91 x 185 x 72 cm" },
     ]
   },
   {
@@ -2742,11 +2742,11 @@ const products: ProductData[] = [
     price: 1300, sku: "BOSCHSERIE4GEFR", inStock: true, isFeatured: true,
     rating: 4.4, reviewCount: 57, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Volumen", value: "214 Liter" },
-      { name: "Gefriertechnologie", value: "NoFrost" },
-      { name: "Fächer", value: "3 Fachboxen" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "214 Liter" },
+      { key: "Gefriertechnologie", value: "NoFrost" },
+      { key: "Fächer", value: "3 Fachboxen" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2755,11 +2755,11 @@ const products: ProductData[] = [
     price: 2840, originalPrice: 3266, sku: "SIEMENSIQ500EIN", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 251, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Volumen", value: "214 Liter" },
-      { name: "Gefriertechnologie", value: "noFrost" },
-      { name: "Schubladen", value: "varioDrawer" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "214 Liter" },
+      { key: "Gefriertechnologie", value: "noFrost" },
+      { key: "Schubladen", value: "varioDrawer" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2768,11 +2768,11 @@ const products: ProductData[] = [
     price: 1850, sku: "AEGRBS36426TXKU", inStock: true,
     rating: 4.9, reviewCount: 81, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Volumen", value: "362 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Temperaturen", value: "Multi-Temp" },
-      { name: "Dispenser", value: "Wasserspender" },
-      { name: "Abmessungen", value: "91 x 180 x 71 cm" },
+      { key: "Volumen", value: "362 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Temperaturen", value: "Multi-Temp" },
+      { key: "Dispenser", value: "Wasserspender" },
+      { key: "Abmessungen", value: "91 x 180 x 71 cm" },
     ]
   },
   {
@@ -2781,11 +2781,11 @@ const products: ProductData[] = [
     price: 1520, sku: "MIELEG7310SCU", inStock: true,
     rating: 4.6, reviewCount: 69, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "9 + 4 Zusatzfunktionen" },
-      { name: "Dosierung", value: "AutoDos automatisch" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "9 + 4 Zusatzfunktionen" },
+      { key: "Dosierung", value: "AutoDos automatisch" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2794,11 +2794,11 @@ const products: ProductData[] = [
     price: 1680, sku: "MIELEG7360SCVIA", inStock: true,
     rating: 4.8, reviewCount: 52, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "9 + 4 Zusatzfunktionen" },
-      { name: "Dosierung", value: "AutoDos + Dosierhilfe" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "9 + 4 Zusatzfunktionen" },
+      { key: "Dosierung", value: "AutoDos + Dosierhilfe" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -2807,11 +2807,11 @@ const products: ProductData[] = [
     price: 1880, sku: "MIELEG5000SCI", inStock: true, isFeatured: true,
     rating: 4.1, reviewCount: 234, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "9 + 4 Zusatzfunktionen" },
-      { name: "Besonderheit", value: "ComfortLift" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "9 + 4 Zusatzfunktionen" },
+      { key: "Besonderheit", value: "ComfortLift" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -2820,11 +2820,11 @@ const products: ProductData[] = [
     price: 1300, originalPrice: 1495, sku: "MIELETA2650WP", inStock: true, isPromo: true,
     rating: 4.4, reviewCount: 90, categorySlug: "haushaltsgeraete", brandSlug: "miele",
     specs: [
-      { name: "Kapazität", value: "6 kg" },
-      { name: "Trocknungsart", value: "Wärmepumpe" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Programme", value: "12" },
-      { name: "Abmessungen", value: "60 x 85 x 65 cm" },
+      { key: "Kapazität", value: "6 kg" },
+      { key: "Trocknungsart", value: "Wärmepumpe" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Programme", value: "12" },
+      { key: "Abmessungen", value: "60 x 85 x 65 cm" },
     ]
   },
   {
@@ -2833,12 +2833,12 @@ const products: ProductData[] = [
     price: 800, originalPrice: 920, sku: "BOSCHSERIE4SMV4", inStock: true, isPromo: true,
     rating: 4.5, reviewCount: 222, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "12 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Wasserverbrauch", value: "9,5 Liter" },
-      { name: "Programme", value: "6 + 3 Zusatzfunktionen" },
-      { name: "Ladeebenen", value: "2" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "12 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Wasserverbrauch", value: "9,5 Liter" },
+      { key: "Programme", value: "6 + 3 Zusatzfunktionen" },
+      { key: "Ladeebenen", value: "2" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2847,11 +2847,11 @@ const products: ProductData[] = [
     price: 1480, sku: "BOSCHKOMPAKTSMS", inStock: true,
     rating: 4.9, reviewCount: 43, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "13 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Wasserverbrauch", value: "9,5 Liter" },
-      { name: "Programme", value: "6 + 3 Zusatzfunktionen" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "13 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Wasserverbrauch", value: "9,5 Liter" },
+      { key: "Programme", value: "6 + 3 Zusatzfunktionen" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -2860,11 +2860,11 @@ const products: ProductData[] = [
     price: 1030, sku: "SIEMENSIQ700SN8", inStock: true,
     rating: 4.6, reviewCount: 213, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Trocknung", value: "Zeolith" },
-      { name: "Programme", value: "8 + 4 Zusatzfunktionen" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Trocknung", value: "Zeolith" },
+      { key: "Programme", value: "8 + 4 Zusatzfunktionen" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -2873,11 +2873,11 @@ const products: ProductData[] = [
     price: 1090, sku: "SIEMENSIQ500SN4", inStock: true,
     rating: 4.5, reviewCount: 297, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Kapazität", value: "13 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "6 + 4 Zusatzfunktionen" },
-      { name: "Geschwindigkeit", value: "varioSpeed" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "13 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "6 + 4 Zusatzfunktionen" },
+      { key: "Geschwindigkeit", value: "varioSpeed" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -2886,10 +2886,10 @@ const products: ProductData[] = [
     price: 2120, sku: "SIEMENSKOMPAKTS", inStock: true,
     rating: 4.9, reviewCount: 17, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Volumen", value: "128 Liter" },
-      { name: "Kühltechnologie", value: "Statisch" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 82 x 55 cm" },
+      { key: "Volumen", value: "128 Liter" },
+      { key: "Kühltechnologie", value: "Statisch" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 82 x 55 cm" },
     ]
   },
   {
@@ -2898,11 +2898,11 @@ const products: ProductData[] = [
     price: 2890, originalPrice: 3323, sku: "AEGFFB62607PM", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 147, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Akku", value: "18V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 50 Minuten" },
-      { name: "Aufladung", value: "4 Stunden" },
-      { name: "Gewicht", value: "2,3 kg" },
-      { name: "Farbe", value: "Grau/Rot" },
+      { key: "Akku", value: "18V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 50 Minuten" },
+      { key: "Aufladung", value: "4 Stunden" },
+      { key: "Gewicht", value: "2,3 kg" },
+      { key: "Farbe", value: "Grau/Rot" },
     ]
   },
   {
@@ -2911,11 +2911,11 @@ const products: ProductData[] = [
     price: 1110, sku: "AEGFSK62600PKOM", inStock: true,
     rating: 4.1, reviewCount: 200, categorySlug: "haushaltsgeraete", brandSlug: "aeg",
     specs: [
-      { name: "Kapazität", value: "6 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "5" },
-      { name: "Breite", value: "45 cm" },
-      { name: "Abmessungen", value: "45 x 82 x 55 cm" },
+      { key: "Kapazität", value: "6 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "5" },
+      { key: "Breite", value: "45 cm" },
+      { key: "Abmessungen", value: "45 x 82 x 55 cm" },
     ]
   },
   {
@@ -2924,11 +2924,11 @@ const products: ProductData[] = [
     price: 1800, originalPrice: 2070, sku: "ELECTROLUXEEQ53", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 73, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Kapazität", value: "6 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "5" },
-      { name: "Breite", value: "45 cm" },
-      { name: "Abmessungen", value: "45 x 82 x 55 cm" },
+      { key: "Kapazität", value: "6 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "5" },
+      { key: "Breite", value: "45 cm" },
+      { key: "Abmessungen", value: "45 x 82 x 55 cm" },
     ]
   },
   {
@@ -2937,11 +2937,11 @@ const products: ProductData[] = [
     price: 2590, sku: "ELECTROLUXKOMPA", inStock: true,
     rating: 4.7, reviewCount: 143, categorySlug: "haushaltsgeraete", brandSlug: "electrolux",
     specs: [
-      { name: "Kapazität", value: "8 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "5" },
-      { name: "Breite", value: "45 cm" },
-      { name: "Abmessungen", value: "45 x 82 x 55 cm" },
+      { key: "Kapazität", value: "8 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "5" },
+      { key: "Breite", value: "45 cm" },
+      { key: "Abmessungen", value: "45 x 82 x 55 cm" },
     ]
   },
   {
@@ -2950,11 +2950,11 @@ const products: ProductData[] = [
     price: 2130, sku: "SAMSUNGDW60M605", inStock: true, isFeatured: true, isNew: true,
     rating: 4.5, reviewCount: 161, categorySlug: "haushaltsgeraete", brandSlug: "samsung",
     specs: [
-      { name: "Kapazität", value: "6 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "6" },
-      { name: "Breite", value: "45 cm" },
-      { name: "Abmessungen", value: "45 x 82 x 55 cm" },
+      { key: "Kapazität", value: "6 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "6" },
+      { key: "Breite", value: "45 cm" },
+      { key: "Abmessungen", value: "45 x 82 x 55 cm" },
     ]
   },
   {
@@ -2963,11 +2963,11 @@ const products: ProductData[] = [
     price: 730, originalPrice: 839, sku: "SIEMENSIQ300SK2", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 248, categorySlug: "haushaltsgeraete", brandSlug: "siemens",
     specs: [
-      { name: "Volumen", value: "287 Liter" },
-      { name: "Kühltechnologie", value: "Multi-Airflow + NoFrost" },
-      { name: "Kühlschrank", value: "205 Liter" },
-      { name: "Gefrierfach", value: "82 Liter" },
-      { name: "Abmessungen", value: "60 x 186 x 65 cm" },
+      { key: "Volumen", value: "287 Liter" },
+      { key: "Kühltechnologie", value: "Multi-Airflow + NoFrost" },
+      { key: "Kühlschrank", value: "205 Liter" },
+      { key: "Gefrierfach", value: "82 Liter" },
+      { key: "Abmessungen", value: "60 x 186 x 65 cm" },
     ]
   },
   {
@@ -2976,10 +2976,10 @@ const products: ProductData[] = [
     price: 640, sku: "BEKODFN05320W", inStock: true,
     rating: 4.2, reviewCount: 240, categorySlug: "haushaltsgeraete", brandSlug: "beko",
     specs: [
-      { name: "Volumen", value: "138 Liter" },
-      { name: "Gefriertechnologie", value: "NoFrost" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "138 Liter" },
+      { key: "Gefriertechnologie", value: "NoFrost" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -2988,11 +2988,11 @@ const products: ProductData[] = [
     price: 470, sku: "HAIERDW14BK3AEU", inStock: true,
     rating: 4.7, reviewCount: 52, categorySlug: "haushaltsgeraete", brandSlug: "haier",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "9 + 5 Zusatzfunktionen" },
-      { name: "Display", value: "OLED" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "9 + 5 Zusatzfunktionen" },
+      { key: "Display", value: "OLED" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -3001,11 +3001,11 @@ const products: ProductData[] = [
     price: 1900, sku: "LGDF455HMSKOMPA", inStock: true,
     rating: 4.2, reviewCount: 275, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Volumen", value: "226 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Luftzirkulation", value: "Multi-Airflow" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Abmessungen", value: "56 x 177 x 55 cm" },
+      { key: "Volumen", value: "226 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Luftzirkulation", value: "Multi-Airflow" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Abmessungen", value: "56 x 177 x 55 cm" },
     ]
   },
   {
@@ -3014,11 +3014,11 @@ const products: ProductData[] = [
     price: 480, originalPrice: 552, sku: "LGFULLSIZEDF455", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.1, reviewCount: 226, categorySlug: "haushaltsgeraete", brandSlug: "lg",
     specs: [
-      { name: "Volumen", value: "384 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Kühlschrank", value: "296 Liter" },
-      { name: "Gefrierfach", value: "88 Liter" },
-      { name: "Abmessungen", value: "60 x 185 x 65 cm" },
+      { key: "Volumen", value: "384 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Kühlschrank", value: "296 Liter" },
+      { key: "Gefrierfach", value: "88 Liter" },
+      { key: "Abmessungen", value: "60 x 185 x 65 cm" },
     ]
   },
   {
@@ -3027,12 +3027,12 @@ const products: ProductData[] = [
     price: 140, sku: "DYSONPURIFIERHO", inStock: true,
     rating: 4.4, reviewCount: 30, categorySlug: "klima", brandSlug: "dyson",
     specs: [
-      { name: "Filter", value: "HEPA (99,97%)" },
-      { name: "Funktionen", value: "Luftreinigung + Heizen + Kühlen" },
-      { name: "Oszillation", value: "350°" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "28-59 dB(A)" },
-      { name: "Farbe", value: "Weiß/Silber" },
+      { key: "Filter", value: "HEPA (99,97%)" },
+      { key: "Funktionen", value: "Luftreinigung + Heizen + Kühlen" },
+      { key: "Oszillation", value: "350°" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "28-59 dB(A)" },
+      { key: "Farbe", value: "Weiß/Silber" },
     ]
   },
   {
@@ -3041,12 +3041,12 @@ const products: ProductData[] = [
     price: 620, sku: "DYSONPURIFIERHU", inStock: true,
     rating: 4.5, reviewCount: 183, categorySlug: "klima", brandSlug: "dyson",
     specs: [
-      { name: "Filter", value: "HEPA (99,97%)" },
-      { name: "Funktionen", value: "Luftreinigung + Befeuchtung + Kühlen" },
-      { name: "Oszillation", value: "350°" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "28-59 dB(A)" },
-      { name: "Farbe", value: "Weiß/Blau" },
+      { key: "Filter", value: "HEPA (99,97%)" },
+      { key: "Funktionen", value: "Luftreinigung + Befeuchtung + Kühlen" },
+      { key: "Oszillation", value: "350°" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "28-59 dB(A)" },
+      { key: "Farbe", value: "Weiß/Blau" },
     ]
   },
   {
@@ -3055,12 +3055,12 @@ const products: ProductData[] = [
     price: 500, sku: "DYSONPURECOOLTP", inStock: true, isFeatured: true, isNew: true,
     rating: 4.6, reviewCount: 114, categorySlug: "klima", brandSlug: "dyson",
     specs: [
-      { name: "Filter", value: "HEPA (99,97%)" },
-      { name: "Funktionen", value: "Luftreinigung + Ventilator" },
-      { name: "Oszillation", value: "350°" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "28-59 dB(A)" },
-      { name: "Farbe", value: "Weiß/Silber" },
+      { key: "Filter", value: "HEPA (99,97%)" },
+      { key: "Funktionen", value: "Luftreinigung + Ventilator" },
+      { key: "Oszillation", value: "350°" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "28-59 dB(A)" },
+      { key: "Farbe", value: "Weiß/Silber" },
     ]
   },
   {
@@ -3069,12 +3069,12 @@ const products: ProductData[] = [
     price: 660, sku: "STADLERFORMO2", inStock: true, isNew: true,
     rating: 4.4, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler-form",
     specs: [
-      { name: "Befeuchtungsprinzip", value: "Verdunstung" },
-      { name: "Tankkapazität", value: "3,5 Liter" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "26-32 dB(A)" },
-      { name: "Leistung", value: "9-14 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Befeuchtungsprinzip", value: "Verdunstung" },
+      { key: "Tankkapazität", value: "3,5 Liter" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "26-32 dB(A)" },
+      { key: "Leistung", value: "9-14 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3083,12 +3083,12 @@ const products: ProductData[] = [
     price: 540, originalPrice: 621, sku: "STADLERFORMOSKA", inStock: true, isPromo: true,
     rating: 4.2, reviewCount: 305, categorySlug: "klima", brandSlug: "stadler-form",
     specs: [
-      { name: "Befeuchtungsprinzip", value: "Verdunstung" },
-      { name: "Tankkapazität", value: "2,5 Liter" },
-      { name: "Raumgröße", value: "Bis zu 15 m²" },
-      { name: "Lautstärke", value: "26-30 dB(A)" },
-      { name: "Leistung", value: "9-12 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Befeuchtungsprinzip", value: "Verdunstung" },
+      { key: "Tankkapazität", value: "2,5 Liter" },
+      { key: "Raumgröße", value: "Bis zu 15 m²" },
+      { key: "Lautstärke", value: "26-30 dB(A)" },
+      { key: "Leistung", value: "9-12 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3097,12 +3097,12 @@ const products: ProductData[] = [
     price: 440, sku: "STADLERFORMVIKT", inStock: true, isNew: true,
     rating: 4.4, reviewCount: 227, categorySlug: "klima", brandSlug: "stadler-form",
     specs: [
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "26-34 dB(A)" },
-      { name: "Leistung", value: "10-16 Watt" },
-      { name: "Farbe", value: "Verschiedene" },
-      { name: "Befeuchtungsprinzip", value: "Verdunstung" },
-      { name: "Tankkapazität", value: "5 Liter" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "26-34 dB(A)" },
+      { key: "Leistung", value: "10-16 Watt" },
+      { key: "Farbe", value: "Verschiedene" },
+      { key: "Befeuchtungsprinzip", value: "Verdunstung" },
+      { key: "Tankkapazität", value: "5 Liter" },
     ]
   },
   {
@@ -3111,12 +3111,12 @@ const products: ProductData[] = [
     price: 970, sku: "BLUEAIRBLUE3410", inStock: true, isFeatured: true,
     rating: 4.6, reviewCount: 212, categorySlug: "klima", brandSlug: "blueair",
     specs: [
-      { name: "Filter", value: "HEPASilent + Aktivkohle" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,1µm" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "24-46 dB(A)" },
-      { name: "Leistung", value: "10-40 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "HEPASilent + Aktivkohle" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,1µm" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "24-46 dB(A)" },
+      { key: "Leistung", value: "10-40 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3125,12 +3125,12 @@ const products: ProductData[] = [
     price: 610, originalPrice: 702, sku: "BLUEAIRCLASSIC4", inStock: true, isPromo: true,
     rating: 4, reviewCount: 11, categorySlug: "klima", brandSlug: "blueair",
     specs: [
-      { name: "Filter", value: "HEPASilent" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,1µm" },
-      { name: "Raumgröße", value: "Bis zu 45 m²" },
-      { name: "Lautstärke", value: "32-56 dB(A)" },
-      { name: "Leistung", value: "30-80 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "HEPASilent" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,1µm" },
+      { key: "Raumgröße", value: "Bis zu 45 m²" },
+      { key: "Lautstärke", value: "32-56 dB(A)" },
+      { key: "Leistung", value: "30-80 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3139,12 +3139,12 @@ const products: ProductData[] = [
     price: 140, sku: "BLUEAIRHEALTHPR", inStock: true, isNew: true,
     rating: 4.7, reviewCount: 76, categorySlug: "klima", brandSlug: "blueair",
     specs: [
-      { name: "Filter", value: "HEPASilent Ultra + GermShield" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,1µm" },
-      { name: "Raumgröße", value: "Bis zu 50 m²" },
-      { name: "Lautstärke", value: "30-56 dB(A)" },
-      { name: "Leistung", value: "30-90 Watt" },
-      { name: "Farbe", value: "Schwarz" },
+      { key: "Filter", value: "HEPASilent Ultra + GermShield" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,1µm" },
+      { key: "Raumgröße", value: "Bis zu 50 m²" },
+      { key: "Lautstärke", value: "30-56 dB(A)" },
+      { key: "Leistung", value: "30-90 Watt" },
+      { key: "Farbe", value: "Schwarz" },
     ]
   },
   {
@@ -3153,12 +3153,12 @@ const products: ProductData[] = [
     price: 390, sku: "LEVOITCORE300", inStock: true,
     rating: 4.3, reviewCount: 225, categorySlug: "klima", brandSlug: "levoit",
     specs: [
-      { name: "Filter", value: "3-stufig HEPAS" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,3µm" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "24-50 dB(A)" },
-      { name: "Leistung", value: "15-45 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "3-stufig HEPAS" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,3µm" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "24-50 dB(A)" },
+      { key: "Leistung", value: "15-45 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3167,12 +3167,12 @@ const products: ProductData[] = [
     price: 590, sku: "LEVOITCORE400S", inStock: true,
     rating: 4.7, reviewCount: 73, categorySlug: "klima", brandSlug: "levoit",
     specs: [
-      { name: "Filter", value: "3-stufig HEPAS" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,3µm" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "24-50 dB(A)" },
-      { name: "Leistung", value: "15-45 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "3-stufig HEPAS" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,3µm" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "24-50 dB(A)" },
+      { key: "Leistung", value: "15-45 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3181,12 +3181,12 @@ const products: ProductData[] = [
     price: 990, sku: "LEVOITLV600SHYB", inStock: true,
     rating: 4.1, reviewCount: 163, categorySlug: "klima", brandSlug: "levoit",
     specs: [
-      { name: "Filter", value: "3-stufig HEPAS + Aktivkohle" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,3µm" },
-      { name: "Raumgröße", value: "Bis zu 50 m²" },
-      { name: "Lautstärke", value: "26-52 dB(A)" },
-      { name: "Leistung", value: "20-65 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "3-stufig HEPAS + Aktivkohle" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,3µm" },
+      { key: "Raumgröße", value: "Bis zu 50 m²" },
+      { key: "Lautstärke", value: "26-52 dB(A)" },
+      { key: "Leistung", value: "20-65 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3195,12 +3195,12 @@ const products: ProductData[] = [
     price: 320, originalPrice: 368, sku: "TROTECPAC3200E", inStock: true, isFeatured: true, isPromo: true,
     rating: 4, reviewCount: 38, categorySlug: "klima", brandSlug: "trotec",
     specs: [
-      { name: "Kühlleistung", value: "10000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 25 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten" },
-      { name: "Lautstärke", value: "55 dB(A)" },
-      { name: "Leistung", value: "1200 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "10000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 25 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten" },
+      { key: "Lautstärke", value: "55 dB(A)" },
+      { key: "Leistung", value: "1200 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3209,12 +3209,12 @@ const products: ProductData[] = [
     price: 600, sku: "TROTECPAC3900E", inStock: true, isNew: true,
     rating: 4.8, reviewCount: 139, categorySlug: "klima", brandSlug: "trotec",
     specs: [
-      { name: "Kühlleistung", value: "13000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 35 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten" },
-      { name: "Lautstärke", value: "56 dB(A)" },
-      { name: "Leistung", value: "1500 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "13000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 35 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten" },
+      { key: "Lautstärke", value: "56 dB(A)" },
+      { key: "Leistung", value: "1500 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3223,11 +3223,11 @@ const products: ProductData[] = [
     price: 800, originalPrice: 920, sku: "COMFEEMPPH07CRN", inStock: true, isPromo: true,
     rating: 4.3, reviewCount: 283, categorySlug: "haushaltsgeraete", brandSlug: "comfee",
     specs: [
-      { name: "Kühlleistung", value: "7000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 15 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
-      { name: "Lautstärke", value: "55 dB(A)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "7000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 15 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
+      { key: "Lautstärke", value: "55 dB(A)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3236,11 +3236,11 @@ const products: ProductData[] = [
     price: 2180, sku: "COMFEEMPPH12CRN", inStock: true,
     rating: 4.3, reviewCount: 298, categorySlug: "haushaltsgeraete", brandSlug: "comfee",
     specs: [
-      { name: "Kühlleistung", value: "12000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 25 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
-      { name: "Lautstärke", value: "56 dB(A)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "12000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 25 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
+      { key: "Lautstärke", value: "56 dB(A)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3249,11 +3249,11 @@ const products: ProductData[] = [
     price: 2480, sku: "SICHLERPACWK10", inStock: true, isFeatured: true,
     rating: 4.7, reviewCount: 108, categorySlug: "haushaltsgeraete", brandSlug: "sichler",
     specs: [
-      { name: "Kühlleistung", value: "10000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
-      { name: "Lautstärke", value: "55 dB(A)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "10000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
+      { key: "Lautstärke", value: "55 dB(A)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3262,11 +3262,11 @@ const products: ProductData[] = [
     price: 470, sku: "KLARSTEINFRESHB", inStock: true,
     rating: 4.1, reviewCount: 95, categorySlug: "haushaltsgeraete", brandSlug: "klarstein",
     specs: [
-      { name: "Kühlleistung", value: "14000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
-      { name: "Lautstärke", value: "56 dB(A)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "14000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
+      { key: "Lautstärke", value: "56 dB(A)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3275,12 +3275,12 @@ const products: ProductData[] = [
     price: 790, sku: "STADLERFORMAIRG", inStock: true, isFeatured: true,
     rating: 4.3, reviewCount: 170, categorySlug: "klima", brandSlug: "stadler-form",
     specs: [
-      { name: "Kühlprinzip", value: "Verdunstung" },
-      { name: "Tankkapazität", value: "6 Liter" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "45 dB(A)" },
-      { name: "Leistung", value: "65 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlprinzip", value: "Verdunstung" },
+      { key: "Tankkapazität", value: "6 Liter" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "45 dB(A)" },
+      { key: "Leistung", value: "65 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3289,12 +3289,12 @@ const products: ProductData[] = [
     price: 430, sku: "LEVOITCLASSIC20", inStock: true, isFeatured: true,
     rating: 4.8, reviewCount: 156, categorySlug: "klima", brandSlug: "levoit",
     specs: [
-      { name: "Filter", value: "3-stufig HEPAS" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,3µm" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "24-46 dB(A)" },
-      { name: "Leistung", value: "15-30 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "3-stufig HEPAS" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,3µm" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "24-46 dB(A)" },
+      { key: "Leistung", value: "15-30 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3303,12 +3303,12 @@ const products: ProductData[] = [
     price: 460, sku: "BLUEAIRBLUE2210", inStock: true,
     rating: 4.6, reviewCount: 205, categorySlug: "klima", brandSlug: "blueair",
     specs: [
-      { name: "Filter", value: "HEPASilent" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,1µm" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Lautstärke", value: "24-46 dB(A)" },
-      { name: "Leistung", value: "10-30 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "HEPASilent" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,1µm" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Lautstärke", value: "24-46 dB(A)" },
+      { key: "Leistung", value: "10-30 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3317,11 +3317,11 @@ const products: ProductData[] = [
     price: 2400, sku: "KLARSTEINSKYSCR", inStock: true,
     rating: 4.2, reviewCount: 21, categorySlug: "haushaltsgeraete", brandSlug: "klarstein",
     specs: [
-      { name: "Kühlleistung", value: "9000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 20 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Ionisieren" },
-      { name: "Lautstärke", value: "54 dB(A)" },
-      { name: "Farbe", value: "Weiß/Schwarz" },
+      { key: "Kühlleistung", value: "9000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 20 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Ionisieren" },
+      { key: "Lautstärke", value: "54 dB(A)" },
+      { key: "Farbe", value: "Weiß/Schwarz" },
     ]
   },
   {
@@ -3330,11 +3330,11 @@ const products: ProductData[] = [
     price: 1850, originalPrice: 2128, sku: "MIDEAAIRCOOLMAW", inStock: true, isFeatured: true, isPromo: true,
     rating: 4.5, reviewCount: 37, categorySlug: "haushaltsgeraete", brandSlug: "midea",
     specs: [
-      { name: "Kühlleistung", value: "8000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 18 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
-      { name: "Lautstärke", value: "54 dB(A)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "8000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 18 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten, Lüften" },
+      { key: "Lautstärke", value: "54 dB(A)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3343,12 +3343,12 @@ const products: ProductData[] = [
     price: 1600, originalPrice: 1840, sku: "DYSONBIGQUIETFO", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 230, categorySlug: "haushaltsgeraete", brandSlug: "dyson",
     specs: [
-      { name: "Leistung", value: "261 AW" },
-      { name: "Filter", value: "HEPA (99,99%)" },
-      { name: "Laufzeit", value: "Bis zu 60 Minuten" },
-      { name: "Besonderheit", value: "Formaldehyd-Sensor" },
-      { name: "Gewicht", value: "3,5 kg" },
-      { name: "Farbe", value: "Nickel/Gelb" },
+      { key: "Leistung", value: "261 AW" },
+      { key: "Filter", value: "HEPA (99,99%)" },
+      { key: "Laufzeit", value: "Bis zu 60 Minuten" },
+      { key: "Besonderheit", value: "Formaldehyd-Sensor" },
+      { key: "Gewicht", value: "3,5 kg" },
+      { key: "Farbe", value: "Nickel/Gelb" },
     ]
   },
   {
@@ -3357,53 +3357,53 @@ const products: ProductData[] = [
     price: 990, sku: "TROTECPAC2100E", inStock: true, isNew: true,
     rating: 4.1, reviewCount: 192, categorySlug: "klima", brandSlug: "trotec",
     specs: [
-      { name: "Kühlleistung", value: "7000 BTU" },
-      { name: "Raumgröße", value: "Bis zu 15 m²" },
-      { name: "Funktionen", value: "Kühlen, Entfeuchten" },
-      { name: "Lautstärke", value: "54 dB(A)" },
-      { name: "Leistung", value: "900 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Kühlleistung", value: "7000 BTU" },
+      { key: "Raumgröße", value: "Bis zu 15 m²" },
+      { key: "Funktionen", value: "Kühlen, Entfeuchten" },
+      { key: "Lautstärke", value: "54 dB(A)" },
+      { key: "Leistung", value: "900 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
     name: "tado° Smart Thermostat V3plus Neu", slug: "tado-smart-thermostat-v3plus-neu",
-    description: "Der Tado Smart Thermostat V3+ Neu ist die neueste Version des intelligenten Thermostats. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Die Luftqualitätsmessung informiert über die Raumluft. Die neueste Version mit verbesserter Genauigkeit und Zuverlässigkeit. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Neuestes Tado-Thermostat mit verbesserter Genauigkeit",
+    description: "Der Tado Smart Thermostat V3+ Neu ist die neueste Version des intelligenten Thermostats. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Die Luftqualitätsmessung informiert über die Raumluft. Die neueste Version mit verbesserter Genauigkeit und Zuverlässigkeit. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Neuestes Tado-Thermostat mit verbesserter Genauigkeit",
     price: 250, sku: "TADOSMARTTHE3", inStock: true,
     rating: 4.3, reviewCount: 135, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Funktionen", value: "Geofencing, Timer, Luftqualität" },
-      { name: "Kompatibilität", value: "Alle Heizungstypen" },
-      { name: "Energieeinsparung", value: "Bis zu 28%" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Funktionen", value: "Geofencing, Timer, Luftqualität" },
+      { key: "Kompatibilität", value: "Alle Heizungstypen" },
+      { key: "Energieeinsparung", value: "Bis zu 28%" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
     name: "tado° Smart Thermostat V3plus Extension", slug: "tado-smart-thermostat-v3plus-extension",
-    description: "Der Tado Smart Thermostat V3+ Extension ist ein Erweiterungsmodul für das Tado-Heizungssystem. Das Modul ergänzt bestehende Tado-Thermostate um zusätzliche Funktionalität. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Die Erweiterung eignet sich für alle, die ihr Tado-System ausbauen möchten.", shortDesc: "Erweiterungsmodul für das Tado-Heizungssystem",
+    description: "Der Tado Smart Thermostat V3+ Extension ist ein Erweiterungsmodul für das Tado-Heizungssystem. Das Modul ergänzt bestehende Tado-Thermostate um zusätzliche Funktionalität. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Die Erweiterung eignet sich für alle, die ihr Tado-System ausbauen möchten.", shortDesc: "Erweiterungsmodul für das Tado-Heizungssystem",
     price: 140, sku: "TADOSMARTTHE2", inStock: true, isNew: true,
     rating: 4.8, reviewCount: 283, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Typ", value: "Erweiterungsmodul" },
-      { name: "Kompatibilität", value: "Tado Smart Thermostat V3+" },
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Typ", value: "Erweiterungsmodul" },
+      { key: "Kompatibilität", value: "Tado Smart Thermostat V3+" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
     name: "tado° Smart Ac Control V3plus Neu", slug: "tado-smart-ac-control-v3plus-neu",
-    description: "Die Tado Smart AC Control V3+ Neu ist die neueste Version des smarteren WLAN-Controllers für Klimaanlagen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die Energieberichtsfunktion zeigt den Stromverbrauch an. Die Luftqualitätsmessung informiert über die Raumluft. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Die neueste Version mit verbesserter Kompatibilität.", shortDesc: "Neueste Tado-AC-Steuerung mit Geofencing und improved Kompatibilität",
+    description: "Die Tado Smart AC Control V3+ Neu ist die neueste Version des smarteren WLAN-Controllers für Klimaanlagen. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation erfordert keine Fachkenntnisse. Die Energieberichtsfunktion zeigt den Stromverbrauch an. Die Luftqualitätsmessung informiert über die Raumluft. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Die neueste Version mit verbesserter Kompatibilität.", shortDesc: "Neueste Tado-AC-Steuerung mit Geofencing und improved Kompatibilität",
     price: 190, sku: "TADOSMARTACCONT", inStock: true, isNew: true,
     rating: 4.1, reviewCount: 133, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Konnektivität", value: "WLAN, Infrarot" },
-      { name: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
-      { name: "Kompatibilität", value: "Die党派 Klimaanlagen" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Konnektivität", value: "WLAN, Infrarot" },
+      { key: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
+      { key: "Kompatibilität", value: "Die meisten Klimaanlagen" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3412,12 +3412,12 @@ const products: ProductData[] = [
     price: 260, sku: "PHILIPSHUEST2", inStock: true,
     rating: 4.5, reviewCount: 43, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Protokoll", value: "Zigbee (via Hue Bridge V2)" },
-      { name: "Lichtstrom", value: "100-2200 Lumen" },
-      { name: "Farbtemperatur", value: "2200-6500K" },
-      { name: "Leistung", value: "8,06 Watt pro Lampe" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Fassung", value: "E27" },
+      { key: "Protokoll", value: "Zigbee (via Hue Bridge V2)" },
+      { key: "Lichtstrom", value: "100-2200 Lumen" },
+      { key: "Farbtemperatur", value: "2200-6500K" },
+      { key: "Leistung", value: "8,06 Watt pro Lampe" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Fassung", value: "E27" },
     ]
   },
   {
@@ -3426,12 +3426,12 @@ const products: ProductData[] = [
     price: 350, originalPrice: 402, sku: "PHILIPSHUESTART", inStock: true, isNew: true, isPromo: true,
     rating: 4.5, reviewCount: 153, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Protokoll", value: "Zigbee (via Hue Bridge)" },
-      { name: "Lichtstrom", value: "100-2200 Lumen" },
-      { name: "Farbtemperatur", value: "2200-6500K" },
-      { name: "Leistung", value: "5,7 Watt pro Lampe" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Fassung", value: "E14" },
+      { key: "Protokoll", value: "Zigbee (via Hue Bridge)" },
+      { key: "Lichtstrom", value: "100-2200 Lumen" },
+      { key: "Farbtemperatur", value: "2200-6500K" },
+      { key: "Leistung", value: "5,7 Watt pro Lampe" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Fassung", value: "E14" },
     ]
   },
   {
@@ -3440,12 +3440,12 @@ const products: ProductData[] = [
     price: 340, sku: "PHILIPSHUELIGHT", inStock: true, isNew: true,
     rating: 4.7, reviewCount: 269, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Länge", value: "2 Meter" },
-      { name: "Lichtstrom", value: "1600 Lumen" },
-      { name: "Leistung", value: "20 Watt" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Länge", value: "2 Meter" },
+      { key: "Lichtstrom", value: "1600 Lumen" },
+      { key: "Leistung", value: "20 Watt" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
     ]
   },
   {
@@ -3454,11 +3454,11 @@ const products: ProductData[] = [
     price: 170, sku: "PHILIPSHUEWHITE", inStock: true,
     rating: 4.1, reviewCount: 29, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Farbtemperatur", value: "2200-6500K" },
-      { name: "Lichtstrom", value: "100-2200 Lumen" },
-      { name: "Leistung", value: "8,06 Watt" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Fassung", value: "E27" },
+      { key: "Farbtemperatur", value: "2200-6500K" },
+      { key: "Lichtstrom", value: "100-2200 Lumen" },
+      { key: "Leistung", value: "8,06 Watt" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Fassung", value: "E27" },
     ]
   },
   {
@@ -3467,12 +3467,12 @@ const products: ProductData[] = [
     price: 190, originalPrice: 218, sku: "NANOLEAFSHAPEST", inStock: true, isPromo: true,
     rating: 4.1, reviewCount: 105, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Panels", value: "7 pro Starter Kit" },
-      { name: "Lichtstrom", value: "140 Lumen pro Panel" },
-      { name: "Leistung", value: "9 Watt pro Panel" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Wi-Fi, Bluetooth" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Panels", value: "7 pro Starter Kit" },
+      { key: "Lichtstrom", value: "140 Lumen pro Panel" },
+      { key: "Leistung", value: "9 Watt pro Panel" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Wi-Fi, Bluetooth" },
     ]
   },
   {
@@ -3481,12 +3481,12 @@ const products: ProductData[] = [
     price: 220, sku: "NANOLEAFELEMENT", inStock: true,
     rating: 4.9, reviewCount: 107, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Panels", value: "7 pro Starter Kit" },
-      { name: "Lichtstrom", value: "100 Lumen pro Panel" },
-      { name: "Leistung", value: "6 Watt pro Panel" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Wi-Fi, Bluetooth, Thread" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Panels", value: "7 pro Starter Kit" },
+      { key: "Lichtstrom", value: "100 Lumen pro Panel" },
+      { key: "Leistung", value: "6 Watt pro Panel" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Wi-Fi, Bluetooth, Thread" },
     ]
   },
   {
@@ -3495,11 +3495,11 @@ const products: ProductData[] = [
     price: 190, sku: "RINGVIDEODOORBE", inStock: true,
     rating: 4.4, reviewCount: 210, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Kamera", value: "1080p HD (verbessert)" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Sprachfunktion", value: "Zweistiguous" },
-      { name: "Speicherung", value: "Ring Protect (Abonnement)" },
-      { name: "Installation", value: "Kabellos oder verkabelt" },
+      { key: "Kamera", value: "1080p HD (verbessert)" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Sprachfunktion", value: "Zweistiguous" },
+      { key: "Speicherung", value: "Ring Protect (Abonnement)" },
+      { key: "Installation", value: "Kabellos oder verkabelt" },
     ]
   },
   {
@@ -3508,11 +3508,11 @@ const products: ProductData[] = [
     price: 30, sku: "RINGSPOTLIGHTCA", inStock: true,
     rating: 4.7, reviewCount: 151, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Spotlight", value: "500 Lumen" },
-      { name: "Bewegungserkennung", value: "3D-Radar" },
-      { name: "Sprachfunktion", value: "Zweistufig" },
-      { name: "Installation", value: "Wandmontage" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Spotlight", value: "500 Lumen" },
+      { key: "Bewegungserkennung", value: "3D-Radar" },
+      { key: "Sprachfunktion", value: "Zweistufig" },
+      { key: "Installation", value: "Wandmontage" },
     ]
   },
   {
@@ -3521,11 +3521,11 @@ const products: ProductData[] = [
     price: 190, sku: "RINGINDOORCAMGE", inStock: true,
     rating: 4.3, reviewCount: 300, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Sprachfunktion", value: "Zweistufig" },
-      { name: "Abmessungen", value: "7 x 7 x 10 cm" },
-      { name: "Farbe", value: "Weiß/Schwarz" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Sprachfunktion", value: "Zweistufig" },
+      { key: "Abmessungen", value: "7 x 7 x 10 cm" },
+      { key: "Farbe", value: "Weiß/Schwarz" },
     ]
   },
   {
@@ -3534,11 +3534,11 @@ const products: ProductData[] = [
     price: 80, sku: "NETATMOWETTERST", inStock: true,
     rating: 4.5, reviewCount: 14, categorySlug: "smart-home", brandSlug: "netatmo",
     specs: [
-      { name: "Module", value: "Indoor + Outdoor" },
-      { name: "Messwerte", value: "Temperatur, Feuchtigkeit, Luftqualität, Lärm" },
-      { name: "Genauigkeit", value: "±0,1°C / ±1% Feuchtigkeit" },
-      { name: "Protokoll", value: "Wi-Fi" },
-      { name: "Batterielaufzeit", value: "Bis zu 6 Monate (Outdoor)" },
+      { key: "Module", value: "Indoor + Outdoor" },
+      { key: "Messwerte", value: "Temperatur, Feuchtigkeit, Luftqualität, Lärm" },
+      { key: "Genauigkeit", value: "±0,1°C / ±1% Feuchtigkeit" },
+      { key: "Protokoll", value: "Wi-Fi" },
+      { key: "Batterielaufzeit", value: "Bis zu 6 Monate (Outdoor)" },
     ]
   },
   {
@@ -3547,11 +3547,11 @@ const products: ProductData[] = [
     price: 100, sku: "NETATMOSMARTTHE", inStock: true, isNew: true,
     rating: 4.1, reviewCount: 33, categorySlug: "smart-home", brandSlug: "netatmo",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (HomeKit, Google, Alexa)" },
-      { name: "Energieeinsparung", value: "Bis zu 30%" },
-      { name: "Kompatibilität", value: "Alle Heizungstypen" },
-      { name: "Batterielaufzeit", value: "Bis zu 2 Jahre" },
-      { name: "Protokoll", value: "Wi-Fi, Bluetooth" },
+      { key: "Steuerung", value: "App, Sprache (HomeKit, Google, Alexa)" },
+      { key: "Energieeinsparung", value: "Bis zu 30%" },
+      { key: "Kompatibilität", value: "Alle Heizungstypen" },
+      { key: "Batterielaufzeit", value: "Bis zu 2 Jahre" },
+      { key: "Protokoll", value: "Wi-Fi, Bluetooth" },
     ]
   },
   {
@@ -3560,12 +3560,12 @@ const products: ProductData[] = [
     price: 290, sku: "IKEATRADFRISTAR", inStock: true,
     rating: 4.3, reviewCount: 242, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Protokoll", value: "Zigbee 3.0" },
-      { name: "Lichtstrom", value: "100-2200 Lumen" },
-      { name: "Farbtemperatur", value: "2200-6500K" },
-      { name: "Leistung", value: "8,06 Watt pro Lampe" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Protokoll", value: "Zigbee 3.0" },
+      { key: "Lichtstrom", value: "100-2200 Lumen" },
+      { key: "Farbtemperatur", value: "2200-6500K" },
+      { key: "Leistung", value: "8,06 Watt pro Lampe" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3574,11 +3574,11 @@ const products: ProductData[] = [
     price: 160, sku: "IKEADIRIGERAHUB", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 185, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Protokoll", value: "Zigbee 3.0, Matter, Thread" },
-      { name: "Max. Geräte", value: "50" },
-      { name: "App-Steuerung", value: "Ja (iOS/Android)" },
-      { name: "Abmessungen", value: "Ø 10 cm, H 3,5 cm" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Protokoll", value: "Zigbee 3.0, Matter, Thread" },
+      { key: "Max. Geräte", value: "50" },
+      { key: "App-Steuerung", value: "Ja (iOS/Android)" },
+      { key: "Abmessungen", value: "Ø 10 cm, H 3,5 cm" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -3587,11 +3587,11 @@ const products: ProductData[] = [
     price: 100, sku: "IKEAPRAKTLYSING", inStock: true,
     rating: 4.4, reviewCount: 23, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google)" },
-      { name: "Motor", value: "Leise Motorsteuerung" },
-      { name: "Batterielaufzeit", value: "Bis zu 6 Monate" },
-      { name: "Protokoll", value: "Zigbee 3.0" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google)" },
+      { key: "Motor", value: "Leise Motorsteuerung" },
+      { key: "Batterielaufzeit", value: "Bis zu 6 Monate" },
+      { key: "Protokoll", value: "Zigbee 3.0" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3600,11 +3600,11 @@ const products: ProductData[] = [
     price: 330, originalPrice: 379, sku: "RINGALARMSECURI", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 237, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Komponenten", value: "Base Station, 5 Sensoren, Tastatur" },
-      { name: "Sirene", value: "100 dB(A)" },
-      { name: "Protokoll", value: "Zigbee, Wi-Fi" },
-      { name: "Abdeckung", value: "Bis zu 5 Zimmer" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Komponenten", value: "Base Station, 5 Sensoren, Tastatur" },
+      { key: "Sirene", value: "100 dB(A)" },
+      { key: "Protokoll", value: "Zigbee, Wi-Fi" },
+      { key: "Abdeckung", value: "Bis zu 5 Zimmer" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3613,11 +3613,11 @@ const products: ProductData[] = [
     price: 300, sku: "NETATMOSMARTVID", inStock: true,
     rating: 4.6, reviewCount: 62, categorySlug: "smart-home", brandSlug: "netatmo",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Sprachfunktion", value: "Zweistufig" },
-      { name: "Speicherung", value: "Cloud (Abonnement) + microSD" },
-      { name: "Installation", value: "Vorhandene Klingeldrähte" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Sprachfunktion", value: "Zweistufig" },
+      { key: "Speicherung", value: "Cloud (Abonnement) + microSD" },
+      { key: "Installation", value: "Vorhandene Klingeldrähte" },
     ]
   },
   {
@@ -3626,12 +3626,12 @@ const products: ProductData[] = [
     price: 250, sku: "NANOLEAFSHAPESS", inStock: true,
     rating: 4.1, reviewCount: 257, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Panels", value: "7 pro Starter Kit" },
-      { name: "Lichtstrom", value: "140 Lumen pro Panel" },
-      { name: "Leistung", value: "9 Watt pro Panel" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Wi-Fi, Bluetooth" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Panels", value: "7 pro Starter Kit" },
+      { key: "Lichtstrom", value: "140 Lumen pro Panel" },
+      { key: "Leistung", value: "9 Watt pro Panel" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Wi-Fi, Bluetooth" },
     ]
   },
   {
@@ -3640,12 +3640,12 @@ const products: ProductData[] = [
     price: 200, sku: "PHILIPSHUEGRADI", inStock: true,
     rating: 4.9, reviewCount: 190, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Länge", value: "2 Meter" },
-      { name: "Lichtstrom", value: "950 Lumen" },
-      { name: "Leistung", value: "24 Watt" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Länge", value: "2 Meter" },
+      { key: "Lichtstrom", value: "950 Lumen" },
+      { key: "Leistung", value: "24 Watt" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
     ]
   },
   {
@@ -3654,11 +3654,11 @@ const products: ProductData[] = [
     price: 400, sku: "IKEASYMFONISKTA", inStock: true,
     rating: 4.3, reviewCount: 26, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Konnektivität", value: "WLAN (Wi-Fi)" },
-      { name: "Lautsprecher", value: "Woofer + Tweeter" },
-      { name: "Streaming", value: "Spotify, AirPlay 2, Alexa" },
-      { name: "Abmessungen", value: "16 x 16 x 10 cm" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Konnektivität", value: "WLAN (Wi-Fi)" },
+      { key: "Lautsprecher", value: "Woofer + Tweeter" },
+      { key: "Streaming", value: "Spotify, AirPlay 2, Alexa" },
+      { key: "Abmessungen", value: "16 x 16 x 10 cm" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -3667,25 +3667,25 @@ const products: ProductData[] = [
     price: 50, originalPrice: 57, sku: "PHILIPSHUEPLAYG", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 259, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Bildschirmgröße", value: "55 Zoll" },
-      { name: "Lichtstrom", value: "1600 Lumen" },
-      { name: "Leistung", value: "24 Watt" },
-      { name: "Lebensdauer", value: "25.000 Stunden" },
-      { name: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Bildschirmgröße", value: "55 Zoll" },
+      { key: "Lichtstrom", value: "1600 Lumen" },
+      { key: "Leistung", value: "24 Watt" },
+      { key: "Lebensdauer", value: "25.000 Stunden" },
+      { key: "Konnektivität", value: "Zigbee (via Hue Bridge)" },
     ]
   },
   {
     name: "tado° Smart Radiator Starter Kit", slug: "tado-smart-radiator-starter-kit",
-    description: "Das Tado Smart Radiator Starter Kit ist der perfekte Einstieg in die intelligente Heizungssteuerung. Das Kit enthält 2 intelligente Heizkörperregler und den Bridge-Adapter. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizkörpern erfordert keine Fachkenntnisse. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Starter-Kit mit 2 Heizkörperreglern für intelligente Heizungssteuerung",
+    description: "Das Tado Smart Radiator Starter Kit ist der perfekte Einstieg in die intelligente Heizungssteuerung. Das Kit enthält 2 intelligente Heizkörperregler und den Bridge-Adapter. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizkörpern erfordert keine Fachkenntnisse. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung.", shortDesc: "Starter-Kit mit 2 Heizkörperreglern für intelligente Heizungssteuerung",
     price: 180, sku: "TADOSMARTRADIAT", inStock: true, isNew: true,
     rating: 4.2, reviewCount: 243, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Inhalt", value: "2 Heizkörperregler, Bridge-Adapter" },
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
-      { name: "Energieeinsparung", value: "Bis zu 28%" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Inhalt", value: "2 Heizkörperregler, Bridge-Adapter" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Funktionen", value: "Geofencing, Timer, Energiebericht" },
+      { key: "Energieeinsparung", value: "Bis zu 28%" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3694,11 +3694,11 @@ const products: ProductData[] = [
     price: 130, originalPrice: 150, sku: "RINGFLOODLIGHTC", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 305, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Flutlichter", value: "2 x 1500 Lumen" },
-      { name: "Bewegungserkennung", value: "3D-Radar" },
-      { name: "Sprachfunktion", value: "Zweistufig" },
-      { name: "Installation", value: "Verkabelt (Elektriker)" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Flutlichter", value: "2 x 1500 Lumen" },
+      { key: "Bewegungserkennung", value: "3D-Radar" },
+      { key: "Sprachfunktion", value: "Zweistufig" },
+      { key: "Installation", value: "Verkabelt (Elektriker)" },
     ]
   },
   {
@@ -3707,11 +3707,11 @@ const products: ProductData[] = [
     price: 30, originalPrice: 35, sku: "IKEAPARASOLLDOO", inStock: true, isPromo: true,
     rating: 4.7, reviewCount: 57, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Protokoll", value: "Zigbee 3.0" },
-      { name: "Batterie", value: "CR2032 (2 Jahre)" },
-      { name: "Abmessungen", value: "4,5 x 2,2 x 1,0 cm" },
-      { name: "Reichweite", value: "Bis zu 10 m (hindernisfrei)" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Protokoll", value: "Zigbee 3.0" },
+      { key: "Batterie", value: "CR2032 (2 Jahre)" },
+      { key: "Abmessungen", value: "4,5 x 2,2 x 1,0 cm" },
+      { key: "Reichweite", value: "Bis zu 10 m (hindernisfrei)" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3720,12 +3720,12 @@ const products: ProductData[] = [
     price: 190, sku: "IKEAVALLHORNMOT", inStock: true,
     rating: 4.6, reviewCount: 155, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Sensor", value: "Infrarot" },
-      { name: "Reichweite", value: "Bis zu 10 m" },
-      { name: "Protokoll", value: "Zigbee 3.0" },
-      { name: "Batterie", value: "2x AAA (2 Jahre)" },
-      { name: "Abmessungen", value: "8 x 8 x 4 cm" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Sensor", value: "Infrarot" },
+      { key: "Reichweite", value: "Bis zu 10 m" },
+      { key: "Protokoll", value: "Zigbee 3.0" },
+      { key: "Batterie", value: "2x AAA (2 Jahre)" },
+      { key: "Abmessungen", value: "8 x 8 x 4 cm" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -3734,11 +3734,11 @@ const products: ProductData[] = [
     price: 320, sku: "PHILIPSHUESE2", inStock: true, isFeatured: true,
     rating: 4.2, reviewCount: 127, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Bewegungserkennung", value: "KI-gestützt" },
-      { name: "Speicherung", value: "Hue Secure Cloud" },
-      { name: "Abmessungen", value: "8 x 8 x 12 cm" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Bewegungserkennung", value: "KI-gestützt" },
+      { key: "Speicherung", value: "Hue Secure Cloud" },
+      { key: "Abmessungen", value: "8 x 8 x 12 cm" },
     ]
   },
   {
@@ -3747,12 +3747,12 @@ const products: ProductData[] = [
     price: 360, sku: "IKEASTARKVINDAI", inStock: true,
     rating: 4.6, reviewCount: 86, categorySlug: "smart-home", brandSlug: "ikea",
     specs: [
-      { name: "Filter", value: "HEPA (99,97% ab 0,3µm)" },
-      { name: "Luftleistung", value: "Bis zu 200 m³/h" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "Bis zu 52 dB(A)" },
-      { name: "Leistung", value: "10-30 Watt" },
-      { name: "Farbe", value: "Schwarz/Weiß" },
+      { key: "Filter", value: "HEPA (99,97% ab 0,3µm)" },
+      { key: "Luftleistung", value: "Bis zu 200 m³/h" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "Bis zu 52 dB(A)" },
+      { key: "Leistung", value: "10-30 Watt" },
+      { key: "Farbe", value: "Schwarz/Weiß" },
     ]
   },
   {
@@ -3761,12 +3761,12 @@ const products: ProductData[] = [
     price: 200, originalPrice: 230, sku: "NANOLEAFESSENTI", inStock: true, isPromo: true,
     rating: 4.8, reviewCount: 51, categorySlug: "smart-home", brandSlug: "nanoleaf",
     specs: [
-      { name: "Farben", value: "16 Millionen + White-Shades" },
-      { name: "Lichtstrom", value: "806 Lumen" },
-      { name: "Farbtemperatur", value: "2700-6500K" },
-      { name: "Leistung", value: "9 Watt" },
-      { name: "Lebensdauer", value: "15.000 Stunden" },
-      { name: "Fassung", value: "E27" },
+      { key: "Farben", value: "16 Millionen + White-Shades" },
+      { key: "Lichtstrom", value: "806 Lumen" },
+      { key: "Farbtemperatur", value: "2700-6500K" },
+      { key: "Leistung", value: "9 Watt" },
+      { key: "Lebensdauer", value: "15.000 Stunden" },
+      { key: "Fassung", value: "E27" },
     ]
   },
   {
@@ -3775,25 +3775,25 @@ const products: ProductData[] = [
     price: 260, originalPrice: 299, sku: "RINGALARMFLOODF", inStock: true, isPromo: true,
     rating: 4.9, reviewCount: 291, categorySlug: "smart-home", brandSlug: "ring",
     specs: [
-      { name: "Sensoren", value: "Wasser, Frost" },
-      { name: "Protokoll", value: "Zigbee" },
-      { name: "Batterielaufzeit", value: "Bis zu 3 Jahre" },
-      { name: "Abmessungen", value: "6 x 6 x 3 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Sensoren", value: "Wasser, Frost" },
+      { key: "Protokoll", value: "Zigbee" },
+      { key: "Batterielaufzeit", value: "Bis zu 3 Jahre" },
+      { key: "Abmessungen", value: "6 x 6 x 3 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
     name: "tado° Smart Thermostat V3+", slug: "tado-smart-thermostat-v3plus-single",
-    description: "Der Tado Smart Thermostat V3+ Single ist ein einzelnes intelligentes Thermostat für die Heizungssteuerung. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die党派-fähige Steuerung mit Timern ermöglicht automatische Anpassungen. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung. Das einzelne Thermostat für alle, die nur einen Raum steuern möchten.", shortDesc: "Einzelnes intelligentes Thermostat mit Geofencing",
+    description: "Der Tado Smart Thermostat V3+ Single ist ein einzelnes intelligentes Thermostat für die Heizungssteuerung. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Geofencing-Technologie passt die Temperatur an Ihren Standort an. Die Kompatibilität mit Alexa, Google Home und HomeKit bietet maximale Konnektivität. Die einfache Installation an vorhandenen Heizungen erfordert keine Fachkenntnisse. Die intelligente Steuerung mit Timern ermöglicht automatische Anpassungen. Sparen Sie bis zu 28% Heizkosten mit intelligenter Steuerung. Das einzelne Thermostat für alle, die nur einen Raum steuern möchten.", shortDesc: "Einzelnes intelligentes Thermostat mit Geofencing",
     price: 40, sku: "TADOSMARTTHERMO", inStock: true,
     rating: 4.2, reviewCount: 84, categorySlug: "smart-home", brandSlug: "tado",
     specs: [
-      { name: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
-      { name: "Funktionen", value: "Geofencing, Timer" },
-      { name: "Kompatibilität", value: "Alle Heizungstypen" },
-      { name: "Energieeinsparung", value: "Bis zu 28%" },
-      { name: "Abmessungen", value: "10 x 10 x 2,4 cm" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Steuerung", value: "App, Sprache (Alexa, Google, HomeKit)" },
+      { key: "Funktionen", value: "Geofencing, Timer" },
+      { key: "Kompatibilität", value: "Alle Heizungstypen" },
+      { key: "Energieeinsparung", value: "Bis zu 28%" },
+      { key: "Abmessungen", value: "10 x 10 x 2,4 cm" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3802,11 +3802,11 @@ const products: ProductData[] = [
     price: 350, sku: "PHILIPSHUESECUR", inStock: true,
     rating: 4.5, reviewCount: 176, categorySlug: "smart-home", brandSlug: "philips",
     specs: [
-      { name: "Kamera", value: "1080p HD" },
-      { name: "Nachtsicht", value: "Ja, Infrarot" },
-      { name: "Sprachfunktion", value: "Zweistufig" },
-      { name: "Speicherung", value: "Hue Secure Cloud" },
-      { name: "Installation", value: "Vorhandene Klingeldrähte" },
+      { key: "Kamera", value: "1080p HD" },
+      { key: "Nachtsicht", value: "Ja, Infrarot" },
+      { key: "Sprachfunktion", value: "Zweistufig" },
+      { key: "Speicherung", value: "Hue Secure Cloud" },
+      { key: "Installation", value: "Vorhandene Klingeldrähte" },
     ]
   },
   {
@@ -3815,12 +3815,12 @@ const products: ProductData[] = [
     price: 199, sku: "BLUE-3210", inStock: true,
     rating: 4.5, reviewCount: 189, categorySlug: "klima", brandSlug: "blueair",
     specs: [
-      { name: "Filter", value: "HEPASilent" },
-      { name: "Partikelentfernung", value: "99,97% ab 0,1µm" },
-      { name: "Raumgröße", value: "Bis zu 30 m²" },
-      { name: "Lautstärke", value: "24-46 dB(A)" },
-      { name: "Leistung", value: "10-40 Watt" },
-      { name: "Farbe", value: "Weiß" },
+      { key: "Filter", value: "HEPASilent" },
+      { key: "Partikelentfernung", value: "99,97% ab 0,1µm" },
+      { key: "Raumgröße", value: "Bis zu 30 m²" },
+      { key: "Lautstärke", value: "24-46 dB(A)" },
+      { key: "Leistung", value: "10-40 Watt" },
+      { key: "Farbe", value: "Weiß" },
     ]
   },
   {
@@ -3829,12 +3829,12 @@ const products: ProductData[] = [
     price: 299, sku: "AEG-CX7-2-I360", inStock: true,
     rating: 4.4, reviewCount: 87, categorySlug: "reinigung", brandSlug: "aeg", weight: 2.5,
     specs: [
-      { name: "Akku", value: "21,6V Li-Ionen" },
-      { name: "Laufzeit", value: "Bis zu 40 Minuten" },
-      { name: "Aufladung", value: "4 Stunden" },
-      { name: "Volumen", value: "0,3 Liter" },
-      { name: "Gewicht", value: "2,4 kg" },
-      { name: "Farbe", value: "Grau/Rot" },
+      { key: "Akku", value: "21,6V Li-Ionen" },
+      { key: "Laufzeit", value: "Bis zu 40 Minuten" },
+      { key: "Aufladung", value: "4 Stunden" },
+      { key: "Volumen", value: "0,3 Liter" },
+      { key: "Gewicht", value: "2,4 kg" },
+      { key: "Farbe", value: "Grau/Rot" },
     ]
   },
   {
@@ -3843,12 +3843,12 @@ const products: ProductData[] = [
     price: 799, sku: "BSH-SMV6ECX22E", inStock: true,
     rating: 4.7, reviewCount: 189, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 34,
     specs: [
-      { name: "Kapazität", value: "13 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Trocknungstechnologie", value: "Zeolith" },
-      { name: "Programme", value: "8 + 4 Zusatzfunktionen" },
-      { name: "Ladeebenen", value: "3" },
-      { name: "Abmessungen", value: "60 x 85 x 60 cm" },
+      { key: "Kapazität", value: "13 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Trocknungstechnologie", value: "Zeolith" },
+      { key: "Programme", value: "8 + 4 Zusatzfunktionen" },
+      { key: "Ladeebenen", value: "3" },
+      { key: "Abmessungen", value: "60 x 85 x 60 cm" },
     ]
   },
   {
@@ -3857,11 +3857,11 @@ const products: ProductData[] = [
     price: 999, sku: "SI-SN63EX22CE", inStock: true,
     rating: 4.5, reviewCount: 33, categorySlug: "haushaltsgeraete", brandSlug: "siemens", weight: 35,
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Programme", value: "6 + 4 Zusatzfunktionen" },
-      { name: "Geschwindigkeit", value: "varioSpeed" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Programme", value: "6 + 4 Zusatzfunktionen" },
+      { key: "Geschwindigkeit", value: "varioSpeed" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -3870,12 +3870,12 @@ const products: ProductData[] = [
     price: 1099, sku: "BSH-SMS4ECI28F", inStock: true,
     rating: 4.7, reviewCount: 24, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 53,
     specs: [
-      { name: "Kapazität", value: "13 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Wasserverbrauch", value: "9,5 Liter" },
-      { name: "Programme", value: "10 + 4 Zusatzfunktionen" },
-      { name: "Ladeebenen", value: "3" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "13 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Wasserverbrauch", value: "9,5 Liter" },
+      { key: "Programme", value: "10 + 4 Zusatzfunktionen" },
+      { key: "Ladeebenen", value: "3" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
   {
@@ -3884,11 +3884,11 @@ const products: ProductData[] = [
     price: 633, sku: "BSH-KGN36VLED", inStock: true,
     rating: 4.4, reviewCount: 31, categorySlug: "haushaltsgeraete", brandSlug: "bosch", weight: 72,
     specs: [
-      { name: "Volumen", value: "324 Liter" },
-      { name: "Kühltechnologie", value: "NoFrost" },
-      { name: "Kühlschrank", value: "238 Liter" },
-      { name: "Gefrierfach", value: "86 Liter" },
-      { name: "Abmessungen", value: "60 x 186 x 65 cm" },
+      { key: "Volumen", value: "324 Liter" },
+      { key: "Kühltechnologie", value: "NoFrost" },
+      { key: "Kühlschrank", value: "238 Liter" },
+      { key: "Gefrierfach", value: "86 Liter" },
+      { key: "Abmessungen", value: "60 x 186 x 65 cm" },
     ]
   },
   {
@@ -3897,13 +3897,13 @@ const products: ProductData[] = [
     price: 499, sku: "IR-RP405", inStock: true, isFeatured: true,
     rating: 4.5, reviewCount: 156, categorySlug: "reinigung", brandSlug: "irobot", weight: 3.2, tags: ["bestseller"],
     specs: [
-      { name: "Leistung", value: "900 W" },
-      { name: "Saugleistung", value: "140 AW" },
-      { name: "Akkulaufzeit", value: "30 Min." },
-      { name: "Gewicht", value: "3.5 kg" },
-      { name: "Volumen", value: "0.4 l" },
-      { name: "Geräuschpegel", value: "64 dB" },
-      { name: "Garantie", value: "3 Jahre" },
+      { key: "Leistung", value: "900 W" },
+      { key: "Saugleistung", value: "140 AW" },
+      { key: "Akkulaufzeit", value: "30 Min." },
+      { key: "Gewicht", value: "3.5 kg" },
+      { key: "Volumen", value: "0.4 l" },
+      { key: "Geräuschpegel", value: "64 dB" },
+      { key: "Garantie", value: "3 Jahre" },
     ]
   },
   {
@@ -3912,11 +3912,11 @@ const products: ProductData[] = [
     price: 549, sku: "LB-KE230-26", inStock: true,
     rating: 4.3, reviewCount: 56, categorySlug: "haushaltsgeraete", brandSlug: "liebherr", weight: 44,
     specs: [
-      { name: "Volumen", value: "263 Liter" },
-      { name: "Kühltechnologie", value: "BioFresh" },
-      { name: "Energieklasse", value: "A++" },
-      { name: "Schubladen", value: "BioFresh-Schubladen" },
-      { name: "Abmessungen", value: "56 x 82 x 55 cm" },
+      { key: "Volumen", value: "263 Liter" },
+      { key: "Kühltechnologie", value: "BioFresh" },
+      { key: "Energieklasse", value: "A++" },
+      { key: "Schubladen", value: "BioFresh-Schubladen" },
+      { key: "Abmessungen", value: "56 x 82 x 55 cm" },
     ]
   },
   {
@@ -3925,11 +3925,11 @@ const products: ProductData[] = [
     price: 2200, originalPrice: 2530, sku: "BOSCHSERIE6SMV8", inStock: true, isPromo: true,
     rating: 4.6, reviewCount: 72, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
-      { name: "Kapazität", value: "14 Gedecke" },
-      { name: "Energieklasse", value: "A+++" },
-      { name: "Trocknung", value: "Zeolith + PerfectDry" },
-      { name: "Programme", value: "8 + 4 Zusatzfunktionen" },
-      { name: "Abmessungen", value: "60 x 82 x 55 cm" },
+      { key: "Kapazität", value: "14 Gedecke" },
+      { key: "Energieklasse", value: "A+++" },
+      { key: "Trocknung", value: "Zeolith + PerfectDry" },
+      { key: "Programme", value: "8 + 4 Zusatzfunktionen" },
+      { key: "Abmessungen", value: "60 x 82 x 55 cm" },
     ]
   },
 ];
@@ -3982,10 +3982,10 @@ async function main() {
     data: {
       bankIban: "DE89 3704 0044 0532 0130 00",
       bankBic: "COBADEFFXXX",
-      bankAccountName: "HAUSAURA GmbH",
+      bankAccountName: "HAUSELIO GmbH",
       bankName: "Commerzbank Berlin",
       shippingInfo: "Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.",
-      contactEmail: "info@hausaura.de",
+      contactEmail: "info@hauselio.de",
       contactPhone: "+49 (0)30 555 789 01",
       contactAddress: "Kastanienallee 42, 10435 Berlin",
     },

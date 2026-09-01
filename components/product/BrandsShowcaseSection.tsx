@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
@@ -28,7 +28,7 @@ const defaultBrands: Brand[] = [
 export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Unsere Marken">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Marken</p>

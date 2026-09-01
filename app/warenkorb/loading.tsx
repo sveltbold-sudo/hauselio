@@ -1,6 +1,6 @@
 export default function WarenkorbLoading() {
   return (
-    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
+    <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">
         <h1 className="h-8 w-48 bg-[var(--color-border-light)] rounded mb-8" />
 

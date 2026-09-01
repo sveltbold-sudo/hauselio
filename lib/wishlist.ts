@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface WishlistItem {
@@ -59,7 +59,7 @@ export const useWishlistStore = create<WishlistState>()(
       clearWishlist: () => set({ items: [] }),
     }),
     {
-      name: "hauselio-wishlist",
+      name: "HAUSAURA-wishlist",
     }
   )
 );

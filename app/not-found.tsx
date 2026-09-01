@@ -5,7 +5,7 @@ import { PackageOpen, Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+    <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
       <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
         <PackageOpen className="w-10 h-10 text-[var(--color-border)]" />
       </div>

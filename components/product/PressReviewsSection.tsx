@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Award, ExternalLink } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 
@@ -65,7 +65,7 @@ export default function PressReviewsSection({
 }: PressReviewsSectionProps) {
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Pressestimmen">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Vertrauen</p>

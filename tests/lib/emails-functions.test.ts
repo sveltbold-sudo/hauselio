@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+﻿import { describe, it, expect, vi } from "vitest";
 
 process.env.RESEND_API_KEY = "re_test_key";
 
@@ -6,7 +6,7 @@ vi.mock("@/lib/prisma", () => ({
   prisma: {
     siteSettings: {
       findFirst: vi.fn().mockResolvedValue({
-        bankAccountName: "HAUSELIO GmbH",
+        bankAccountName: "HAUSAURA GmbH",
         bankIban: "DE89370400440532013000",
         bankBic: "COBADEFFXXX",
       }),
@@ -18,7 +18,7 @@ vi.mock("@/lib/resend", () => ({
   getResendClient: () => ({
     emails: { send: vi.fn().mockResolvedValue({ id: "msg-1" }) },
   }),
-  FROM_EMAIL: "test@hauselio.de",
+  FROM_EMAIL: "test@HAUSAURA.de",
 }));
 
 describe("Email functions", () => {

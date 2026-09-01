@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 
 test.describe("Homepage", () => {
   test.beforeEach(async ({ page }) => {
@@ -6,7 +6,7 @@ test.describe("Homepage", () => {
   });
 
   test("has correct title and meta description", async ({ page }) => {
-    await expect(page).toHaveTitle(/HAUSELIO/);
+    await expect(page).toHaveTitle(/HAUSAURA/);
     const desc = await page.locator('meta[name="description"]').getAttribute("content");
     expect(desc).toBeTruthy();
     expect(desc!.length).toBeGreaterThan(20);

@@ -1,9 +1,9 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { SearchX } from "lucide-react";
 
 export default function ProduktNotFound() {
   return (
-    <div className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+    <div className="container-HAUSAURA py-24 text-center max-w-2xl mx-auto">
       <div className="relative mb-8">
         <p className="text-[10rem] font-black leading-none text-[var(--color-text-muted)] select-none">
           404

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowRight, Check, Coffee, Utensils, SprayCan, UtensilsCrossed } from "lucide-react";
 
 interface BuyingAdvice {
@@ -102,7 +102,7 @@ const defaultBuyingAdviceData: BuyingAdvice[] = [
 export default function BuyingAdviceSection({ advices = defaultBuyingAdviceData }: BuyingAdviceSectionProps) {
   return (
     <section className="section-py bg-white" aria-label="Kaufberatung">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         {/* Header */}
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-accent)] mb-3">Kaufberatung</p>

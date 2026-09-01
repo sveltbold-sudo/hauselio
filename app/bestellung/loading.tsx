@@ -1,6 +1,6 @@
-export default function BestellungLoading() {
+﻿export default function BestellungLoading() {
   return (
-    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
+    <div className="container-HAUSAURA py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">
         <div className="h-8 w-64 bg-[var(--color-border-light)] rounded mb-8" />
 

@@ -40,13 +40,13 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
 
   if (q) {
     title = `Suche "${q}"`;
-    desc = `Suchergebnisse für "${q}" bei HAUSELIO`;
+    desc = `Suchergebnisse für "${q}" bei HAUSAURA`;
   } else if (category) {
     title = `${category.charAt(0).toUpperCase() + category.slice(1)} kaufen`;
-    desc = `Hochwertige ${category} bei HAUSELIO entdecken`;
+    desc = `Hochwertige ${category} bei HAUSAURA entdecken`;
   } else if (brand) {
     title = `${brand} Produkte`;
-    desc = `Alle ${brand} Produkte bei HAUSELIO`;
+    desc = `Alle ${brand} Produkte bei HAUSAURA`;
   }
 
   const searchParamsObj = new URLSearchParams();
@@ -64,7 +64,7 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
       title,
       description: desc,
       url: canonical,
-      siteName: "HAUSELIO",
+      siteName: "HAUSAURA",
       locale: "de_DE",
       type: "website",
       images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
@@ -201,7 +201,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <main id="shop-content" className="container-hauselio py-6 sm:py-8">
+    <main id="shop-content" className="container-hausaura py-6 sm:py-8">
       {/* ItemList JSON-LD for SEO */}
       <script
         type="application/ld+json"
@@ -209,7 +209,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "HAUSELIO Shop",
+            name: "HAUSAURA Shop",
             url: `${SITE_URL}/shop`,
             itemListElement: formattedProducts.slice(0, 20).map((p, i) => ({
               "@type": "ListItem",

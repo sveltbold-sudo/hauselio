@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { getCloudinary } from "@/lib/cloudinary";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
@@ -24,9 +24,9 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const file = formData.get("file") as File;
-    const rawFolder = (formData.get("folder") as string) || "hauselio/products";
-    const ALLOWED_FOLDERS = ["hauselio/products", "hauselio/brands", "hauselio/categories", "hauselio"];
-    const folder = ALLOWED_FOLDERS.includes(rawFolder) ? rawFolder : "hauselio/products";
+    const rawFolder = (formData.get("folder") as string) || "HAUSAURA/products";
+    const ALLOWED_FOLDERS = ["HAUSAURA/products", "HAUSAURA/brands", "HAUSAURA/categories", "HAUSAURA"];
+    const folder = ALLOWED_FOLDERS.includes(rawFolder) ? rawFolder : "HAUSAURA/products";
 
     if (!file) {
       return NextResponse.json({ error: "Keine Datei hochgeladen" }, { status: 400 });

@@ -4,7 +4,7 @@ const url = process.env.DATABASE_URL;
 
 async function query(sql: string) {
   const result = execSync(
-    `npx prisma db execute --url "${url}" --file "E:\\\\web_app\\\\Dev\\\\HAUSELIO\\\\hauselio\\\\scripts\\\\audit.sql"`,
+    `npx prisma db execute --url "${url}" --file "E:\\\\web_app\\\\Dev\\\\HAUSAURA\\\\hausaura\\\\scripts\\\\audit.sql"`,
     { encoding: 'utf-8' }
   );
   return result;

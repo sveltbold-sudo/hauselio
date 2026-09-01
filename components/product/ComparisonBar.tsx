@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function ComparisonBar() {
   useEffect(() => {
     setMounted(true);
     const loadItems = () => {
-      const stored = localStorage.getItem("hauselio-comparison");
+      const stored = localStorage.getItem("HAUSAURA-comparison");
       if (stored) {
         try {
           const parsed: unknown = JSON.parse(stored);
@@ -48,14 +48,14 @@ export default function ComparisonBar() {
 
   const removeItem = (id: string) => {
     const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("hauselio-comparison", JSON.stringify(updated));
+    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(updated));
     setItems(updated);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));
   };
 
   const clearAll = () => {
-    localStorage.removeItem("hauselio-comparison");
+    localStorage.removeItem("HAUSAURA-comparison");
     setItems([]);
     window.dispatchEvent(new Event("storage"));
     window.dispatchEvent(new CustomEvent("comparison-updated"));
@@ -65,7 +65,7 @@ export default function ComparisonBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300">
-      <div className="container-hauselio py-3">
+      <div className="container-HAUSAURA py-3">
         <div className="flex items-center gap-4">
           {/* Label */}
           <div className="hidden sm:flex items-center gap-2 shrink-0">

@@ -7,12 +7,12 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Barrierefreiheitserklärung",
-  description: "Informationen zur Barrierefreiheit der HAUSELIO Website gemäß Barrierefreiheitsstärkungsgesetz (BFSG).",
+  description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß Barrierefreiheitsstärkungsgesetz (BFSG).",
   alternates: { canonical: `${SITE_URL}/barrierefreiheit` },
   openGraph: {
-    title: "Barrierefreiheitserklärung — HAUSELIO",
-    description: "Informationen zur Barrierefreiheit der HAUSELIO Website gemäß BFSG.",
-    siteName: "HAUSELIO",
+    title: "Barrierefreiheitserklärung — HAUSAURA",
+    description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß BFSG.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -20,24 +20,24 @@ export const metadata: Metadata = {
 
 export default function BarrierefreiheitPage() {
   return (
-    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-hausaura py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Barrierefreiheit" }]} />
       <h1 className="heading-1 mb-8">Barrierefreiheitserklärung</h1>
 
-      <div className="prose-hauselio space-y-8">
+      <div className="prose-hausaura space-y-8">
         <section>
           <h2 className="heading-3 mb-3">1. Erklärung zur Barrierefreiheit</h2>
           <p className="text-[var(--color-text-secondary)]">
-            HAUSELIO GmbH verpflichtet sich, die Barrierefreiheit der Website hauselio.de gemäß dem
+            HAUSAURA GmbH verpflichtet sich, die Barrierefreiheit der Website hausaura.de gemäß dem
             Barrierefreiheitsstärkungsgesetz (BFSG) und der Europäischen Barrierefreiheitsverordnung (EU) 2019/882
-            sicherzustellen. Diese Erklärung gilt für die Website hauselio.de.
+            sicherzustellen. Diese Erklärung gilt für die Website hausaura.de.
           </p>
         </section>
 
         <section>
           <h2 className="heading-3 mb-3">2. Aktueller Stand der Barrierefreiheit</h2>
           <p className="text-[var(--color-text-secondary)]">
-            Die Website hauselio.de wird derzeit auf ihren Grad der Barrierefreiheit hin überprüft und
+            Die Website hausaura.de wird derzeit auf ihren Grad der Barrierefreiheit hin überprüft und
             ist teilweise barrierefrei. Die folgenden Bereiche sind barrierefrei:
           </p>
           <ul className="list-disc list-inside text-[var(--color-text-secondary)] space-y-1 mt-2">
@@ -81,7 +81,7 @@ export default function BarrierefreiheitPage() {
               <Mail className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">E-Mail</p>
-                <p className="text-sm text-[var(--color-text-secondary)]">barrierefreiheit@hauselio.de</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">barrierefreiheit@hausaura.de</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -137,7 +137,7 @@ export default function BarrierefreiheitPage() {
         </section>
       </div>
 
-      <div className="container-hauselio">
+      <div className="container-hausaura">
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
           Stand: August 2026
         </p>

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 
 test.describe("Navigation", () => {
   test.beforeEach(async ({ page }) => {
@@ -6,7 +6,7 @@ test.describe("Navigation", () => {
   });
 
   test("header contains site logo/name", async ({ page }) => {
-    const logo = page.locator('a[href="/"]').filter({ hasText: "HAUSELIO" });
+    const logo = page.locator('a[href="/"]').filter({ hasText: "HAUSAURA" });
     await expect(logo.first()).toBeVisible();
   });
 

@@ -51,7 +51,7 @@ jobs:
         run: npm run build
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
-          NEXT_PUBLIC_SITE_URL: https://hauselio.de
+          NEXT_PUBLIC_SITE_URL: https://hausaura.de
           JWT_SECRET: ci-placeholder
           ALGOLIA_APP_ID: ci-placeholder
           ALGOLIA_SEARCH_API_KEY: ci-placeholder

@@ -195,7 +195,7 @@ export default function KontoPage() {
 
   if (isAuthLoading) {
     return (
-      <main id="main-content" className="container-hauselio py-20 text-center">
+      <main id="main-content" className="container-hausaura py-20 text-center">
         <h1 className="sr-only">Mein Konto</h1>
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
       </main>
@@ -204,7 +204,7 @@ export default function KontoPage() {
 
   if (customer) {
     return (
-      <main id="main-content" className="container-hauselio py-12">
+      <main id="main-content" className="container-hausaura py-12">
         <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
 
         <div className="max-w-2xl mx-auto">
@@ -469,7 +469,7 @@ export default function KontoPage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-12">
+    <main id="main-content" className="container-hausaura py-12">
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
 
       <div className="max-w-md mx-auto">

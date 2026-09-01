@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones, Lock, Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";
@@ -42,7 +42,7 @@ export default function Footer() {
     <footer className="bg-[var(--color-secondary)] text-white pb-[env(safe-area-inset-bottom,0px)]">
       {/* Trust badges bar */}
       <div className="border-b border-white/10">
-        <div className="container-hauselio py-6">
+        <div className="container-HAUSAURA py-6">
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" role="list">
             {trustBadges.map((badge) => (
               <li key={badge.id} className="flex items-center gap-2.5">
@@ -87,14 +87,14 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="container-hauselio py-8 sm:py-12">
+      <div className="container-HAUSAURA py-8 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
           {/* Brand + Newsletter */}
           <div className="lg:col-span-4">
             <Link href="/" className="inline-block mb-4">
               <Image
                 src="/logos/logosecondaire.png"
-                alt="HAUSELIO"
+                alt="HAUSAURA"
                 width={110}
                 height={33}
                 sizes="110px"
@@ -120,10 +120,10 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3">
               <a
-                href="https://www.instagram.com/hauselio"
+                href="https://www.instagram.com/HAUSAURA"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="HAUSELIO auf Instagram"
+                aria-label="HAUSAURA auf Instagram"
                 className="w-11 h-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors duration-250"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -191,11 +191,11 @@ export default function Footer() {
 
             <div className="space-y-0">
               <a
-                href="mailto:hilfe@hauselio.de"
+                href="mailto:hilfe@HAUSAURA.de"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                hilfe@hauselio.de
+                hilfe@HAUSAURA.de
               </a>
               <a
                 href="tel:+493055578901"
@@ -211,7 +211,7 @@ export default function Footer() {
 
       {/* Bottom bar — payment methods + copyright */}
       <div className="border-t border-white/10">
-        <div className="container-hauselio py-5">
+        <div className="container-HAUSAURA py-5">
           {/* Payment methods — icon only */}
           <div className="flex flex-wrap justify-center gap-3 mb-4">
             {paymentMethods.map((method) => (
@@ -234,7 +234,7 @@ export default function Footer() {
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/60">
-              © {new Date().getFullYear()} HAUSELIO. Alle Rechte vorbehalten.
+              © {new Date().getFullYear()} HAUSAURA. Alle Rechte vorbehalten.
             </p>
           </div>
         </div>

@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
-  description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
+  description: "Informationen zum Schutz Ihrer Daten bei der HAUSAURA GmbH.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/datenschutz" },
   openGraph: {
-    title: "Datenschutzerklärung — HAUSELIO",
-    description: "Informationen zum Schutz Ihrer Daten bei der HAUSELIO GmbH.",
-    siteName: "HAUSELIO",
+    title: "Datenschutzerklärung — HAUSAURA",
+    description: "Informationen zum Schutz Ihrer Daten bei der HAUSAURA GmbH.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-HAUSAURA py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Datenschutz" }]} />
       <h1 className="heading-1 mb-8">Datenschutzerklärung</h1>
 
-      <div className="prose-hauselio space-y-8">
+      <div className="prose-HAUSAURA space-y-8">
         <section>
           <h2 className="heading-3 mb-3">1. Datenschutz auf einen Blick</h2>
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Allgemeine Hinweise</h3>
@@ -37,11 +37,11 @@ export default function DatenschutzPage() {
         <section>
           <h2 className="heading-3 mb-3">2. Verantwortliche Stelle</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@hauselio.de</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@HAUSAURA.de</p>
           </div>
         </section>
 

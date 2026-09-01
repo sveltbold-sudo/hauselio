@@ -1,6 +1,6 @@
-export default function CategoryLoading() {
+﻿export default function CategoryLoading() {
   return (
-    <div className="container-hauselio py-8" role="status" aria-label="Wird geladen">
+    <div className="container-HAUSAURA py-8" role="status" aria-label="Wird geladen">
       <div className="mb-10 animate-pulse">
         <div className="h-4 w-20 bg-[var(--color-border-light)] rounded mb-3" />
         <div className="h-10 w-64 bg-[var(--color-border-light)] rounded mb-2" />

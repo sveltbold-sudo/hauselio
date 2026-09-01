@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -76,7 +76,7 @@ export default function OrderSuccessPage() {
         .then((data) => {
           if (data.bank) {
             setBankDetails({
-              accountName: data.bank.accountName || "HAUSELIO GmbH",
+              accountName: data.bank.accountName || "HAUSAURA GmbH",
               iban: data.bank.iban || "",
               bic: data.bank.bic || "",
             });
@@ -96,7 +96,7 @@ export default function OrderSuccessPage() {
 
   if (!orderId) {
     return (
-      <main id="main-content" className="container-hauselio py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-HAUSAURA py-24 text-center max-w-2xl mx-auto">
         <h1 className="heading-2 mb-4">Keine Bestellung gefunden</h1>
         <p className="body-large mb-10">
           Es wurde keine Bestellnummer angegeben. Bitte geben Sie Ihre Bestellung über den normalen Checkout-Prozess auf.
@@ -113,7 +113,7 @@ export default function OrderSuccessPage() {
   }
 
   return (
-    <main id="main-content" className="container-hauselio py-16 text-center max-w-2xl mx-auto">
+    <main id="main-content" className="container-HAUSAURA py-16 text-center max-w-2xl mx-auto">
       {/* Success Icon */}
       <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
         <Check className="w-10 h-10 text-[var(--color-success)]" />

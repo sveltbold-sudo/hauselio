@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
@@ -19,7 +19,7 @@ interface ViewedProduct {
   brand?: string | null;
 }
 
-const STORAGE_KEY = "hauselio-recently-viewed";
+const STORAGE_KEY = "HAUSAURA-recently-viewed";
 const MAX_ITEMS = 8;
 
 export function trackRecentlyViewed(product: ViewedProduct) {
@@ -58,7 +58,7 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
 
   return (
     <section className="section-py bg-[var(--color-bg-secondary)]" aria-label="Zuletzt angesehen">
-      <div className="container-hauselio">
+      <div className="container-HAUSAURA">
         <div className="flex items-center gap-2 mb-6">
           <Clock className="w-5 h-5 text-[var(--color-text-muted)]" />
           <h2 className="heading-3">

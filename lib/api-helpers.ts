@@ -1,11 +1,11 @@
-import { Prisma } from "@prisma/client";
+﻿import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { UnauthorizedError, NotFoundError, ValidationError } from "./errors";
 import { logger } from "./logger";
 
 export function getExpectedOrigin(request: NextRequest): string {
   const proto = request.headers.get("x-forwarded-proto") || "https";
-  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "hauselio.de";
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "HAUSAURA.de";
   return `${proto}://${host}`;
 }
 

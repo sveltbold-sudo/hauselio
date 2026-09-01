@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-const COOKIE_EVENT = "hauselio:open-cookie-settings";
+const COOKIE_EVENT = "HAUSAURA:open-cookie-settings";
 
 export function openCookieSettings() {
   if (typeof window !== "undefined") {

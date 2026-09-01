@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Rate limiter avec Upstash Redis pour Vercel/serverless.
  *
  * En production : Upstash Redis (HTTP-based, partagé entre instances)
@@ -54,7 +54,7 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
         redis: Redis.fromEnv(),
         limiter: Ratelimit.slidingWindow(maxRequests, `${windowSec} s`),
         analytics: true,
-        prefix: `hauselio:ratelimit:${key}`,
+        prefix: `HAUSAURA:ratelimit:${key}`,
       })
     );
   }

@@ -5,13 +5,13 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Widerrufsbelehrung",
-  description: "Ihr Widerrufsrecht bei Einkäufen im HAUSELIO Online-Shop.",
+  description: "Ihr Widerrufsrecht bei Einkäufen im HAUSAURA Online-Shop.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/widerruf" },
   openGraph: {
-    title: "Widerrufsbelehrung — HAUSELIO",
-    description: "Ihr Widerrufsrecht bei Einkäufen im HAUSELIO Online-Shop.",
-    siteName: "HAUSELIO",
+    title: "Widerrufsbelehrung — HAUSAURA",
+    description: "Ihr Widerrufsrecht bei Einkäufen im HAUSAURA Online-Shop.",
+    siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
   },
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
 
 export default function WiderrufPage() {
   return (
-    <main id="main-content" className="container-hauselio py-16 max-w-3xl">
+    <main id="main-content" className="container-hausaura py-16 max-w-3xl">
       <Breadcrumb items={[{ label: "Widerruf" }]} />
       <h1 className="heading-1 mb-8">Widerrufsbelehrung</h1>
 
-      <div className="prose-hauselio space-y-8">
+      <div className="prose-hausaura space-y-8">
         <section>
           <h2 className="heading-3 mb-3">Widerrufsrecht</h2>
           <p className="text-[var(--color-text-secondary)]">
@@ -35,10 +35,10 @@ export default function WiderrufPage() {
             Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 my-4 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: widerruf@hauselio.de</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: widerruf@hausaura.de</p>
             <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
           </div>
           <p className="text-[var(--color-text-secondary)]">
@@ -74,7 +74,7 @@ export default function WiderrufPage() {
             Tag, an dem Sie uns über den Widerruf dieses Vertrags unterrichten, an uns oder an
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 my-4">
-            <p className="text-[var(--color-text-secondary)]">HAUSELIO GmbH</p>
+            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
           </div>
@@ -109,7 +109,7 @@ export default function WiderrufPage() {
               senden Sie es zurück.)
             </p>
             <div className="space-y-4 text-[var(--color-text-secondary)]">
-              <p>An: HAUSELIO GmbH, Kastanienallee 42, 10435 Berlin, E-Mail: widerruf@hauselio.de</p>
+              <p>An: HAUSAURA GmbH, Kastanienallee 42, 10435 Berlin, E-Mail: widerruf@hausaura.de</p>
               <p>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf
                 der folgenden Waren (*) / die Erbringung der folgenden Dienstleistung (*):</p>
               <p>Bestellt am (*) / erhalten am (*):</p>
