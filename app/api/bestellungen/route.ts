@@ -44,13 +44,13 @@ export async function POST(request: NextRequest) {
     // Validate coupon server-side
     let couponDiscount = 0;
     let couponLabel = "";
+    let couponRecord: { code: string; discountPercent: number } | null = null;
     if (couponCode) {
-      const validCoupons: Record<string, { discountPercent: number; label: string }> = {
-        HAUSAURA10: { discountPercent: 10, label: "10% Rabatt" },
-      };
-      const couponData = validCoupons[couponCode.toUpperCase()];
-      if (couponData) {
-        couponLabel = couponData.label;
+      const upperCode = couponCode.toUpperCase();
+      const found = await prisma.coupon.findUnique({ where: { code: upperCode } });
+      if (found && found.isActive && (!found.expiresAt || found.expiresAt > new Date()) && (found.maxUses === 0 || found.usedCount < found.maxUses)) {
+        couponRecord = { code: found.code, discountPercent: found.discountPercent };
+        couponLabel = `${found.discountPercent}% Rabatt`;
       }
     }
 
@@ -77,14 +77,8 @@ export async function POST(request: NextRequest) {
     const shippingCost = getShippingCost(subtotal);
 
     // Apply coupon discount
-    if (couponLabel) {
-      const couponDiscountMap: Record<string, number> = {
-        HAUSAURA10: 10,
-      };
-      const discountPercent = couponDiscountMap[(couponCode || "").toUpperCase()] || 0;
-      if (discountPercent) {
-        couponDiscount = Math.round(subtotal * (discountPercent / 100) * 100) / 100;
-      }
+    if (couponRecord) {
+      couponDiscount = Math.round(subtotal * (couponRecord.discountPercent / 100) * 100) / 100;
     }
 
     const total = subtotal - couponDiscount + shippingCost;
@@ -94,6 +88,12 @@ export async function POST(request: NextRequest) {
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
         order = await prisma.$transaction(async (tx) => {
+          if (couponRecord) {
+            await tx.coupon.update({
+              where: { code: couponRecord.code },
+              data: { usedCount: { increment: 1 } },
+            });
+          }
           return tx.order.create({
             data: {
               orderNumber: generateOrderNumber(),

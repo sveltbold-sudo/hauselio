@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
+import { BRAND_COLORS } from "@/lib/brand-colors";
 
 interface Brand {
   name: string;
@@ -15,14 +16,14 @@ interface BrandsShowcaseSectionProps {
 }
 
 const defaultBrands: Brand[] = [
-  { name: "Miele", logo: "/images/brands/miele.svg", color: "#c4001a", specialty: "Premium Haushaltsgeräte" },
-  { name: "Bosch", logo: "/images/brands/bosch.svg", color: "#e30613", specialty: "Technische Exzellenz" },
-  { name: "Samsung", logo: "/images/brands/samsung.svg", color: "#1428a0", specialty: "Smart Home Pionier" },
-  { name: "Dyson", logo: "/images/brands/dyson.svg", color: "#cc0033", specialty: "Innovative Technologie" },
-  { name: "KitchenAid", logo: "/images/brands/kitchenaid.svg", color: "#cc0000", specialty: "Küchenklassiker" },
-  { name: "Jura", logo: "/images/brands/jura.svg", color: "#1a1a1a", specialty: "Premium Kaffee" },
-  { name: "DeLonghi", logo: "/images/brands/delonghi.svg", color: "#003366", specialty: "Kaffee & Küche" },
-  { name: "Siemens", logo: "/images/brands/siemens.svg", color: "#009999", specialty: "Smart Geräte" },
+  { name: "Miele", logo: "/images/brands/miele.svg", color: BRAND_COLORS.miele!, specialty: "Premium Haushaltsgeräte" },
+  { name: "Bosch", logo: "/images/brands/bosch.svg", color: BRAND_COLORS.bosch!, specialty: "Technische Exzellenz" },
+  { name: "Samsung", logo: "/images/brands/samsung.svg", color: BRAND_COLORS.samsung!, specialty: "Smart Home Pionier" },
+  { name: "Dyson", logo: "/images/brands/dyson.svg", color: BRAND_COLORS.dyson!, specialty: "Innovative Technologie" },
+  { name: "KitchenAid", logo: "/images/brands/kitchenaid.svg", color: BRAND_COLORS.kitchenaid!, specialty: "Küchenklassiker" },
+  { name: "Jura", logo: "/images/brands/jura.svg", color: BRAND_COLORS.jura!, specialty: "Premium Kaffee" },
+  { name: "DeLonghi", logo: "/images/brands/delonghi.svg", color: BRAND_COLORS["de'longhi"]!, specialty: "Kaffee & Küche" },
+  { name: "Siemens", logo: "/images/brands/siemens.svg", color: BRAND_COLORS.siemens!, specialty: "Smart Geräte" },
 ];
 
 export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {

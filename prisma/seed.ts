@@ -3950,6 +3950,7 @@ async function main() {
 
   await prisma.orderItem.deleteMany();
   await prisma.order.deleteMany();
+  await prisma.coupon.deleteMany();
   await prisma.review.deleteMany();
   await prisma.newsletter.deleteMany();
   await prisma.productSpec.deleteMany();
@@ -4210,6 +4211,24 @@ async function main() {
   ];
 
   await prisma.testimonial.createMany({ data: testimonials });
+
+  await prisma.coupon.createMany({
+    data: [
+      {
+        code: "HAUSAURA10",
+        discountPercent: 10,
+        maxUses: 0,
+        expiresAt: null,
+      },
+      {
+        code: "WILLKOMMEN15",
+        discountPercent: 15,
+        maxUses: 100,
+        expiresAt: new Date("2026-12-31T23:59:59.000Z"),
+      },
+    ],
+  });
+  console.log("✅ 2 test coupons created");
 
   console.log(`✅ ${products.length} products created with reviews`);
   console.log(`✅ ${testimonials.length} testimonials created`);

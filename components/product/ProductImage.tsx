@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { BRAND_COLORS } from "@/lib/brand-colors";
+import { getInitials } from "@/lib/html";
 
 interface ProductImageProps {
   src?: string | null;
@@ -9,32 +11,9 @@ interface ProductImageProps {
   priority?: boolean;
 }
 
-const brandColors: Record<string, string> = {
-  bosch: "#e30613",
-  miele: "#c4001a",
-  siemens: "#009999",
-  dyson: "#cc0033",
-  samsung: "#1428a0",
-  lg: "#a50034",
-  philips: "#0b5ed7",
-  "de'longhi": "#003366",
-  jura: "#1a1a1a",
-  kitchenaid: "#cc0000",
-  aeg: "#003366",
-  liebherr: "#004a96",
-  ninja: "#1a1a1a",
-  cosori: "#ff6600",
-  haier: "#0066cc",
-  midea: "#0066cc",
-  irobot: "#2d8c3c",
-  kenwood: "#cc0000",
-};
-
-import { getInitials } from "@/lib/html";
-
 function getBrandColor(brand?: string | null): string {
   if (!brand) return "#6b7280";
-  return brandColors[brand.toLowerCase()] || "#6b7280";
+  return BRAND_COLORS[brand.toLowerCase()] || "#6b7280";
 }
 
 export default function ProductImage({
