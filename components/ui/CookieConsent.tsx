@@ -124,16 +124,19 @@ export default function CookieConsent() {
   const handleAcceptAll = () => {
     setCookiePreferences({ essential: true, functional: true, analytics: true });
     setVisible(false);
+    window.dispatchEvent(new CustomEvent("HAUSAURA:cookie-saved", { detail: { consent: true } }));
   };
 
   const handleRejectAll = useCallback(() => {
     setCookiePreferences({ ...DEFAULT_PREFERENCES });
     setVisible(false);
+    window.dispatchEvent(new CustomEvent("HAUSAURA:cookie-saved", { detail: { consent: false } }));
   }, []);
 
   const handleSaveSelection = () => {
     setCookiePreferences(prefs);
     setVisible(false);
+    window.dispatchEvent(new CustomEvent("HAUSAURA:cookie-saved", { detail: { consent: true } }));
   };
 
   const handleKeyDown = useCallback(

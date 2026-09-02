@@ -205,11 +205,17 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
     if (categoryCountsResult.status === "rejected") logger.error("shop-category-counts", categoryCountsResult.reason);
 
-    const allRatings = await prisma.product.findMany({ select: { rating: true } });
-    for (let level = 1; level <= 5; level++) {
-      ratingCounts[level] = allRatings.filter(
-        (p) => Math.round(Number(p.rating)) === level
-      ).length;
+    const allRatings = await prisma.$queryRaw<{ rating: number; count: bigint }[]>`
+      SELECT ROUND("rating")::int AS rating, COUNT(*)::int AS count
+      FROM "Product"
+      WHERE "rating" IS NOT NULL
+      GROUP BY ROUND("rating")
+    `;
+    for (const row of allRatings) {
+      const level = Number(row.rating);
+      if (level >= 1 && level <= 5) {
+        ratingCounts[level] = Number(row.count);
+      }
     }
   } catch (error) {
     logger.error("shop-page", error);

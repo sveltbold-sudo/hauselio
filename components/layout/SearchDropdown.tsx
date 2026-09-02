@@ -114,6 +114,8 @@ export default function SearchDropdown({
               key={animKey}
               id="search-results-list"
               role="listbox"
+              aria-live="polite"
+              aria-atomic="true"
               className="bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] overflow-hidden animate-scale-in origin-top max-h-[60vh] overflow-y-auto"
             >
               {loading ? (

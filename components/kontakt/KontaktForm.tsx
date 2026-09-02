@@ -174,10 +174,10 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
         <address className="space-y-6 not-italic">
         {/* Contact details */}
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
-          <h3 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
+          <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
             <MessageSquare className="w-4 h-4 text-[var(--color-primary)]" />
             Kontaktinformationen
-          </h3>
+          </h2>
           <div className="space-y-4">
             <a
               href={`mailto:${settings.contactEmail}`}
@@ -214,10 +214,10 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
 
         {/* Hours */}
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">
-          <h3 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
+          <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
             <Clock className="w-4 h-4 text-[var(--color-primary)]" />
             Öffnungszeiten
-          </h3>
+          </h2>
           <div className="text-sm text-[var(--color-text-secondary)] space-y-2">
             <p>Montag - Freitag: 9:00 - 18:00 Uhr</p>
             <p>Samstag: 10:00 - 14:00 Uhr</p>

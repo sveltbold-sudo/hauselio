@@ -202,7 +202,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:underline transition-colors"
               onClick={(e) => {
                 e.preventDefault();
-                document.querySelector('[aria-label="Kundenbewertungen"]')?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("kundenbewertungen")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               {product.reviewCount} Bewertungen
@@ -270,6 +270,8 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               onClick={handleAddToCart}
               className={`flex-1 transition-colors duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
               size="lg"
+              aria-live="polite"
+              aria-atomic="true"
             >
               {added ? (
                 <>

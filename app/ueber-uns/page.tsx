@@ -17,11 +17,13 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Über HAUSAURA",
     description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte.",
+    images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
 };
 
