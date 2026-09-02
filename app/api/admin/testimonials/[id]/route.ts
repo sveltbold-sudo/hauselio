@@ -38,6 +38,9 @@ export async function PUT(
       data: parsed.data,
     });
 
+    const admin = await requireAdmin();
+    logger.info("testimonial-updated", `Testimonial updated: ${testimonial.name} by ${admin.email}`);
+
     return NextResponse.json({ testimonial });
   } catch (error) {
     return handleApiError(error);
@@ -63,6 +66,9 @@ export async function DELETE(
     }
 
     await prisma.testimonial.delete({ where: { id } });
+
+    const admin = await requireAdmin();
+    logger.info("testimonial-deleted", `Testimonial deleted: ${existing.name} by ${admin.email}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {
