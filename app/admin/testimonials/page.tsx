@@ -34,6 +34,7 @@ export default function TestimonialsPage() {
   const [form, setForm] = useState({ name: "", location: "", rating: 5, content: "", product: "", avatar: "", isApproved: false, isFeatured: false });
   const [submitting, setSubmitting] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [totalPendingCount, setTotalPendingCount] = useState(0);
   const [, startTransition] = useTransition();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -58,6 +59,7 @@ export default function TestimonialsPage() {
         startTransition(() => {
           setTestimonials(data.testimonials || []);
           if (data.pagination) setPagination(data.pagination);
+          if (data.pendingCount !== undefined) setTotalPendingCount(data.pendingCount);
         });
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
@@ -144,7 +146,7 @@ export default function TestimonialsPage() {
     }
   };
 
-  const pendingCount = testimonials.filter((t) => !t.isApproved).length;
+  const pendingCount = totalPendingCount;
 
   return (
     <div>

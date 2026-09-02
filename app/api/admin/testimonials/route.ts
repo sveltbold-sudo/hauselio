@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
         ? { isApproved: false }
         : {};
 
-    const [testimonials, total] = await Promise.all([
+    const [testimonials, total, pendingCount] = await Promise.all([
       prisma.testimonial.findMany({
         where,
         orderBy: { createdAt: "desc" },
@@ -33,11 +33,13 @@ export async function GET(request: NextRequest) {
         take: limit,
       }),
       prisma.testimonial.count({ where }),
+      prisma.testimonial.count({ where: { isApproved: false } }),
     ]);
 
     return NextResponse.json({
       testimonials,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+      pendingCount,
     });
   } catch (error) {
     return handleApiError(error);

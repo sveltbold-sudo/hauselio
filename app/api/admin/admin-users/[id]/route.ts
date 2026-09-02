@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/auth";
+import { requireRole, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateAdminSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { hashPassword } from "@/lib/auth";
 import { logger } from "@/lib/logger";
 
 export async function PUT(
@@ -20,7 +19,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    await requireRole("ADMIN");
     const { id } = await params;
     const body = await request.json();
     const parsed = UpdateAdminSchema.safeParse(body);
@@ -86,7 +85,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    const currentUser = await requireAdmin();
+    const currentUser = await requireRole("ADMIN");
     const { id } = await params;
 
     if (currentUser.id === id) {

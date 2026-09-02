@@ -26,7 +26,6 @@ export default function AdminUsersPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ email: "", password: "", name: "", role: "ADMIN" });
   const [submitting, setSubmitting] = useState(false);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; email: string } | null>(null);
   const [, startTransition] = useTransition();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -57,6 +56,10 @@ export default function AdminUsersPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (editingId && form.password && form.password.length < 8) {
+      toast.error("Passwort muss mindestens 8 Zeichen lang sein");
+      return;
+    }
     setSubmitting(true);
     try {
       const payload: Record<string, unknown> = {
