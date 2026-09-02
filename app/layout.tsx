@@ -8,6 +8,7 @@ import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import ClientProviders from "@/components/ui/ClientProviders";
+import GtmNoscript from "@/components/analytics/GtmNoscript";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -96,6 +97,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
+        <GtmNoscript />
         <OrganizationJsonLd />
         <WebSiteJsonLd />
         <a
