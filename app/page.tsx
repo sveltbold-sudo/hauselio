@@ -88,36 +88,35 @@ async function getCategories() {
 
 async function getHeroSlides() {
   try {
-    const tm7 = await prisma.product.findUnique({
-      where: { slug: "thermomix-tm7" },
+    const thermomixBrand = await prisma.brand.findFirst({
+      where: { name: { contains: "Thermomix", mode: "insensitive" } },
+    });
+
+    if (!thermomixBrand) return [];
+
+    const products = await prisma.product.findMany({
+      where: { brandId: thermomixBrand.id },
       include: {
         brand: true,
         images: { take: 1, orderBy: { position: "asc" } },
       },
+      orderBy: [
+        { isFeatured: "desc" },
+        { reviewCount: "desc" },
+      ],
+      take: 5,
     });
-
-    const others = await prisma.product.findMany({
-      where: { isFeatured: true, slug: { not: "thermomix-tm7" } },
-      include: {
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
-      },
-      orderBy: { reviewCount: "desc" },
-      take: 2,
-    });
-
-    const products = [tm7, ...others].filter(Boolean);
 
     return products.map((p) => ({
-      id: p!.id,
-      name: p!.name,
-      slug: p!.slug,
-      brand: p!.brand?.name || "",
-      price: Number(p!.price),
-      originalPrice: p!.originalPrice ? Number(p!.originalPrice) : null,
-      tagline: p!.isNew ? "Neuheit" : p!.isPromo ? "Angebot" : "Premium Qualität",
-      subtitle: p!.description?.slice(0, 120) || `${p!.name} bei HAUSAURA entdecken.`,
-      image: p!.images[0]?.url || "/images/placeholder-product.svg",
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      brand: p.brand?.name || "",
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      tagline: p.isNew ? "Neuheit" : p.isPromo ? "Angebot" : "Premium Qualität",
+      subtitle: p.description?.slice(0, 120) || `${p.name} bei HAUSAURA entdecken.`,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
       cta: "Jetzt ansehen",
     }));
   } catch (error) {
