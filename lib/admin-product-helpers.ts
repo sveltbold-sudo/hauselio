@@ -16,6 +16,7 @@ export function serializeProductBody(data: FormData) {
     brandId: data.brandId || undefined,
     isNew: data.isNew,
     isFeatured: data.isFeatured,
+    isPromo: data.isPromo,
     weight: data.weight ? Number(data.weight) || undefined : undefined,
     features: data.features,
     specs: data.specs,

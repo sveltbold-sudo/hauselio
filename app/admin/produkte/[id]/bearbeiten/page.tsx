@@ -31,6 +31,7 @@ interface Product {
   brandId: string | null;
   isNew: boolean;
   isFeatured: boolean;
+  isPromo: boolean;
   weight: number | null;
   features: string[];
   seoTitle: string | null;
@@ -83,6 +84,7 @@ export default function EditProductPage({
           brandId: p.brandId || "",
           isNew: p.isNew,
           isFeatured: p.isFeatured,
+          isPromo: p.isPromo,
           weight: p.weight ? String(p.weight) : "",
           imageUrl: p.images[0]?.url || "",
           features: p.features || [],
@@ -139,6 +141,7 @@ export default function EditProductPage({
     brandId: string;
     isNew: boolean;
     isFeatured: boolean;
+    isPromo: boolean;
     weight: string;
     imageUrl: string;
     features: string[];
