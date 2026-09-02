@@ -25,8 +25,6 @@ export default function AdminLayoutClient({
 
   useEffect(() => {
     if (!isLoginPage && !admin) {
-      // Guard against redirect loops: if we just redirected to login
-      // and still have no admin, don't keep redirecting
       const lastRedirect = sessionStorage.getItem("admin-redirect-ts");
       const now = Date.now();
       if (lastRedirect && now - parseInt(lastRedirect, 10) < 2000) {
@@ -34,6 +32,8 @@ export default function AdminLayoutClient({
       }
       sessionStorage.setItem("admin-redirect-ts", String(now));
       router.replace("/admin/login");
+    } else if (admin) {
+      sessionStorage.removeItem("admin-redirect-ts");
     }
   }, [admin, router, isLoginPage]);
 

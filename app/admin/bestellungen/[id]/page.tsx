@@ -140,7 +140,7 @@ export default async function AdminOrderDetailPage({
               <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
                 Kundennotizen
               </h2>
-              <p className="text-sm text-[var(--color-text-secondary)]">
+              <p className="text-sm text-[var(--color-text-secondary)] whitespace-pre-wrap">
                 {order.customerNotes}
               </p>
             </div>

@@ -10,7 +10,6 @@ import type { Category, Brand, ProductFormData } from "@/lib/admin-product-types
 import { emptyFormData } from "@/lib/admin-product-types";
 
 export type { ProductFormData, Category, Brand };
-export { emptyFormData };
 
 interface ProductFormProps {
   title: string;
@@ -50,6 +49,7 @@ export default function ProductForm({
   const [showSavedHint, setShowSavedHint] = useState(false);
   const isDirty = useRef(false);
   const initialDataRef = useRef(initialData);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -172,7 +172,7 @@ export default function ProductForm({
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "s") {
         e.preventDefault();
-        document.querySelector<HTMLFormElement>("form")?.requestSubmit();
+        formRef.current?.requestSubmit();
       }
     };
     window.addEventListener("keydown", handler);
@@ -209,7 +209,7 @@ export default function ProductForm({
         </h1>
       </div>
 
-      <form onSubmit={handleSubmit} aria-label="Produkt bearbeiten">
+      <form ref={formRef} onSubmit={handleSubmit} aria-label="Produkt bearbeiten">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">

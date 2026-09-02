@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/Toast";
 import { VALID_ORDER_TRANSITIONS, ORDER_STATUS_LABELS } from "@/lib/admin-constants";
@@ -18,6 +18,10 @@ export default function UpdateOrderStatus({
   const [isUpdating, setIsUpdating] = useState(false);
   const router = useRouter();
   const toast = useToast();
+
+  useEffect(() => {
+    setStatus(currentStatus);
+  }, [currentStatus]);
 
   const allowedStatuses = VALID_ORDER_TRANSITIONS[currentStatus] ?? [];
 

@@ -23,10 +23,16 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
     setLoading(true);
     try {
       const uniqueIds = [...new Set(selectedIds)];
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      const validIds = uniqueIds.filter((id) => uuidRegex.test(id));
+      if (validIds.length === 0) {
+        toast.error("Keine gültigen Produkt-IDs ausgewählt.");
+        return;
+      }
       const res = await fetch("/api/admin/produkte/bulk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", ids: uniqueIds }),
+        body: JSON.stringify({ action: "delete", ids: validIds }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
