@@ -73,7 +73,7 @@ export default function CustomerDetailPage({
       <div className="p-8 text-center">
         <p className="text-[var(--color-danger)] mb-4" role="alert">Kunde nicht gefunden.</p>
         <Link href="/admin/kunden" className="text-sm text-[var(--color-primary)] hover:underline">
-          Zurueck zur Kundenuebersicht
+          Zurück zur Kundenübersicht
         </Link>
       </div>
     );
@@ -84,7 +84,7 @@ export default function CustomerDetailPage({
       <div className="flex items-center gap-4 mb-6">
         <Link
           href="/admin/kunden"
-          aria-label="Zurueck"
+          aria-label="Zurück"
           className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
