@@ -9,6 +9,7 @@ export interface ProductFormData {
   brandId: string;
   isNew: boolean;
   isFeatured: boolean;
+  isPromo: boolean;
   weight: string;
   imageUrl: string;
   features: string[];
@@ -41,6 +42,7 @@ export const emptyFormData: ProductFormData = {
   brandId: "",
   isNew: false,
   isFeatured: false,
+  isPromo: false,
   weight: "",
   imageUrl: "",
   features: [],

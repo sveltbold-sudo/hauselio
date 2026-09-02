@@ -20,6 +20,7 @@ import {
   Ticket,
   MessageSquareQuote,
   Shield,
+  Bookmark,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -35,6 +36,7 @@ const navigation = [
   { name: "Bewertungen", href: "/admin/bewertungen", icon: Star },
   { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
   { name: "Kategorien", href: "/admin/kategorien", icon: Tag },
+  { name: "Marken", href: "/admin/marken", icon: Bookmark },
   { name: "Gutscheine", href: "/admin/coupons", icon: Ticket },
   { name: "Newsletter", href: "/admin/newsletter", icon: Mail },
   { name: "Statistiken", href: "/admin/statistiken", icon: BarChart3 },

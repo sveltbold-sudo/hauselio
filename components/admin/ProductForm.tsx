@@ -528,6 +528,22 @@ export default function ProductForm({
                       Empfohlen
                     </span>
                   </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={formData.isPromo}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          isPromo: e.target.checked,
+                        }))
+                      }
+                      className="rounded border-[var(--color-border)] text-[var(--color-accent)] focus:ring-[var(--color-primary)]"
+                    />
+                    <span className="text-sm text-[var(--color-text-secondary)]">
+                      Aktion
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>

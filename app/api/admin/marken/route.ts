@@ -4,6 +4,7 @@ import { requireAdmin } from "@/lib/auth";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     const brands = await prisma.brand.findMany({
       orderBy: { name: "asc" },
-      select: { id: true, name: true, slug: true },
+      select: { id: true, name: true, slug: true, _count: { select: { products: true } } },
     });
     return NextResponse.json({ brands });
   } catch (error) {
@@ -76,6 +77,9 @@ export async function POST(request: NextRequest) {
       data: { name: name.trim(), slug },
       select: { id: true, name: true, slug: true },
     });
+
+    const admin = await requireAdmin();
+    logger.info("brand-created", `Brand created: ${brand.name} by ${admin.email}`);
 
     return NextResponse.json(brand, { status: 201 });
   } catch (error) {

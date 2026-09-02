@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function PUT(
   request: NextRequest,
@@ -57,6 +58,9 @@ export async function PUT(
       select: { id: true, name: true, slug: true },
     });
 
+    const admin = await requireAdmin();
+    logger.info("brand-updated", `Brand updated: ${brand.name} by ${admin.email}`);
+
     return NextResponse.json(brand);
   } catch (error) {
     return handleApiError(error);
@@ -96,6 +100,9 @@ export async function DELETE(
     }
 
     await prisma.brand.delete({ where: { id } });
+
+    const admin = await requireAdmin();
+    logger.info("brand-deleted", `Brand deleted: ${brand.name} by ${admin.email}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

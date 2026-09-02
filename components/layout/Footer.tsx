@@ -11,17 +11,17 @@ const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-s
 const service = [
   { name: "Kontakt", href: "/kontakt" },
   { name: "Über uns", href: "/ueber-uns" },
-  { name: "Hilfe & FAQ", href: "/kontakt#faq" },
+  { name: "Hilfe & FAQ", href: "/hilfe" },
   { name: "Wunschliste", href: "/wunschliste" },
   { name: "Garantie", href: "/garantie" },
-  { name: "Versandinformationen", href: "/versand" },
+  { name: "Versandinformationen", href: "/versandinformationen" },
 ];
 
 const legal = [
   { name: "Impressum", href: "/impressum" },
   { name: "Datenschutz", href: "/datenschutz" },
   { name: "AGB", href: "/agb" },
-  { name: "Widerrufsrecht", href: "/widerruf" },
+  { name: "Widerrufsrecht", href: "/widerrufsrecht" },
   { name: "Barrierefreiheit", href: "/barrierefreiheit" },
 ];
 
