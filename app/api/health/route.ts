@@ -1,17 +1,23 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const ip = getClientIp(request);
+  const allowed = await checkRateLimit(`health:${ip}`, 30, 60_000);
+  if (!allowed) {
+    return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429 });
+  }
+
   try {
     await prisma.$queryRaw`SELECT 1`;
-    const count = await prisma.product.count();
     return NextResponse.json({
       status: "ok",
       timestamp: new Date().toISOString(),
       database: "ok",
-      productCount: count,
     });
   } catch {
     return NextResponse.json(
