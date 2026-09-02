@@ -18,6 +18,14 @@ vi.mock("@/lib/algolia-sync", () => ({
   deleteProductFromAlgolia: vi.fn().mockResolvedValue(undefined),
 }));
 
+vi.mock("@/lib/api-helpers", () => ({
+  handleApiError: vi.fn().mockReturnValue(
+    new Response(JSON.stringify({ error: "Internal error" }), { status: 500 })
+  ),
+  validateCsrfOrigin: vi.fn().mockReturnValue(true),
+  validateContentType: vi.fn().mockReturnValue(null),
+}));
+
 const mockPrisma = {
   product: {
     findMany: vi.fn().mockResolvedValue([]),

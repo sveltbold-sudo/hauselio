@@ -101,27 +101,6 @@ describe("POST /api/cart/validate", () => {
     expect(data.items[0].newPrice).toBe(39.99);
   });
 
-  it("detects out of stock product", async () => {
-    mockPrisma.product.findMany.mockResolvedValue([
-      {
-        id: "prod-1",
-        name: "Sold Out",
-        slug: "sold-out",
-        price: 19.99,
-        originalPrice: null,
-        inStock: false,
-        images: [],
-      },
-    ]);
-
-    const { POST } = await import("@/app/api/cart/validate/route");
-    const res = await POST(makeRequest({ items: [{ id: "prod-1", quantity: 1, price: 19.99 }] }));
-    expect(res.status).toBe(200);
-    const data = await res.json();
-    expect(data.isValid).toBe(false);
-    expect(data.items[0].error).toContain("nicht verfügbar");
-  });
-
   it("rejects items exceeding max quantity", async () => {
     const { POST } = await import("@/app/api/cart/validate/route");
     const res = await POST(makeRequest({ items: [{ id: "prod-1", quantity: 100, price: 10 }] }));

@@ -76,6 +76,14 @@ vi.mock("@/lib/auth", () => ({
   requireRole: vi.fn().mockResolvedValue({ id: "1", email: "admin@test.de", role: "ADMIN" }),
 }));
 
+vi.mock("@/lib/api-helpers", () => ({
+  handleApiError: vi.fn().mockReturnValue(
+    new Response(JSON.stringify({ error: "Internal error" }), { status: 500 })
+  ),
+  validateCsrfOrigin: vi.fn().mockReturnValue(true),
+  validateContentType: vi.fn().mockReturnValue(null),
+}));
+
 import { NextRequest } from "next/server";
 
 type NextReqInit = ConstructorParameters<typeof NextRequest>[1];
@@ -217,7 +225,9 @@ describe("DELETE /api/admin/kategorien/[id]", () => {
     mockPrisma.category.delete.mockResolvedValue({});
 
     const { DELETE } = await import("@/app/api/admin/kategorien/[id]/route");
-    const req = makeRequest("http://localhost:3000/api/admin/kategorien/cat-1", { method: "DELETE" });
+    const req = makeRequest("http://localhost:3000/api/admin/kategorien/cat-1", {
+      method: "DELETE",
+    });
     const res = await DELETE(req, { params: Promise.resolve({ id: "cat-1" }) });
     expect(res.status).toBe(200);
   });
