@@ -251,12 +251,13 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         ))}
 
         {/* Dots */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              aria-current={i === current ? "true" : undefined}
+              role="tab"
+              aria-selected={i === current}
               aria-label={`Folie ${i + 1}`}
               className="flex items-center justify-center min-w-[44px] h-[44px]"
             >
@@ -402,12 +403,13 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              aria-current={i === current ? "true" : undefined}
+              role="tab"
+              aria-selected={i === current}
               aria-label={`Folie ${i + 1}`}
               className="flex items-center justify-center min-w-[44px] h-[44px]"
             >

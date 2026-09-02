@@ -98,7 +98,9 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       <div
         className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
         onClick={(e) => e.stopPropagation()}
+        role="group"
         aria-live="polite"
+        aria-atomic="true"
         onTouchStart={(e) => {
           if (e.touches.length === 2) {
             const dx = e.touches[0]!.clientX - e.touches[1]!.clientX;
