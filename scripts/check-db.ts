@@ -3,28 +3,34 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Check what brand cmte97uje0009uqxgn2zq050z is
-  const brand = await prisma.brand.findUnique({ 
-    where: { id: "cmte97uje0009uqxgn2zq050z" },
-    select: { id: true, name: true, slug: true }
+  // Check all categories
+  const cats = await prisma.category.findMany({ 
+    select: { id: true, name: true, slug: true, parentId: true },
+    orderBy: { sortOrder: "asc" }
   });
-  console.log("TM7/TM6 brand:", brand);
+  console.log("All categories:");
+  for (const c of cats) {
+    console.log(`  ${c.slug} — ${c.name} (parent: ${c.parentId || "none"})`);
+  }
   
-  // Get all brands
-  const allBrands = await prisma.brand.findMany({ select: { id: true, name: true, slug: true } });
-  console.log("All brands:", JSON.stringify(allBrands, null, 2));
+  // Check if Thermomix is a subcategory
+  const thermoCat = cats.find(c => c.slug === "thermomix" || c.name.toLowerCase().includes("thermomix"));
+  console.log("\nThermomix category:", thermoCat);
   
-  // Get existing Thermomix product details
-  const tm7 = await prisma.product.findUnique({ 
-    where: { slug: "thermomix-tm7" },
-    select: { slug: true, name: true, price: true, originalPrice: true, categoryId: true }
+  // Check products with subCategory = "Thermomix"
+  const thermoProducts = await prisma.product.findMany({
+    where: { subCategory: "Thermomix" },
+    select: { slug: true, name: true, subCategory: true }
   });
-  const tm6 = await prisma.product.findUnique({ 
-    where: { slug: "thermomix-tm6" },
-    select: { slug: true, name: true, price: true, originalPrice: true, categoryId: true }
+  console.log("\nProducts with subCategory='Thermomix':", thermoProducts.length);
+  
+  // Check all distinct subCategories
+  const subCats = await prisma.product.findMany({
+    distinct: ["subCategory"],
+    select: { subCategory: true },
+    where: { subCategory: { not: null } }
   });
-  console.log("TM7:", tm7);
-  console.log("TM6:", tm6);
+  console.log("\nDistinct subCategories:", subCats.map(s => s.subCategory));
 }
 
 main()

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateCouponSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function PUT(
   request: NextRequest,
@@ -46,6 +47,9 @@ export async function PUT(
       data: { code: code.toUpperCase(), ...data },
     });
 
+    const admin = await requireAdmin();
+    logger.info("coupon-updated", `Coupon updated: ${coupon.code} by ${admin.email}`);
+
     return NextResponse.json({ coupon });
   } catch (error) {
     return handleApiError(error);
@@ -71,6 +75,9 @@ export async function DELETE(
     }
 
     await prisma.coupon.delete({ where: { id } });
+
+    const admin = await requireAdmin();
+    logger.info("coupon-deleted", `Coupon deleted: ${coupon.code} by ${admin.email}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -15,7 +15,6 @@ function download(url: string, dest: string): Promise<void> {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
           "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
-          "Referer": "https://www.amazon.de/",
         },
       }, (res) => {
         if (res.statusCode === 301 || res.statusCode === 302) {
@@ -45,18 +44,10 @@ async function generateVariants(dir: string, base: string, ext: string) {
   }
 }
 
-// Real product images from Amazon CDN and thermomix.com
+// StickPNG images
 const downloads = [
-  // Varoma from Amazon.de
-  { slug: "thermomix-varoma-komplett", url: "https://m.media-amazon.com/images/I/61sSApmU1kL._SX1200_.jpg", file: "1.jpg" },
-  // Mixtopf TM6 from thermomix.com
-  { slug: "thermomix-mixtopf-tm6", url: "https://www.thermomix.com/cdn/shop/files/TM6mixingbowl.jpg?v=1695404215&width=1080", file: "1.jpg" },
-  // Spatel TM6 from thermomix.com
-  { slug: "thermomix-spatel-tm6", url: "https://www.thermomix.com/cdn/shop/files/TM6spatula.jpg?v=1695404215&width=1080", file: "1.jpg" },
-  // TM21 from Amazon.it
-  { slug: "thermomix-tm21", url: "https://m.media-amazon.com/images/I/61S-ZjJ8qlL._SX1200_.jpg", file: "1.jpg" },
-  // TM31 Komplett-Set - reuse TM31 image
-  { slug: "thermomix-tm31-komplett-set", url: "https://m.media-amazon.com/images/I/61S-ZjJ8qlL._SX1200_.jpg", file: "1.jpg" },
+  { slug: "thermomix-mixtopf-tm6", url: "https://assets.stickpng.com/images/5b474a61c051e602a568cd41.png", file: "1.png" },
+  { slug: "thermomix-spatel-tm6", url: "https://assets.stickpng.com/images/5b474a67c051e602a568cd42.png", file: "1.png" },
 ];
 
 async function main() {
@@ -73,7 +64,7 @@ async function main() {
       await download(d.url, dest);
       const size = fs.statSync(dest).size;
       console.log(`  ✅ ${size} bytes`);
-      await generateVariants(dir, d.file.replace(/\.[^.]+$/, ""), ".jpg");
+      await generateVariants(dir, d.file.replace(/\.[^.]+$/, ""), ".png");
     } catch (e) {
       console.log(`  ❌ ${e}`);
     }

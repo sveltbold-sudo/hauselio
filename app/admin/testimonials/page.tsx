@@ -237,7 +237,8 @@ export default function TestimonialsPage() {
               </div>
               <div>
                 <label htmlFor="t-content" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Inhalt *</label>
-                <textarea id="t-content" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" rows={3} required />
+                <textarea id="t-content" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" rows={3} maxLength={2000} required />
+                <p className="mt-1 text-xs text-[var(--color-text-muted)] text-right">{form.content.length} / 2000</p>
               </div>
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2">

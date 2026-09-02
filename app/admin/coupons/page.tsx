@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useRef, useCallback } from "react";
-import { Plus, Pencil, Trash2, X, Ticket, Copy } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Ticket, Copy, Search } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
@@ -29,8 +29,10 @@ export default function CouponsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ code: "", discountPercent: 10, maxUses: 0, expiresAt: "", isActive: true });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   const [, startTransition] = useTransition();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -74,8 +76,23 @@ export default function CouponsPage() {
 
   useEffect(() => { loadCoupons(); }, [page]);
 
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+    if (!form.code.trim()) {
+      errors.code = "Code ist erforderlich";
+    } else if (!/^[A-Z0-9]+(-[A-Z0-9]+)*$/.test(form.code.toUpperCase())) {
+      errors.code = "Nur Großbuchstaben, Zahlen und Bindestriche";
+    }
+    if (form.discountPercent < 1 || form.discountPercent > 100) {
+      errors.discountPercent = "Rabatt muss zwischen 1% und 100% liegen";
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
     setSubmitting(true);
     try {
       const payload = {
@@ -134,9 +151,13 @@ export default function CouponsPage() {
     }
   };
 
-  const copyCode = (code: string) => {
-    navigator.clipboard.writeText(code);
-    toast.success("Code kopiert!");
+  const copyCode = async (code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      toast.success("Code kopiert!");
+    } catch {
+      toast.error("Kopieren fehlgeschlagen");
+    }
   };
 
   const now = new Date();
@@ -154,6 +175,18 @@ export default function CouponsPage() {
         >
           <Plus className="w-4 h-4" /> Neuer Gutschein
         </button>
+      </div>
+
+      {/* Search */}
+      <div className="relative mb-6">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+          placeholder="Gutscheincode suchen…"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+        />
       </div>
 
       {showForm && (
@@ -178,11 +211,12 @@ export default function CouponsPage() {
                   id="coupon-code"
                   type="text"
                   value={form.code}
-                  onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
+                  onChange={(e) => { setForm({ ...form, code: e.target.value.toUpperCase() }); setFormErrors((prev) => ({ ...prev, code: "" })); }}
                   placeholder="z.B. WILLKOMMEN10"
-                  className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm font-mono uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                  className={`w-full px-3 py-3 border rounded-xl text-sm font-mono uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${formErrors.code ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
                   required
                 />
+                {formErrors.code && <p className="mt-1 text-xs text-[var(--color-danger)]">{formErrors.code}</p>}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -193,10 +227,11 @@ export default function CouponsPage() {
                     min={1}
                     max={100}
                     value={form.discountPercent}
-                    onChange={(e) => setForm({ ...form, discountPercent: parseInt(e.target.value) || 10 })}
-                    className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                    onChange={(e) => { setForm({ ...form, discountPercent: parseInt(e.target.value) || 10 }); setFormErrors((prev) => ({ ...prev, discountPercent: "" })); }}
+                    className={`w-full px-3 py-3 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${formErrors.discountPercent ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
                     required
                   />
+                  {formErrors.discountPercent && <p className="mt-1 text-xs text-[var(--color-danger)]">{formErrors.discountPercent}</p>}
                 </div>
                 <div>
                   <label htmlFor="coupon-max" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Max. Nutzungen</label>
@@ -264,7 +299,9 @@ export default function CouponsPage() {
               <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">Gutscheine konnten nicht geladen werden.</td></tr>
             ) : coupons.length === 0 ? (
               <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Gutscheine gefunden.</td></tr>
-            ) : coupons.map((coupon) => {
+            ) : coupons.filter((c) => !search || c.code.toLowerCase().includes(search.toLowerCase())).length === 0 ? (
+              <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Gutscheine für &bdquo;{search}&ldquo; gefunden.</td></tr>
+            ) : coupons.filter((c) => !search || c.code.toLowerCase().includes(search.toLowerCase())).map((coupon) => {
               const isExpired = coupon.expiresAt && new Date(coupon.expiresAt) < now;
               const isMaxed = coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses;
               return (

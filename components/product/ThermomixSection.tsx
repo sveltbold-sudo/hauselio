@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/product/ProductCard";
 
-const THERMOMIX_SLUGS = ["thermomix-tm7", "thermomix-tm6", "vorwerk-thermomix-tm5"];
+const THERMOMIX_SLUGS = ["thermomix-tm7", "thermomix-tm6", "vorwerk-thermomix-tm5", "thermomix-friend-complete", "thermomix-sensor", "thermomix-tm31"];
 
 async function getThermomixProducts() {
   try {
@@ -58,11 +58,8 @@ export default async function ThermomixSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {products.map((product, i) => (
-            <div
-              key={product.id}
-              className={i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}
-            >
+          {products.map((product) => (
+            <div key={product.id}>
               <ProductCard product={product} />
             </div>
           ))}

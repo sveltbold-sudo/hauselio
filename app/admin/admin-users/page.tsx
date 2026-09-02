@@ -125,7 +125,9 @@ export default function AdminUsersPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Admin-Benutzer</h1>
-          <p className="text-[var(--color-text-secondary)] mt-1">{admins.length} Benutzer</p>
+          <p className="text-[var(--color-text-secondary)] mt-1">
+            {loadError ? "Daten konnten nicht geladen werden" : `${admins.length} Benutzer`}
+          </p>
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ email: "", password: "", name: "", role: "ADMIN" }); }}

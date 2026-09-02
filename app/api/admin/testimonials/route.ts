@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateTestimonialSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -65,6 +66,9 @@ export async function POST(request: NextRequest) {
     }
 
     const testimonial = await prisma.testimonial.create({ data: parsed.data });
+
+    const admin = await requireAdmin();
+    logger.info("testimonial-created", `Testimonial created by ${admin.email}: ${testimonial.name}`);
 
     return NextResponse.json({ testimonial }, { status: 201 });
   } catch (error) {

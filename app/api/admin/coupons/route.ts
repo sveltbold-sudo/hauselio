@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateCouponSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -64,6 +65,9 @@ export async function POST(request: NextRequest) {
     const coupon = await prisma.coupon.create({
       data: { code: code.toUpperCase(), ...data },
     });
+
+    const admin = await requireAdmin();
+    logger.info("coupon-created", `Coupon created: ${coupon.code} (${coupon.discountPercent}%) by ${admin.email}`);
 
     return NextResponse.json({ coupon }, { status: 201 });
   } catch (error) {
