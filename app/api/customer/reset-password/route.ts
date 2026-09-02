@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { SignJWT } from "jose";
 import { prisma } from "@/lib/prisma";
 import { ForgotPasswordSchema } from "@/lib/validations";
-import { getJWTSecret } from "@/lib/auth";
+import { getCustomerJWTSecret } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { sendPasswordResetEmail } from "@/lib/emails";
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
         .setIssuer("HAUSAURA-customer-reset")
         .setAudience("HAUSAURA-customer-reset")
         .setExpirationTime(RESET_TOKEN_EXPIRY)
-        .sign(getJWTSecret());
+        .sign(getCustomerJWTSecret());
 
       await sendPasswordResetEmail(customer.email, customer.name, token).catch(
         (err) => logger.error("send-reset-email", err)

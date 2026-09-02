@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const body = await request.json();
     const parsed = CreateCouponSchema.safeParse(body);
 
@@ -74,7 +74,6 @@ export async function POST(request: NextRequest) {
       data: { code: code.toUpperCase(), ...data },
     });
 
-    const admin = await requireAdmin();
     logger.info("coupon-created", `Coupon created: ${coupon.code} (${coupon.discountPercent}%) by ${admin.email}`);
 
     return NextResponse.json({ coupon }, { status: 201 });

@@ -26,7 +26,7 @@ export async function PUT(
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
     const parsed = CreateBrandSchema.safeParse(body);
@@ -63,7 +63,7 @@ export async function PUT(
     });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("brand-updated", `Brand updated: ${brand.name} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("brand-update-audit-failed", auditErr);
@@ -88,7 +88,7 @@ export async function DELETE(
       );
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
 
     if (!validateCsrfOrigin(_request)) {
@@ -114,7 +114,7 @@ export async function DELETE(
     await prisma.brand.delete({ where: { id } });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("brand-deleted", `Brand deleted: ${brand.name} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("brand-delete-audit-failed", auditErr);

@@ -414,6 +414,7 @@ export interface CustomerPayload {
   id: string;
   email: string;
   name: string;
+  lastLoginAt?: number;
 }
 
 export async function generateCustomerToken(payload: CustomerPayload): Promise<string> {
@@ -439,6 +440,7 @@ export async function verifyCustomerToken(token: string): Promise<CustomerPayloa
         id: p.id as string,
         email: p.email as string,
         name: p.name as string,
+        lastLoginAt: typeof p.lastLoginAt === "number" ? p.lastLoginAt : undefined,
       };
     }
     return null;
@@ -452,7 +454,24 @@ export async function getCustomerFromRequest(): Promise<CustomerPayload | null> 
   const token = cookieStore.get(CUSTOMER_COOKIE)?.value;
   if (!token) return null;
   if (await isTokenRevoked(token)) return null;
-  return verifyCustomerToken(token);
+  const payload = await verifyCustomerToken(token);
+  if (!payload) return null;
+
+  // Token rotation: reject tokens issued before the last login
+  if (payload.lastLoginAt) {
+    const customer = await prisma.customer.findUnique({
+      where: { id: payload.id },
+      select: { lastLogin: true },
+    });
+    if (customer?.lastLogin) {
+      const lastLoginSec = Math.floor(customer.lastLogin.getTime() / 1000);
+      if (payload.lastLoginAt < lastLoginSec) {
+        return null;
+      }
+    }
+  }
+
+  return payload;
 }
 
 export async function requireCustomer(): Promise<CustomerPayload> {
@@ -549,9 +568,15 @@ export async function authenticateCustomer(
   const hashToCheck = customer?.password || DUMMY_HASH;
   const valid = await verifyPassword(password, hashToCheck);
   if (!valid || !customer) return null;
+  const loginTime = new Date();
   await prisma.customer.update({
     where: { id: customer.id },
-    data: { lastLogin: new Date() },
+    data: { lastLogin: loginTime },
   });
-  return { id: customer.id, email: customer.email, name: customer.name };
+  return {
+    id: customer.id,
+    email: customer.email,
+    name: customer.name,
+    lastLoginAt: Math.floor(loginTime.getTime() / 1000),
+  };
 }

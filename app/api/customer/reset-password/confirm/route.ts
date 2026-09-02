@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { prisma } from "@/lib/prisma";
 import { ResetPasswordSchema } from "@/lib/validations";
-import { getJWTSecret, hashPassword } from "@/lib/auth";
+import { getCustomerJWTSecret, hashPassword } from "@/lib/auth";
 import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     let payload;
     try {
-      const result = await jwtVerify(token, getJWTSecret(), {
+      const result = await jwtVerify(token, getCustomerJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-customer-reset",
         audience: "HAUSAURA-customer-reset",
@@ -89,6 +89,7 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         failedAttempts: 0,
         lockedUntil: null,
+        lastLogin: new Date(),
       },
     });
 

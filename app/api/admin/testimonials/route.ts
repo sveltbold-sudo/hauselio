@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const body = await request.json();
     const parsed = CreateTestimonialSchema.safeParse(body);
 
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 
     const testimonial = await prisma.testimonial.create({ data: parsed.data });
 
-    const admin = await requireAdmin();
+    // admin already captured
     logger.info("testimonial-created", `Testimonial created by ${admin.email}: ${testimonial.name}`);
 
     return NextResponse.json({ testimonial }, { status: 201 });

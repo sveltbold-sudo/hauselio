@@ -293,6 +293,18 @@ export default async function HomePage() {
 
   return (
     <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "HAUSAURA", item: SITE_URL },
+            ],
+          }),
+        }}
+      />
       <h1 className="heading-1 container-hausaura pt-8 pb-2 text-[var(--color-text-primary)]">
         HAUSAURA — Moderne Haushaltsgeräte
       </h1>

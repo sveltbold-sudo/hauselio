@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
 
     const body = await request.json();
     const parsed = CreateBrandSchema.safeParse(body);
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       select: { id: true, name: true, slug: true },
     });
 
-    const admin = await requireAdmin();
+    // admin already captured
     logger.info("brand-created", `Brand created: ${brand.name} by ${admin.email}`);
 
     return NextResponse.json(brand, { status: 201 });

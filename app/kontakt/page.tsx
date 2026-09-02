@@ -69,10 +69,20 @@ export default async function KontaktPage() {
 
   const faqJsonLd = buildFaqJsonLd();
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "HAUSAURA", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Kontakt", item: `${SITE_URL}/kontakt` },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <main id="main-content">
       <div className="container-hausaura py-6 sm:py-8">
         {/* Breadcrumb */}

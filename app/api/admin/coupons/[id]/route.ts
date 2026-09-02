@@ -23,7 +23,7 @@ export async function PUT(
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
     const parsed = CreateCouponSchema.safeParse(body);
@@ -52,7 +52,7 @@ export async function PUT(
     });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("coupon-updated", `Coupon updated: ${coupon.code} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("coupon-update-audit-failed", auditErr);
@@ -74,7 +74,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
 
     if (!validateCsrfOrigin(_request)) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
@@ -90,7 +90,7 @@ export async function DELETE(
     await prisma.coupon.delete({ where: { id } });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("coupon-deleted", `Coupon deleted: ${coupon.code} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("coupon-delete-audit-failed", auditErr);

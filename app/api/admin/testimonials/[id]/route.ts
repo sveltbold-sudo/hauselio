@@ -19,7 +19,7 @@ export async function PATCH(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
 
@@ -43,7 +43,7 @@ export async function PATCH(
       data: body,
     });
 
-    const admin = await requireAdmin();
+    // admin already captured
     logger.info("testimonial-patched", `Testimonial ${Object.keys(body).join(", ")} patched: ${testimonial.name} by ${admin.email}`);
 
     return NextResponse.json({ testimonial });
@@ -65,7 +65,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
     const parsed = CreateTestimonialSchema.safeParse(body);
@@ -85,7 +85,7 @@ export async function PUT(
     });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("testimonial-updated", `Testimonial updated: ${testimonial.name} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("testimonial-update-audit-failed", auditErr);
@@ -107,7 +107,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const { id } = await params;
 
     const existing = await prisma.testimonial.findUnique({ where: { id } });
@@ -118,7 +118,7 @@ export async function DELETE(
     await prisma.testimonial.delete({ where: { id } });
 
     try {
-      const admin = await requireAdmin();
+      // admin already captured
       logger.info("testimonial-deleted", `Testimonial deleted: ${existing.name} by ${admin.email}`);
     } catch (auditErr) {
       logger.error("testimonial-delete-audit-failed", auditErr);
