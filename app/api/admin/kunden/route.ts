@@ -61,13 +61,12 @@ export async function GET(request: NextRequest) {
       _count: true,
     });
 
-    const allAggregated = await prisma.order.groupBy({
-      by: ["customerEmail"],
-      where: search ? {} : undefined,
-      _sum: { total: true },
-    });
-    const totalRevenue = allAggregated.reduce((sum, c) => sum + Number(c._sum.total || 0), 0);
-    const totalCustomers = allAggregated.length;
+    const [statsResult, distinctResult] = await Promise.all([
+      prisma.$queryRaw<[{ total: string }]>`SELECT COALESCE(SUM("total"), 0) as "total" FROM "Order"`,
+      prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as "count" FROM "Order"`,
+    ]);
+    const totalRevenue = Number(statsResult[0]?.total || 0);
+    const totalCustomers = Number(distinctResult[0]?.count || 0);
 
     const customerEmails = aggregatedCustomers.map((c) => c.customerEmail);
     const latestOrders = await prisma.order.findMany({

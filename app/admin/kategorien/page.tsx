@@ -50,7 +50,7 @@ export default function KategorienPage() {
     }
   }, []);
 
-  const loadCategories = () => {
+  const loadCategories = useCallback(() => {
     fetch("/api/admin/kategorien")
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
@@ -59,7 +59,7 @@ export default function KategorienPage() {
       .then((data) => startTransition(() => setCategories(data.categories || [])))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setError("Kategorien konnten nicht geladen werden."); })
       .finally(() => setLoading(false));
-  };
+  }, [startTransition]);
 
   useEffect(() => {
     loadCategories();

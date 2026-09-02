@@ -7,8 +7,6 @@ import { useToast } from "@/components/ui/Toast";
 import { serializeProductBody } from "@/lib/admin-product-helpers";
 import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 
-export const dynamic = "force-dynamic";
-
 interface ProductSpec {
   key: string;
   value: string;

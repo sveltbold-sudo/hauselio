@@ -49,7 +49,7 @@ export default function MarkenPage() {
     }
   }, []);
 
-  const loadBrands = () => {
+  const loadBrands = useCallback(() => {
     fetch("/api/admin/marken")
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
@@ -58,7 +58,7 @@ export default function MarkenPage() {
       .then((data) => startTransition(() => setBrands(data.brands || [])))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
-  };
+  }, [startTransition]);
 
   useEffect(() => { loadBrands(); }, []);
 

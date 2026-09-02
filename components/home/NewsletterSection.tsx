@@ -51,7 +51,7 @@ export default function NewsletterSection() {
             </span>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto" aria-label="Newsletter-Anmeldung">
             <label htmlFor="newsletter-email" className="sr-only">
               E-Mail-Adresse
             </label>

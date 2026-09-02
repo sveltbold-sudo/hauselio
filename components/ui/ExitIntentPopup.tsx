@@ -144,7 +144,7 @@ export default function ExitIntentPopup() {
 
             {/* Email capture */}
             {!submitted ? (
-              <form onSubmit={handleEmailSubmit} className="mb-6">
+              <form onSubmit={handleEmailSubmit} className="mb-6" aria-label="Newsletter-Anmeldung für eksklusive Angebote">
                 <p className="text-xs text-[var(--color-text-muted)] mb-2">
                   Newsletter abonnieren für eksklusive Angebote:
                 </p>

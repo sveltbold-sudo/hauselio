@@ -60,7 +60,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
       <p className="text-xs text-[var(--color-text-muted)] mb-3">
         Tragen Sie Ihre E-Mail ein und erfahren Sie es als Erster, wenn dieses Produkt wieder da ist.
       </p>
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex gap-2" aria-label="Benachrichtigung bei Verfügbarkeit">
         <input
           type="email"
           value={email}

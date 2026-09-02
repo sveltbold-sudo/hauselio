@@ -8,8 +8,6 @@ import { serializeProductBody } from "@/lib/admin-product-helpers";
 import type { AdminCategory, AdminBrand } from "@/lib/admin-types";
 import { logger } from "@/lib/logger";
 
-export const dynamic = "force-dynamic";
-
 export default function NewProductPage() {
   const router = useRouter();
   const toast = useToast();
