@@ -14,14 +14,14 @@ const service = [
   { name: "Hilfe & FAQ", href: "/hilfe" },
   { name: "Wunschliste", href: "/wunschliste" },
   { name: "Garantie", href: "/garantie" },
-  { name: "Versandinformationen", href: "/versandinformationen" },
+  { name: "Versandinformationen", href: "/versand" },
 ];
 
 const legal = [
   { name: "Impressum", href: "/impressum" },
   { name: "Datenschutz", href: "/datenschutz" },
   { name: "AGB", href: "/agb" },
-  { name: "Widerrufsrecht", href: "/widerrufsrecht" },
+  { name: "Widerrufsrecht", href: "/widerruf" },
   { name: "Barrierefreiheit", href: "/barrierefreiheit" },
 ];
 
