@@ -118,12 +118,10 @@ export default function TestimonialsPage() {
 
   const handleToggle = async (id: string, field: "isApproved" | "isFeatured", value: boolean) => {
     try {
-      const t = testimonials.find((x) => x.id === id);
-      if (!t) return;
       const res = await fetch(`/api/admin/testimonials/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...t, location: t.location || null, product: t.product || null, avatar: t.avatar || null, [field]: value }),
+        body: JSON.stringify({ [field]: value }),
       });
       if (!res.ok) throw new Error("Fehler beim Aktualisieren");
       setTestimonials((prev) => prev.map((x) => (x.id === id ? { ...x, [field]: value } : x)));

@@ -29,7 +29,10 @@ async function fetchDashboardData() {
     prisma.product.count(),
     prisma.order.count({ where: { status: "PENDING_PAYMENT" } }),
     prisma.order.aggregate({ _sum: { total: true }, where: { status: { not: "CANCELLED" } } }),
-    prisma.order.groupBy({ by: ["customerEmail"] }).then((groups) => groups.length),
+    prisma.order.findMany({
+      distinct: ["customerEmail"],
+      select: { customerEmail: true },
+    }).then((rows) => rows.length),
     prisma.order.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },

@@ -31,15 +31,23 @@ interface Stats {
 export default function StatistikenPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [dateRange, setDateRange] = useState<DateRange>("all");
   const [, startTransition] = useTransition();
 
   const fetchStats = useCallback((range: DateRange) => {
     setLoading(true);
+    setError(null);
     fetch(`/api/admin/statistiken?range=${range}`)
-      .then((res) => res.json())
-      .then((data) => startTransition(() => setStats(data)))
-      .catch((err) => logger.error("Failed to load data", { error: err }))
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (data.error) throw new Error(data.error);
+        startTransition(() => setStats(data));
+      })
+      .catch((err) => { logger.error("Failed to load data", { error: err }); setError(err instanceof Error ? err.message : "Fehler beim Laden der Statistiken."); })
       .finally(() => setLoading(false));
   }, [startTransition]);
 
@@ -55,8 +63,13 @@ export default function StatistikenPage() {
     return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
   }
 
-  if (!stats) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]" role="alert">Fehler beim Laden der Statistiken.</div>;
+  if (error || !stats) {
+    return (
+      <div className="p-8 text-center">
+        <p className="text-[var(--color-danger)]" role="alert">{error || "Fehler beim Laden der Statistiken."}</p>
+        <button onClick={() => fetchStats(dateRange)} className="mt-4 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)]">Erneut versuchen</button>
+      </div>
+    );
   }
 
   return (

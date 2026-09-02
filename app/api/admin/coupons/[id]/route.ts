@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { CreateCouponSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -18,6 +18,10 @@ export async function PUT(
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
 
     await requireAdmin();
     const { id } = await params;
@@ -47,8 +51,12 @@ export async function PUT(
       data: { code: code.toUpperCase(), ...data },
     });
 
-    const admin = await requireAdmin();
-    logger.info("coupon-updated", `Coupon updated: ${coupon.code} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("coupon-updated", `Coupon updated: ${coupon.code} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("coupon-update-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ coupon });
   } catch (error) {
@@ -67,6 +75,11 @@ export async function DELETE(
     }
 
     await requireAdmin();
+
+    if (!validateCsrfOrigin(_request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     const { id } = await params;
 
     const coupon = await prisma.coupon.findUnique({ where: { id } });
@@ -76,8 +89,12 @@ export async function DELETE(
 
     await prisma.coupon.delete({ where: { id } });
 
-    const admin = await requireAdmin();
-    logger.info("coupon-deleted", `Coupon deleted: ${coupon.code} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("coupon-deleted", `Coupon deleted: ${coupon.code} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("coupon-delete-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

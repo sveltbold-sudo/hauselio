@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
@@ -19,6 +19,10 @@ export async function PUT(
   try {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
 
     await requireAdmin();
     const ip = getClientIp(request);
@@ -53,6 +57,11 @@ export async function DELETE(
 ) {
   try {
     await requireAdmin();
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-kategorie-delete:${ip}`, 30, 60_000);
     if (!allowed) {

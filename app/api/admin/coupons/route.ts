@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { CreateCouponSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -50,6 +50,10 @@ export async function POST(request: NextRequest) {
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
 
     await requireAdmin();
     const body = await request.json();

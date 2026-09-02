@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -21,6 +21,10 @@ export async function PUT(
 
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
 
     await requireAdmin();
     const { id } = await params;
@@ -58,8 +62,12 @@ export async function PUT(
       select: { id: true, name: true, slug: true },
     });
 
-    const admin = await requireAdmin();
-    logger.info("brand-updated", `Brand updated: ${brand.name} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("brand-updated", `Brand updated: ${brand.name} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("brand-update-audit-failed", auditErr);
+    }
 
     return NextResponse.json(brand);
   } catch (error) {
@@ -83,6 +91,10 @@ export async function DELETE(
     await requireAdmin();
     const { id } = await params;
 
+    if (!validateCsrfOrigin(_request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     const brand = await prisma.brand.findUnique({
       where: { id },
       select: { id: true, name: true, _count: { select: { products: true } } },
@@ -101,8 +113,12 @@ export async function DELETE(
 
     await prisma.brand.delete({ where: { id } });
 
-    const admin = await requireAdmin();
-    logger.info("brand-deleted", `Brand deleted: ${brand.name} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("brand-deleted", `Brand deleted: ${brand.name} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("brand-delete-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

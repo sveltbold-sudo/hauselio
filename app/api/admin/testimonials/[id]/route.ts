@@ -84,8 +84,12 @@ export async function PUT(
       data: parsed.data,
     });
 
-    const admin = await requireAdmin();
-    logger.info("testimonial-updated", `Testimonial updated: ${testimonial.name} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("testimonial-updated", `Testimonial updated: ${testimonial.name} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("testimonial-update-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ testimonial });
   } catch (error) {
@@ -113,8 +117,12 @@ export async function DELETE(
 
     await prisma.testimonial.delete({ where: { id } });
 
-    const admin = await requireAdmin();
-    logger.info("testimonial-deleted", `Testimonial deleted: ${existing.name} by ${admin.email}`);
+    try {
+      const admin = await requireAdmin();
+      logger.info("testimonial-deleted", `Testimonial deleted: ${existing.name} by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("testimonial-delete-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
