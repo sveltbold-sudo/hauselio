@@ -290,6 +290,7 @@ export default function KontoPage() {
                     <div key={order.id}>
                       <button
                         onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
+                        aria-expanded={isExpanded}
                         className="w-full flex items-center gap-4 p-5 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
                       >
                         <div className="flex-1 min-w-0">

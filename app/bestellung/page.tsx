@@ -341,7 +341,7 @@ export default function BestellungPage() {
 
       {/* Price change warnings */}
       {priceChanges.length > 0 && (
-        <div className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-5 mb-6">
+        <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-2xl p-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
             <AlertTriangle className="w-5 h-5 text-[var(--color-danger)]" />
             <h2 className="font-bold text-[var(--color-danger)]">Preisänderungen</h2>

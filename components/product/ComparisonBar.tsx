@@ -92,7 +92,7 @@ export default function ComparisonBar() {
                 <button
                   onClick={() => removeItem(item.id)}
                   aria-label={`${item.name} vom Vergleich entfernen`}
-                  className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors rounded-lg"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
