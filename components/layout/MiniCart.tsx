@@ -17,6 +17,7 @@ export default function MiniCart() {
   const prefersReduced = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [bounceKey, setBounceKey] = useState(0);
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -116,9 +117,9 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className={`absolute right-0 top-full mt-2 w-[calc(100dvw-2rem)] sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] origin-top-right ${prefersReduced ? "" : "animate-scale-in"}`} role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className={`absolute right-0 top-full mt-2 w-[calc(100dvw-2rem)] sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] origin-top-right flex flex-col max-h-[80dvh] ${prefersReduced ? "" : "animate-scale-in"}`} role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
-          <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)]">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)] shrink-0">
             <h3 className="font-bold text-[var(--color-text-primary)]">
               Warenkorb ({itemCount})
             </h3>
@@ -133,7 +134,7 @@ export default function MiniCart() {
 
           {/* Items */}
           {items.length === 0 ? (
-            <div className="p-10 text-center">
+            <div className="flex-1 p-10 text-center flex flex-col items-center justify-center">
               <Image
                 src="/images/illustrations/empty-cart.svg"
                 alt="Leerer Warenkorb"
@@ -155,7 +156,7 @@ export default function MiniCart() {
             </div>
           ) : (
             <>
-              <div className="max-h-[40vh] sm:max-h-80 overflow-y-auto p-5 space-y-4">
+              <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">
@@ -193,23 +194,41 @@ export default function MiniCart() {
                         <Plus className="w-3 h-3" />
                       </button>
                     </div>
-                    <button
-                      onClick={() => {
-                        if (window.confirm(`${item.name} aus dem Warenkorb entfernen?`)) {
-                          removeItem(item.id);
-                        }
-                      }}
-                      aria-label="Artikel entfernen"
-                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+                    {confirmDelete === item.id ? (
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => {
+                            removeItem(item.id);
+                            setConfirmDelete(null);
+                          }}
+                          aria-label={`${item.name} entfernen bestätigen`}
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors"
+                        >
+                          Entfernen
+                        </button>
+                        <button
+                          onClick={() => setConfirmDelete(null)}
+                          aria-label="Abbrechen"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
+                        >
+                          Abbrechen
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmDelete(item.id)}
+                        aria-label="Artikel entfernen"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
 
               {/* Footer */}
-              <div className="p-5 border-t border-[var(--color-border-light)]">
+              <div className="p-5 border-t border-[var(--color-border-light)] shrink-0">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-[var(--color-text-muted)]">Zwischensumme</span>
                   <span className="font-bold text-[var(--color-text-primary)] tabular-nums">

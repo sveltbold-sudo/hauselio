@@ -79,7 +79,7 @@ export default function OrderSuccessPage() {
     return false;
   });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [remaining, setRemaining] = useState(30 * 60);
+  const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
 
   useEffect(() => {
     if (!orderId || orderLoading || order) return;
@@ -126,7 +126,9 @@ export default function OrderSuccessPage() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const timerMin = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const timerDays = Math.floor(remaining / (24 * 60 * 60));
+  const timerHours = String(Math.floor((remaining % (24 * 60 * 60)) / (60 * 60))).padStart(2, "0");
+  const timerMin = String(Math.floor((remaining % (60 * 60)) / 60)).padStart(2, "0");
   const timerSec = String(remaining % 60).padStart(2, "0");
 
   if (!orderId) {
@@ -170,7 +172,7 @@ export default function OrderSuccessPage() {
         >
           <Clock className="w-4 h-4 text-[var(--color-primary)]" />
           <span className="text-sm font-medium text-[var(--color-primary)]">
-            Bitte bezahlen Sie innerhalb von {timerMin}:{timerSec} Minuten
+            Bitte bezahlen Sie innerhalb von {timerDays} {timerDays === 1 ? "Tag" : "Tagen"}, {timerHours} Stunden und {timerMin} Minuten
           </span>
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import useReducedMotion from "@/hooks/useReducedMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function ScrollToTop() {
   const prefersReduced = useReducedMotion();

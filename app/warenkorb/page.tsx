@@ -21,6 +21,7 @@ export default function WarenkorbPage() {
   const { toggleItem, isInWishlist } = useWishlistStore();
   const toast = useToast();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [confirmSave, setConfirmSave] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [couponCode, setCouponCode] = useState("");
   const [couponError, setCouponError] = useState("");
@@ -159,33 +160,55 @@ export default function WarenkorbPage() {
                   {/* Actions */}
                   <div className="flex items-center gap-1">
                     {/* Save for later */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const alreadyInWishlist = isInWishlist(item.id);
-                        toggleItem({
-                          id: item.id,
-                          name: item.name,
-                          slug: item.slug,
-                          price: item.price,
-                          originalPrice: item.originalPrice,
-                          image: item.image,
-                          brand: item.brand ?? "",
-                          rating: 0,
-                          reviewCount: 0,
-                        });
-                        removeItem(item.id);
-                        toast.success(alreadyInWishlist ? "Von der Wunschliste entfernt" : "Zur Wunschliste hinzugefügt");
-                      }}
-                      aria-label={isInWishlist(item.id) ? "Bereits auf der Wunschliste" : "Für später speichern"}
-                      className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-colors duration-300 ${
-                        isInWishlist(item.id)
-                          ? "text-[var(--color-danger)] bg-[var(--color-danger-light)]"
-                          : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10"
-                      }`}
-                    >
-                      <Heart className={`w-4 h-4 ${isInWishlist(item.id) ? "fill-current" : ""}`} />
-                    </button>
+                    {confirmSave === item.id ? (
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const alreadyInWishlist = isInWishlist(item.id);
+                            toggleItem({
+                              id: item.id,
+                              name: item.name,
+                              slug: item.slug,
+                              price: item.price,
+                              originalPrice: item.originalPrice,
+                              image: item.image,
+                              brand: item.brand ?? "",
+                              rating: 0,
+                              reviewCount: 0,
+                            });
+                            removeItem(item.id);
+                            setConfirmSave(null);
+                            toast.success(alreadyInWishlist ? "Von der Wunschliste entfernt" : "Zur Wunschliste hinzugefügt");
+                          }}
+                          aria-label="Zur Wunschliste verschieben bestätigen"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"
+                        >
+                          Verschieben
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmSave(null)}
+                          aria-label="Abbrechen"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
+                        >
+                          Abbrechen
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setConfirmSave(item.id)}
+                        aria-label={isInWishlist(item.id) ? "Bereits auf der Wunschliste" : "Für später speichern"}
+                        className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl transition-colors duration-300 ${
+                          isInWishlist(item.id)
+                            ? "text-[var(--color-danger)] bg-[var(--color-danger-light)]"
+                            : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10"
+                        }`}
+                      >
+                        <Heart className={`w-4 h-4 ${isInWishlist(item.id) ? "fill-current" : ""}`} />
+                      </button>
+                    )}
 
                     {/* Remove */}
                     {confirmDelete === item.id ? (

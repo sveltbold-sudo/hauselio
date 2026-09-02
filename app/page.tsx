@@ -13,6 +13,22 @@ function HeroSkeleton() {
 function DealSkeleton() {
   return <div className="container-hausaura py-6"><div className="h-24 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" /></div>;
 }
+function ThermomixSkeleton() {
+  return (
+    <div className="container-hausaura py-8">
+      <div className="h-6 w-64 bg-[var(--color-bg-secondary)] rounded mb-2 animate-pulse" />
+      <div className="h-8 w-80 bg-[var(--color-bg-secondary)] rounded mb-8 animate-pulse" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
+            <div className="aspect-square bg-[var(--color-bg-secondary)]" />
+            <div className="p-4 space-y-2"><div className="h-3 w-16 bg-[var(--color-bg-secondary)] rounded" /><div className="h-4 w-full bg-[var(--color-bg-secondary)] rounded" /><div className="h-3 w-24 bg-[var(--color-bg-secondary)] rounded" /></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 function ProductRowSkeleton() {
   return (
     <div className="container-hausaura py-8">
@@ -39,7 +55,7 @@ const BestsellerSection = dynamicImport(() => import("@/components/product/Bests
 const RecommendedSection = dynamicImport(() => import("@/components/product/RecommendedSection"), { loading: () => <ProductRowSkeleton /> });
 
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"), { loading: () => <ProductRowSkeleton /> });
-const ThermomixSection = dynamicImport(() => import("@/components/product/ThermomixSection"), { loading: () => <DealSkeleton /> });
+const ThermomixSection = dynamicImport(() => import("@/components/product/ThermomixSection"), { loading: () => <ThermomixSkeleton /> });
 import TestimonialsSection from "@/components/product/TestimonialsSection";
 import PressReviewsSection from "@/components/product/PressReviewsSection";
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"), { loading: () => <NewsletterSkeleton /> });
