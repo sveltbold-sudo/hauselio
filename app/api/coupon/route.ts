@@ -5,7 +5,12 @@ import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 export async function POST(request: NextRequest) {
   try {
-    validateCsrfOrigin(request);
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
 
     const ip = getClientIp(request);
     if (!await checkRateLimit(`coupon:${ip}`, 10, 60 * 1000)) {

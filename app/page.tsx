@@ -22,14 +22,14 @@ const NewsletterSection = dynamicImport(() => import("@/components/home/Newslett
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Moderne Haushaltsgeräte aus Deutschland",
+  title: "HAUSAURA — Moderne Haushaltsgeräte aus Deutschland",
   description:
     "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. Überweisung (Vorkasse).",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Moderne Haushaltsgeräte aus Deutschland",
+    title: "HAUSAURA — Moderne Haushaltsgeräte aus Deutschland",
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
     url: SITE_URL,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Moderne Haushaltsgeräte aus Deutschland",
+    title: "HAUSAURA — Moderne Haushaltsgeräte aus Deutschland",
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],

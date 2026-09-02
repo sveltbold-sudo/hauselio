@@ -161,6 +161,7 @@ export default function KategorienPage() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value, slug: slugify(e.target.value) })}
                   className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                  maxLength={100}
                   required
                 />
               </div>
@@ -172,6 +173,7 @@ export default function KategorienPage() {
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+                  maxLength={100}
                   required
                 />
               </div>
@@ -183,6 +185,7 @@ export default function KategorienPage() {
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
                   rows={3}
+                  maxLength={2000}
                 />
               </div>
               <div className="flex gap-3 justify-end">
