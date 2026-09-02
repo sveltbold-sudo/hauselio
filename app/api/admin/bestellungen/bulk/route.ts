@@ -4,17 +4,11 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
+import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 
 const BulkOrderSchema = z.object({
   ids: z.array(z.string().uuid()).min(1).max(50),
-  status: z.enum([
-    "PENDING_PAYMENT",
-    "PAYMENT_CONFIRMED",
-    "PROCESSING",
-    "SHIPPED",
-    "DELIVERED",
-    "CANCELLED",
-  ]),
+  status: z.enum(ALLOWED_ORDER_STATUSES),
 });
 
 export async function POST(request: NextRequest) {

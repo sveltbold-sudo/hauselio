@@ -69,8 +69,8 @@ export async function DELETE(request: NextRequest) {
   try {
     await requireRole("ADMIN");
 
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
+    const body = await request.json().catch(() => ({}));
+    const email = (body.email || "").trim();
 
     if (!email) {
       return NextResponse.json(
