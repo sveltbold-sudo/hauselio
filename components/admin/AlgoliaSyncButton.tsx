@@ -12,6 +12,10 @@ export default function AlgoliaSyncButton() {
     setResult(null);
     try {
       const res = await fetch("/api/admin/algoliasync", { method: "POST" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || "Synchronisation fehlgeschlagen");
+      }
       const data = await res.json();
       setResult(data);
     } catch {

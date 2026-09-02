@@ -22,10 +22,11 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
     setShowConfirm(false);
     setLoading(true);
     try {
+      const uniqueIds = [...new Set(selectedIds)];
       const res = await fetch("/api/admin/produkte/bulk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", ids: selectedIds }),
+        body: JSON.stringify({ action: "delete", ids: uniqueIds }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
