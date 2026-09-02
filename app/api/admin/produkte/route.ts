@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
         brandId: data.brandId || null,
         isNew: data.isNew,
         isFeatured: data.isFeatured,
+        isPromo: data.isPromo,
         weight: data.weight || null,
         features: data.features,
         seoTitle: data.seoTitle || null,

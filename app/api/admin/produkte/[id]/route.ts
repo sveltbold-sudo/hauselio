@@ -82,37 +82,48 @@ export async function PUT(
       );
     }
 
-    await prisma.$transaction([
-      prisma.productSpec.deleteMany({ where: { productId: id } }),
-      prisma.product.update({
-        where: { id },
-        data: {
-          name: data.name,
-          slug: data.slug,
-          description: data.description,
-          shortDesc: data.shortDesc || null,
-          price: data.price,
-          originalPrice: data.originalPrice || null,
-          categoryId: data.categoryId,
-          brandId: data.brandId || null,
-          isNew: data.isNew,
-          isFeatured: data.isFeatured,
-          weight: data.weight || null,
-          features: data.features,
-          seoTitle: data.seoTitle || null,
-          seoDesc: data.seoDesc || null,
-          specs: data.specs.length
-            ? {
-                create: data.specs.map((spec, i) => ({
-                  key: spec.key,
-                  value: spec.value,
-                  position: i,
-                })),
-              }
-            : undefined,
-        },
-      }),
-    ]);
+    try {
+      await prisma.$transaction([
+        prisma.productSpec.deleteMany({ where: { productId: id } }),
+        prisma.product.update({
+          where: { id },
+          data: {
+            name: data.name,
+            slug: data.slug,
+            description: data.description,
+            shortDesc: data.shortDesc || null,
+            price: data.price,
+            originalPrice: data.originalPrice || null,
+            categoryId: data.categoryId,
+            brandId: data.brandId || null,
+            isNew: data.isNew,
+            isFeatured: data.isFeatured,
+            isPromo: data.isPromo,
+            weight: data.weight || null,
+            features: data.features,
+            seoTitle: data.seoTitle || null,
+            seoDesc: data.seoDesc || null,
+            specs: data.specs.length
+              ? {
+                  create: data.specs.map((spec, i) => ({
+                    key: spec.key,
+                    value: spec.value,
+                    position: i,
+                  })),
+                }
+              : undefined,
+          },
+        }),
+      ]);
+    } catch (err) {
+      if (err && typeof err === "object" && "code" in err && err.code === "P2002") {
+        return NextResponse.json(
+          { error: "Ein Produkt mit diesem Slug existiert bereits (Race Condition)" },
+          { status: 409 }
+        );
+      }
+      throw err;
+    }
 
     const product = await prisma.product.findUnique({ where: { id } });
 

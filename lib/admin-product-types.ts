@@ -12,6 +12,7 @@ export interface ProductFormData {
   isPromo: boolean;
   weight: string;
   imageUrl: string;
+  imagePublicId: string;
   features: string[];
   newFeature: string;
   specs: { key: string; value: string }[];
@@ -45,6 +46,7 @@ export const emptyFormData: ProductFormData = {
   isPromo: false,
   weight: "",
   imageUrl: "",
+  imagePublicId: "",
   features: [],
   newFeature: "",
   specs: [],

@@ -26,6 +26,7 @@ export default function BewertungenPage() {
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({ page: 1, limit: 20, total: 0, pages: 0 });
+  const [pendingCount, setPendingCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -42,6 +43,7 @@ export default function BewertungenPage() {
         startTransition(() => {
           setReviews(data.reviews || []);
           if (data.pagination) setPagination(data.pagination);
+          if (typeof data.pendingCount === "number") setPendingCount(data.pendingCount);
         });
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
@@ -80,8 +82,6 @@ export default function BewertungenPage() {
       setDeleteId(null);
     }
   };
-
-  const pendingCount = reviews.filter((r) => !r.isApproved).length;
 
   return (
     <div>

@@ -59,7 +59,9 @@ export default function CouponsPage() {
 
   const loadCoupons = () => {
     setLoading(true);
-    fetch(`/api/admin/coupons?page=${page}&limit=20`)
+    const params = new URLSearchParams({ page: String(page), limit: "20" });
+    if (search.trim()) params.set("search", search.trim());
+    fetch(`/api/admin/coupons?${params}`)
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
@@ -74,7 +76,20 @@ export default function CouponsPage() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { loadCoupons(); }, [page]);
+  useEffect(() => { loadCoupons(); }, [page, search]);
+
+  const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debouncedSearch = useCallback((value: string) => {
+    if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
+    searchTimerRef.current = setTimeout(() => {
+      setSearch(value);
+      setPage(1);
+    }, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => { if (searchTimerRef.current) clearTimeout(searchTimerRef.current); };
+  }, []);
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
@@ -183,7 +198,7 @@ export default function CouponsPage() {
         <input
           type="text"
           value={search}
-          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+          onChange={(e) => debouncedSearch(e.target.value)}
           placeholder="Gutscheincode suchen…"
           className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
         />
@@ -298,10 +313,10 @@ export default function CouponsPage() {
             ) : loadError ? (
               <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">Gutscheine konnten nicht geladen werden.</td></tr>
             ) : coupons.length === 0 ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Gutscheine gefunden.</td></tr>
-            ) : coupons.filter((c) => !search || c.code.toLowerCase().includes(search.toLowerCase())).length === 0 ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Gutscheine für &bdquo;{search}&ldquo; gefunden.</td></tr>
-            ) : coupons.filter((c) => !search || c.code.toLowerCase().includes(search.toLowerCase())).map((coupon) => {
+              <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">
+                {search ? `Keine Gutscheine für \u201e${search}\u201c gefunden.` : "Keine Gutscheine gefunden."}
+              </td></tr>
+            ) : coupons.map((coupon) => {
               const isExpired = coupon.expiresAt && new Date(coupon.expiresAt) < now;
               const isMaxed = coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses;
               return (

@@ -36,7 +36,7 @@ export const CreateProductSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten"),
   description: z.string().min(1, "Beschreibung ist erforderlich").max(10000),
   shortDesc: z.string().max(500).optional().nullable(),
-  price: z.number().min(0, "Preis muss positiv sein").max(999999.99),
+  price: z.number().min(0.01, "Preis muss größer als 0 sein").max(999999.99),
   originalPrice: z.number().min(0).max(999999.99).optional().nullable(),
   categoryId: z.string().min(1, "Kategorie ist erforderlich"),
   brandId: z.string().optional().nullable(),

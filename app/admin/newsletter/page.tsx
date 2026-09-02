@@ -19,6 +19,8 @@ interface Subscriber {
 export default function NewsletterPage() {
   const toast = useToast();
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [activeCount, setActiveCount] = useState(0);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -37,7 +39,11 @@ export default function NewsletterPage() {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
-      .then((data) => startTransition(() => setSubscribers(data.subscribers || [])))
+      .then((data) => startTransition(() => {
+        setSubscribers(data.subscribers || []);
+        setTotalCount(data.pagination?.total ?? data.subscribers?.length ?? 0);
+        setActiveCount(data.activeCount ?? data.subscribers?.filter((s: Subscriber) => s.isActive).length ?? 0);
+      }))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
   }, [startTransition]);
@@ -137,15 +143,13 @@ export default function NewsletterPage() {
     s.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  const activeCount = subscribers.filter((s) => s.isActive).length;
-
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Newsletter</h1>
           <p className="text-[var(--color-text-secondary)] mt-1">
-            {subscribers.length} Abonnenten ({activeCount} aktiv)
+            {totalCount} Abonnenten ({activeCount} aktiv)
           </p>
         </div>
         <div className="flex gap-2">
@@ -257,7 +261,7 @@ export default function NewsletterPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4">
           <p className="text-sm text-[var(--color-text-muted)]">Gesamt</p>
-          <p className="text-2xl font-bold text-[var(--color-text-primary)]">{subscribers.length}</p>
+          <p className="text-2xl font-bold text-[var(--color-text-primary)]">{totalCount}</p>
         </div>
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4">
           <p className="text-sm text-[var(--color-text-muted)]">Aktiv</p>
@@ -265,7 +269,7 @@ export default function NewsletterPage() {
         </div>
         <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4">
           <p className="text-sm text-[var(--color-text-muted)]">Inaktiv</p>
-          <p className="text-2xl font-bold text-[var(--color-text-muted)]">{subscribers.length - activeCount}</p>
+          <p className="text-2xl font-bold text-[var(--color-text-muted)]">{totalCount - activeCount}</p>
         </div>
       </div>
 

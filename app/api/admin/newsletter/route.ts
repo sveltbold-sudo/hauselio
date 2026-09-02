@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
 
     const where = search ? { email: { contains: search, mode: "insensitive" as const } } : {};
 
-    const [subscribers, total] = await Promise.all([
+    const [subscribers, total, activeCount] = await Promise.all([
       prisma.newsletter.findMany({
         where,
         orderBy: { createdAt: "desc" },
@@ -38,11 +38,13 @@ export async function GET(request: NextRequest) {
         },
       }),
       prisma.newsletter.count({ where }),
+      prisma.newsletter.count({ where: { ...where, isActive: true } }),
     ]);
 
     return NextResponse.json({
       subscribers,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+      activeCount,
     });
   } catch (error) {
     return handleApiError(error);

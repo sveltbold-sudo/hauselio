@@ -87,6 +87,7 @@ export default function EditProductPage({
           isPromo: p.isPromo,
           weight: p.weight ? String(p.weight) : "",
           imageUrl: p.images[0]?.url || "",
+          imagePublicId: "",
           features: p.features || [],
           specs: p.specs || [],
           seoTitle: p.seoTitle || "",
@@ -144,6 +145,7 @@ export default function EditProductPage({
     isPromo: boolean;
     weight: string;
     imageUrl: string;
+    imagePublicId: string;
     features: string[];
     specs: { key: string; value: string }[];
     seoTitle: string;

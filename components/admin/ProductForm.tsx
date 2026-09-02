@@ -615,11 +615,11 @@ export default function ProductForm({
               <ImageUpload
                 currentImage={formData.imageUrl || undefined}
                 folder="HAUSAURA/products"
-                onUpload={(url) =>
-                  setFormData((prev) => ({ ...prev, imageUrl: url }))
+                onUpload={(url, publicId) =>
+                  setFormData((prev) => ({ ...prev, imageUrl: url, imagePublicId: publicId }))
                 }
                 onRemove={() =>
-                  setFormData((prev) => ({ ...prev, imageUrl: "" }))
+                  setFormData((prev) => ({ ...prev, imageUrl: "", imagePublicId: "" }))
                 }
               />
             </div>

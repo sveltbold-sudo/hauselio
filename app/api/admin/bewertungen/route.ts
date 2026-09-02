@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     if (filter === "pending") where.isApproved = false;
     else if (filter === "approved") where.isApproved = true;
 
-    const [reviews, total] = await Promise.all([
+    const [reviews, total, pendingCount] = await Promise.all([
       prisma.review.findMany({
         where,
         orderBy: { createdAt: "desc" },
@@ -34,11 +34,13 @@ export async function GET(request: NextRequest) {
         include: { product: { select: { name: true, slug: true } } },
       }),
       prisma.review.count({ where }),
+      prisma.review.count({ where: { isApproved: false } }),
     ]);
 
     return NextResponse.json({
       reviews,
       pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+      pendingCount,
     });
   } catch (error) {
     return handleApiError(error);
