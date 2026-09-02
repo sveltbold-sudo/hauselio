@@ -85,7 +85,7 @@ export async function DELETE(
 
     const brand = await prisma.brand.findUnique({
       where: { id },
-      select: { id: true, _count: { select: { products: true } } },
+      select: { id: true, name: true, _count: { select: { products: true } } },
     });
 
     if (!brand) {
