@@ -177,6 +177,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             key={s.id}
             role="tabpanel"
             aria-hidden={i !== current}
+            aria-roledescription="Folie"
             className={`absolute inset-0 ${prefersReduced ? "" : "transition-opacity duration-700"} ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
           >
             {/* Full-bleed product image */}

@@ -171,7 +171,7 @@ export default function MiniCart() {
             </div>
           ) : (
             <>
-              <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4">
+              <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4" aria-live="polite">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">

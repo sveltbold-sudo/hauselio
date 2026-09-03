@@ -369,7 +369,7 @@ export default function BestellungPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Error summary */}
           {Object.keys(errors).length > 0 && (
-            <div role="alert" className="p-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
+            <div role="alert" aria-live="assertive" className="p-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl">
               <p className="text-sm font-semibold text-[var(--color-danger)] mb-2">Bitte korrigieren Sie folgende Fehler:</p>
               <ul className="list-disc list-inside text-sm text-[var(--color-text-secondary)] space-y-1">
                 {Object.entries(errors).map(([field, msg]) => (

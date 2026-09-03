@@ -165,7 +165,7 @@ export default function WarenkorbPage() {
                     >
                       -
                     </button>
-                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" aria-live="polite" aria-label={`${item.quantity} Stück`}>
+                    <span className="w-10 text-center font-semibold text-sm border-x border-[var(--color-border)] tabular-nums" role="status" aria-live="polite" aria-label={`${item.quantity} Stück`}>
                       {item.quantity}
                     </span>
                     <button
@@ -400,6 +400,7 @@ export default function WarenkorbPage() {
                       aria-valuemin={0}
                       aria-valuemax={100}
                       aria-label="Fortschritt zum kostenlosen Versand"
+                      aria-valuetext={`${Math.round((total / FREE_SHIPPING_THRESHOLD) * 100)} Prozent`}
                     />
                   </div>
                 </div>

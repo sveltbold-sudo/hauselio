@@ -14,7 +14,7 @@ export default function ComparisonBar() {
   if (items.length === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300">
+    <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300" role="region" aria-label="Produktvergleich">
       <div className="container-hausaura py-3">
         <div className="flex items-center gap-4">
           {/* Label */}

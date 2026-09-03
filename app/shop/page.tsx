@@ -69,7 +69,7 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
       siteName: "HAUSAURA",
       locale: "de_DE",
       type: "website",
-      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSAURA Shop" }],
     },
     twitter: {
       card: "summary_large_image",
