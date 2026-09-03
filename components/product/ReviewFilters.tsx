@@ -98,7 +98,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
                   Verifiziert
                 </span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1" aria-label={`${review.rating} von 5 Sternen`}>
                 {[...Array(5)].map((_, j) => (
                   <Star
                     key={j}

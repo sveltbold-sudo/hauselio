@@ -92,7 +92,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
               <p className="text-4xl sm:text-5xl font-extrabold text-[var(--color-text-primary)]">
                 {averageRating.toFixed(1)}
               </p>
-              <div className="flex items-center justify-center gap-1 mt-2">
+              <div className="flex items-center justify-center gap-1 mt-2" aria-label={`${averageRating.toFixed(1)} von 5 Sternen`}>
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
