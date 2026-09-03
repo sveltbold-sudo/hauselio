@@ -35,7 +35,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
 
   if (error) {
     return (
-      <div className="flex items-center gap-2 px-4 py-3 bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 rounded-xl text-sm text-[var(--color-danger)]">
+      <div role="alert" className="flex items-center gap-2 px-4 py-3 bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 rounded-xl text-sm text-[var(--color-danger)]">
         <AlertCircle className="w-4 h-4" />
         <span>Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.</span>
       </div>
@@ -67,6 +67,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
           onChange={(e) => setEmail(e.target.value)}
           placeholder="ihre@email.de"
           aria-label="E-Mail-Adresse für Benachrichtigung"
+          autoComplete="email"
           required
           className="flex-1 px-4 py-3 text-sm border border-[var(--color-border)] rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
         />

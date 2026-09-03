@@ -165,8 +165,9 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {slides.map((s, i) => (
           <div
             key={s.id}
-            className={`absolute inset-0 ${prefersReduced ? "" : "transition-opacity duration-700"} ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            role="tabpanel"
             aria-hidden={i !== current}
+            className={`absolute inset-0 ${prefersReduced ? "" : "transition-opacity duration-700"} ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
           >
             {/* Full-bleed product image */}
             <div className="absolute inset-0 bg-[var(--color-hero-bg)]">

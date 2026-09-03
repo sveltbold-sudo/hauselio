@@ -14,7 +14,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       <button
         id={buttonId}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-4 py-3.5 sm:px-5 sm:py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3.5 sm:px-5 sm:py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-inset"
         aria-expanded={isOpen}
         aria-controls={panelId}
       >

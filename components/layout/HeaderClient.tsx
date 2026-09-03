@@ -411,6 +411,8 @@ export default function HeaderClient() {
                     }
                   }}
                   aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={activeMega === cat.href}
                   className={`header-nav-tab flex items-center gap-1 ${
                     pathname.startsWith(cat.href) ? "active" : ""
                   } ${activeMega === cat.href ? "hovered" : ""}`}
