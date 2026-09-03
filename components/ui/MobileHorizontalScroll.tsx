@@ -105,7 +105,8 @@ export default function MobileHorizontalScroll({
         ref={scrollRef}
         role="region"
         aria-label="Horizontale Produktauswahl"
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-5 px-5"
+        tabIndex={0}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-5 px-5 focus:outline-none"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -116,6 +117,7 @@ export default function MobileHorizontalScroll({
       {/* Nav arrows */}
       {canScrollLeft && (
         <button
+          type="button"
           onClick={() => scroll("left")}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 min-w-[44px] min-h-[44px] bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           aria-label="Zurück"
@@ -125,6 +127,7 @@ export default function MobileHorizontalScroll({
       )}
       {canScrollRight && (
         <button
+          type="button"
           onClick={() => scroll("right")}
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 min-w-[44px] min-h-[44px] bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-primary)] shadow-md border border-[var(--color-border-light)] z-20 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           aria-label="Weiter"

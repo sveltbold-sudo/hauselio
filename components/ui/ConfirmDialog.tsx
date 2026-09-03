@@ -73,6 +73,7 @@ export default function ConfirmDialog({
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
+      aria-describedby="confirm-dialog-message"
       onClick={(e) => {
         if (e.target === e.currentTarget) onCancel();
       }}
@@ -97,7 +98,7 @@ export default function ConfirmDialog({
             <h2 id="confirm-dialog-title" className="text-lg font-bold text-[var(--color-text-primary)]">
               {title}
             </h2>
-            <p className="text-sm text-[var(--color-text-secondary)] mt-1">
+            <p id="confirm-dialog-message" className="text-sm text-[var(--color-text-secondary)] mt-1">
               {message}
             </p>
           </div>
@@ -106,13 +107,13 @@ export default function ConfirmDialog({
           <button
             ref={cancelRef}
             onClick={onCancel}
-            className="px-4 py-2.5 min-h-[44px] text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+            className="px-4 py-2.5 min-h-[44px] text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/40"
           >
             {cancelLabel}
           </button>
           <button
             onClick={onConfirm}
-            className={`px-4 py-2.5 min-h-[44px] rounded-lg text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-lg text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/40 ${
               danger
                 ? "bg-[var(--color-danger)] hover:bg-[var(--color-danger-hover)]"
                 : "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"
