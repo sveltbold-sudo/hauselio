@@ -47,6 +47,34 @@ export default function ExitIntentPopup() {
 
   useScrollLock(visible);
 
+  useEffect(() => {
+    if (!visible) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0]!;
+        const last = focusable[focusable.length - 1]!;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    dialogRef.current?.focus();
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [visible]);
+
   const handleClose = () => {
     setVisible(false);
     localStorage.setItem(EXIT_INTENT_KEY, "1");
@@ -85,12 +113,13 @@ export default function ExitIntentPopup() {
 
   return (
     <>
-      <div className="fixed inset-0 z-[60] bg-black/50" aria-hidden="true" />
+      <div className="fixed inset-0 z-[60] bg-black/50" aria-hidden="true" onClick={handleClose} />
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="Exklusives Angebot"
+        tabIndex={-1}
         className="fixed inset-0 z-[60] flex items-center justify-center p-4"
       >
         <div className="relative w-full max-w-md bg-white rounded-2xl shadow-[var(--shadow-2xl)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">

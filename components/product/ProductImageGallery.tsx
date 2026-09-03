@@ -47,7 +47,11 @@ export default function ProductImageGallery({
       <button
         type="button"
         onClick={onImageClick}
-        aria-label="Bild vergrößern"
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight" && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
+          else if (e.key === "ArrowLeft" && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
+        }}
+        aria-label={`Bild vergrößern. Bild ${activeImageIndex + 1} von ${images.length}. Pfeiltasten zum Navigieren.`}
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left active:scale-[0.98] transition-transform duration-150"
         onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
         onTouchEnd={(e) => {
@@ -105,11 +109,13 @@ export default function ProductImageGallery({
       {/* Thumbnails */}
       {images.length > 1 && (
         <div className="relative">
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="list">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="listbox" aria-label="Produktbilder">
             {images.map((img, i) => (
               <button
                 key={i}
                 onClick={() => onImageSelect(i)}
+                role="option"
+                aria-selected={activeImageIndex === i}
                 aria-label={`${name} Bild ${i + 1} anzeigen`}
                 className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 active:scale-95 transition-transform relative ${
                   activeImageIndex === i
