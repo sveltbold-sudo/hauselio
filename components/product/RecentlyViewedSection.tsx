@@ -16,17 +16,32 @@ interface ViewedProduct {
   isNew?: boolean;
   isPromo?: boolean;
   brand?: string | null;
+  categorySlug?: string | null;
 }
 
 const STORAGE_KEY = "HAUSAURA-recently-viewed";
 const MAX_ITEMS = 8;
+
+function isValidViewedProduct(item: unknown): item is ViewedProduct {
+  if (!item || typeof item !== "object") return false;
+  const obj = item as Record<string, unknown>;
+  return (
+    typeof obj.id === "string" &&
+    typeof obj.name === "string" &&
+    typeof obj.slug === "string" &&
+    typeof obj.price === "number" &&
+    typeof obj.image === "string" &&
+    typeof obj.rating === "number" &&
+    typeof obj.reviewCount === "number"
+  );
+}
 
 export function trackRecentlyViewed(product: ViewedProduct) {
   if (typeof window === "undefined") return;
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     const items: ViewedProduct[] = stored ? JSON.parse(stored) : [];
-    const filtered = items.filter((i) => i.id !== product.id);
+    const filtered = Array.isArray(items) ? items.filter((i) => isValidViewedProduct(i) && i.id !== product.id) : [];
     filtered.unshift(product);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered.slice(0, MAX_ITEMS)));
   } catch {
@@ -41,11 +56,12 @@ export default function RecentlyViewedSection({ currentProductId }: { currentPro
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        const parsed: ViewedProduct[] = JSON.parse(stored);
+        const parsed: unknown = JSON.parse(stored);
+        if (!Array.isArray(parsed)) return;
+        const valid = parsed.filter(isValidViewedProduct);
         const filtered = currentProductId
-          ? parsed.filter((i) => i.id !== currentProductId)
-          : parsed;
-         
+          ? valid.filter((i) => i.id !== currentProductId)
+          : valid;
         setItems(filtered.slice(0, 4));
       }
     } catch {
