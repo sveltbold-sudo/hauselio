@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -17,7 +18,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ImpressumPage() {
+const fallback = {
+  companyName: "HAUSAURA GmbH",
+  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  contactPhone: "+49 (0)30 555 789 01",
+  contactEmail: "info@hausaura.de",
+  vatId: "DE 312 847 609",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      companyName: s.companyName || fallback.companyName,
+      companyAddress: s.companyAddress || fallback.companyAddress,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+      vatId: s.vatId || fallback.vatId,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+export default async function ImpressumPage() {
+  const s = await getSettings();
+  const addressLines = s.companyAddress.split(",").map((l) => l.trim());
+
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <Breadcrumb items={[{ label: "Impressum" }]} />
@@ -27,9 +55,10 @@ export default function ImpressumPage() {
         <section>
           <h2 className="heading-3 mb-3">Angaben gemäß § 5 TMG</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
-            <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
-            <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
+            <p className="text-[var(--color-text-secondary)]">{s.companyName}</p>
+            {addressLines.map((line) => (
+              <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
+            ))}
             <p className="text-[var(--color-text-secondary)]">Deutschland</p>
           </div>
         </section>
@@ -37,22 +66,9 @@ export default function ImpressumPage() {
         <section>
           <h2 className="heading-3 mb-3">Kontakt</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: info@HAUSAURA.de</p>
-            <p className="text-[var(--color-text-secondary)]">Website: www.HAUSAURA.de</p>
-          </div>
-        </section>
-
-        <section>
-          <h2 className="heading-3 mb-3">Vertreten durch</h2>
-          <p className="text-[var(--color-text-secondary)]">Geschäftsführer: Thomas Brenner</p>
-        </section>
-
-        <section>
-          <h2 className="heading-3 mb-3">Registereintrag</h2>
-          <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">Registergericht: Amtsgericht Berlin-Charlottenburg</p>
-            <p className="text-[var(--color-text-secondary)]">Registernummer: HRB 204817</p>
+            <p className="text-[var(--color-text-secondary)]">Telefon: {s.contactPhone}</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: {s.contactEmail}</p>
+            <p className="text-[var(--color-text-secondary)]">Website: www.hausaura.de</p>
           </div>
         </section>
 
@@ -61,7 +77,7 @@ export default function ImpressumPage() {
           <p className="text-[var(--color-text-secondary)]">
             Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
           </p>
-          <p className="text-[var(--color-text-primary)] font-mono mt-1">DE 312 847 609</p>
+          <p className="text-[var(--color-text-primary)] font-mono mt-1">{s.vatId}</p>
         </section>
 
         <section>
@@ -112,7 +128,7 @@ export default function ImpressumPage() {
         </section>
 
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
-          Stand: August 2026
+          Stand: September 2026
         </p>
       </div>
     </main>

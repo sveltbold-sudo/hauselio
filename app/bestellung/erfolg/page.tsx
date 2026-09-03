@@ -18,6 +18,7 @@ interface BankDetails {
 interface Order {
   id: string;
   orderNumber: string;
+  invoiceNumber: string | null;
   total: number;
   shippingCost: number;
   items: {
@@ -100,7 +101,14 @@ export default function OrderSuccessPage() {
           return r.json();
         })
         .then((data) => {
-          setOrder(data.order);
+          setOrder({
+            id: data.order.id,
+            orderNumber: data.order.orderNumber,
+            invoiceNumber: data.order.invoiceNumber || null,
+            total: data.order.total,
+            shippingCost: data.order.shippingCost,
+            items: data.order.items,
+          });
           // Calculate remaining time from order creation
           const orderDate = new Date(data.order.createdAt);
           const deadline = new Date(orderDate.getTime() + 5 * 24 * 60 * 60 * 1000);
@@ -303,6 +311,11 @@ export default function OrderSuccessPage() {
                 )}
               </button>
             </div>
+            {order.invoiceNumber && (
+              <p className="text-xs text-[var(--color-text-muted)] font-mono mt-1">
+                Rechnungsnummer: {order.invoiceNumber}
+              </p>
+            )}
             <p className="text-xs text-[var(--color-text-muted)] mt-2">
               Die Bestätigungs-E-Mail wurde an <strong>{orderEmail || "Ihre E-Mail-Adresse"}</strong> gesendet.
             </p>

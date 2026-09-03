@@ -30,6 +30,7 @@ interface OrderItem {
 interface Order {
   id: string;
   orderNumber: string;
+  invoiceNumber: string | null;
   status: "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
   total: number;
   shippingCost: number;
@@ -298,6 +299,11 @@ export default function KontoPage() {
                             <span className="font-bold text-sm text-[var(--color-text-primary)]">
                               Bestell-Nr. {order.orderNumber}
                             </span>
+                            {order.invoiceNumber && (
+                              <span className="text-xs text-[var(--color-text-muted)] font-mono">
+                                · {order.invoiceNumber}
+                              </span>
+                            )}
                             <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]"}`}>
                               {statusLabel[order.status] || order.status}
                             </span>
