@@ -178,9 +178,9 @@ export default async function ProductPage({ params }: PageProps) {
         reviews={product.reviews.map((r) => ({
           author: r.authorName,
           rating: r.rating,
-          title: r.title || undefined,
-          content: r.content || undefined,
-          date: r.createdAt.toISOString().split("T")[0],
+          title: r.title ?? undefined,
+          content: r.content ?? undefined,
+          date: r.createdAt.toISOString().split("T")[0] as string,
         }))}
         availability="InStock"
       />
