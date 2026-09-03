@@ -47,6 +47,14 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`customer-me:${ip}`, 10, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
     const auth = await getCustomerFromRequest();
     if (!auth) {
       return NextResponse.json({ error: "Nicht angemeldet" }, { status: 401 });

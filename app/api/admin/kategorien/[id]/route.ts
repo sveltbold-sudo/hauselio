@@ -17,18 +17,19 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const ctError = validateContentType(request, "application/json");
-    if (ctError) return ctError;
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-kategorie-update:${ip}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
 
     if (!validateCsrfOrigin(request)) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
     await requireAdmin();
-    const ip = getClientIp(request);
-    if (!await checkRateLimit(`admin-kategorie:${ip}`, 30, 60_000)) {
-      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
-    }
     const { id } = await params;
     const body = await request.json();
     const parsed = CategorySchema.safeParse(body);

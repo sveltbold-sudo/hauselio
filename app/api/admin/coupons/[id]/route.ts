@@ -69,16 +69,16 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!validateCsrfOrigin(_request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     const ip = getClientIp(_request);
     if (!await checkRateLimit(`admin-coupon-delete:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
     const admin = await requireAdmin();
-
-    if (!validateCsrfOrigin(_request)) {
-      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
-    }
 
     const { id } = await params;
 
