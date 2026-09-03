@@ -5,6 +5,7 @@ import { requireRole } from "@/lib/auth";
 import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { logger } from "@/lib/logger";
 import OrderTable from "@/components/admin/OrderTable";
+import ExportCsvButton from "@/components/admin/ExportCsvButton";
 
 export const dynamic = "force-dynamic";
 
@@ -57,9 +58,12 @@ export default async function AdminOrdersPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-6">
-        Bestellungen
-      </h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
+          Bestellungen
+        </h1>
+        <ExportCsvButton status={status} q={q} />
+      </div>
 
       {dbError && (
         <div role="alert" className="bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 mb-6 text-sm text-[var(--color-text-secondary)]">

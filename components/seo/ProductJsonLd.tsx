@@ -1,5 +1,13 @@
 import { SITE_URL } from "@/lib/constants";
 
+interface Review {
+  author: string;
+  rating: number;
+  title?: string;
+  content?: string;
+  date: string;
+}
+
 interface ProductJsonLdProps {
   name: string;
   description: string;
@@ -12,6 +20,7 @@ interface ProductJsonLdProps {
   gtin?: string;
   rating?: number;
   reviewCount?: number;
+  reviews?: Review[];
   availability?: "InStock" | "OutOfStock";
   url?: string;
 }
@@ -28,6 +37,7 @@ export default function ProductJsonLd({
   gtin,
   rating,
   reviewCount,
+  reviews = [],
   availability = "InStock",
   url,
 }: ProductJsonLdProps) {
@@ -103,6 +113,25 @@ export default function ProductJsonLd({
       bestRating: "5",
       worstRating: "1",
     };
+  }
+
+  if (reviews.length > 0) {
+    jsonLd.review = reviews.map((r) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: r.author,
+      },
+      datePublished: r.date,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      ...(r.title ? { name: r.title } : {}),
+      ...(r.content ? { reviewBody: r.content } : {}),
+    }));
   }
 
   return (

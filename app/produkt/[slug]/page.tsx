@@ -22,6 +22,18 @@ const getProduct = cache(async (slug: string) => {
         brand: true,
         images: { orderBy: { position: "asc" } },
         specs: { orderBy: { position: "asc" } },
+        reviews: {
+          where: { isApproved: true },
+          select: {
+            authorName: true,
+            rating: true,
+            title: true,
+            content: true,
+            createdAt: true,
+          },
+          orderBy: { createdAt: "desc" },
+          take: 10,
+        },
       },
     });
   } catch (error) {
