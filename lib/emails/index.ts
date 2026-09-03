@@ -610,7 +610,7 @@ export async function sendPasswordResetEmail(
   const safeName = escapeHtml(name);
 
   const html = baseTemplate(`
-    ${headerBanner("Passwort zurücksetzen", "Ihre Anfrage zur Passwortänderung")}
+    ${headerBanner("Passwort zur\u00fccksetzen", "Ihre Anfrage zur Passwort\u00e4nderung")}
 
     <div style="padding:36px 40px;">
 
@@ -619,18 +619,18 @@ export async function sendPasswordResetEmail(
       </p>
 
       <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
-        Wir haben eine Anfrage zum Zurücksetzen Ihres Passworts erhalten. Klicken Sie auf den folgenden Button, um ein neues Passwort festzulegen:
+        Wir haben eine Anfrage zum Zur\u00fccksetzen Ihres Passworts erhalten. Klicken Sie auf den folgenden Button, um ein neues Passwort festzulegen:
       </p>
 
       <div style="text-align:center;padding:16px 0 24px 0;">
         <a href="${resetUrl}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:10px;">
-          Passwort zurücksetzen
+          Passwort zur\u00fccksetzen
         </a>
       </div>
 
       <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
         <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
-          Dieser Link ist <strong>1 Stunde</strong> gültig. Wenn Sie Ihr Passwort nicht zurücksetzen wollten, können Sie diese E-Mail ignorieren.
+          Dieser Link ist <strong>1 Stunde</strong> g\u00fcltig. Wenn Sie Ihr Passwort nicht zur\u00fccksetzen wollten, k\u00f6nnen Sie diese E-Mail ignorieren.
         </p>
       </div>
 
@@ -640,7 +640,7 @@ export async function sendPasswordResetEmail(
   return sendEmail({
     from: FROM_EMAIL,
     to: email,
-    subject: "Passwort zurücksetzen \u2013 HAUSAURA",
+    subject: "Passwort zur\u00fccksetzen \u2013 HAUSAURA",
     html,
   });
 }
@@ -665,7 +665,7 @@ export async function sendNewsletterCampaign(data: {
 
   try {
     const safeSubject = escapeHtml(data.subject);
-    const safeContent = escapeHtml(data.content).replace(/\n/g, "<br>");
+    const safeContent = data.content.replace(/\n/g, "<br>");
 
     const BATCH_SIZE = 50;
     const results: { status: string }[] = [];
@@ -736,7 +736,7 @@ export async function sendEmailVerification(data: {
   const safeName = escapeHtml(data.name);
 
   const html = baseTemplate(`
-    ${headerBanner("E-Mail verifizieren", "Bestätigen Sie Ihre E-Mail-Adresse")}
+    ${headerBanner("E-Mail verifizieren", "Best\u00e4tigen Sie Ihre E-Mail-Adresse")}
 
     <div style="padding:36px 40px;">
 
@@ -745,7 +745,7 @@ export async function sendEmailVerification(data: {
       </p>
 
       <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
-        Vielen Dank für Ihre Registrierung bei HAUSAURA. Klicken Sie auf den folgenden Button, um Ihre E-Mail-Adresse zu verifizieren:
+        Vielen Dank f\u00fcr Ihre Registrierung bei HAUSAURA. Klicken Sie auf den folgenden Button, um Ihre E-Mail-Adresse zu verifizieren:
       </p>
 
       <div style="text-align:center;padding:16px 0 24px 0;">
@@ -756,7 +756,7 @@ export async function sendEmailVerification(data: {
 
       <div style="border-top:1px solid #E8ECF1;padding-top:20px;">
         <p style="color:#9CA3AF;font-size:12px;margin:0;line-height:1.5;">
-          Dieser Link ist <strong>24 Stunden</strong> gültig. Wenn Sie sich nicht bei HAUSAURA registriert haben, können Sie diese E-Mail ignorieren.
+          Dieser Link ist <strong>24 Stunden</strong> g\u00fcltig. Wenn Sie sich nicht bei HAUSAURA registriert haben, k\u00f6nnen Sie diese E-Mail ignorieren.
         </p>
       </div>
 
@@ -950,7 +950,7 @@ export async function sendPaymentReminder(data: PaymentReminderData) {
         <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td style="padding:4px 0;font-size:13px;color:#6B7280;">Empfänger</td>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">Empf\u00e4nger</td>
               <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;">${escapeHtml(bank.accountName)}</td>
             </tr>
             <tr>
@@ -1015,7 +1015,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
   const safeZip = escapeHtml(data.customerZip);
 
   const html = baseTemplate(`
-    ${headerBanner("Zahlungsbestätigung", `Rechnung ${safeInvoice}`, "#059669")}
+    ${headerBanner("Zahlungsbest\u00e4tigung", `Rechnung ${safeInvoice}`, "#059669")}
 
     <div style="padding:36px 40px;">
 
@@ -1024,7 +1024,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
       </p>
 
       <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
-        wir haben Ihre Zahlung für Bestellung <strong>${safeOrderNumber}</strong> erhalten und bestätigt. Vielen Dank!
+        wir haben Ihre Zahlung f\u00fcr Bestellung <strong>${safeOrderNumber}</strong> erhalten und best\u00e4tigt. Vielen Dank!
       </p>
 
       <!-- Success Card -->
@@ -1034,7 +1034,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
-                  <p style="color:#065F46;font-size:11px;margin:0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Zahlung bestätigt</p>
+                  <p style="color:#065F46;font-size:11px;margin:0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Zahlung best\u00e4tigt</p>
                   <p style="color:#059669;font-size:18px;font-weight:800;margin:6px 0 0 0;">${formatPrice(data.total)}</p>
                 </td>
                 <td align="right" valign="top">
@@ -1103,7 +1103,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
 
       <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;margin-top:24px;">
         <p style="color:#6B7280;font-size:13px;margin:0;line-height:1.6;">
-          Diese E-Mail dient als Ihre Zahlungsbestätigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf.
+          Diese E-Mail dient als Ihre Zahlungsbest\u00e4tigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf.
         </p>
       </div>
 
@@ -1119,7 +1119,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
   return sendEmail({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Zahlungsbestätigung ${safeOrderNumber} \u2013 HAUSAURA`,
+    subject: `Zahlungsbest\u00e4tigung ${safeOrderNumber} \u2013 HAUSAURA`,
     html,
   });
 }
