@@ -1004,6 +1004,10 @@ interface PaymentReceiptData {
   total: number;
   shippingCost: number;
   paidAt: string;
+  companyName: string;
+  companyAddress: string;
+  vatId: string;
+  defaultVatRate: number;
 }
 
 export async function sendPaymentReceipt(data: PaymentReceiptData) {
@@ -1013,6 +1017,14 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
   const safeAddress = escapeHtml(data.customerAddress);
   const safeCity = escapeHtml(data.customerCity);
   const safeZip = escapeHtml(data.customerZip);
+  const safeCompanyName = escapeHtml(data.companyName);
+  const safeCompanyAddress = escapeHtml(data.companyAddress);
+  const safeVatId = escapeHtml(data.vatId);
+
+  const vatRate = data.defaultVatRate;
+  const netTotal = data.subtotal - data.couponDiscount + data.shippingCost;
+  const vatAmount = netTotal * (vatRate / (100 + vatRate));
+  const netBeforeVat = netTotal - vatAmount;
 
   const html = baseTemplate(`
     ${headerBanner("Zahlungsbest\u00e4tigung", `Rechnung ${safeInvoice}`, "#059669")}
@@ -1045,6 +1057,27 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
           </td>
         </tr>
       </table>
+
+      ${divider()}
+
+      <!-- Seller Identification -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Aussteller</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:3px 0;width:140px;font-size:13px;color:#6B7280;">Firma</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safeCompanyName}</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">Adresse</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safeCompanyAddress}</td>
+          </tr>
+          ${safeVatId ? `<tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">USt-IdNr.</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;font-family:monospace;">${safeVatId}</td>
+          </tr>` : ""}
+        </table>
+      </div>
 
       ${divider()}
 
@@ -1081,29 +1114,33 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
         </table>
       </div>
 
-      <!-- Totals -->
+      <!-- Totals with VAT Breakdown -->
       <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
         <tr>
-          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
-          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.subtotal)}</td>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme (netto)</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(netBeforeVat)}</td>
         </tr>
         ${data.couponDiscount > 0 ? `<tr>
           <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt</td>
           <td style="padding:6px 0;font-size:14px;color:#059669;text-align:right;font-weight:600;">-${formatPrice(data.couponDiscount)}</td>
         </tr>` : ""}
         <tr>
-          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand</td>
-          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.shippingCost)}</td>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand (netto)</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.shippingCost > 0 ? data.shippingCost / (1 + vatRate / 100) : 0)}</td>
         </tr>
         <tr>
-          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#059669;border-top:2px solid #059669;">Gezahlt</td>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">MwSt. (${vatRate}%)</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(vatAmount)}</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#059669;border-top:2px solid #059669;">Gezahlt (brutto)</td>
           <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#059669;text-align:right;border-top:2px solid #059669;">${formatPrice(data.total)}</td>
         </tr>
       </table>
 
       <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;margin-top:24px;">
         <p style="color:#6B7280;font-size:13px;margin:0;line-height:1.6;">
-          Diese E-Mail dient als Ihre Zahlungsbest\u00e4tigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf.
+          Diese E-Mail dient als Ihre Zahlungsbest\u00e4tigung und Rechnung gem\u00e4\u00df \u00a714 UStG. Bitte bewahren Sie diese Aufzeichnung auf.
         </p>
       </div>
 

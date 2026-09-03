@@ -6,9 +6,10 @@ import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants"
 import { logger } from "@/lib/logger";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Receipt, Clock } from "lucide-react";
+import { ArrowLeft, Receipt, Clock, FileText, Send } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 import OrderNotes from "@/components/admin/OrderNotes";
+import ResendReceiptButton from "@/components/admin/ResendReceiptButton";
 
 export const dynamic = "force-dynamic";
 
@@ -189,8 +190,14 @@ export default async function AdminOrderDetailPage({
               Zahlung
             </h2>
             <div className="space-y-2 text-sm">
+              {order.invoiceNumber && (
+                <p className="text-[var(--color-text-secondary)]">
+                  <span className="font-medium">Rechnungsnr.:</span>{" "}
+                  <span className="font-mono font-bold text-[var(--color-primary)]">{order.invoiceNumber}</span>
+                </p>
+              )}
               <p className="text-[var(--color-text-secondary)]">
-                <span className="font-medium">Methode:</span> {order.paymentMethod || "Überweisung (SEPA)"}
+                <span className="font-medium">Methode:</span> {order.paymentMethod || "\u00dcberweisung (SEPA)"}
               </p>
               <p className="text-[var(--color-text-secondary)]">
                 <span className="font-medium">Status:</span>{" "}
@@ -228,6 +235,11 @@ export default async function AdminOrderDetailPage({
                 </p>
               )}
             </div>
+            {order.paymentStatus === "CONFIRMED" && order.invoiceNumber && (
+              <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+                <ResendReceiptButton orderId={order.id} />
+              </div>
+            )}
           </div>
 
           {/* Payment Proof */}

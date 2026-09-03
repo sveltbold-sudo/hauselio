@@ -40,6 +40,7 @@ export async function GET(
       order: {
         id: order.id,
         orderNumber: order.orderNumber,
+        invoiceNumber: order.invoiceNumber,
         total: Number(order.total),
         shippingCost: Number(order.shippingCost),
         status: order.status,

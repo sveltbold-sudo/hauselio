@@ -63,6 +63,11 @@ export const UpdateSettingsSchema = z.object({
   contactEmail: z.string().email("Ungültige E-Mail-Adresse").max(254).optional(),
   contactPhone: z.string().max(30).optional(),
   contactAddress: z.string().max(500).optional(),
+  companyName: z.string().max(200).optional(),
+  companyAddress: z.string().max(500).optional(),
+  vatId: z.string().max(50).optional(),
+  defaultVatRate: z.number().min(0).max(100).optional(),
+  invoicePrefix: z.string().max(10).optional(),
 });
 
 export const CreateBrandSchema = z.object({

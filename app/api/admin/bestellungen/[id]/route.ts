@@ -9,12 +9,29 @@ import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
 import { randomBytes } from "crypto";
 
-function generateInvoiceNumber(): string {
+async function generateInvoiceNumber(): Promise<string> {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const random = randomBytes(4).toString("hex").toUpperCase().slice(0, 8);
-  return `RE-${year}${month}-${random}`;
+  const prefix = "RE";
+
+  let settings = await prisma.siteSettings.findFirst();
+  if (!settings) {
+    settings = await prisma.siteSettings.create({
+      data: { bankIban: "", bankBic: "", bankAccountName: "", bankName: "", shippingInfo: "", contactEmail: "", contactPhone: "", contactAddress: "" },
+    });
+  }
+
+  let counter = (settings.invoiceCounter || 0) + 1;
+  if (settings.invoiceYear !== year) {
+    counter = 1;
+  }
+
+  await prisma.siteSettings.update({
+    where: { id: settings.id },
+    data: { invoiceCounter: counter, invoiceYear: year },
+  });
+
+  return `${prefix}-${year}-${String(counter).padStart(5, "0")}`;
 }
 
 const UpdateOrderSchema = z.object({
@@ -115,12 +132,17 @@ export async function PUT(
       };
 
       if (status === "PAYMENT_CONFIRMED") {
-        // Generate invoice number
-        const invoiceNumber = generateInvoiceNumber();
+        // Generate sequential invoice number
+        const invoiceNumber = await generateInvoiceNumber();
+        const paidAt = new Date();
         await prisma.order.update({
           where: { id },
-          data: { invoiceNumber },
+          data: { invoiceNumber, paidAt },
         });
+
+        // Fetch settings for invoice data
+        const settings = await prisma.siteSettings.findFirst();
+
         // Send receipt first (legally important document)
         await sendPaymentReceipt({
           ...emailData,
@@ -129,7 +151,11 @@ export async function PUT(
           customerCity: order.customerCity,
           customerZip: order.customerZip,
           customerCountry: order.customerCountry,
-          paidAt: new Date().toISOString(),
+          paidAt: paidAt.toISOString(),
+          companyName: settings?.companyName || "HAUSAURA GmbH",
+          companyAddress: settings?.companyAddress || "Kastanienallee 42, 10435 Berlin",
+          vatId: settings?.vatId || "",
+          defaultVatRate: settings?.defaultVatRate ?? 19,
         });
         await sendPaymentConfirmed(emailData);
       } else if (status === "SHIPPED") {

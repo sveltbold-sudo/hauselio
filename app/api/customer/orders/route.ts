@@ -52,6 +52,7 @@ export async function GET(request: NextRequest) {
       orders: orders.map((order) => ({
         id: order.id,
         orderNumber: order.orderNumber,
+        invoiceNumber: order.invoiceNumber,
         status: order.status,
         total: Number(order.total),
         shippingCost: Number(order.shippingCost),

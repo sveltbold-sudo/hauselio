@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useRef } from "react";
-import { Save, Building2, Truck, Globe } from "lucide-react";
+import { Save, Building2, Truck, Globe, FileText } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 
@@ -16,6 +16,11 @@ interface Settings {
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
+  companyName: string;
+  companyAddress: string;
+  vatId: string;
+  defaultVatRate: string;
+  invoicePrefix: string;
 }
 
 export default function EinstellungenPage() {
@@ -29,6 +34,11 @@ export default function EinstellungenPage() {
     contactEmail: "",
     contactPhone: "",
     contactAddress: "",
+    companyName: "",
+    companyAddress: "",
+    vatId: "",
+    defaultVatRate: "19",
+    invoicePrefix: "RE",
   });
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -81,10 +91,14 @@ export default function EinstellungenPage() {
     if (!validate()) return;
     setSaving(true);
     try {
+      const body = {
+        ...settings,
+        defaultVatRate: parseFloat(settings.defaultVatRate) || 19,
+      };
       const res = await fetch("/api/admin/einstellungen", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(settings),
+        body: JSON.stringify(body),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => null);
@@ -244,7 +258,7 @@ export default function EinstellungenPage() {
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Versandinformationen</h2>
-              <p className="text-xs text-[var(--color-text-muted)]">Text für Versandkonditionen</p>
+              <p className="text-xs text-[var(--color-text-muted)]">Text f\u00fcr Versandkonditionen</p>
             </div>
           </div>
           <label htmlFor="shippingInfo" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Versandinformationen</label>
@@ -255,6 +269,79 @@ export default function EinstellungenPage() {
             className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
             rows={3}
           />
+        </div>
+
+        {/* Company & Invoice */}
+        <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
+              <FileText className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
+            </div>
+            <div>
+              <h2 className="font-bold text-[var(--color-text-primary)]">Unternehmen & Rechnung</h2>
+              <p className="text-xs text-[var(--color-text-muted)]">Daten f\u00fcr Rechnungen und Impressionen</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="companyName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Firmenname</label>
+              <input
+                id="companyName"
+                type="text"
+                value={settings.companyName}
+                onChange={(e) => handleChange("companyName", e.target.value)}
+                placeholder="HAUSAURA GmbH"
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+            <div>
+              <label htmlFor="vatId" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">USt-IdNr.</label>
+              <input
+                id="vatId"
+                type="text"
+                value={settings.vatId}
+                onChange={(e) => handleChange("vatId", e.target.value)}
+                placeholder="DE 312 847 609"
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label htmlFor="companyAddress" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Firmenadresse</label>
+              <input
+                id="companyAddress"
+                type="text"
+                value={settings.companyAddress}
+                onChange={(e) => handleChange("companyAddress", e.target.value)}
+                placeholder="Kastanienallee 42, 10435 Berlin"
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+            <div>
+              <label htmlFor="defaultVatRate" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Standard-MwSt-Satz (%)</label>
+              <input
+                id="defaultVatRate"
+                type="number"
+                min="0"
+                max="100"
+                step="0.5"
+                value={settings.defaultVatRate}
+                onChange={(e) => handleChange("defaultVatRate", e.target.value)}
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+            <div>
+              <label htmlFor="invoicePrefix" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rechnungspr\u00e4fix</label>
+              <input
+                id="invoicePrefix"
+                type="text"
+                maxLength={10}
+                value={settings.invoicePrefix}
+                onChange={(e) => handleChange("invoicePrefix", e.target.value)}
+                placeholder="RE"
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Save */}
