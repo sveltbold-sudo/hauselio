@@ -81,7 +81,11 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
       </div>
 
       {/* Reviews list */}
-      {filteredReviews.map((review, i) => (
+      {filteredReviews.length === 0 ? (
+        <div role="status" className="text-center py-8 text-sm text-[var(--color-text-muted)]">
+          Keine Bewertungen für diesen Filter gefunden.
+        </div>
+      ) : filteredReviews.map((review, i) => (
         <div
           key={review.id}
           className="bg-white rounded-2xl p-6 border border-[var(--color-border-light)] animate-fade-in-up"

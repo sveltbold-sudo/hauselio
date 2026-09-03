@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Truck, Shield, RotateCcw } from "lucide-react";
 
 interface ProductSpec {
@@ -17,10 +17,18 @@ type TabKey = "description" | "specs" | "shipping";
 
 export default function ProductTabs({ description, specs }: ProductTabsProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("description");
+  const tabListRef = useRef<HTMLDivElement>(null);
+
+  const focusTab = useCallback((key: TabKey) => {
+    setActiveTab(key);
+    const tab = tabListRef.current?.querySelector(`[data-tab="${key}"]`) as HTMLElement | null;
+    tab?.focus();
+  }, []);
 
   return (
     <div className="mt-12 lg:mt-16">
       <div
+        ref={tabListRef}
         role="tablist"
         className="flex overflow-x-auto border-b border-[var(--color-border-light)] scrollbar-hide"
         onKeyDown={(e) => {
@@ -28,10 +36,16 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
           const currentIndex = tabs.indexOf(activeTab);
           if (e.key === "ArrowRight") {
             e.preventDefault();
-            setActiveTab(tabs[(currentIndex + 1) % tabs.length]!);
+            focusTab(tabs[(currentIndex + 1) % tabs.length]!);
           } else if (e.key === "ArrowLeft") {
             e.preventDefault();
-            setActiveTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]!);
+            focusTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]!);
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            focusTab(tabs[0]!);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            focusTab(tabs[tabs.length - 1]!);
           }
         }}
       >
@@ -43,6 +57,7 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
           <button
             key={tab.key}
             role="tab"
+            data-tab={tab.key}
             aria-selected={activeTab === tab.key}
             aria-controls={`tabpanel-${tab.key}`}
             id={`tab-${tab.key}`}

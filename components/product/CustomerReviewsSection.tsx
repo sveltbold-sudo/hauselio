@@ -61,7 +61,8 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
 
   const distribution = [5, 4, 3, 2, 1].map((stars) => {
     const count = reviews.filter((r) => r.rating === stars).length;
-    return { stars, count, percentage: totalReviews > 0 ? (count / totalReviews) * 100 : 0 };
+    const fullCount = totalReviews > 0 ? Math.round((count / reviews.length) * totalReviews) : 0;
+    return { stars, count: fullCount, percentage: totalReviews > 0 ? (fullCount / totalReviews) * 100 : 0 };
   });
 
   const fullStars = Math.floor(averageRating);
