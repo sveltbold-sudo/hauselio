@@ -177,6 +177,9 @@ export default function ExitIntentPopup() {
                 <p className="text-xs text-[var(--color-text-muted)] mb-2">
                   Newsletter abonnieren für eksklusive Angebote:
                 </p>
+                {error && (
+                  <p role="alert" className="text-xs text-[var(--color-danger)] mb-2">{error}</p>
+                )}
                 <div className="flex gap-2">
                   <div className="relative flex-1">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
