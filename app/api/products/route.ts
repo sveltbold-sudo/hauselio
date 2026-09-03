@@ -17,8 +17,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const brand = searchParams.get("brand");
-    const search = searchParams.get("search");
+    const search = searchParams.get("search") || searchParams.get("q");
     const sort = searchParams.get("sort");
+    const price = searchParams.get("price");
+    const promo = searchParams.get("promo");
+    const rating = searchParams.get("rating");
 
     const rawPage = parseInt(searchParams.get("page") || "1", 10);
     const rawLimit = parseInt(searchParams.get("limit") || "20", 10);
@@ -31,6 +34,9 @@ export async function GET(request: NextRequest) {
       category?: { slug: string };
       brand?: { slug: string };
       OR?: Array<{ name: { contains: string; mode: "insensitive" } } | { description: { contains: string; mode: "insensitive" } }>;
+      price?: { gte?: number; lte?: number };
+      rating?: { gte?: number };
+      isPromo?: boolean;
     } = {};
 
     if (category) {
@@ -52,6 +58,33 @@ export async function GET(request: NextRequest) {
         { name: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
       ];
+    }
+
+    if (promo === "true") {
+      where.isPromo = true;
+    }
+
+    if (price) {
+      const parts = price.split("-");
+      const priceFilter: { gte?: number; lte?: number } = {};
+      if (parts[0]) {
+        const minVal = parseFloat(parts[0]);
+        if (!isNaN(minVal)) priceFilter.gte = minVal;
+      }
+      if (parts[1]) {
+        const maxVal = parseFloat(parts[1]);
+        if (!isNaN(maxVal)) priceFilter.lte = maxVal;
+      }
+      if (Object.keys(priceFilter).length > 0) {
+        where.price = priceFilter;
+      }
+    }
+
+    if (rating) {
+      const minRating = Number(rating);
+      if (!isNaN(minRating) && minRating > 0) {
+        where.rating = { gte: minRating };
+      }
     }
 
     let orderBy: Record<string, string> = { createdAt: "desc" };
