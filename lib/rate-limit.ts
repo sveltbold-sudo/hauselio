@@ -62,6 +62,7 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
 }
 
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+const MAX_STORE_SIZE = 10_000;
 
 let lastCleanup = Date.now();
 const CLEANUP_INTERVAL_MS = 60_000;
@@ -72,6 +73,13 @@ function cleanupExpiredEntries() {
   lastCleanup = now;
   for (const [key, entry] of rateLimitStore) {
     if (now > entry.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+  if (rateLimitStore.size > MAX_STORE_SIZE) {
+    const entries = [...rateLimitStore.entries()].sort((a, b) => a[1].resetAt - b[1].resetAt);
+    const toDelete = entries.slice(0, entries.length - MAX_STORE_SIZE);
+    for (const [key] of toDelete) {
       rateLimitStore.delete(key);
     }
   }

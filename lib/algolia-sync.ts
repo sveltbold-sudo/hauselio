@@ -85,28 +85,36 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
 }
 
 export async function deleteProductFromAlgolia(productId: string): Promise<void> {
-  await getAlgoliaAdminClient().deleteObject({
-    indexName: PRODUCTS_INDEX,
-    objectID: productId,
-  });
+  try {
+    await getAlgoliaAdminClient().deleteObject({
+      indexName: PRODUCTS_INDEX,
+      objectID: productId,
+    });
+  } catch (error) {
+    logger.error("algolia-delete", error);
+  }
 }
 
 export async function updateProductInAlgolia(productId: string): Promise<void> {
-  const product = await prisma.product.findUnique({
-    where: { id: productId },
-    include: {
-      category: true,
-      brand: true,
-      images: { take: 1, orderBy: { position: "asc" } },
-    },
-  });
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        category: true,
+        brand: true,
+        images: { take: 1, orderBy: { position: "asc" } },
+      },
+    });
 
-  if (!product) return;
+    if (!product) return;
 
-  const record = formatProduct(product);
+    const record = formatProduct(product);
 
-  await getAlgoliaAdminClient().saveObject({
-    indexName: PRODUCTS_INDEX,
-    body: record,
-  });
+    await getAlgoliaAdminClient().saveObject({
+      indexName: PRODUCTS_INDEX,
+      body: record,
+    });
+  } catch (error) {
+    logger.error("algolia-update", error);
+  }
 }

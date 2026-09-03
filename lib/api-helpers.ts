@@ -2,8 +2,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UnauthorizedError, NotFoundError, ValidationError } from "./errors";
 import { logger } from "./logger";
+import { SITE_URL } from "./constants";
 
 export function getExpectedOrigin(request: NextRequest): string {
+  if (SITE_URL) {
+    try {
+      return new URL(SITE_URL).origin;
+    } catch {}
+  }
   const proto = request.headers.get("x-forwarded-proto") || "https";
   const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "HAUSAURA.de";
   return `${proto}://${host}`;
