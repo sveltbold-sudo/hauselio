@@ -67,7 +67,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
       <div className="lg:col-span-2">
         <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-8">
           {submitted ? (
-            <div className="text-center py-12">
+            <div role="status" className="text-center py-12">
               <div className="w-16 h-16 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-6">
                 <Send className="w-8 h-8 text-[var(--color-success)]" />
               </div>

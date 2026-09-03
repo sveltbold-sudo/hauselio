@@ -44,7 +44,7 @@ export default function NewsletterSection() {
         </div>
 
         {isSubscribed ? (
-          <div className="flex items-center justify-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-xl max-w-md mx-auto">
+          <div role="status" className="flex items-center justify-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-xl max-w-md mx-auto">
             <Check className="w-5 h-5 text-[var(--color-success)]" />
             <span className="text-white font-semibold text-sm">
               Vielen Dank! Bitte bestätigen Sie Ihre E-Mail-Adresse.
@@ -67,7 +67,7 @@ export default function NewsletterSection() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-3 bg-white text-[var(--color-primary)] font-semibold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-transform duration-200 whitespace-nowrap text-sm disabled:opacity-50"
+              className="px-5 py-3 bg-white text-[var(--color-primary)] font-semibold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-transform duration-200 whitespace-nowrap text-sm disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-primary)]"
             >
               {isSubmitting ? "Wird gesendet…" : "Anmelden"}
             </button>
