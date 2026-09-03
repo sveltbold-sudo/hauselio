@@ -55,6 +55,7 @@ export default function ShopFilters({
               params.delete("brand");
               params.delete("price");
               params.delete("rating");
+              params.delete("promo");
               params.delete("page");
               router.push(`/shop?${params.toString()}`);
             }}

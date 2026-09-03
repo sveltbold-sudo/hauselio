@@ -77,12 +77,17 @@ export function trackBeginCheckout(orderTotal: number, items: { id: string; name
   });
 }
 
-export function trackPurchase(orderId: string, total: number, itemCount: number) {
+export function trackPurchase(orderId: string, total: number, items: { id: string; name: string; price: number; quantity: number }[]) {
   pushEvent("purchase", {
     transaction_id: orderId,
     currency: "EUR",
     value: total,
-    items: Array(itemCount).fill({ item_id: "item" }),
+    items: items.map((item) => ({
+      item_id: item.id,
+      item_name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+    })),
   });
 }
 

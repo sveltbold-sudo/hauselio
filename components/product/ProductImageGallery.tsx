@@ -67,7 +67,7 @@ export default function ProductImageGallery({
       >
         <div className="w-full h-full">
           <ProductImage
-            src={images[activeImageIndex] || images[0]}
+            src={images.length > 0 ? images[activeImageIndex] || images[0] : "/images/placeholder-product.svg"}
             alt={name}
             brand={brand}
             size="lg"

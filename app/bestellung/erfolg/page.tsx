@@ -102,7 +102,7 @@ export default function OrderSuccessPage() {
           const now = new Date();
           const diff = Math.max(0, Math.floor((deadline.getTime() - now.getTime()) / 1000));
           setRemaining(diff);
-          trackPurchase(data.order.orderNumber, data.order.total, data.order.items.length);
+          trackPurchase(data.order.orderNumber, data.order.total, data.order.items.map((item: { id: string; name: string; price: number; quantity: number }) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
         })
         .catch(() => {
           setOrderError("Bestellung konnte nicht geladen werden. Bitte überprüfen Sie Ihre E-Mail und Bestellnummer.");

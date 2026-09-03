@@ -215,7 +215,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
                 e.preventDefault();
                 const target = document.getElementById("kundenbewertungen");
                 if (target) {
-                  history.pushState(null, "", "#kundenbewertungen");
+                  history.replaceState(null, "", "#kundenbewertungen");
                   target.scrollIntoView({ behavior: "smooth" });
                   target.focus({ preventScroll: true });
                 }
@@ -297,7 +297,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               ) : (
                 <>
                   <ShoppingBag className="w-5 h-5 mr-2" />
-                  <span className="whitespace-nowrap text-xs sm:text-sm">In den Warenkorb · {formatPrice(product.price)}</span>
+                  <span className="whitespace-nowrap text-xs sm:text-sm">In den Warenkorb · {formatPrice(product.price * quantity)}</span>
                 </>
               )}
             </Button>

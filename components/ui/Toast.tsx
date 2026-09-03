@@ -70,6 +70,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     if (timer) {
       clearTimeout(timer);
       timersRef.current.delete(id);
+      // Reset removing state if toast was in exit animation
+      setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, removing: false } : t)));
     }
   }, []);
 

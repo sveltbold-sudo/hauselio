@@ -11,6 +11,7 @@ export interface WishlistItem {
   brand: string;
   rating: number;
   reviewCount: number;
+  categorySlug?: string;
 }
 
 interface WishlistState {

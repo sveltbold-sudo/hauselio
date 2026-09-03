@@ -47,6 +47,16 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
   const bundleTotal = [currentProduct, ...selectedProducts].reduce((sum, p) => sum + p.price, 0);
 
   const handleAddBundle = () => {
+    // Add current product first
+    addItem({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      slug: currentProduct.slug,
+      price: currentProduct.price,
+      image: currentProduct.image,
+      categorySlug: currentProduct.categorySlug,
+    }, 1);
+    // Then add selected related products
     selectedProducts.forEach((item) => {
       addItem({
         id: item.id,

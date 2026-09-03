@@ -162,6 +162,7 @@ export default function WunschlistePage() {
                         originalPrice: item.originalPrice,
                         image: item.image,
                         brand: item.brand ?? "",
+                        categorySlug: item.categorySlug,
                       });
                       window.dispatchEvent(new CustomEvent("cart:item-added"));
                       toast.success("Zum Warenkorb hinzugefügt!");

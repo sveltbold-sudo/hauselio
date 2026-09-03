@@ -65,22 +65,7 @@ export const useComparisonStore = create<ComparisonState>()(
     }),
     {
       name: "HAUSAURA-comparison",
-      // Rehydrate on storage event (cross-tab sync)
-      onRehydrateStorage: () => {
-        if (typeof window === "undefined") return;
-        const handler = (e: StorageEvent) => {
-          if (e.key === "HAUSAURA-comparison" && e.newValue) {
-            try {
-              const parsed = JSON.parse(e.newValue);
-              if (parsed?.state?.items) {
-                useComparisonStore.setState({ items: parsed.state.items });
-              }
-            } catch {}
-          }
-        };
-        window.addEventListener("storage", handler);
-        return () => window.removeEventListener("storage", handler);
-      },
+      // persist middleware handles cross-tab sync via storage event automatically
     }
   )
 );
