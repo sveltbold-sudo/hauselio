@@ -10,14 +10,14 @@ export function serializeProductBody(data: FormData) {
     shortDesc: data.shortDesc || undefined,
     price: Number(data.price) || 0.01,
     originalPrice: data.originalPrice
-      ? Number(data.originalPrice) ?? undefined
+      ? Number(data.originalPrice) || undefined
       : undefined,
     categoryId: data.categoryId,
     brandId: data.brandId || undefined,
     isNew: data.isNew,
     isFeatured: data.isFeatured,
     isPromo: data.isPromo,
-    weight: data.weight ? Number(data.weight) ?? undefined : undefined,
+    weight: data.weight ? Number(data.weight) || undefined : undefined,
     features: data.features,
     specs: data.specs,
     imageUrl: data.imageUrl || undefined,

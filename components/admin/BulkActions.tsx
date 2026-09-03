@@ -23,8 +23,8 @@ export default function BulkActions({ selectedIds, onClearSelection, onComplete 
     setLoading(true);
     try {
       const uniqueIds = [...new Set(selectedIds)];
-      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-      const validIds = uniqueIds.filter((id) => uuidRegex.test(id));
+      const cuidRegex = /^c[a-z0-9]{20,}$/i;
+      const validIds = uniqueIds.filter((id) => cuidRegex.test(id));
       if (validIds.length === 0) {
         toast.error("Keine gültigen Produkt-IDs ausgewählt.");
         return;

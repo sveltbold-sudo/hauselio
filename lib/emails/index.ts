@@ -800,7 +800,7 @@ export async function sendNewOrderAdminNotification(data: AdminOrderNotification
   const safeZip = escapeHtml(data.customerZip);
 
   const html = baseTemplate(`
-    ${headerBanner("Nouvelle commande", `Commande ${safeOrderNumber} reçue`, "#D14A0C")}
+    ${headerBanner("Neue Bestellung", `Bestellung ${safeOrderNumber} eingegangen`, "#D14A0C")}
 
     <div style="padding:36px 40px;">
 
@@ -1103,7 +1103,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
 
       <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;margin-top:24px;">
         <p style="color:#6B7280;font-size:13px;margin:0;line-height:1.6;">
-          Diese E-Mail dient als Ihre Zahlungsbestätigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf references.
+          Diese E-Mail dient als Ihre Zahlungsbestätigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf.
         </p>
       </div>
 

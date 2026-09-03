@@ -218,11 +218,11 @@ export default async function AdminOrderDetailPage({
               )}
               {order.reminderCount > 0 && (
                 <p className="text-[var(--color-text-secondary)]">
-                  <span className="font-medium">Relances:</span>{" "}
+                  <span className="font-medium">Erinnerungen:</span>{" "}
                   {order.reminderCount}
                   {order.lastReminderAt && (
                     <span className="text-[var(--color-text-muted)] ml-1">
-                      (dernière: {new Date(order.lastReminderAt).toLocaleDateString("de-DE")})
+                      (letzte: {new Date(order.lastReminderAt).toLocaleDateString("de-DE")})
                     </span>
                   )}
                 </p>
@@ -235,12 +235,12 @@ export default async function AdminOrderDetailPage({
             <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
               <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
                 <Receipt className="w-5 h-5" />
-                Preuve de paiement
+                Zahlungsnachweis
               </h2>
               <a href={order.paymentProofUrl} target="_blank" rel="noopener noreferrer">
                 <Image
                   src={order.paymentProofUrl}
-                  alt="Preuve de paiement"
+                  alt="Zahlungsnachweis"
                   width={400}
                   height={300}
                   className="rounded-lg border border-[var(--color-border-light)] object-cover"
@@ -281,6 +281,12 @@ export default async function AdminOrderDetailPage({
                 </span>
                 <span className="font-medium">{formatPrice(Number(order.subtotal))}</span>
               </div>
+              {Number(order.couponDiscount) > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-success)]">Rabatt</span>
+                  <span className="font-medium text-[var(--color-success)]">-{formatPrice(Number(order.couponDiscount))}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-[var(--color-text-secondary)]">Versand</span>
                 <span className="font-medium">
