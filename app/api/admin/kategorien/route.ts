@@ -80,8 +80,6 @@ export async function POST(request: NextRequest) {
         name: parsed.data.name.trim(),
         slug: parsed.data.slug,
         description: parsed.data.description,
-        sortOrder: parsed.data.sortOrder,
-        image: parsed.data.image,
       },
     });
 
