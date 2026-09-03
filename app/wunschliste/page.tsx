@@ -14,6 +14,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function WunschlistePage() {
   const [mounted, setMounted] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const toast = useToast();
   const addItem = useCartStore((state) => state.addItem);
@@ -81,17 +82,30 @@ export default function WunschlistePage() {
             {wishlistItems.length} {wishlistItems.length === 1 ? "Produkt" : "Produkte"}
           </p>
         </div>
-        <button
-          onClick={() => {
-            if (window.confirm("Möchten Sie wirklich alle Produkte von der Wunschliste entfernen?")) {
-              clearAll();
-              toast.success("Wunschliste geleert");
-            }
-          }}
-          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-2 min-h-[44px]"
-        >
-          Alle entfernen
-        </button>
+        {confirmClear ? (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-[var(--color-danger)]">Wirklich alle entfernen?</span>
+            <button
+              onClick={() => { clearAll(); setConfirmClear(false); toast.success("Wunschliste geleert"); }}
+              className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors"
+            >
+              Ja
+            </button>
+            <button
+              onClick={() => setConfirmClear(false)}
+              className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
+            >
+              Nein
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setConfirmClear(true)}
+            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-2 min-h-[44px]"
+          >
+            Alle entfernen
+          </button>
+        )}
       </div>
 
       {/* Items grid */}

@@ -258,7 +258,7 @@ export default function MiniCart() {
                 )}
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-[var(--color-text-muted)]">Versand</span>
-                  <span className="text-sm font-medium text-[var(--color-success)]">
+                  <span className={`text-sm font-medium ${getShippingCost(total) === 0 ? "text-[var(--color-success)]" : ""}`}>
                     {getShippingCost(total) === 0 ? "Kostenlos" : formatPrice(SHIPPING_COST)}
                   </span>
                 </div>

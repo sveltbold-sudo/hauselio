@@ -5,16 +5,18 @@ import { BarChart3, X, Trash2 } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
 import { useComparisonStore } from "@/lib/comparison";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function ComparisonBar() {
   const items = useComparisonStore((s) => s.items);
   const removeItem = useComparisonStore((s) => s.removeItem);
   const clearAll = useComparisonStore((s) => s.clearAll);
+  const prefersReduced = useReducedMotion();
 
   if (items.length === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300" role="region" aria-label="Produktvergleich">
+    <div className={`fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] ${prefersReduced ? "" : "transform transition-transform duration-300"}`} role="region" aria-label="Produktvergleich">
       <div className="container-hausaura py-3">
         <div className="flex items-center gap-4">
           {/* Label */}

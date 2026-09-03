@@ -96,6 +96,12 @@ export default function OrderSuccessPage() {
         })
         .then((data) => {
           setOrder(data.order);
+          // Calculate remaining time from order creation
+          const orderDate = new Date(data.order.createdAt);
+          const deadline = new Date(orderDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+          const now = new Date();
+          const diff = Math.max(0, Math.floor((deadline.getTime() - now.getTime()) / 1000));
+          setRemaining(diff);
           trackPurchase(data.order.orderNumber, data.order.total, data.order.items.length);
         })
         .catch(() => {

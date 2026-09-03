@@ -104,7 +104,9 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       name: product.name,
       slug: product.slug,
       price: product.price,
+      originalPrice: product.originalPrice ?? undefined,
       image: product.images[0] || "/images/placeholder-product.svg",
+      brand: product.brand ?? "",
       categorySlug: product.categorySlug,
     }, quantity);
     trackAddToCart({
@@ -331,7 +333,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       <ProductTabs description={product.description} specs={product.specs} />
 
       <FrequentlyBoughtTogether
-        currentProduct={{ id: product.id, name: product.name, slug: product.slug, price: product.price, image: product.images[0] || "/images/placeholder-product.svg" }}
+        currentProduct={{ id: product.id, name: product.name, slug: product.slug, price: product.price, image: product.images[0] || "/images/placeholder-product.svg", categorySlug: product.categorySlug }}
         products={relatedProducts}
       />
 

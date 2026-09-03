@@ -17,7 +17,7 @@ interface BundleProduct {
 }
 
 interface FrequentlyBoughtTogetherProps {
-  currentProduct: { id: string; name: string; slug: string; price: number; image: string };
+  currentProduct: { id: string; name: string; slug: string; price: number; image: string; categorySlug: string };
   products: BundleProduct[];
 }
 
@@ -43,21 +43,23 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
     });
   };
 
-  const allItems = [currentProduct, ...products.filter((p) => selected.has(p.id))];
-  const bundleTotal = allItems.reduce((sum, p) => sum + p.price, 0);
+  const selectedProducts = products.filter((p) => selected.has(p.id));
+  const bundleTotal = [currentProduct, ...selectedProducts].reduce((sum, p) => sum + p.price, 0);
 
   const handleAddBundle = () => {
-    allItems.forEach((item) => {
+    selectedProducts.forEach((item) => {
       addItem({
         id: item.id,
         name: item.name,
         slug: item.slug,
         price: item.price,
         image: item.image,
+        brand: item.brand ?? "",
+        categorySlug: currentProduct.categorySlug,
       }, 1);
     });
     window.dispatchEvent(new CustomEvent("cart:item-added"));
-    toast.success(`${allItems.length} Artikel zum Warenkorb hinzugefügt!`);
+    toast.success(`${selectedProducts.length} Artikel zum Warenkorb hinzugefügt!`);
     setAddedBundle(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setAddedBundle(false), 2000);
@@ -153,7 +155,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
             </button>
 
             <p className="text-xs text-[var(--color-text-muted)] text-center mt-2">
-              {allItems.length} Artikel · Kostenlos ab 50€
+              {selectedProducts.length + 1} Artikel · Kostenlos ab 50€
             </p>
           </div>
         </div>

@@ -13,8 +13,9 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   let reviews;
   let totalReviews = 0;
   let averageRating = 0;
+  let distribution = [5, 4, 3, 2, 1].map((stars) => ({ stars, count: 0, percentage: 0 }));
   try {
-    const [fetchedReviews, aggregate, count] = await Promise.all([
+    const [fetchedReviews, aggregate, count, distributionRows] = await Promise.all([
       prisma.review.findMany({
         where,
         orderBy: { createdAt: "desc" },
@@ -31,10 +32,24 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
       }),
       prisma.review.aggregate({ where, _avg: { rating: true }, _count: true }),
       prisma.review.count({ where }),
+      prisma.review.groupBy({
+        by: ["rating"],
+        where,
+        _count: { rating: true },
+      }),
     ]);
     reviews = fetchedReviews;
     totalReviews = count;
     averageRating = aggregate._avg.rating ?? 0;
+
+    const distMap = new Map<number, number>();
+    for (const row of distributionRows) {
+      distMap.set(row.rating, row._count.rating);
+    }
+    distribution = [5, 4, 3, 2, 1].map((stars) => {
+      const c = distMap.get(stars) ?? 0;
+      return { stars, count: c, percentage: totalReviews > 0 ? (c / totalReviews) * 100 : 0 };
+    });
   } catch (error) {
     logger.error("customer-reviews", error);
     return null;
@@ -58,12 +73,6 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     }
     return null;
   }
-
-  const distribution = [5, 4, 3, 2, 1].map((stars) => {
-    const count = reviews.filter((r) => r.rating === stars).length;
-    const fullCount = totalReviews > 0 ? Math.round((count / reviews.length) * totalReviews) : 0;
-    return { stars, count: fullCount, percentage: totalReviews > 0 ? (fullCount / totalReviews) * 100 : 0 };
-  });
 
   const fullStars = Math.floor(averageRating);
 

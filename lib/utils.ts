@@ -43,4 +43,17 @@ export function calcDiscount(price: number, originalPrice: number | null): numbe
   return Math.round(((originalPrice - price) / originalPrice) * 100);
 }
 
+export function getVatRate(country: string): number {
+  switch (country) {
+    case "AT": return 20;
+    case "CH": return 0;
+    case "DE": default: return 19;
+  }
+}
+
+export function getVatLabel(country: string): string {
+  const rate = getVatRate(country);
+  return rate > 0 ? `inkl. ${rate}% MwSt.` : "zzgl. MwSt.";
+}
+
 
