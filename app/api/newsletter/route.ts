@@ -74,6 +74,13 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     await requireRole("ADMIN");
 
     const ip = getClientIp(request);

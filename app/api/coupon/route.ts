@@ -21,7 +21,8 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const code = (body.code || "").trim().toUpperCase();
+    const rawCode = typeof body.code === "string" ? body.code : "";
+    const code = rawCode.trim().toUpperCase();
 
     if (!code) {
       return NextResponse.json(

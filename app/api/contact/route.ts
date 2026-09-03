@@ -3,6 +3,7 @@ import { ContactSchema } from "@/lib/validations";
 import { sendContactForward, sendContactAutoReply } from "@/lib/emails";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
+import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,7 +44,11 @@ export async function POST(request: NextRequest) {
 
     const forwardResult = results[0];
     if (forwardResult.status === "rejected") {
-      throw forwardResult.reason;
+      logger.error("contact-forward", forwardResult.reason);
+      return NextResponse.json(
+        { error: "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });

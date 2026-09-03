@@ -1,7 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils";
-import { sendOrderConfirmation } from "@/lib/emails";
+import { sendOrderConfirmation, sendNewOrderAdminNotification } from "@/lib/emails";
 import { CreateOrderSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { getShippingCost } from "@/lib/constants";
@@ -79,6 +79,9 @@ export async function POST(request: NextRequest) {
         throw new ValidationError("Ein oder mehrere Produkte sind nicht verfügbar");
       }
       const quantity = Math.max(1, Math.min(99, item.quantity));
+      if (item.quantity < 1 || item.quantity > 99) {
+        throw new ValidationError(`Ungültige Menge für ${product.name}: ${item.quantity}`);
+      }
       const price = Number(product.price);
       subtotal += price * quantity;
       return { productId: item.id, quantity, price };
@@ -177,6 +180,25 @@ export async function POST(request: NextRequest) {
       });
     } catch (emailError) {
       logger.error("order-email", emailError);
+    }
+
+    // Notify admin of new order
+    try {
+      await sendNewOrderAdminNotification({
+        orderNumber: order.orderNumber,
+        customerEmail: email,
+        customerName: `${firstName} ${lastName}`,
+        customerAddress: address,
+        customerCity: city,
+        customerZip: zip,
+        items: emailItems,
+        subtotal,
+        couponDiscount,
+        total,
+        shippingCost,
+      });
+    } catch (adminEmailError) {
+      logger.error("order-admin-notification", adminEmailError);
     }
 
     return NextResponse.json({
