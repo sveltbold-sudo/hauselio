@@ -7,7 +7,7 @@ import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, T
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import ProductImage from "@/components/product/ProductImage";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, getVatLabel } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
 import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import { trackBeginCheckout } from "@/lib/analytics";
@@ -251,7 +251,8 @@ export default function BestellungPage() {
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
       orderSubmitted.current = true;
-      trackBeginCheckout(finalTotal, items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
+      const checkoutItems: { id: string; name: string; price: number; quantity: number }[] = items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity }));
+      trackBeginCheckout(finalTotal, checkoutItems);
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
       clearCartTimerRef.current = setTimeout(() => {
@@ -743,7 +744,7 @@ export default function BestellungPage() {
                     {formatPrice(finalTotal)}
                   </span>
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1">inkl. 19% MwSt.</p>
+                <p className="text-xs text-[var(--color-text-muted)] mt-1">{getVatLabel(formData.country)}</p>
               </div>
             </div>
 

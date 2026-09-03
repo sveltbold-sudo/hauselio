@@ -5,6 +5,7 @@ const mockPrisma = {
   product: { findUnique: vi.fn() },
   review: { findFirst: vi.fn(), findMany: vi.fn(), count: vi.fn(), create: vi.fn(), aggregate: vi.fn() },
   productUpdate: vi.fn(),
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   $transaction: vi.fn(async (fn: Function) => {
     const tx = {
       review: { create: vi.fn().mockResolvedValue({ id: "r1", rating: 5, title: "Great", content: "Good", authorName: "Test", authorEmail: "test@test.de", createdAt: new Date() }) },

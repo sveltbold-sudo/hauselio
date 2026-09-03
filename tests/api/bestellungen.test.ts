@@ -6,6 +6,7 @@ const mockPrisma = {
   product: { findMany: vi.fn() },
   order: { findFirst: vi.fn(), findUnique: vi.fn() },
   orderItem: { count: vi.fn().mockResolvedValue(0) },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   $transaction: vi.fn(async (fn: Function) => {
     const tx = {
       $queryRaw: vi.fn().mockResolvedValue([{ maxUses: 0, usedCount: 0 }]),
@@ -63,6 +64,15 @@ vi.mock("@/lib/constants", () => ({
   getShippingCost: vi.fn((total: number) => (total >= 50 ? 0 : 4.99)),
   FREE_SHIPPING_THRESHOLD: 50,
   SHIPPING_COST: 4.99,
+}));
+
+vi.mock("@/lib/errors", () => ({
+  ValidationError: class extends Error {
+    constructor(message: string) {
+      super(message);
+      this.name = "ValidationError";
+    }
+  },
 }));
 
 function makePostRequest(body: unknown) {
