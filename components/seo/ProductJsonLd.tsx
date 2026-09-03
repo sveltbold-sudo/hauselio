@@ -8,7 +8,7 @@ interface ProductJsonLdProps {
   currency?: string;
   brand: string;
   slug: string;
-  sku: string;
+  sku?: string;
   gtin?: string;
   rating?: number;
   reviewCount?: number;

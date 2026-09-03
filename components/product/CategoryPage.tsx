@@ -131,6 +131,7 @@ export default async function CategoryPage({
     isNew: product.isNew,
     isPromo: product.isPromo,
     brand: product.brand?.name || null,
+    categorySlug: slug,
   }));
 
   function pageUrl(p: number) {

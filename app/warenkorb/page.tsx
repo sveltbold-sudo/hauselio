@@ -51,7 +51,7 @@ export default function WarenkorbPage() {
       })
       .catch(() => {});
     return () => controller.abort();
-  }, [mounted]);
+  }, [mounted, coupon?.code, total]);
   const totalSavings = items.reduce((sum, item) => {
     if (item.originalPrice && item.originalPrice > item.price) {
       return sum + (item.originalPrice - item.price) * item.quantity;

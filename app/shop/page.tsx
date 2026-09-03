@@ -345,7 +345,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
 
       {/* Active filter chips */}
-      {(category || brand || promo === "true" || q || rating) && (
+          {(category || brand || promo === "true" || q || rating || price) && (
         <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
@@ -394,6 +394,16 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
               Ab {rating}★
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+            </Link>
+          )}
+          {price && (
+            <Link
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              aria-label="Preisfilter entfernen"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-sm font-medium rounded-lg hover:bg-[var(--color-accent)]/20 transition-colors"
+            >
+              Preis: {price.replace("-", "–")}€
               <X className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           )}

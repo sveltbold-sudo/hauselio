@@ -64,11 +64,16 @@ export function trackAddToCart(product: {
   });
 }
 
-export function trackBeginCheckout(orderTotal: number, itemCount: number) {
+export function trackBeginCheckout(orderTotal: number, items: { id: string; name: string; price: number; quantity: number }[]) {
   pushEvent("begin_checkout", {
     currency: "EUR",
     value: orderTotal,
-    items: Array(itemCount).fill({ item_id: "item" }),
+    items: items.map((item) => ({
+      item_id: item.id,
+      item_name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+    })),
   });
 }
 

@@ -200,10 +200,7 @@ export default function BestellungPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -254,7 +251,7 @@ export default function BestellungPage() {
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
       orderSubmitted.current = true;
-      trackBeginCheckout(finalTotal, items.length);
+      trackBeginCheckout(finalTotal, items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
       clearCartTimerRef.current = setTimeout(() => {

@@ -173,6 +173,7 @@ export async function POST(request: NextRequest) {
         items: emailItems,
         subtotal,
         couponDiscount,
+        couponCode: couponRecord?.code,
         total: total,
         shippingCost,
       });
