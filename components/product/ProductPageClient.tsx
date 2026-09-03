@@ -84,7 +84,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       rating: product.rating,
       reviewCount: product.reviewCount,
       isNew: product.isNew,
-      isPromo: product.originalPrice !== null,
+      isPromo: product.isPromo,
       brand: product.brand,
     });
     trackViewItem({

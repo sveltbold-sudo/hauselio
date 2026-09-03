@@ -44,7 +44,8 @@ function cleanupMemoryBlacklist(): void {
       .sort((a, b) => a[1] - b[1]);
     const toRemove = Math.ceil(entries.length * 0.2);
     for (let i = 0; i < toRemove; i++) {
-      memoryBlacklist.delete(entries[i]?.[0]);
+      const key = entries[i]?.[0];
+      if (key !== undefined) memoryBlacklist.delete(key);
     }
   }
 }

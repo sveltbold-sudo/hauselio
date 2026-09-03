@@ -130,6 +130,7 @@ async function getHeroSlides() {
       brand: p.brand?.name || "",
       price: Number(p.price),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      isPromo: p.isPromo,
       tagline: p.isNew ? "Neuheit" : p.isPromo ? "Angebot" : "Premium Qualität",
       subtitle: p.description?.slice(0, 120) || `${p.name} bei HAUSAURA entdecken.`,
       image: p.images[0]?.url || "/images/placeholder-product.svg",
@@ -162,7 +163,7 @@ async function getBestsellers() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
-    isPromo: p.originalPrice !== null,
+    isPromo: p.isPromo,
     brand: p.brand?.name || null,
   }));
 }
@@ -211,7 +212,7 @@ async function getRecommended() {
     rating: Number(p.rating),
     reviewCount: p.reviewCount,
     isNew: p.isNew,
-    isPromo: p.originalPrice !== null,
+    isPromo: p.isPromo,
     brand: p.brand?.name || null,
   }));
 }

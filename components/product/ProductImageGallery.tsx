@@ -98,6 +98,7 @@ export default function ProductImageGallery({
               slug,
               price,
               originalPrice: originalPrice ?? undefined,
+              isPromo,
               image: images[0] || "/images/placeholder-product.svg",
               brand: brand ?? "",
               rating,

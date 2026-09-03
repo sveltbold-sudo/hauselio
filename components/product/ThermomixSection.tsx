@@ -27,7 +27,7 @@ async function getThermomixProducts() {
       rating: Number(p.rating),
       reviewCount: p.reviewCount,
       isNew: p.isNew,
-      isPromo: p.originalPrice !== null,
+      isPromo: p.isPromo,
       brand: p.brand?.name || null,
     }));
   } catch {

@@ -66,6 +66,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
               slug: product.slug,
               price: product.price,
               originalPrice: product.originalPrice ?? undefined,
+              isPromo: product.isPromo,
               image: product.image,
               brand: product.brand ?? "",
               rating: product.rating,
