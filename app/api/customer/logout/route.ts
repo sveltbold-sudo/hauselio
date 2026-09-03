@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revokeToken, clearCustomerCookie } from "@/lib/auth";
-import { validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateCsrfOrigin, applyCookiesToResponse } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { cookies } from "next/headers";
 import { logger } from "@/lib/logger";
@@ -32,15 +32,7 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({ success: true });
     const cookieOptions = clearCustomerCookie(request);
 
-    Object.entries(cookieOptions).forEach(([name, options]) => {
-      response.cookies.set(name, options.value, {
-        httpOnly: options.httpOnly,
-        secure: options.secure,
-        sameSite: options.sameSite,
-        path: options.path,
-        maxAge: options.maxAge,
-      });
-    });
+    applyCookiesToResponse(response, cookieOptions);
 
     return response;
   } catch (error) {

@@ -6,7 +6,7 @@ import {
   generateCustomerToken,
   setCustomerCookie,
 } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin, applyCookiesToResponse } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
@@ -73,15 +73,7 @@ export async function POST(request: NextRequest) {
       customer: { email: customer.email, name: customer.name },
     }, { status: 201 });
 
-    Object.entries(cookieOptions).forEach(([name, options]) => {
-      response.cookies.set(name, options.value, {
-        httpOnly: options.httpOnly,
-        secure: options.secure,
-        sameSite: options.sameSite,
-        path: options.path,
-        maxAge: options.maxAge,
-      });
-    });
+    applyCookiesToResponse(response, cookieOptions);
 
     return response;
   } catch (error) {
