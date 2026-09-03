@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useId, useCallback, useRef, useEffect } from "react";
+import { useState, useId, useCallback, useRef } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { faqItems } from "@/lib/faq";
 

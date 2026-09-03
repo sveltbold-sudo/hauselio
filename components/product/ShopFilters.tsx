@@ -173,7 +173,8 @@ export default function ShopFilters({
           {brands.map((brand) => (
             <button
               key={brand.slug}
-              role="listitem"
+              role="option"
+              aria-selected={selectedBrand === brand.slug}
               onClick={() =>
                 updateFilter(
                   "brand",

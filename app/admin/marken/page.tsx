@@ -22,7 +22,6 @@ export default function MarkenPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", slug: "" });
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string; count: number } | null>(null);
   const [, startTransition] = useTransition();
@@ -60,7 +59,7 @@ export default function MarkenPage() {
       .finally(() => setLoading(false));
   }, [startTransition]);
 
-  useEffect(() => { loadBrands(); }, []);
+  useEffect(() => { loadBrands(); }, [loadBrands]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

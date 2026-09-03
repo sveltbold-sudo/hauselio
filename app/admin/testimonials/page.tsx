@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useRef, useCallback } from "react";
-import { Plus, Pencil, Trash2, X, Star, Check, Eye, EyeOff } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Star, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
@@ -66,7 +66,7 @@ export default function TestimonialsPage() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { loadTestimonials(); }, [page, filter]);
+  useEffect(() => { loadTestimonials(); }, [page, filter, loadTestimonials]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

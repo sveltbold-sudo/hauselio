@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
-import { deleteProductFromAlgolia, updateProductInAlgolia } from "@/lib/algolia-sync";
+import { deleteProductFromAlgolia } from "@/lib/algolia-sync";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 

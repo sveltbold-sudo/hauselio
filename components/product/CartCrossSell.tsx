@@ -39,6 +39,7 @@ export default function CartCrossSell() {
 
     const fetchRelated = async () => {
       try {
+        if (cancelled) return;
         const cartIds = new Set(items.map((i) => i.id));
         const knownCategorySlugs = items
           .map((i) => i.categorySlug)

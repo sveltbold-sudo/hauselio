@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useCallback } from "react";
-import { TrendingUp, TrendingDown, Package, ShoppingCart, Users, Minus } from "lucide-react";
+import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";

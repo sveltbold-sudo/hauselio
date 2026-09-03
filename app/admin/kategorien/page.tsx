@@ -63,7 +63,7 @@ export default function KategorienPage() {
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, [loadCategories]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -51,6 +51,7 @@ export default function WarenkorbPage() {
       })
       .catch(() => {});
     return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted, coupon?.code, total]);
   const totalSavings = items.reduce((sum, item) => {
     if (item.originalPrice && item.originalPrice > item.price) {

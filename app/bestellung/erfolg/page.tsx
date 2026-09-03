@@ -139,7 +139,6 @@ export default function OrderSuccessPage() {
   const timerDays = Math.floor(remaining / (24 * 60 * 60));
   const timerHours = String(Math.floor((remaining % (24 * 60 * 60)) / (60 * 60))).padStart(2, "0");
   const timerMin = String(Math.floor((remaining % (60 * 60)) / 60)).padStart(2, "0");
-  const timerSec = String(remaining % 60).padStart(2, "0");
 
   if (!orderId) {
     return (

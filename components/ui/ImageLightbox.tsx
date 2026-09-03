@@ -60,13 +60,15 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
+    const focusTarget = returnFocusRef?.current;
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
-      if (returnFocusRef?.current) {
-        returnFocusRef.current.focus();
+      if (focusTarget) {
+        focusTarget.focus();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, onClose, goNext, goPrev]);
 
   if (!isOpen) return null;

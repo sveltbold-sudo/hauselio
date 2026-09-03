@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     await prisma.verificationToken.delete({ where: { token } });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Fehler bei der E-Mail-Verifizierung" },
       { status: 500 }

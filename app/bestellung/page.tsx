@@ -196,6 +196,7 @@ export default function BestellungPage() {
     }
 
     validateCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, updatePrice]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

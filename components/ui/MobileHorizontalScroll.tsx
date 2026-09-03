@@ -54,7 +54,7 @@ export default function MobileHorizontalScroll({
     } else {
       el.scrollBy({ left: cardWidth + gap, behavior: prefersReduced ? "auto" : "smooth" });
     }
-  }, [isPaused]);
+  }, [isPaused, prefersReduced]);
 
   useEffect(() => {
     if (autoScrollInterval <= 0) return;

@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `${baseUrl}/produkt/${slug}`,
       siteName: "HAUSAURA",
       locale: "de_DE",
-      type: "product" as const,
+      type: "website",
       images: product.images[0]?.url
         ? [{ url: product.images[0].url, width: 800, height: 600 }]
         : undefined,

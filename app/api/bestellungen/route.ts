@@ -55,14 +55,12 @@ export async function POST(request: NextRequest) {
 
     // Validate coupon server-side
     let couponDiscount = 0;
-    let couponLabel = "";
     let couponRecord: { code: string; discountPercent: number } | null = null;
     if (couponCode) {
       const upperCode = couponCode.toUpperCase();
       const found = await prisma.coupon.findUnique({ where: { code: upperCode } });
       if (found && found.isActive && (!found.expiresAt || found.expiresAt > new Date()) && (found.maxUses === 0 || found.usedCount < found.maxUses)) {
         couponRecord = { code: found.code, discountPercent: found.discountPercent };
-        couponLabel = `${found.discountPercent}% Rabatt`;
       }
     }
 

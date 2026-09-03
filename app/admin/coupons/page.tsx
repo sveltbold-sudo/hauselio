@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition, useRef, useCallback } from "react";
-import { Plus, Pencil, Trash2, X, Ticket, Copy, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Copy, Search } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
@@ -76,7 +76,7 @@ export default function CouponsPage() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { loadCoupons(); }, [page, search]);
+  useEffect(() => { loadCoupons(); }, [page, search, loadCoupons]);
 
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debouncedSearch = useCallback((value: string) => {

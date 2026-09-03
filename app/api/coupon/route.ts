@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const code = (body.code || "").trim().toUpperCase();
-    const cartTotal = Number(body.cartTotal) || 0;
 
     if (!code) {
       return NextResponse.json(
