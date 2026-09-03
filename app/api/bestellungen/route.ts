@@ -101,10 +101,11 @@ export async function POST(request: NextRequest) {
       try {
         order = await prisma.$transaction(async (tx) => {
           if (couponRecord) {
-            const coupon = await tx.coupon.findUnique({
-              where: { code: couponRecord.code },
-              select: { maxUses: true, usedCount: true },
-            });
+            const [coupon] = await tx.$queryRaw<{ maxUses: number; usedCount: number }[]>`
+              SELECT "maxUses", "usedCount" FROM "Coupon"
+              WHERE "code" = ${couponRecord.code}
+              FOR UPDATE
+            `;
             if (!coupon || (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses)) {
               throw new ValidationError("Gutscheincode wurde bereits maximal oft verwendet");
             }

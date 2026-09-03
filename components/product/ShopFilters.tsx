@@ -5,7 +5,7 @@ import { SlidersHorizontal, X, Tag, Package, Star } from "lucide-react";
 
 interface ShopFiltersProps {
   categories: { name: string; slug: string }[];
-  brands: string[];
+  brands: { name: string; slug: string }[];
   selectedCategory?: string;
   selectedBrand?: string;
   selectedRating?: string;
@@ -168,22 +168,22 @@ export default function ShopFilters({
         <div className="space-y-0.5 max-h-48 overflow-y-auto" role="list">
           {brands.map((brand) => (
             <button
-              key={brand}
+              key={brand.slug}
               role="listitem"
               onClick={() =>
                 updateFilter(
                   "brand",
-                  selectedBrand === brand ? null : brand
+                  selectedBrand === brand.slug ? null : brand.slug
                 )
               }
-              aria-pressed={selectedBrand === brand}
+              aria-pressed={selectedBrand === brand.slug}
               className={`w-full flex items-center gap-2.5 text-sm cursor-pointer min-h-[44px] px-3 rounded-lg transition-colors text-left ${
-                selectedBrand === brand
+                selectedBrand === brand.slug
                   ? "bg-[var(--color-primary-50)] text-[var(--color-primary)] font-semibold"
                   : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
               }`}
             >
-              {brand}
+              {brand.name}
             </button>
           ))}
         </div>

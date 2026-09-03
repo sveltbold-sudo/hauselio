@@ -108,6 +108,7 @@ export default async function ProductPage({ params }: PageProps) {
     reviewCount: product.reviewCount,
     isNew: product.isNew,
     brand: product.brand?.name || null,
+    brandSlug: product.brand?.slug || null,
     categoryName: product.category.name,
     categorySlug: product.category.slug,
     specs: product.specs.map((s) => ({ key: s.key, value: s.value })),

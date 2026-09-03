@@ -115,7 +115,11 @@ export default function OrderSuccessPage() {
           }
         })
         .catch(() => {
-          setBankDetails(null);
+          setBankDetails({
+            accountName: "HAUSAURA GmbH",
+            iban: "",
+            bic: "",
+          });
         });
     }
   }, [orderId, orderEmail]);
@@ -288,7 +292,14 @@ export default function OrderSuccessPage() {
                 </div>
               </div>
 
-              {/* Amount - HERO */}
+              {!bankDetails.iban ? (
+                <div className="bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-4 text-center">
+                  <p className="text-sm text-[var(--color-text-secondary)]">
+                    Die Bankverbindung wird geladen. Bitte überprüfen Sie auch Ihre Bestätigungs-E-Mail für die Zahlungsinformationen.
+                  </p>
+                </div>
+              ) : (
+              <>
               <div className="bg-[var(--color-primary)] text-white rounded-xl p-4 mb-4 text-center">
                 <p className="text-xs text-white/70 mb-1 uppercase tracking-wider font-medium">Zu zahlender Betrag</p>
                 <p className="text-3xl font-extrabold tracking-tight">{formatPrice(order.total)}</p>
@@ -364,10 +375,10 @@ export default function OrderSuccessPage() {
                   <strong>Sicherheit:</strong> Ihre Daten werden SSL-verschlüsselt übertragen. Wir speichern keine Bankdaten und haben keinen Zugriff auf Ihr Konto.
                 </p>
               </div>
+              </>
+              )}
             </div>
           )}
-
-          {/* Order Summary */}
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-left">
             <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
               Zusammenfassung

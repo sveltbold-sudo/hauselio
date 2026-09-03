@@ -11,21 +11,30 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   const where = productId ? { productId, isApproved: true } : { isApproved: true };
 
   let reviews;
+  let totalReviews = 0;
+  let averageRating = 0;
   try {
-    reviews = await prisma.review.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      take: 20,
-      select: {
-        id: true,
-        authorName: true,
-        rating: true,
-        title: true,
-        content: true,
-        createdAt: true,
-        product: { select: { name: true, slug: true } },
-      },
-    });
+    const [fetchedReviews, aggregate, count] = await Promise.all([
+      prisma.review.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        take: 20,
+        select: {
+          id: true,
+          authorName: true,
+          rating: true,
+          title: true,
+          content: true,
+          createdAt: true,
+          product: { select: { name: true, slug: true } },
+        },
+      }),
+      prisma.review.aggregate({ where, _avg: { rating: true }, _count: true }),
+      prisma.review.count({ where }),
+    ]);
+    reviews = fetchedReviews;
+    totalReviews = count;
+    averageRating = aggregate._avg.rating ?? 0;
   } catch (error) {
     logger.error("customer-reviews", error);
     return null;
@@ -49,9 +58,6 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
     }
     return null;
   }
-
-  const totalReviews = reviews.length;
-  const averageRating = reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews;
 
   const distribution = [5, 4, 3, 2, 1].map((stars) => {
     const count = reviews.filter((r) => r.rating === stars).length;

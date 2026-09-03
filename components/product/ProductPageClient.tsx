@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
 import ProductPaymentInfo from "@/components/product/ProductPaymentInfo";
-import { trackViewItem } from "@/lib/analytics";
+import { trackViewItem, trackAddToCart } from "@/lib/analytics";
 import WishlistButton from "@/components/product/WishlistButton";
 import CompareButton from "@/components/product/CompareButton";
 import { trackRecentlyViewed } from "@/components/product/RecentlyViewedSection";
@@ -50,6 +50,7 @@ interface Product {
   reviewCount: number;
   isNew: boolean;
   brand: string | null;
+  brandSlug: string | null;
   categoryName: string;
   categorySlug: string;
   specs: ProductSpec[];
@@ -106,6 +107,14 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       image: product.images[0] || "/images/placeholder-product.svg",
       categorySlug: product.categorySlug,
     }, quantity);
+    trackAddToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity,
+      category: product.categorySlug || undefined,
+      brand: product.brand || undefined,
+    });
     toast.success(`${quantity > 1 ? quantity + " Artikel" : "Artikel"} zum Warenkorb hinzugefügt!`);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
@@ -181,7 +190,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
         <div className="animate-fade-in-up delay-100 lg:sticky lg:top-24 lg:self-start">
           {product.brand && (
             <Link
-              href={`/shop?brand=${encodeURIComponent(product.brand.toLowerCase())}`}
+              href={`/shop?brand=${encodeURIComponent(product.brandSlug || product.brand?.toLowerCase() || "")}`}
               className="inline-block text-xs font-bold text-[var(--color-primary)] uppercase tracking-widest mb-2 hover:underline"
               translate="no"
             >

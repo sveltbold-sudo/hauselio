@@ -114,13 +114,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     where.category = { slug: category };
   }
   if (brand) {
-    where.brand = { name: { equals: brand, mode: "insensitive" } };
+    where.brand = { slug: brand };
   }
   if (q) {
     where.OR = [
       { name: { contains: q, mode: "insensitive" } },
       { description: { contains: q, mode: "insensitive" } },
-      { brand: { name: { contains: q, mode: "insensitive" } } },
+      { brand: { slug: brand } },
     ];
   }
   if (price) {
@@ -413,7 +413,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               name: c.name,
               slug: c.slug,
             }))}
-            brands={brands.map((b) => b.name)}
+            brands={brands.map((b) => ({ name: b.name, slug: b.slug }))}
             selectedCategory={category}
             selectedBrand={brand}
             selectedRating={rating}

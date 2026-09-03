@@ -7,7 +7,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface ShopFilterDrawerProps {
   categories: { name: string; slug: string }[];
-  brands: string[];
+  brands: { name: string; slug: string }[];
   selectedCategory?: string;
   selectedBrand?: string;
   selectedRating?: string;

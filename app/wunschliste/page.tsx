@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag, Trash2, Heart, ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/product/ProductImage";
+import CompareButton from "@/components/product/CompareButton";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import { useWishlistStore, type WishlistItem } from "@/lib/wishlist";
 import { useCartStore } from "@/lib/store";
@@ -156,6 +157,19 @@ export default function WunschlistePage() {
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     In den Warenkorb
                   </Button>
+                  <CompareButton
+                    product={{
+                      id: item.id,
+                      name: item.name,
+                      slug: item.slug,
+                      price: item.price,
+                      originalPrice: item.originalPrice,
+                      image: item.image,
+                      brand: item.brand ?? "",
+                      rating: item.rating,
+                      reviewCount: item.reviewCount,
+                    }}
+                  />
                   <button
                     onClick={() => {
                       removeItem(item.id);

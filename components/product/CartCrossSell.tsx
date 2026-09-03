@@ -13,7 +13,10 @@ interface CrossSellItem {
   name: string;
   slug: string;
   price: number;
+  originalPrice?: number | null;
   image: string;
+  brand?: string;
+  categorySlug?: string;
 }
 
 export default function CartCrossSell() {
@@ -86,12 +89,15 @@ export default function CartCrossSell() {
               data.products
                 .filter((p: { id: string }) => !cartIds.has(p.id))
                 .slice(0, 3)
-                .map((p: { id: string; name: string; slug: string; price: number; images?: string[] }) => ({
+                .map((p: { id: string; name: string; slug: string; price: number; originalPrice?: number | null; images?: string[]; brand?: string; categorySlug?: string }) => ({
                   id: p.id,
                   name: p.name,
                   slug: p.slug,
                   price: p.price,
+                  originalPrice: p.originalPrice,
                   image: p.images?.[0] || "/images/placeholder-product.svg",
+                  brand: p.brand,
+                  categorySlug: p.categorySlug,
                 }))
             );
           }
@@ -109,12 +115,15 @@ export default function CartCrossSell() {
         const related = data.products
           .filter((p: { id: string }) => !cartIds.has(p.id))
           .slice(0, 3)
-          .map((p: { id: string; name: string; slug: string; price: number; images?: string[] }) => ({
+          .map((p: { id: string; name: string; slug: string; price: number; originalPrice?: number | null; images?: string[]; brand?: string; categorySlug?: string }) => ({
             id: p.id,
             name: p.name,
             slug: p.slug,
             price: p.price,
+            originalPrice: p.originalPrice,
             image: p.images?.[0] || "/images/placeholder-product.svg",
+            brand: p.brand,
+            categorySlug: p.categorySlug,
           }));
 
         setSuggestions(related);
@@ -178,7 +187,10 @@ export default function CartCrossSell() {
                   name: item.name,
                   slug: item.slug,
                   price: item.price,
+                  originalPrice: item.originalPrice ?? undefined,
                   image: item.image,
+                  brand: item.brand,
+                  categorySlug: item.categorySlug,
                 }, 1);
                 toast.success(`${item.name} zum Warenkorb hinzugefügt.`);
               }}

@@ -82,11 +82,17 @@ export default function MiniCart() {
   }, [isOpen, close]);
 
   const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastOpenRef = useRef(0);
 
   useEffect(() => {
     const handleItemAdded = () => {
+      const now = Date.now();
+      if (now - lastOpenRef.current < 3000) return;
       if (openTimerRef.current) clearTimeout(openTimerRef.current);
-      openTimerRef.current = setTimeout(() => setIsOpen(true), 500);
+      openTimerRef.current = setTimeout(() => {
+        setIsOpen(true);
+        lastOpenRef.current = Date.now();
+      }, 500);
     };
     window.addEventListener("cart:item-added", handleItemAdded);
     return () => {
