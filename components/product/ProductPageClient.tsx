@@ -202,7 +202,12 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:underline transition-colors"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById("kundenbewertungen")?.scrollIntoView({ behavior: "smooth" });
+                const target = document.getElementById("kundenbewertungen");
+                if (target) {
+                  history.pushState(null, "", "#kundenbewertungen");
+                  target.scrollIntoView({ behavior: "smooth" });
+                  target.focus({ preventScroll: true });
+                }
               }}
             >
               {product.reviewCount} Bewertungen

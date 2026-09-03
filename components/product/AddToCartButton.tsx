@@ -63,6 +63,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <Button
       onClick={handleAdd}
+      tabIndex={-1}
       aria-live="polite"
       aria-label={`${added ? "Hinzugefügt" : "In den Warenkorb"}: ${product.name}`}
       className={`flex-1 ${

@@ -1,19 +1,22 @@
 ﻿"use client";
 
-import { useState, useId } from "react";
+import { useState, useId, useCallback, useRef, useEffect } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { faqItems } from "@/lib/faq";
 
-function FaqItem({ question, answer }: { question: string; answer: string }) {
+function FaqItem({ question, answer, index, onkeydown }: { question: string; answer: string; index: number; onkeydown: (e: React.KeyboardEvent, index: number) => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
   const buttonId = useId();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className="border border-[var(--color-border-light)] rounded-xl overflow-hidden">
       <button
+        ref={buttonRef}
         id={buttonId}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={(e) => onkeydown(e, index)}
         className="w-full flex items-center justify-between px-4 py-3.5 sm:px-5 sm:py-4 text-left hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-inset"
         aria-expanded={isOpen}
         aria-controls={panelId}
@@ -40,6 +43,38 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 }
 
 export default function FaqSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+    const items = containerRef.current?.querySelectorAll('[aria-controls]');
+    if (!items) return;
+
+    let nextIndex = index;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        nextIndex = (index + 1) % items.length;
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        nextIndex = (index - 1 + items.length) % items.length;
+        break;
+      case "Home":
+        e.preventDefault();
+        nextIndex = 0;
+        break;
+      case "End":
+        e.preventDefault();
+        nextIndex = items.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    (items[nextIndex] as HTMLElement).focus();
+  }, []);
+
   return (
     <section id="faq" className="section-py bg-[var(--color-bg-secondary)]">
       <div className="container-hausaura">
@@ -51,9 +86,9 @@ export default function FaqSection() {
           <h2 className="heading-2">FAQ — Ihre Fragen, unsere Antworten</h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div ref={containerRef} className="max-w-3xl mx-auto space-y-3" role="group" aria-label="Häufige Fragen">
           {faqItems.map((item, i) => (
-            <FaqItem key={i} question={item.question} answer={item.answer} />
+            <FaqItem key={i} question={item.question} answer={item.answer} index={i} onkeydown={handleKeyDown} />
           ))}
         </div>
       </div>
