@@ -56,11 +56,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdmin();
-
     if (!validateCsrfOrigin(request)) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
+
+    await requireAdmin();
 
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-kategorie-delete:${ip}`, 30, 60_000);

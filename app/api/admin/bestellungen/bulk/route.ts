@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
@@ -13,6 +13,13 @@ const BulkOrderSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 

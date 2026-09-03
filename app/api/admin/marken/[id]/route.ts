@@ -80,6 +80,10 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!validateCsrfOrigin(_request)) {
+      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+    }
+
     const ip = getClientIp(_request);
     if (!await checkRateLimit(`admin-marke-delete:${ip}`, 10, 60_000)) {
       return NextResponse.json(
@@ -90,10 +94,6 @@ export async function DELETE(
 
     const admin = await requireAdmin();
     const { id } = await params;
-
-    if (!validateCsrfOrigin(_request)) {
-      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
-    }
 
     const brand = await prisma.brand.findUnique({
       where: { id },

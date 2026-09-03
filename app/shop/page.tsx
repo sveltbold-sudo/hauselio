@@ -205,12 +205,21 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
     if (categoryCountsResult.status === "rejected") logger.error("shop-category-counts", categoryCountsResult.reason);
 
-    const allRatings = await prisma.$queryRaw<{ rating: number; count: bigint }[]>`
-      SELECT ROUND("rating")::int AS rating, COUNT(*)::int AS count
-      FROM "Product"
-      WHERE "rating" IS NOT NULL
-      GROUP BY ROUND("rating")
-    `;
+    const ratingWhere: string[] = ['"rating" IS NOT NULL'];
+    const ratingParams: unknown[] = [];
+    if (category) {
+      const cat = await prisma.category.findUnique({ where: { slug: category }, select: { id: true } });
+      if (cat) { ratingParams.push(cat.id); ratingWhere.push(`"categoryId" = $${ratingParams.length}`); }
+    }
+    if (brand) {
+      const b = await prisma.brand.findUnique({ where: { slug: brand }, select: { id: true } });
+      if (b) { ratingParams.push(b.id); ratingWhere.push(`"brandId" = $${ratingParams.length}`); }
+    }
+    const ratingWhereClause = ratingWhere.join(" AND ");
+    const allRatings = await prisma.$queryRawUnsafe<{ rating: number; count: bigint }[]>(
+      `SELECT ROUND("rating")::int AS rating, COUNT(*)::int AS count FROM "Product" WHERE ${ratingWhereClause} GROUP BY ROUND("rating")`,
+      ...ratingParams
+    );
     for (const row of allRatings) {
       const level = Number(row.rating);
       if (level >= 1 && level <= 5) {

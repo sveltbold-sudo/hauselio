@@ -26,6 +26,7 @@ interface SimilarProductsSectionProps {
 export default function SimilarProductsSection({ currentProductId, categorySlug }: SimilarProductsSectionProps) {
   const [products, setProducts] = useState<SimilarProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -51,7 +52,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
           );
         }
       })
-      .catch(() => { /* graceful degradation - similar products is non-critical */ })
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
     return () => controller.abort();
   }, [currentProductId, categorySlug]);
@@ -76,7 +77,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
     );
   }
 
-  if (products.length === 0) return null;
+  if (products.length === 0 || error) return null;
 
   return (
     <div className="mt-12">
