@@ -326,22 +326,23 @@ model AdminUser {
 // ═══════════════════════════════════════════
 
 model SiteSettings {
-  id              String @id @default(cuid())
-  bankName        String?
-  bankIban        String?
-  bankBic         String?
-  bankAccountName String?
-  shippingInfo    String?
-  contactEmail    String?
-  contactPhone    String?
-  contactAddress  String?
-  companyName     String? @default("HAUSAURA GmbH")
-  companyAddress  String? @default("Kastanienallee 42, 10435 Berlin")
-  vatId           String?
-  defaultVatRate  Float? @default(19)
-  invoicePrefix   String? @default("RE")
-  invoiceCounter  Int?    @default(0)
-  invoiceYear     Int?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id               String @id @default(cuid())
+  bankName         String?
+  bankIban         String?
+  bankBic          String?
+  bankAccountName  String?
+  shippingInfo     String?
+  contactEmail     String?
+  contactPhone     String?
+  contactAddress   String?
+  companyName      String? @default("HAUSAURA GmbH")
+  companyAddress   String? @default("Kastanienallee 42, 10435 Berlin")
+  vatId            String?
+  managingDirector String?
+  defaultVatRate   Float? @default(19)
+  invoicePrefix    String? @default("RE")
+  invoiceCounter   Int?    @default(0)
+  invoiceYear      Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

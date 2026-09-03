@@ -128,7 +128,7 @@ export default function BarrierefreiheitPage() {
           </p>
           <ul className="list-disc list-inside text-[var(--color-text-secondary)] space-y-1 mt-2">
             <li>WCAG 2.1 Level AA als Zielkonformität</li>
-            <li>EN 305 49 als technischer Standard</li>
+            <li>EN 301 549 als technischer Standard</li>
             <li>semantische HTML5-Struktur</li>
             <li>ARIA 1.2 Attribute für assistive Technologien</li>
             <li>Responsive Layout mit Breakpoints für mobile Geräte</li>
