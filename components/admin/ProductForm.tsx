@@ -333,7 +333,7 @@ export default function ProductForm({
                       type="button"
                       onClick={() => removeFeature(i)}
                       aria-label={`Feature "${feature}" entfernen`}
-                      className="hover:text-[var(--color-danger-hover)]"
+                      className="min-w-[28px] min-h-[28px] flex items-center justify-center rounded hover:text-[var(--color-danger-hover)]"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -394,6 +394,13 @@ export default function ProductForm({
               </div>
               {formData.specs.length > 0 && (
                 <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-[var(--color-border-light)]">
+                      <th className="py-2 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Eigenschaft</th>
+                      <th className="py-2 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Wert</th>
+                      <th className="py-2 w-10"><span className="sr-only">Aktionen</span></th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {formData.specs.map((spec, i) => (
                       <tr
@@ -411,7 +418,7 @@ export default function ProductForm({
                             type="button"
                             onClick={() => removeSpec(i)}
                             aria-label={`Spezifikation "${spec.key}" entfernen`}
-                            className="text-[var(--color-danger)] hover:text-[var(--color-danger)]"
+                            className="min-w-[28px] min-h-[28px] flex items-center justify-center rounded text-[var(--color-danger)] hover:text-[var(--color-danger)]"
                           >
                             <X className="w-4 h-4" />
                           </button>

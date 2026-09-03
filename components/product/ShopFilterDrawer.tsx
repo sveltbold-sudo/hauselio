@@ -137,6 +137,8 @@ export default function ShopFilterDrawer({
                 selectedBrand={selectedBrand}
                 selectedRating={selectedRating}
                 ratingCounts={ratingCounts}
+                selectedPrice={price}
+                selectedPromo={promo}
               />
             </div>
           </div>

@@ -14,6 +14,7 @@ export default function ExitIntentPopup() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
   const [remaining, setRemaining] = useState(COUNTDOWN_MINUTES * 60);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -47,6 +48,11 @@ export default function ExitIntentPopup() {
 
   useScrollLock(visible);
 
+  const handleClose = () => {
+    setVisible(false);
+    localStorage.setItem(EXIT_INTENT_KEY, "1");
+  };
+
   useEffect(() => {
     if (!visible) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -75,11 +81,6 @@ export default function ExitIntentPopup() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [visible]);
 
-  const handleClose = () => {
-    setVisible(false);
-    localStorage.setItem(EXIT_INTENT_KEY, "1");
-  };
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(COUPON_CODE);
@@ -92,15 +93,21 @@ export default function ExitIntentPopup() {
     e.preventDefault();
     if (!email || submitting) return;
     setSubmitting(true);
+    setNewsletterError(null);
     try {
-      await fetch("/api/newsletter", {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setNewsletterError(data.error || "Fehler beim Anmelden. Bitte erneut versuchen.");
+        return;
+      }
       setSubmitted(true);
     } catch {
-      setSubmitted(true);
+      setNewsletterError("Netzwerkfehler. Bitte erneut versuchen.");
     } finally {
       setSubmitting(false);
     }
@@ -197,6 +204,9 @@ export default function ExitIntentPopup() {
                     {submitting ? "..." : "OK"}
                   </button>
                 </div>
+                {newsletterError && (
+                  <p className="mt-2 text-xs text-[var(--color-danger)]" role="alert">{newsletterError}</p>
+                )}
               </form>
             ) : (
               <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
