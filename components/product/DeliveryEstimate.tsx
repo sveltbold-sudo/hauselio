@@ -10,11 +10,11 @@ export default function DeliveryEstimate() {
     setDelivery(getEstimatedDeliveryDate());
   }, []);
 
-  if (!delivery) return <span className="text-xs text-[var(--color-text-muted)]">--</span>;
+  if (!delivery) return <span className="text-xs text-[var(--color-text-muted)]" aria-busy="true">--</span>;
 
   return (
     <span className="text-xs text-[var(--color-text-muted)]">
-      {delivery.from} - {delivery.to}
+      <time dateTime={delivery.from}>{delivery.from}</time> - <time dateTime={delivery.to}>{delivery.to}</time>
     </span>
   );
 }

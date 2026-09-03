@@ -58,7 +58,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
 
   if (loading) {
     return (
-      <div className="mt-12">
+      <div className="mt-12" aria-busy="true" role="status">
         <h2 className="heading-2 mb-6 flex items-center gap-2">
           <Users className="w-5 h-5 text-[var(--color-primary)]" />
           Andere kauften auch
