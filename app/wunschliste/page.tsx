@@ -149,6 +149,7 @@ export default function WunschlistePage() {
                         image: item.image,
                         brand: item.brand ?? "",
                       });
+                      window.dispatchEvent(new CustomEvent("cart:item-added"));
                       toast.success("Zum Warenkorb hinzugefügt!");
                     }}
                     className="flex-1"

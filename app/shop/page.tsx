@@ -120,13 +120,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     where.OR = [
       { name: { contains: q, mode: "insensitive" } },
       { description: { contains: q, mode: "insensitive" } },
-      { brand: { slug: brand } },
     ];
   }
   if (price) {
     const parts = price.split("-");
-    const minVal = parts[0] ? Number(parts[0]) : undefined;
-    const maxVal = parts[1] ? Number(parts[1]) : undefined;
+    const minVal = parts[0] && parts[0] !== "" ? Number(parts[0]) : undefined;
+    const maxVal = parts[1] && parts[1] !== "" ? Number(parts[1]) : undefined;
     const priceFilter: { gte?: number; lte?: number } = {};
     if (minVal !== undefined && !isNaN(minVal)) {
       priceFilter.gte = minVal;

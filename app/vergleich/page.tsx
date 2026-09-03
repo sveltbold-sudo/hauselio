@@ -129,6 +129,7 @@ export default function VergleichPage() {
                             brand: item.brand,
                             categorySlug: "vergleich",
                           });
+                          window.dispatchEvent(new CustomEvent("cart:item-added"));
                           toast.success("Zum Warenkorb hinzugefügt!");
                         }}
                         className="w-full mt-3"

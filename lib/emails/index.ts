@@ -41,6 +41,7 @@ interface OrderEmailData {
   items: { name: string; quantity: number; price: number }[];
   subtotal: number;
   couponDiscount: number;
+  couponCode?: string;
   total: number;
   shippingCost: number;
 }
@@ -148,7 +149,7 @@ async function getBankDetails() {
 // 1. ORDER CONFIRMATION
 // ─────────────────────────────────────────────
 export async function sendOrderConfirmation(data: OrderEmailData) {
-  const { orderNumber, customerEmail, customerName, items, subtotal, couponDiscount, total, shippingCost } = data;
+  const { orderNumber, customerEmail, customerName, items, subtotal, couponDiscount, couponCode, total, shippingCost } = data;
   const bank = await getBankDetails();
   const safeName = escapeHtml(customerName);
   const safeOrderNumber = escapeHtml(orderNumber);
@@ -200,7 +201,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
           <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(subtotal)}</td>
         </tr>
         ${couponDiscount > 0 ? `<tr>
-          <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt (HAUSAURA10)</td>
+          <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt (${escapeHtml(couponCode || "Gutschein")})</td>
           <td style="padding:6px 0;font-size:14px;color:#059669;text-align:right;font-weight:600;">-${formatPrice(couponDiscount)}</td>
         </tr>` : ""}
         <tr>

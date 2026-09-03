@@ -10,6 +10,8 @@ interface ShopFiltersProps {
   selectedBrand?: string;
   selectedRating?: string;
   ratingCounts?: Record<number, number>;
+  selectedPrice?: string;
+  selectedPromo?: string;
 }
 
 export default function ShopFilters({
@@ -19,6 +21,8 @@ export default function ShopFilters({
   selectedBrand,
   selectedRating,
   ratingCounts = {},
+  selectedPrice,
+  selectedPromo,
 }: ShopFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,7 +38,7 @@ export default function ShopFilters({
     router.push(`/shop?${params.toString()}`);
   };
 
-  const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price") || selectedRating;
+  const hasActiveFilters = selectedCategory || selectedBrand || selectedPrice || selectedRating || selectedPromo;
 
   return (
     <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5">
