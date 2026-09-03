@@ -32,6 +32,7 @@ export default function BestellungPage() {
   const [isValidating, setIsValidating] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const orderSubmitted = useRef(false);
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -218,6 +219,8 @@ export default function BestellungPage() {
   };
 
   const handleSubmit = async () => {
+    if (orderSubmitted.current) return;
+    orderSubmitted.current = true;
     setOrderError("");
     setIsLoading(true);
 

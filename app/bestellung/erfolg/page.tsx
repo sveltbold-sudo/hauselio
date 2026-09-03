@@ -175,8 +175,7 @@ export default function OrderSuccessPage() {
       {remaining > 0 && (
         <div
           role="status"
-          aria-live="polite"
-          aria-atomic="true"
+          aria-live="off"
           className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6"
         >
           <Clock className="w-4 h-4 text-[var(--color-primary)]" />
@@ -266,7 +265,7 @@ export default function OrderSuccessPage() {
               <button
                 onClick={() => copyToClipboard(order.orderNumber, "orderNumber")}
                 aria-label="Bestellnummer kopieren"
-                className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
               >
                 {copied === "orderNumber" ? (
                   <Check className="w-4 h-4 text-[var(--color-success)]" />
@@ -317,10 +316,10 @@ export default function OrderSuccessPage() {
                   <p className="text-2xl font-extrabold text-[var(--color-accent)] tracking-wider font-mono">
                     {order.orderNumber}
                   </p>
-                  <button
+                   <button
                     onClick={() => copyToClipboard(order.orderNumber, "reference")}
                     aria-label="Verwendungszweck kopieren"
-                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-white rounded-lg transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-white rounded-lg transition-colors"
                   >
                     {copied === "reference" ? <Check className="w-4 h-4 text-[var(--color-success)]" /> : <Copy className="w-4 h-4" />}
                   </button>
@@ -337,10 +336,10 @@ export default function OrderSuccessPage() {
                     <p className="text-xs text-[var(--color-text-muted)]">Empfänger</p>
                     <p className="text-sm font-semibold text-[var(--color-text-primary)]">{bankDetails.accountName}</p>
                   </div>
-                  <button
+                   <button
                     onClick={() => copyToClipboard(bankDetails.accountName, "name")}
                     aria-label="Empfängername kopieren"
-                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
                   >
                     {copied === "name" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -350,10 +349,10 @@ export default function OrderSuccessPage() {
                     <p className="text-xs text-[var(--color-text-muted)]">IBAN</p>
                     <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono tracking-wide">{bankDetails.iban}</p>
                   </div>
-                  <button
+                   <button
                     onClick={() => copyToClipboard(bankDetails.iban, "iban")}
                     aria-label="IBAN kopieren"
-                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
                   >
                     {copied === "iban" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -363,10 +362,10 @@ export default function OrderSuccessPage() {
                     <p className="text-xs text-[var(--color-text-muted)]">BIC</p>
                     <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono">{bankDetails.bic}</p>
                   </div>
-                  <button
+                   <button
                     onClick={() => copyToClipboard(bankDetails.bic, "bic")}
                     aria-label="BIC kopieren"
-                    className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-white rounded-lg transition-colors"
                   >
                     {copied === "bic" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
