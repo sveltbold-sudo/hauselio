@@ -313,7 +313,7 @@ export default function WarenkorbPage() {
                     </div>
                     <button
                       onClick={() => { removeCoupon(); setCouponCode(""); setCouponError(""); }}
-                      className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors"
+                      className="min-h-[44px] px-3 py-2 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       Entfernen
                     </button>
@@ -328,6 +328,9 @@ export default function WarenkorbPage() {
                           value={couponCode}
                           onChange={(e) => { setCouponCode(e.target.value.toUpperCase()); setCouponError(""); }}
                           placeholder="Gutscheincode"
+                          aria-label="Gutscheincode"
+                          aria-invalid={!!couponError}
+                          aria-describedby={couponError ? "coupon-error" : undefined}
                           className="w-full pl-9 pr-3 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors"
                         />
                       </div>
@@ -362,7 +365,7 @@ export default function WarenkorbPage() {
                       </button>
                     </div>
                     {couponError && (
-                      <p className="text-xs text-[var(--color-danger)] mt-1.5" role="alert">{couponError}</p>
+                      <p id="coupon-error" className="text-xs text-[var(--color-danger)] mt-1.5" role="alert">{couponError}</p>
                     )}
                   </div>
                 )}

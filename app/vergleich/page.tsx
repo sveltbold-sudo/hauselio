@@ -73,6 +73,7 @@ export default function VergleichPage() {
       {/* Comparison table */}
       <div className="overflow-x-auto -mx-5 px-5 pb-4">
         <table className="w-full min-w-[600px] border-collapse">
+          <caption className="sr-only">Produktvergleich</caption>
           {/* Product headers */}
           <thead>
             <tr>
@@ -85,7 +86,7 @@ export default function VergleichPage() {
                       <button
                         onClick={() => removeItem(item.id)}
                         aria-label={`${item.name} vom Vergleich entfernen`}
-                        className="absolute top-2 right-2 p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                        className="absolute top-2 right-2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -148,7 +149,7 @@ export default function VergleichPage() {
             <tbody>
               {allSpecKeys.map((key, i) => (
                 <tr key={key} className={i % 2 === 0 ? "bg-[var(--color-bg-secondary)]" : ""}>
-                  <td className="p-3 text-sm font-semibold text-[var(--color-text-primary)]">{key}</td>
+                  <th scope="row" className="p-3 text-sm font-semibold text-[var(--color-text-primary)] text-left">{key}</th>
                   {items.map((item) => {
                     const spec = item.specs?.find((s) => s.key === key);
                     return (

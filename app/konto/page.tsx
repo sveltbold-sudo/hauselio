@@ -500,7 +500,7 @@ export default function KontoPage() {
             aria-controls="panel-login"
             tabIndex={tab === "login" ? 0 : -1}
             onClick={() => { setTab("login"); setError(""); }}
-            className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+            className={`flex-1 min-h-[44px] py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "login"
                 ? "bg-white text-[var(--color-primary)] shadow-sm"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
@@ -515,7 +515,7 @@ export default function KontoPage() {
             aria-controls="panel-register"
             tabIndex={tab === "register" ? 0 : -1}
             onClick={() => { setTab("register"); setError(""); }}
-            className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+            className={`flex-1 min-h-[44px] py-2.5 text-sm font-semibold rounded-lg transition-colors ${
               tab === "register"
                 ? "bg-white text-[var(--color-primary)] shadow-sm"
                 : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"

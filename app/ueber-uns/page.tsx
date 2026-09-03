@@ -123,7 +123,7 @@ export default function UeberUnsPage() {
               className="bg-white rounded-2xl border border-[var(--color-border-light)] p-7 hover:border-[var(--color-primary)]/30 hover:shadow-[var(--shadow-card-hover)] transition-colors transition-shadow duration-300"
             >
               <div className="w-12 h-12 bg-[var(--color-primary-50)] rounded-xl flex items-center justify-center mb-5">
-                <value.icon className="w-6 h-6 text-[var(--color-primary)]" />
+                <value.icon className="w-6 h-6 text-[var(--color-primary)]" aria-hidden="true" />
               </div>
               <h3 className="heading-3 mb-2">
                 {value.title}
