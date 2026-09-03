@@ -22,7 +22,13 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-const TOAST_DURATION = 4000;
+const TOAST_DURATIONS: Record<string, number> = {
+  error: 6000,
+  success: 4000,
+  info: 4000,
+  warning: 5000,
+};
+const DEFAULT_DURATION = 4000;
 const EXIT_DURATION = 300;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -39,7 +45,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  const startAutoDismiss = useCallback((id: number) => {
+  const startAutoDismiss = useCallback((id: number, type?: ToastType) => {
+    const duration = (type && TOAST_DURATIONS[type]) || DEFAULT_DURATION;
     const timer = setTimeout(() => {
       setToasts((prev) =>
         prev.map((t) => (t.id === id ? { ...t, removing: true } : t))
@@ -48,14 +55,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         removeToast(id);
       }, EXIT_DURATION);
       timersRef.current.set(id, exitTimer);
-    }, TOAST_DURATION);
+    }, duration);
     timersRef.current.set(id, timer);
   }, [removeToast]);
 
   const addToast = useCallback((type: ToastType, message: string) => {
     const id = ++toastIdRef.current;
     setToasts((prev) => [...prev, { id, type, message }]);
-    startAutoDismiss(id);
+    startAutoDismiss(id, type);
   }, [startAutoDismiss]);
 
   const handleMouseEnter = useCallback((id: number) => {
@@ -67,8 +74,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleMouseLeave = useCallback((id: number) => {
-    startAutoDismiss(id);
-  }, [startAutoDismiss]);
+    const toast = toasts.find((t) => t.id === id);
+    startAutoDismiss(id, toast?.type);
+  }, [startAutoDismiss, toasts]);
 
   const toast = {
     success: (message: string) => addToast("success", message),
@@ -91,7 +99,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div aria-live="polite" aria-atomic="true" className="fixed bottom-24 lg:bottom-4 right-4 pb-[env(safe-area-inset-bottom,0px)] z-[100] flex flex-col gap-2 pointer-events-none">
+      <div aria-live="polite" className="fixed bottom-24 lg:bottom-4 right-4 pb-[env(safe-area-inset-bottom,0px)] z-[100] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
