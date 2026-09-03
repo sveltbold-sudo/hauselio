@@ -175,6 +175,13 @@ export default async function ProductPage({ params }: PageProps) {
         gtin={product.barcode || undefined}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
+        reviews={product.reviews.map((r) => ({
+          author: r.authorName,
+          rating: r.rating,
+          title: r.title || undefined,
+          content: r.content || undefined,
+          date: r.createdAt.toISOString().split("T")[0],
+        }))}
         availability="InStock"
       />
       <main id="main-content">
