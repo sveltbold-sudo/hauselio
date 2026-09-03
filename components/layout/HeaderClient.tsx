@@ -42,20 +42,6 @@ export default function HeaderClient() {
     };
   }, []);
 
-  // Close mega menu on scroll
-  useEffect(() => {
-    if (!activeMega) return;
-    const handleScroll = () => {
-      setActiveMega(null);
-      if (megaCloseTimeoutRef.current) {
-        clearTimeout(megaCloseTimeoutRef.current);
-        megaCloseTimeoutRef.current = null;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeMega]);
-
   useEffect(() => {
     const dismissed = sessionStorage.getItem("HAUSAURA-promo-dismissed");
     if (dismissed) setPromoDismissed(true);
@@ -457,6 +443,13 @@ export default function HeaderClient() {
         {navCategories.map((cat) => (
           <div
             key={`mega-${cat.href}`}
+            onMouseEnter={() => {
+              if (megaCloseTimeoutRef.current) {
+                clearTimeout(megaCloseTimeoutRef.current);
+                megaCloseTimeoutRef.current = null;
+              }
+            }}
+            onMouseLeave={handleMegaLeave}
             className={`mega-menu-panel absolute top-full left-0 right-0 z-[55] transition-[opacity,visibility] duration-200 ${
               activeMega === cat.href
                 ? "opacity-100 visible"
