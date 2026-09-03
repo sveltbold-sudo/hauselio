@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 import { prisma } from "@/lib/prisma";
 import { sendPaymentReminder } from "@/lib/emails";
 import { logger } from "@/lib/logger";
@@ -15,7 +16,15 @@ export async function GET(request: NextRequest) {
     const authHeader = request.headers.get("authorization");
     const cronSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+    if (!cronSecret || !authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
+    }
+
+    const receivedToken = authHeader.slice(7);
+    const expectedBuf = Buffer.from(cronSecret, "utf8");
+    const receivedBuf = Buffer.from(receivedToken, "utf8");
+
+    if (expectedBuf.length !== receivedBuf.length || !timingSafeEqual(expectedBuf, receivedBuf)) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
