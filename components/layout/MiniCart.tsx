@@ -47,13 +47,13 @@ export default function MiniCart() {
   useScrollLock(isOpen);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: PointerEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         close();
       }
     };
-    if (isOpen) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    if (isOpen) document.addEventListener("pointerdown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [isOpen, close]);
 
   useEffect(() => {
