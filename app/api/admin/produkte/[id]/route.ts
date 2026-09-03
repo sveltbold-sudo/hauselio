@@ -125,7 +125,15 @@ export async function PUT(
       throw err;
     }
 
-    const product = await prisma.product.findUnique({ where: { id } });
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: true,
+        brand: true,
+        images: { orderBy: { position: "asc" } },
+        specs: { orderBy: { position: "asc" } },
+      },
+    });
 
     try {
       await updateProductInAlgolia(id);

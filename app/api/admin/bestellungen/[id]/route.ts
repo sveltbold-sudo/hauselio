@@ -88,6 +88,7 @@ export async function PUT(
       const customerName = `${order.customerFirstName} ${order.customerLastName}`;
       const orderTotal = Number(order.total);
       const orderShipping = Number(order.shippingCost);
+      const orderCouponDiscount = Number(order.couponDiscount);
       const emailData = {
         orderNumber: order.orderNumber,
         customerEmail: order.customerEmail,
@@ -97,8 +98,8 @@ export async function PUT(
           quantity: item.quantity,
           price: Number(item.price),
         })),
-        subtotal: orderTotal - orderShipping,
-        couponDiscount: 0,
+        subtotal: orderTotal - orderShipping + orderCouponDiscount,
+        couponDiscount: orderCouponDiscount,
         total: orderTotal,
         shippingCost: orderShipping,
       };

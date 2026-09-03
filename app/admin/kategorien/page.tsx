@@ -147,7 +147,7 @@ export default function KategorienPage() {
               <button
                 onClick={() => setShowForm(false)}
                 aria-label="Modal schließen"
-                className="p-1 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
               </button>
@@ -189,10 +189,10 @@ export default function KategorienPage() {
                 />
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
+                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -236,10 +236,10 @@ export default function KategorienPage() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                    <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" aria-hidden="true" />
                     </button>
-                    <button onClick={() => handleDelete(cat.id, cat.name, cat._count.products)} aria-label={`Kategorie ${cat.name} löschen`} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                    <button onClick={() => handleDelete(cat.id, cat.name, cat._count.products)} aria-label={`Kategorie ${cat.name} löschen`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                       <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>

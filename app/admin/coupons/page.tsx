@@ -215,7 +215,7 @@ export default function CouponsPage() {
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">{editingId ? "Gutschein bearbeiten" : "Neuer Gutschein"}</h2>
-              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="p-1 hover:bg-[var(--color-bg)] rounded-lg">
+               <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -282,10 +282,10 @@ export default function CouponsPage() {
                 <label htmlFor="coupon-active" className="text-sm text-[var(--color-text-secondary)]">Aktiv</label>
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
+                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
                   Abbrechen
                 </button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -324,7 +324,7 @@ export default function CouponsPage() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <code className="text-sm font-bold font-mono text-[var(--color-primary)]">{coupon.code}</code>
-                      <button onClick={() => copyCode(coupon.code)} className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-primary)]" aria-label="Code kopieren">
+                       <button onClick={() => copyCode(coupon.code)} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)]" aria-label="Code kopieren">
                         <Copy className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -357,10 +357,10 @@ export default function CouponsPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <button onClick={() => handleEdit(coupon)} aria-label="Gutschein bearbeiten" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
-                        <Pencil className="w-4 h-4" />
-                      </button>
-                      <button onClick={() => setDeleteId(coupon.id)} aria-label="Gutschein löschen" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                       <button onClick={() => handleEdit(coupon)} aria-label="Gutschein bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                         <Pencil className="w-4 h-4" />
+                       </button>
+                       <button onClick={() => setDeleteId(coupon.id)} aria-label="Gutschein löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
