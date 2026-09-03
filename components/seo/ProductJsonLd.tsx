@@ -9,6 +9,7 @@ interface ProductJsonLdProps {
   brand: string;
   slug: string;
   sku: string;
+  gtin?: string;
   rating?: number;
   reviewCount?: number;
   availability?: "InStock" | "OutOfStock";
@@ -24,6 +25,7 @@ export default function ProductJsonLd({
   brand,
   slug,
   sku,
+  gtin,
   rating,
   reviewCount,
   availability = "InStock",
@@ -43,6 +45,7 @@ export default function ProductJsonLd({
       "@type": "Brand",
       name: brand,
     },
+    ...(gtin ? { gtin } : {}),
     offers: {
       "@type": "Offer",
       url: productUrl,
@@ -87,6 +90,7 @@ export default function ProductJsonLd({
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: 30,
         returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
       },
     },
   };

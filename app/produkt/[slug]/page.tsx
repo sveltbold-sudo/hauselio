@@ -160,6 +160,7 @@ export default async function ProductPage({ params }: PageProps) {
         brand={product.brand?.name || "HAUSAURA"}
         slug={product.slug}
         sku={product.sku || product.slug}
+        gtin={product.barcode || undefined}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
         availability="InStock"

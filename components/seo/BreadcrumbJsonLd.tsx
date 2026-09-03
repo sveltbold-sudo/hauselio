@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/constants";
+
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -11,7 +13,7 @@ export default function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] })
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
     })),
   };
 
