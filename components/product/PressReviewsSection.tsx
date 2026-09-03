@@ -78,8 +78,8 @@ export default function PressReviewsSection({
         {/* Mobile: magazine clipping scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg)] py-6 -mt-6">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
-            {pressReviews.map((review, i) => (
-              <div key={i} className="snap-start shrink-0 w-[280px]">
+            {pressReviews.map((review) => (
+              <div key={review.publication} className="snap-start shrink-0 w-[280px]">
                 <div className="bg-white rounded-xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]" />
                   <div className="flex items-center justify-between mb-3 relative z-10">
@@ -105,7 +105,7 @@ export default function PressReviewsSection({
         <div className="hidden sm:grid grid-cols-2 gap-4 mb-8 md:mb-14">
           {pressReviews.map((review, i) => (
             <div
-              key={i}
+              key={review.publication}
               className={`bg-white rounded-xl p-5 border border-[var(--color-border-light)] border-l-4 ${review.borderColor} hover:shadow-md transition-shadow duration-300 animate-fade-in-up`}
               style={{ animationDelay: `${i * 60}ms` }}
             >

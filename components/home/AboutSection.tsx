@@ -22,7 +22,7 @@ export default function AboutSection() {
               </p>
               <p>
                 Mit Sitz in Berlin sind wir Ihr deutscher Ansprechpartner für
-                alles rund um den modernen Haushalt. Unser Team beraten Sie
+                alles rund um den modernen Haushalt. Unser Team berät Sie
                 persönlich und sorgt für eine reibungslose Abwicklung.
               </p>
             </div>

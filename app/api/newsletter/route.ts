@@ -69,8 +69,25 @@ export async function DELETE(request: NextRequest) {
   try {
     await requireRole("ADMIN");
 
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`newsletter-delete:${ip}`, 10, 60 * 1000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anfragen" },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
-    const email = (body.email || "").trim();
+    const parsed = NewsletterSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Ungültige E-Mail-Adresse" },
+        { status: 400 }
+      );
+    }
+
+    const { email } = parsed.data;
 
     if (!email) {
       return NextResponse.json(

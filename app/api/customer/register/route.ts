@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({
       success: true,
-      customer: { id: customer.id, email: customer.email, name: customer.name },
+      customer: { email: customer.email, name: customer.name },
     }, { status: 201 });
 
     Object.entries(cookieOptions).forEach(([name, options]) => {
