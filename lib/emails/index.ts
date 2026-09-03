@@ -707,7 +707,7 @@ export async function sendNewsletterCampaign(data: {
           return sendEmail({
             from: FROM_EMAIL,
             to: email,
-            subject: `${safeSubject} \u2013 HAUSAURA`,
+            subject: `${data.subject} \u2013 HAUSAURA`,
             html,
           });
         })

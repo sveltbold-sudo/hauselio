@@ -1,7 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,10 +68,7 @@ export async function POST(request: NextRequest) {
       discountPercent: coupon.discountPercent,
       label: `${coupon.discountPercent}% Rabatt`,
     });
-  } catch {
-    return NextResponse.json(
-      { error: "Fehler bei der Gutscheinprüfung" },
-      { status: 500 }
-    );
+  } catch (error) {
+    return handleApiError(error);
   }
 }

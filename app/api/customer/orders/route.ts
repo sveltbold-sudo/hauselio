@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { requireCustomer } from "@/lib/auth";
 import { UnauthorizedError } from "@/lib/errors";
+import { handleApiError } from "@/lib/api-helpers";
 
 export async function GET(request: NextRequest) {
   try {
@@ -64,10 +65,7 @@ export async function GET(request: NextRequest) {
         })),
       })),
     });
-  } catch {
-    return NextResponse.json(
-      { error: "Fehler beim Laden der Bestellungen" },
-      { status: 500 }
-    );
+  } catch (error) {
+    return handleApiError(error);
   }
 }

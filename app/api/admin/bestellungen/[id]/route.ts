@@ -98,7 +98,7 @@ export async function PUT(
           quantity: item.quantity,
           price: Number(item.price),
         })),
-        subtotal: orderTotal - orderShipping + orderCouponDiscount,
+        subtotal: order.subtotal ? Number(order.subtotal) : (orderTotal - orderShipping + orderCouponDiscount),
         couponDiscount: orderCouponDiscount,
         total: orderTotal,
         shippingCost: orderShipping,

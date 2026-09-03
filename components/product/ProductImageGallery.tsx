@@ -117,7 +117,7 @@ export default function ProductImageGallery({
                 role="option"
                 aria-selected={activeImageIndex === i}
                 aria-label={`${name} Bild ${i + 1} anzeigen`}
-                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-colors transition-shadow duration-200 active:scale-95 transition-transform relative ${
+                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-all duration-200 active:scale-95 relative ${
                   activeImageIndex === i
                     ? "border-[var(--color-primary)] shadow-sm"
                     : "border-transparent hover:border-[var(--color-border)]"

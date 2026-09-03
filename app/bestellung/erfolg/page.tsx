@@ -131,7 +131,7 @@ export default function OrderSuccessPage() {
   }, [orderId, orderEmail]);
 
   const copyToClipboard = (text: string, field: string) => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text).catch(() => {});
     setCopied(field);
     setTimeout(() => setCopied(null), 2000);
   };

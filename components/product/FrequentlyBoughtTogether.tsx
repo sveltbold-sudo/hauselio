@@ -69,7 +69,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
       }, 1);
     });
     window.dispatchEvent(new CustomEvent("cart:item-added"));
-    toast.success(`${selectedProducts.length} Artikel zum Warenkorb hinzugefügt!`);
+    toast.success(`${selectedProducts.length + 1} Artikel zum Warenkorb hinzugefügt!`);
     setAddedBundle(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setAddedBundle(false), 2000);
