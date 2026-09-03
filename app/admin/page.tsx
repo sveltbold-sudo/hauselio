@@ -24,23 +24,29 @@ async function fetchDashboardData() {
     totalRevenue,
     totalCustomers,
     recentOrders,
+    overdueOrders,
   ] = await Promise.all([
     prisma.order.count(),
     prisma.product.count(),
     prisma.order.count({ where: { status: "PENDING_PAYMENT" } }),
     prisma.order.aggregate({ _sum: { total: true }, where: { status: { not: "CANCELLED" } } }),
-    prisma.order.findMany({
-      distinct: ["customerEmail"],
-      select: { customerEmail: true },
-    }).then((rows) => rows.length),
+    prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order"`.then(
+      (rows) => Number(rows[0]?.count || 0)
+    ),
     prisma.order.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },
       include: { items: true },
     }),
+    prisma.order.count({
+      where: {
+        status: "PENDING_PAYMENT",
+        createdAt: { lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+      },
+    }),
   ]);
 
-  return { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders };
+  return { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, overdueOrders };
 }
 
 export default async function AdminDashboard() {
@@ -75,7 +81,7 @@ export default async function AdminDashboard() {
     );
   }
 
-  const { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders } = data;
+  const { totalOrders, totalProducts, pendingOrders, totalRevenue, totalCustomers, recentOrders, overdueOrders } = data;
 
   const stats = [
     {
@@ -101,6 +107,12 @@ export default async function AdminDashboard() {
       value: pendingOrders.toString(),
       icon: Clock,
       color: pendingOrders > 0 ? "bg-[var(--color-danger)]" : "bg-[var(--color-bg-secondary)]",
+    },
+    {
+      name: "Unbezahlt >7T",
+      value: overdueOrders.toString(),
+      icon: AlertTriangle,
+      color: overdueOrders > 0 ? "bg-[var(--color-danger)]" : "bg-[var(--color-bg-secondary)]",
     },
     {
       name: "Kunden",

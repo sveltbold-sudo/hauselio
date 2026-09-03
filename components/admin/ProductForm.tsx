@@ -131,6 +131,9 @@ export default function ProductForm({
     if (!formData.name.trim() || formData.name.trim().length < 3) {
       newErrors.name = "Name muss mindestens 3 Zeichen lang sein.";
     }
+    if (!formData.slug.trim() || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(formData.slug)) {
+      newErrors.slug = "Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten.";
+    }
     if (!formData.description.trim() || formData.description.trim().length < 10) {
       newErrors.description = "Beschreibung muss mindestens 10 Zeichen lang sein.";
     }

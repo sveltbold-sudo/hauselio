@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
       prisma.orderItem.groupBy({
         by: ["productId"],
-        _sum: { price: true },
+        _sum: { price: true, quantity: true },
         _count: true,
         orderBy: { _sum: { price: "desc" } },
         take: 5,
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
       }),
       prisma.orderItem.groupBy({
         by: ["productId"],
-        _sum: { price: true },
+        _sum: { price: true, quantity: true },
         where: { order: orderFilter },
       }),
     ]);
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
     const topProductsWithNames = topProducts.map((tp) => ({
       name: topProductNameMap.get(tp.productId) || "Unbekannt",
       orderCount: tp._count,
-      revenue: tp._sum.price || 0,
+      revenue: (Number(tp._sum.price) || 0) * (Number(tp._sum.quantity) || 1),
     }));
 
     const productCategoryMap = new Map<string, string>();
@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
       const catId = productCategoryMap.get(cr.productId);
       if (catId) {
         const current = categoryRevenueMap.get(catId) || 0;
-        categoryRevenueMap.set(catId, current + Number(cr._sum.price || 0));
+        categoryRevenueMap.set(catId, current + ((Number(cr._sum.price) || 0) * (Number(cr._sum.quantity) || 1)));
       }
     }
 

@@ -59,9 +59,17 @@ export async function POST(request: NextRequest) {
     }
 
     const validIds = validOrders.map((o) => o.id);
+    const paymentStatusUpdate =
+      status === "CANCELLED" ? "FAILED"
+      : status !== "PENDING_PAYMENT" ? "CONFIRMED"
+      : undefined;
+
     const result = await prisma.order.updateMany({
       where: { id: { in: validIds } },
-      data: { status },
+      data: {
+        status,
+        ...(paymentStatusUpdate ? { paymentStatus: paymentStatusUpdate } : {}),
+      },
     });
 
     const skipped = ids.length - result.count;

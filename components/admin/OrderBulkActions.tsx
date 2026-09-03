@@ -68,7 +68,10 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      toast.success(`${data.count} Bestellungen aktualisiert.`);
+      const msg = data.skipped > 0
+        ? `${data.count} aktualisiert, ${data.skipped} übersprungen`
+        : `${data.count} Bestellungen aktualisiert.`;
+      toast.success(msg);
       onClearSelection();
       onComplete();
     } catch (err) {
