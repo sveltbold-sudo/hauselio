@@ -12,6 +12,7 @@ interface SimilarProduct {
   slug: string;
   price: number;
   originalPrice?: number | null;
+  isPromo?: boolean;
   image: string;
   brand: string;
   rating: number;
@@ -38,12 +39,13 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
             data.products
               .filter((p: { id: string }) => p.id !== currentProductId)
               .slice(0, 4)
-              .map((p: { id: string; name: string; slug: string; price: number; originalPrice?: number | null; image?: string | null; brand?: string | null; rating: number; reviewCount: number }) => ({
+              .map((p: { id: string; name: string; slug: string; price: number; originalPrice?: number | null; isPromo?: boolean; image?: string | null; brand?: string | null; rating: number; reviewCount: number }) => ({
                 id: p.id,
                 name: p.name,
                 slug: p.slug,
                 price: p.price,
                 originalPrice: p.originalPrice,
+                isPromo: p.isPromo,
                 image: p.image || "/images/placeholder-product.svg",
                 brand: p.brand || "",
                 rating: p.rating,
@@ -102,7 +104,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
             <p className="text-xs text-[var(--color-text-muted)] mb-2" translate="no">{product.brand}</p>
             <div className="flex items-baseline gap-2">
               <span className="text-sm font-bold text-[var(--color-text-primary)] tabular-nums">{formatPrice(product.price)}</span>
-              {product.originalPrice && product.originalPrice > product.price && (
+              {product.isPromo && product.originalPrice && product.originalPrice > product.price && (
                 <span className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(product.originalPrice)}</span>
               )}
             </div>

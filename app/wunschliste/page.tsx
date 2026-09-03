@@ -121,7 +121,7 @@ export default function WunschlistePage() {
               {/* Image */}
               <Link href={`/produkt/${item.slug}`} className="block relative aspect-square bg-[var(--color-bg-secondary)] p-4">
                 <ProductImage src={item.image} alt={item.name} size="md" />
-                {discount > 0 && (
+                {item.isPromo && discount > 0 && (
                   <span className="absolute top-3 left-3 inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg">
                     -{discount}%
                   </span>
@@ -143,7 +143,7 @@ export default function WunschlistePage() {
                   <span className="text-lg font-extrabold text-[var(--color-text-primary)] tabular-nums">
                     {formatPrice(item.price)}
                   </span>
-                  {item.originalPrice && item.originalPrice > item.price && (
+                  {item.isPromo && item.originalPrice && item.originalPrice > item.price && (
                     <span className="text-xs text-[var(--color-text-muted)] line-through">
                       {formatPrice(item.originalPrice)}
                     </span>
@@ -180,6 +180,7 @@ export default function WunschlistePage() {
                       slug: item.slug,
                       price: item.price,
                       originalPrice: item.originalPrice,
+                      isPromo: item.isPromo,
                       image: item.image,
                       brand: item.brand ?? "",
                       rating: item.rating,

@@ -11,6 +11,7 @@ interface ProductImageGalleryProps {
   name: string;
   brand: string | null;
   isNew: boolean;
+  isPromo: boolean;
   discount: number;
   price: number;
   originalPrice: number | null;
@@ -28,6 +29,7 @@ export default function ProductImageGallery({
   name,
   brand,
   isNew,
+  isPromo,
   discount,
   price,
   originalPrice,
@@ -77,7 +79,7 @@ export default function ProductImageGallery({
         {/* Floating badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           {isNew && <Badge variant="primary">Neu</Badge>}
-          {discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
+          {isPromo && discount > 0 && <Badge variant="promo">-{discount}%</Badge>}
         </div>
         {/* Zoom indicator */}
         <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

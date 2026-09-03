@@ -11,6 +11,7 @@ interface CompareButtonProps {
     slug: string;
     price: number;
     originalPrice?: number | null;
+    isPromo?: boolean;
     image: string;
     brand: string;
     rating: number;
@@ -36,6 +37,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
       slug: product.slug,
       price: product.price,
       originalPrice: product.originalPrice,
+      isPromo: product.isPromo,
       image: product.image,
       brand: product.brand,
       rating: product.rating,

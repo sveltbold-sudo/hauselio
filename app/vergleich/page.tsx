@@ -108,11 +108,11 @@ export default function VergleichPage() {
                       </div>
                       <div className="flex items-baseline justify-center gap-2">
                         <span className="text-lg font-extrabold text-[var(--color-text-primary)]">{formatPrice(item.price)}</span>
-                        {item.originalPrice && item.originalPrice > item.price && (
+                        {item.isPromo && item.originalPrice && item.originalPrice > item.price && (
                           <span className="text-xs text-[var(--color-text-muted)] line-through">{formatPrice(item.originalPrice)}</span>
                         )}
                       </div>
-                      {discount > 0 && (
+                      {item.isPromo && discount > 0 && (
                         <span className="inline-block mt-1 px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-md">
                           -{discount}%
                         </span>

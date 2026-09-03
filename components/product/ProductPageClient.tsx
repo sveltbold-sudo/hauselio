@@ -46,6 +46,7 @@ interface Product {
   description: string;
   price: number;
   originalPrice: number | null;
+  isPromo: boolean;
   rating: number;
   reviewCount: number;
   isNew: boolean;
@@ -153,6 +154,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     slug: product.slug,
     price: product.price,
     originalPrice: product.originalPrice ?? undefined,
+    isPromo: product.isPromo,
     image: product.images[0] || "/images/placeholder-product.svg",
     brand: product.brand ?? "",
     rating: product.rating,
@@ -176,6 +178,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           name={product.name}
           brand={product.brand}
           isNew={product.isNew}
+          isPromo={product.isPromo}
           discount={discount}
           price={product.price}
           originalPrice={product.originalPrice}
@@ -231,7 +234,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)]">
               {formatPrice(product.price)}
             </span>
-            {product.originalPrice && (
+            {product.isPromo && product.originalPrice && (
               <>
                 <span className="text-lg text-[var(--color-text-muted)] line-through">
                   {formatPrice(product.originalPrice)}

@@ -48,10 +48,8 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         {/* Badges — top left like Coolblue */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
-          {(product.isPromo || (product.originalPrice && discount > 0)) && (
-            <Badge variant="danger">Angebot</Badge>
-          )}
-          {discount > 0 && (
+          {product.isPromo && <Badge variant="danger">Angebot</Badge>}
+          {product.isPromo && discount > 0 && (
             <Badge variant="promo">-{discount}%</Badge>
           )}
           {product.reviewCount > 50 && (
@@ -125,7 +123,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
           <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
           </span>
-          {product.originalPrice && (
+          {product.isPromo && product.originalPrice && (
             <span className="text-xs text-[var(--color-text-muted)] line-through">
               UVP {formatPrice(product.originalPrice)}
             </span>

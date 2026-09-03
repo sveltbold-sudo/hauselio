@@ -116,6 +116,7 @@ export default async function ProductPage({ params }: PageProps) {
     originalPrice: product.originalPrice
       ? Number(product.originalPrice)
       : null,
+    isPromo: product.isPromo,
     rating: Number(product.rating),
     reviewCount: product.reviewCount,
     isNew: product.isNew,

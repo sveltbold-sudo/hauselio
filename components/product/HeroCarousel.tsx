@@ -14,6 +14,7 @@ interface Slide {
   brand: string;
   price: number;
   originalPrice: number | null;
+  isPromo?: boolean;
   tagline: string;
   subtitle: string;
   image: string;
@@ -202,7 +203,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
                   {s.brand}
                 </span>
-                {calcDiscount(s.price, s.originalPrice) > 0 && (
+                {s.isPromo && calcDiscount(s.price, s.originalPrice) > 0 && (
                   <span className="inline-flex items-center px-2 py-1 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg shadow-lg">
                     -{calcDiscount(s.price, s.originalPrice)}%
                   </span>
@@ -226,7 +227,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   <span className="text-2xl font-extrabold text-white tabular-nums drop-shadow-lg">
                     {formatPrice(s.price)}
                   </span>
-                  {s.originalPrice && (
+                  {s.isPromo && s.originalPrice && (
                     <span className="text-sm text-white/60 line-through tabular-nums">
                       {formatPrice(s.originalPrice)}
                     </span>
@@ -335,7 +336,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 <span className="text-3xl xl:text-4xl font-extrabold text-[var(--color-text-primary)] tracking-tight tabular-nums">
                   {formatPrice(slide.price)}
                 </span>
-                {slide.originalPrice && (
+                {slide.isPromo && slide.originalPrice && (
                   <>
                     <span className="text-base text-[var(--color-text-muted)] line-through tabular-nums">
                       {formatPrice(slide.originalPrice)}
@@ -388,7 +389,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   priority
                   sizes="480px"
                 />
-                {discount > 0 && (
+                {slide.isPromo && discount > 0 && (
                   <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1 bg-[var(--color-danger)] text-white text-sm font-bold rounded-lg shadow-sm">
                     -{discount}%
                   </span>

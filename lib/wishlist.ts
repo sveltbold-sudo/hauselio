@@ -7,6 +7,7 @@ export interface WishlistItem {
   slug: string;
   price: number;
   originalPrice?: number;
+  isPromo?: boolean;
   image: string;
   brand: string;
   rating: number;

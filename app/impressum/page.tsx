@@ -24,7 +24,6 @@ const fallback = {
   contactPhone: "+49 (0)30 555 789 01",
   contactEmail: "info@hausaura.de",
   vatId: "DE 312 847 609",
-  managingDirector: "Max Mustermann",
 };
 
 async function getSettings() {
@@ -37,7 +36,6 @@ async function getSettings() {
       contactPhone: s.contactPhone || fallback.contactPhone,
       contactEmail: s.contactEmail || fallback.contactEmail,
       vatId: s.vatId || fallback.vatId,
-      managingDirector: s.managingDirector || fallback.managingDirector,
     };
   } catch {
     return fallback;
@@ -62,13 +60,6 @@ export default async function ImpressumPage() {
               <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
             ))}
             <p className="text-[var(--color-text-secondary)]">Deutschland</p>
-          </div>
-        </section>
-
-        <section>
-          <h2 className="heading-3 mb-3">Geschäftsführer</h2>
-          <div className="bg-[var(--color-bg)] rounded-xl p-6">
-            <p className="text-[var(--color-text-secondary)]">{s.managingDirector}</p>
           </div>
         </section>
 
