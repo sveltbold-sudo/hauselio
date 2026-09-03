@@ -6,7 +6,7 @@ import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants"
 import { logger } from "@/lib/logger";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Receipt, Clock, FileText, Send } from "lucide-react";
+import { ArrowLeft, Receipt, Clock, FileText, Send, Download } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 import OrderNotes from "@/components/admin/OrderNotes";
 import ResendReceiptButton from "@/components/admin/ResendReceiptButton";
@@ -236,7 +236,16 @@ export default async function AdminOrderDetailPage({
               )}
             </div>
             {order.paymentStatus === "CONFIRMED" && order.invoiceNumber && (
-              <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+              <div className="mt-4 pt-4 border-t border-[var(--color-border-light)] space-y-2">
+                <a
+                  href={`/api/admin/bestellungen/${order.id}/invoice`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] font-medium transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  Rechnung als PDF herunterladen
+                </a>
                 <ResendReceiptButton orderId={order.id} />
               </div>
             )}

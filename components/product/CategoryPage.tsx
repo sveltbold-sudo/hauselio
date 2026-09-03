@@ -148,7 +148,7 @@ export default async function CategoryPage({
     { label: title, href: `/kategorie/${slug}` },
   ];
   if (sub) {
-    breadcrumbItems.push({ label: sub });
+    breadcrumbItems.push({ label: sub, href: `/kategorie/${slug}/${sub}` });
   }
 
   return (
