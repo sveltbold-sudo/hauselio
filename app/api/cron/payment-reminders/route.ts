@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const cronSecret = process.env.CRON_SECRET;
 
     if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+      return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
     const now = new Date();
@@ -91,6 +91,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     logger.error("cron-payment-reminders", error);
-    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
+    return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
 }

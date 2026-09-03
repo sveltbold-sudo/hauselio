@@ -7,12 +7,13 @@ import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
+import { randomBytes } from "crypto";
 
 function generateInvoiceNumber(): string {
   const now = new Date();
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
-  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+  const random = randomBytes(4).toString("hex").toUpperCase().slice(0, 8);
   return `RE-${year}${month}-${random}`;
 }
 
@@ -120,8 +121,7 @@ export async function PUT(
           where: { id },
           data: { invoiceNumber },
         });
-        await sendPaymentConfirmed(emailData);
-        // Send payment receipt with invoice
+        // Send receipt first (legally important document)
         await sendPaymentReceipt({
           ...emailData,
           invoiceNumber,
@@ -131,6 +131,7 @@ export async function PUT(
           customerCountry: order.customerCountry,
           paidAt: new Date().toISOString(),
         });
+        await sendPaymentConfirmed(emailData);
       } else if (status === "SHIPPED") {
         const shippedTracking = trackingNumber || order.trackingNumber || "";
         await sendShippedConfirmation(emailData, shippedTracking);

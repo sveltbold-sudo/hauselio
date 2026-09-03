@@ -5,6 +5,7 @@ import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { requireRole } from "@/lib/auth";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { sendNewsletterConfirmation } from "@/lib/emails";
+import { logger } from "@/lib/logger";
 import { randomBytes } from "crypto";
 
 const NewsletterSchema = z.object({
@@ -58,12 +59,16 @@ export async function POST(request: NextRequest) {
         where: { email },
         data: { isActive: true, confirmToken, confirmExpiresAt },
       });
-      await sendNewsletterConfirmation(email, confirmToken);
+      await sendNewsletterConfirmation(email, confirmToken).catch(
+        (err) => logger.error("newsletter-confirm-email", err)
+      );
     } else {
       await prisma.newsletter.create({
         data: { email, isActive: true, confirmed: false, confirmToken, confirmExpiresAt },
       });
-      await sendNewsletterConfirmation(email, confirmToken);
+      await sendNewsletterConfirmation(email, confirmToken).catch(
+        (err) => logger.error("newsletter-confirm-email", err)
+      );
     }
 
     return NextResponse.json({ success: true });
