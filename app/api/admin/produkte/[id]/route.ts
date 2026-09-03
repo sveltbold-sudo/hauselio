@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin, requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { updateProductInAlgolia, deleteProductFromAlgolia } from "@/lib/algolia-sync";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -51,6 +51,13 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
@@ -85,6 +92,7 @@ export async function PUT(
     try {
       await prisma.$transaction([
         prisma.productSpec.deleteMany({ where: { productId: id } }),
+        prisma.productImage.deleteMany({ where: { productId: id } }),
         prisma.product.update({
           where: { id },
           data: {
@@ -112,13 +120,16 @@ export async function PUT(
                   })),
                 }
               : undefined,
+            images: data.imageUrl
+              ? { create: [{ url: data.imageUrl, position: 0 }] }
+              : undefined,
           },
         }),
       ]);
     } catch (err) {
       if (err && typeof err === "object" && "code" in err && err.code === "P2002") {
         return NextResponse.json(
-          { error: "Ein Produkt mit diesem Slug existiert bereits (Race Condition)" },
+          { error: "Ein Produkt mit diesem Slug existiert bereits" },
           { status: 409 }
         );
       }
@@ -152,6 +163,13 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     await requireRole("ADMIN");
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {

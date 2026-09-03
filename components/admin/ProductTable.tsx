@@ -257,7 +257,7 @@ function ProductTable({
               {products.length === 0 && (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={7}
                     className="px-5 py-12 text-center text-sm text-[var(--color-text-muted)]"
                   >
                     Keine Produkte gefunden.

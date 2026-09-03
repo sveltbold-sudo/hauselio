@@ -56,11 +56,14 @@ export default function EditProductPage({
   useEffect(() => {
     async function load() {
       try {
-        const [idResolved, catsData, brsData] = await Promise.all([
+        const [idResolved, catsRes, brsRes] = await Promise.all([
           params,
-          fetch("/api/admin/kategorien").then((r) => r.json()),
-          fetch("/api/admin/marken").then((r) => r.json()),
+          fetch("/api/admin/kategorien"),
+          fetch("/api/admin/marken"),
         ]);
+
+        const catsData = catsRes.ok ? await catsRes.json() : { categories: [] };
+        const brsData = brsRes.ok ? await brsRes.json() : { brands: [] };
 
         setCategories(catsData.categories || []);
         setBrands(brsData.brands || []);

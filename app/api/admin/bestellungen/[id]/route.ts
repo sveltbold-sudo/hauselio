@@ -75,7 +75,7 @@ export async function PUT(
       data: {
         status,
         paymentStatus: paymentStatusUpdate,
-        trackingNumber: trackingNumber || undefined,
+        trackingNumber: trackingNumber || null,
       },
       include: {
         items: {
@@ -94,7 +94,7 @@ export async function PUT(
         customerEmail: order.customerEmail,
         customerName,
         items: order.items.map((item) => ({
-          name: item.product.name,
+          name: item.product?.name || "Produkt",
           quantity: item.quantity,
           price: Number(item.price),
         })),
@@ -106,8 +106,9 @@ export async function PUT(
 
       if (status === "PAYMENT_CONFIRMED") {
         await sendPaymentConfirmed(emailData);
-      } else if (status === "SHIPPED" && trackingNumber) {
-        await sendShippedConfirmation(emailData, trackingNumber);
+      } else if (status === "SHIPPED") {
+        const shippedTracking = trackingNumber || order.trackingNumber || "";
+        await sendShippedConfirmation(emailData, shippedTracking);
       } else if (status === "CANCELLED") {
         await sendOrderCancelled(emailData);
       }

@@ -77,12 +77,16 @@ export async function POST(request: NextRequest) {
               })),
             }
           : undefined,
+        images: data.imageUrl
+          ? { create: [{ url: data.imageUrl, position: 0 }] }
+          : undefined,
       },
+      include: { images: true },
     });
     } catch (err) {
       if (err && typeof err === "object" && "code" in err && err.code === "P2002") {
         return NextResponse.json(
-          { error: "Ein Produkt mit diesem Slug existiert bereits (Race Condition)" },
+          { error: "Ein Produkt mit diesem Slug existiert bereits" },
           { status: 409 }
         );
       }

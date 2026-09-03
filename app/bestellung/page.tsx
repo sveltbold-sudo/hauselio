@@ -129,7 +129,6 @@ export default function BestellungPage() {
   };
 
   const hasValidated = useRef(false);
-  const orderSubmitted = useRef(false);
   const clearCartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
