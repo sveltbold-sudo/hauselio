@@ -15,20 +15,20 @@ async function getThermomixProducts() {
       },
     });
 
-    const ordered = THERMOMIX_SLUGS.map((slug) => products.find((p) => p.slug === slug)).filter(Boolean);
+    const ordered = THERMOMIX_SLUGS.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is NonNullable<typeof p> => p != null);
 
     return ordered.map((p) => ({
-      id: p!.id,
-      name: p!.name,
-      slug: p!.slug,
-      price: Number(p!.price),
-      originalPrice: p!.originalPrice ? Number(p!.originalPrice) : null,
-      image: p!.images[0]?.url || "/images/placeholder-product.svg",
-      rating: Number(p!.rating),
-      reviewCount: p!.reviewCount,
-      isNew: p!.isNew,
-      isPromo: p!.originalPrice !== null,
-      brand: p!.brand?.name || null,
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      rating: Number(p.rating),
+      reviewCount: p.reviewCount,
+      isNew: p.isNew,
+      isPromo: p.originalPrice !== null,
+      brand: p.brand?.name || null,
     }));
   } catch {
     return [];

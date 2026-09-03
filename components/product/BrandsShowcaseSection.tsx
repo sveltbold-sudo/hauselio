@@ -74,7 +74,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
             >
               <div
                 className="w-16 h-16 mx-auto mb-3 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden"
-                style={{ backgroundColor: `${brand.color}08` }}
+                style={{ backgroundColor: `${brand.color}10` }}
               >
                 <Image
                   src={brand.logo}
