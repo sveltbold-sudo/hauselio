@@ -32,6 +32,26 @@ export default function WarenkorbPage() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!coupon || !mounted) return;
+    const controller = new AbortController();
+    fetch("/api/coupon", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: coupon.code, cartTotal: total }),
+      signal: controller.signal,
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data.valid) {
+          removeCoupon();
+          toast.info("Gutscheincode ist nicht mehr gültig");
+        }
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [mounted]);
   const totalSavings = items.reduce((sum, item) => {
     if (item.originalPrice && item.originalPrice > item.price) {
       return sum + (item.originalPrice - item.price) * item.quantity;

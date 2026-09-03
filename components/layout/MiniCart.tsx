@@ -28,6 +28,7 @@ export default function MiniCart() {
   const finalTotal = total - couponDiscount;
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -101,6 +102,10 @@ export default function MiniCart() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) closeRef.current?.focus();
+  }, [isOpen]);
+
   return (
     <div className="relative" ref={ref}>
       {/* Cart button */}
@@ -133,6 +138,7 @@ export default function MiniCart() {
               Warenkorb ({itemCount})
             </h3>
             <button
+              ref={closeRef}
               onClick={() => setIsOpen(false)}
               aria-label="Warenkorb schließen"
               className="w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"

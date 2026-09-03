@@ -51,12 +51,13 @@ export default function ComparisonBar() {
 
             {/* Empty slots */}
             {Array.from({ length: Math.max(0, 4 - items.length) }).map((_, i) => (
-              <div
+              <Link
                 key={`empty-${i}`}
-                className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0"
+                href="/shop"
+                className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0 hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors group"
               >
-                <span className="text-xs text-[var(--color-text-muted)]">Produkt hinzufügen</span>
-              </div>
+                <span className="text-xs text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] transition-colors">Produkt hinzufügen</span>
+              </Link>
             ))}
           </div>
 

@@ -128,8 +128,16 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
     if (!isAutoPlaying) return;
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mediaQuery.matches) return;
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
+    let interval: ReturnType<typeof setInterval> | null = null;
+    const start = () => { interval = setInterval(next, 5000); };
+    const stop = () => { if (interval) clearInterval(interval); };
+    const handleVisibility = () => { if (document.hidden) stop(); else start(); };
+    start();
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
   }, [isAutoPlaying, next]);
 
   const slide = slides[current]!;

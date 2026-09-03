@@ -33,7 +33,9 @@ export default function CartCrossSell() {
       return;
     }
 
-    const controller = new AbortController();
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      const controller = new AbortController();
 
     const fetchRelated = async () => {
       try {
@@ -135,7 +137,12 @@ export default function CartCrossSell() {
     };
 
     fetchRelated();
-    return () => controller.abort();
+    }, 500);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [items]);
 
   if (loading) {

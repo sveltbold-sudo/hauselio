@@ -118,7 +118,16 @@ export default function VergleichPage() {
                       )}
                       <Button
                         onClick={() => {
-                          addItem({ id: item.id, name: item.name, slug: item.slug, price: item.price, image: item.image });
+                          addItem({
+                            id: item.id,
+                            name: item.name,
+                            slug: item.slug,
+                            price: item.price,
+                            originalPrice: item.originalPrice ?? undefined,
+                            image: item.image,
+                            brand: item.brand,
+                            categorySlug: "vergleich",
+                          });
                           toast.success("Zum Warenkorb hinzugefügt!");
                         }}
                         className="w-full mt-3"

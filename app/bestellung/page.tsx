@@ -115,6 +115,10 @@ export default function BestellungPage() {
       }
     }
 
+    if (formData.phone && !/^[\d\s\+\-\(\)]{7,20}$/.test(formData.phone)) {
+      newErrors.phone = "Ungültige Telefonnummer";
+    }
+
     if (!formData.city.trim()) {
       newErrors.city = "Stadt ist erforderlich";
     }

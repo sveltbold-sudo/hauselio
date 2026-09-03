@@ -12,8 +12,9 @@ interface WishlistButtonProps {
 
 export default function WishlistButton({ item, size = "sm", className = "" }: WishlistButtonProps) {
   const [mounted, setMounted] = useState(false);
-  const { toggleItem, isInWishlist } = useWishlistStore();
-  const isWishlisted = mounted && isInWishlist(item.id);
+  const toggleItem = useWishlistStore((s) => s.toggleItem);
+  const inList = useWishlistStore((s) => s.items.some((i) => i.id === item.id));
+  const isWishlisted = mounted && inList;
 
   useEffect(() => {
     setMounted(true);
