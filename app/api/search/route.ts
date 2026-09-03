@@ -32,6 +32,13 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    if (query.trim().length > 200) {
+      return NextResponse.json(
+        { error: "Suchbegriff darf maximal 200 Zeichen lang sein" },
+        { status: 400 }
+      );
+    }
+
     if (algoliaAvailable) {
       try {
         const { getAlgoliaSearchClient, PRODUCTS_INDEX } = await import("@/lib/algolia");
@@ -128,7 +135,9 @@ export async function GET(request: NextRequest) {
       isPromo: p.isPromo,
     }));
 
-    return NextResponse.json({ hits, nbHits: total });
+    return NextResponse.json({ hits, nbHits: total }, {
+      headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
+    });
   } catch (error) {
     return handleApiError(error);
   }

@@ -111,6 +111,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   name="firstName"
                   required
                   autoComplete="given-name"
+                  maxLength={100}
                   value={formData.firstName}
                   onChange={handleInputChange}
                 />
@@ -119,6 +120,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   name="lastName"
                   required
                   autoComplete="family-name"
+                  maxLength={100}
                   value={formData.lastName}
                   onChange={handleInputChange}
                 />
@@ -130,6 +132,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   type="email"
                   required
                   autoComplete="email"
+                  maxLength={254}
                   value={formData.email}
                   onChange={handleInputChange}
                 />
@@ -140,6 +143,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   name="subject"
                   required
                   autoComplete="off"
+                  maxLength={200}
                   value={formData.subject}
                   onChange={handleInputChange}
                 />
@@ -153,6 +157,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   name="message"
                   required
                   rows={6}
+                  maxLength={5000}
                   value={formData.message}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors duration-300 resize-y placeholder:text-[var(--color-text-muted)]"
