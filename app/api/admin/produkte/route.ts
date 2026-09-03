@@ -2,13 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { updateProductInAlgolia } from "@/lib/algolia-sync";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-produkt-create:${ip}`, 30, 60_000);
     if (!allowed) {

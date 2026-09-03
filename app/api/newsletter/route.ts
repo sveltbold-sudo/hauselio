@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { requireRole } from "@/lib/auth";
-import { handleApiError, validateContentType } from "@/lib/api-helpers";
+import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { sendNewsletterConfirmation } from "@/lib/emails";
 import { randomBytes } from "crypto";
 
@@ -13,6 +13,13 @@ const NewsletterSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 

@@ -41,7 +41,13 @@ export async function GET(request: NextRequest) {
       where.brand = { slug: brand };
     }
 
-    if (search) {
+    if (search && search.trim().length > 0) {
+      if (search.trim().length > 200) {
+        return NextResponse.json(
+          { error: "Suchbegriff darf maximal 200 Zeichen lang sein" },
+          { status: 400 }
+        );
+      }
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
