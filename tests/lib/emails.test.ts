@@ -15,6 +15,10 @@ vi.mock("@/lib/resend", () => ({
   FROM_EMAIL: "test@HAUSAURA.de",
 }));
 
+vi.mock("@/lib/auth", () => ({
+  createUnsubscribeToken: vi.fn().mockReturnValue("test-token"),
+}));
+
 describe("getBankDetails helper", () => {
   beforeEach(() => {
     vi.clearAllMocks();

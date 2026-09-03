@@ -1,5 +1,6 @@
 ﻿import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
+import { UnauthorizedError } from "@/lib/errors";
 
 vi.mock("next/headers", () => ({
   cookies: vi.fn().mockResolvedValue({
@@ -27,6 +28,13 @@ vi.mock("@/lib/emails", () => ({
   sendContactForward: vi.fn().mockResolvedValue(undefined),
   sendContactAutoReply: vi.fn().mockResolvedValue(undefined),
   sendNewsletterConfirmation: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock("@/lib/auth", () => ({
+  getCustomerFromRequest: vi.fn().mockResolvedValue(null),
+  requireAdmin: vi.fn().mockRejectedValue(new UnauthorizedError()),
+  requireRole: vi.fn().mockRejectedValue(new UnauthorizedError()),
+  verifyUnsubscribeToken: vi.fn().mockResolvedValue(null),
 }));
 
 const mockPrisma = {

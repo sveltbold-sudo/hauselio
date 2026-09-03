@@ -21,6 +21,10 @@ vi.mock("@/lib/resend", () => ({
   FROM_EMAIL: "test@HAUSAURA.de",
 }));
 
+vi.mock("@/lib/auth", () => ({
+  createUnsubscribeToken: vi.fn().mockReturnValue("test-token"),
+}));
+
 describe("Email functions", () => {
   it("sendOrderConfirmation sends email with correct data", async () => {
     const { sendOrderConfirmation } = await import("@/lib/emails");
