@@ -10,7 +10,7 @@ const valueProps = [
   {
     icon: Euro,
     title: "Bis zu 40% sparen",
-    description: "Auf Markengeräte",
+    description: "Bis -500€ auf Geräte",
     color: "text-[var(--color-accent)]",
   },
   {

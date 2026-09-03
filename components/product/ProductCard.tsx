@@ -48,25 +48,19 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
         {/* Badges — top left like Coolblue */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isNew && <Badge variant="primary">Neu</Badge>}
-          {product.isPromo && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg">
-              Angebot
-            </span>
+          {(product.isPromo || (product.originalPrice && discount > 0)) && (
+            <Badge variant="danger">Angebot</Badge>
           )}
-          {product.isPromo && discount > 0 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-secondary)] text-white text-xs font-bold rounded-lg">
-              -{discount}%
-            </span>
+          {discount > 0 && (
+            <Badge variant="promo">-{discount}%</Badge>
           )}
           {product.reviewCount > 50 && (
-            <span className="inline-flex items-center px-2 py-0.5 bg-[var(--color-accent)] text-white text-xs font-bold rounded-lg">
-              Meistverkauft
-            </span>
+            <Badge variant="accent">Meistverkauft</Badge>
           )}
         </div>
 
-        {/* Wishlist button — top right, shows on hover */}
-        <div className="absolute top-3 right-3 z-10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
+        {/* Wishlist button — top right */}
+        <div className="absolute top-3 right-3 z-10">
           <WishlistButton
             item={{
               id: product.id,
@@ -140,7 +134,7 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
         {/* Delivery estimate */}
         <div className="flex items-center gap-1.5 mt-2">
-          <Truck className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[var(--color-text-muted)]" />
+          <Truck className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[var(--color-text-muted)]" aria-hidden="true" />
           <DeliveryEstimate />
         </div>
       </div>

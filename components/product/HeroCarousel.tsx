@@ -372,7 +372,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   src={slide.image}
                   alt={slide.name}
                   fill
-                  className={`object-contain p-8 xl:p-10 ${prefersReduced ? "" : "transition-transform duration-700 hover:scale-105"}`}
+                  className="object-contain p-8 xl:p-10"
                   priority
                   sizes="480px"
                 />

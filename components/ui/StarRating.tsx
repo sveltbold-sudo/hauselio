@@ -66,7 +66,7 @@ export default function StarRating({ rating, size = "md", showCount = false, cou
         );
       })}
       {showCount && count !== undefined && (
-        <span className="text-xs text-[var(--color-text-muted)] ml-0.5">({count})</span>
+        <span className="text-xs text-[var(--color-text-muted)] ml-0.5" aria-label={`${count} Bewertungen`}>({count})</span>
       )}
     </div>
   );
