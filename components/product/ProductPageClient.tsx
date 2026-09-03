@@ -307,7 +307,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <button
                 onClick={handleShare}
                 aria-label="Produkt-Link kopieren"
-                className="flex items-center gap-2 min-h-[44px] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
+                className="flex items-center gap-2 min-h-[44px] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
               >
               <Share2 className="w-4 h-4" />
               Teilen

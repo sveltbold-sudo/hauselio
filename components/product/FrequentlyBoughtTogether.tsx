@@ -84,7 +84,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                 <p className="text-xs font-semibold text-[var(--color-text-primary)] truncate" aria-label={currentProduct.name}>{currentProduct.name}</p>
                 <p className="text-sm font-bold text-[var(--color-text-primary)] mt-0.5">{formatPrice(currentProduct.price)}</p>
               </div>
-              <Check className="w-4 h-4 text-[var(--color-success)] shrink-0" />
+              <Check className="w-4 h-4 text-[var(--color-success)] shrink-0" aria-hidden="true" />
             </div>
 
             {/* Bundle products — toggleable */}
