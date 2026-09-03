@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BarChart3, ShoppingBag, X, ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -9,57 +8,14 @@ import StarRating from "@/components/ui/StarRating";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
+import { useComparisonStore } from "@/lib/comparison";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
-interface CompareItem {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice?: number | null;
-  image: string;
-  brand: string;
-  rating: number;
-  reviewCount: number;
-  specs?: { key: string; value: string }[];
-}
-
 export default function VergleichPage() {
-  const [items, setItems] = useState<CompareItem[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const items = useComparisonStore((s) => s.items);
+  const removeItem = useComparisonStore((s) => s.removeItem);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
-
-  useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem("HAUSAURA-comparison");
-    if (stored) {
-      try {
-        const parsed: unknown = JSON.parse(stored);
-        if (Array.isArray(parsed)) setItems(parsed);
-      } catch {}
-    }
-  }, []);
-
-  const removeItem = (id: string) => {
-    const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(updated));
-    setItems(updated);
-    window.dispatchEvent(new Event("storage"));
-    window.dispatchEvent(new CustomEvent("comparison-updated"));
-  };
-
-  if (!mounted) {
-    return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
-        <h1 className="heading-2 mb-4">Produktvergleich</h1>
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
-          <div className="h-40 bg-[var(--color-bg-secondary)] rounded-xl" />
-        </div>
-      </main>
-    );
-  }
 
   if (items.length === 0) {
     return (
@@ -68,6 +24,24 @@ export default function VergleichPage() {
         <h1 className="heading-2 mb-4">Keine Produkte zum Vergleichen</h1>
         <p className="body-large mb-10">
           Fügen Sie Produkte hinzu, um sie miteinander zu vergleichen.
+        </p>
+        <Link href="/shop">
+          <Button size="lg">
+            <ShoppingBag className="w-5 h-5 mr-2" />
+            Produkte entdecken
+          </Button>
+        </Link>
+      </main>
+    );
+  }
+
+  if (items.length < 2) {
+    return (
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+        <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
+        <h1 className="heading-2 mb-4">Mindestens 2 Produkte benötigt</h1>
+        <p className="body-large mb-10">
+          Fügen Sie mindestens 2 Produkte hinzu, um sie miteinander zu vergleichen.
         </p>
         <Link href="/shop">
           <Button size="lg">

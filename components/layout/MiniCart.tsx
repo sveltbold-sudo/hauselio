@@ -23,6 +23,9 @@ export default function MiniCart() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const itemCount = useCartStore(selectItemCount);
   const total = useCartStore(selectTotal);
+  const coupon = useCartStore((state) => state.coupon);
+  const couponDiscount = coupon ? total * (coupon.discountPercent / 100) : 0;
+  const finalTotal = total - couponDiscount;
   const ref = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -235,20 +238,26 @@ export default function MiniCart() {
                     {formatPrice(total)}
                   </span>
                 </div>
+                {couponDiscount > 0 && (
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-[var(--color-success)]">Rabatt ({coupon?.label})</span>
+                    <span className="text-sm font-medium text-[var(--color-success)]">-{formatPrice(couponDiscount)}</span>
+                  </div>
+                )}
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-[var(--color-text-muted)]">Versand</span>
                   <span className="text-sm font-medium text-[var(--color-success)]">
-                    {getShippingCost(total) === 0 ? "Kostenlos" : formatPrice(SHIPPING_COST)}
+                    {getShippingCost(finalTotal) === 0 ? "Kostenlos" : formatPrice(SHIPPING_COST)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-5 pt-3 border-t border-[var(--color-border-light)]">
                   <span className="font-bold text-[var(--color-text-primary)]">Gesamt</span>
                   <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
-                    {formatPrice(total + getShippingCost(total))}
+                    {formatPrice(finalTotal + getShippingCost(finalTotal))}
                   </span>
                 </div>
                 {/* Delivery promise */}
-                {getShippingCost(total) === 0 ? (
+                {getShippingCost(finalTotal) === 0 ? (
                   <div className="flex items-center justify-center gap-2 mb-4 py-2.5 px-3 bg-[var(--color-success)]/10 rounded-xl text-sm text-[var(--color-success)]">
                     <Truck className="w-4 h-4" aria-hidden="true" />
                     <span className="font-medium">Kostenlose Lieferung</span>
@@ -257,10 +266,10 @@ export default function MiniCart() {
                   <div className="mb-4 py-2.5 px-3 bg-[var(--color-accent)]/10 rounded-xl text-sm text-[var(--color-accent)]">
                     <div className="flex items-center justify-center gap-2 mb-1.5">
                       <Truck className="w-4 h-4" aria-hidden="true" />
-                      <span className="font-medium">Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand</span>
+                      <span className="font-medium">Noch {formatPrice(FREE_SHIPPING_THRESHOLD - finalTotal)} bis zum kostenlosen Versand</span>
                     </div>
-                    <div className="w-full bg-[var(--color-accent)]/20 rounded-full h-1.5" role="meter" aria-valuenow={Math.min(100, Math.round((total / FREE_SHIPPING_THRESHOLD) * 100))} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt zum kostenlosen Versand">
-                      <div className="bg-[var(--color-accent)] h-1.5 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (total / FREE_SHIPPING_THRESHOLD) * 100)}%` }} />
+                    <div className="w-full bg-[var(--color-accent)]/20 rounded-full h-1.5" role="meter" aria-valuenow={Math.min(100, Math.round((finalTotal / FREE_SHIPPING_THRESHOLD) * 100))} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt zum kostenlosen Versand">
+                      <div className="bg-[var(--color-accent)] h-1.5 rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (finalTotal / FREE_SHIPPING_THRESHOLD) * 100)}%` }} />
                     </div>
                   </div>
                 )}

@@ -18,7 +18,7 @@ import { useToast } from "@/components/ui/Toast";
 
 export default function WarenkorbPage() {
   const { items, removeItem, updateQuantity, coupon, applyCoupon, removeCoupon } = useCartStore();
-  const { toggleItem, isInWishlist } = useWishlistStore();
+  const { addItem: addWishlistItem, isInWishlist } = useWishlistStore();
   const toast = useToast();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [confirmSave, setConfirmSave] = useState<string | null>(null);
@@ -166,20 +166,22 @@ export default function WarenkorbPage() {
                           type="button"
                           onClick={() => {
                             const alreadyInWishlist = isInWishlist(item.id);
-                            toggleItem({
-                              id: item.id,
-                              name: item.name,
-                              slug: item.slug,
-                              price: item.price,
-                              originalPrice: item.originalPrice,
-                              image: item.image,
-                              brand: item.brand ?? "",
-                              rating: 0,
-                              reviewCount: 0,
-                            });
+                            if (!alreadyInWishlist) {
+                              addWishlistItem({
+                                id: item.id,
+                                name: item.name,
+                                slug: item.slug,
+                                price: item.price,
+                                originalPrice: item.originalPrice,
+                                image: item.image,
+                                brand: item.brand ?? "",
+                                rating: 0,
+                                reviewCount: 0,
+                              });
+                            }
                             removeItem(item.id);
                             setConfirmSave(null);
-                            toast.success(alreadyInWishlist ? "Von der Wunschliste entfernt" : "Zur Wunschliste hinzugefügt");
+                            toast.success(alreadyInWishlist ? "Bereits auf der Wunschliste" : "Zur Wunschliste verschoben");
                           }}
                           aria-label="Zur Wunschliste verschieben bestätigen"
                           className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"

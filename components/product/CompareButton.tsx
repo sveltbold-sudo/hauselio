@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { BarChart3, Plus } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useComparisonStore } from "@/lib/comparison";
 import { useToast } from "@/components/ui/Toast";
 
 interface CompareButtonProps {
@@ -20,67 +20,34 @@ interface CompareButtonProps {
 }
 
 export default function CompareButton({ product }: CompareButtonProps) {
-  const [isComparing, setIsComparing] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const isComparing = useComparisonStore((s) => s.isComparing(product.id));
+  const toggleItem = useComparisonStore((s) => s.toggleItem);
+  const canAdd = useComparisonStore((s) => s.canAdd);
   const toast = useToast();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    const stored = localStorage.getItem("HAUSAURA-comparison");
-    if (stored) {
-      try {
-        const parsed: unknown = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setIsComparing(parsed.some((p: { id: string }) => p.id === product.id));
-        }
-      } catch {}
-    }
-  }, [product.id, mounted]);
-
   const toggleCompare = () => {
-    const stored = localStorage.getItem("HAUSAURA-comparison");
-    let items: CompareButtonProps["product"][] = [];
-    try {
-      const parsed: unknown = stored ? JSON.parse(stored) : [];
-      if (Array.isArray(parsed)) items = parsed;
-    } catch {}
-
-    if (isComparing) {
-      items = items.filter((p) => p.id !== product.id);
-    } else {
-      if (items.length >= 4) {
-        toast.info("Maximal 4 Produkte zum Vergleich");
-        return;
-      }
-      items.push({
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.image,
-        brand: product.brand,
-        rating: product.rating,
-        reviewCount: product.reviewCount,
-        specs: product.specs,
-      });
+    if (!isComparing && !canAdd()) {
+      toast.info("Maximal 4 Produkte zum Vergleich");
+      return;
     }
-
-    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(items));
-    setIsComparing(!isComparing);
-    window.dispatchEvent(new Event("storage"));
-    window.dispatchEvent(new CustomEvent("comparison-updated"));
+    toggleItem({
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      brand: product.brand,
+      rating: product.rating,
+      reviewCount: product.reviewCount,
+      specs: product.specs,
+    });
   };
-
-  if (!mounted) return <div className="w-20 h-5" />;
 
   return (
     <button
       onClick={toggleCompare}
+      aria-pressed={isComparing}
       className={`flex items-center gap-1.5 min-h-[44px] px-3 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
         isComparing
           ? "text-[var(--color-primary)]"

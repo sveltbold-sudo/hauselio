@@ -26,7 +26,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
   const [addedBundle, setAddedBundle] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
@@ -45,7 +45,6 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
 
   const allItems = [currentProduct, ...products.filter((p) => selected.has(p.id))];
   const bundleTotal = allItems.reduce((sum, p) => sum + p.price, 0);
-  const savings = allItems.length > 1 ? Math.round(bundleTotal * 0.03) : 0;
 
   const handleAddBundle = () => {
     allItems.forEach((item) => {
@@ -57,6 +56,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
         image: item.image,
       }, 1);
     });
+    window.dispatchEvent(new CustomEvent("cart:item-added"));
     toast.success(`${allItems.length} Artikel zum Warenkorb hinzugefügt!`);
     setAddedBundle(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -129,11 +129,6 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                 <span className="text-sm text-[var(--color-text-secondary)]">Gesamtpreis</span>
                 <span className="text-xl font-extrabold text-[var(--color-text-primary)]">{formatPrice(bundleTotal)}</span>
               </div>
-              {savings > 0 && (
-                <p className="text-xs text-[var(--color-success)] font-semibold mb-4">
-                  Sie sparen {formatPrice(savings)} bei diesem Bundle
-                </p>
-              )}
             </div>
 
             <button

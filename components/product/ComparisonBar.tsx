@@ -1,67 +1,17 @@
 ﻿"use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BarChart3, X, Trash2 } from "lucide-react";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
-
-interface CompareItem {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice?: number | null;
-  image: string;
-  brand: string;
-  rating: number;
-  reviewCount: number;
-  specs?: { key: string; value: string }[];
-}
+import { useComparisonStore } from "@/lib/comparison";
 
 export default function ComparisonBar() {
-  const [items, setItems] = useState<CompareItem[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const items = useComparisonStore((s) => s.items);
+  const removeItem = useComparisonStore((s) => s.removeItem);
+  const clearAll = useComparisonStore((s) => s.clearAll);
 
-  useEffect(() => {
-    setMounted(true);
-    const loadItems = () => {
-      const stored = localStorage.getItem("HAUSAURA-comparison");
-      if (stored) {
-        try {
-          const parsed: unknown = JSON.parse(stored);
-          if (Array.isArray(parsed)) setItems(parsed);
-        } catch {}
-      } else {
-        setItems([]);
-      }
-    };
-
-    loadItems();
-    window.addEventListener("storage", loadItems);
-    window.addEventListener("comparison-updated", loadItems);
-    return () => {
-      window.removeEventListener("storage", loadItems);
-      window.removeEventListener("comparison-updated", loadItems);
-    };
-  }, []);
-
-  const removeItem = (id: string) => {
-    const updated = items.filter((item) => item.id !== id);
-    localStorage.setItem("HAUSAURA-comparison", JSON.stringify(updated));
-    setItems(updated);
-    window.dispatchEvent(new Event("storage"));
-    window.dispatchEvent(new CustomEvent("comparison-updated"));
-  };
-
-  const clearAll = () => {
-    localStorage.removeItem("HAUSAURA-comparison");
-    setItems([]);
-    window.dispatchEvent(new Event("storage"));
-    window.dispatchEvent(new CustomEvent("comparison-updated"));
-  };
-
-  if (!mounted || items.length === 0) return null;
+  if (items.length === 0) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[70] bg-white border-t border-[var(--color-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transform transition-transform duration-300">
@@ -121,7 +71,7 @@ export default function ComparisonBar() {
             </button>
             {items.length >= 2 && (
               <Link
-                href={`/vergleich?ids=${items.map((i) => i.id).join(",")}`}
+                href="/vergleich"
                 className="px-4 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors whitespace-nowrap"
               >
                 Vergleichen
