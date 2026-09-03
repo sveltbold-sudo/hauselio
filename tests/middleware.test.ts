@@ -15,6 +15,10 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
+vi.mock("@/lib/constants", () => ({
+  SITE_URL: "https://localhost:3000",
+}));
+
 import { middleware } from "../middleware";
 
 function makeRequest(path: string, opts?: { method?: string; headers?: Record<string, string> }) {
