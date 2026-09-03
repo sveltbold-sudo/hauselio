@@ -37,24 +37,34 @@ interface PageProps {
   searchParams: Promise<{ page?: string; sort?: string; brand?: string; sub?: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const sp = await searchParams;
+  const sub = sp.sub || undefined;
   const category = await getCategory(slug);
 
   if (!category) {
     return { title: "Kategorie nicht gefunden" };
   }
 
+  const pageTitle = sub ? `${sub} | ${category.name}` : category.name;
+  const pageDescription = sub
+    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}`
+    : category.description || `Entdecken Sie unsere ${category.name} Kollektion`;
+  const canonical = sub
+    ? `/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
+    : `/kategorie/${slug}`;
+
   return {
-    title: category.name,
-    description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
+    title: pageTitle,
+    description: pageDescription,
     alternates: {
-      canonical: `/kategorie/${slug}`,
+      canonical,
     },
     openGraph: {
-      title: category.name,
-      description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
-      url: `/kategorie/${slug}`,
+      title: pageTitle,
+      description: pageDescription,
+      url: canonical,
       siteName: "HAUSAURA",
       locale: "de_DE",
       type: "website",
@@ -62,8 +72,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: category.name,
-      description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
+      title: pageTitle,
+      description: pageDescription,
       images: [`${SITE_URL}/logos/logoprincipale.png`],
     },
   };
@@ -83,24 +93,35 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
     notFound();
   }
 
+  const breadcrumbItems = [
+    { name: "Startseite", url: "/" },
+    { name: "Kategorien", url: "/kategorie" },
+    { name: category.name, url: `/kategorie/${slug}` },
+  ];
+  if (sub) {
+    breadcrumbItems.push({ name: sub, url: `/kategorie/${slug}?sub=${encodeURIComponent(sub)}` });
+  }
+
+  const collectionName = sub ? `${sub} | ${category.name}` : category.name;
+  const collectionDescription = sub
+    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}`
+    : category.description || `Entdecken Sie unsere ${category.name} Kollektion`;
+  const collectionUrl = sub
+    ? `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
+    : `${SITE_URL}/kategorie/${slug}`;
+
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Startseite", url: "/" },
-          { name: "Kategorien", url: "/kategorie" },
-          { name: category.name, url: `/kategorie/${slug}` },
-        ]}
-      />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: category.name,
-            description: category.description || `Entdecken Sie unsere ${category.name} Kollektion`,
-            url: `${SITE_URL}/kategorie/${slug}`,
+            name: collectionName,
+            description: collectionDescription,
+            url: collectionUrl,
           }),
         }}
       />
@@ -108,11 +129,11 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
         <CategoryPage
           slug={slug}
           title={category.name}
+          sub={sub}
           description={category.description || ""}
           page={page}
           sort={sort}
           brand={brand}
-          sub={sub}
         />
       </main>
     </>

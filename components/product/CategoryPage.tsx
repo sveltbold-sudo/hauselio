@@ -143,20 +143,23 @@ export default async function CategoryPage({
     return `/kategorie/${slug}?${params.toString()}`;
   }
 
+  const breadcrumbItems = [
+    { label: "Kategorien", href: "/kategorie" },
+    { label: title, href: `/kategorie/${slug}` },
+  ];
+  if (sub) {
+    breadcrumbItems.push({ label: sub });
+  }
+
   return (
     <div className="container-hausaura py-6 sm:py-8 lg:py-10">
       {/* Breadcrumb */}
-      <Breadcrumb
-        items={[
-          { label: "Kategorien", href: "/kategorie" },
-          { label: title },
-        ]}
-      />
+      <Breadcrumb items={breadcrumbItems} />
 
       {/* Header */}
       <div className="mb-6 sm:mb-8">
-        <h1 className="heading-1">{title}</h1>
-        <p className="body-large mt-2">{description}</p>
+        <h1 className="heading-1">{sub ? `${sub}` : title}</h1>
+        <p className="body-large mt-2">{sub ? `${sub} in ${title}` : description}</p>
       </div>
 
       {/* Subcategory pills */}
@@ -190,7 +193,7 @@ export default async function CategoryPage({
 
       {/* Toolbar with sort + brand filter */}
       <Suspense fallback={<div className="h-12 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />}>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-5 py-3">
+        <div className="sticky top-20 z-30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white/95 backdrop-blur-sm rounded-xl border border-[var(--color-border-light)] px-5 py-3 shadow-sm">
           <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
           <CategorySortSelect sort={sort} slug={slug} />
         </div>
