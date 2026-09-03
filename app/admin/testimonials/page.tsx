@@ -51,7 +51,7 @@ export default function TestimonialsPage() {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }, []);
 
-  const loadTestimonials = () => {
+  const loadTestimonials = useCallback(() => {
     setLoading(true);
     fetch(`/api/admin/testimonials?page=${page}&limit=20&filter=${filter}`)
       .then((r) => { if (!r.ok) throw new Error("Failed"); return r.json(); })
@@ -64,7 +64,7 @@ export default function TestimonialsPage() {
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
-  };
+  }, [page, filter]);
 
   useEffect(() => { loadTestimonials(); }, [page, filter, loadTestimonials]);
 

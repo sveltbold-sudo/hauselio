@@ -82,10 +82,10 @@ export default function OrderSuccessPage() {
   const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
 
   useEffect(() => {
-    if (!orderId || orderLoading || order) return;
+    if (!orderId || orderLoading) return;
     const timer = setInterval(() => setRemaining((r) => (r > 0 ? r - 1 : 0)), 1000);
     return () => clearInterval(timer);
-  }, [orderId, orderLoading, order]);
+  }, [orderId, orderLoading]);
 
   useEffect(() => {
     if (orderId && orderEmail) {

@@ -57,7 +57,7 @@ export default function CouponsPage() {
     }
   }, []);
 
-  const loadCoupons = () => {
+  const loadCoupons = useCallback(() => {
     setLoading(true);
     const params = new URLSearchParams({ page: String(page), limit: "20" });
     if (search.trim()) params.set("search", search.trim());
@@ -74,7 +74,7 @@ export default function CouponsPage() {
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
-  };
+  }, [page, search]);
 
   useEffect(() => { loadCoupons(); }, [page, search, loadCoupons]);
 
