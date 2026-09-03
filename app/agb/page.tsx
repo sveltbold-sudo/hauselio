@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { SITE_URL } from "@/lib/constants";
 

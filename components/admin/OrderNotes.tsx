@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Save, Truck, FileText } from "lucide-react";
+import { Save, Truck, FileText, Landmark } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
 interface OrderNotesProps {
   orderId: string;
   initialAdminNotes: string;
   initialTrackingNumber: string;
+  initialBankReference: string;
 }
 
-export default function OrderNotes({ orderId, initialAdminNotes, initialTrackingNumber }: OrderNotesProps) {
+export default function OrderNotes({ orderId, initialAdminNotes, initialTrackingNumber, initialBankReference }: OrderNotesProps) {
   const toast = useToast();
   const [adminNotes, setAdminNotes] = useState(initialAdminNotes);
   const [trackingNumber, setTrackingNumber] = useState(initialTrackingNumber);
+  const [bankReference, setBankReference] = useState(initialBankReference);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
 
@@ -23,7 +25,7 @@ export default function OrderNotes({ orderId, initialAdminNotes, initialTracking
       const res = await fetch(`/api/admin/bestellungen/${orderId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminNotes, trackingNumber }),
+        body: JSON.stringify({ adminNotes, trackingNumber, bankReference }),
       });
       if (!res.ok) throw new Error("Fehler beim Speichern");
       toast.success("Notizen gespeichert!");
@@ -63,6 +65,20 @@ export default function OrderNotes({ orderId, initialAdminNotes, initialTracking
             onChange={(e) => { setAdminNotes(e.target.value); setDirty(true); }}
             placeholder="Interne Notizen zu dieser Bestellung…"
             className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 resize-y"
+          />
+        </div>
+        <div>
+          <label htmlFor="bankReference" className="flex items-center gap-2 text-sm font-medium text-[var(--color-text-primary)] mb-1.5">
+            <Landmark className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
+            Bankreferenz
+          </label>
+          <input
+            id="bankReference"
+            type="text"
+            value={bankReference}
+            onChange={(e) => { setBankReference(e.target.value); setDirty(true); }}
+            placeholder="Verwendungszweck / Referenznummer"
+            className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
           />
         </div>
         <div>

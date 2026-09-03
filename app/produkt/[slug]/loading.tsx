@@ -1,4 +1,4 @@
-﻿export default function ProductDetailSkeleton() {
+export default function ProductDetailSkeleton() {
   return (
     <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       {/* Breadcrumb skeleton */}

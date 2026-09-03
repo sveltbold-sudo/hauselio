@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowRight, Check, Coffee, Utensils, SprayCan, UtensilsCrossed } from "lucide-react";
 
 interface BuyingAdvice {

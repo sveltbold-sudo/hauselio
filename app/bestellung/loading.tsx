@@ -1,4 +1,4 @@
-﻿export default function BestellungLoading() {
+export default function BestellungLoading() {
   return (
     <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">

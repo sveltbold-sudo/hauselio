@@ -1,4 +1,4 @@
-﻿import { getResendClient, FROM_EMAIL } from "@/lib/resend";
+import { getResendClient, FROM_EMAIL } from "@/lib/resend";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { createUnsubscribeToken } from "@/lib/auth";
@@ -767,6 +767,359 @@ export async function sendEmailVerification(data: {
     from: FROM_EMAIL,
     to: data.to,
     subject: "E-Mail verifizieren \u2013 HAUSAURA",
+    html,
+  });
+}
+
+// ─────────────────────────────────────────────
+// 11. NEW ORDER ADMIN NOTIFICATION
+// ─────────────────────────────────────────────
+interface AdminOrderNotificationData {
+  orderNumber: string;
+  customerEmail: string;
+  customerName: string;
+  customerAddress: string;
+  customerCity: string;
+  customerZip: string;
+  items: { name: string; quantity: number; price: number }[];
+  subtotal: number;
+  couponDiscount: number;
+  total: number;
+  shippingCost: number;
+}
+
+export async function sendNewOrderAdminNotification(data: AdminOrderNotificationData) {
+  const settings = await prisma.siteSettings.findFirst();
+  const adminEmail = settings?.contactEmail || "hilfe@HAUSAURA.de";
+
+  const safeOrderNumber = escapeHtml(data.orderNumber);
+  const safeName = escapeHtml(data.customerName);
+  const safeEmail = escapeHtml(data.customerEmail);
+  const safeAddress = escapeHtml(data.customerAddress);
+  const safeCity = escapeHtml(data.customerCity);
+  const safeZip = escapeHtml(data.customerZip);
+
+  const html = baseTemplate(`
+    ${headerBanner("Nouvelle commande", `Commande ${safeOrderNumber} reçue`, "#D14A0C")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Eine neue Bestellung wurde auf HAUSAURA aufgegeben.
+      </p>
+
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+        <tr>
+          <td style="background-color:#F0F4F8;border-radius:12px;padding:20px 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="color:#6B7280;font-size:11px;margin:0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Bestellnummer</p>
+                  <p style="color:#0A2540;font-size:20px;font-weight:800;margin:6px 0 0 0;letter-spacing:-0.5px;">${safeOrderNumber}</p>
+                </td>
+                <td align="right" valign="top">
+                  ${badge("Ausstehend", "#FEF3C7", "#92400E")}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      ${divider()}
+
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Kunde</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:3px 0;width:100px;font-size:13px;color:#6B7280;">Name</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safeName}</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">E-Mail</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;"><a href="mailto:${safeEmail}" style="color:#0A2540;">${safeEmail}</a></td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">Adresse</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safeAddress}, ${safeZip} ${safeCity}</td>
+          </tr>
+        </table>
+      </div>
+
+      ${divider()}
+
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Bestellte Artikel</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          ${orderItemsTable(data.items)}
+        </table>
+      </div>
+
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.subtotal)}</td>
+        </tr>
+        ${data.couponDiscount > 0 ? `<tr>
+          <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt</td>
+          <td style="padding:6px 0;font-size:14px;color:#059669;text-align:right;font-weight:600;">-${formatPrice(data.couponDiscount)}</td>
+        </tr>` : ""}
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.shippingCost)}</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;border-top:2px solid #0A2540;">Gesamtbetrag</td>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#0A2540;text-align:right;border-top:2px solid #0A2540;">${formatPrice(data.total)}</td>
+        </tr>
+      </table>
+
+      <div style="text-align:center;padding:16px 0 0 0;">
+        <a href="${SITE}/admin/bestellungen" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Bestellung im Admin ansehen
+        </a>
+      </div>
+
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: adminEmail,
+    subject: `[Neue Bestellung] ${safeOrderNumber} \u2013 HAUSAURA`,
+    html,
+  });
+}
+
+// ─────────────────────────────────────────────
+// 12. PAYMENT REMINDER
+// ─────────────────────────────────────────────
+interface PaymentReminderData {
+  orderNumber: string;
+  customerEmail: string;
+  customerName: string;
+  total: number;
+  createdAt: string;
+  reminderCount: number;
+}
+
+export async function sendPaymentReminder(data: PaymentReminderData) {
+  const bank = await getBankDetails();
+  const safeOrderNumber = escapeHtml(data.orderNumber);
+  const safeName = escapeHtml(data.customerName);
+
+  const daysSinceOrder = Math.floor(
+    (Date.now() - new Date(data.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  const html = baseTemplate(`
+    ${headerBanner("Zahlungserinnerung", `Bestellung ${safeOrderNumber}`, "#D97706")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        wir haben Ihre Bestellung <strong>${safeOrderNumber}</strong> vom ${new Date(data.createdAt).toLocaleDateString("de-DE")} noch nicht als bezahlt erhalten. Bitte begleichen Sie den Gesamtbetrag innerhalb von <strong>5 Werktagen</strong>.
+      </p>
+
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="background-color:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:20px;">
+            <p style="color:#92400E;font-size:14px;font-weight:600;margin:0 0 8px 0;">Ausstehende Zahlung</p>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:3px 0;font-size:13px;color:#6B7280;">Betrag</td>
+                <td style="padding:3px 0;font-size:13px;color:#92400E;text-align:right;font-weight:700;">${formatPrice(data.total)}</td>
+              </tr>
+              <tr>
+                <td style="padding:3px 0;font-size:13px;color:#6B7280;">Bestellt seit</td>
+                <td style="padding:3px 0;font-size:13px;color:#92400E;text-align:right;font-weight:600;">${daysSinceOrder} Tagen</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      ${divider()}
+
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Zahlungsinformationen</p>
+        <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">Empfänger</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;">${escapeHtml(bank.accountName)}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">IBAN</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;font-family:monospace;">${escapeHtml(bank.iban)}</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;font-size:13px;color:#6B7280;">BIC</td>
+              <td style="padding:4px 0;font-size:13px;color:#0A2540;text-align:right;font-weight:600;font-family:monospace;">${escapeHtml(bank.bic)}</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0 4px 0;font-size:13px;color:#6B7280;">Verwendungszweck</td>
+              <td style="padding:8px 0 4px 0;font-size:14px;color:#D14A0C;text-align:right;font-weight:800;font-family:monospace;">${safeOrderNumber}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:8px 0;">
+        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Bestellung ansehen
+        </a>
+      </div>
+
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: data.customerEmail,
+    subject: `Zahlungserinnerung ${safeOrderNumber} \u2013 HAUSAURA`,
+    html,
+  });
+}
+
+// ─────────────────────────────────────────────
+// 13. PAYMENT RECEIPT (after admin validates)
+// ─────────────────────────────────────────────
+interface PaymentReceiptData {
+  orderNumber: string;
+  invoiceNumber: string;
+  customerEmail: string;
+  customerName: string;
+  customerAddress: string;
+  customerCity: string;
+  customerZip: string;
+  customerCountry: string;
+  items: { name: string; quantity: number; price: number }[];
+  subtotal: number;
+  couponDiscount: number;
+  total: number;
+  shippingCost: number;
+  paidAt: string;
+}
+
+export async function sendPaymentReceipt(data: PaymentReceiptData) {
+  const safeOrderNumber = escapeHtml(data.orderNumber);
+  const safeInvoice = escapeHtml(data.invoiceNumber);
+  const safeName = escapeHtml(data.customerName);
+  const safeAddress = escapeHtml(data.customerAddress);
+  const safeCity = escapeHtml(data.customerCity);
+  const safeZip = escapeHtml(data.customerZip);
+
+  const html = baseTemplate(`
+    ${headerBanner("Zahlungsbestätigung", `Rechnung ${safeInvoice}`, "#059669")}
+
+    <div style="padding:36px 40px;">
+
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        Hallo <strong style="color:#0A2540;">${safeName}</strong>,
+      </p>
+
+      <p style="color:#4B5563;font-size:14px;margin:0 0 24px 0;line-height:1.6;">
+        wir haben Ihre Zahlung für Bestellung <strong>${safeOrderNumber}</strong> erhalten und bestätigt. Vielen Dank!
+      </p>
+
+      <!-- Success Card -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+        <tr>
+          <td style="background-color:#ECFDF5;border:1px solid #A7F3D0;border-radius:12px;padding:20px 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="color:#065F46;font-size:11px;margin:0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Zahlung bestätigt</p>
+                  <p style="color:#059669;font-size:18px;font-weight:800;margin:6px 0 0 0;">${formatPrice(data.total)}</p>
+                </td>
+                <td align="right" valign="top">
+                  ${badge("Bezahlt", "#D1FAE5", "#065F46")}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      ${divider()}
+
+      <!-- Invoice Details -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Rechnungsdetails</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:3px 0;width:140px;font-size:13px;color:#6B7280;">Rechnungsnummer</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:700;font-family:monospace;">${safeInvoice}</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">Bestellnummer</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;font-family:monospace;">${safeOrderNumber}</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">Zahlungsdatum</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${new Date(data.paidAt).toLocaleDateString("de-DE")}</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;font-size:13px;color:#6B7280;">Rechnungsadresse</td>
+            <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;">${safeName}<br/>${safeAddress}<br/>${safeZip} ${safeCity}</td>
+          </tr>
+        </table>
+      </div>
+
+      ${divider()}
+
+      <!-- Items -->
+      <div style="padding:24px 0;">
+        <p style="color:#6B7280;font-size:11px;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Bestellte Artikel</p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          ${orderItemsTable(data.items)}
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px;">
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Zwischensumme</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.subtotal)}</td>
+        </tr>
+        ${data.couponDiscount > 0 ? `<tr>
+          <td style="padding:6px 0;font-size:14px;color:#059669;">Rabatt</td>
+          <td style="padding:6px 0;font-size:14px;color:#059669;text-align:right;font-weight:600;">-${formatPrice(data.couponDiscount)}</td>
+        </tr>` : ""}
+        <tr>
+          <td style="padding:6px 0;font-size:14px;color:#6B7280;">Versand</td>
+          <td style="padding:6px 0;font-size:14px;color:#1A1A1A;text-align:right;">${formatPrice(data.shippingCost)}</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#059669;border-top:2px solid #059669;">Gezahlt</td>
+          <td style="padding:16px 0 6px 0;font-size:16px;font-weight:700;color:#059669;text-align:right;border-top:2px solid #059669;">${formatPrice(data.total)}</td>
+        </tr>
+      </table>
+
+      <div style="background-color:#F0F4F8;border-radius:12px;padding:20px;margin-top:24px;">
+        <p style="color:#6B7280;font-size:13px;margin:0;line-height:1.6;">
+          Diese E-Mail dient als Ihre Zahlungsbestätigung und Rechnung. Bitte bewahren Sie diese Aufzeichnung auf references.
+        </p>
+      </div>
+
+      <div style="text-align:center;padding:16px 0 0 0;">
+        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+          Bestellung ansehen
+        </a>
+      </div>
+
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: data.customerEmail,
+    subject: `Zahlungsbestätigung ${safeOrderNumber} \u2013 HAUSAURA`,
     html,
   });
 }

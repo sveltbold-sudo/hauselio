@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { BarChart3, X, Trash2 } from "lucide-react";

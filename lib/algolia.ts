@@ -1,4 +1,4 @@
-﻿import { algoliasearch, type Algoliasearch } from "algoliasearch";
+import { algoliasearch, type Algoliasearch } from "algoliasearch";
 import { logger } from "@/lib/logger";
 
 const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;

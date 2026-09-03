@@ -1,4 +1,4 @@
-﻿import { Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { logger } from "@/lib/logger";
 import ReviewFilters from "./ReviewFilters";

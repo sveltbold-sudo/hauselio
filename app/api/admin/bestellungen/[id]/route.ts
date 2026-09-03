@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { sendPaymentConfirmed, sendShippedConfirmation, sendOrderCancelled } from "@/lib/emails";
+import { sendPaymentConfirmed, sendShippedConfirmation, sendOrderCancelled, sendPaymentReceipt } from "@/lib/emails";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
+
+function generateInvoiceNumber(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return `RE-${year}${month}-${random}`;
+}
 
 const UpdateOrderSchema = z.object({
   status: z.enum(ALLOWED_ORDER_STATUSES),
@@ -16,6 +24,7 @@ const UpdateOrderSchema = z.object({
 const PatchOrderSchema = z.object({
   adminNotes: z.string().max(2000).optional(),
   trackingNumber: z.string().max(50).optional().nullable(),
+  bankReference: z.string().max(100).optional().nullable(),
 });
 
 export async function PUT(
@@ -105,7 +114,23 @@ export async function PUT(
       };
 
       if (status === "PAYMENT_CONFIRMED") {
+        // Generate invoice number
+        const invoiceNumber = generateInvoiceNumber();
+        await prisma.order.update({
+          where: { id },
+          data: { invoiceNumber },
+        });
         await sendPaymentConfirmed(emailData);
+        // Send payment receipt with invoice
+        await sendPaymentReceipt({
+          ...emailData,
+          invoiceNumber,
+          customerAddress: order.customerAddress,
+          customerCity: order.customerCity,
+          customerZip: order.customerZip,
+          customerCountry: order.customerCountry,
+          paidAt: new Date().toISOString(),
+        });
       } else if (status === "SHIPPED") {
         const shippedTracking = trackingNumber || order.trackingNumber || "";
         await sendShippedConfirmation(emailData, shippedTracking);
@@ -153,13 +178,14 @@ export async function PATCH(
       );
     }
 
-    const { adminNotes, trackingNumber } = parsed.data;
+    const { adminNotes, trackingNumber, bankReference } = parsed.data;
 
     const order = await prisma.order.update({
       where: { id },
       data: {
         ...(adminNotes !== undefined && { adminNotes }),
         ...(trackingNumber !== undefined && { trackingNumber: trackingNumber || null }),
+        ...(bankReference !== undefined && { bankReference: bankReference || null }),
       },
     });
 

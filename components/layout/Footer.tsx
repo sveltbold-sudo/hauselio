@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Mail, Phone, Truck, Shield, CreditCard, Headphones, Lock, Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import { footerCategories } from "@/lib/navigation";

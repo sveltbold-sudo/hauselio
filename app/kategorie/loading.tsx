@@ -1,4 +1,4 @@
-﻿export default function KategorieLoading() {
+export default function KategorieLoading() {
   return (
     <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">

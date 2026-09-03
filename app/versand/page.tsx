@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Truck, Package, Landmark } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 

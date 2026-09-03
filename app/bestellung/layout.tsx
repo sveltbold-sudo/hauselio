@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {

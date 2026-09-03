@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
@@ -74,6 +74,10 @@ export default function ProductForm({
        
       setFormData((prev) => ({ ...prev, ...initialData }));
       initialDataRef.current = initialData;
+      requestAnimationFrame(() => {
+        initialLoadDone.current = true;
+      });
+    } else {
       requestAnimationFrame(() => {
         initialLoadDone.current = true;
       });

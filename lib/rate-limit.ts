@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Rate limiter avec Upstash Redis pour Vercel/serverless.
  *
  * En production : Upstash Redis (HTTP-based, partagé entre instances)

@@ -6,7 +6,7 @@ import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants"
 import { logger } from "@/lib/logger";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Receipt, Clock } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 import OrderNotes from "@/components/admin/OrderNotes";
 
@@ -134,6 +134,7 @@ export default async function AdminOrderDetailPage({
             orderId={order.id}
             initialAdminNotes={order.adminNotes || ""}
             initialTrackingNumber={order.trackingNumber || ""}
+            initialBankReference={order.bankReference || ""}
           />
           {order.customerNotes && (
             <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
@@ -215,8 +216,39 @@ export default async function AdminOrderDetailPage({
                   {order.bankReference}
                 </p>
               )}
+              {order.reminderCount > 0 && (
+                <p className="text-[var(--color-text-secondary)]">
+                  <span className="font-medium">Relances:</span>{" "}
+                  {order.reminderCount}
+                  {order.lastReminderAt && (
+                    <span className="text-[var(--color-text-muted)] ml-1">
+                      (dernière: {new Date(order.lastReminderAt).toLocaleDateString("de-DE")})
+                    </span>
+                  )}
+                </p>
+              )}
             </div>
           </div>
+
+          {/* Payment Proof */}
+          {order.paymentProofUrl && (
+            <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
+              <h2 className="font-bold text-[var(--color-text-primary)] mb-4 flex items-center gap-2">
+                <Receipt className="w-5 h-5" />
+                Preuve de paiement
+              </h2>
+              <a href={order.paymentProofUrl} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={order.paymentProofUrl}
+                  alt="Preuve de paiement"
+                  width={400}
+                  height={300}
+                  className="rounded-lg border border-[var(--color-border-light)] object-cover"
+                  unoptimized
+                />
+              </a>
+            </div>
+          )}
 
           {/* Shipping */}
           <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">

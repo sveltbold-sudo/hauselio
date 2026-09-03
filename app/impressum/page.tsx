@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const revalidate = 86400;

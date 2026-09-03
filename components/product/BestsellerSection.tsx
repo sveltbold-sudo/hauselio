@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";

@@ -1,12 +1,12 @@
-﻿"use client";
+"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import Input from "@/components/ui/Input";
 import PaymentTimeline from "@/components/ui/PaymentTimeline";
-import { Check, Copy, ArrowRight, AlertCircle, Truck, Clock, Shield, HelpCircle, ChevronDown } from "lucide-react";
+import { Check, Copy, ArrowRight, AlertCircle, Truck, Clock, Shield, HelpCircle, ChevronDown, Upload, FileCheck } from "lucide-react";
 import { trackPurchase } from "@/lib/analytics";
 
 interface BankDetails {
@@ -80,6 +80,11 @@ export default function OrderSuccessPage() {
   });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [proofUploading, setProofUploading] = useState(false);
+  const [proofUploaded, setProofUploaded] = useState(false);
+  const [proofError, setProofError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!orderId || orderLoading) return;
@@ -134,6 +139,30 @@ export default function OrderSuccessPage() {
     navigator.clipboard.writeText(text).catch(() => {});
     setCopied(field);
     setTimeout(() => setCopied(null), 2000);
+  };
+
+  const handleProofUpload = async () => {
+    if (!proofFile || !orderId || !order) return;
+    setProofUploading(true);
+    setProofError("");
+    try {
+      const formData = new FormData();
+      formData.append("file", proofFile);
+      const res = await fetch(
+        `/api/bestellungen/${order.id}/upload-proof?email=${encodeURIComponent(orderEmail || "")}&orderNumber=${encodeURIComponent(orderId)}`,
+        { method: "POST", body: formData }
+      );
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Fehler beim Hochladen");
+      }
+      setProofUploaded(true);
+      setProofFile(null);
+    } catch (err) {
+      setProofError(err instanceof Error ? err.message : "Fehler beim Hochladen");
+    } finally {
+      setProofUploading(false);
+    }
   };
 
   const timerDays = Math.floor(remaining / (24 * 60 * 60));
@@ -380,6 +409,69 @@ export default function OrderSuccessPage() {
                 </p>
               </div>
               </>
+              )}
+            </div>
+          )}
+
+          {/* Payment Proof Upload */}
+          {order && (
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-left">
+              <h2 className="font-bold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
+                <Upload className="w-5 h-5" />
+                Zahlungsnachweis hochladen
+              </h2>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                Haben Sie bereits überwiesen? Laden Sie hier einen Nachweis hoch (Screenshot, PDF, etc.), um die Bearbeitung zu beschleunigen.
+              </p>
+              {proofUploaded ? (
+                <div className="flex items-center gap-3 p-4 bg-[var(--color-success-light)] border border-[var(--color-success)]/20 rounded-xl">
+                  <FileCheck className="w-5 h-5 text-[var(--color-success)]" />
+                  <p className="text-sm font-medium text-[var(--color-success)]">Zahlungsnachweis erfolgreich hochgeladen!</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setProofFile(file);
+                        setProofError("");
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
+                    >
+                      Datei auswählen
+                    </button>
+                    {proofFile && (
+                      <span className="text-sm text-[var(--color-text-muted)] truncate max-w-[200px]">
+                        {proofFile.name}
+                      </span>
+                    )}
+                  </div>
+                  {proofFile && (
+                    <button
+                      onClick={handleProofUpload}
+                      disabled={proofUploading}
+                      className="px-5 py-2.5 bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+                    >
+                      {proofUploading ? "Wird hochgeladen…" : "Hochladen"}
+                    </button>
+                  )}
+                  {proofError && (
+                    <p className="text-sm text-[var(--color-danger)]">{proofError}</p>
+                  )}
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    Erlaubte Formate: JPG, PNG, WebP, PDF (max. 10MB)
+                  </p>
+                </div>
               )}
             </div>
           )}

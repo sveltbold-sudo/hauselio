@@ -1,4 +1,4 @@
-﻿import { Truck, Euro, Shield, CreditCard, Clock, Headphones } from "lucide-react";
+import { Truck, Euro, Shield, CreditCard, Clock, Headphones } from "lucide-react";
 
 const valueProps = [
   {

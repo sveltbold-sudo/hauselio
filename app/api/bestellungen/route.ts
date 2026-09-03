@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils";
 import { sendOrderConfirmation, sendNewOrderAdminNotification } from "@/lib/emails";
@@ -157,16 +157,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    try {
-      const emailItems = validatedItems.map((item) => {
-        const product = productMap.get(item.productId);
-        return {
-          name: product?.name || "Produkt",
-          quantity: item.quantity,
-          price: item.price,
-        };
-      });
+    const emailItems = validatedItems.map((item) => {
+      const product = productMap.get(item.productId);
+      return {
+        name: product?.name || "Produkt",
+        quantity: item.quantity,
+        price: item.price,
+      };
+    });
 
+    try {
       await sendOrderConfirmation({
         orderNumber: order.orderNumber,
         customerEmail: email,

@@ -1,4 +1,4 @@
-﻿import { Truck, Shield, Headphones, Award, Heart, Zap } from "lucide-react";
+import { Truck, Shield, Headphones, Award, Heart, Zap } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";

@@ -45,6 +45,7 @@ vi.mock("@/lib/api-helpers", () => ({
 
 vi.mock("@/lib/emails", () => ({
   sendOrderConfirmation: vi.fn().mockResolvedValue(undefined),
+  sendNewOrderAdminNotification: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("@/lib/auth", () => ({
@@ -194,9 +195,12 @@ describe("GET /api/bestellungen (lookup)", () => {
       id: "ord-1",
       orderNumber: "HL-202609-ABCDEF12",
       total: 54.99,
-      shippingCost: 0,
+      subtotal: 49.99,
+      couponDiscount: 0,
+      shippingCost: 5,
       status: "PENDING",
-      items: [{ product: { name: "Test" }, quantity: 1, price: 49.99 }],
+      createdAt: new Date("2026-09-01"),
+      items: [{ productId: "p-1", product: { name: "Test" }, quantity: 1, price: 49.99 }],
     });
     const { GET } = await import("@/app/api/bestellungen/route");
     const res = await GET(makeGetRequest({ orderNumber: "HL-202609-ABCDEF12", email: "test@test.de" }));

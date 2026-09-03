@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Structured logger for HAUSAURA.
  *
  * In production: logs minimal info (no secrets, no internal details).

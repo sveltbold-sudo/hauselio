@@ -1,4 +1,4 @@
-﻿import { Shield, Wrench, Headphones, Truck, Clock, BadgeCheck } from "lucide-react";
+import { Shield, Wrench, Headphones, Truck, Clock, BadgeCheck } from "lucide-react";
 
 const guarantees = [
   {

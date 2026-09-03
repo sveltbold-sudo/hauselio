@@ -149,6 +149,10 @@ model Order {
   paymentMethod     String        @default("sepa_transfer")
   paymentStatus     PaymentStatus @default(PENDING)
   bankReference     String?
+  paymentProofUrl   String?
+  reminderCount     Int           @default(0)
+  lastReminderAt    DateTime?
+  invoiceNumber     String?       @unique
   shippingMethod    String?
   shippingCost      Decimal       @db.Decimal(10, 2) @default(0)
   trackingNumber    String?

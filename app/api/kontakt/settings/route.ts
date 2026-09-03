@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";

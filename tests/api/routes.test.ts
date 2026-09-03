@@ -25,6 +25,7 @@ vi.mock("@/lib/resend", () => ({
 
 vi.mock("@/lib/emails", () => ({
   sendOrderConfirmation: vi.fn().mockResolvedValue(undefined),
+  sendNewOrderAdminNotification: vi.fn().mockResolvedValue(undefined),
   sendContactForward: vi.fn().mockResolvedValue(undefined),
   sendContactAutoReply: vi.fn().mockResolvedValue(undefined),
   sendNewsletterConfirmation: vi.fn().mockResolvedValue(undefined),
@@ -35,6 +36,18 @@ vi.mock("@/lib/auth", () => ({
   requireAdmin: vi.fn().mockRejectedValue(new UnauthorizedError()),
   requireRole: vi.fn().mockRejectedValue(new UnauthorizedError()),
   verifyUnsubscribeToken: vi.fn().mockResolvedValue(null),
+}));
+
+vi.mock("@/lib/api-helpers", () => ({
+  handleApiError: vi.fn().mockImplementation((error: unknown) => {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("Nicht autorisiert") || message.includes("Unauthorized")) {
+      return new Response(JSON.stringify({ error: message }), { status: 401 });
+    }
+    return new Response(JSON.stringify({ error: message }), { status: 500 });
+  }),
+  validateCsrfOrigin: vi.fn().mockReturnValue(true),
+  validateContentType: vi.fn().mockReturnValue(null),
 }));
 
 const mockPrisma = {

@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import StarRating from "@/components/ui/StarRating";

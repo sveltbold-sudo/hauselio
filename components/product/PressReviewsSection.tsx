@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Award, ExternalLink } from "lucide-react";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
 

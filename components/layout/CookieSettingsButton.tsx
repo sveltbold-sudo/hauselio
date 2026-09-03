@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 const COOKIE_EVENT = "HAUSAURA:open-cookie-settings";
 

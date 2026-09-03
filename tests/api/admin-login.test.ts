@@ -25,6 +25,21 @@ vi.mock("@/lib/rate-limit", () => ({
   getClientIp: vi.fn().mockReturnValue("127.0.0.1"),
 }));
 
+vi.mock("@/lib/api-helpers", () => ({
+  validateCsrfOrigin: vi.fn().mockReturnValue(true),
+  validateContentType: vi.fn().mockImplementation((req: { headers: { get: (key: string) => string | null } }, ...allowed: string[]) => {
+    const ct = req.headers.get("content-type") || "";
+    if (!allowed.some((type) => ct.includes(type))) {
+      return new Response(JSON.stringify({ error: "Ungültiger Content-Type" }), { status: 415 });
+    }
+    return null;
+  }),
+  handleApiError: vi.fn().mockImplementation((error: unknown) => {
+    const message = error instanceof Error ? error.message : String(error);
+    return new Response(JSON.stringify({ error: message }), { status: 500 });
+  }),
+}));
+
 type NextReqInit = ConstructorParameters<typeof NextRequest>[1];
 
 function makeRequest(url: string, init?: { method?: string; headers?: Record<string, string>; body?: string }) {

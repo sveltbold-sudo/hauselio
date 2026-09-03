@@ -39,21 +39,16 @@ export async function GET(request: NextRequest) {
       totalOrders,
       totalProducts,
       pendingOrders,
-      topProducts,
+      allOrderItems,
       recentOrders,
       categoryStats,
-      categoryRevenues,
     ] = await Promise.all([
       prisma.order.aggregate({ _sum: { total: true }, where: orderFilter }),
       prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
-      prisma.orderItem.groupBy({
-        by: ["productId"],
-        _sum: { price: true, quantity: true },
-        _count: true,
-        orderBy: { _sum: { price: "desc" } },
-        take: 5,
+      prisma.orderItem.findMany({
+        select: { productId: true, price: true, quantity: true },
         where: { order: orderFilter },
       }),
       prisma.order.findMany({
@@ -74,31 +69,39 @@ export async function GET(request: NextRequest) {
           _count: { select: { products: true } },
         },
       }),
-      prisma.orderItem.groupBy({
-        by: ["productId"],
-        _sum: { price: true, quantity: true },
-        where: { order: orderFilter },
-      }),
     ]);
 
-    const topProductIds = topProducts.map((tp) => tp.productId);
+    const revenueByProduct = new Map<string, number>();
+    const revenueByCategory = new Map<string, number>();
+    const orderCountByProduct = new Map<string, number>();
+    for (const item of allOrderItems) {
+      const lineTotal = Number(item.price) * item.quantity;
+      revenueByProduct.set(item.productId, (revenueByProduct.get(item.productId) || 0) + lineTotal);
+      orderCountByProduct.set(item.productId, (orderCountByProduct.get(item.productId) || 0) + 1);
+    }
+
+    const topProducts = Array.from(revenueByProduct.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    const topProductIds = topProducts.map(([id]) => id);
     const topProductNames = await prisma.product.findMany({
       where: { id: { in: topProductIds } },
       select: { id: true, name: true },
     });
     const topProductNameMap = new Map(topProductNames.map((p) => [p.id, p.name]));
 
-    const topProductsWithNames = topProducts.map((tp) => ({
-      name: topProductNameMap.get(tp.productId) || "Unbekannt",
-      orderCount: tp._count,
-      revenue: (Number(tp._sum.price) || 0) * (Number(tp._sum.quantity) || 1),
+    const topProductsWithNames = topProducts.map(([productId, revenue]) => ({
+      name: topProductNameMap.get(productId) || "Unbekannt",
+      orderCount: orderCountByProduct.get(productId) || 0,
+      revenue,
     }));
 
     const productCategoryMap = new Map<string, string>();
-    const allProductIds = categoryRevenues.map((cr) => cr.productId);
-    if (allProductIds.length > 0) {
+    if (allOrderItems.length > 0) {
+      const productIds = [...new Set(allOrderItems.map((i) => i.productId))];
       const products = await prisma.product.findMany({
-        where: { id: { in: allProductIds } },
+        where: { id: { in: productIds } },
         select: { id: true, categoryId: true },
       });
       for (const p of products) {
@@ -107,11 +110,13 @@ export async function GET(request: NextRequest) {
     }
 
     const categoryRevenueMap = new Map<string, number>();
-    for (const cr of categoryRevenues) {
-      const catId = productCategoryMap.get(cr.productId);
+    for (const item of allOrderItems) {
+      const catId = productCategoryMap.get(item.productId);
       if (catId) {
-        const current = categoryRevenueMap.get(catId) || 0;
-        categoryRevenueMap.set(catId, current + ((Number(cr._sum.price) || 0) * (Number(cr._sum.quantity) || 1)));
+        categoryRevenueMap.set(
+          catId,
+          (categoryRevenueMap.get(catId) || 0) + Number(item.price) * item.quantity
+        );
       }
     }
 
