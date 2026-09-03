@@ -44,7 +44,7 @@ export default function OutOfStockNotification({ productName }: OutOfStockNotifi
 
   if (submitted) {
     return (
-      <div className="flex items-center gap-2 p-3 bg-[var(--color-success-light)] rounded-xl text-sm text-[var(--color-success)]">
+      <div role="status" className="flex items-center gap-2 p-3 bg-[var(--color-success-light)] rounded-xl text-sm text-[var(--color-success)]">
         <Check className="w-4 h-4" />
         <span>Sie werden benachrichtigt, sobald <strong>{productName}</strong> wieder verfügbar ist.</span>
       </div>

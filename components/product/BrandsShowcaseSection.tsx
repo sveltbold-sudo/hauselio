@@ -6,6 +6,7 @@ import { BRAND_COLORS } from "@/lib/brand-colors";
 
 interface Brand {
   name: string;
+  slug: string;
   logo: string;
   color: string;
   specialty: string;
@@ -16,14 +17,14 @@ interface BrandsShowcaseSectionProps {
 }
 
 const defaultBrands: Brand[] = [
-  { name: "Miele", logo: "/images/brands/miele.svg", color: BRAND_COLORS.miele!, specialty: "Premium Haushaltsgeräte" },
-  { name: "Bosch", logo: "/images/brands/bosch.svg", color: BRAND_COLORS.bosch!, specialty: "Technische Exzellenz" },
-  { name: "Samsung", logo: "/images/brands/samsung.svg", color: BRAND_COLORS.samsung!, specialty: "Smart Home Pionier" },
-  { name: "Dyson", logo: "/images/brands/dyson.svg", color: BRAND_COLORS.dyson!, specialty: "Innovative Technologie" },
-  { name: "KitchenAid", logo: "/images/brands/kitchenaid.svg", color: BRAND_COLORS.kitchenaid!, specialty: "Küchenklassiker" },
-  { name: "Jura", logo: "/images/brands/jura.svg", color: BRAND_COLORS.jura!, specialty: "Premium Kaffee" },
-  { name: "DeLonghi", logo: "/images/brands/delonghi.svg", color: BRAND_COLORS["de'longhi"]!, specialty: "Kaffee & Küche" },
-  { name: "Siemens", logo: "/images/brands/siemens.svg", color: BRAND_COLORS.siemens!, specialty: "Smart Geräte" },
+  { name: "Miele", slug: "miele", logo: "/images/brands/miele.svg", color: BRAND_COLORS.miele!, specialty: "Premium Haushaltsgeräte" },
+  { name: "Bosch", slug: "bosch", logo: "/images/brands/bosch.svg", color: BRAND_COLORS.bosch!, specialty: "Technische Exzellenz" },
+  { name: "Samsung", slug: "samsung", logo: "/images/brands/samsung.svg", color: BRAND_COLORS.samsung!, specialty: "Smart Home Pionier" },
+  { name: "Dyson", slug: "dyson", logo: "/images/brands/dyson.svg", color: BRAND_COLORS.dyson!, specialty: "Innovative Technologie" },
+  { name: "KitchenAid", slug: "kitchenaid", logo: "/images/brands/kitchenaid.svg", color: BRAND_COLORS.kitchenaid!, specialty: "Küchenklassiker" },
+  { name: "Jura", slug: "jura", logo: "/images/brands/jura.svg", color: BRAND_COLORS.jura!, specialty: "Premium Kaffee" },
+  { name: "DeLonghi", slug: "delonghi", logo: "/images/brands/delonghi.svg", color: BRAND_COLORS["de'longhi"]!, specialty: "Kaffee & Küche" },
+  { name: "Siemens", slug: "siemens", logo: "/images/brands/siemens.svg", color: BRAND_COLORS.siemens!, specialty: "Smart Geräte" },
 ];
 
 export default function BrandsShowcaseSection({ brands = defaultBrands }: BrandsShowcaseSectionProps) {
@@ -45,7 +46,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
             {brands.map((brand) => (
               <Link
                 key={brand.name}
-                href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
+                href={`/shop?brand=${encodeURIComponent(brand.slug)}`}
                 className="snap-start shrink-0 w-[140px] block"
               >
                 <div className="bg-white rounded-xl p-4 border border-[var(--color-border-light)] flex flex-col items-center gap-2 hover:border-[var(--color-primary)]/30 hover:shadow-sm transition-[border-color,box-shadow] duration-300 group">
@@ -67,7 +68,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
           {brands.map((brand, i) => (
             <Link
               key={brand.name}
-              href={`/shop?brand=${encodeURIComponent(brand.name.toLowerCase())}`}
+              href={`/shop?brand=${encodeURIComponent(brand.slug)}`}
               className="group bg-white rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/20 hover:shadow-md active:scale-[0.98] transition-colors transition-shadow transition-transform duration-300 text-center animate-fade-in-up"
               style={{ animationDelay: `${i * 40}ms` }}
             >

@@ -64,7 +64,7 @@ export default function ComparisonBar() {
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={clearAll}
-              className="p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors"
               aria-label="Vergleich leeren"
             >
               <Trash2 className="w-4 h-4" />
