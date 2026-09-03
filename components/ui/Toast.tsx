@@ -91,10 +91,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div aria-live="polite" aria-atomic="true" role="status" className="fixed bottom-24 lg:bottom-4 right-4 pb-[env(safe-area-inset-bottom,0px)] z-[100] flex flex-col gap-2 pointer-events-none">
+      <div aria-live="polite" aria-atomic="true" className="fixed bottom-24 lg:bottom-4 right-4 pb-[env(safe-area-inset-bottom,0px)] z-[100] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
+            role={t.type === "error" ? "alert" : "status"}
+            aria-live={t.type === "error" ? "assertive" : "polite"}
             onMouseEnter={() => handleMouseEnter(t.id)}
             onMouseLeave={() => handleMouseLeave(t.id)}
             className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-sm ${

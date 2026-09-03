@@ -12,6 +12,7 @@ interface ConfirmDialogProps {
   danger?: boolean;
   onConfirm: () => void;
   onCancel: () => void;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
 }
 
 export default function ConfirmDialog({
@@ -23,6 +24,7 @@ export default function ConfirmDialog({
   danger = false,
   onConfirm,
   onCancel,
+  returnFocusRef,
 }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -32,6 +34,12 @@ export default function ConfirmDialog({
       cancelRef.current?.focus();
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!open && returnFocusRef?.current) {
+      returnFocusRef.current.focus();
+    }
+  }, [open, returnFocusRef]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {

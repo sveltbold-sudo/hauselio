@@ -41,7 +41,7 @@ export default function MobileBottomNav() {
                 {item.href === "/warenkorb" && itemCount > 0 && (
                   <span
                     className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-xs font-bold rounded-full flex items-center justify-center"
-                    aria-hidden="true"
+                    aria-label={`${itemCount} Artikel im Warenkorb`}
                   >
                     {itemCount > 99 ? "99+" : itemCount}
                   </span>

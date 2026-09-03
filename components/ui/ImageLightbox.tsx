@@ -11,9 +11,10 @@ interface ImageLightboxProps {
   brand?: string;
   isOpen: boolean;
   onClose: () => void;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
 }
 
-export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose }: ImageLightboxProps) {
+export default function ImageLightbox({ images, initialIndex = 0, productName, brand, isOpen, onClose, returnFocusRef }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [scale, setScale] = useState(1);
@@ -62,6 +63,9 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
+      if (returnFocusRef?.current) {
+        returnFocusRef.current.focus();
+      }
     };
   }, [isOpen, onClose, goNext, goPrev]);
 
