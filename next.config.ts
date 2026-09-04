@@ -42,6 +42,22 @@ const securityHeaders = [
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains; preload",
   },
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com blob: data:",
+      "font-src 'self' https://fonts.gstatic.com",
+      "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "upgrade-insecure-requests",
+    ].join("; "),
+  },
 ];
 
 const nextConfig: NextConfig = {
