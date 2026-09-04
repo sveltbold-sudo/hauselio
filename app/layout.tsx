@@ -10,6 +10,7 @@ import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import ClientProviders from "@/components/ui/ClientProviders";
 import GtmNoscript from "@/components/analytics/GtmNoscript";
 import { SITE_URL } from "@/lib/constants";
+import AdminShellHide from "@/components/admin/AdminShellHide";
 import "./globals.css";
 
 const inter = Inter({
@@ -106,14 +107,12 @@ export default function RootLayout({
         >
           Direkt zum Inhalt
         </a>
-        <Header />
         <ToastProvider>
-          <div className="flex-1 pb-20 lg:pb-0">
+          <AdminShellHide>
             {children}
-          </div>
+          </AdminShellHide>
           <ClientProviders />
         </ToastProvider>
-        <Footer />
         <ClientShell />
         <LazyComparisonBar />
       </body>
