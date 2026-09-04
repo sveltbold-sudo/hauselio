@@ -190,8 +190,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 src={s.image}
                 alt={s.name}
                 fill
-                className="object-contain object-top"
-                style={{ objectPosition: "50% 15%" }}
+                className="object-cover object-center"
                 priority={i === 0}
                 loading={i === 0 ? undefined : "lazy"}
                 sizes="100vw"
@@ -281,17 +280,17 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           ))}
         </div>
 
-        {/* Nav arrows */}
+        {/* Nav arrows — hidden on mobile, swipe is enough */}
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
+          className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Vorherige Folie"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
+          className="hidden lg:flex absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Nächste Folie"
         >
           <ChevronRight className="w-4 h-4" />

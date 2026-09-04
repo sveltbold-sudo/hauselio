@@ -1,10 +1,33 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { getRandomValues } from "uncrypto";
 import { getAdminJWTSecret, getCustomerJWTSecret, isTokenRevoked } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
+
+function generateNonce(): string {
+  const bytes = new Uint8Array(16);
+  getRandomValues(bytes);
+  return btoa(String.fromCharCode(...bytes));
+}
+
+function buildCsp(nonce: string): string {
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' https://va.vercel-scripts.com https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com`,
+    `style-src 'self' 'unsafe-inline' 'nonce-${nonce}' https://fonts.googleapis.com`,
+    "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com blob: data:",
+    "font-src 'self' https://fonts.gstatic.com",
+    "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com",
+    "object-src 'none'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "upgrade-insecure-requests",
+  ].join("; ");
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -120,6 +143,10 @@ export async function middleware(request: NextRequest) {
   if (isAdminApiRoute && request.method === "GET") {
     response.headers.set("Cache-Control", "private, no-store, no-cache, must-revalidate");
   }
+
+  const nonce = generateNonce();
+  response.headers.set("Content-Security-Policy", buildCsp(nonce));
+  response.headers.set("x-nonce", nonce);
 
   return response;
 }
