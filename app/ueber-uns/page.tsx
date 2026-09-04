@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
   alternates: { canonical: "/ueber-uns" },
   openGraph: {
-    title: "Über HAUSAURA — Ihr Partner für Haushaltsgeräte",
+    title: "Über uns — Ihr Partner für Haushaltsgeräte",
     description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte aus Deutschland.",
     url: `${SITE_URL}/ueber-uns`,
     siteName: "HAUSAURA",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Über HAUSAURA",
+    title: "Über uns",
     description: "Erfahren Sie mehr über HAUSAURA — Ihr Partner für hochwertige Haushaltsgeräte.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],
   },

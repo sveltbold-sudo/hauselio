@@ -111,7 +111,7 @@ export default function MiniCart() {
       {/* Cart button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center gap-2 w-10 lg:w-auto h-10 lg:h-11 lg:px-3 justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+        className="relative flex items-center gap-2 w-11 lg:w-auto h-11 lg:h-11 lg:px-3 justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Warenkorb"
         aria-expanded={isOpen}
       >

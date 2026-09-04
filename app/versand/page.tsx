@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/versand" },
   openGraph: {
-    title: "Versandinformationen — HAUSAURA",
+    title: "Versandinformationen ",
     description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA.",
     siteName: "HAUSAURA",
     locale: "de_DE",

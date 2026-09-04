@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/hilfe" },
   openGraph: {
-    title: "Hilfe & FAQ - HAUSAURA",
+    title: "Hilfe & FAQ",
   description: "Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe bei HAUSAURA.",
     siteName: "HAUSAURA",
     locale: "de_DE",

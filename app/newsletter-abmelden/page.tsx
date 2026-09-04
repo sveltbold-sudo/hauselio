@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/newsletter-abmelden" },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Newsletter abmelden — HAUSAURA",
+    title: "Newsletter abmelden",
     description: "Melden Sie sich vom HAUSAURA Newsletter ab.",
     url: `${SITE_URL}/newsletter-abmelden`,
     siteName: "HAUSAURA",

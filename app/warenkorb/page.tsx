@@ -361,7 +361,7 @@ export default function WarenkorbPage() {
                           }
                         }}
                         disabled={!couponCode.trim() || couponLoading}
-                        className="px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="px-4 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm font-semibold text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         {couponLoading ? "Prüfe…" : "Anwenden"}
                       </button>

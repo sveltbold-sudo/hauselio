@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Bestellung | HAUSAURA",
+    title: "Bestellung",
     description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
     url: `${SITE_URL}/bestellung`,
     siteName: "HAUSAURA",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bestellung | HAUSAURA",
+    title: "Bestellung",
     description: "Schließen Sie Ihre Bestellung bei HAUSAURA ab.",
   },
   alternates: { canonical: `${SITE_URL}/bestellung` },

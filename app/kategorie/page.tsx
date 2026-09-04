@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten. Küche, Kaffee, Reinigung, Klima, Smart Home und mehr.",
   alternates: { canonical: `${SITE_URL}/kategorie` },
   openGraph: {
-    title: "Kategorien — HAUSAURA",
+    title: "Kategorien ",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
     siteName: "HAUSAURA",
     locale: "de_DE",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kategorien — HAUSAURA",
+    title: "Kategorien ",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
   },
 };

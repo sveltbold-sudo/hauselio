@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/vergleich" },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Produktvergleich — HAUSAURA",
+    title: "Produktvergleich ",
     description: "Vergleichen Sie Produkte Seite an Seite — Preise, Spezifikationen und Bewertungen.",
     url: `${SITE_URL}/vergleich`,
     siteName: "HAUSAURA",

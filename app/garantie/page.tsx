@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Informieren Sie sich über unsere Garantie- und Gewährleistungsbedingungen. Bis zu 5 Jahre Garantie auf ausgewählte Produkte.",
   alternates: { canonical: `${SITE_URL}/garantie` },
   openGraph: {
-    title: "Garantie — HAUSAURA",
+    title: "Garantie ",
     description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
     siteName: "HAUSAURA",
     locale: "de_DE",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Garantie — HAUSAURA",
+    title: "Garantie ",
     description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
   },
 };

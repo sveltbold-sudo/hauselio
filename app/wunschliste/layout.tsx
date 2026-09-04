@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/wunschliste` },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Wunschliste | HAUSAURA",
+    title: "Wunschliste",
     description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSAURA.",
     url: `${SITE_URL}/wunschliste`,
     siteName: "HAUSAURA",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wunschliste | HAUSAURA",
+    title: "Wunschliste",
     description: "Speichern Sie Ihre Lieblingsprodukte auf Ihrer persönlichen Wunschliste bei HAUSAURA.",
   },
 };

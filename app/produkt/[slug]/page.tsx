@@ -17,11 +17,23 @@ const getProduct = cache(async (slug: string) => {
   try {
     return await prisma.product.findUnique({
       where: { slug },
-      include: {
-        category: true,
-        brand: true,
-        images: { orderBy: { position: "asc" } },
-        specs: { orderBy: { position: "asc" } },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        sku: true,
+        barcode: true,
+        description: true,
+        price: true,
+        originalPrice: true,
+        isPromo: true,
+        isNew: true,
+        rating: true,
+        reviewCount: true,
+        category: { select: { name: true, slug: true } },
+        brand: { select: { name: true, slug: true } },
+        images: { orderBy: { position: "asc" }, select: { url: true } },
+        specs: { orderBy: { position: "asc" }, select: { key: true, value: true } },
         reviews: {
           where: { isApproved: true },
           select: {
@@ -135,9 +147,13 @@ export default async function ProductPage({ params }: PageProps) {
         category: { slug: product.category.slug },
         id: { not: product.id },
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        price: true,
         brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
       },
       take: 3,
       orderBy: { rating: "desc" },

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/impressum" },
   openGraph: {
-    title: "Impressum — HAUSAURA",
+    title: "Impressum ",
     description: "Angaben gemäß § 5 TMG der HAUSAURA GmbH.",
     siteName: "HAUSAURA",
     locale: "de_DE",

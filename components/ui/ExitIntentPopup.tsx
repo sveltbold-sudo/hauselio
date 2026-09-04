@@ -199,7 +199,7 @@ export default function ExitIntentPopup() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-4 py-2.5 bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+                    className="px-4 py-2.5 min-h-[44px] bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
                   >
                     {submitting ? "..." : "OK"}
                   </button>

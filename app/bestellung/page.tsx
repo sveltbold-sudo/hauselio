@@ -532,7 +532,7 @@ export default function BestellungPage() {
               {/* Back button */}
               <button
                 onClick={() => { setStep("address"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mb-6"
+                className="inline-flex items-center gap-2 py-2 min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mb-6"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Zurück zur Adresse
@@ -547,7 +547,7 @@ export default function BestellungPage() {
                   </h2>
                   <button
                     onClick={() => setStep("address")}
-                    className="text-xs font-semibold text-[var(--color-primary)] hover:underline"
+                    className="min-h-[44px] px-3 py-2 text-xs font-semibold text-[var(--color-primary)] hover:underline rounded-lg hover:bg-[var(--color-primary-50)] transition-colors"
                   >
                     Ändern
                   </button>

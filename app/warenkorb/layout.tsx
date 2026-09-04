@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Warenkorb | HAUSAURA",
+    title: "Warenkorb",
     description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
     url: `${SITE_URL}/warenkorb`,
     siteName: "HAUSAURA",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Warenkorb | HAUSAURA",
+    title: "Warenkorb",
     description: "Überprüfen Sie Ihre Bestellung im HAUSAURA Warenkorb.",
   },
   alternates: { canonical: `${SITE_URL}/warenkorb` },

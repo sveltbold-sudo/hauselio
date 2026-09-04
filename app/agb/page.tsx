@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "AGB der HAUSAURA GmbH. Geschäftsbedingungen für den Online-Shop.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "AGB — HAUSAURA",
+    title: "AGB ",
     description: "Allgemeine Geschäftsbedingungen der HAUSAURA GmbH.",
     url: `${SITE_URL}/agb`,
     siteName: "HAUSAURA",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/agb" },
   twitter: {
     card: "summary_large_image",
-    title: "AGB — HAUSAURA",
+    title: "AGB ",
     description: "Allgemeine Geschäftsbedingungen der HAUSAURA GmbH.",
   },
 };

@@ -263,7 +263,7 @@ function OrderSuccessContent() {
             />
             <button
               type="submit"
-              className="px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-colors"
+              className="px-5 py-2.5 min-h-[44px] bg-[var(--color-primary)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-colors"
             >
               Bestellung anzeigen
             </button>
@@ -457,7 +457,7 @@ function OrderSuccessContent() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
+                      className="px-4 py-2 min-h-[44px] border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
                     >
                       Datei auswählen
                     </button>
@@ -471,7 +471,7 @@ function OrderSuccessContent() {
                     <button
                       onClick={handleProofUpload}
                       disabled={proofUploading}
-                      className="px-5 py-2.5 bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+                      className="px-5 py-2.5 min-h-[44px] bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
                     >
                       {proofUploading ? "Wird hochgeladen…" : "Hochladen"}
                     </button>

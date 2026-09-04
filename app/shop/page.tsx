@@ -152,9 +152,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (sort === "popular") orderBy = { reviewCount: "desc" };
   if (sort === "name") orderBy = { name: "asc" };
 
-  type ProductWithRelations = Prisma.ProductGetPayload<{
-    include: { category: true; brand: true; images: { take: 1; orderBy: { position: "asc" } } };
-  }>;
+  type ProductWithRelations = {
+    id: string; name: string; slug: string; price: unknown; originalPrice: unknown;
+    rating: unknown; reviewCount: number; isNew: boolean; isPromo: boolean;
+    category: { name: string; slug: string } | null;
+    brand: { name: string } | null;
+    images: { url: string }[];
+  };
   let products: ProductWithRelations[] = [];
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
   let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
@@ -166,10 +170,19 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     const [productsResult, categoriesResult, brandsResult, totalResult, categoryCountsResult] = await Promise.allSettled([
       prisma.product.findMany({
         where,
-        include: {
-          category: true,
-          brand: true,
-          images: { take: 1, orderBy: { position: "asc" } },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          price: true,
+          originalPrice: true,
+          rating: true,
+          reviewCount: true,
+          isNew: true,
+          isPromo: true,
+          category: { select: { name: true, slug: true } },
+          brand: { select: { name: true } },
+          images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
         },
         orderBy,
         skip,

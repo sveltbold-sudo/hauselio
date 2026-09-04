@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß Barrierefreiheitsstärkungsgesetz (BFSG).",
   alternates: { canonical: `${SITE_URL}/barrierefreiheit` },
   openGraph: {
-    title: "Barrierefreiheitserklärung — HAUSAURA",
+    title: "Barrierefreiheitserklärung ",
     description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß BFSG.",
     siteName: "HAUSAURA",
     locale: "de_DE",

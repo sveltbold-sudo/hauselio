@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/konto` },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Mein Konto | HAUSAURA",
+    title: "Mein Konto",
     description: "Verwalten Sie Ihre Bestellungen, Adressen und Kontodaten bei HAUSAURA.",
     url: `${SITE_URL}/konto`,
     siteName: "HAUSAURA",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mein Konto | HAUSAURA",
+    title: "Mein Konto",
     description: "Verwalten Sie Ihre Bestellungen, Adressen und Kontodaten bei HAUSAURA.",
   },
 };

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
   alternates: { canonical: "/kontakt" },
   openGraph: {
-    title: "Kontakt — HAUSAURA",
+    title: "Kontakt ",
     description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht.",
     url: `${SITE_URL}/kontakt`,
     siteName: "HAUSAURA",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kontakt — HAUSAURA",
+    title: "Kontakt ",
     description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
@@ -56,7 +56,7 @@ export default async function KontaktPage() {
   const contactJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Kontakt — HAUSAURA",
+    name: "Kontakt ",
     url: `${SITE_URL}/kontakt`,
     mainEntity: {
       "@type": "Organization",

@@ -36,7 +36,7 @@ export default function ResendReceiptButton({ orderId }: ResendReceiptButtonProp
     <button
       onClick={handleResend}
       disabled={loading}
-      className="flex items-center gap-2 text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] font-medium transition-colors disabled:opacity-50"
+      className="flex items-center gap-2 px-3 py-2 min-h-[44px] text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] font-medium transition-colors disabled:opacity-50 rounded-lg hover:bg-[var(--color-primary-50)]"
     >
       <Send className="w-4 h-4" />
       {loading ? "Sende\u2026" : "Zahlungsbest\u00e4tigung erneut senden"}

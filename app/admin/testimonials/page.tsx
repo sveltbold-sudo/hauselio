@@ -196,7 +196,7 @@ export default function TestimonialsPage() {
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">{editingId ? "Testimonial bearbeiten" : "Neues Testimonial"}</h2>
-              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="p-1 hover:bg-[var(--color-bg)] rounded-lg">
+              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg">
                 <X className="w-5 h-5" />
               </button>
             </div>

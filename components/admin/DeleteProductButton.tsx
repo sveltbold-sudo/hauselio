@@ -102,14 +102,14 @@ export default function DeleteProductButton({
               <button
                 ref={cancelRef}
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 border border-[var(--color-border)] rounded-xl text-sm font-medium hover:bg-[var(--color-bg)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className="px-4 py-2 min-h-[44px] border border-[var(--color-border)] rounded-xl text-sm font-medium hover:bg-[var(--color-bg)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               >
                 Abbrechen
               </button>
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="px-4 py-2 bg-[var(--color-danger)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-danger-hover)] transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)]"
+                className="px-4 py-2 min-h-[44px] bg-[var(--color-danger)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-danger-hover)] transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)]"
               >
                 {isDeleting ? "Wird gelöscht…" : "Löschen"}
               </button>
