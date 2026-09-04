@@ -174,11 +174,11 @@ export default function BewertungenPage() {
                     <span>{new Date(review.createdAt).toLocaleDateString("de-DE")}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
                   {!review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, true)}
-                      className="p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors"
+                      className="p-1.5 sm:p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors"
                       aria-label="Bewertung genehmigen"
                     >
                       <Check className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function BewertungenPage() {
                   {review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, false)}
-                      className="p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
+                      className="p-1.5 sm:p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
                       aria-label="Genehmigung entziehen"
                     >
                       <X className="w-4 h-4" />
@@ -195,7 +195,7 @@ export default function BewertungenPage() {
                   )}
                   <button
                     onClick={() => handleDelete(review.id)}
-                    className="p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                    className="p-1.5 sm:p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
                     aria-label="Bewertung löschen"
                   >
                     <Trash2 className="w-4 h-4" />

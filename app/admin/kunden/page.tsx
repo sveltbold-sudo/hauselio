@@ -121,6 +121,7 @@ export default function KundenPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
+        <div className="overflow-x-auto">
         <table className="w-full">
           <caption className="sr-only">Kundenliste</caption>
           <thead>
@@ -199,6 +200,7 @@ export default function KundenPage() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Pagination */}

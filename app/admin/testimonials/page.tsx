@@ -201,7 +201,7 @@ export default function TestimonialsPage() {
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="t-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Name *</label>
                   <input id="t-name" type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" required />
@@ -211,7 +211,7 @@ export default function TestimonialsPage() {
                   <input id="t-location" type="text" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="z.B. Berlin" className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="t-rating" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Bewertung</label>
                   <div className="flex items-center gap-1">
@@ -289,25 +289,25 @@ export default function TestimonialsPage() {
                     <span>• {new Date(t.createdAt).toLocaleDateString("de-DE")}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   <button
                     onClick={() => handleToggle(t.id, "isApproved", !t.isApproved)}
-                    className={`p-2 rounded-lg transition-colors ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`p-1.5 sm:p-2 rounded-lg transition-colors ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isApproved ? "Genehmigung entziehen" : "Genehmigen"}
                   >
                     {t.isApproved ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={() => handleToggle(t.id, "isFeatured", !t.isFeatured)}
-                    className={`p-2 rounded-lg transition-colors ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`p-1.5 sm:p-2 rounded-lg transition-colors ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isFeatured ? "Hervorhebung entfernen" : "Hervorheben"}
                   >
                     <Star className="w-4 h-4" />
                   </button>
-                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="p-1.5 sm:p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                     <Pencil className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="p-1.5 sm:p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>

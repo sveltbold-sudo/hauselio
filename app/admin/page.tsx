@@ -186,7 +186,8 @@ export default async function AdminDashboard() {
               Alle ansehen
             </Link>
           </div>
-          <div className="overflow-x-auto">
+          {/* Desktop table */}
+          <div className="overflow-x-auto hidden md:block">
             <table className="w-full">
               <caption className="sr-only">Letzte Bestellungen</caption>
               <thead>
@@ -253,6 +254,46 @@ export default async function AdminDashboard() {
                 )}
               </tbody>
             </table>
+          </div>
+          {/* Mobile cards */}
+          <div className="md:hidden divide-y divide-[var(--color-border-light)]">
+            {recentOrders.map((order) => (
+              <div key={order.id} className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <Link
+                      href={`/admin/bestellungen/${order.id}`}
+                      className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+                    >
+                      {order.orderNumber}
+                    </Link>
+                    <p className="text-sm text-[var(--color-text-primary)]">
+                      {order.customerFirstName} {order.customerLastName}
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)] truncate max-w-[200px]">
+                      {order.customerEmail}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-sm font-bold text-[var(--color-text-primary)]">
+                      {formatPrice(Number(order.total))}
+                    </p>
+                    <span
+                      className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                        ORDER_STATUS_COLORS[order.status] || "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"
+                      }`}
+                    >
+                      {ORDER_STATUS_LABELS[order.status] || order.status}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {recentOrders.length === 0 && (
+              <div className="px-5 py-8 text-center text-sm text-[var(--color-text-muted)]">
+                Noch keine Bestellungen vorhanden.
+              </div>
+            )}
           </div>
         </div>
       </div>
