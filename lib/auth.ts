@@ -478,8 +478,13 @@ export async function getCustomerFromRequest(): Promise<CustomerPayload | null> 
       where: { id: payload.id },
       select: { lastLogin: true },
     });
-    if (customer?.lastLogin) {
-      const lastLoginSec = Math.floor(customer.lastLogin.getTime() / 1000);
+    const admin = customer ? null : await prisma.adminUser.findUnique({
+      where: { id: payload.id },
+      select: { lastLogin: true },
+    });
+    const lastLogin = customer?.lastLogin || admin?.lastLogin;
+    if (lastLogin) {
+      const lastLoginSec = Math.floor(lastLogin.getTime() / 1000);
       if (payload.lastLoginAt < lastLoginSec) {
         return null;
       }
