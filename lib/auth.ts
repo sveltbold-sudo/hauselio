@@ -22,37 +22,8 @@ async function redisSet(key: string, value: string, exSec: number): Promise<void
 
 const memoryBlacklist = new Map<string, number>();
 
-const MEMORY_BLACKLIST_MAX_SIZE = 10_000;
-const MEMORY_BLACKLIST_CLEANUP_INTERVAL = 60_000; // 1 minute
-let lastCleanup = Date.now();
-
-function cleanupMemoryBlacklist(): void {
-  const now = Date.now();
-  if (now - lastCleanup < MEMORY_BLACKLIST_CLEANUP_INTERVAL) return;
-  lastCleanup = now;
-
-  // Remove expired entries
-  for (const [key, expiry] of memoryBlacklist) {
-    if (now > expiry) {
-      memoryBlacklist.delete(key);
-    }
-  }
-
-  // If still over max size, remove oldest 20%
-  if (memoryBlacklist.size > MEMORY_BLACKLIST_MAX_SIZE) {
-    const entries = Array.from(memoryBlacklist.entries())
-      .sort((a, b) => a[1] - b[1]);
-    const toRemove = Math.ceil(entries.length * 0.2);
-    for (let i = 0; i < toRemove; i++) {
-      const key = entries[i]?.[0];
-      if (key !== undefined) memoryBlacklist.delete(key);
-    }
-  }
-}
-
 async function redisExists(key: string): Promise<boolean> {
   if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) {
-    cleanupMemoryBlacklist();
     const expiry = memoryBlacklist.get(key);
     if (!expiry) return false;
     if (Date.now() > expiry) {

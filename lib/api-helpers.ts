@@ -4,31 +4,6 @@ import { UnauthorizedError, NotFoundError, ValidationError } from "./errors";
 import { logger } from "./logger";
 import { SITE_URL } from "./constants";
 
-interface CookieOptions {
-  value: string;
-  httpOnly: boolean;
-  secure: boolean;
-  sameSite: "lax" | "strict" | "none";
-  path: string;
-  maxAge: number;
-}
-
-export function applyCookiesToResponse(
-  response: NextResponse,
-  cookieOptions: Record<string, CookieOptions>
-): NextResponse {
-  Object.entries(cookieOptions).forEach(([name, options]) => {
-    response.cookies.set(name, options.value, {
-      httpOnly: options.httpOnly,
-      secure: options.secure,
-      sameSite: options.sameSite,
-      path: options.path,
-      maxAge: options.maxAge,
-    });
-  });
-  return response;
-}
-
 export function getExpectedOrigin(request: NextRequest): string {
   if (SITE_URL) {
     try {
