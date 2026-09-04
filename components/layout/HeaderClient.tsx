@@ -232,7 +232,7 @@ export default function HeaderClient() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 touch-action-manipulation ${
+      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 touch-action-manipulation overflow-x-hidden ${
         scrolled ? "shadow-[var(--shadow-md)]" : ""
       }`}
     >
@@ -270,7 +270,7 @@ export default function HeaderClient() {
 
       {/* Main header row: Logo | Search | Actions */}
       <div className="container-hausaura relative">
-        <div className="flex items-center gap-2 sm:gap-4 h-14 md:h-16">
+        <div className="flex items-center gap-2 sm:gap-4 h-14 md:h-16 overflow-hidden">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0 group">
             <Image

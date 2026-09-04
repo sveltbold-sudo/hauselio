@@ -131,7 +131,7 @@ export default function MiniCart() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div ref={dropdownRef} className={`absolute right-0 top-full mt-2 w-[calc(100dvw-2rem)] sm:w-[380px] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] origin-top-right flex flex-col max-h-[80dvh] ${prefersReduced ? "" : "animate-scale-in"}`} role="dialog" aria-modal="true" aria-label="Warenkorb">
+        <div ref={dropdownRef} className={`absolute right-0 top-full mt-2 w-[min(calc(100dvw-2rem),380px)] bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] z-[55] origin-top-right flex flex-col max-h-[80dvh] ${prefersReduced ? "" : "animate-scale-in"}`} role="dialog" aria-modal="true" aria-label="Warenkorb">
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[var(--color-border-light)] shrink-0">
             <h3 className="font-bold text-[var(--color-text-primary)]">
