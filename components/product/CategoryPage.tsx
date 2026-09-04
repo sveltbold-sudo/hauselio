@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { PackageOpen, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
-import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/product/ProductCard";
 import CategorySortSelect from "@/components/product/CategorySortSelect";
 import CategoryBrandFilter from "@/components/product/CategoryBrandFilter";
@@ -9,6 +8,27 @@ import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 const PAGE_SIZE = 20;
+
+export interface CategoryProduct {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  originalPrice: number | null;
+  rating: number;
+  reviewCount: number;
+  isNew: boolean;
+  isPromo: boolean;
+  brand: string | null;
+  image: string;
+  categorySlug: string;
+}
+
+export interface CategoryBrand {
+  name: string;
+  slug: string;
+  count: number;
+}
 
 interface CategoryPageProps {
   slug: string;
@@ -18,9 +38,13 @@ interface CategoryPageProps {
   sort?: string;
   brand?: string;
   sub?: string;
+  products: CategoryProduct[];
+  total: number;
+  brands: CategoryBrand[];
+  subCategories: { name: string; count: number }[];
 }
 
-export default async function CategoryPage({
+export default function CategoryPage({
   slug,
   title,
   description,
@@ -28,95 +52,11 @@ export default async function CategoryPage({
   sort = "newest",
   brand,
   sub,
+  products,
+  total,
+  brands,
+  subCategories,
 }: CategoryPageProps) {
-  const currentPage = Math.max(1, page);
-  const skip = (currentPage - 1) * PAGE_SIZE;
-
-  let orderBy: Record<string, string> = { createdAt: "desc" };
-  if (sort === "price_asc") orderBy = { price: "asc" };
-  else if (sort === "price_desc") orderBy = { price: "desc" };
-  else if (sort === "rating") orderBy = { rating: "desc" };
-  else if (sort === "popular") orderBy = { reviewCount: "desc" };
-
-  const where: Record<string, unknown> = { category: { slug } };
-  if (brand) {
-    where.brand = { slug: brand };
-  }
-  if (sub) {
-    where.subCategory = sub;
-  }
-
-  let products: {
-    id: string;
-    name: string;
-    slug: string;
-    price: number;
-    originalPrice: number | null;
-    rating: number;
-    reviewCount: number;
-    isNew: boolean;
-    isPromo: boolean;
-    brand: { name: string; slug: string } | null;
-    images: { url: string }[];
-  }[] = [];
-  let total = 0;
-  let brands: { name: string; slug: string; count: number }[] = [];
-  let subCategories: { name: string; count: number }[] = [];
-
-  try {
-    const [raw, count, brandData, subData] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        include: {
-          brand: { select: { name: true, slug: true } },
-          images: { take: 1, orderBy: { position: "asc" } },
-        },
-        orderBy,
-        skip,
-        take: PAGE_SIZE,
-      }),
-      prisma.product.count({ where }),
-      prisma.brand.findMany({
-        select: {
-          name: true,
-          slug: true,
-          _count: { select: { products: { where: { category: { slug } } } } },
-        },
-        where: { products: { some: { category: { slug } } } },
-        orderBy: { name: "asc" },
-      }),
-      prisma.product.groupBy({
-        by: ["subCategory"],
-        where: { category: { slug }, subCategory: { not: null } },
-        _count: true,
-        orderBy: { _count: { subCategory: "desc" } },
-      }),
-    ]);
-    total = count;
-    products = raw.map((p) => ({
-      ...p,
-      price: Number(p.price),
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      rating: Number(p.rating),
-    }));
-    brands = brandData.map((b) => ({
-      name: b.name,
-      slug: b.slug,
-      count: b._count.products,
-    }));
-    subCategories = subData
-      .filter((s) => s.subCategory)
-      .map((s) => ({
-        name: s.subCategory!,
-        count: s._count,
-      }));
-  } catch (error) {
-    console.error("[CategoryPage] DB error for slug:", slug, error);
-    products = [];
-    total = 0;
-    brands = [];
-    subCategories = [];
-  }
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
 

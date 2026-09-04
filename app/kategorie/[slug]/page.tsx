@@ -95,6 +95,91 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
     notFound();
   }
 
+  const PAGE_SIZE = 20;
+  const skip = (page - 1) * PAGE_SIZE;
+
+  let orderBy: Record<string, string> = { createdAt: "desc" };
+  if (sort === "price_asc") orderBy = { price: "asc" };
+  else if (sort === "price_desc") orderBy = { price: "desc" };
+  else if (sort === "rating") orderBy = { rating: "desc" };
+  else if (sort === "popular") orderBy = { reviewCount: "desc" };
+
+  const where: Record<string, unknown> = { category: { slug } };
+  if (brand) where.brand = { slug: brand };
+  if (sub) where.subCategory = sub;
+
+  let products: {
+    id: string; name: string; slug: string; price: number;
+    originalPrice: number | null; rating: number; reviewCount: number;
+    isNew: boolean; isPromo: boolean;
+    brand: { name: string } | null; images: { url: string }[];
+  }[] = [];
+  let total = 0;
+  let brands: { name: string; slug: string; _count: { products: number } }[] = [];
+  let subCategories: { subCategory: string | null; _count: number }[] = [];
+
+  try {
+    const [raw, count, brandData, subData] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: {
+          brand: { select: { name: true } },
+          images: { take: 1, orderBy: { position: "asc" } },
+        },
+        orderBy,
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.product.count({ where }),
+      prisma.brand.findMany({
+        select: {
+          name: true,
+          slug: true,
+          _count: { select: { products: { where: { category: { slug } } } } },
+        },
+        where: { products: { some: { category: { slug } } } },
+        orderBy: { name: "asc" },
+      }),
+      prisma.product.groupBy({
+        by: ["subCategory"],
+        where: { category: { slug }, subCategory: { not: null } },
+        _count: true,
+        orderBy: { _count: { subCategory: "desc" } },
+      }),
+    ]);
+    total = count;
+    products = raw;
+    brands = brandData;
+    subCategories = subData;
+  } catch (error) {
+    logger.error("kategorie-slug-products", error);
+  }
+
+  const formattedProducts = products.map((p) => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    price: Number(p.price),
+    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+    rating: Number(p.rating),
+    reviewCount: p.reviewCount,
+    isNew: p.isNew,
+    isPromo: p.isPromo,
+    brand: p.brand?.name || null,
+    image: p.images[0]?.url || "/images/placeholder-product.svg",
+    categorySlug: slug,
+  }));
+
+  const formattedBrands = brands.map((b) => ({
+    name: b.name,
+    slug: b.slug,
+    count: b._count.products,
+  }));
+
+  const formattedSubs = subCategories
+    .filter((s) => s.subCategory)
+    .map((s) => ({ name: s.subCategory!, count: s._count }));
+
   const breadcrumbItems = [
     { name: "Startseite", url: "/" },
     { name: "Kategorien", url: "/kategorie" },
@@ -136,6 +221,10 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           page={page}
           sort={sort}
           brand={brand}
+          products={formattedProducts}
+          total={total}
+          brands={formattedBrands}
+          subCategories={formattedSubs}
         />
       </main>
     </>
