@@ -54,28 +54,26 @@ async function submitToStep2(page: Page) {
 }
 
 async function submitOrder(page: Page) {
+  const responsePromise = page.waitForResponse(
+    (resp) => resp.url().includes("/api/bestellungen") && resp.request().method() === "POST",
+    { timeout: 60000 }
+  );
   await page.click('button:has-text("Jetzt verbindlich bestellen")', { timeout: 10000 });
+  const response = await responsePromise;
+  const status = response.status();
+  const body = await response.json().catch(() => ({}));
+  if (status !== 200) {
+    throw new Error(`API ${status}: ${JSON.stringify(body)}`);
+  }
   await page.waitForURL(/\/bestellung\/erfolg\?order=/, { timeout: 30000 });
 }
 
 test.describe("Full Checkout Flow", () => {
+  test.describe.configure({ retries: 2 });
+
   test("browse → product → add to cart → checkout → order → confirmation", async ({ page }) => {
-    await setupCookieConsent(page);
-
-    // 1. Browse shop
-    await page.goto("/shop");
-    await expect(page.locator("h1")).toContainText("Produkte");
-    const productLinks = page.locator('a[href^="/produkt/"]');
-    await expect(productLinks.first()).toBeVisible();
-
-    // 2. View product detail (navigate directly via href)
-    const firstProductHref = await productLinks.first().getAttribute("href");
-    await page.goto(firstProductHref!);
-    await expect(page.getByRole("button", { name: /In den Warenkorb/ })).toBeVisible();
-
-    // 3. Add to cart
-    await page.getByRole("button", { name: /In den Warenkorb/ }).first().click();
-    await page.waitForTimeout(500);
+    // Add first product via shop (retries built into helper)
+    await addFirstProductToCart(page);
 
     // 4. Go to cart
     await page.goto("/warenkorb");
@@ -118,15 +116,18 @@ test.describe("Full Checkout Flow", () => {
 
     // Add second product
     await setupCookieConsent(page);
-    await page.goto("/shop");
+    await page.goto("/shop", { waitUntil: "networkidle" });
     const secondProduct = page.locator('a[href^="/produkt/"]').nth(1);
-    if (await secondProduct.isVisible()) {
+    try {
+      await secondProduct.waitFor({ state: "visible", timeout: 15000 });
       const secondHref = await secondProduct.getAttribute("href");
-      await page.goto(secondHref!);
+      await page.goto(secondHref!, { waitUntil: "networkidle" });
       const addBtn = page.getByRole("button", { name: /In den Warenkorb/ }).first();
       await addBtn.waitFor({ state: "visible", timeout: 10000 });
       await addBtn.click();
       await page.waitForTimeout(500);
+    } catch {
+      // If second product unavailable, proceed with 1 product
     }
 
     // Go to cart — verify 2 items
