@@ -453,7 +453,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               )}
             </p>
             <div className="flex items-center gap-3">
-              <ShopSortSelect sort={sort} />
+              <Suspense fallback={<div className="h-9 w-40 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />}>
+                <ShopSortSelect sort={sort} />
+              </Suspense>
             </div>
           </div>
 
@@ -549,7 +551,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
       {/* Spacer for MobileShopBar on mobile */}
       <div className="h-16 lg:hidden" />
-      <MobileShopBar totalResults={total} sort={sort} />
+      <Suspense fallback={null}>
+        <MobileShopBar totalResults={total} sort={sort} />
+      </Suspense>
     </main>
   );
 }

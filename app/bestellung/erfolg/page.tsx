@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
@@ -54,31 +54,18 @@ const faqItems = [
   },
 ];
 
-export default function OrderSuccessPage() {
+function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order");
-  const [orderEmail, setOrderEmail] = useState<string | null>(() => {
-    if (orderId && typeof window !== "undefined") {
-      const stored = sessionStorage.getItem(`order_${orderId}`);
-      if (stored) {
-        sessionStorage.removeItem(`order_${orderId}`);
-        return stored;
-      }
-    }
-    return null;
-  });
+  const [orderEmail, setOrderEmail] = useState<string | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
   const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [orderLoading, setOrderLoading] = useState(true);
   const [orderError, setOrderError] = useState("");
   const [emailInput, setEmailInput] = useState("");
-  const [showEmailForm, setShowEmailForm] = useState(() => {
-    if (orderId && typeof window !== "undefined") {
-      return sessionStorage.getItem(`order_${orderId}`) === null;
-    }
-    return false;
-  });
+  const [showEmailForm, setShowEmailForm] = useState(true);
+  const [hydrated, setHydrated] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
   const [proofFile, setProofFile] = useState<File | null>(null);
@@ -86,6 +73,17 @@ export default function OrderSuccessPage() {
   const [proofUploaded, setProofUploaded] = useState(false);
   const [proofError, setProofError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!orderId) return;
+    const stored = sessionStorage.getItem(`order_${orderId}`);
+    if (stored) {
+      sessionStorage.removeItem(`order_${orderId}`);
+      setOrderEmail(stored);
+      setShowEmailForm(false);
+    }
+    setHydrated(true);
+  }, [orderId]);
 
   useEffect(() => {
     if (!orderId || orderLoading) return;
@@ -572,5 +570,29 @@ export default function OrderSuccessPage() {
         </Link>
       </div>
     </main>
+  );
+}
+
+function OrderSuccessFallback() {
+  return (
+    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto">
+      <div className="text-center mb-8">
+        <div className="w-20 h-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse mx-auto mb-6" />
+        <div className="h-8 w-64 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse mx-auto mb-3" />
+        <div className="h-4 w-48 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse mx-auto" />
+      </div>
+      <div className="space-y-4">
+        <div className="h-24 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" />
+        <div className="h-64 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" />
+      </div>
+    </main>
+  );
+}
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={<OrderSuccessFallback />}>
+      <OrderSuccessContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle, XCircle, Loader2, Mail } from "lucide-react";
@@ -100,8 +100,22 @@ function EmailVerificationContent() {
   );
 }
 
+function EmailVerificationFallback() {
+  return (
+    <main id="main-content" className="container-hausaura py-20 min-h-[60vh] flex items-center justify-center">
+      <div className="max-w-md w-full text-center">
+        <Loader2 className="w-12 h-12 text-[var(--color-primary)] animate-spin mx-auto mb-4" />
+        <h1 className="heading-2 mb-2">E-Mail wird verifiziert…</h1>
+        <p className="text-[var(--color-text-muted)]">Bitte warten Sie einen Moment.</p>
+      </div>
+    </main>
+  );
+}
+
 export default function EmailVerificationPage() {
   return (
-    <EmailVerificationContent />
+    <Suspense fallback={<EmailVerificationFallback />}>
+      <EmailVerificationContent />
+    </Suspense>
   );
 }
