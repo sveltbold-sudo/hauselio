@@ -8,9 +8,8 @@ test.describe("Barrierefreiheit Page", () => {
 
   test("has breadcrumb navigation", async ({ page }) => {
     await page.goto("/barrierefreiheit");
-    await page.waitForLoadState("networkidle");
     await expect(page.locator('nav[aria-label="Breadcrumb"]')).toBeVisible();
-    await expect(page.locator('nav[aria-label="Breadcrumb"]').getByText("Startseite")).toBeVisible();
+    await expect(page.locator('nav[aria-label="Breadcrumb"]').getByText("Startseite").first()).toBeVisible();
     await expect(page.locator('nav[aria-label="Breadcrumb"]').getByText("Barrierefreiheit")).toBeVisible();
   });
 

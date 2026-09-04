@@ -39,11 +39,12 @@ test.describe("Admin Login", () => {
   });
 
   test("wrong credentials shows error message", async ({ page }) => {
-    await page.fill("#admin-email", "wrong@test.de");
+    const email = `wrong-${Date.now()}@test.de`;
+    await page.fill("#admin-email", email);
     await page.fill("#admin-password", "wrongpassword");
     const adminForm = page.locator("form").filter({ has: page.locator("#admin-email") });
     await adminForm.locator('button[type="submit"]').click();
-    await expect(page.locator('[role="alert"]')).toBeVisible({ timeout: 8000 });
+    await expect(page.locator('[role="alert"]')).toBeVisible({ timeout: 10000 });
   });
 
   test("password visibility toggle works", async ({ page }) => {

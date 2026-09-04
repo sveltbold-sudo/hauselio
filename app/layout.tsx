@@ -108,7 +108,7 @@ export default function RootLayout({
         </a>
         <Header />
         <ToastProvider>
-          <div className="flex-1">
+          <div className="flex-1 pb-20 lg:pb-0">
             {children}
           </div>
           <ClientProviders />

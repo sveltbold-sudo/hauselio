@@ -70,7 +70,7 @@ export default function WunschlistePage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8">
       <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Wunschliste" }]} />
 
       {/* Header */}

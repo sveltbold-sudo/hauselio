@@ -102,7 +102,7 @@ export default function WarenkorbPage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-6 sm:py-8 md:py-10 lg:py-12 pb-20 lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 md:py-10 lg:py-12">
       <Breadcrumb items={[{ label: "Shop", href: "/shop" }, { label: "Warenkorb" }]} />
 
       {/* Header */}
