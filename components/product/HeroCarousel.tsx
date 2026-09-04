@@ -207,7 +207,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             )}
 
             {/* Content — bottom section on dark gradient */}
-            <div className="absolute bottom-0 left-0 right-0 z-20 px-5 pb-20">
+            <div className="absolute bottom-0 left-0 right-0 z-20 px-5 pb-14">
               {/* Brand */}
               <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-2" translate="no">
                 {s.brand}
@@ -259,7 +259,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         ))}
 
         {/* Dots */}
-        <div className="absolute bottom-[72px] left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
           {slides.map((_, i) => (
             <button
               key={i}
