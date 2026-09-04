@@ -263,6 +263,7 @@ export default function BestellungPage() {
         clearCartTimerRef.current = null;
       }, 120000);
     } catch (error) {
+      orderSubmitted.current = false;
       setOrderError(error instanceof Error ? error.message : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
     } finally {
       setIsLoading(false);

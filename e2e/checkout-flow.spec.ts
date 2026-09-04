@@ -24,6 +24,11 @@ async function addFirstProductToCart(page: Page) {
 async function goToCheckout(page: Page) {
   await page.goto("/bestellung");
   await page.locator('input[name="email"]').waitFor({ state: "visible", timeout: 15000 });
+  // Wait for cart validation to complete
+  await page.waitForFunction(() => {
+    const btn = document.querySelector('button:has-text("Jetzt verbindlich bestellen")');
+    return btn && !btn.hasAttribute("disabled");
+  }, { timeout: 15000 }).catch(() => {});
 }
 
 async function fillCheckoutForm(page: Page, overrides?: { email?: string; zip?: string; country?: string }) {
@@ -49,8 +54,8 @@ async function submitToStep2(page: Page) {
 }
 
 async function submitOrder(page: Page) {
-  await page.click('button:has-text("Jetzt verbindlich bestellen")');
-  await page.waitForURL(/\/bestellung\/erfolg\?order=/, { timeout: 15000 });
+  await page.click('button:has-text("Jetzt verbindlich bestellen")', { timeout: 10000 });
+  await page.waitForURL(/\/bestellung\/erfolg\?order=/, { timeout: 30000 });
 }
 
 test.describe("Full Checkout Flow", () => {

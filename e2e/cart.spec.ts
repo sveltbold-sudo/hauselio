@@ -53,7 +53,7 @@ test.describe("Cart Flow", () => {
     await page.goto("/warenkorb");
     await expect(page.getByText("Zwischensumme")).toBeVisible();
     await expect(page.getByText("Versand", { exact: true })).toBeVisible();
-    await expect(page.getByText("Gesamt")).toBeVisible();
+    await expect(page.getByText("Gesamt", { exact: true })).toBeVisible();
   });
 
   test("quantity controls work in cart", async ({ page }) => {
