@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import path from "path";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -11,6 +12,7 @@ export default defineConfig({
     viewport: { width: 1280, height: 720 },
     actionTimeout: 15000,
     navigationTimeout: 30000,
+    // storageState: path.join(__dirname, "e2e/storage-state.json"),
     extraHTTPHeaders: {
       "Accept-Language": "de-DE,de;q=0.9",
     },

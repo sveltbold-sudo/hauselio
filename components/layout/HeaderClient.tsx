@@ -448,11 +448,12 @@ export default function HeaderClient() {
             }`}
           >
             <div className="container-hausaura">
-              <div className="pt-1 pb-2">
+              <div className="pt-1 pb-2 relative">
                 <div
-                  className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 max-w-[calc(100vw-2rem)] transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}
+                  className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}
                   style={{
-                    marginLeft: `${megaPos.left}px`,
+                    position: "absolute",
+                    left: `${megaPos.left}px`,
                     width: "fit-content",
                     maxWidth: `calc(100vw - ${megaPos.left}px - 1rem)`,
                   }}

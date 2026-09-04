@@ -8,8 +8,10 @@ test.describe("Barrierefreiheit Page", () => {
 
   test("has breadcrumb navigation", async ({ page }) => {
     await page.goto("/barrierefreiheit");
-    await expect(page.getByText("Startseite")).toBeVisible();
-    await expect(page.getByText("Barrierefreiheit")).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator('nav[aria-label="Breadcrumb"]')).toBeVisible();
+    await expect(page.locator('nav[aria-label="Breadcrumb"]').getByText("Startseite")).toBeVisible();
+    await expect(page.locator('nav[aria-label="Breadcrumb"]').getByText("Barrierefreiheit")).toBeVisible();
   });
 
   test("contains required sections", async ({ page }) => {
@@ -22,8 +24,8 @@ test.describe("Barrierefreiheit Page", () => {
 
   test("displays contact information", async ({ page }) => {
     await page.goto("/barrierefreiheit");
-    await expect(page.getByText("barrierefreiheit@HAUSAURA.de")).toBeVisible();
-    await expect(page.getByText("+49 (0)30 555 789 01")).toBeVisible();
+    await expect(page.locator("#main-content").getByText("barrierefreiheit@hausaura.de")).toBeVisible();
+    await expect(page.locator("#main-content").getByText("+49 (0)30 555 789 01")).toBeVisible();
   });
 
   test("displays Stand date", async ({ page }) => {

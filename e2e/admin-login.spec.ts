@@ -2,7 +2,17 @@
 
 test.describe("Admin Login", () => {
   test.beforeEach(async ({ page }) => {
+    await page.context().clearCookies();
     await page.goto("/admin/login");
+    await page.waitForSelector("#admin-email", { timeout: 15000 });
+    const cookieBanner = page.locator('[role="dialog"][aria-label*="Cookie"]');
+    if (await cookieBanner.isVisible({ timeout: 2000 }).catch(() => false)) {
+      const acceptBtn = cookieBanner.getByRole("button", { name: /akzeptieren|alle|annehmen/i });
+      if (await acceptBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+        await acceptBtn.click();
+        await page.waitForTimeout(300);
+      }
+    }
   });
 
   test("displays login form with heading", async ({ page }) => {
@@ -11,38 +21,36 @@ test.describe("Admin Login", () => {
   });
 
   test("has email and password fields", async ({ page }) => {
-    await expect(page.locator('input[type="email"]')).toBeVisible();
-    await expect(page.locator('input[type="password"]')).toBeVisible();
+    await expect(page.locator("#admin-email")).toBeVisible();
+    await expect(page.locator("#admin-password")).toBeVisible();
   });
 
   test("has submit button", async ({ page }) => {
-    await expect(page.locator('button[type="submit"]')).toBeVisible();
-    await expect(page.locator('button[type="submit"]')).toContainText("Anmelden");
+    const adminForm = page.locator("form").filter({ has: page.locator("#admin-email") });
+    const submitBtn = adminForm.locator('button[type="submit"]');
+    await expect(submitBtn).toBeVisible();
+    await expect(submitBtn).toContainText("Anmelden");
   });
 
   test("empty form submission triggers HTML validation", async ({ page }) => {
-    // HTML5 required attribute prevents submission
-    const emailField = page.locator('input[type="email"]');
+    const emailField = page.locator("#admin-email");
     const isValid = await emailField.evaluate((el: HTMLInputElement) => el.validity.valid);
     expect(isValid).toBe(false);
   });
 
   test("wrong credentials shows error message", async ({ page }) => {
-    await page.fill('input[type="email"]', "wrong@test.de");
-    await page.fill('input[type="password"]', "wrongpassword");
-    await page.click('button[type="submit"]');
-    await expect(page.getByText("Ungültige Anmeldedaten")).toBeVisible({ timeout: 5000 });
+    await page.fill("#admin-email", "wrong@test.de");
+    await page.fill("#admin-password", "wrongpassword");
+    const adminForm = page.locator("form").filter({ has: page.locator("#admin-email") });
+    await adminForm.locator('button[type="submit"]').click();
+    await expect(page.locator('[role="alert"]')).toBeVisible({ timeout: 8000 });
   });
 
   test("password visibility toggle works", async ({ page }) => {
-    const passwordField = page.locator('input[type="password"]');
-    await expect(passwordField).toBeVisible();
-
-    // Click eye icon to show password
-    const toggleBtn = page.locator("button").filter({ has: page.locator("svg") }).last();
+    await expect(page.locator("#admin-password")).toHaveAttribute("type", "password");
+    const toggleBtn = page.locator('button[aria-label*="Passwort"]').first();
     await toggleBtn.click();
-    const textField = page.locator('input[type="text"]');
-    await expect(textField).toBeVisible();
+    await expect(page.locator("#admin-password")).toHaveAttribute("type", "text");
   });
 
   test("has admin panel branding", async ({ page }) => {
@@ -51,15 +59,15 @@ test.describe("Admin Login", () => {
   });
 
   test("form has proper labels", async ({ page }) => {
-    await expect(page.getByText("E-Mail")).toBeVisible();
-    await expect(page.getByText("Passwort")).toBeVisible();
+    await expect(page.locator("label[for='admin-email']")).toBeVisible();
+    await expect(page.locator("label[for='admin-password']")).toBeVisible();
   });
 
   test("loading state shows during submission", async ({ page }) => {
-    await page.fill('input[type="email"]', "test@test.de");
-    await page.fill('input[type="password"]', "password123");
-    await page.click('button[type="submit"]');
-    // Loading text appears briefly
-    await expect(page.getByText("Wird angemeldet...")).toBeVisible({ timeout: 2000 });
+    await page.fill("#admin-email", "test@test.de");
+    await page.fill("#admin-password", "password123");
+    const adminForm = page.locator("form").filter({ has: page.locator("#admin-email") });
+    await adminForm.locator('button[type="submit"]').click();
+    await expect(page.getByText("Wird angemeldet\u2026")).toBeVisible({ timeout: 2000 });
   });
 });

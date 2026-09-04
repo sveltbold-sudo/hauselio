@@ -1,0 +1,14 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "https://www.hausaura.de",
+      "localStorage": [
+        {
+          "name": "HAUSAURA_cookie_consent",
+          "value": "{\"essential\":true,\"functional\":true,\"analytics\":true}"
+        }
+      ]
+    }
+  ]
+}
