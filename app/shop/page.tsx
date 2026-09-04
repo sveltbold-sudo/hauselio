@@ -37,18 +37,19 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const q = params.q;
   const baseUrl = SITE_URL;
 
-  let title = "Alle Produkte";
-  let desc = "Entdecken Sie unser gesamtes Sortiment an Haushaltsgeräten";
+  let title = "Alle Haushaltsgeräte online kaufen | HAUSAURA";
+  let desc = "Entdecken Sie 279+ Haushaltsgeräte von Top-Marken wie Miele, Bosch, Siemens, Dyson und Thermomix. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.";
 
   if (q) {
-    title = `Suche "${q}"`;
-    desc = `Suchergebnisse für "${q}" bei HAUSAURA`;
+    title = `Suche "${q}" | HAUSAURA Shop`;
+    desc = `Suchergebnisse für "${q}" — Entdecken Sie passende Haushaltsgeräte bei HAUSAURA. Kostenloser Versand ab 50€.`;
   } else if (category) {
-    title = `${category.charAt(0).toUpperCase() + category.slice(1)} kaufen`;
-    desc = `Hochwertige ${category} bei HAUSAURA entdecken`;
+    const catName = category.charAt(0).toUpperCase() + category.slice(1);
+    title = `${catName} kaufen | HAUSAURA Shop`;
+    desc = `Hochwertige ${catName} von Top-Marken bei HAUSAURA entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
   } else if (brand) {
-    title = `${brand} Produkte`;
-    desc = `Alle ${brand} Produkte bei HAUSAURA`;
+    title = `${brand} Produkte online kaufen | HAUSAURA`;
+    desc = `Alle ${brand} Haushaltsgeräte bei HAUSAURA — von Küchengeräten bis Smart Home. Kostenloser Versand ab 50€.`;
   }
 
   const searchParamsObj = new URLSearchParams();

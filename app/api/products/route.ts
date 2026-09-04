@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     const price = searchParams.get("price");
     const promo = searchParams.get("promo");
     const rating = searchParams.get("rating");
+    const isNew = searchParams.get("isNew");
 
     const rawPage = parseInt(searchParams.get("page") || "1", 10);
     const rawLimit = parseInt(searchParams.get("limit") || "20", 10);
@@ -37,6 +38,7 @@ export async function GET(request: NextRequest) {
       price?: { gte?: number; lte?: number };
       rating?: { gte?: number };
       isPromo?: boolean;
+      isNew?: boolean;
     } = {};
 
     if (category) {
@@ -62,6 +64,10 @@ export async function GET(request: NextRequest) {
 
     if (promo === "true") {
       where.isPromo = true;
+    }
+
+    if (isNew === "true") {
+      where.isNew = true;
     }
 
     if (price) {
@@ -92,6 +98,8 @@ export async function GET(request: NextRequest) {
     else if (sort === "price_desc") orderBy = { price: "desc" };
     else if (sort === "name") orderBy = { name: "asc" };
     else if (sort === "newest") orderBy = { createdAt: "desc" };
+    else if (sort === "rating") orderBy = { rating: "desc" };
+    else if (sort === "popular") orderBy = { reviewCount: "desc" };
 
     const [products, total] = await Promise.all([
       prisma.product.findMany({

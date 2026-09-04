@@ -47,10 +47,12 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     return { title: "Kategorie nicht gefunden" };
   }
 
-  const pageTitle = sub ? `${sub} | ${category.name}` : category.name;
+  const pageTitle = sub
+    ? `${sub} | ${category.name} | HAUSAURA`
+    : `${category.name} online kaufen | HAUSAURA`;
   const pageDescription = sub
-    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}`
-    : category.description || `Entdecken Sie unsere ${category.name} Kollektion`;
+    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`
+    : category.description || `Hochwertige ${category.name} bei HAUSAURA entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
   const canonical = sub
     ? `/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
     : `/kategorie/${slug}`;

@@ -23,6 +23,7 @@ const legal = [
   { name: "AGB", href: "/agb" },
   { name: "Widerrufsrecht", href: "/widerruf" },
   { name: "Barrierefreiheit", href: "/barrierefreiheit" },
+  { name: "Newsletter abmelden", href: "/newsletter-abmelden" },
 ];
 
 const trustBadges = [
