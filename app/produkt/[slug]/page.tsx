@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
@@ -11,113 +10,77 @@ import TestimonialsSection from "@/components/product/TestimonialsSection";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
-export const revalidate = 300;
-
-const getProduct = cache(async (slug: string) => {
-  try {
-    return await prisma.product.findUnique({
-      where: { slug },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        sku: true,
-        barcode: true,
-        description: true,
-        price: true,
-        originalPrice: true,
-        isPromo: true,
-        isNew: true,
-        rating: true,
-        reviewCount: true,
-        category: { select: { name: true, slug: true } },
-        brand: { select: { name: true, slug: true } },
-        images: { orderBy: { position: "asc" }, select: { url: true } },
-        specs: { orderBy: { position: "asc" }, select: { key: true, value: true } },
-        reviews: {
-          where: { isApproved: true },
-          select: {
-            authorName: true,
-            rating: true,
-            title: true,
-            content: true,
-            createdAt: true,
-          },
-          orderBy: { createdAt: "desc" },
-          take: 10,
-        },
-      },
-    });
-  } catch (error) {
-    logger.error("produkt-slug", error);
-    return null;
-  }
-});
-
-export async function generateStaticParams() {
-  try {
-    const products = await prisma.product.findMany({
-      select: { slug: true },
-    });
-    return products.map((p) => ({ slug: p.slug }));
-  } catch (error) {
-    logger.error("Failed to generate static params", error);
-    return [];
-  }
-}
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+async function getProductFromApi(slug: string) {
+  try {
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_SITE_URL || SITE_URL;
+    const res = await fetch(`${baseUrl}/api/products/${slug}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.product ? data : null;
+  } catch (error) {
+    logger.error("produkt-slug-fetch", error);
+    return null;
+  }
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getProduct(slug);
+  const data = await getProductFromApi(slug);
 
-  if (!product) {
+  if (!data?.product) {
     return { title: "Produkt nicht gefunden" };
   }
 
-  const baseUrl = SITE_URL;
+  const product = data.product;
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
   const desc = product.description
-    ? product.description.slice(0, 150).trim() + "…"
-    : `Jetzt ${product.name} bei HAUSAURA kaufen. Ab ${priceStr} €.`;
+    ? product.description.slice(0, 150).trim() + "\u2026"
+    : `Jetzt ${product.name} bei HAUSAURA kaufen. Ab ${priceStr} \u20AC.`;
 
   return {
     title: product.name,
     description: desc,
     alternates: {
-      canonical: `${baseUrl}/produkt/${slug}`,
+      canonical: `${SITE_URL}/produkt/${slug}`,
     },
     openGraph: {
       title: product.name,
       description: desc,
-      url: `${baseUrl}/produkt/${slug}`,
+      url: `${SITE_URL}/produkt/${slug}`,
       siteName: "HAUSAURA",
       locale: "de_DE",
       type: "website",
-      images: product.images[0]?.url
-        ? [{ url: product.images[0].url, width: 800, height: 600, alt: product.name }]
+      images: product.images?.[0]
+        ? [{ url: product.images[0], width: 800, height: 600, alt: product.name }]
         : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: product.name,
       description: desc,
-      images: product.images[0]?.url ? [product.images[0].url] : undefined,
+      images: product.images?.[0] ? [product.images[0]] : undefined,
     },
   };
 }
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
+  const data = await getProductFromApi(slug);
 
-  const product = await getProduct(slug);
-
-  if (!product) {
+  if (!data?.product) {
     notFound();
   }
+
+  const product = data.product;
+  const relatedProducts = data.relatedProducts || [];
 
   const formattedProduct = {
     id: product.id,
@@ -134,42 +97,11 @@ export default async function ProductPage({ params }: PageProps) {
     isNew: product.isNew,
     brand: product.brand?.name || null,
     brandSlug: product.brand?.slug || null,
-    categoryName: product.category.name,
-    categorySlug: product.category.slug,
-    specs: product.specs.map((s) => ({ key: s.key, value: s.value })),
-    images: product.images.map((img) => img.url),
+    categoryName: product.category?.name || "",
+    categorySlug: product.category?.slug || "",
+    specs: (product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value })),
+    images: (product.images || []).map((url: string) => url),
   };
-
-  let relatedProducts: { id: string; name: string; slug: string; price: number; image: string; brand: string | null }[] = [];
-  try {
-    const rawRelated = await prisma.product.findMany({
-      where: {
-        category: { slug: product.category.slug },
-        id: { not: product.id },
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        price: true,
-        brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
-      },
-      take: 3,
-      orderBy: { rating: "desc" },
-    });
-    relatedProducts = rawRelated.map((p) => ({
-      id: p.id,
-      name: p.name,
-      slug: p.slug,
-      price: Number(p.price),
-      image: p.images[0]?.url || "/images/placeholder-product.svg",
-      brand: p.brand?.name || null,
-    }));
-  } catch (error) {
-    logger.error("Failed to fetch related products", error);
-    relatedProducts = [];
-  }
 
   return (
     <>
@@ -184,7 +116,7 @@ export default async function ProductPage({ params }: PageProps) {
       <ProductJsonLd
         name={product.name}
         description={product.description}
-        image={product.images[0]?.url || "/images/placeholder-product.svg"}
+        image={product.images?.[0] || "/images/placeholder-product.svg"}
         price={Number(product.price)}
         brand={product.brand?.name || "HAUSAURA"}
         slug={product.slug}
@@ -192,12 +124,12 @@ export default async function ProductPage({ params }: PageProps) {
         gtin={product.barcode || undefined}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
-        reviews={product.reviews.map((r) => ({
+        reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title?: string; content?: string; createdAt: string }) => ({
           author: r.authorName,
           rating: r.rating,
           title: r.title ?? undefined,
           content: r.content ?? undefined,
-          date: r.createdAt.toISOString().split("T")[0] as string,
+          date: r.createdAt.split("T")[0] as string,
         }))}
         availability="InStock"
       />

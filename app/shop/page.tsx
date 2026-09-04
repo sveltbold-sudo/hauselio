@@ -153,11 +153,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (sort === "name") orderBy = { name: "asc" };
 
   type ProductWithRelations = {
-    id: string; name: string; slug: string; price: unknown; originalPrice: unknown;
-    rating: unknown; reviewCount: number; isNew: boolean; isPromo: boolean;
-    category: { name: string; slug: string } | null;
-    brand: { name: string } | null;
-    images: { url: string }[];
+    id: string; name: string; slug: string; price: number; originalPrice: number | null;
+    rating: number; reviewCount: number; isNew: boolean; isPromo: boolean;
+    category: string | null;
+    categorySlug: string | null;
+    brand: string | null;
+    image: string | null;
   };
   let products: ProductWithRelations[] = [];
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
@@ -167,26 +168,40 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const ratingCounts: Record<number, number> = {};
 
   try {
-    products = await prisma.product.findMany({
-      where,
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        price: true,
-        originalPrice: true,
-        rating: true,
-        reviewCount: true,
-        isNew: true,
-        isPromo: true,
-        category: { select: { name: true, slug: true } },
-        brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
-      },
-      orderBy,
-      skip,
-      take: limit,
-    });
+    const apiParams = new URLSearchParams();
+    if (category) apiParams.set("category", category);
+    if (brand) apiParams.set("brand", brand);
+    if (q) apiParams.set("q", q);
+    if (promo === "true") apiParams.set("promo", "true");
+    if (sort) apiParams.set("sort", sort);
+    if (price) apiParams.set("price", price);
+    if (rating) apiParams.set("rating", rating);
+    apiParams.set("page", String(page));
+    apiParams.set("limit", String(limit));
+
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_SITE_URL || SITE_URL;
+    const res = await fetch(`${baseUrl}/api/products?${apiParams.toString()}`, { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      products = (data.products || []).map((p: Record<string, unknown>) => ({
+        id: p.id as string,
+        name: p.name as string,
+        slug: p.slug as string,
+        price: Number(p.price),
+        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+        rating: Number(p.rating),
+        reviewCount: p.reviewCount as number,
+        isNew: p.isNew as boolean,
+        isPromo: p.isPromo as boolean,
+        category: (p.category as string) || null,
+        categorySlug: (p.categorySlug as string) || null,
+        brand: (p.brand as string) || null,
+        image: (p.image as string) || null,
+      }));
+      total = data.pagination?.total || 0;
+    }
   } catch (error) {
     logger.error("shop-products", error);
   }
@@ -257,17 +272,15 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     id: product.id,
     name: product.name,
     slug: product.slug,
-    price: Number(product.price),
-    originalPrice: product.originalPrice
-      ? Number(product.originalPrice)
-      : null,
-    image: product.images[0]?.url || "/images/placeholder-product.svg",
-    rating: Number(product.rating),
+    price: product.price,
+    originalPrice: product.originalPrice,
+    image: product.image || "/images/placeholder-product.svg",
+    rating: product.rating,
     reviewCount: product.reviewCount,
     isNew: product.isNew,
     isPromo: product.isPromo,
-    brand: product.brand?.name || null,
-    categorySlug: product.category?.slug || null,
+    brand: product.brand || null,
+    categorySlug: product.categorySlug || null,
   }));
 
   return (
