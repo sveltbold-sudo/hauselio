@@ -104,7 +104,7 @@ const products: ProductData[] = [
   {
     name: "Thermomix TM7", slug: "thermomix-tm7",
     description: "Der neue Thermomix TM7 - noch leistungsstärker, vielseitiger und benutzerfreundlicher. Über 80 Kochfunktionen in einem Gerät.", shortDesc: "Das ultimative Küchengerät mit 80+ Funktionen",
-    price: 1499, originalPrice: 1599, sku: "TM7-2026", inStock: true, isFeatured: true, isNew: true,
+    price: 1295.19, originalPrice: 1599, sku: "TM7-2026", inStock: true, isFeatured: true, isNew: true,
     rating: 4.9, reviewCount: 127, categorySlug: "kueche", brandSlug: "thermomix", weight: 7.95, tags: ["bestseller"],
     specs: [
       { key: "Leistung", value: "1800 W" },
@@ -119,7 +119,7 @@ const products: ProductData[] = [
   {
     name: "Thermomix TM6", slug: "thermomix-tm6",
     description: "Der Thermomix TM6 ist ein multifunktionaler Küchenhelfer mit über 20 Funktionen. Die intuitive Touch-Steuerung ermöglicht einfache Bedienung. Die integrierte Waage erlaubt präzise Zutatenabmessung. Die Heizfunktion bis 160°C ermögliches Kochen und Braten. Die Messerklinge aus Edelstahl mahlt, mixt und püriert. Die guided-Cooking-Funktion führt Schritt für Schritt durch Rezepte. Die Varoma-Dämpfer erweitert die Möglichkeiten. Die premium-Veredelung unterstreicht den Qualitätsanspruch. Ein unverzichtbarer Helfer für moderne Küchen.", shortDesc: "Multifunktionaler Küchenhelfer mit 20+ Funktionen und guided Cooking",
-    price: 1399, sku: "TM6-2025", inStock: true, isFeatured: true,
+    price: 1133.19, originalPrice: 1399, sku: "TM6-2025", inStock: true, isFeatured: true,
     rating: 4.8, reviewCount: 342, categorySlug: "kueche", brandSlug: "thermomix", tags: ["bestseller"],
     specs: [
       { key: "Funktionen", value: "20+ Funktionen" },
@@ -575,7 +575,7 @@ const products: ProductData[] = [
   {
     name: "Vorwerk Thermomix Tm5", slug: "vorwerk-thermomix-tm5",
     description: "Der Vorwerk Thermomix TM5 ist ein multifunktionaler Küchenhelfer mit über 12 Funktionen. Die intuitive Touch-Steuerung ermöglicht einfache Bedienung. Die integrierte Waage erlaubt präzise Zutatenabmessung. Die Heizfunktion bis 120°C ermögliches Kochen und Braten. Die Messerklinge aus Edelstahl mahlt, mixt und püriert. Die guided-Cooking-Funktion führt Schritt für Schritt durch Rezepte. Die Varoma-Dämpfer erweitert die Möglichkeiten. Die premium-Veredelung unterstreicht den Qualitätsanspruch. Ein bewährter Helfer für moderne Küchen.", shortDesc: "Bewährter Multifunktionaler Küchenhelfer mit 12+ Funktionen",
-    price: 1660, sku: "VORWERKTHERMOMI", inStock: true,
+    price: 1344.60, originalPrice: 1660, sku: "VORWERKTHERMOMI", inStock: true,
     rating: 4, reviewCount: 237, categorySlug: "kueche", brandSlug: "vorwerk",
     specs: [
       { key: "Funktionen", value: "12+ Funktionen" },
