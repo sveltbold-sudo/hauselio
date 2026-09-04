@@ -166,40 +166,33 @@ export async function POST(request: NextRequest) {
       };
     });
 
-    try {
-      await sendOrderConfirmation({
-        orderNumber: order.orderNumber,
-        customerEmail: email,
-        customerName: `${firstName} ${lastName}`,
-        items: emailItems,
-        subtotal,
-        couponDiscount,
-        couponCode: couponRecord?.code,
-        total: total,
-        shippingCost,
-      });
-    } catch (emailError) {
-      logger.error("order-email", emailError);
-    }
+    // Send confirmation email in background (don't block response)
+    sendOrderConfirmation({
+      orderNumber: order.orderNumber,
+      customerEmail: email,
+      customerName: `${firstName} ${lastName}`,
+      items: emailItems,
+      subtotal,
+      couponDiscount,
+      couponCode: couponRecord?.code,
+      total: total,
+      shippingCost,
+    }).catch((emailError) => logger.error("order-email", emailError));
 
-    // Notify admin of new order
-    try {
-      await sendNewOrderAdminNotification({
-        orderNumber: order.orderNumber,
-        customerEmail: email,
-        customerName: `${firstName} ${lastName}`,
-        customerAddress: address,
-        customerCity: city,
-        customerZip: zip,
-        items: emailItems,
-        subtotal,
-        couponDiscount,
-        total,
-        shippingCost,
-      });
-    } catch (adminEmailError) {
-      logger.error("order-admin-notification", adminEmailError);
-    }
+    // Notify admin of new order in background
+    sendNewOrderAdminNotification({
+      orderNumber: order.orderNumber,
+      customerEmail: email,
+      customerName: `${firstName} ${lastName}`,
+      customerAddress: address,
+      customerCity: city,
+      customerZip: zip,
+      items: emailItems,
+      subtotal,
+      couponDiscount,
+      total,
+      shippingCost,
+    }).catch((adminEmailError) => logger.error("order-admin-notification", adminEmailError));
 
     return NextResponse.json({
       success: true,
