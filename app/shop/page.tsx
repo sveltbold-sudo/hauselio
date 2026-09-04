@@ -15,7 +15,7 @@ import { logger } from "@/lib/logger";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 function shopUrl(page: number, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
   const params = new URLSearchParams();

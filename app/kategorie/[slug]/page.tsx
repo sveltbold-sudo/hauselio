@@ -7,7 +7,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { logger } from "@/lib/logger";
 import { SITE_URL } from "@/lib/constants";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const getCategory = cache(async (slug: string) => {
   try {

@@ -110,7 +110,8 @@ export default async function CategoryPage({
         name: s.subCategory!,
         count: s._count,
       }));
-  } catch {
+  } catch (error) {
+    console.error("[CategoryPage] DB error for slug:", slug, error);
     products = [];
     total = 0;
     brands = [];
