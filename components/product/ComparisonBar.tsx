@@ -28,7 +28,7 @@ export default function ComparisonBar() {
           </div>
 
           {/* Items */}
-          <div className="flex-1 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-thin">
+            <div className="flex-1 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
             {items.map((item) => (
               <div
                 key={item.id}

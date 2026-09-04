@@ -527,7 +527,7 @@ export default function HeaderClient() {
       {/* Mobile search overlay — full-screen */}
       {searchOpen && (
         <div className="lg:hidden fixed inset-0 top-0 z-[60] bg-white flex flex-col" role="dialog" aria-modal="true" aria-label="Suche">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border-light)]">
+          <div className="flex items-center gap-2 px-4 py-3 pt-[calc(12px+env(safe-area-inset-top,0px))] border-b border-[var(--color-border-light)]">
             <Search className="w-5 h-5 text-[var(--color-text-muted)] shrink-0" />
             <input
               ref={mobileSearchInputRef}

@@ -120,16 +120,16 @@ export default function ExitIntentPopup() {
 
   return (
     <>
-      <div className="fixed inset-0 z-[60] bg-black/50" aria-hidden="true" onClick={handleClose} />
+      <div className="fixed inset-0 z-[62] bg-black/50" aria-hidden="true" onClick={handleClose} />
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="Exklusives Angebot"
         tabIndex={-1}
-        className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+        className="fixed inset-0 z-[62] flex items-center justify-center p-4"
       >
-        <div className="relative w-full max-w-md bg-white rounded-2xl shadow-[var(--shadow-2xl)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto bg-white rounded-2xl shadow-[var(--shadow-2xl)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {/* Close button */}
           <button
             onClick={handleClose}
@@ -165,10 +165,10 @@ export default function ExitIntentPopup() {
                 <span className="text-2xl font-extrabold tracking-wider text-[var(--color-accent)]">
                   {COUPON_CODE}
                 </span>
-                <button
-                  onClick={handleCopy}
-                  className="px-3 py-1.5 bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors"
-                >
+                  <button
+                    onClick={handleCopy}
+                    className="px-3 py-1.5 min-h-[44px] min-w-[44px] bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors"
+                  >
                   {copied ? "Kopiert!" : "Kopieren"}
                 </button>
               </div>
@@ -193,7 +193,7 @@ export default function ExitIntentPopup() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="ihre@email.de"
                       required
-                      className="w-full pl-9 pr-3 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
                     />
                   </div>
                   <button

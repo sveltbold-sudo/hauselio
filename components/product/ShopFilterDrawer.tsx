@@ -129,7 +129,7 @@ export default function ShopFilterDrawer({
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-5">
+            <div className="p-0 sm:p-5">
               <ShopFilters
                 categories={categories}
                 brands={brands}

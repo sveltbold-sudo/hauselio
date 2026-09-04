@@ -83,7 +83,7 @@ export default function WarenkorbPage() {
           alt="Leerer Warenkorb"
           width={300}
           height={225}
-          className="mx-auto mb-8"
+          className="mx-auto mb-8 max-w-full h-auto"
         />
         <h1 className="heading-2 mb-4">Ihr Warenkorb ist leer</h1>
         <p className="body-large mb-10">

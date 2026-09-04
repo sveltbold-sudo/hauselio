@@ -46,7 +46,7 @@ export default function AboutSection() {
 
           {/* Right: Office photo */}
           <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative rounded-2xl overflow-visible shadow-xl">
               <Image
                 src="/images/about-team.jpg"
                 alt="HAUSAURA Team"

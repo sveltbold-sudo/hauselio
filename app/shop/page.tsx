@@ -500,11 +500,11 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   {page > 1 && (
                     <Link
                       href={shopUrl(page - 1, category, brand, q, sort, price, promo, rating)}
-                      className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                       aria-label="Vorherige Seite"
                     >
                       <ChevronLeft className="w-4 h-4" aria-hidden="true" />
-                      Zurück
+                      <span className="hidden sm:inline">Zurück</span>
                     </Link>
                   )}
                   {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
@@ -536,10 +536,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   {page < totalPages && (
                     <Link
                       href={shopUrl(page + 1, category, brand, q, sort, price, promo, rating)}
-                      className="px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                       aria-label="Nächste Seite"
                     >
-                      Weiter
+                      <span className="hidden sm:inline">Weiter</span>
                       <ChevronRight className="w-4 h-4" aria-hidden="true" />
                     </Link>
                   )}
