@@ -1,36 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
+import type { CategoryProduct, CategoryBrand } from "@/components/product/CategoryPage";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { logger } from "@/lib/logger";
 import { SITE_URL } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
-const getCategory = cache(async (slug: string) => {
-  try {
-    return await prisma.category.findUnique({
-      where: { slug },
-      select: { name: true, description: true },
-    });
-  } catch (error) {
-    logger.error("kategorie-slug", error);
-    return null;
-  }
-});
-
-export async function generateStaticParams() {
-  try {
-    const categories = await prisma.category.findMany({
-      select: { slug: true },
-    });
-    return categories.map((c) => ({ slug: c.slug }));
-  } catch {
-    return [];
-  }
-}
+const PAGE_SIZE = 20;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -41,7 +20,11 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { slug } = await params;
   const sp = await searchParams;
   const sub = sp.sub || undefined;
-  const category = await getCategory(slug);
+
+  const category = await prisma.category.findUnique({
+    where: { slug },
+    select: { name: true, description: true },
+  }).catch(() => null);
 
   if (!category) {
     return { title: "Kategorie nicht gefunden" };
@@ -51,8 +34,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     ? `${sub} | ${category.name} | HAUSAURA`
     : `${category.name} online kaufen | HAUSAURA`;
   const pageDescription = sub
-    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`
-    : category.description || `Hochwertige ${category.name} bei HAUSAURA entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
+    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`
+    : category.description || `Hochwertige ${category.name} bei HAUSAURA entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;
   const canonical = sub
     ? `/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
     : `/kategorie/${slug}`;
@@ -60,9 +43,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return {
     title: pageTitle,
     description: pageDescription,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title: pageTitle,
       description: pageDescription,
@@ -89,13 +70,15 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   const brand = sp.brand || undefined;
   const sub = sp.sub || undefined;
 
-  const category = await getCategory(slug);
+  const category = await prisma.category.findUnique({
+    where: { slug },
+    select: { name: true, description: true },
+  }).catch(() => null);
 
   if (!category) {
     notFound();
   }
 
-  const PAGE_SIZE = 20;
   const skip = (page - 1) * PAGE_SIZE;
 
   let orderBy: Record<string, string> = { createdAt: "desc" };
@@ -108,15 +91,10 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   if (brand) where.brand = { slug: brand };
   if (sub) where.subCategory = sub;
 
-  let products: {
-    id: string; name: string; slug: string; price: number;
-    originalPrice: number | null; rating: number; reviewCount: number;
-    isNew: boolean; isPromo: boolean;
-    brand: { name: string } | null; images: { url: string }[];
-  }[] = [];
+  let products: CategoryProduct[] = [];
   let total = 0;
-  let brands: { name: string; slug: string; _count: { products: number } }[] = [];
-  let subCategories: { subCategory: string | null; _count: number }[] = [];
+  let brands: CategoryBrand[] = [];
+  let subCategories: { name: string; count: number }[] = [];
 
   try {
     const raw = await prisma.product.findMany({
@@ -129,7 +107,20 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
       skip,
       take: PAGE_SIZE,
     });
-    products = raw;
+    products = raw.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      rating: Number(p.rating),
+      reviewCount: p.reviewCount,
+      isNew: p.isNew,
+      isPromo: p.isPromo,
+      brand: p.brand?.name || null,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      categorySlug: slug,
+    }));
   } catch (error) {
     logger.error("kategorie-products", error);
   }
@@ -150,7 +141,11 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
       where: { products: { some: { category: { slug } } } },
       orderBy: { name: "asc" },
     });
-    brands = brandData;
+    brands = brandData.map((b) => ({
+      name: b.name,
+      slug: b.slug,
+      count: b._count.products,
+    }));
   } catch (error) {
     logger.error("kategorie-brands", error);
   }
@@ -162,35 +157,12 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
       _count: true,
       orderBy: { _count: { subCategory: "desc" } },
     });
-    subCategories = subData;
+    subCategories = subData
+      .filter((s) => s.subCategory)
+      .map((s) => ({ name: s.subCategory!, count: s._count }));
   } catch (error) {
     logger.error("kategorie-subs", error);
   }
-
-  const formattedProducts = products.map((p) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    price: Number(p.price),
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    rating: Number(p.rating),
-    reviewCount: p.reviewCount,
-    isNew: p.isNew,
-    isPromo: p.isPromo,
-    brand: p.brand?.name || null,
-    image: p.images[0]?.url || "/images/placeholder-product.svg",
-    categorySlug: slug,
-  }));
-
-  const formattedBrands = brands.map((b) => ({
-    name: b.name,
-    slug: b.slug,
-    count: b._count.products,
-  }));
-
-  const formattedSubs = subCategories
-    .filter((s) => s.subCategory)
-    .map((s) => ({ name: s.subCategory!, count: s._count }));
 
   const breadcrumbItems = [
     { name: "Startseite", url: "/" },
@@ -233,10 +205,10 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           page={page}
           sort={sort}
           brand={brand}
-          products={formattedProducts}
+          products={products}
           total={total}
-          brands={formattedBrands}
-          subCategories={formattedSubs}
+          brands={brands}
+          subCategories={subCategories}
         />
       </main>
     </>

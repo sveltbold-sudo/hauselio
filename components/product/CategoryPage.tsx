@@ -60,21 +60,6 @@ export default function CategoryPage({
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
-  const formattedProducts = products.map((product) => ({
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-    price: product.price,
-    originalPrice: product.originalPrice,
-    image: product.images[0]?.url || "/images/placeholder-product.svg",
-    rating: product.rating,
-    reviewCount: product.reviewCount,
-    isNew: product.isNew,
-    isPromo: product.isPromo,
-    brand: product.brand?.name || null,
-    categorySlug: slug,
-  }));
-
   function pageUrl(p: number) {
     const params = new URLSearchParams();
     params.set("page", String(p));
@@ -140,7 +125,7 @@ export default function CategoryPage({
         </div>
       </Suspense>
 
-      {formattedProducts.length === 0 ? (
+      {products.length === 0 ? (
         <div className="text-center py-20">
             <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
             <PackageOpen className="w-10 h-10 text-[var(--color-border)]" />
@@ -162,7 +147,7 @@ export default function CategoryPage({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {formattedProducts.map((product, i) => (
+            {products.map((product, i) => (
               <div
                 key={product.id}
                 className="animate-fade-in-up"
@@ -176,9 +161,9 @@ export default function CategoryPage({
           {totalPages > 1 && (
             <div className="mt-10 flex justify-center">
               <nav className="flex items-center gap-1.5 flex-wrap justify-center" aria-label="Seitennavigation">
-                {currentPage > 1 && (
+                {page > 1 && (
                   <Link
-                    href={pageUrl(currentPage - 1)}
+                    href={pageUrl(page - 1)}
                     className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Vorherige Seite"
                   >
@@ -190,21 +175,21 @@ export default function CategoryPage({
                   let pageNum: number;
                   if (totalPages <= 7) {
                     pageNum = i + 1;
-                  } else if (currentPage <= 4) {
+                  } else if (page <= 4) {
                     pageNum = i + 1;
-                  } else if (currentPage >= totalPages - 3) {
+                  } else if (page >= totalPages - 3) {
                     pageNum = totalPages - 6 + i;
                   } else {
-                    pageNum = currentPage - 3 + i;
+                    pageNum = page - 3 + i;
                   }
                   return pageNum;
                 }).map((p) => (
                   <Link
                     key={p}
                     href={pageUrl(p)}
-                    aria-current={p === currentPage ? "page" : undefined}
+                    aria-current={p === page ? "page" : undefined}
                     className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
-                      p === currentPage
+                      p === page
                         ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
                         : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
                     }`}
@@ -212,9 +197,9 @@ export default function CategoryPage({
                     {p}
                   </Link>
                 ))}
-                {currentPage < totalPages && (
+                {page < totalPages && (
                   <Link
-                    href={pageUrl(currentPage + 1)}
+                    href={pageUrl(page + 1)}
                     className="px-4 py-2.5 text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
                     aria-label="Nächste Seite"
                   >
