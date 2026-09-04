@@ -119,40 +119,52 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   let subCategories: { subCategory: string | null; _count: number }[] = [];
 
   try {
-    const [raw, count, brandData, subData] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        include: {
-          brand: { select: { name: true } },
-          images: { take: 1, orderBy: { position: "asc" } },
-        },
-        orderBy,
-        skip,
-        take: PAGE_SIZE,
-      }),
-      prisma.product.count({ where }),
-      prisma.brand.findMany({
-        select: {
-          name: true,
-          slug: true,
-          _count: { select: { products: { where: { category: { slug } } } } },
-        },
-        where: { products: { some: { category: { slug } } } },
-        orderBy: { name: "asc" },
-      }),
-      prisma.product.groupBy({
-        by: ["subCategory"],
-        where: { category: { slug }, subCategory: { not: null } },
-        _count: true,
-        orderBy: { _count: { subCategory: "desc" } },
-      }),
-    ]);
-    total = count;
+    const raw = await prisma.product.findMany({
+      where,
+      include: {
+        brand: { select: { name: true } },
+        images: { take: 1, orderBy: { position: "asc" } },
+      },
+      orderBy,
+      skip,
+      take: PAGE_SIZE,
+    });
     products = raw;
+  } catch (error) {
+    logger.error("kategorie-products", error);
+  }
+
+  try {
+    total = await prisma.product.count({ where });
+  } catch (error) {
+    logger.error("kategorie-count", error);
+  }
+
+  try {
+    const brandData = await prisma.brand.findMany({
+      select: {
+        name: true,
+        slug: true,
+        _count: { select: { products: { where: { category: { slug } } } } },
+      },
+      where: { products: { some: { category: { slug } } } },
+      orderBy: { name: "asc" },
+    });
     brands = brandData;
+  } catch (error) {
+    logger.error("kategorie-brands", error);
+  }
+
+  try {
+    const subData = await prisma.product.groupBy({
+      by: ["subCategory"],
+      where: { category: { slug }, subCategory: { not: null } },
+      _count: true,
+      orderBy: { _count: { subCategory: "desc" } },
+    });
     subCategories = subData;
   } catch (error) {
-    logger.error("kategorie-slug-products", error);
+    logger.error("kategorie-subs", error);
   }
 
   const formattedProducts = products.map((p) => ({
