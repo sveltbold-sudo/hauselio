@@ -1,4 +1,4 @@
-﻿import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 import { UnauthorizedError } from "@/lib/errors";
 
@@ -153,7 +153,7 @@ describe("GET /api/products", () => {
       {
         id: "1", name: "Test Product", slug: "test-product", price: 99.99,
         originalPrice: null, rating: 0, reviewCount: 0, isNew: false,
-        isPromo: false, inStock: true, brand: null,
+        isPromo: false, brand: null,
         category: { name: "Test", slug: "test" },
         images: [{ url: "https://example.com/img.jpg" }],
       },
@@ -223,7 +223,7 @@ describe("GET /api/categories", () => {
 
   it("returns categories with product counts", async () => {
     const mockCategories = [
-      { id: "1", name: "Küche", slug: "kueche", description: null, image: null, _count: { products: 5 } },
+      { id: "1", name: "K�che", slug: "kueche", description: null, image: null, _count: { products: 5 } },
     ];
     mockPrisma.category.findMany.mockResolvedValue(mockCategories as never[]);
 
@@ -427,7 +427,7 @@ describe("POST /api/bestellungen", () => {
         email: "test@example.com",
         firstName: "Max",
         lastName: "Mustermann",
-        address: "Musterstraße 1",
+        address: "Musterstra�e 1",
         city: "Berlin",
         zip: "10115",
         country: "DE",
@@ -513,6 +513,6 @@ describe("GET /api/newsletter/unsubscribe", () => {
     const html = await res.text();
 
     expect(res.status).toBe(200);
-    expect(html).toContain("Ungültiger Link");
+    expect(html).toContain("Ung�ltiger Link");
   });
 });

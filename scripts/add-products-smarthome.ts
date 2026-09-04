@@ -10,7 +10,6 @@ interface ProductData {
   price: number;
   originalPrice?: number;
   sku: string;
-  inStock: boolean;
   isFeatured?: boolean;
   isNew?: boolean;
   isPromo?: boolean;
@@ -32,7 +31,7 @@ const products: ProductData[] = [
     slug: "tado-smart-thermostat-v3plus-neu",
     description: "Das tado° Smart Thermostat V3+ Starter Kit - intelligente Heizungssteuerung.",
     shortDesc: "Intelligente Heizungssteuerung mit bis zu 30% Ersparnis",
-    price: 149.0, originalPrice: 199.0, sku: "TADO-V3PLUS-SK-NEU", inStock: true, isFeatured: true, isPromo: true,
+    price: 149.0, originalPrice: 199.0, sku: "TADO-V3PLUS-SK-NEU", isFeatured: true, isPromo: true,
     rating: 4.6, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "tado",
     features: ["Geofencing", "Energiebericht", "Sprachsteuerung", "Multi-Zone"],
     tags: ["bestseller", "smart-home", "energieeffizient"],
@@ -45,7 +44,7 @@ const products: ProductData[] = [
     slug: "tado-smart-thermostat-v3plus-extension",
     description: "Das tado° Smart Thermostat V3+ Erweiterung - für weitere Heizungen.",
     shortDesc: "Erweiterung für weitere Heizungen",
-    price: 69.0, sku: "TADO-V3PLUS-EXT", inStock: true,
+    price: 69.0, sku: "TADO-V3PLUS-EXT",
     rating: 4.5, reviewCount: 567, categorySlug: "smart-home", brandSlug: "tado",
     features: ["Geofencing", "Energiebericht", "Sprachsteuerung"],
     specs: [
@@ -57,7 +56,7 @@ const products: ProductData[] = [
     slug: "tado-smart-ac-control-v3plus-neu",
     description: "Das tado° Smart AC Control V3+ - intelligente Steuerung für Klimaanlagen.",
     shortDesc: "Smart AC Controller für Klimaanlagen",
-    price: 99.0, sku: "TADO-ACV3-NEU", inStock: true,
+    price: 99.0, sku: "TADO-ACV3-NEU",
     rating: 4.5, reviewCount: 567, categorySlug: "smart-home", brandSlug: "tado",
     features: ["IR-Fernbedienung", "Sprachsteuerung", "Off-Away"],
     specs: [
@@ -69,7 +68,7 @@ const products: ProductData[] = [
     slug: "philips-hue-starter-kit-e27-neu",
     description: "Das Philips Hue Starter Kit mit Bridge und 3 E27 White & Color Ambiance.",
     shortDesc: "Starter Kit mit Bridge & 3 Farb-LEDs",
-    price: 149.0, originalPrice: 179.0, sku: "PH-HUE-SK-E27-NEU", inStock: true,
+    price: 149.0, originalPrice: 179.0, sku: "PH-HUE-SK-E27-NEU",
     rating: 4.7, reviewCount: 2345, categorySlug: "smart-home", brandSlug: "philips",
     features: ["16 Millionen Farben", "Bridge inklusive", "Sprachsteuerung"],
     tags: ["bestseller"],
@@ -82,7 +81,7 @@ const products: ProductData[] = [
     slug: "philips-hue-starter-kit-e14",
     description: "Das Philips Hue Starter Kit mit Bridge und 3 E14 White & Color Ambiance.",
     shortDesc: "Starter Kit mit Bridge & 3 E14 Farb-LEDs",
-    price: 149.0, sku: "PH-HUE-SK-E14", inStock: true,
+    price: 149.0, sku: "PH-HUE-SK-E14",
     rating: 4.6, reviewCount: 892, categorySlug: "smart-home", brandSlug: "philips",
     features: ["16 Millionen Farben", "Bridge inklusive", "E14 Fassung"],
     specs: [
@@ -94,7 +93,7 @@ const products: ProductData[] = [
     slug: "philips-hue-lightstrip-plus-2m",
     description: "Das Philips Hue Lightstrip Plus - 2m LED-Streifen mit 16 Millionen Farben.",
     shortDesc: "LED-Streifen mit 16M Farben",
-    price: 79.0, sku: "PH-HUE-LSP", inStock: true,
+    price: 79.0, sku: "PH-HUE-LSP",
     rating: 4.6, reviewCount: 567, categorySlug: "smart-home", brandSlug: "philips",
     features: ["16 Millionen Farben", "2m Länge", "Schneidbar"],
     specs: [
@@ -106,7 +105,7 @@ const products: ProductData[] = [
     slug: "philips-hue-white-ambiance-e27",
     description: "Das Philips Hue White Ambiance E27 - weißes Licht mit variabler Farbtemperatur.",
     shortDesc: "Weißes Licht mit variabler Farbtemperatur",
-    price: 59.0, sku: "PH-HUE-WAE27", inStock: true,
+    price: 59.0, sku: "PH-HUE-WAE27",
     rating: 4.5, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "philips",
     features: ["2200-6500K", "Dimmbar", "Sprachsteuerung"],
     specs: [
@@ -118,7 +117,7 @@ const products: ProductData[] = [
     slug: "nanoleaf-shapes-triangles",
     description: "Die Nanoleaf Shapes Triangles - modulare LED-Panele im Dreiecksdesign.",
     shortDesc: "Modulare LED-Panele im Dreiecksdesign",
-    price: 199.0, sku: "NANO-SH-TRI", inStock: true,
+    price: 199.0, sku: "NANO-SH-TRI",
     rating: 4.5, reviewCount: 234, categorySlug: "smart-home", brandSlug: "nanoleaf",
     features: ["Touch-Reaktiv", "Musik-Sync", "16M Farben", "HomeKit & Matter"],
     specs: [
@@ -130,7 +129,7 @@ const products: ProductData[] = [
     slug: "nanoleaf-elements-hexagons",
     description: "Die Nanoleaf Elements - Holzoptik LED-Panele für natürliche Beleuchtung.",
     shortDesc: "Holzoptik LED-Panele",
-    price: 249.0, sku: "NANO-ELEM-HEX", inStock: true, isNew: true,
+    price: 249.0, sku: "NANO-ELEM-HEX", isNew: true,
     rating: 4.6, reviewCount: 123, categorySlug: "smart-home", brandSlug: "nanoleaf",
     features: ["Holzoptik", "Dimmbar", "Music Sync", "HomeKit"],
     tags: ["premium"],
@@ -143,7 +142,7 @@ const products: ProductData[] = [
     slug: "ring-video-doorbell-4-neu",
     description: "Die Ring Video Doorbell 4 - smartes Türklingelsystem mit Video.",
     shortDesc: "Smartes Türklingelsystem mit Video",
-    price: 199.0, sku: "RING-VDB4-NEU", inStock: true,
+    price: 199.0, sku: "RING-VDB4-NEU",
     rating: 4.5, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "ring",
     features: ["1080p HD Video", "Farbvideo bei Nacht", "Bewegungserkennung"],
     specs: [
@@ -155,7 +154,7 @@ const products: ProductData[] = [
     slug: "ring-spotlight-cam-pro",
     description: "Die Ring Spotlight Cam Pro - Überwachungskamera mit Spotlight und Sirene.",
     shortDesc: "Überwachungskamera mit Spotlight",
-    price: 249.0, sku: "RING-SCPRO", inStock: true,
+    price: 249.0, sku: "RING-SCPRO",
     rating: 4.6, reviewCount: 567, categorySlug: "smart-home", brandSlug: "ring",
     features: ["1080p HDR", "3D-Bewegungserkennung", "Spotlight & Sirene"],
     specs: [
@@ -167,7 +166,7 @@ const products: ProductData[] = [
     slug: "ring-indoor-cam-gen2",
     description: "Die Ring Indoor Cam Gen 2 - Innenkamera mit 1080p HD.",
     shortDesc: "Innenkamera mit 1080p HD",
-    price: 79.0, sku: "RING-ICAM2", inStock: true,
+    price: 79.0, sku: "RING-ICAM2",
     rating: 4.4, reviewCount: 892, categorySlug: "smart-home", brandSlug: "ring",
     features: ["1080p HD", "2-Way Audio", "Bewegungserkennung"],
     specs: [
@@ -179,7 +178,7 @@ const products: ProductData[] = [
     slug: "netatmo-wetterstation",
     description: "Die Netatmo Wetterstation - smarte Wetterstation für Innen und Außen.",
     shortDesc: "Smarte Wetterstation für Innen/Außen",
-    price: 149.0, sku: "NATMO-WS", inStock: true,
+    price: 149.0, sku: "NATMO-WS",
     rating: 4.5, reviewCount: 345, categorySlug: "smart-home", brandSlug: "netatmo",
     features: ["Innen & Außen", "Luftqualität", "App-Steuerung"],
     specs: [
@@ -191,7 +190,7 @@ const products: ProductData[] = [
     slug: "netatmo-smart-thermostat",
     description: "Das Netatmo Smart Thermostat - intelligente Heizungssteuerung.",
     shortDesc: "Intelligente Heizungssteuerung",
-    price: 179.0, sku: "NATMO-THR", inStock: true,
+    price: 179.0, sku: "NATMO-THR",
     rating: 4.5, reviewCount: 456, categorySlug: "smart-home", brandSlug: "netatmo",
     features: ["Modulation", "Energiemonitor", "HomeKit & Alexa"],
     specs: [
@@ -203,7 +202,7 @@ const products: ProductData[] = [
     slug: "ikea-tradfri-starter-kit-e27",
     description: "Das IKEA TRÅDFRI Starter Kit mit Bridge und 2 E27 LED-Leuchtmitteln.",
     shortDesc: "Starter Kit mit Bridge & 2 E27 LEDs",
-    price: 49.0, sku: "IKEA-TRADFRI-E27", inStock: true,
+    price: 49.0, sku: "IKEA-TRADFRI-E27",
     rating: 4.4, reviewCount: 1234, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Dimmbar", "Farbtemperatur wählbar", "Bridge inklusive"],
     specs: [
@@ -215,7 +214,7 @@ const products: ProductData[] = [
     slug: "ikea-dirigera-hub",
     description: "Die IKEA DIRIGERA Hub - smarte Zentrale für IKEA Smart Home.",
     shortDesc: "Smarte Zentrale für IKEA Smart Home",
-    price: 59.0, sku: "IKEA-DIRIGERA", inStock: true,
+    price: 59.0, sku: "IKEA-DIRIGERA",
     rating: 4.5, reviewCount: 345, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Matter", "Thread", "Zigbee", "WLAN"],
     specs: [
@@ -227,7 +226,7 @@ const products: ProductData[] = [
     slug: "ikea-praktlysing-smart-blind",
     description: "Das IKEA PRAKTLYSING Smart Blind - elektrischer Jalousie-Antrieb.",
     shortDesc: "Elektrischer Jalousie-Antrieb",
-    price: 99.0, sku: "IKEA-PRAKT", inStock: true,
+    price: 99.0, sku: "IKEA-PRAKT",
     rating: 4.4, reviewCount: 234, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Fernbedienung", "WLAN", "Timer"],
     specs: [
@@ -239,7 +238,7 @@ const products: ProductData[] = [
     slug: "ring-alarm-security-kit-5",
     description: "Das Ring Alarm Security Kit - 5-teiliges Sicherheitssystem.",
     shortDesc: "5-teiliges Sicherheitssystem",
-    price: 249.0, sku: "RING-ALARM5", inStock: true, isFeatured: true,
+    price: 249.0, sku: "RING-ALARM5", isFeatured: true,
     rating: 4.6, reviewCount: 567, categorySlug: "smart-home", brandSlug: "ring",
     features: ["Base Station", "Keypad", "1x Contact Sensor", "1x Motion Detector"],
     tags: ["bestseller"],
@@ -252,7 +251,7 @@ const products: ProductData[] = [
     slug: "netatmo-smart-video-doorbell",
     description: "Die Netatmo Smart Video Doorbell - smartes Türklingelsystem mit Video.",
     shortDesc: "Smartes Türklingelsystem mit Video",
-    price: 199.0, sku: "NATMO-VDB", inStock: true,
+    price: 199.0, sku: "NATMO-VDB",
     rating: 4.5, reviewCount: 345, categorySlug: "smart-home", brandSlug: "netatmo",
     features: ["1080p HD", "HomeKit", "Lokaler Speicher"],
     specs: [
@@ -264,7 +263,7 @@ const products: ProductData[] = [
     slug: "nanoleaf-shapes-squares",
     description: "Die Nanoleaf Shapes Squares - modulare LED-Panele im Quadratdesign.",
     shortDesc: "Modulare LED-Panele im Quadratdesign",
-    price: 199.0, sku: "NANO-SH-SQ", inStock: true,
+    price: 199.0, sku: "NANO-SH-SQ",
     rating: 4.5, reviewCount: 189, categorySlug: "smart-home", brandSlug: "nanoleaf",
     features: ["Touch-Reaktiv", "Musik-Sync", "16M Farben", "HomeKit & Matter"],
     specs: [
@@ -276,7 +275,7 @@ const products: ProductData[] = [
     slug: "philips-hue-gradient-lightstrip-2m",
     description: "Das Philips Hue Gradient Lightstrip - 2m mit mehreren Farben gleichzeitig.",
     shortDesc: "Gradient LED-Streifen mit mehreren Farben",
-    price: 169.0, sku: "PH-HUE-GLS2M", inStock: true, isNew: true,
+    price: 169.0, sku: "PH-HUE-GLS2M", isNew: true,
     rating: 4.7, reviewCount: 234, categorySlug: "smart-home", brandSlug: "philips",
     features: ["Gradient-Technologie", "Mehrere Farben gleichzeitig", "2m"],
     tags: ["premium"],
@@ -289,7 +288,7 @@ const products: ProductData[] = [
     slug: "ikea-symfonisk-table-speaker",
     description: "Der IKEA SYMFONISK Table Speaker - WLAN-Lautsprecher von IKEA & Sonos.",
     shortDesc: "WLAN-Lautsprecher von IKEA & Sonos",
-    price: 129.0, sku: "IKEA-SYMFON", inStock: true,
+    price: 129.0, sku: "IKEA-SYMFON",
     rating: 4.4, reviewCount: 456, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Sonos", "WLAN", "AirPlay 2", "Regalbrett-Integration"],
     specs: [
@@ -301,7 +300,7 @@ const products: ProductData[] = [
     slug: "philips-hue-play-gradient-lightstrip-55",
     description: "Das Philips Hue Play Gradient Lightstrip für 55\" TVs.",
     shortDesc: "Gradient Lightstrip für 55\" TVs",
-    price: 229.0, sku: "PH-HUE-PG55", inStock: true,
+    price: 229.0, sku: "PH-HUE-PG55",
     rating: 4.7, reviewCount: 123, categorySlug: "smart-home", brandSlug: "philips",
     features: ["Gradient-Technologie", "Für 55\" TVs", "Hue Sync"],
     tags: ["premium"],
@@ -314,7 +313,7 @@ const products: ProductData[] = [
     slug: "tado-smart-radiator-starter-kit",
     description: "Das tado° Smart Radiator Thermostat Starter Kit - für Heizkörper.",
     shortDesc: "Smartes Heizkörper-Thermostat Starter Kit",
-    price: 179.0, sku: "TADO-SRT-SK", inStock: true,
+    price: 179.0, sku: "TADO-SRT-SK",
     rating: 4.5, reviewCount: 345, categorySlug: "smart-home", brandSlug: "tado",
     features: ["Multi-Zone", "Geofencing", "Sprachsteuerung"],
     specs: [
@@ -326,7 +325,7 @@ const products: ProductData[] = [
     slug: "ring-floodlight-cam-wired-pro",
     description: "Die Ring Floodlight Cam Wired Pro - Außenkamera mit LED-Flutlicht.",
     shortDesc: "Außenkamera mit LED-Flutlicht",
-    price: 299.0, sku: "RING-FCWP", inStock: true,
+    price: 299.0, sku: "RING-FCWP",
     rating: 4.6, reviewCount: 234, categorySlug: "smart-home", brandSlug: "ring",
     features: ["1080p HDR", "3D-Bewegungserkennung", "LED-Flutlicht", "Sirene"],
     specs: [
@@ -338,7 +337,7 @@ const products: ProductData[] = [
     slug: "ikea-parasoll-door-window-sensor",
     description: "Das IKEA PARASOLL Door/Window Sensor - Tür-/Fenster-Sensor.",
     shortDesc: "Tür-/Fenster-Sensor",
-    price: 12.0, sku: "IKEA-PARASOLL", inStock: true,
+    price: 12.0, sku: "IKEA-PARASOLL",
     rating: 4.3, reviewCount: 892, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Zigbee", "DIRIGERA kompatibel", "Batteriebetrieben"],
     specs: [
@@ -350,7 +349,7 @@ const products: ProductData[] = [
     slug: "ikea-vallhorn-motion-sensor",
     description: "Das IKEA VALLHORN Wireless Motion Sensor - Bewegungsmelder.",
     shortDesc: "Bewegungsmelder",
-    price: 14.0, sku: "IKEA-VALLHORN", inStock: true,
+    price: 14.0, sku: "IKEA-VALLHORN",
     rating: 4.2, reviewCount: 678, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["Zigbee", "DIRIGERA kompatibel", "Batteriebetrieben"],
     specs: [
@@ -362,7 +361,7 @@ const products: ProductData[] = [
     slug: "philips-hue-secure-camera",
     description: "Die Philips Hue Secure Camera - smarte Überwachungskamera.",
     shortDesc: "Smarte Überwachungskamera",
-    price: 199.0, sku: "PH-HUE-SECAM", inStock: true, isNew: true,
+    price: 199.0, sku: "PH-HUE-SECAM", isNew: true,
     rating: 4.6, reviewCount: 123, categorySlug: "smart-home", brandSlug: "philips",
     features: ["1080p HD", "Personenerkennung", "Night Vision"],
     tags: ["premium"],
@@ -375,7 +374,7 @@ const products: ProductData[] = [
     slug: "ikea-starkvind-air-purifier",
     description: "Das IKEA STARKVIND Air Purifier - smarter Luftreiniger.",
     shortDesc: "Smarter Luftreiniger von IKEA",
-    price: 59.0, sku: "IKEA-STARKVIND", inStock: true,
+    price: 59.0, sku: "IKEA-STARKVIND",
     rating: 4.3, reviewCount: 345, categorySlug: "smart-home", brandSlug: "ikea",
     features: ["HEPA-Filter", "Zigbee", "DIRIGERA kompatibel"],
     specs: [
@@ -387,7 +386,7 @@ const products: ProductData[] = [
     slug: "nanoleaf-essential-a19-bulb",
     description: "Die Nanoleaf Essential A19 Bulb - smarte LED-Lampe mit Matter.",
     shortDesc: "Smarte LED-Lampe mit Matter",
-    price: 29.0, sku: "NANO-ES-A19", inStock: true,
+    price: 29.0, sku: "NANO-ES-A19",
     rating: 4.4, reviewCount: 456, categorySlug: "smart-home", brandSlug: "nanoleaf",
     features: ["Matter", "Thread", "16M Farben", "Dimmbar"],
     specs: [
@@ -399,7 +398,7 @@ const products: ProductData[] = [
     slug: "ring-alarm-flood-freeze-sensor",
     description: "Der Ring Alarm Flood & Freeze Sensor - Wasser- und Frostsensor.",
     shortDesc: "Wasser- und Frostsensor",
-    price: 39.0, sku: "RING-AFFS", inStock: true,
+    price: 39.0, sku: "RING-AFFS",
     rating: 4.5, reviewCount: 234, categorySlug: "smart-home", brandSlug: "ring",
     features: ["Wassererkennung", "Frostschutz", "Alarm-Integration"],
     specs: [
@@ -411,7 +410,7 @@ const products: ProductData[] = [
     slug: "tado-smart-thermostat-v3plus-single",
     description: "Das tado° Smart Thermostat V3+ Einzelgerät.",
     shortDesc: "Smartes Thermostat Einzelgerät",
-    price: 79.0, sku: "TADO-V3PLUS-SGL", inStock: true,
+    price: 79.0, sku: "TADO-V3PLUS-SGL",
     rating: 4.5, reviewCount: 456, categorySlug: "smart-home", brandSlug: "tado",
     features: ["Geofencing", "Sprachsteuerung", "Multi-Zone"],
     specs: [
@@ -423,7 +422,7 @@ const products: ProductData[] = [
     slug: "philips-hue-secure-doorbell-camera",
     description: "Die Philips Hue Secure Doorbell Camera - smartes Türklingelsystem.",
     shortDesc: "Smartes Türklingelsystem mit Kamera",
-    price: 229.0, sku: "PH-HUE-DBC", inStock: true, isNew: true,
+    price: 229.0, sku: "PH-HUE-DBC", isNew: true,
     rating: 4.7, reviewCount: 89, categorySlug: "smart-home", brandSlug: "philips",
     features: ["1080p HD", "Personenerkennung", "Two-Way Audio"],
     tags: ["premium"],

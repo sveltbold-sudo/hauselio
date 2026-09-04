@@ -154,9 +154,6 @@ async function main() {
     if (p.stockQuantity !== null && p.stockQuantity !== undefined && p.stockQuantity < 0) {
       issues.push({ slug: p.slug, name: p.name, severity: "HIGH", category: "Stock", message: `stockQuantity négatif: ${p.stockQuantity}` });
     }
-    if (p.inStock === false && p.stockQuantity !== null && p.stockQuantity !== undefined && p.stockQuantity > 0) {
-      issues.push({ slug: p.slug, name: p.name, severity: "MEDIUM", category: "Stock", message: `inStock=false mais stockQuantity=${p.stockQuantity}` });
-    }
 
     // === POIDS ===
     if (!p.weight) {
@@ -202,8 +199,8 @@ async function main() {
     }
 
     // === HOMEPAGE DISPLAY ===
-    if (p.isFeatured && !p.inStock) {
-      issues.push({ slug: p.slug, name: p.name, severity: "MEDIUM", category: "Homepage", message: "Featured mais pas en stock" });
+    if (p.isFeatured && p.stockQuantity !== null && p.stockQuantity !== undefined && p.stockQuantity <= 0) {
+      issues.push({ slug: p.slug, name: p.name, severity: "MEDIUM", category: "Homepage", message: "Featured mais stock épuisé" });
     }
     if (p.isNew && p.isPromo) {
       // This is fine, just noting

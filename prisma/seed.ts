@@ -90,6 +90,7 @@ interface ProductData {
   isFeatured?: boolean;
   isNew?: boolean;
   isPromo?: boolean;
+  isDailyDeal?: boolean;
   rating: number;
   reviewCount: number;
   categorySlug: string;
@@ -106,7 +107,7 @@ const products: ProductData[] = [
   {
     name: "Thermomix TM7", slug: "thermomix-tm7",
     description: "Der neue Thermomix TM7 - noch leistungsstärker, vielseitiger und benutzerfreundlicher. Über 80 Kochfunktionen in einem Gerät.", shortDesc: "Das ultimative Küchengerät mit 80+ Funktionen",
-    price: 1295.19, originalPrice: 1599, sku: "TM7-2026", isFeatured: true, isNew: true,
+    price: 1295.19, originalPrice: 1599, sku: "TM7-2026", isFeatured: true, isNew: true, isDailyDeal: true,
     rating: 4.9, reviewCount: 127, categorySlug: "kueche", brandSlug: "thermomix", weight: 7.95, tags: ["bestseller"],
     specs: [
       { key: "Leistung", value: "1800 W" },

@@ -53,7 +53,6 @@ describe("POST /api/cart/validate", () => {
         slug: "test-product",
         price: 29.99,
         originalPrice: null,
-        inStock: true,
         images: [{ url: "/images/test.jpg" }],
       },
     ]);
@@ -87,7 +86,6 @@ describe("POST /api/cart/validate", () => {
         slug: "product",
         price: 39.99,
         originalPrice: null,
-        inStock: true,
         images: [],
       },
     ]);

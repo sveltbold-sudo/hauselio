@@ -16,7 +16,6 @@ interface ProductRecord {
   isNew: boolean;
   isPromo: boolean;
   description: string;
-  inStock: boolean;
 }
 
 function validateProductRecord(record: ProductRecord): string[] {
@@ -49,7 +48,6 @@ describe("Product Record Validation", () => {
     isNew: false,
     isPromo: true,
     description: "Premium Kaffeevollautomat",
-    inStock: true,
   };
 
   it("validates a correct record", () => {

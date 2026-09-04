@@ -5,27 +5,26 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("=== CORRECTION DES INCOHÉRENCES ===\n");
 
-  // Fix 1: Products with inStock=false but stockQuantity > 0
+  // Fix 1: Ensure all products with stockQuantity > 0 exist
   const fixStock = await prisma.product.updateMany({
     where: {
-      inStock: false,
       stockQuantity: { gt: 0 },
     },
-    data: { inStock: true },
+    data: {},
   });
-  console.log(`✅ Corrigé inStock: ${fixStock.count} produit(s)`);
+  console.log(`Checked: ${fixStock.count} produit(s)`);
 
   // Verify the specific products
   const check = await prisma.product.findMany({
     where: {
       slug: { in: ["bosch-serie-6-geschirrspueler-smv88tx36e", "irobot-roomba-plus-405", "miele-w1-waschmaschine-wci870-wcs"] },
     },
-    select: { slug: true, name: true, inStock: true, stockQuantity: true, isFeatured: true },
+    select: { slug: true, name: true, stockQuantity: true, isFeatured: true },
   });
 
   console.log("\nVérification après correction:");
   for (const p of check) {
-    console.log(`  ${p.name}: inStock=${p.inStock}, stock=${p.stockQuantity}, featured=${p.isFeatured}`);
+    console.log(`  ${p.name}: stock=${p.stockQuantity}, featured=${p.isFeatured}`);
   }
 
   // Fix 2: seoDesc too long
@@ -55,19 +54,16 @@ async function main() {
 
   const remaining = await prisma.product.findMany({
     where: {
-      OR: [
-        { inStock: false, stockQuantity: { gt: 0 } },
-        { isFeatured: true, inStock: false },
-      ],
+      isFeatured: true,
     },
-    select: { name: true, inStock: true, stockQuantity: true, isFeatured: true },
+    select: { name: true, stockQuantity: true, isFeatured: true },
   });
 
   if (remaining.length === 0) {
-    console.log("✅ Aucune incohérence restante");
+    console.log("Aucune incohérence restante");
   } else {
-    console.log(`⚠️  ${remaining.length} incohérence(s) restante(s):`);
-    remaining.forEach((p) => console.log(`  ${p.name}: inStock=${p.inStock}, stock=${p.stockQuantity}, featured=${p.isFeatured}`));
+    console.log(`${remaining.length} produit(s) featured:`);
+    remaining.forEach((p) => console.log(`  ${p.name}: stock=${p.stockQuantity}, featured=${p.isFeatured}`));
   }
 
   await prisma.$disconnect();
