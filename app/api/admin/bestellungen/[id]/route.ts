@@ -104,9 +104,32 @@ export async function PUT(
         paymentStatus: paymentStatusUpdate,
         trackingNumber: trackingNumber || null,
       },
-      include: {
+      select: {
+        id: true,
+        orderNumber: true,
+        invoiceNumber: true,
+        status: true,
+        paymentStatus: true,
+        customerEmail: true,
+        customerFirstName: true,
+        customerLastName: true,
+        customerAddress: true,
+        customerCity: true,
+        customerZip: true,
+        customerCountry: true,
+        subtotal: true,
+        total: true,
+        shippingCost: true,
+        couponDiscount: true,
+        trackingNumber: true,
+        paidAt: true,
+        updatedAt: true,
         items: {
-          include: { product: true },
+          select: {
+            quantity: true,
+            price: true,
+            product: { select: { name: true } },
+          },
         },
       },
     });
@@ -132,13 +155,28 @@ export async function PUT(
       };
 
       if (status === "PAYMENT_CONFIRMED") {
-        // Generate sequential invoice number
-        const invoiceNumber = await generateInvoiceNumber();
+        // Generate sequential invoice number with retry on collision
+        let invoiceNumber: string | null = null;
         const paidAt = new Date();
-        await prisma.order.update({
-          where: { id },
-          data: { invoiceNumber, paidAt },
-        });
+        const MAX_INVOICE_RETRIES = 5;
+        for (let i = 0; i < MAX_INVOICE_RETRIES; i++) {
+          try {
+            invoiceNumber = await generateInvoiceNumber();
+            await prisma.order.update({
+              where: { id },
+              data: { invoiceNumber, paidAt },
+            });
+            break;
+          } catch (err: unknown) {
+            if (err instanceof Error && 'code' in err && err.code === "P2002" && i < MAX_INVOICE_RETRIES - 1) {
+              continue;
+            }
+            throw err;
+          }
+        }
+        if (!invoiceNumber) {
+          return NextResponse.json({ error: "Rechnungsnummer konnte nicht erstellt werden" }, { status: 500 });
+        }
 
         // Fetch settings for invoice data
         const settings = await prisma.siteSettings.findFirst();

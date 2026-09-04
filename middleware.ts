@@ -117,7 +117,7 @@ export async function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
 
-  if (isAdminApiRoute && request.method === "GET") {
+  if (isAdminApiRoute) {
     response.headers.set("Cache-Control", "private, no-store, no-cache, must-revalidate");
   }
 

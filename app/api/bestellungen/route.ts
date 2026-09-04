@@ -102,19 +102,18 @@ export async function POST(request: NextRequest) {
       try {
         const orderNumber = generateOrderNumber();
 
-        // Validate coupon availability (without interactive transaction — PgBouncer compatible)
+        // Validate & increment coupon atomically (PgBouncer-compatible, no interactive transaction)
         if (couponRecord) {
-          const coupon = await prisma.coupon.findUnique({
-            where: { code: couponRecord.code },
-            select: { maxUses: true, usedCount: true, isActive: true, expiresAt: true },
-          });
-          if (!coupon || !coupon.isActive || (coupon.expiresAt != null && coupon.expiresAt <= new Date()) || (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses)) {
+          const affected = await prisma.$executeRaw`
+            UPDATE "Coupon" SET "usedCount" = "usedCount" + 1
+            WHERE "code" = ${couponRecord.code}
+            AND "isActive" = true
+            AND ("expiresAt" IS NULL OR "expiresAt" > NOW())
+            AND ("maxUses" = 0 OR "usedCount" < "maxUses")
+          `;
+          if (affected === 0) {
             throw new ValidationError("Gutscheincode wurde bereits maximal oft verwendet");
           }
-          await prisma.coupon.update({
-            where: { code: couponRecord.code },
-            data: { usedCount: { increment: 1 } },
-          });
         }
 
         order = await prisma.order.create({
@@ -138,8 +137,18 @@ export async function POST(request: NextRequest) {
               create: validatedItems,
             },
           },
-          include: {
-            items: true,
+          select: {
+            id: true,
+            orderNumber: true,
+            total: true,
+            items: {
+              select: {
+                id: true,
+                productId: true,
+                quantity: true,
+                price: true,
+              },
+            },
           },
         });
         break;
@@ -258,9 +267,22 @@ export async function GET(request: NextRequest) {
         orderNumber,
         customerEmail: { equals: email, mode: "insensitive" },
       },
-      include: {
+      select: {
+        id: true,
+        orderNumber: true,
+        total: true,
+        subtotal: true,
+        couponDiscount: true,
+        shippingCost: true,
+        status: true,
+        createdAt: true,
         items: {
-          include: { product: { select: { name: true } } },
+          select: {
+            productId: true,
+            quantity: true,
+            price: true,
+            product: { select: { name: true } },
+          },
         },
       },
     });

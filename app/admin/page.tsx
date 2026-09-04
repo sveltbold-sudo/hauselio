@@ -36,7 +36,15 @@ async function fetchDashboardData() {
     prisma.order.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },
-      include: { items: true },
+      select: {
+        id: true,
+        orderNumber: true,
+        customerFirstName: true,
+        customerLastName: true,
+        customerEmail: true,
+        total: true,
+        status: true,
+      },
     }),
     prisma.order.count({
       where: {

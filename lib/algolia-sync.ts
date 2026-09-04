@@ -1,9 +1,18 @@
 import { prisma } from "./prisma";
 import { getAlgoliaAdminClient, PRODUCTS_INDEX } from "./algolia";
 import { logger } from "./logger";
-import type { Product } from "@prisma/client";
 
-type ProductWithRelations = Product & {
+type ProductWithRelations = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: import("@prisma/client").Prisma.Decimal;
+  originalPrice: import("@prisma/client").Prisma.Decimal | null;
+  rating: import("@prisma/client").Prisma.Decimal;
+  reviewCount: number;
+  isNew: boolean;
+  isPromo: boolean;
   category: { name: string; slug: string } | null;
   brand: { name: string } | null;
   images: { url: string }[];
@@ -55,10 +64,20 @@ export async function syncProductsToAlgolia(): Promise<{ indexed: number; errors
     const products = await prisma.product.findMany({
       take: BATCH_SIZE,
       ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
-      include: {
-        category: true,
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        price: true,
+        originalPrice: true,
+        rating: true,
+        reviewCount: true,
+        isNew: true,
+        isPromo: true,
+        category: { select: { name: true, slug: true } },
+        brand: { select: { name: true } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
       },
       orderBy: { id: "asc" },
     });
@@ -99,10 +118,20 @@ export async function updateProductInAlgolia(productId: string): Promise<void> {
   try {
     const product = await prisma.product.findUnique({
       where: { id: productId },
-      include: {
-        category: true,
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        price: true,
+        originalPrice: true,
+        rating: true,
+        reviewCount: true,
+        isNew: true,
+        isPromo: true,
+        category: { select: { name: true, slug: true } },
+        brand: { select: { name: true } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
       },
     });
 

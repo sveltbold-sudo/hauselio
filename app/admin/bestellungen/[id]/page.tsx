@@ -25,9 +25,45 @@ export default async function AdminOrderDetailPage({
   try {
     order = await prisma.order.findUnique({
       where: { id },
-      include: {
+      select: {
+        id: true,
+        orderNumber: true,
+        status: true,
+        createdAt: true,
+        customerFirstName: true,
+        customerLastName: true,
+        customerEmail: true,
+        customerPhone: true,
+        customerAddress: true,
+        customerZip: true,
+        customerCity: true,
+        customerCountry: true,
+        customerNotes: true,
+        adminNotes: true,
+        paymentMethod: true,
+        paymentStatus: true,
+        bankReference: true,
+        paymentProofUrl: true,
+        reminderCount: true,
+        lastReminderAt: true,
+        invoiceNumber: true,
+        shippingCost: true,
+        trackingNumber: true,
+        subtotal: true,
+        couponDiscount: true,
+        total: true,
         items: {
-          include: { product: true },
+          select: {
+            id: true,
+            quantity: true,
+            price: true,
+            productId: true,
+            product: {
+              select: {
+                name: true,
+              },
+            },
+          },
         },
       },
     });

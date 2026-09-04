@@ -32,7 +32,7 @@ export async function GET(
 
     const product = await prisma.product.findUnique({
       where: { id },
-      include: {
+      select: {
         images: {
           take: 1,
           orderBy: { position: "asc" },

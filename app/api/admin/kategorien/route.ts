@@ -32,7 +32,17 @@ export async function GET(request: NextRequest) {
         orderBy: { sortOrder: "asc" },
         skip: (page - 1) * limit,
         take: limit,
-        include: { _count: { select: { products: true } } },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          description: true,
+          image: true,
+          sortOrder: true,
+          createdAt: true,
+          updatedAt: true,
+          _count: { select: { products: true } },
+        },
       }),
       prisma.category.count(),
     ]);

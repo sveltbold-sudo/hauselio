@@ -31,7 +31,7 @@ interface Order {
   id: string;
   orderNumber: string;
   invoiceNumber: string | null;
-  status: "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+  status: "PENDING_PAYMENT" | "PAYMENT_CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
   total: number;
   shippingCost: number;
   createdAt: string;
@@ -269,15 +269,17 @@ export default function KontoPage() {
                 {orders.map((order) => {
                   const isExpanded = expandedOrder === order.id;
                   const statusLabel: Record<string, string> = {
-                    PENDING: "Ausstehend",
-                    CONFIRMED: "Bestätigt",
+                    PENDING_PAYMENT: "Ausstehend",
+                    PAYMENT_CONFIRMED: "Bezahlt",
+                    PROCESSING: "In Bearbeitung",
                     SHIPPED: "Versandt",
                     DELIVERED: "Zugestellt",
                     CANCELLED: "Storniert",
                   };
                   const statusColor: Record<string, string> = {
-                    PENDING: "bg-yellow-100 text-yellow-800",
-                    CONFIRMED: "bg-blue-100 text-blue-800",
+                    PENDING_PAYMENT: "bg-yellow-100 text-yellow-800",
+                    PAYMENT_CONFIRMED: "bg-blue-100 text-blue-800",
+                    PROCESSING: "bg-indigo-100 text-indigo-800",
                     SHIPPED: "bg-purple-100 text-purple-800",
                     DELIVERED: "bg-green-100 text-green-800",
                     CANCELLED: "bg-red-100 text-red-800",

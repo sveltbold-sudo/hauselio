@@ -6,6 +6,7 @@ const mockPrisma = {
   product: { findMany: vi.fn() },
   order: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
   orderItem: { count: vi.fn().mockResolvedValue(0) },
+  $executeRaw: vi.fn().mockResolvedValue(1),
 };
 
 vi.mock("@/lib/prisma", () => ({ prisma: mockPrisma }));
@@ -135,11 +136,7 @@ describe("POST /api/bestellungen", () => {
   });
 
   it("applies coupon discount", async () => {
-    mockPrisma.coupon.findUnique.mockResolvedValue({
-      id: "c1", code: "SAVE10", isActive: true, discountPercent: 10,
-      expiresAt: null, maxUses: 0, usedCount: 0,
-    });
-    mockPrisma.coupon.update.mockResolvedValue({});
+    mockPrisma.$executeRaw.mockResolvedValue(1);
     mockPrisma.product.findMany.mockResolvedValue([
       { id: "prod-1", price: 100, name: "Expensive Product" },
     ]);

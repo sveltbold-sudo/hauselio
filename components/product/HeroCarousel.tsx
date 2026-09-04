@@ -191,7 +191,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 alt={s.name}
                 fill
                 className="object-cover object-center"
-                loading="lazy"
+                loading={i === 0 ? "eager" : "lazy"}
+                priority={i === 0}
                 sizes="100vw"
               />
               {/* Strong gradient: transparent at top, dark at bottom for text */}

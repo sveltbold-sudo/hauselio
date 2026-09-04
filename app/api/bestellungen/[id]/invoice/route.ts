@@ -29,7 +29,29 @@ export async function GET(
         customerEmail: email,
         orderNumber,
       },
-      include: { items: { include: { product: true } } },
+      select: {
+        invoiceNumber: true,
+        orderNumber: true,
+        paidAt: true,
+        updatedAt: true,
+        customerFirstName: true,
+        customerLastName: true,
+        customerAddress: true,
+        customerZip: true,
+        customerCity: true,
+        customerCountry: true,
+        subtotal: true,
+        total: true,
+        shippingCost: true,
+        couponDiscount: true,
+        items: {
+          select: {
+            quantity: true,
+            price: true,
+            product: { select: { name: true } },
+          },
+        },
+      },
     });
 
     if (!order) {

@@ -7,6 +7,7 @@ import { sendEmail, baseTemplate, headerBanner } from "@/lib/emails/helpers";
 import { FROM_EMAIL } from "@/lib/resend";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
+import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 const UnsubscribeRequestSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
@@ -14,6 +15,13 @@ const UnsubscribeRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json(
+        { error: "CSRF-Schutz: Ungültige Herkunft" },
+        { status: 403 }
+      );
+    }
+
     const ip = getClientIp(request);
     if (!await checkRateLimit(`unsubscribe-request:${ip}`, 3, 60_000)) {
       return NextResponse.json(

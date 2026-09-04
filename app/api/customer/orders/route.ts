@@ -35,9 +35,18 @@ export async function GET(request: NextRequest) {
           { customerEmail: { equals: email, mode: "insensitive" } },
         ],
       },
-      include: {
+      select: {
+        id: true,
+        orderNumber: true,
+        invoiceNumber: true,
+        status: true,
+        total: true,
+        shippingCost: true,
+        createdAt: true,
         items: {
-          include: {
+          select: {
+            quantity: true,
+            price: true,
             product: {
               select: { name: true, slug: true, images: { take: 1, select: { url: true } } },
             },

@@ -86,7 +86,30 @@ export async function POST(request: NextRequest) {
           ? { create: [{ url: data.imageUrl, position: 0 }] }
           : undefined,
       },
-      include: { images: true },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        shortDesc: true,
+        price: true,
+        originalPrice: true,
+        categoryId: true,
+        brandId: true,
+        isNew: true,
+        isFeatured: true,
+        isPromo: true,
+        isDailyDeal: true,
+        weight: true,
+        features: true,
+        seoTitle: true,
+        seoDesc: true,
+        rating: true,
+        reviewCount: true,
+        createdAt: true,
+        updatedAt: true,
+        images: { select: { id: true, url: true, alt: true, position: true } },
+      },
     });
     } catch (err) {
       if (err && typeof err === "object" && "code" in err && err.code === "P2002") {

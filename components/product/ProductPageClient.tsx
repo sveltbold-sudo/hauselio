@@ -258,7 +258,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />
             <div>
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferzeit wird berechnet…"}
+                {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferung: 2-5 Werktage"}
               </p>
               <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€ · Schnelle Bearbeitung</p>
             </div>

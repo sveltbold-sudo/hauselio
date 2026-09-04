@@ -33,7 +33,16 @@ export default async function AdminProductsPage({
   }
 
   type ProductWithRelations = Prisma.ProductGetPayload<{
-    include: { category: true; brand: true; images: { take: 1; orderBy: { position: "asc" } } };
+    select: {
+      id: true;
+      name: true;
+      slug: true;
+      price: true;
+      originalPrice: true;
+      category: { select: { name: true } };
+      brand: { select: { name: true } };
+      images: { select: { url: true } };
+    };
   }>;
   let products: ProductWithRelations[] = [];
   let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
@@ -45,10 +54,15 @@ export default async function AdminProductsPage({
     [products, categories, brands, total] = await Promise.all([
       prisma.product.findMany({
         where,
-        include: {
-          category: true,
-          brand: true,
-          images: { take: 1, orderBy: { position: "asc" } },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          price: true,
+          originalPrice: true,
+          category: { select: { name: true } },
+          brand: { select: { name: true } },
+          images: { select: { url: true }, take: 1, orderBy: { position: "asc" } },
         },
         orderBy: { createdAt: "desc" },
         skip,

@@ -39,6 +39,10 @@ async function getProductFromDb(slug: string) {
 
     if (!product) return null;
 
+    const realReviewCount = await prisma.review.count({
+      where: { productId: product.id, isApproved: true },
+    });
+
     const relatedProducts = await prisma.product.findMany({
       where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
       select: {
@@ -53,6 +57,7 @@ async function getProductFromDb(slug: string) {
     return {
       product: {
         ...product,
+        reviewCount: realReviewCount,
         price: Number(product.price),
         originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
         rating: Number(product.rating),
