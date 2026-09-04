@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { randomBytes } from "crypto";
 import { getAdminJWTSecret, getCustomerJWTSecret, isTokenRevoked } from "@/lib/auth";
 import { validateCsrfOrigin } from "@/lib/api-helpers";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
 
 function generateNonce(): string {
-  return randomBytes(16).toString("base64");
+  const array = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(array);
+  return btoa(String.fromCharCode(...array));
 }
 
 function buildCsp(nonce: string): string {
