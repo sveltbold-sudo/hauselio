@@ -167,57 +167,65 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const ratingCounts: Record<number, number> = {};
 
   try {
-    const [productsResult, categoriesResult, brandsResult, totalResult, categoryCountsResult] = await Promise.allSettled([
-      prisma.product.findMany({
-        where,
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          price: true,
-          originalPrice: true,
-          rating: true,
-          reviewCount: true,
-          isNew: true,
-          isPromo: true,
-          category: { select: { name: true, slug: true } },
-          brand: { select: { name: true } },
-          images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
-        },
-        orderBy,
-        skip,
-        take: limit,
-      }),
-      prisma.category.findMany({ orderBy: { name: "asc" } }),
-      prisma.brand.findMany({ orderBy: { name: "asc" } }),
-      prisma.product.count({ where }),
-      prisma.product.groupBy({
-        by: ["categoryId"],
-        _count: { id: true },
-      }),
-    ]);
+    products = await prisma.product.findMany({
+      where,
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        price: true,
+        originalPrice: true,
+        rating: true,
+        reviewCount: true,
+        isNew: true,
+        isPromo: true,
+        category: { select: { name: true, slug: true } },
+        brand: { select: { name: true } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
+      },
+      orderBy,
+      skip,
+      take: limit,
+    });
+  } catch (error) {
+    logger.error("shop-products", error);
+  }
 
-    products = productsResult.status === "fulfilled" ? productsResult.value : [];
-    categories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
-    brands = brandsResult.status === "fulfilled" ? brandsResult.value : [];
-    total = totalResult.status === "fulfilled" ? totalResult.value : 0;
+  try {
+    categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
+  } catch (error) {
+    logger.error("shop-categories", error);
+  }
 
-    if (categoryCountsResult.status === "fulfilled") {
-      const allCategories = categories;
-      const countMap: Record<string, number> = {};
-      categoryCountsResult.value.forEach((row) => {
-        const cat = allCategories.find((c) => c.id === row.categoryId);
-        if (cat) countMap[cat.slug] = row._count.id;
-      });
-      categoryCounts = countMap;
-    }
+  try {
+    brands = await prisma.brand.findMany({ orderBy: { name: "asc" } });
+  } catch (error) {
+    logger.error("shop-brands", error);
+  }
 
-    if (productsResult.status === "rejected") logger.error("shop-products", productsResult.reason);
-    if (categoriesResult.status === "rejected") logger.error("shop-categories", categoriesResult.reason);
-    if (brandsResult.status === "rejected") logger.error("shop-brands", brandsResult.reason);
-    if (totalResult.status === "rejected") logger.error("shop-count", totalResult.reason);
-    if (categoryCountsResult.status === "rejected") logger.error("shop-category-counts", categoryCountsResult.reason);
+  try {
+    total = await prisma.product.count({ where });
+  } catch (error) {
+    logger.error("shop-count", error);
+  }
 
+  try {
+    const categoryCountsResult = await prisma.product.groupBy({
+      by: ["categoryId"],
+      _count: { id: true },
+    });
+    const allCategories = categories;
+    const countMap: Record<string, number> = {};
+    categoryCountsResult.forEach((row) => {
+      const cat = allCategories.find((c) => c.id === row.categoryId);
+      if (cat) countMap[cat.slug] = row._count.id;
+    });
+    categoryCounts = countMap;
+  } catch (error) {
+    logger.error("shop-category-counts", error);
+  }
+
+  try {
     const ratingWhere: string[] = ['"rating" IS NOT NULL'];
     const ratingParams: unknown[] = [];
     if (category) {
