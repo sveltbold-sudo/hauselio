@@ -575,7 +575,7 @@ const products: ProductData[] = [
   {
     name: "Vorwerk Thermomix Tm5", slug: "vorwerk-thermomix-tm5",
     description: "Der Vorwerk Thermomix TM5 ist ein multifunktionaler Küchenhelfer mit über 12 Funktionen. Die intuitive Touch-Steuerung ermöglicht einfache Bedienung. Die integrierte Waage erlaubt präzise Zutatenabmessung. Die Heizfunktion bis 120°C ermögliches Kochen und Braten. Die Messerklinge aus Edelstahl mahlt, mixt und püriert. Die guided-Cooking-Funktion führt Schritt für Schritt durch Rezepte. Die Varoma-Dämpfer erweitert die Möglichkeiten. Die premium-Veredelung unterstreicht den Qualitätsanspruch. Ein bewährter Helfer für moderne Küchen.", shortDesc: "Bewährter Multifunktionaler Küchenhelfer mit 12+ Funktionen",
-    price: 1344.60, originalPrice: 1660, sku: "VORWERKTHERMOMI", inStock: true,
+    price: 728.19, originalPrice: 899, sku: "VORWERKTHERMOMI", inStock: true,
     rating: 4, reviewCount: 237, categorySlug: "kueche", brandSlug: "vorwerk",
     specs: [
       { key: "Funktionen", value: "12+ Funktionen" },
