@@ -77,7 +77,7 @@ export default function PressReviewsSection({
         <p className="text-center text-[10px] text-[var(--color-text-muted)] mb-6">Redaktionelle Zusammenstellung — Quellen siehe einzelne Bewertungen</p>
 
         {/* Mobile: magazine clipping scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg)] py-6 -mt-6">
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg)] py-6 -mt-6 overflow-hidden">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {pressReviews.map((review) => (
               <div key={review.publication} className="snap-start shrink-0 w-[280px]">

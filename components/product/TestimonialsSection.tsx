@@ -105,7 +105,7 @@ export default async function TestimonialsSection() {
         </div>
 
         {/* Mobile: editorial quote scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-primary-50)] via-white to-[var(--color-accent)]/5 py-6 -mt-6">
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-primary-50)] via-white to-[var(--color-accent)]/5 py-6 -mt-6 overflow-hidden">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {testimonials.map((t) => (
               <div key={t.id} className="snap-start shrink-0 w-[300px]">

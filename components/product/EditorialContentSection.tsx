@@ -61,7 +61,7 @@ export default function EditorialContentSection({ items = defaultEditorialConten
         </div>
 
         {/* Mobile: blog cards scroll */}
-        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-[var(--color-bg-secondary)] to-white py-6 -mt-6">
+        <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-[var(--color-bg-secondary)] to-white py-6 -mt-6 overflow-hidden">
           <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
             {items.map((content, i) => (
               <div key={i} className="snap-start shrink-0 w-[280px]">
