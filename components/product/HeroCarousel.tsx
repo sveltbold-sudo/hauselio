@@ -150,7 +150,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
   if (!mounted) {
     return (
       <section className="relative w-full" aria-label="Produkt-Highlights">
-        <div className={`relative h-[55vh] min-h-[340px] max-h-[480px] bg-[var(--color-bg-secondary)] ${prefersReduced ? "" : "animate-pulse"}`} />
+        <div className={`relative h-[62vh] min-h-[380px] max-h-[540px] bg-[var(--color-bg-secondary)] lg:h-[55vh] lg:min-h-[340px] lg:max-h-[480px] ${prefersReduced ? "" : "animate-pulse"}`} />
       </section>
     );
   }
@@ -174,8 +174,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         if (e.key === "End") { e.preventDefault(); setCurrent(slides.length - 1); }
       }}
     >
-      {/* ── MOBILE: Full-bleed editorial ── */}
-      <div className="lg:hidden relative h-[55vh] min-h-[340px] max-h-[480px]" aria-live="polite">
+      {/* ── MOBILE: Product-first hero ── */}
+      <div className="lg:hidden relative h-[62vh] min-h-[380px] max-h-[540px]" aria-live="polite">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -184,90 +184,83 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             aria-roledescription="Folie"
             className={`absolute inset-0 ${prefersReduced ? "" : "transition-opacity duration-700"} ${i === current ? "opacity-100 z-10" : "opacity-0 z-0"}`}
           >
-            {/* Full-bleed product image */}
+            {/* Product image — fills upper area */}
             <div className="absolute inset-0 bg-[var(--color-hero-bg)]">
               <Image
                 src={s.image}
                 alt={s.name}
                 fill
-                className="object-contain"
+                className="object-contain object-top"
+                style={{ objectPosition: "50% 15%" }}
                 priority={i === 0}
                 loading={i === 0 ? undefined : "lazy"}
                 sizes="100vw"
               />
-              {/* Gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+              {/* Strong gradient: transparent at top, dark at bottom for text */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
             </div>
 
-            {/* Content overlaid on image */}
-            <div className="absolute inset-0 flex flex-col justify-between p-5 pb-20">
-              {/* Top: brand + discount */}
-              <div className="flex items-start justify-between">
-                <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-lg text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)]" translate="no">
-                  {s.brand}
+            {/* Discount badge — top right */}
+            {s.isPromo && calcDiscount(s.price, s.originalPrice) > 0 && (
+              <span className="absolute top-4 right-4 z-20 inline-flex items-center px-2.5 py-1 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg shadow-lg">
+                -{calcDiscount(s.price, s.originalPrice)}%
+              </span>
+            )}
+
+            {/* Content — bottom section on dark gradient */}
+            <div className="absolute bottom-0 left-0 right-0 z-20 px-5 pb-20">
+              {/* Brand */}
+              <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-2" translate="no">
+                {s.brand}
+              </span>
+
+              {/* Product name */}
+              <h2 className="text-xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
+                {s.name}
+              </h2>
+
+              {/* Price row */}
+              <div className="flex items-baseline gap-2 mb-3">
+                <span className="text-xl font-extrabold text-white tabular-nums drop-shadow-lg">
+                  {formatPrice(s.price)}
                 </span>
-                {s.isPromo && calcDiscount(s.price, s.originalPrice) > 0 && (
-                  <span className="inline-flex items-center px-2 py-1 bg-[var(--color-danger)] text-white text-xs font-bold rounded-lg shadow-lg">
-                    -{calcDiscount(s.price, s.originalPrice)}%
+                {s.isPromo && s.originalPrice && (
+                  <span className="text-xs text-white/50 line-through tabular-nums">
+                    {formatPrice(s.originalPrice)}
                   </span>
                 )}
               </div>
 
-              {/* Bottom: text + CTA */}
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
-                  {s.name}
-                </h2>
-                <p className="text-sm font-semibold text-white/90 mb-1 drop-shadow">
-                  {s.tagline}
-                </p>
-                <p className="text-sm text-white/70 mb-4 line-clamp-2 drop-shadow">
-                  {s.subtitle}
-                </p>
+              {/* CTA */}
+              <Link
+                href={`/produkt/${s.slug}`}
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-bold rounded-xl bg-white text-[var(--color-text-primary)] shadow-xl active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+              >
+                {s.cta || "Jetzt ansehen"}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
 
-                {/* Price */}
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-2xl font-extrabold text-white tabular-nums drop-shadow-lg">
-                    {formatPrice(s.price)}
-                  </span>
-                  {s.isPromo && s.originalPrice && (
-                    <span className="text-sm text-white/60 line-through tabular-nums">
-                      {formatPrice(s.originalPrice)}
-                    </span>
-                  )}
-                </div>
-
-                {/* CTA */}
-                <Link
-                  href={`/produkt/${s.slug}`}
-                  className="flex items-center justify-center w-full px-6 py-3.5 text-sm font-bold rounded-xl bg-white text-[var(--color-text-primary)] shadow-xl active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
-                >
-                  {s.cta || "Jetzt bestellen"}
-                  <ArrowRight className="w-4 h-4 ml-1.5" />
-                </Link>
-
-                {/* Trust */}
-                <div className="flex items-center justify-center gap-2.5 mt-3 text-[10px] sm:text-xs text-white/60">
-                  <span className="flex items-center gap-1">
-                    <Truck className="w-4 h-4" aria-hidden="true" />
-                    Versand gratis
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Shield className="w-4 h-4" aria-hidden="true" />
-                    Garantie bis 5 Jahre
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <RotateCcw className="w-4 h-4" aria-hidden="true" />
-                    30 Tage
-                  </span>
-                </div>
+              {/* Trust — compact single line */}
+              <div className="flex items-center gap-3 mt-3 text-[10px] text-white/50">
+                <span className="flex items-center gap-1">
+                  <Truck className="w-3 h-3" aria-hidden="true" />
+                  Gratis
+                </span>
+                <span className="flex items-center gap-1">
+                  <Shield className="w-3 h-3" aria-hidden="true" />
+                  Bis 5 J.
+                </span>
+                <span className="flex items-center gap-1">
+                  <RotateCcw className="w-3 h-3" aria-hidden="true" />
+                  30 Tage
+                </span>
               </div>
             </div>
           </div>
         ))}
 
         {/* Dots */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
+        <div className="absolute bottom-[72px] left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="Folien">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -291,17 +284,17 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {/* Nav arrows */}
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Vorherige Folie"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4" />
         </button>
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
           aria-label="Nächste Folie"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4" />
         </button>
       </div>
 
