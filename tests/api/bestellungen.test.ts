@@ -2,28 +2,10 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 
 const mockPrisma = {
-  coupon: { findUnique: vi.fn() },
+  coupon: { findUnique: vi.fn(), update: vi.fn().mockResolvedValue({}) },
   product: { findMany: vi.fn() },
-  order: { findFirst: vi.fn(), findUnique: vi.fn() },
+  order: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
   orderItem: { count: vi.fn().mockResolvedValue(0) },
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  $transaction: vi.fn(async (fn: Function) => {
-    const tx = {
-      $queryRaw: vi.fn().mockResolvedValue([{ maxUses: 0, usedCount: 0 }]),
-      coupon: { update: vi.fn().mockResolvedValue({}) },
-      order: {
-        create: vi.fn().mockResolvedValue({
-          id: "ord-1",
-          orderNumber: "HL-202609-ABCDEF12",
-          total: 54.99,
-          shippingCost: 0,
-          status: "PENDING",
-          items: [],
-        }),
-      },
-    };
-    return fn(tx);
-  }),
 };
 
 vi.mock("@/lib/prisma", () => ({ prisma: mockPrisma }));
@@ -136,6 +118,14 @@ describe("POST /api/bestellungen", () => {
     mockPrisma.product.findMany.mockResolvedValue([
       { id: "prod-1", price: 49.99, name: "Test Product" },
     ]);
+    mockPrisma.order.create.mockResolvedValue({
+      id: "ord-1",
+      orderNumber: "HL-202609-ABCDEF12",
+      total: 54.99,
+      shippingCost: 0,
+      status: "PENDING",
+      items: [],
+    });
     const { POST } = await import("@/app/api/bestellungen/route");
     const res = await POST(makePostRequest(validOrder));
     expect(res.status).toBe(200);
@@ -149,9 +139,18 @@ describe("POST /api/bestellungen", () => {
       id: "c1", code: "SAVE10", isActive: true, discountPercent: 10,
       expiresAt: null, maxUses: 0, usedCount: 0,
     });
+    mockPrisma.coupon.update.mockResolvedValue({});
     mockPrisma.product.findMany.mockResolvedValue([
       { id: "prod-1", price: 100, name: "Expensive Product" },
     ]);
+    mockPrisma.order.create.mockResolvedValue({
+      id: "ord-2",
+      orderNumber: "HL-202609-XYZ789",
+      total: 94.99,
+      shippingCost: 0,
+      status: "PENDING",
+      items: [],
+    });
     const { POST } = await import("@/app/api/bestellungen/route");
     const res = await POST(makePostRequest({ ...validOrder, couponCode: "SAVE10" }));
     expect(res.status).toBe(200);

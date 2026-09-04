@@ -100,46 +100,47 @@ export async function POST(request: NextRequest) {
     let order;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
-        order = await prisma.$transaction(async (tx) => {
-          if (couponRecord) {
-            const [coupon] = await tx.$queryRaw<{ maxUses: number; usedCount: number }[]>`
-              SELECT "maxUses", "usedCount" FROM "Coupon"
-              WHERE "code" = ${couponRecord.code}
-              FOR UPDATE
-            `;
-            if (!coupon || (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses)) {
-              throw new ValidationError("Gutscheincode wurde bereits maximal oft verwendet");
-            }
-            await tx.coupon.update({
-              where: { code: couponRecord.code },
-              data: { usedCount: { increment: 1 } },
-            });
-          }
-          return tx.order.create({
-            data: {
-              orderNumber: generateOrderNumber(),
-              customerId: customerId || undefined,
-              customerEmail: email,
-              customerFirstName: firstName,
-              customerLastName: lastName,
-              customerPhone: phone || null,
-              customerAddress: address,
-              customerZip: zip,
-              customerCity: city,
-              customerCountry: country || "DE",
-              customerNotes: notes || null,
-              subtotal,
-              couponDiscount,
-              shippingCost,
-              total,
-              items: {
-                create: validatedItems,
-              },
-            },
-            include: {
-              items: true,
-            },
+        const orderNumber = generateOrderNumber();
+
+        // Validate coupon availability (without interactive transaction — PgBouncer compatible)
+        if (couponRecord) {
+          const coupon = await prisma.coupon.findUnique({
+            where: { code: couponRecord.code },
+            select: { maxUses: true, usedCount: true, isActive: true, expiresAt: true },
           });
+          if (!coupon || !coupon.isActive || (coupon.expiresAt != null && coupon.expiresAt <= new Date()) || (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses)) {
+            throw new ValidationError("Gutscheincode wurde bereits maximal oft verwendet");
+          }
+          await prisma.coupon.update({
+            where: { code: couponRecord.code },
+            data: { usedCount: { increment: 1 } },
+          });
+        }
+
+        order = await prisma.order.create({
+          data: {
+            orderNumber,
+            customerId: customerId || undefined,
+            customerEmail: email,
+            customerFirstName: firstName,
+            customerLastName: lastName,
+            customerPhone: phone || null,
+            customerAddress: address,
+            customerZip: zip,
+            customerCity: city,
+            customerCountry: country || "DE",
+            customerNotes: notes || null,
+            subtotal,
+            couponDiscount,
+            shippingCost,
+            total,
+            items: {
+              create: validatedItems,
+            },
+          },
+          include: {
+            items: true,
+          },
         });
         break;
       } catch (err: unknown) {
