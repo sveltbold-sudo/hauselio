@@ -35,7 +35,7 @@ export default function NewsletterForm() {
           disabled={isSubmitting}
           aria-busy={isSubmitting}
           aria-label="Newsletter abonnieren"
-          className="px-5 py-2.5 min-h-[44px] bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors transition-transform duration-300 active:scale-[0.97] disabled:opacity-50"
+          className="px-5 py-2.5 min-h-[44px] bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors transition-transform duration-300 active:scale-[0.97] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-primary)]"
         >
           {isSubmitting ? "Wird gesendet…" : "Anmelden"}
         </button>

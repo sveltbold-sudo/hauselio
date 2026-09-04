@@ -50,7 +50,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
     <button
       onClick={toggleCompare}
       aria-pressed={isComparing}
-      className={`flex items-center gap-1.5 min-h-[44px] px-3 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
+      className={`flex items-center gap-1.5 min-h-[44px] px-3 py-2 text-sm font-medium transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
         isComparing
           ? "text-[var(--color-primary)]"
           : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
