@@ -49,7 +49,7 @@ export async function GET(
 
     const relatedProducts = await prisma.product.findMany({
       where: {
-        category: { slug: product.category.slug },
+        category: { slug: product.category?.slug },
         id: { not: product.id },
       },
       select: {

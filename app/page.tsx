@@ -146,91 +146,100 @@ async function getHeroSlides() {
 }
 
 async function getBestsellers() {
-  const products = await prisma.product.findMany({
-    where: { reviewCount: { gt: 0 } },
-    select: {
-      id: true, name: true, slug: true, price: true, originalPrice: true,
-      rating: true, reviewCount: true, isNew: true, isPromo: true,
-      brand: { select: { name: true } },
-      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
-    },
-    orderBy: { reviewCount: "desc" },
-    take: 4,
-  });
+  try {
+    const products = await prisma.product.findMany({
+      where: { reviewCount: { gt: 0 } },
+      select: {
+        id: true, name: true, slug: true, price: true, originalPrice: true,
+        rating: true, reviewCount: true, isNew: true, isPromo: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+      orderBy: { reviewCount: "desc" },
+      take: 4,
+    });
 
-  return products.map((p) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    price: Number(p.price),
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    image: p.images[0]?.url || "/images/placeholder-product.svg",
-    rating: Number(p.rating),
-    reviewCount: p.reviewCount,
-    isNew: p.isNew,
-    isPromo: p.isPromo,
-    brand: p.brand?.name || null,
-  }));
+    return products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      rating: Number(p.rating),
+      reviewCount: p.reviewCount,
+      isNew: p.isNew,
+      isPromo: p.isPromo,
+      brand: p.brand?.name || null,
+    }));
+  } catch (error) {
+    logger.error("getBestsellers", error);
+    return [];
+  }
 }
 
 async function getDailyDeal() {
-  const product = await prisma.product.findFirst({
-    where: { isDailyDeal: true },
-    select: {
-      name: true, slug: true, price: true, originalPrice: true, shortDesc: true, description: true,
-      rating: true, reviewCount: true,
-      brand: { select: { name: true } },
-      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
-      reviews: { select: { authorName: true, rating: true, content: true }, where: { isApproved: true }, take: 3, orderBy: { createdAt: "desc" as const } },
-    },
-  });
+  try {
+    const product = await prisma.product.findFirst({
+      where: { isDailyDeal: true },
+      select: {
+        name: true, slug: true, price: true, originalPrice: true, shortDesc: true, description: true,
+        rating: true, reviewCount: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+    });
 
-  if (!product) return null;
+    if (!product) return null;
 
-  return {
-    name: product.name,
-    slug: product.slug,
-    brand: product.brand?.name || "HAUSAURA",
-    price: Number(product.price),
-    originalPrice: Number(product.originalPrice || product.price),
-    image: product.images[0]?.url || "/images/placeholder-product.svg",
-    tagline: product.shortDesc || product.description?.slice(0, 120) || "Exklusives Angebot — nur heute",
-    rating: Number(product.rating),
-    reviewCount: product.reviewCount,
-    reviews: product.reviews.map((r) => ({
-      name: r.authorName,
-      rating: r.rating,
-      content: (r.content || "").slice(0, 150),
-    })),
-  };
+    return {
+      name: product.name,
+      slug: product.slug,
+      brand: product.brand?.name || "HAUSAURA",
+      price: Number(product.price),
+      originalPrice: Number(product.originalPrice || product.price),
+      image: product.images[0]?.url || "/images/placeholder-product.svg",
+      tagline: product.shortDesc || product.description?.slice(0, 120) || "Exklusives Angebot — nur heute",
+      rating: Number(product.rating),
+      reviewCount: product.reviewCount,
+    };
+  } catch (error) {
+    logger.error("getDailyDeal", error);
+    return null;
+  }
 }
 
 async function getRecommended() {
-  const products = await prisma.product.findMany({
-    where: { rating: { gte: 4.5 } },
-    select: {
-      id: true, name: true, slug: true, price: true, originalPrice: true,
-      rating: true, reviewCount: true, isNew: true, isPromo: true,
-      brand: { select: { name: true } },
-      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
-    },
-    orderBy: { rating: "desc" },
-    take: 4,
-  });
+  try {
+    const products = await prisma.product.findMany({
+      where: { rating: { gte: 4.5 } },
+      select: {
+        id: true, name: true, slug: true, price: true, originalPrice: true,
+        rating: true, reviewCount: true, isNew: true, isPromo: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+      orderBy: { rating: "desc" },
+      take: 4,
+    });
 
-  return products.map((p) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    price: Number(p.price),
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    image: p.images[0]?.url || "/images/placeholder-product.svg",
-    rating: Number(p.rating),
-    reviewCount: p.reviewCount,
-    isNew: p.isNew,
-    isPromo: p.isPromo,
-    brand: p.brand?.name || null,
-  }));
+    return products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      image: p.images[0]?.url || "/images/placeholder-product.svg",
+      rating: Number(p.rating),
+      reviewCount: p.reviewCount,
+      isNew: p.isNew,
+      isPromo: p.isPromo,
+      brand: p.brand?.name || null,
+    }));
+  } catch (error) {
+    logger.error("getRecommended", error);
+    return [];
+  }
 }
 
 const fallbackCategories = [

@@ -139,7 +139,7 @@ export default async function ProductPage({ params }: PageProps) {
     brandSlug: product.brand?.slug || null,
     categoryName: product.category?.name || "",
     categorySlug: product.category?.slug || "",
-    specs: (product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value })),
+    specs: product.specs || [],
     images: product.images || [],
   };
 

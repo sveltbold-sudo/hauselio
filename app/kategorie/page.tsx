@@ -104,6 +104,7 @@ export default async function KategoriePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
                   <h2 className="heading-3 text-white mb-1">{cat.name}</h2>
+                  <p className="text-sm text-white/80">{cat._count?.products}+ Produkte</p>
                 </div>
               </div>
               <div className="p-5">

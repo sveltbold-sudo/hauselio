@@ -161,8 +161,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     image: string | null;
   };
   let products: ProductWithRelations[] = [];
-  let categories: Awaited<ReturnType<typeof prisma.category.findMany>> = [];
-  let brands: Awaited<ReturnType<typeof prisma.brand.findMany>> = [];
+  let categories: { id: string; name: string; slug: string }[] = [];
+  let brands: { id: string; name: string; slug: string }[] = [];
   let total = 0;
   let categoryCounts: Record<string, number> = {};
   const ratingCounts: Record<number, number> = {};
@@ -200,13 +200,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }
 
   try {
-    categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
+    categories = await prisma.category.findMany({ orderBy: { name: "asc" }, select: { id: true, name: true, slug: true } });
   } catch (error) {
     logger.error("shop-categories", error);
   }
 
   try {
-    brands = await prisma.brand.findMany({ orderBy: { name: "asc" } });
+    brands = await prisma.brand.findMany({ orderBy: { name: "asc" }, select: { id: true, name: true, slug: true } });
   } catch (error) {
     logger.error("shop-brands", error);
   }
@@ -513,7 +513,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {totalPages > 1 && (
             <div className="mt-10">
               <p className="text-center text-sm text-[var(--color-text-muted)] mb-4">
-                Ergebnisse {((page - 1) * 20) + 1}–{Math.min(page * 20, total)} von {total}
+                Ergebnisse {((page - 1) * limit) + 1}–{Math.min(page * limit, total)} von {total}
               </p>
               <div className="flex justify-center">
                 <nav aria-label="Seitennavigation" className="flex items-center gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide justify-center">
@@ -578,20 +578,3 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   );
 }
 
-function ProductGridSkeleton() {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" aria-hidden="true">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden animate-pulse">
-          <div className="aspect-square bg-[var(--color-bg-secondary)]" />
-          <div className="p-4 space-y-3">
-            <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/3" />
-            <div className="h-4 bg-[var(--color-bg-secondary)] rounded w-3/4" />
-            <div className="h-3 bg-[var(--color-bg-secondary)] rounded w-1/2" />
-            <div className="h-5 bg-[var(--color-bg-secondary)] rounded w-1/4" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
