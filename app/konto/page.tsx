@@ -111,6 +111,10 @@ export default function KontoPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen");
+      if (data.isAdmin) {
+        window.location.href = "/admin";
+        return;
+      }
       setCustomer(data.customer);
       setProfileName(data.customer.name || "");
       setEmail("");

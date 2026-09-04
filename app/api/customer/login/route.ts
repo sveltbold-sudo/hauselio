@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
         const response = NextResponse.json({
           success: true,
           customer: { id: admin.id, email: admin.email, name: admin.name || admin.email },
+          isAdmin: true,
         });
         applyCookiesToResponse(response, cookieOptions);
         return response;
