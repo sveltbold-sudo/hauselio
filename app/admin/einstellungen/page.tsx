@@ -349,7 +349,7 @@ export default function EinstellungenPage() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 px-6 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 min-h-[44px] bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {saving ? "Speichern…" : "Einstellungen speichern"}

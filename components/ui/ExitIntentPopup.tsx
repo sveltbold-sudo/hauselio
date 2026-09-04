@@ -167,7 +167,7 @@ export default function ExitIntentPopup() {
                 </span>
                   <button
                     onClick={handleCopy}
-                    className="px-3 py-1.5 min-h-[44px] min-w-[44px] bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors"
+                    className="px-3 py-1.5 min-h-[44px] min-w-[44px] bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors active:scale-95"
                   >
                   {copied ? "Kopiert!" : "Kopieren"}
                 </button>
@@ -219,7 +219,7 @@ export default function ExitIntentPopup() {
             {/* CTA */}
             <button
               onClick={handleClose}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors active:scale-[0.97]"
             >
               Weiter einkaufen
               <ArrowRight className="w-4 h-4" />

@@ -259,7 +259,7 @@ export default function HeaderClient() {
               <button
                 onClick={dismissPromo}
                 aria-label="Banner schließen"
-                className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2"
               >
                 <X className="w-4 h-4" />
               </button>
