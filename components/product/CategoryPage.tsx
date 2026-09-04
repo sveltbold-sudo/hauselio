@@ -74,7 +74,7 @@ export default function CategoryPage({
     { label: title, href: `/kategorie/${slug}` },
   ];
   if (sub) {
-    breadcrumbItems.push({ label: sub, href: `/kategorie/${slug}/${sub}` });
+    breadcrumbItems.push({ label: sub, href: `/kategorie/${slug}?sub=${encodeURIComponent(sub)}` });
   }
 
   return (

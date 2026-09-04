@@ -5,7 +5,10 @@ import { join } from "path";
 const prisma = new PrismaClient();
 const IMAGES_DIR = join(process.cwd(), "public", "images", "products");
 
-const adminEmail = process.env.ADMIN_EMAIL || "admin_wrkxgjxp@hausaura.de";
+const adminEmail = process.env.ADMIN_EMAIL;
+if (!adminEmail) {
+  throw new Error("ADMIN_EMAIL environment variable is required for seeding");
+}
 
   const categories = [
     { name: "Küche & Kochen", slug: "kueche", description: "Hochwertige Küchengeräte für anspruchsvolle Köche. Von Induktionsherden bis zu Premium-Backöfen.", image: "/images/categories/kueche.jpg", sortOrder: 0 },

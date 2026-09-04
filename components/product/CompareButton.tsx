@@ -36,7 +36,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
       name: product.name,
       slug: product.slug,
       price: product.price,
-      originalPrice: product.originalPrice,
+      originalPrice: product.originalPrice ?? undefined,
       isPromo: product.isPromo,
       image: product.image,
       brand: product.brand,

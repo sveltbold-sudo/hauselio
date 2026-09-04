@@ -178,7 +178,13 @@ export async function POST(request: NextRequest) {
       couponCode: couponRecord?.code,
       total: total,
       shippingCost,
-    }).catch((emailError) => logger.error("order-email", emailError));
+    }).catch((emailError) =>
+      logger.error("Failed to send order confirmation email", {
+        orderNumber: order.orderNumber,
+        email,
+        error: emailError instanceof Error ? emailError.message : String(emailError),
+      })
+    );
 
     // Notify admin of new order in background
     sendNewOrderAdminNotification({
@@ -193,7 +199,13 @@ export async function POST(request: NextRequest) {
       couponDiscount,
       total,
       shippingCost,
-    }).catch((adminEmailError) => logger.error("order-admin-notification", adminEmailError));
+    }).catch((adminEmailError) =>
+      logger.error("Failed to send admin order notification", {
+        orderNumber: order.orderNumber,
+        email,
+        error: adminEmailError instanceof Error ? adminEmailError.message : String(adminEmailError),
+      })
+    );
 
     return NextResponse.json({
       success: true,

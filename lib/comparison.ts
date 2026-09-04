@@ -6,7 +6,7 @@ export interface CompareItem {
   name: string;
   slug: string;
   price: number;
-  originalPrice?: number | null;
+  originalPrice?: number;
   isPromo?: boolean;
   image: string;
   brand: string;
