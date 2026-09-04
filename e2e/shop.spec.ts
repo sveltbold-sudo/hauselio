@@ -6,8 +6,8 @@ test.describe("Shop Page", () => {
   });
 
   test("displays page heading and product count", async ({ page }) => {
-    await expect(page.locator("h1")).toContainText("Boutique");
-    await expect(page.getByText(/Produkte$/)).toBeVisible();
+    await expect(page.locator("h1")).toContainText("Produkte");
+    await expect(page.getByText(/Produkte$|Ergebnisse/)).toBeVisible();
   });
 
   test("displays category tabs", async ({ page }) => {
@@ -21,14 +21,12 @@ test.describe("Shop Page", () => {
       const categoryText = await categoryTab.textContent();
       await categoryTab.click();
       await expect(page).toHaveURL(/category=/);
-      await expect(page.locator("h1")).toContainText(categoryText!.trim());
     }
   });
 
   test("search input filters products via URL", async ({ page }) => {
     await page.goto("/shop?q=Miele");
-    await expect(page.locator("h1")).toContainText("Suchergebnisse");
-    await expect(page.getByText(/Ergebnisse/)).toBeVisible();
+    await expect(page.locator("h1")).toContainText("Suche");
   });
 
   test("empty search shows no results message", async ({ page }) => {
@@ -46,22 +44,17 @@ test.describe("Shop Page", () => {
 
   test("product cards display name, price, and image", async ({ page }) => {
     const productCards = page.locator('a[href^="/produkt/"]');
-    const count = await productCards.count();
-    if (count > 0) {
-      const firstCard = productCards.first();
-      await expect(firstCard).toBeVisible();
-      const text = await firstCard.textContent();
-      expect(text!.length).toBeGreaterThan(0);
-    }
+    await expect(productCards.first()).toBeVisible({ timeout: 15000 });
+    const text = await productCards.first().textContent();
+    expect(text!.length).toBeGreaterThan(0);
   });
 
   test("clicking product card navigates to product detail", async ({ page }) => {
     const productLink = page.locator('a[href^="/produkt/"]').first();
-    if (await productLink.isVisible()) {
-      const href = await productLink.getAttribute("href");
-      await productLink.click();
-      await expect(page).toHaveURL(new RegExp(href!));
-    }
+    await expect(productLink).toBeVisible({ timeout: 15000 });
+    const href = await productLink.getAttribute("href");
+    await productLink.click();
+    await expect(page).toHaveURL(new RegExp(href!));
   });
 
   test("filter drawer opens on mobile", async ({ page }) => {

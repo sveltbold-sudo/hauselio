@@ -62,6 +62,11 @@ export default function HeaderClient() {
         });
         ticking = true;
       }
+      if (megaCloseTimeoutRef.current) {
+        clearTimeout(megaCloseTimeoutRef.current);
+        megaCloseTimeoutRef.current = null;
+      }
+      setActiveMega(null);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -74,6 +79,18 @@ export default function HeaderClient() {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  useEffect(() => {
+    if (!activeMega) return;
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".mega-menu-panel") && !target.closest("[aria-haspopup]")) {
+        setActiveMega(null);
+      }
+    };
+    document.addEventListener("click", handleClick, { passive: true });
+    return () => document.removeEventListener("click", handleClick);
+  }, [activeMega]);
 
   useEffect(() => {
     if (!searchOpen || isMobile) return;
@@ -121,7 +138,7 @@ export default function HeaderClient() {
     megaCloseTimeoutRef.current = setTimeout(() => {
       setActiveMega(null);
       megaCloseTimeoutRef.current = null;
-    }, 80);
+    }, 120);
   }, []);
 
   const handleMegaFocus = useCallback((href: string) => {
@@ -448,7 +465,7 @@ export default function HeaderClient() {
             }`}
           >
             <div className="container-hausaura">
-              <div className="pt-1 pb-2 relative">
+              <div className="pt-1 pb-2">
                 <div
                   className={`bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-6 transition-opacity duration-200 ${activeMega === cat.href ? "opacity-100" : "opacity-0"}`}
                   style={{
@@ -457,6 +474,7 @@ export default function HeaderClient() {
                     width: "fit-content",
                     maxWidth: `calc(100vw - ${megaPos.left}px - 1rem)`,
                   }}
+                  onMouseLeave={handleMegaLeave}
                 >
                   <div className="flex items-center gap-4 mb-5 pb-4 border-b border-[var(--color-border-light)]">
                     <div className="w-12 h-12 bg-[var(--color-accent-soft)] rounded-xl flex items-center justify-center">

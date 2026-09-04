@@ -460,34 +460,32 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </div>
 
           {/* Products grid */}
-          <Suspense fallback={<ProductGridSkeleton />}>
-            {formattedProducts.length === 0 ? (
-              <div className="text-center py-12 sm:py-20" role="status" aria-live="polite">
-                <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
-                  <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
-                </div>
-                <h2 className="heading-3 mb-2">
-                  Keine Produkte gefunden
-                </h2>
-                <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
-                  Versuchen Sie, Ihre Filter anzupassen oder durchsuchen Sie unser gesamtes Sortiment.
-                </p>
-                <Link
-                  href="/shop"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
-                >
-                  <ShoppingBag className="w-4 h-4" aria-hidden="true" />
-                  Alle Produkte ansehen
-                </Link>
+          {formattedProducts.length === 0 ? (
+            <div className="text-center py-12 sm:py-20" role="status" aria-live="polite">
+              <div className="w-20 h-20 rounded-full bg-[var(--color-bg-secondary)] flex items-center justify-center mx-auto mb-6">
+                <SearchX className="w-10 h-10 text-[var(--color-text-muted)]" aria-hidden="true" />
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {formattedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            )}
-          </Suspense>
+              <h2 className="heading-3 mb-2">
+                Keine Produkte gefunden
+              </h2>
+              <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
+                Versuchen Sie, Ihre Filter anzupassen oder durchsuchen Sie unser gesamtes Sortiment.
+              </p>
+              <Link
+                href="/shop"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+              >
+                <ShoppingBag className="w-4 h-4" aria-hidden="true" />
+                Alle Produkte ansehen
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {formattedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (
