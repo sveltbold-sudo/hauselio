@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Link from "next/link";
 
 export const revalidate = 86400;
@@ -53,10 +54,28 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function HilfePage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
-      <Breadcrumb items={[{ label: "Hilfe & FAQ" }]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Hilfe & FAQ", url: "/hilfe" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Hilfe & FAQ" }]} />
       <h1 className="heading-1 mb-4">Hilfe & FAQ</h1>
       <p className="text-[var(--color-text-secondary)] mb-8">
         Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe.

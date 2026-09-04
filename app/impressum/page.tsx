@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
@@ -48,7 +49,8 @@ export default async function ImpressumPage() {
 
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
-      <Breadcrumb items={[{ label: "Impressum" }]} />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Impressum", url: "/impressum" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Impressum" }]} />
       <h1 className="heading-1 mb-8">Impressum</h1>
 
       <div className="prose-hausaura space-y-8">

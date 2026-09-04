@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, Phone } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 86400;
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 export default function BarrierefreiheitPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Barrierefreiheit", url: "/barrierefreiheit" }]} />
       <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Barrierefreiheit" }]} />
       <h1 className="heading-1 mb-8">Barrierefreiheitserklärung</h1>
 

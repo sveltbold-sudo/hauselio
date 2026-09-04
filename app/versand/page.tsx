@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Truck, Package, Landmark } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const revalidate = 86400;
 
@@ -40,7 +41,8 @@ const shippingMethods = [
 export default function VersandPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
-      <Breadcrumb items={[{ label: "Versand" }]} />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>

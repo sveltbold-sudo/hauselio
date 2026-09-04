@@ -549,7 +549,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </div>
       {/* Spacer for MobileShopBar on mobile */}
       <div className="h-16 lg:hidden" />
-      <MobileShopBar />
+      <MobileShopBar totalResults={total} sort={sort} />
     </main>
   );
 }
