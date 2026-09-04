@@ -345,6 +345,12 @@ a, button, input, select, textarea, [role="button"] {
   display: none;
 }
 
+/* ── Centered Scroll Snap ── */
+.scroll-snap-center > * {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
 /* ── Content Visibility — optimize below-fold rendering ── */
 .content-visibility-auto {
   content-visibility: auto;

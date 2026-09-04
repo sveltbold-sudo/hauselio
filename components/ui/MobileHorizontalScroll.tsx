@@ -45,14 +45,27 @@ export default function MobileHorizontalScroll({
   const scrollToNext = useCallback(() => {
     const el = scrollRef.current;
     if (!el || isPaused) return;
-    const cardWidth = el.children[0]?.getBoundingClientRect().width || 280;
-    const gap = 16;
     const isAtEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
 
     if (isAtEnd) {
       el.scrollTo({ left: 0, behavior: prefersReduced ? "auto" : "smooth" });
     } else {
-      el.scrollBy({ left: cardWidth + gap, behavior: prefersReduced ? "auto" : "smooth" });
+      const items = Array.from(el.children) as HTMLElement[];
+      const currentScroll = el.scrollLeft + el.clientWidth / 2;
+      let nextIndex = 0;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i]!;
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        if (itemCenter > currentScroll + 5) {
+          nextIndex = i;
+          break;
+        }
+      }
+      const target = items[nextIndex];
+      if (target) {
+        const targetLeft = target.offsetLeft - (el.clientWidth - target.offsetWidth) / 2;
+        el.scrollTo({ left: targetLeft, behavior: prefersReduced ? "auto" : "smooth" });
+      }
     }
   }, [isPaused, prefersReduced]);
 
@@ -76,11 +89,27 @@ export default function MobileHorizontalScroll({
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = el.children[0]?.getBoundingClientRect().width || 280;
-    el.scrollBy({
-      left: direction === "left" ? -cardWidth - 16 : cardWidth + 16,
-      behavior: prefersReduced ? "auto" : "smooth",
-    });
+    const items = Array.from(el.children) as HTMLElement[];
+    const currentScroll = el.scrollLeft + el.clientWidth / 2;
+
+    let targetIndex = direction === "right" ? items.length - 1 : 0;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i]!;
+      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+      if (direction === "right" && itemCenter > currentScroll + 5) {
+        targetIndex = i;
+        break;
+      }
+      if (direction === "left" && itemCenter >= currentScroll - 5 && i > 0) {
+        targetIndex = i - 1;
+        break;
+      }
+    }
+    const target = items[targetIndex];
+    if (target) {
+      const targetLeft = target.offsetLeft - (el.clientWidth - target.offsetWidth) / 2;
+      el.scrollTo({ left: targetLeft, behavior: prefersReduced ? "auto" : "smooth" });
+    }
     setIsPaused(true);
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 5000);
@@ -106,8 +135,8 @@ export default function MobileHorizontalScroll({
         role="region"
         aria-label="Horizontale Produktauswahl"
         tabIndex={0}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-5 px-5 focus:outline-none"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-snap-center pb-2 pl-[calc(50vw-9rem)] pr-4 focus:outline-none"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingInline: "0" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >

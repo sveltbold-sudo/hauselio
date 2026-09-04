@@ -78,7 +78,7 @@ export default function PressReviewsSection({
 
         {/* Mobile: magazine clipping scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-bg-secondary)] to-[var(--color-bg)] py-6 -mt-6 overflow-hidden">
-          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
+          <MobileHorizontalScroll autoScrollInterval={7000}>
             {pressReviews.map((review) => (
               <div key={review.publication} className="snap-start shrink-0 w-[280px]">
                 <div className="bg-white rounded-xl p-5 shadow-sm border border-[var(--color-border-light)] relative overflow-hidden hover:shadow-md transition-shadow duration-300">

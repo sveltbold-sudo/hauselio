@@ -42,7 +42,7 @@ export default function BrandsShowcaseSection({ brands = defaultBrands }: Brands
 
         {/* Mobile: logo cloud scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-b from-[var(--color-bg-secondary)] to-white py-6 -mt-6 overflow-hidden">
-          <MobileHorizontalScroll className="px-0" autoScrollInterval={7000}>
+          <MobileHorizontalScroll autoScrollInterval={7000}>
             {brands.map((brand) => (
               <Link
                 key={brand.name}
