@@ -302,7 +302,7 @@ export default function HeaderClient() {
           </div>
 
           {/* Actions: Search (mobile) + Account + Wishlist + Cart + Menu */}
-          <div className="flex items-center gap-1 sm:gap-0.5 ml-auto">
+          <div className="flex items-center gap-0.5 sm:gap-1 ml-auto shrink-0">
             {/* Mobile: search icon */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}

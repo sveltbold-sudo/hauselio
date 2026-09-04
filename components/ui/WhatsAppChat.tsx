@@ -49,7 +49,7 @@ export default function WhatsAppChat() {
   if (dismissed || !visible) return null;
 
   return (
-    <div className={`fixed bottom-24 right-4 z-50 flex flex-col items-end gap-3 ${prefersReduced ? "" : "animate-in fade-in slide-in-from-bottom-4 duration-300"}`}>
+    <div className={`fixed bottom-20 right-4 z-[80] flex flex-col items-end gap-3 ${prefersReduced ? "" : "animate-in fade-in slide-in-from-bottom-4 duration-300"}`}>
       {/* Tooltip */}
       <div className="relative bg-white rounded-2xl shadow-[var(--shadow-2xl)] border border-[var(--color-border-light)] p-4 max-w-[260px]">
         <button

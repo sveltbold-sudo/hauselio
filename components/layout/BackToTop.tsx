@@ -25,7 +25,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-[120px] lg:bottom-6 right-6 z-[70] w-12 h-12 bg-[var(--color-primary)] text-white rounded-full shadow-lg hover:bg-[var(--color-primary-hover)] transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] ${prefersReduced ? "" : "transition-transform duration-300 animate-fade-in-up hover:scale-110"}`}
+      className={`fixed bottom-[168px] lg:bottom-6 right-4 lg:right-6 z-[85] w-11 h-11 lg:w-12 lg:h-12 bg-[var(--color-primary)] text-white rounded-full shadow-lg hover:bg-[var(--color-primary-hover)] transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] ${prefersReduced ? "" : "transition-transform duration-300 animate-fade-in-up hover:scale-110"}`}
       aria-label="Nach oben scrollen"
     >
       <ArrowUp className="w-5 h-5" />

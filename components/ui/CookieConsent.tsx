@@ -225,13 +225,13 @@ export default function CookieConsent() {
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 {showDetails ? (
                   <Button
                     ref={firstButtonRef}
                     onClick={handleSaveSelection}
                     variant="primary"
-                    className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"
+                    className="w-full sm:w-auto bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
                   >
                     Auswahl speichern
                   </Button>
@@ -240,7 +240,7 @@ export default function CookieConsent() {
                     ref={firstButtonRef}
                     onClick={handleAcceptAll}
                     variant="primary"
-                    className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"
+                    className="w-full sm:w-auto bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
                   >
                     Akzeptieren
                   </Button>
@@ -248,7 +248,7 @@ export default function CookieConsent() {
                 <Button
                   onClick={handleRejectAll}
                   variant="outline"
-                  className="border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-border-light)]"
+                  className="w-full sm:w-auto border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-border-light)] min-h-[48px]"
                 >
                   Ablehnen
                 </Button>
@@ -259,7 +259,7 @@ export default function CookieConsent() {
                       setPrefs({ essential: true, functional: false, analytics: false });
                     }}
                     variant="ghost"
-                    className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                    className="w-full sm:w-auto text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] min-h-[48px]"
                   >
                     <Settings className="w-4 h-4 mr-1" />
                     Einstellungen
