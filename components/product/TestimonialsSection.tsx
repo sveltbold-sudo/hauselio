@@ -22,7 +22,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 5,
     content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Jura E8 Kaffeevollautomat funktioniert einwandfrei. Kann HAUSAURA nur empfehlen!",
     product: "Jura E8 Platinum",
-    avatar: null,
+    avatar: "/images/testimonials/stefan.jpg",
   },
   {
     id: "2",
@@ -31,7 +31,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 4,
     content: "Die Miele Waschmaschine wurde problemlos geliefert. Das Gerät läuft super. Einziger Kritikpunkt: Lieferung dauerte 3 statt 2 Tage.",
     product: "Miele W1 Waschmaschine",
-    avatar: null,
+    avatar: "/images/testimonials/anna.jpg",
   },
   {
     id: "3",
@@ -40,7 +40,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 5,
     content: "Sehr kompetenter Kundendienst. Hatte eine Frage zur Installation und wurde sofort freundlich beraten. Top Service!",
     product: null,
-    avatar: null,
+    avatar: "/images/testimonials/thomas.jpg",
   },
   {
     id: "4",
@@ -49,7 +49,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 4,
     content: "Die KitchenAid Artisan kommt genau wie beschrieben. Preis war ok, Versand schnell. Gerne wieder!",
     product: "KitchenAid Artisan",
-    avatar: null,
+    avatar: "/images/testimonials/julia.jpg",
   },
   {
     id: "5",
@@ -58,7 +58,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 5,
     content: "Der Thermomix TM7 ist ein Traum. HAUSAURA hatte den besten Preis und die Lieferung war innerhalb von 24 Stunden da. Top!",
     product: "Thermomix TM7",
-    avatar: null,
+    avatar: "/images/testimonials/michael.jpg",
   },
   {
     id: "6",
@@ -67,7 +67,7 @@ const fallbackTestimonials: Testimonial[] = [
     rating: 5,
     content: "Endlich ein Shop der hält was er verspricht. Die Beratung war erstklassig und das Produkt genau wie erwartet. Vielen Dank!",
     product: null,
-    avatar: null,
+    avatar: "/images/testimonials/sandra.jpg",
   },
 ];
 
