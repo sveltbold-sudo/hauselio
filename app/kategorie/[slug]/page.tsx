@@ -99,9 +99,18 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   try {
     const raw = await prisma.product.findMany({
       where,
-      include: {
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        price: true,
+        originalPrice: true,
+        rating: true,
+        reviewCount: true,
+        isNew: true,
+        isPromo: true,
         brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
       },
       orderBy,
       skip,
