@@ -30,12 +30,13 @@ export const metadata: Metadata = {
 async function getCategories() {
   try {
     return await prisma.category.findMany({
-      include: {
+      select: {
+        name: true, slug: true, description: true,
         _count: { select: { products: true } },
         products: {
           take: 1,
-          include: { images: { take: 1, orderBy: { position: "asc" } } },
-          orderBy: { rating: "desc" },
+          select: { images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } } },
+          orderBy: { rating: "desc" as const },
         },
       },
       orderBy: { name: "asc" },

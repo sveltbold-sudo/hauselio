@@ -9,9 +9,11 @@ async function getThermomixProducts() {
   try {
     const products = await prisma.product.findMany({
       where: { slug: { in: THERMOMIX_SLUGS } },
-      include: {
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
+      select: {
+        id: true, name: true, slug: true, price: true, originalPrice: true,
+        rating: true, reviewCount: true, isNew: true, isPromo: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
       },
     });
 

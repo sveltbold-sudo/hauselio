@@ -92,7 +92,7 @@ async function getCategories() {
   const cats = await prisma.category.findMany({
     orderBy: { name: "asc" },
     take: 6,
-    include: { _count: { select: { products: true } } },
+    select: { name: true, slug: true, _count: { select: { products: true } } },
   });
   return cats.map((cat) => ({
     name: cat.name,
@@ -106,15 +106,18 @@ async function getHeroSlides() {
   try {
     const thermomixBrand = await prisma.brand.findFirst({
       where: { name: { contains: "Thermomix", mode: "insensitive" } },
+      select: { id: true, name: true },
     });
 
     if (!thermomixBrand) return [];
 
     const products = await prisma.product.findMany({
       where: { brandId: thermomixBrand.id },
-      include: {
-        brand: true,
-        images: { take: 1, orderBy: { position: "asc" } },
+      select: {
+        id: true, name: true, slug: true, price: true, originalPrice: true,
+        isPromo: true, isNew: true, description: true, isFeatured: true, reviewCount: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
       },
       orderBy: [
         { isFeatured: "desc" },
@@ -145,9 +148,11 @@ async function getHeroSlides() {
 async function getBestsellers() {
   const products = await prisma.product.findMany({
     where: { reviewCount: { gt: 0 } },
-    include: {
-      brand: true,
-      images: { take: 1, orderBy: { position: "asc" } },
+    select: {
+      id: true, name: true, slug: true, price: true, originalPrice: true,
+      rating: true, reviewCount: true, isNew: true, isPromo: true,
+      brand: { select: { name: true } },
+      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
     },
     orderBy: { reviewCount: "desc" },
     take: 4,
@@ -171,10 +176,12 @@ async function getBestsellers() {
 async function getDailyDeal() {
   const product = await prisma.product.findFirst({
     where: { isDailyDeal: true },
-    include: {
-      brand: true,
-      images: { take: 1, orderBy: { position: "asc" } },
-      reviews: { where: { isApproved: true }, take: 3, orderBy: { createdAt: "desc" } },
+    select: {
+      name: true, slug: true, price: true, originalPrice: true, shortDesc: true, description: true,
+      rating: true, reviewCount: true,
+      brand: { select: { name: true } },
+      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      reviews: { select: { authorName: true, rating: true, content: true }, where: { isApproved: true }, take: 3, orderBy: { createdAt: "desc" as const } },
     },
   });
 
@@ -201,9 +208,11 @@ async function getDailyDeal() {
 async function getRecommended() {
   const products = await prisma.product.findMany({
     where: { rating: { gte: 4.5 } },
-    include: {
-      brand: true,
-      images: { take: 1, orderBy: { position: "asc" } },
+    select: {
+      id: true, name: true, slug: true, price: true, originalPrice: true,
+      rating: true, reviewCount: true, isNew: true, isPromo: true,
+      brand: { select: { name: true } },
+      images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
     },
     orderBy: { rating: "desc" },
     take: 4,

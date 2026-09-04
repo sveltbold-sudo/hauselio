@@ -16,24 +16,64 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getProductFromApi(slug: string) {
+async function getProductFromDb(slug: string) {
   try {
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : process.env.NEXT_PUBLIC_SITE_URL || SITE_URL;
-    const res = await fetch(`${baseUrl}/api/products/${slug}`, { cache: "no-store" });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.product ? data : null;
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      select: {
+        id: true, name: true, slug: true, sku: true, barcode: true,
+        description: true, price: true, originalPrice: true,
+        isPromo: true, isNew: true, rating: true, reviewCount: true,
+        category: { select: { name: true, slug: true } },
+        brand: { select: { name: true, slug: true } },
+        images: { orderBy: { position: "asc" as const }, select: { url: true } },
+        specs: { orderBy: { position: "asc" as const }, select: { key: true, value: true } },
+        reviews: {
+          where: { isApproved: true },
+          select: { authorName: true, rating: true, title: true, content: true, createdAt: true },
+          orderBy: { createdAt: "desc" as const },
+          take: 10,
+        },
+      },
+    });
+
+    if (!product) return null;
+
+    const relatedProducts = await prisma.product.findMany({
+      where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
+      select: {
+        id: true, name: true, slug: true, price: true,
+        brand: { select: { name: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+      take: 3,
+      orderBy: { rating: "desc" },
+    });
+
+    return {
+      product: {
+        ...product,
+        price: Number(product.price),
+        originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+        rating: Number(product.rating),
+        images: product.images.map((img) => img.url),
+        reviews: product.reviews.map((r) => ({ ...r, createdAt: r.createdAt.toISOString() })),
+      },
+      relatedProducts: relatedProducts.map((p) => ({
+        id: p.id, name: p.name, slug: p.slug, price: Number(p.price),
+        image: p.images[0]?.url || "/images/placeholder-product.svg",
+        brand: p.brand?.name || null,
+      })),
+    };
   } catch (error) {
-    logger.error("produkt-slug-fetch", error);
+    logger.error("produkt-slug-db", error);
     return null;
   }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const data = await getProductFromApi(slug);
+  const data = await getProductFromDb(slug);
 
   if (!data?.product) {
     return { title: "Produkt nicht gefunden" };
@@ -73,7 +113,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const data = await getProductFromApi(slug);
+  const data = await getProductFromDb(slug);
 
   if (!data?.product) {
     notFound();
@@ -100,7 +140,7 @@ export default async function ProductPage({ params }: PageProps) {
     categoryName: product.category?.name || "",
     categorySlug: product.category?.slug || "",
     specs: (product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value })),
-    images: (product.images || []).map((url: string) => url),
+    images: product.images || [],
   };
 
   return (
@@ -124,7 +164,7 @@ export default async function ProductPage({ params }: PageProps) {
         gtin={product.barcode || undefined}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
-        reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title?: string; content?: string; createdAt: string }) => ({
+        reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title: string | null; content: string | null; createdAt: string }) => ({
           author: r.authorName,
           rating: r.rating,
           title: r.title ?? undefined,

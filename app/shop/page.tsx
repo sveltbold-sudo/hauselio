@@ -168,40 +168,33 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const ratingCounts: Record<number, number> = {};
 
   try {
-    const apiParams = new URLSearchParams();
-    if (category) apiParams.set("category", category);
-    if (brand) apiParams.set("brand", brand);
-    if (q) apiParams.set("q", q);
-    if (promo === "true") apiParams.set("promo", "true");
-    if (sort) apiParams.set("sort", sort);
-    if (price) apiParams.set("price", price);
-    if (rating) apiParams.set("rating", rating);
-    apiParams.set("page", String(page));
-    apiParams.set("limit", String(limit));
-
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : process.env.NEXT_PUBLIC_SITE_URL || SITE_URL;
-    const res = await fetch(`${baseUrl}/api/products?${apiParams.toString()}`, { cache: "no-store" });
-    if (res.ok) {
-      const data = await res.json();
-      products = (data.products || []).map((p: Record<string, unknown>) => ({
-        id: p.id as string,
-        name: p.name as string,
-        slug: p.slug as string,
-        price: Number(p.price),
-        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-        rating: Number(p.rating),
-        reviewCount: p.reviewCount as number,
-        isNew: p.isNew as boolean,
-        isPromo: p.isPromo as boolean,
-        category: (p.category as string) || null,
-        categorySlug: (p.categorySlug as string) || null,
-        brand: (p.brand as string) || null,
-        image: (p.image as string) || null,
-      }));
-      total = data.pagination?.total || 0;
-    }
+    const raw = await prisma.product.findMany({
+      where,
+      select: {
+        id: true, name: true, slug: true, price: true, originalPrice: true,
+        rating: true, reviewCount: true, isNew: true, isPromo: true,
+        brand: { select: { name: true } },
+        category: { select: { name: true, slug: true } },
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+      orderBy,
+      skip,
+      take: limit,
+    });
+    products = raw.map((p) => ({
+      id: p.id, name: p.name, slug: p.slug,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      rating: Number(p.rating),
+      reviewCount: p.reviewCount,
+      isNew: p.isNew,
+      isPromo: p.isPromo,
+      category: p.category?.name || null,
+      categorySlug: p.category?.slug || null,
+      brand: p.brand?.name || null,
+      image: p.images[0]?.url || null,
+    }));
+    total = await prisma.product.count({ where });
   } catch (error) {
     logger.error("shop-products", error);
   }
@@ -216,12 +209,6 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     brands = await prisma.brand.findMany({ orderBy: { name: "asc" } });
   } catch (error) {
     logger.error("shop-brands", error);
-  }
-
-  try {
-    total = await prisma.product.count({ where });
-  } catch (error) {
-    logger.error("shop-count", error);
   }
 
   try {
