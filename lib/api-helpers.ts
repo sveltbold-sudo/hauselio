@@ -101,7 +101,7 @@ export function handleApiError(error: unknown): NextResponse {
         return NextResponse.json({ error: "Referenziertes Feld fehlt" }, { status: 400 });
       default:
         logger.error("prisma", error, { code: error.code });
-        return NextResponse.json({ error: "Datenbankfehler", prismaCode: error.code, meta: error.meta }, { status: 500 });
+        return NextResponse.json({ error: "Datenbankfehler" }, { status: 500 });
     }
   }
 
