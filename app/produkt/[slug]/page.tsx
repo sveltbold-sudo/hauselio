@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: "de_DE",
       type: "website",
       images: product.images[0]?.url
-        ? [{ url: product.images[0].url, width: 800, height: 600 }]
+        ? [{ url: product.images[0].url, width: 800, height: 600, alt: product.name }]
         : undefined,
     },
     twitter: {
