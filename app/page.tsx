@@ -170,12 +170,12 @@ async function getBestsellers() {
 
 async function getDailyDeal() {
   const product = await prisma.product.findFirst({
-    where: { isPromo: true, originalPrice: { not: null } },
+    where: { isDailyDeal: true },
     include: {
       brand: true,
       images: { take: 1, orderBy: { position: "asc" } },
+      reviews: { where: { isApproved: true }, take: 3, orderBy: { createdAt: "desc" } },
     },
-    orderBy: { reviewCount: "desc" },
   });
 
   if (!product) return null;
@@ -185,9 +185,16 @@ async function getDailyDeal() {
     slug: product.slug,
     brand: product.brand?.name || "HAUSAURA",
     price: Number(product.price),
-    originalPrice: Number(product.originalPrice),
+    originalPrice: Number(product.originalPrice || product.price),
     image: product.images[0]?.url || "/images/placeholder-product.svg",
-    tagline: product.description?.slice(0, 120) || "Exklusives Angebot — nur heute",
+    tagline: product.shortDesc || product.description?.slice(0, 120) || "Exklusives Angebot — nur heute",
+    rating: Number(product.rating),
+    reviewCount: product.reviewCount,
+    reviews: product.reviews.map((r) => ({
+      name: r.authorName,
+      rating: r.rating,
+      content: (r.content || "").slice(0, 150),
+    })),
   };
 }
 

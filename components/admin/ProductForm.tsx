@@ -558,6 +558,22 @@ export default function ProductForm({
                       Aktion
                     </span>
                   </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={formData.isDailyDeal}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          isDailyDeal: e.target.checked,
+                        }))
+                      }
+                      className="rounded border-[var(--color-border)] text-[var(--color-danger)] focus:ring-[var(--color-danger)]"
+                    />
+                    <span className="text-sm text-[var(--color-text-secondary)]">
+                      Angebot des Tages
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>

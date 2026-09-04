@@ -89,6 +89,10 @@ export async function PUT(
       );
     }
 
+    if (data.isDailyDeal) {
+      await prisma.product.updateMany({ where: { isDailyDeal: true, NOT: { id } }, data: { isDailyDeal: false } });
+    }
+
     try {
       await prisma.$transaction([
         prisma.productSpec.deleteMany({ where: { productId: id } }),
@@ -107,6 +111,7 @@ export async function PUT(
             isNew: data.isNew,
             isFeatured: data.isFeatured,
             isPromo: data.isPromo,
+            isDailyDeal: data.isDailyDeal,
             weight: data.weight || null,
             features: data.features,
             seoTitle: data.seoTitle || null,

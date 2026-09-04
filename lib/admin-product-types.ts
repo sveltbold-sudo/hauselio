@@ -10,6 +10,7 @@ export interface ProductFormData {
   isNew: boolean;
   isFeatured: boolean;
   isPromo: boolean;
+  isDailyDeal: boolean;
   weight: string;
   imageUrl: string;
   imagePublicId: string;
@@ -44,6 +45,7 @@ export const emptyFormData: ProductFormData = {
   isNew: false,
   isFeatured: false,
   isPromo: false,
+  isDailyDeal: false,
   weight: "",
   imageUrl: "",
   imagePublicId: "",

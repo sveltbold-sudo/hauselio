@@ -30,6 +30,7 @@ interface Product {
   isNew: boolean;
   isFeatured: boolean;
   isPromo: boolean;
+  isDailyDeal: boolean;
   weight: number | null;
   features: string[];
   seoTitle: string | null;
@@ -86,6 +87,7 @@ export default function EditProductPage({
           isNew: p.isNew,
           isFeatured: p.isFeatured,
           isPromo: p.isPromo,
+          isDailyDeal: p.isDailyDeal,
           weight: p.weight ? String(p.weight) : "",
           imageUrl: p.images[0]?.url || "",
           imagePublicId: "",
@@ -144,6 +146,7 @@ export default function EditProductPage({
     isNew: boolean;
     isFeatured: boolean;
     isPromo: boolean;
+    isDailyDeal: boolean;
     weight: string;
     imageUrl: string;
     imagePublicId: string;

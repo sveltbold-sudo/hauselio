@@ -49,6 +49,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (data.isDailyDeal) {
+      await prisma.product.updateMany({ where: { isDailyDeal: true }, data: { isDailyDeal: false } });
+    }
+
     let product;
     try {
       product = await prisma.product.create({
@@ -64,6 +68,7 @@ export async function POST(request: NextRequest) {
         isNew: data.isNew,
         isFeatured: data.isFeatured,
         isPromo: data.isPromo,
+        isDailyDeal: data.isDailyDeal,
         weight: data.weight || null,
         features: data.features,
         seoTitle: data.seoTitle || null,

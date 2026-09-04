@@ -43,6 +43,7 @@ export const CreateProductSchema = z.object({
   isNew: z.boolean().optional().default(false),
   isFeatured: z.boolean().optional().default(false),
   isPromo: z.boolean().optional().default(false),
+  isDailyDeal: z.boolean().optional().default(false),
   weight: z.number().min(0).optional().nullable(),
   features: z.array(z.string().max(500)).max(20).optional().default([]),
   specs: z.array(z.object({
