@@ -167,7 +167,7 @@ export default function ExitIntentPopup() {
                 </span>
                   <button
                     onClick={handleCopy}
-                    className="px-3 py-1.5 min-h-[44px] min-w-[44px] bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors active:scale-95"
+                    className="px-3 py-1.5 min-h-[44px] min-w-[44px] bg-[var(--color-accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors transition-transform active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
                   >
                   {copied ? "Kopiert!" : "Kopieren"}
                 </button>
@@ -193,13 +193,13 @@ export default function ExitIntentPopup() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="ihre@email.de"
                       required
-                      className="w-full pl-9 pr-3 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus:border-transparent"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-4 py-2.5 min-h-[44px] bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50"
+                    className="w-full px-4 py-2.5 min-h-[44px] bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
                   >
                     {submitting ? "..." : "OK"}
                   </button>
@@ -219,7 +219,7 @@ export default function ExitIntentPopup() {
             {/* CTA */}
             <button
               onClick={handleClose}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors active:scale-[0.97]"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors transition-transform active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Weiter einkaufen
               <ArrowRight className="w-4 h-4" />

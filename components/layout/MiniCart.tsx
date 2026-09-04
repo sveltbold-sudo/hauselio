@@ -111,7 +111,7 @@ export default function MiniCart() {
       {/* Cart button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center gap-2 w-11 lg:w-auto h-11 lg:h-11 lg:px-3 justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
+        className="relative flex items-center gap-2 w-11 lg:w-auto h-11 lg:h-11 lg:px-3 justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Warenkorb"
         aria-expanded={isOpen}
       >
@@ -192,7 +192,7 @@ export default function MiniCart() {
                         }
                         disabled={item.quantity <= 1}
                         aria-label="Menge verringern"
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:pointer-events-none"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:pointer-events-none"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -204,7 +204,7 @@ export default function MiniCart() {
                           updateQuantity(item.id, Math.min(99, item.quantity + 1))
                         }
                         aria-label="Menge erhöhen"
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
