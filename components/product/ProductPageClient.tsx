@@ -231,18 +231,18 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
 
           <div className="flex flex-wrap items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
-            <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)]">
+            <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
               {formatPrice(product.price)}
             </span>
             {product.isPromo && product.originalPrice && (
               <>
-                <span className="text-lg text-[var(--color-text-muted)] line-through">
+                <span className="text-base text-[var(--color-text-muted)] line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
-                <span className="text-sm font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-2 py-0.5 rounded-md">
+                <span className="text-sm font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-2.5 py-1 rounded-lg">
                   -{discount}%
                 </span>
-                <span className="text-sm font-semibold text-[var(--color-success)]">
+                <span className="text-sm font-bold text-[var(--color-success)] bg-[var(--color-success)]/10 px-2.5 py-1 rounded-lg">
                   Sie sparen {formatPrice(product.originalPrice - product.price)}
                 </span>
               </>
