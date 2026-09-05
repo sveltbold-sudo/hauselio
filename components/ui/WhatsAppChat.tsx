@@ -4,14 +4,24 @@ import { useState, useEffect } from "react";
 import { MessageCircle, X, Clock } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const WHATSAPP_NUMBER = "+4915259140453";
+const FALLBACK_NUMBER = "+4915259140453";
 const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSAURA.";
 
 export default function WhatsAppChat() {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [pulse, setPulse] = useState(true);
+  const [phone, setPhone] = useState(FALLBACK_NUMBER);
   const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    fetch("/api/kontakt/settings")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.contactPhone) setPhone(data.contactPhone);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -41,7 +51,7 @@ export default function WhatsAppChat() {
   };
 
   const handleOpen = () => {
-    const url = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+    const url = `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     handleDismiss();
   };
