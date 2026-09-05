@@ -19,6 +19,7 @@ interface Settings {
   companyName: string;
   companyAddress: string;
   vatId: string;
+  managingDirector: string;
   defaultVatRate: string;
   invoicePrefix: string;
 }
@@ -37,6 +38,7 @@ export default function EinstellungenPage() {
     companyName: "",
     companyAddress: "",
     vatId: "",
+    managingDirector: "",
     defaultVatRate: "19",
     invoicePrefix: "RE",
   });
@@ -268,6 +270,7 @@ export default function EinstellungenPage() {
             onChange={(e) => handleChange("shippingInfo", e.target.value)}
             className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
             rows={3}
+            maxLength={2000}
           />
         </div>
 
@@ -313,6 +316,17 @@ export default function EinstellungenPage() {
                 value={settings.companyAddress}
                 onChange={(e) => handleChange("companyAddress", e.target.value)}
                 placeholder="Kastanienallee 42, 10435 Berlin"
+                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+              />
+            </div>
+            <div>
+              <label htmlFor="managingDirector" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Geschäftsführer</label>
+              <input
+                id="managingDirector"
+                type="text"
+                value={settings.managingDirector}
+                onChange={(e) => handleChange("managingDirector", e.target.value)}
+                placeholder="Max Mustermann"
                 className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
               />
             </div>

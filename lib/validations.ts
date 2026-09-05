@@ -56,7 +56,7 @@ export const CreateProductSchema = z.object({
 });
 
 export const UpdateSettingsSchema = z.object({
-  bankIban: z.string().max(100).optional(),
+  bankIban: z.string().regex(/^[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}$/i, "Ungültige IBAN (z.B. DE89 3704 0044 0532 0130 00)").max(100).optional(),
   bankBic: z.string().max(20).optional(),
   bankAccountName: z.string().max(200).optional(),
   bankName: z.string().max(200).optional(),
@@ -67,8 +67,9 @@ export const UpdateSettingsSchema = z.object({
   companyName: z.string().max(200).optional(),
   companyAddress: z.string().max(500).optional(),
   vatId: z.string().max(50).optional(),
+  managingDirector: z.string().max(200).optional(),
   defaultVatRate: z.number().min(0).max(100).optional(),
-  invoicePrefix: z.string().max(10).optional(),
+  invoicePrefix: z.string().min(1, "Rechnungspräfix ist erforderlich").max(10).optional(),
 });
 
 export const CreateBrandSchema = z.object({
