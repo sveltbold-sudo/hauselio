@@ -383,7 +383,7 @@ export default function HeaderClient() {
       <nav
         ref={megaNavRef}
         aria-label="Kategorien"
-        className="hidden lg:block relative border-t border-[var(--color-border-light)]"
+        className="hidden lg:block relative z-10 border-t border-[var(--color-border-light)]"
       >
         <div className="container-hausaura">
           <div className="flex items-center gap-1 h-11">
