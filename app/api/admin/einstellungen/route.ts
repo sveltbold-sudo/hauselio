@@ -57,7 +57,12 @@ export async function PUT(request: NextRequest) {
     await requireAdmin();
     const body = await request.json();
 
-    const parsed = UpdateSettingsSchema.safeParse(body);
+    // Convert empty strings to undefined so .optional() fields pass validation
+    const cleaned = Object.fromEntries(
+      Object.entries(body).map(([k, v]) => [k, v === "" ? undefined : v])
+    );
+
+    const parsed = UpdateSettingsSchema.safeParse(cleaned);
     if (!parsed.success) {
       return NextResponse.json(
         { error: parsed.error.issues[0]!.message },
