@@ -99,9 +99,11 @@ export async function POST(request: NextRequest) {
     const MAX_RETRIES = 5;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let order: any = null;
+    let lastOrderNumber = "";
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
         const orderNumber = generateOrderNumber();
+        lastOrderNumber = orderNumber;
 
         // Validate & increment coupon atomically (PgBouncer-compatible, no interactive transaction)
         if (couponRecord) {
@@ -142,19 +144,17 @@ export async function POST(request: NextRequest) {
           },
         });
 
-        // Create order items separately (PgBouncer-compatible: no nested writes)
-        const createdItems = await prisma.orderItem.createMany({
+        await prisma.orderItem.createMany({
           data: validatedItems.map((item) => ({
-            orderId: order.id,
+            orderId: order!.id,
             productId: item.productId,
             quantity: item.quantity,
             price: item.price,
           })),
         });
 
-        // Re-fetch order with items for email data
         order = await prisma.order.findUnique({
-          where: { id: order.id },
+          where: { id: order!.id },
           select: {
             id: true,
             orderNumber: true,
@@ -171,6 +171,10 @@ export async function POST(request: NextRequest) {
         });
         break;
       } catch (err: unknown) {
+        logger.error("order-create", err instanceof Error ? err : new Error(String(err)), {
+          attempt: attempt + 1,
+          orderNumber: lastOrderNumber,
+        });
         if (err instanceof Error && 'code' in err && err.code === "P2002" && attempt < MAX_RETRIES - 1) {
           continue;
         }
