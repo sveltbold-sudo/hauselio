@@ -260,7 +260,7 @@ export default function ShopFilters({
                       key={s}
                       className={`w-3.5 h-3.5 ${
                         s <= rating
-                          ? "fill-[var(--color-warning)] text-[var(--color-warning)]"
+                          ? "fill-[var(--color-star-filled)] text-[var(--color-star-filled)]"
                           : "fill-none text-[var(--color-text-muted)]/30"
                       }`}
                     />

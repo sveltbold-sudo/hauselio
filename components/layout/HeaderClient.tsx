@@ -301,6 +301,7 @@ export default function HeaderClient() {
                 onKeyDown={handleSearchKeyDown}
                 placeholder="Was suchst du?"
                 aria-label="Produkte suchen"
+                enterKeyHint="search"
                 role="combobox"
                 aria-expanded={searchOpen && searchQuery.trim().length >= 2}
                 aria-controls={searchOpen && searchQuery.trim().length >= 2 ? "search-results-list" : undefined}

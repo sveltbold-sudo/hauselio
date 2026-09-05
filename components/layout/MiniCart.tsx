@@ -181,8 +181,8 @@ export default function MiniCart() {
                       <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate">
                         {item.name}
                       </p>
-                      <p className="text-sm text-[var(--color-text-muted)]">
-                        {formatPrice(item.price)}
+                      <p className="text-xs text-[var(--color-text-muted)]">
+                        {item.quantity > 1 ? `${item.quantity} × ` : ""}{formatPrice(item.price)}{item.quantity > 1 ? ` = ${formatPrice(item.price * item.quantity)}` : ""}
                       </p>
                     </div>
                     <div className="flex items-center border border-[var(--color-border)] rounded-xl">

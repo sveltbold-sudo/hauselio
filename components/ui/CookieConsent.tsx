@@ -142,7 +142,7 @@ export default function CookieConsent() {
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Escape") {
-        handleRejectAll();
+        setVisible(false);
         return;
       }
       if (e.key === "Tab" && dialogRef.current) {
