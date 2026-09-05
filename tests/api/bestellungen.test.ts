@@ -5,7 +5,7 @@ const mockPrisma = {
   coupon: { findUnique: vi.fn(), update: vi.fn().mockResolvedValue({}) },
   product: { findMany: vi.fn() },
   order: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
-  orderItem: { count: vi.fn().mockResolvedValue(0) },
+  orderItem: { count: vi.fn().mockResolvedValue(0), createMany: vi.fn().mockResolvedValue({ count: 1 }) },
   $executeRaw: vi.fn().mockResolvedValue(1),
 };
 
@@ -123,9 +123,12 @@ describe("POST /api/bestellungen", () => {
       id: "ord-1",
       orderNumber: "HL-202609-ABCDEF12",
       total: 54.99,
-      shippingCost: 0,
-      status: "PENDING",
-      items: [],
+    });
+    mockPrisma.order.findUnique.mockResolvedValue({
+      id: "ord-1",
+      orderNumber: "HL-202609-ABCDEF12",
+      total: 54.99,
+      items: [{ id: "oi-1", productId: "prod-1", quantity: 1, price: 49.99 }],
     });
     const { POST } = await import("@/app/api/bestellungen/route");
     const res = await POST(makePostRequest(validOrder));
@@ -144,9 +147,12 @@ describe("POST /api/bestellungen", () => {
       id: "ord-2",
       orderNumber: "HL-202609-XYZ789",
       total: 94.99,
-      shippingCost: 0,
-      status: "PENDING",
-      items: [],
+    });
+    mockPrisma.order.findUnique.mockResolvedValue({
+      id: "ord-2",
+      orderNumber: "HL-202609-XYZ789",
+      total: 94.99,
+      items: [{ id: "oi-2", productId: "prod-1", quantity: 1, price: 100 }],
     });
     const { POST } = await import("@/app/api/bestellungen/route");
     const res = await POST(makePostRequest({ ...validOrder, couponCode: "SAVE10" }));
