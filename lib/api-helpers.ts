@@ -58,7 +58,10 @@ export function validateCsrfOrigin(request: NextRequest): boolean {
   try {
     const sourceUrl = new URL(source);
     const expectedUrl = new URL(expected);
-    return sourceUrl.origin === expectedUrl.origin;
+
+    const normalize = (host: string) => host.toLowerCase().replace(/^www\./, "");
+    return normalize(sourceUrl.hostname) === normalize(expectedUrl.hostname)
+      && sourceUrl.protocol === expectedUrl.protocol;
   } catch {
     return false;
   }
