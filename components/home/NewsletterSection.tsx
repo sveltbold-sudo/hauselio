@@ -83,8 +83,15 @@ export default function NewsletterSection() {
         </p>
         <div className="flex items-center justify-center gap-2 mt-3">
           <div className="flex -space-x-1.5">
-            {[0,1,2].map((i) => (
-              <div key={i} className="w-5 h-5 rounded-full bg-white/20 border border-white/30" />
+            {["/images/testimonials/anna.jpg", "/images/testimonials/stefan.jpg", "/images/testimonials/julia.jpg"].map((src, i) => (
+              <Image
+                key={i}
+                src={src}
+                alt=""
+                width={20}
+                height={20}
+                className="w-5 h-5 rounded-full border border-white/30 object-cover"
+              />
             ))}
           </div>
           <p className="text-xs font-semibold text-white/70">
