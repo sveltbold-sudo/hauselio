@@ -30,7 +30,7 @@ export default function OrganizationJsonLd({
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+49-30-555-78901",
+      telephone: "+49-1525-9140453",
       contactType: "customer service",
       availableLanguage: "German",
     },
