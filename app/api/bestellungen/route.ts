@@ -47,7 +47,13 @@ export async function POST(request: NextRequest) {
     try {
       const customer = await getCustomerFromRequest();
       if (customer) {
-        customerId = customer.id;
+        const exists = await prisma.customer.findUnique({
+          where: { id: customer.id },
+          select: { id: true },
+        });
+        if (exists) {
+          customerId = exists.id;
+        }
       }
     } catch {
       // Guest checkout — no customer linked
