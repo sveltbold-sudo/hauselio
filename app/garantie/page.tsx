@@ -155,13 +155,13 @@ export default function GarantiePage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <a
-              href="tel:+493055578901"
+              href="tel:+4915259140453"
               className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               <Phone className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <div className="text-sm font-bold text-[var(--color-text-primary)]">Telefon</div>
-                <div className="text-xs text-[var(--color-text-muted)]">+49 (0)30 555 789 01</div>
+                <div className="text-xs text-[var(--color-text-muted)]">+49 (0)1525 9140453</div>
               </div>
             </a>
             <a

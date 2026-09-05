@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 const fallbackSettings = {
   contactEmail: "info@HAUSAURA.de",
-  contactPhone: "+49 (0)30 555 789 01",
+  contactPhone: "+49 (0)1525 9140453",
   contactAddress: "Kastanienallee 42, 10435 Berlin",
 };
 

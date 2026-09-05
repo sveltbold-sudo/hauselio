@@ -90,7 +90,7 @@ export default function BarrierefreiheitPage() {
               <Phone className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Telefon</p>
-                <p className="text-sm text-[var(--color-text-secondary)]">+49 (0)30 555 789 01</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">+49 (0)1525 9140453</p>
               </div>
             </div>
           </div>

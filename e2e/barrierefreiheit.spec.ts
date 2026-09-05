@@ -24,7 +24,7 @@ test.describe("Barrierefreiheit Page", () => {
   test("displays contact information", async ({ page }) => {
     await page.goto("/barrierefreiheit");
     await expect(page.locator("#main-content").getByText("barrierefreiheit@hausaura.de")).toBeVisible();
-    await expect(page.locator("#main-content").getByText("+49 (0)30 555 789 01")).toBeVisible();
+    await expect(page.locator("#main-content").getByText("+49 (0)1525 9140453")).toBeVisible();
   });
 
   test("displays Stand date", async ({ page }) => {

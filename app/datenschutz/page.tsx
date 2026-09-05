@@ -42,7 +42,7 @@ export default function DatenschutzPage() {
             <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
             <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
             <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
-            <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)30 555 789 01</p>
+            <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)1525 9140453</p>
             <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@HAUSAURA.de</p>
           </div>
         </section>

@@ -38,7 +38,7 @@ const faqs = [
   },
   {
     question: "Kann ich eine Beratung vor dem Kauf erhalten?",
-    answer: "Selbstverständlich! Unser deutsches Kundenteam berät Sie gerne per E-Mail (info@hausaura.de), telefonisch (+49 (0)30 555 789 01) oder über unser Kontaktformular. Wir sind montags bis freitags von 9:00 bis 18:00 Uhr und samstags von 10:00 bis 14:00 Uhr erreichbar.",
+    answer: "Selbstverständlich! Unser deutsches Kundenteam berät Sie gerne per E-Mail (info@hausaura.de), telefonisch (+49 (0)1525 9140453) oder über unser Kontaktformular. Wir sind montags bis freitags von 9:00 bis 18:00 Uhr und samstags von 10:00 bis 14:00 Uhr erreichbar.",
   },
   {
     question: "Bieten Sie einen Anschlussservice an?",
@@ -106,7 +106,7 @@ export default function HilfePage() {
           Unser Kundenteam hilft Ihnen gerne weiter.
         </p>
         <div className="space-y-2 text-[var(--color-text-secondary)]">
-          <p>Telefon: +49 (0)30 555 789 01</p>
+          <p>Telefon: +49 (0)1525 9140453</p>
           <p>E-Mail: info@hausaura.de</p>
           <p>Adresse: Kastanienallee 42, 10435 Berlin</p>
           <p>Mo-Fr: 9:00-18:00, Sa: 10:00-14:00</p>

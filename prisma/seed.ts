@@ -3990,7 +3990,7 @@ async function main() {
       bankName: "Commerzbank Berlin",
       shippingInfo: "Kostenloser Versand ab 50€ Bestellwert. Standard-Versand: 4,99€.",
       contactEmail: "info@hausaura.de",
-      contactPhone: "+49 (0)30 555 789 01",
+      contactPhone: "+49 (0)1525 9140453",
       contactAddress: "Kastanienallee 42, 10435 Berlin",
     },
   });

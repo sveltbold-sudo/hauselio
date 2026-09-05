@@ -199,11 +199,11 @@ export default function Footer() {
                 hilfe@HAUSAURA.de
               </a>
               <a
-                href="tel:+493055578901"
+                href="tel:+4915259140453"
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-                +49 (0)30 555 789 01
+                +49 (0)1525 9140453
               </a>
             </div>
           </div>

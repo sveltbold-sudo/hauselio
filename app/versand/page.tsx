@@ -169,7 +169,7 @@ export default function VersandPage() {
             <span className="font-medium">E-Mail:</span> hilfe@HAUSAURA.de
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            <span className="font-medium">Telefon:</span> +49 (0)30 555 789 01
+            <span className="font-medium">Telefon:</span> +49 (0)1525 9140453
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
             <span className="font-medium">Mo–Fr:</span> 9:00–18:00 Uhr
