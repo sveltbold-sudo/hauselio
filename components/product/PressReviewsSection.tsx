@@ -203,10 +203,10 @@ export default function PressReviewsSection({
           <div className="text-center mb-10 md:mb-14">
             <p className="caption text-[var(--color-accent)] mb-3">Pressestimmen</p>
             <h2 className="heading-2 mb-3">
-              Was die Experten <span className="text-[var(--color-accent)]">&</span> Kunden sagen
+              Was die <span className="text-[var(--color-accent)]">Presse</span> sagt
             </h2>
             <p className="body-large max-w-xl mx-auto">
-              Von unabhängigen Instituten getestet, von Kunden geliebt
+              Unabhängige Tests & Fachbewertungen zu HAUSAURA
             </p>
           </div>
 

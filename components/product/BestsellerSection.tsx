@@ -56,7 +56,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
                 className="snap-start shrink-0 w-[260px] relative group"
               >
                 {/* Rank badge — premium gold */}
-                <div aria-hidden="true" className={`absolute -top-2 -left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
+                <div aria-hidden="true" className={`absolute top-1 left-1 z-20 w-9 h-9 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
                   i === 0 ? "bg-gradient-to-br from-[var(--color-star-filled)] to-[var(--color-accent)] text-white" :
                   i === 1 ? "bg-gradient-to-br from-[var(--color-border)] to-[var(--color-text-muted)] text-white" :
                   i === 2 ? "bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] text-white" :
@@ -79,7 +79,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               key={product.id}
               className="relative"
             >
-              <div className={`absolute -top-2 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
+              <div className={`absolute top-1 left-1 z-20 w-8 h-8 rounded-full flex items-center justify-center text-xs font-extrabold shadow-lg ${
                   i === 0 ? "bg-gradient-to-br from-[var(--color-star-filled)] to-[var(--color-accent)] text-white" :
                   i === 1 ? "bg-gradient-to-br from-[var(--color-border)] to-[var(--color-text-muted)] text-white" :
                   i === 2 ? "bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] text-white" :

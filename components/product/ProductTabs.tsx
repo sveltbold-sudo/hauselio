@@ -75,10 +75,11 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
       </div>
 
       <div
+        key={activeTab}
         role="tabpanel"
         id={`tabpanel-${activeTab}`}
         aria-labelledby={`tab-${activeTab}`}
-        className="py-6 sm:py-8"
+        className="py-6 sm:py-8 animate-fade-in-up"
       >
         {activeTab === "description" && (
           <div className="max-w-3xl">

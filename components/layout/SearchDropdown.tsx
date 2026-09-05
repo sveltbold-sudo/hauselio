@@ -44,6 +44,7 @@ export default function SearchDropdown({
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [nbHits, setNbHits] = useState(0);
+  const [searchError, setSearchError] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const router = useRouter();
 
@@ -55,6 +56,8 @@ export default function SearchDropdown({
     if (!query.trim() || query.trim().length < 2) {
       setResults([]);
       setNbHits(0);
+      setSearchError(false);
+      setLoading(false);
       onResultCountChange(0);
       return;
     }
@@ -63,6 +66,7 @@ export default function SearchDropdown({
     const controller = new AbortController();
     const timer = setTimeout(async () => {
       setLoading(true);
+      setSearchError(false);
       try {
         const res = await fetch(
           `/api/search?q=${encodeURIComponent(query.trim())}&limit=6`,
@@ -77,6 +81,7 @@ export default function SearchDropdown({
       } catch {
         if (!cancelled) {
           setResults([]);
+          setSearchError(true);
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -96,7 +101,7 @@ export default function SearchDropdown({
     onClear();
   }, [query, router, onClose, onClear]);
 
-  const hasQuery = query.trim().length >= 2;
+  const hasQuery = query.trim().length >= 1;
 
   return (
     <div
@@ -201,12 +206,29 @@ export default function SearchDropdown({
                 </>
               ) : (
                 <div className="p-8 text-center">
-                  <p className="text-[var(--color-text-muted)]">
-                    Keine Ergebnisse für &ldquo;{query}&rdquo;
-                  </p>
-                  <p className="text-sm text-[var(--color-text-muted)] mt-1">
-                    Versuchen Sie einen anderen Suchbegriff
-                  </p>
+                  {searchError ? (
+                    <>
+                      <p className="text-[var(--color-danger)] font-medium">
+                        Suche fehlgeschlagen
+                      </p>
+                      <p className="text-sm text-[var(--color-text-muted)] mt-1">
+                        Versuchen Sie es bitte erneut
+                      </p>
+                    </>
+                  ) : query.trim().length === 1 ? (
+                    <p className="text-sm text-[var(--color-text-muted)]">
+                      Bitte mindestens 2 Zeichen eingeben
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-[var(--color-text-muted)]">
+                        Keine Ergebnisse für &ldquo;{query}&rdquo;
+                      </p>
+                      <p className="text-sm text-[var(--color-text-muted)] mt-1">
+                        Versuchen Sie einen anderen Suchbegriff
+                      </p>
+                    </>
+                  )}
                 </div>
               )}
             </div>

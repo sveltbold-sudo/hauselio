@@ -136,6 +136,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
                       aria-valuenow={dist.percentage}
                       aria-valuemin={0}
                       aria-valuemax={100}
+                      aria-valuetext={`${dist.count} Bewertungen mit ${dist.stars} von 5 Sternen`}
                       aria-label={`${dist.stars} Sterne: ${dist.count} Bewertungen`}
                     />
                   </div>

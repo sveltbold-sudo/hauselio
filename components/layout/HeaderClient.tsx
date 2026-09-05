@@ -146,7 +146,10 @@ export default function HeaderClient() {
   }, []);
 
   const handleMegaBlur = useCallback(() => {
-    setActiveMega(null);
+    megaCloseTimeoutRef.current = setTimeout(() => {
+      setActiveMega(null);
+      megaCloseTimeoutRef.current = null;
+    }, 150);
   }, []);
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -236,14 +239,16 @@ export default function HeaderClient() {
         scrolled ? "shadow-[var(--shadow-md)]" : ""
       }`}
     >
-      {/* Brand stripe — hidden when scrolled */}
+      {/* Brand stripe — hidden when scrolled, no CLS */}
       <div
-        className={`brand-stripe transition-[height,opacity] duration-300 overflow-hidden pt-[env(safe-area-inset-top,0px)] ${
-          scrolled ? "h-0 opacity-0" : "opacity-100"
+        className={`overflow-hidden transition-[max-height,opacity] duration-300 ${
+          scrolled ? "max-h-0 opacity-0" : "max-h-8 opacity-100"
         }`}
-      />
+      >
+        <div className="brand-stripe pt-[env(safe-area-inset-top,0px)]" />
+      </div>
 
-      {/* Promo Banner — hidden when scrolled */}
+      {/* Promo Banner — hidden when scrolled, no CLS */}
       {!promoDismissed && (
         <div
           className={`overflow-hidden transition-[max-height,opacity] duration-300 ${

@@ -239,7 +239,13 @@ export default function KategorienPage() {
                     <button onClick={() => handleEdit(cat)} aria-label={`Kategorie ${cat.name} bearbeiten`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" aria-hidden="true" />
                     </button>
-                    <button onClick={() => handleDelete(cat.id, cat.name, cat._count.products)} aria-label={`Kategorie ${cat.name} löschen`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                    <button
+                      onClick={() => handleDelete(cat.id, cat.name, cat._count.products)}
+                      disabled={cat._count.products > 0}
+                      aria-label={`Kategorie ${cat.name} löschen${cat._count.products > 0 ? ` (${cat._count.products} Produkte)` : ""}`}
+                      title={cat._count.products > 0 ? `Kann nicht gelöscht werden: ${cat._count.products} Produkte zugeordnet` : "Kategorie löschen"}
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-[var(--color-text-muted)] disabled:hover:bg-transparent"
+                    >
                       <Trash2 className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>

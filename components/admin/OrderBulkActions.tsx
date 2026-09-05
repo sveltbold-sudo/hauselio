@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
 interface OrderBulkActionsProps {
   selectedIds: string[];
@@ -15,6 +16,8 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [showStatusMenu, setShowStatusMenu] = useState(false);
+  const [cancelConfirm, setCancelConfirm] = useState(false);
+  const [pendingCancelIds, setPendingCancelIds] = useState<string[]>([]);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -56,7 +59,9 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
 
   const handleBulkStatus = async (status: string) => {
     setShowStatusMenu(false);
-    if (status === "CANCELLED" && !confirm(`${selectedIds.length} Bestellungen wirklich stornieren? Dies kann nicht rückgängig gemacht werden.`)) {
+    if (status === "CANCELLED") {
+      setPendingCancelIds(selectedIds);
+      setCancelConfirm(true);
       return;
     }
     setLoading(true);
@@ -81,53 +86,88 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
     }
   };
 
+  const confirmCancel = async () => {
+    setCancelConfirm(false);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/bestellungen/bulk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: pendingCancelIds, status: "CANCELLED" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      const msg = data.skipped > 0
+        ? `${data.count} storniert, ${data.skipped} übersprungen`
+        : `${data.count} Bestellungen storniert.`;
+      toast.success(msg);
+      onClearSelection();
+      onComplete();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler bei der Stornierung");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const statuses = (["PAYMENT_CONFIRMED", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"] as const).map((value) => ({
     value,
     label: ORDER_STATUS_LABELS[value],
   }));
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-[calc(100vw-2rem)]">
-      <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
-      <div className="w-px h-6 bg-white/20" />
-      <div className="relative">
-        <button
-          ref={buttonRef}
-          onClick={() => setShowStatusMenu(!showStatusMenu)}
-          disabled={loading}
-          aria-haspopup="menu"
-          aria-expanded={showStatusMenu}
-          className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
-        >
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Status ändern ▾"}
-        </button>
-        {showStatusMenu && (
-          <div
-            ref={menuRef}
-            role="menu"
-            aria-label="Status auswählen"
-            className="absolute bottom-full mb-2 left-0 bg-white rounded-lg shadow-xl border border-[var(--color-border-light)] py-1 min-w-[160px]"
+    <>
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-[calc(100vw-2rem)]">
+        <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
+        <div className="w-px h-6 bg-white/20" />
+        <div className="relative">
+          <button
+            ref={buttonRef}
+            onClick={() => setShowStatusMenu(!showStatusMenu)}
+            disabled={loading}
+            aria-haspopup="menu"
+            aria-expanded={showStatusMenu}
+            className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
           >
-            {statuses.map((s) => (
-              <button
-                key={s.value}
-                role="menuitem"
-                onClick={() => handleBulkStatus(s.value)}
-                className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]"
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-        )}
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Status ändern ▾"}
+          </button>
+          {showStatusMenu && (
+            <div
+              ref={menuRef}
+              role="menu"
+              aria-label="Status auswählen"
+              className="absolute bottom-full mb-2 left-0 bg-white rounded-lg shadow-xl border border-[var(--color-border-light)] py-1 min-w-[160px]"
+            >
+              {statuses.map((s) => (
+                <button
+                  key={s.value}
+                  role="menuitem"
+                  onClick={() => handleBulkStatus(s.value)}
+                  className="w-full text-left px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <button
+          onClick={onClearSelection}
+          aria-label="Auswahl abbrechen"
+          className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+        >
+          Abbrechen
+        </button>
       </div>
-      <button
-        onClick={onClearSelection}
-        aria-label="Auswahl abbrechen"
-        className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-      >
-        Abbrechen
-      </button>
-    </div>
+      <ConfirmDialog
+        open={cancelConfirm}
+        title={`${pendingCancelIds.length} Bestellungen stornieren`}
+        message="Möchten Sie diese Bestellungen wirklich stornieren? Dies kann nicht rückgängig gemacht werden."
+        confirmLabel="Stornieren"
+        danger
+        onConfirm={confirmCancel}
+        onCancel={() => setCancelConfirm(false)}
+      />
+    </>
   );
 }
