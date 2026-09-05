@@ -68,8 +68,25 @@ export default function EinstellungenPage() {
       })
       .then((data) => {
         if (data.settings) {
-          startTransition(() => setSettings(data.settings));
-          initialSettingsRef.current = data.settings;
+          const raw = data.settings as Record<string, unknown>;
+          const normalized: Settings = {
+            bankIban: (raw.bankIban as string) ?? "",
+            bankBic: (raw.bankBic as string) ?? "",
+            bankAccountName: (raw.bankAccountName as string) ?? "",
+            bankName: (raw.bankName as string) ?? "",
+            shippingInfo: (raw.shippingInfo as string) ?? "",
+            contactEmail: (raw.contactEmail as string) ?? "",
+            contactPhone: (raw.contactPhone as string) ?? "",
+            contactAddress: (raw.contactAddress as string) ?? "",
+            companyName: (raw.companyName as string) ?? "",
+            companyAddress: (raw.companyAddress as string) ?? "",
+            vatId: (raw.vatId as string) ?? "",
+            managingDirector: (raw.managingDirector as string) ?? "",
+            defaultVatRate: String(raw.defaultVatRate ?? "19"),
+            invoicePrefix: (raw.invoicePrefix as string) ?? "RE",
+          };
+          startTransition(() => setSettings(normalized));
+          initialSettingsRef.current = normalized;
         }
       })
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
@@ -260,7 +277,7 @@ export default function EinstellungenPage() {
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Versandinformationen</h2>
-              <p className="text-xs text-[var(--color-text-muted)]">Text f\u00fcr Versandkonditionen</p>
+              <p className="text-xs text-[var(--color-text-muted)]">Text für Versandkonditionen</p>
             </div>
           </div>
           <label htmlFor="shippingInfo" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Versandinformationen</label>
@@ -282,7 +299,7 @@ export default function EinstellungenPage() {
             </div>
             <div>
               <h2 className="font-bold text-[var(--color-text-primary)]">Unternehmen & Rechnung</h2>
-              <p className="text-xs text-[var(--color-text-muted)]">Daten f\u00fcr Rechnungen und Impressionen</p>
+              <p className="text-xs text-[var(--color-text-muted)]">Daten für Rechnungen und Impressionen</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -344,7 +361,7 @@ export default function EinstellungenPage() {
               />
             </div>
             <div>
-              <label htmlFor="invoicePrefix" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rechnungspr\u00e4fix</label>
+              <label htmlFor="invoicePrefix" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rechnungspräfix</label>
               <input
                 id="invoicePrefix"
                 type="text"
