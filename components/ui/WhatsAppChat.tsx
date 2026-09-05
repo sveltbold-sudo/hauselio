@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { MessageCircle, X, Clock } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const WHATSAPP_NUMBER = "+4917612345678";
+const WHATSAPP_NUMBER = "+4915259140453";
 const WHATSAPP_MESSAGE = "Hallo! Ich habe eine Frage zu HAUSAURA.";
 
 export default function WhatsAppChat() {
