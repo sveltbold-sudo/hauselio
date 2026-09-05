@@ -205,12 +205,12 @@ export function generateInvoicePdf(data: InvoiceData): Buffer {
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...gray);
   doc.text(
-    "Bitte \u00fcberweisen Sie den Gesamtbetrag innerhalb von 5 Werktagen auf das unten angegebene Konto.",
+    "Diese Rechnung wurde nach Zahlungseingang ausgestellt.",
     margin + 6,
     y + 7
   );
   doc.text(
-    `Verwendungszweck: ${data.invoiceNumber}`,
+    `Rechnungsnummer: ${data.invoiceNumber}`,
     margin + 6,
     y + 13
   );

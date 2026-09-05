@@ -15,17 +15,20 @@ interface BankDetails {
   bic: string;
 }
 
+interface OrderItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 interface Order {
   id: string;
   orderNumber: string;
   invoiceNumber: string | null;
   total: number;
   shippingCost: number;
-  items: {
-    product: { name: string };
-    quantity: number;
-    price: number;
-  }[];
+  items: OrderItem[];
 }
 
 function getOrderCouponDiscount(order: Order): number {
@@ -113,7 +116,7 @@ function OrderSuccessContent() {
           const now = new Date();
           const diff = Math.max(0, Math.floor((deadline.getTime() - now.getTime()) / 1000));
           setRemaining(diff);
-          trackPurchase(data.order.orderNumber, data.order.total, data.order.items.map((item: { id: string; name: string; price: number; quantity: number }) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
+          trackPurchase(data.order.orderNumber, data.order.total, data.order.items.map((item: OrderItem) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
         })
         .catch(() => {
           setOrderError("Bestellung konnte nicht geladen werden. Bitte überprüfen Sie Ihre E-Mail und Bestellnummer.");
@@ -493,9 +496,9 @@ function OrderSuccessContent() {
             <div className="space-y-2 mb-4" role="list">
               {order.items.map((item, i) => (
                 <div key={i} className="flex justify-between text-sm" role="listitem">
-                  <span className="text-[var(--color-text-secondary)]">
-                    {item.product.name} × {item.quantity}
-                  </span>
+                    <span className="text-[var(--color-text-secondary)]">
+                      {item.name} × {item.quantity}
+                    </span>
                   <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
                 </div>
               ))}
