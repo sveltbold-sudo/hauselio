@@ -513,6 +513,6 @@ describe("GET /api/newsletter/unsubscribe", () => {
     const html = await res.text();
 
     expect(res.status).toBe(200);
-    expect(html).toContain("Ung�ltiger Link");
+    expect(html).toContain("Ungültiger Link");
   });
 });
