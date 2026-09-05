@@ -232,7 +232,7 @@ export default function HeaderClient() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 touch-action-manipulation overflow-x-hidden ${
+      className={`sticky top-0 z-50 bg-white transition-[box-shadow] duration-200 touch-action-manipulation overflow-x-clip ${
         scrolled ? "shadow-[var(--shadow-md)]" : ""
       }`}
     >
