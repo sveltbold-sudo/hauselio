@@ -233,7 +233,7 @@ export default function CouponsPage() {
                 />
                 {formErrors.code && <p className="mt-1 text-xs text-[var(--color-danger)]">{formErrors.code}</p>}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="coupon-discount" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rabatt (%)</label>
                   <input
