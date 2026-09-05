@@ -25,6 +25,7 @@ const fallback = {
   contactPhone: "+49 (0)1525 9140453",
   contactEmail: "info@hausaura.de",
   vatId: "DE 312 847 609",
+  managingDirector: "",
 };
 
 async function getSettings() {
@@ -37,6 +38,7 @@ async function getSettings() {
       contactPhone: s.contactPhone || fallback.contactPhone,
       contactEmail: s.contactEmail || fallback.contactEmail,
       vatId: s.vatId || fallback.vatId,
+      managingDirector: s.managingDirector || fallback.managingDirector,
     };
   } catch {
     return fallback;
@@ -73,6 +75,13 @@ export default async function ImpressumPage() {
             <p className="text-[var(--color-text-secondary)]">Website: www.hausaura.de</p>
           </div>
         </section>
+
+        {s.managingDirector && (
+          <section>
+            <h2 className="heading-3 mb-3">Geschäftsführer</h2>
+            <p className="text-[var(--color-text-secondary)]">{s.managingDirector}</p>
+          </section>
+        )}
 
         <section>
           <h2 className="heading-3 mb-3">Umsatzsteuer-ID</h2>

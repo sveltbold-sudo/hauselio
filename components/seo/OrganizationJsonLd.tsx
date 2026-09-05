@@ -1,36 +1,53 @@
 import { SITE_URL } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 
-interface OrganizationJsonLdProps {
-  name?: string;
-  url?: string;
-  logo?: string;
-  description?: string;
+const fallback = {
+  companyName: "HAUSAURA GmbH",
+  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  contactPhone: "+4915259140453",
+  contactEmail: "info@HAUSAURA.de",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      companyName: s.companyName || fallback.companyName,
+      companyAddress: s.companyAddress || fallback.companyAddress,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+    };
+  } catch {
+    return fallback;
+  }
 }
 
-export default function OrganizationJsonLd({
-  name = "HAUSAURA GmbH",
-  url = SITE_URL,
-  logo = `${SITE_URL}/logos/logoprincipale.png`,
-  description = "Premium Haushaltsgeräte online kaufen. Miele, Bosch, Siemens, Dyson und weitere Top-Marken.",
-}: OrganizationJsonLdProps) {
+export default async function OrganizationJsonLd() {
+  const s = await getSettings();
+  const addrParts = s.companyAddress.split(",").map((p) => p.trim());
+  const street = addrParts[0] || "Kastanienallee 42";
+  const postalCode = (addrParts[1] || "10435 Berlin").split(" ")[0] || "10435";
+  const city = (addrParts[1] || "10435 Berlin").split(" ").slice(1).join(" ") || "Berlin";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name,
-    url,
-    logo,
-    description,
-    email: "info@HAUSAURA.de",
+    name: s.companyName,
+    url: SITE_URL,
+    logo: `${SITE_URL}/logos/logoprincipale.png`,
+    description: "Premium Haushaltsgeräte online kaufen. Miele, Bosch, Siemens, Dyson und weitere Top-Marken.",
+    email: s.contactEmail,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Kastanienallee 42",
-      addressLocality: "Berlin",
-      postalCode: "10435",
+      streetAddress: street,
+      addressLocality: city,
+      postalCode: postalCode,
       addressCountry: "DE",
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+49-1525-9140453",
+      telephone: s.contactPhone,
       contactType: "customer service",
       availableLanguage: "German",
     },

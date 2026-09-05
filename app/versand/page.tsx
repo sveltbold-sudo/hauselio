@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Truck, Package, Landmark } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -18,6 +19,26 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+const fallback = {
+  contactEmail: "hilfe@HAUSAURA.de",
+  contactPhone: "+49 (0)1525 9140453",
+  shippingInfo: "",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      contactEmail: s.contactEmail || fallback.contactEmail,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      shippingInfo: s.shippingInfo || fallback.shippingInfo,
+    };
+  } catch {
+    return fallback;
+  }
+}
 
 const shippingMethods = [
   {
@@ -38,7 +59,8 @@ const shippingMethods = [
   },
 ];
 
-export default function VersandPage() {
+export default async function VersandPage() {
+  const s = await getSettings();
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
@@ -166,10 +188,10 @@ export default function VersandPage() {
         </p>
         <div className="mt-4 bg-[var(--color-bg)] rounded-xl p-6">
           <p className="text-sm text-[var(--color-text-secondary)]">
-            <span className="font-medium">E-Mail:</span> hilfe@HAUSAURA.de
+            <span className="font-medium">E-Mail:</span> {s.contactEmail}
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            <span className="font-medium">Telefon:</span> +49 (0)1525 9140453
+            <span className="font-medium">Telefon:</span> {s.contactPhone}
           </p>
           <p className="text-sm text-[var(--color-text-secondary)]">
             <span className="font-medium">Mo–Fr:</span> 9:00–18:00 Uhr

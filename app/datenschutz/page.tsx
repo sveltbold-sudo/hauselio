@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -18,7 +19,32 @@ export const metadata: Metadata = {
   },
 };
 
-export default function DatenschutzPage() {
+const fallback = {
+  companyName: "HAUSAURA GmbH",
+  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  contactPhone: "+49 (0)1525 9140453",
+  contactEmail: "datenschutz@HAUSAURA.de",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      companyName: s.companyName || fallback.companyName,
+      companyAddress: s.companyAddress || fallback.companyAddress,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+export default async function DatenschutzPage() {
+  const s = await getSettings();
+  const addressLines = s.companyAddress.split(",").map((l) => l.trim());
+
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Datenschutz", url: "/datenschutz" }]} />
@@ -39,11 +65,12 @@ export default function DatenschutzPage() {
         <section>
           <h2 className="heading-3 mb-3">2. Verantwortliche Stelle</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
-            <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
-            <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
-            <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)1525 9140453</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: datenschutz@HAUSAURA.de</p>
+            <p className="text-[var(--color-text-secondary)]">{s.companyName}</p>
+            {addressLines.map((line) => (
+              <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
+            ))}
+            <p className="text-[var(--color-text-secondary)]">Telefon: {s.contactPhone}</p>
+            <p className="text-[var(--color-text-secondary)]">E-Mail: {s.contactEmail}</p>
           </div>
         </section>
 

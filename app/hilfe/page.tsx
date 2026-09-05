@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -19,7 +20,28 @@ export const metadata: Metadata = {
   },
 };
 
-const faqs = [
+const fallback = {
+  contactPhone: "+49 (0)1525 9140453",
+  contactEmail: "info@hausaura.de",
+  companyAddress: "Kastanienallee 42, 10435 Berlin",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+      companyAddress: s.companyAddress || fallback.companyAddress,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+function getFaqs(s: typeof fallback) {
+  return [
   {
     question: "Wie kann ich ein Produkt bestellen?",
     answer: "Wählen Sie Ihr gewünschtes Produkt aus und klicken Sie auf In den Warenkorb. Im Warenkorb können Sie die Menge anpassen und direkt zur Kasse weitergehen. Geben Sie Ihre Rechnungs- und Lieferadresse ein, wählen Sie die Zahlungsart Überweisung (Vorkasse) und schließen Sie die Bestellung ab. Sie erhalten eine Bestätigungs-E-Mail mit unseren Bankverbindungsdaten.",
@@ -38,7 +60,7 @@ const faqs = [
   },
   {
     question: "Kann ich eine Beratung vor dem Kauf erhalten?",
-    answer: "Selbstverständlich! Unser deutsches Kundenteam berät Sie gerne per E-Mail (info@hausaura.de), telefonisch (+49 (0)1525 9140453) oder über unser Kontaktformular. Wir sind montags bis freitags von 9:00 bis 18:00 Uhr und samstags von 10:00 bis 14:00 Uhr erreichbar.",
+    answer: `Selbstverständlich! Unser deutsches Kundenteam berät Sie gerne per E-Mail (${s.contactEmail}), telefonisch (${s.contactPhone}) oder über unser Kontaktformular. Wir sind montags bis freitags von 9:00 bis 18:00 Uhr und samstags von 10:00 bis 14:00 Uhr erreichbar.`,
   },
   {
     question: "Bieten Sie einen Anschlussservice an?",
@@ -53,21 +75,25 @@ const faqs = [
     answer: "Klicken Sie in jeder Newsletter-E-Mail auf den Abbestell-Link. Alternativ können Sie sich auch über unser Kontaktformular an uns wenden. Wir verarbeiten Ihre Abbestellung umgehend.",
   },
 ];
+}
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
+export default async function HilfePage() {
+  const s = await getSettings();
+  const faqs = getFaqs(s);
 
-export default function HilfePage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <script
@@ -106,9 +132,9 @@ export default function HilfePage() {
           Unser Kundenteam hilft Ihnen gerne weiter.
         </p>
         <div className="space-y-2 text-[var(--color-text-secondary)]">
-          <p>Telefon: +49 (0)1525 9140453</p>
-          <p>E-Mail: info@hausaura.de</p>
-          <p>Adresse: Kastanienallee 42, 10435 Berlin</p>
+          <p>Telefon: {s.contactPhone}</p>
+          <p>E-Mail: {s.contactEmail}</p>
+          <p>Adresse: {s.companyAddress}</p>
           <p>Mo-Fr: 9:00-18:00, Sa: 10:00-14:00</p>
         </div>
         <Link

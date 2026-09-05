@@ -5,6 +5,25 @@ import { footerCategories } from "@/lib/navigation";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import NewsletterForm from "@/components/layout/NewsletterForm";
 import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
+import { prisma } from "@/lib/prisma";
+
+const fallback = {
+  contactEmail: "hilfe@HAUSAURA.de",
+  contactPhone: "+49 (0)1525 9140453",
+};
+
+async function getContactSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      contactEmail: s.contactEmail || fallback.contactEmail,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+    };
+  } catch {
+    return fallback;
+  }
+}
 
 const footerLinkClass = "block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250";
 
@@ -37,7 +56,8 @@ const paymentMethods = [
   { name: "Vorkasse", icon: "/images/payments/vorkasse.svg" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const contact = await getContactSettings();
   return (
     <footer className="bg-[var(--color-secondary)] text-white pb-[env(safe-area-inset-bottom,0px)]">
       {/* Trust badges bar */}
@@ -192,18 +212,18 @@ export default function Footer() {
 
             <div className="space-y-0">
               <a
-                href="mailto:hilfe@HAUSAURA.de"
+                href={`mailto:${contact.contactEmail}`}
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                hilfe@HAUSAURA.de
+                {contact.contactEmail}
               </a>
               <a
-                href="tel:+4915259140453"
+                href={`tel:${contact.contactPhone.replace(/\s/g, "")}`}
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-                +49 (0)1525 9140453
+                {contact.contactPhone}
               </a>
             </div>
           </div>

@@ -12,7 +12,6 @@ import { randomBytes } from "crypto";
 async function generateInvoiceNumber(): Promise<string> {
   const now = new Date();
   const year = now.getFullYear();
-  const prefix = "RE";
 
   let settings = await prisma.siteSettings.findFirst();
   if (!settings) {
@@ -20,6 +19,8 @@ async function generateInvoiceNumber(): Promise<string> {
       data: { bankIban: "", bankBic: "", bankAccountName: "", bankName: "", shippingInfo: "", contactEmail: "", contactPhone: "", contactAddress: "" },
     });
   }
+
+  const prefix = settings.invoicePrefix || "RE";
 
   let counter = (settings.invoiceCounter || 0) + 1;
   if (settings.invoiceYear !== year) {

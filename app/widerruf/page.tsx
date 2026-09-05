@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -18,7 +19,32 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WiderrufPage() {
+const fallback = {
+  companyName: "HAUSAURA GmbH",
+  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  contactPhone: "+49 (0)1525 9140453",
+  contactEmail: "widerruf@hausaura.de",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      companyName: s.companyName || fallback.companyName,
+      companyAddress: s.companyAddress || fallback.companyAddress,
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+export default async function WiderrufPage() {
+  const s = await getSettings();
+  const addressLines = s.companyAddress.split(",").map((l) => l.trim());
+
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Widerruf", url: "/widerruf" }]} />
@@ -37,11 +63,12 @@ export default function WiderrufPage() {
             Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 my-4 space-y-2">
-            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
-            <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
-            <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
-            <p className="text-[var(--color-text-secondary)]">E-Mail: widerruf@hausaura.de</p>
-            <p className="text-[var(--color-text-secondary)]">Telefon: +49 (0)1525 9140453</p>
+            <p className="text-[var(--color-text-secondary)]">{s.companyName}</p>
+            {addressLines.map((line) => (
+              <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
+            ))}
+            <p className="text-[var(--color-text-secondary)]">E-Mail: {s.contactEmail}</p>
+            <p className="text-[var(--color-text-secondary)]">Telefon: {s.contactPhone}</p>
           </div>
           <p className="text-[var(--color-text-secondary)]">
             mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief, Telefax oder
@@ -76,9 +103,10 @@ export default function WiderrufPage() {
             Tag, an dem Sie uns über den Widerruf dieses Vertrags unterrichten, an uns oder an
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 my-4">
-            <p className="text-[var(--color-text-secondary)]">HAUSAURA GmbH</p>
-            <p className="text-[var(--color-text-secondary)]">Kastanienallee 42</p>
-            <p className="text-[var(--color-text-secondary)]">10435 Berlin</p>
+            <p className="text-[var(--color-text-secondary)]">{s.companyName}</p>
+            {addressLines.map((line) => (
+              <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
+            ))}
           </div>
           <p className="text-[var(--color-text-secondary)]">
             zurückzusenden oder zu übergeben. Die Frist ist gewahrt, wenn Sie die Waren vor Ablauf der
@@ -111,7 +139,7 @@ export default function WiderrufPage() {
               senden Sie es zurück.)
             </p>
             <div className="space-y-4 text-[var(--color-text-secondary)]">
-              <p className="break-words">An: HAUSAURA GmbH, Kastanienallee 42, 10435 Berlin, E-Mail: widerruf@hausaura.de</p>
+              <p className="break-words">An: {s.companyName}, {s.companyAddress}, E-Mail: {s.contactEmail}</p>
               <p>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf
                 der folgenden Waren (*) / die Erbringung der folgenden Dienstleistung (*):</p>
               <p>Bestellt am (*) / erhalten am (*):</p>

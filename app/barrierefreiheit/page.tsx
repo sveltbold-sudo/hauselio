@@ -3,6 +3,7 @@ import { Mail, Phone } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -19,7 +20,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BarrierefreiheitPage() {
+const fallback = {
+  contactPhone: "+49 (0)1525 9140453",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      contactPhone: s.contactPhone || fallback.contactPhone,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+export default async function BarrierefreiheitPage() {
+  const s = await getSettings();
+
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Barrierefreiheit", url: "/barrierefreiheit" }]} />
@@ -90,7 +109,7 @@ export default function BarrierefreiheitPage() {
               <Phone className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Telefon</p>
-                <p className="text-sm text-[var(--color-text-secondary)]">+49 (0)1525 9140453</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">{s.contactPhone}</p>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { Shield, Clock, CheckCircle, Phone, Mail, FileText } from "lucide-react"
 import { SITE_URL } from "@/lib/constants";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
 
@@ -24,6 +25,24 @@ export const metadata: Metadata = {
     description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
   },
 };
+
+const fallback = {
+  contactPhone: "+49 (0)1525 9140453",
+  contactEmail: "service@hausaura.de",
+};
+
+async function getSettings() {
+  try {
+    const s = await prisma.siteSettings.findFirst();
+    if (!s) return fallback;
+    return {
+      contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
+    };
+  } catch {
+    return fallback;
+  }
+}
 
 const guaranteeTiers = [
   {
@@ -70,7 +89,9 @@ const guaranteeSteps = [
   },
 ];
 
-export default function GarantiePage() {
+export default async function GarantiePage() {
+  const s = await getSettings();
+  const phoneDigits = s.contactPhone.replace(/\D/g, "");
   return (
     <>
       <BreadcrumbJsonLd
@@ -155,23 +176,23 @@ export default function GarantiePage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <a
-              href="tel:+4915259140453"
+              href={`tel:${phoneDigits}`}
               className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               <Phone className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <div className="text-sm font-bold text-[var(--color-text-primary)]">Telefon</div>
-                <div className="text-xs text-[var(--color-text-muted)]">+49 (0)1525 9140453</div>
+                <div className="text-xs text-[var(--color-text-muted)]">{s.contactPhone}</div>
               </div>
             </a>
             <a
-              href="mailto:service@hausaura.de"
+              href={`mailto:${s.contactEmail}`}
               className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               <Mail className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <div className="text-sm font-bold text-[var(--color-text-primary)]">E-Mail</div>
-                <div className="text-xs text-[var(--color-text-muted)]">service@hausaura.de</div>
+                <div className="text-xs text-[var(--color-text-muted)]">{s.contactEmail}</div>
               </div>
             </a>
             <Link
