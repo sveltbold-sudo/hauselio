@@ -97,7 +97,8 @@ export async function POST(request: NextRequest) {
     const total = subtotal - couponDiscount + shippingCost;
 
     const MAX_RETRIES = 5;
-    let order;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let order: any = null;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
         const orderNumber = generateOrderNumber();
@@ -133,10 +134,27 @@ export async function POST(request: NextRequest) {
             couponDiscount,
             shippingCost,
             total,
-            items: {
-              create: validatedItems,
-            },
           },
+          select: {
+            id: true,
+            orderNumber: true,
+            total: true,
+          },
+        });
+
+        // Create order items separately (PgBouncer-compatible: no nested writes)
+        const createdItems = await prisma.orderItem.createMany({
+          data: validatedItems.map((item) => ({
+            orderId: order.id,
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        });
+
+        // Re-fetch order with items for email data
+        order = await prisma.order.findUnique({
+          where: { id: order.id },
           select: {
             id: true,
             orderNumber: true,
