@@ -305,7 +305,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             alt=""
             fill
             className="object-cover"
-            priority
+            priority={current === 0}
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/30" />

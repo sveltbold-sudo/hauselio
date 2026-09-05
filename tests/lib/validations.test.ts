@@ -140,16 +140,159 @@ describe("UpdateSettingsSchema", () => {
     expect(UpdateSettingsSchema.safeParse({}).success).toBe(true);
   });
 
-  it("accepts valid IBAN", () => {
+  // IBAN validation
+  it("accepts valid IBAN with spaces", () => {
     expect(UpdateSettingsSchema.safeParse({ bankIban: "DE89 3704 0044 0532 0130 00" }).success).toBe(true);
   });
 
+  it("accepts valid IBAN without spaces", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "DE89370400440532013000" }).success).toBe(true);
+  });
+
+  it("accepts valid IBAN lowercase (case-insensitive)", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "de89 3704 0044 0532 0130 00" }).success).toBe(true);
+  });
+
+  it("rejects IBAN without country code", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "89 3704 0044 0532 0130 00" }).success).toBe(false);
+  });
+
+  it("rejects IBAN too short", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "DE89 3704" }).success).toBe(false);
+  });
+
+  it("rejects IBAN with special characters", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "DE89-3704-0044-0532-0130-00" }).success).toBe(false);
+  });
+
+  // Email validation
   it("accepts valid email", () => {
     expect(UpdateSettingsSchema.safeParse({ contactEmail: "test@test.de" }).success).toBe(true);
   });
 
   it("rejects invalid email", () => {
     expect(UpdateSettingsSchema.safeParse({ contactEmail: "not-email" }).success).toBe(false);
+  });
+
+  it("rejects email without domain", () => {
+    expect(UpdateSettingsSchema.safeParse({ contactEmail: "test@" }).success).toBe(false);
+  });
+
+  // managingDirector
+  it("accepts managingDirector", () => {
+    expect(UpdateSettingsSchema.safeParse({ managingDirector: "Max Mustermann" }).success).toBe(true);
+  });
+
+  it("rejects managingDirector > 200 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ managingDirector: "x".repeat(201) }).success).toBe(false);
+  });
+
+  it("accepts managingDirector of exactly 200 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ managingDirector: "x".repeat(200) }).success).toBe(true);
+  });
+
+  // invoicePrefix
+  it("accepts valid invoicePrefix", () => {
+    expect(UpdateSettingsSchema.safeParse({ invoicePrefix: "RE" }).success).toBe(true);
+  });
+
+  it("rejects empty invoicePrefix", () => {
+    expect(UpdateSettingsSchema.safeParse({ invoicePrefix: "" }).success).toBe(false);
+  });
+
+  it("rejects invoicePrefix > 10 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ invoicePrefix: "x".repeat(11) }).success).toBe(false);
+  });
+
+  it("accepts invoicePrefix of exactly 10 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ invoicePrefix: "x".repeat(10) }).success).toBe(true);
+  });
+
+  // defaultVatRate
+  it("accepts valid VAT rate", () => {
+    expect(UpdateSettingsSchema.safeParse({ defaultVatRate: 19 }).success).toBe(true);
+  });
+
+  it("accepts VAT rate of 0", () => {
+    expect(UpdateSettingsSchema.safeParse({ defaultVatRate: 0 }).success).toBe(true);
+  });
+
+  it("accepts VAT rate of 100", () => {
+    expect(UpdateSettingsSchema.safeParse({ defaultVatRate: 100 }).success).toBe(true);
+  });
+
+  it("rejects negative VAT rate", () => {
+    expect(UpdateSettingsSchema.safeParse({ defaultVatRate: -1 }).success).toBe(false);
+  });
+
+  it("rejects VAT rate > 100", () => {
+    expect(UpdateSettingsSchema.safeParse({ defaultVatRate: 101 }).success).toBe(false);
+  });
+
+  // shippingInfo
+  it("accepts valid shippingInfo", () => {
+    expect(UpdateSettingsSchema.safeParse({ shippingInfo: "Versand innerhalb Deutschlands" }).success).toBe(true);
+  });
+
+  it("rejects shippingInfo > 2000 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ shippingInfo: "x".repeat(2001) }).success).toBe(false);
+  });
+
+  // field max lengths
+  it("rejects bankIban > 100 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankIban: "x".repeat(101) }).success).toBe(false);
+  });
+
+  it("rejects bankBic > 20 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankBic: "x".repeat(21) }).success).toBe(false);
+  });
+
+  it("rejects bankAccountName > 200 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankAccountName: "x".repeat(201) }).success).toBe(false);
+  });
+
+  it("rejects bankName > 200 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ bankName: "x".repeat(201) }).success).toBe(false);
+  });
+
+  it("rejects contactPhone > 30 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ contactPhone: "x".repeat(31) }).success).toBe(false);
+  });
+
+  it("rejects contactAddress > 500 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ contactAddress: "x".repeat(501) }).success).toBe(false);
+  });
+
+  it("rejects companyName > 200 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ companyName: "x".repeat(201) }).success).toBe(false);
+  });
+
+  it("rejects companyAddress > 500 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ companyAddress: "x".repeat(501) }).success).toBe(false);
+  });
+
+  it("rejects vatId > 50 chars", () => {
+    expect(UpdateSettingsSchema.safeParse({ vatId: "x".repeat(51) }).success).toBe(false);
+  });
+
+  // combined valid settings
+  it("accepts complete valid settings object", () => {
+    expect(UpdateSettingsSchema.safeParse({
+      bankIban: "DE89 3704 0044 0532 0130 00",
+      bankBic: "COBADEFFXXX",
+      bankAccountName: "HAUSAURA GmbH",
+      bankName: "Commerzbank",
+      shippingInfo: "Gratis Versand ab 50€",
+      contactEmail: "info@hausaura.de",
+      contactPhone: "+49 (0)1525 9140453",
+      contactAddress: "Kastanienallee 42, 10435 Berlin",
+      companyName: "HAUSAURA GmbH",
+      companyAddress: "Kastanienallee 42, 10435 Berlin",
+      vatId: "DE 312 847 609",
+      managingDirector: "Max Mustermann",
+      defaultVatRate: 19,
+      invoicePrefix: "RE",
+    }).success).toBe(true);
   });
 });
 

@@ -210,7 +210,7 @@ export default function MiniCart() {
                       </button>
                     </div>
                     {confirmDelete === item.id ? (
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 min-w-[100px] justify-end">
                         <button
                           onClick={() => {
                             removeItem(item.id);

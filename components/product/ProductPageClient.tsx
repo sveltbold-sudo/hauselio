@@ -260,7 +260,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               <p className="text-sm font-semibold text-[var(--color-text-primary)]">
                 {delivery ? `Lieferung: ${delivery.from} – ${delivery.to}` : "Lieferung: 2-5 Werktage"}
               </p>
-              <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€ · Schnelle Bearbeitung</p>
+              <p className="text-xs text-[var(--color-success)]">Kostenloser Versand ab 50€ · 30 Tage Rückgabe</p>
             </div>
           </div>
 
@@ -274,9 +274,18 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
               >
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="px-3 sm:px-4 py-2.5 sm:py-3 font-bold tabular-nums min-w-[48px] text-center text-sm" aria-live="polite">
-                {quantity}
-              </span>
+              <input
+                type="number"
+                min={1}
+                max={99}
+                value={quantity}
+                onChange={(e) => {
+                  const v = parseInt(e.target.value, 10);
+                  if (!isNaN(v) && v >= 1 && v <= 99) setQuantity(v);
+                }}
+                className="px-3 sm:px-4 py-2.5 sm:py-3 font-bold tabular-nums min-w-[48px] text-center text-sm bg-transparent border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-lg [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                aria-label="Artikelmenge"
+              />
               <button
                 onClick={() => setQuantity(Math.min(99, quantity + 1))}
                 aria-label="Menge erhöhen"

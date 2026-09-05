@@ -78,7 +78,7 @@ export default function EinstellungenPage() {
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (settings.bankIban && !/^[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}$/.test(settings.bankIban)) {
+    if (settings.bankIban && !/^[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}$/i.test(settings.bankIban)) {
       newErrors.bankIban = "Ungültige IBAN (z.B. DE89 3704 0044 0532 0130 00)";
     }
     if (settings.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.contactEmail)) {
