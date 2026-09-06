@@ -37,8 +37,8 @@ interface ProductRecord extends Record<string, unknown> {
 
 export async function configureAlgoliaIndex(): Promise<void> {
   try {
-    const index = getAlgoliaAdminClient().initIndex(PRODUCTS_INDEX);
-    await index.setSettings({
+    await getAlgoliaAdminClient().setSettings({
+      indexName: PRODUCTS_INDEX,
       searchableAttributes: [
         "name",
         "brand",
