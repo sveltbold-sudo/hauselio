@@ -9,6 +9,9 @@ import { PASSWORD_RULES } from "@/lib/validations";
 const ChangePasswordSchema = z.object({
   currentPassword: z.string().min(1, "Aktuelles Passwort ist erforderlich"),
   newPassword: PASSWORD_RULES,
+}).refine((data) => data.currentPassword !== data.newPassword, {
+  message: "Neues Passwort muss sich vom aktuellen unterscheiden",
+  path: ["newPassword"],
 });
 
 export async function POST(request: NextRequest) {

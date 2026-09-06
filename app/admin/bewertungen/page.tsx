@@ -107,6 +107,7 @@ export default function BewertungenPage() {
     if (action === "delete" && !confirm(`${selectedIds.size} Bewertung(en) wirklich löschen?`)) return;
 
     setBulkLoading(true);
+    const count = selectedIds.size;
     try {
       const res = await fetch("/api/admin/bewertungen/bulk", {
         method: "POST",
@@ -122,7 +123,7 @@ export default function BewertungenPage() {
         setReviews((prev) => prev.map((r) => selectedIds.has(r.id) ? { ...r, isApproved: isApproved } : r));
       }
       setSelectedIds(new Set());
-      toast.success(`${selectedIds.size} Bewertung(en) aktualisiert`);
+      toast.success(`${count} Bewertung(en) aktualisiert`);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler bei der Massenaktion");
     } finally {

@@ -8,7 +8,7 @@ export const CreateOrderSchema = z.object({
   address: z.string().min(1, "Adresse ist erforderlich").max(200),
   city: z.string().min(1, "Stadt ist erforderlich").max(100),
   zip: z.string().min(1, "PLZ ist erforderlich").regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten (DE/AT/CH)").max(10),
-  country: z.string().min(2).max(2).default("DE"),
+  country: z.enum(["DE", "AT", "CH"]).default("DE"),
   notes: z.string().max(2000).optional().nullable(),
   items: z.array(z.object({
     id: z.string().min(1),

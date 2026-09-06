@@ -116,15 +116,15 @@ export function headerBanner(title: string, subtitle: string, bgColor: string = 
   return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${bgColor};">
     <tr>
       <td style="padding:36px 40px 32px 40px;">
-        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${title}</h1>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${subtitle}</p>
+        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${escapeHtml(title)}</h1>
+        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${escapeHtml(subtitle)}</p>
       </td>
     </tr>
   </table>`;
 }
 
 export function badge(text: string, bgColor: string, textColor: string): string {
-  return `<span style="display:inline-block;background-color:${bgColor};color:${textColor};font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;">${text}</span>`;
+  return `<span style="display:inline-block;background-color:${bgColor};color:${textColor};font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;">${escapeHtml(text)}</span>`;
 }
 
 export function divider(): string {

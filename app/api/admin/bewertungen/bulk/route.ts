@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const BulkReviewSchema = z.object({
   action: z.enum(["approve", "reject", "delete"]),
-  ids: z.array(z.string()).min(1).max(100),
+  ids: z.array(z.string().uuid()).min(1).max(100),
 });
 
 export async function POST(request: NextRequest) {
@@ -63,28 +63,31 @@ export async function POST(request: NextRequest) {
     }
 
     const isApproved = action === "approve";
-    await prisma.review.updateMany({
-      where: { id: { in: ids } },
-      data: { isApproved },
-    });
 
     const reviews = await prisma.review.findMany({
       where: { id: { in: ids } },
-      select: { productId: true },
+      select: { id: true, productId: true },
     });
 
-    const productIds = [...new Set(reviews.map((r) => r.productId))];
-    for (const productId of productIds) {
-      const stats = await prisma.review.aggregate({
-        where: { productId, isApproved: true },
-        _avg: { rating: true },
-        _count: { rating: true },
+    await prisma.$transaction(async (tx) => {
+      await tx.review.updateMany({
+        where: { id: { in: ids } },
+        data: { isApproved },
       });
-      await prisma.product.update({
-        where: { id: productId },
-        data: { rating: stats._avg.rating || 0, reviewCount: stats._count.rating },
-      });
-    }
+
+      const productIds = [...new Set(reviews.map((r) => r.productId))];
+      for (const productId of productIds) {
+        const stats = await tx.review.aggregate({
+          where: { productId, isApproved: true },
+          _avg: { rating: true },
+          _count: { rating: true },
+        });
+        await tx.product.update({
+          where: { id: productId },
+          data: { rating: stats._avg.rating || 0, reviewCount: stats._count.rating },
+        });
+      }
+    });
 
     logActivity({ action: `review.bulk_${action}`, entity: "review", adminId: admin.id, adminEmail: admin.email, details: { count: ids.length } });
     return NextResponse.json({ success: true, affected: ids.length });
