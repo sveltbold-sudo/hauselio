@@ -76,7 +76,7 @@ function PasswortZuruecksetzenForm() {
     if (emailSent) {
       return (
         <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
-          <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurücksetzen" }]} />
+          <Breadcrumb items={[{ label: "Passwort zurücksetzen" }]} />
 
           <div className="max-w-md mx-auto text-center">
             <CheckCircle2 className="w-12 h-12 text-[var(--color-success)] mx-auto mb-4" />
@@ -97,7 +97,7 @@ function PasswortZuruecksetzenForm() {
 
     return (
       <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
-        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort vergessen" }]} />
+        <Breadcrumb items={[{ label: "Passwort vergessen" }]} />
 
         <div className="max-w-md mx-auto">
           <h1 className="heading-1 text-center mb-4">Passwort vergessen?</h1>
@@ -150,7 +150,7 @@ function PasswortZuruecksetzenForm() {
   if (success) {
     return (
       <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
-        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurückgesetzt" }]} />
+        <Breadcrumb items={[{ label: "Passwort zurückgesetzt" }]} />
 
         <div className="max-w-md mx-auto text-center">
           <CheckCircle2 className="w-12 h-12 text-[var(--color-success)] mx-auto mb-4" />
@@ -172,7 +172,7 @@ function PasswortZuruecksetzenForm() {
   // Token present → show password reset form
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 lg:py-16">
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Passwort zurücksetzen" }]} />
+      <Breadcrumb items={[{ label: "Passwort zurücksetzen" }]} />
 
       <div className="max-w-md mx-auto">
         <h1 className="heading-1 text-center mb-8">Neues Passwort festlegen</h1>

@@ -346,6 +346,23 @@ export default async function HomePage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "HAUSAURA",
+            url: SITE_URL,
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.8",
+              bestRating: "5",
+              reviewCount: "2500",
+            },
+          }),
+        }}
+      />
       <h1 className="heading-1 container-hausaura pt-8 pb-2 text-[var(--color-text-primary)]">
         HAUSAURA — Moderne Haushaltsgeräte
       </h1>

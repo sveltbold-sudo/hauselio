@@ -102,7 +102,7 @@ export default async function GarantiePage() {
       />
 
       <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-4xl">
-        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
+        <Breadcrumb items={[{ label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-8">Garantie & Gewährleistung</h1>
         <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">

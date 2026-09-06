@@ -157,6 +157,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   id="message"
                   name="message"
                   required
+                  aria-required="true"
                   rows={6}
                   maxLength={5000}
                   value={formData.message}

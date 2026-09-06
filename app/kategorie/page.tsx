@@ -70,7 +70,7 @@ export default async function KategoriePage() {
 
       <div className="container-hausaura py-12">
         <div className="mb-10">
-          <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kategorien" }]} />
+          <Breadcrumb items={[{ label: "Kategorien" }]} />
 
           <h1 className="heading-1 mb-4">Unsere Kategorien</h1>
           <p className="body-large max-w-2xl">

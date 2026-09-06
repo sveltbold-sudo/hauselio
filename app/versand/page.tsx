@@ -64,7 +64,7 @@ export default async function VersandPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Versand" }]} />
+      <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>

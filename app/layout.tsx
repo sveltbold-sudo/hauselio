@@ -55,6 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@HAUSAURA",
     title: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",

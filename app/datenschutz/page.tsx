@@ -48,7 +48,7 @@ export default async function DatenschutzPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Datenschutz", url: "/datenschutz" }]} />
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Datenschutz" }]} />
+      <Breadcrumb items={[{ label: "Datenschutz" }]} />
       <h1 className="heading-1 mb-8">Datenschutzerklärung</h1>
 
       <div className="prose-hausaura space-y-8">

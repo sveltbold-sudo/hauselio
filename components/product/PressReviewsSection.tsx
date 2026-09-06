@@ -167,9 +167,9 @@ function ReviewCardMobile({ review }: { review: PressReview }) {
           </div>
 
           {/* Headline */}
-          <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-2 leading-snug">
+          <p className="text-sm font-bold text-[var(--color-text-primary)] mb-2 leading-snug">
             {review.headline}
-          </h3>
+          </p>
 
           {/* Excerpt */}
           <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-3 line-clamp-3">

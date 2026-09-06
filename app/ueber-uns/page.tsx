@@ -63,6 +63,19 @@ const values = [
 export default function UeberUnsPage() {
   return (
     <main id="main-content" className="container-hausaura py-6 sm:py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Startseite", item: SITE_URL },
+              { "@type": "ListItem", position: 2, name: "Über uns", item: `${SITE_URL}/ueber-uns` },
+            ],
+          }),
+        }}
+      />
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
       <div className="mb-10 sm:mb-16 text-center max-w-3xl mx-auto">

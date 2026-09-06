@@ -212,7 +212,7 @@ export default function KontoPage() {
   if (customer) {
     return (
       <main id="main-content" className="container-hausaura py-12">
-        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
+        <Breadcrumb items={[{ label: "Mein Konto" }]} />
 
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
@@ -491,7 +491,7 @@ export default function KontoPage() {
 
   return (
     <main id="main-content" className="container-hausaura py-12">
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Mein Konto" }]} />
+      <Breadcrumb items={[{ label: "Mein Konto" }]} />
 
       <div className="max-w-md mx-auto">
         <h1 className="heading-1 text-center mb-4">Mein Konto</h1>
