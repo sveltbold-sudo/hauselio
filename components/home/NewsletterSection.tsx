@@ -82,7 +82,7 @@ export default function NewsletterSection() {
           Kein Spam. Abmeldung jederzeit möglich. Bestätigung per Klick in der E-Mail.
         </p>
         <div className="flex items-center justify-center gap-2 mt-3">
-          <div className="flex -space-x-1.5">
+          <div className="flex -space-x-1.5" aria-hidden="true">
             {["/images/testimonials/anna.jpg", "/images/testimonials/stefan.jpg", "/images/testimonials/julia.jpg"].map((src, i) => (
               <Image
                 key={i}
