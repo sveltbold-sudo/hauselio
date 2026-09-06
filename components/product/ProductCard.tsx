@@ -1,6 +1,5 @@
 "use client";
 
-import { memo } from "react";
 import Link from "next/link";
 import { Truck } from "lucide-react";
 import Badge from "@/components/ui/Badge";
@@ -29,7 +28,7 @@ interface ProductCardProps {
   };
 }
 
-export default memo(function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
 
   return (
@@ -143,4 +142,4 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
       </div>
     </Link>
   );
-});
+}

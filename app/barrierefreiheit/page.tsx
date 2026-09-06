@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 
 const fallback = {
   contactPhone: "+49 (0)1525 9140453",
+  contactEmail: "barrierefreiheit@hausaura.de",
 };
 
 async function getSettings() {
@@ -30,6 +31,7 @@ async function getSettings() {
     if (!s) return fallback;
     return {
       contactPhone: s.contactPhone || fallback.contactPhone,
+      contactEmail: s.contactEmail || fallback.contactEmail,
     };
   } catch {
     return fallback;
@@ -102,7 +104,7 @@ export default async function BarrierefreiheitPage() {
               <Mail className="w-5 h-5 text-[var(--color-primary)]" />
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">E-Mail</p>
-                <p className="text-sm text-[var(--color-text-secondary)]">barrierefreiheit@hausaura.de</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">{s.contactEmail}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">

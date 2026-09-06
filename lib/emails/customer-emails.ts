@@ -9,7 +9,7 @@ export async function sendPasswordResetEmail(email: string, name: string, token:
   const resetUrl = `${SITE_URL}/passwort-zuruecksetzen?token=${encodeURIComponent(token)}`;
   const safeName = escapeHtml(name);
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Passwort zur\u00fccksetzen", "Ihre Anfrage zur Passwort\u00e4nderung")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -46,7 +46,7 @@ export async function sendEmailVerification(data: {
 }) {
   const safeName = escapeHtml(data.name);
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("E-Mail verifizieren", "Best\u00e4tigen Sie Ihre E-Mail-Adresse")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">

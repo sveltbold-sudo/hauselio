@@ -11,7 +11,7 @@ const activeCampaigns = new Map<string, number>();
 export async function sendNewsletterConfirmation(email: string, confirmToken: string) {
   const confirmUrl = `${SITE_URL}/api/newsletter/confirm?token=${encodeURIComponent(confirmToken)}`;
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Newsletter best\u00e4tigen", "Einen Schritt zum Empfang")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -70,7 +70,7 @@ export async function sendNewsletterCampaign(data: {
           const token = await createUnsubscribeToken(email);
           const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
 
-          const html = baseTemplate(`
+          const html = await baseTemplate(`
             ${headerBanner(safeSubject, "HAUSAURA Newsletter")}
             <div style="padding:36px 40px;">
               <div style="color:#4B5563;font-size:15px;line-height:1.7;">

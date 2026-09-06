@@ -2,6 +2,7 @@ import { FROM_EMAIL } from "@/lib/resend";
 import { formatPrice } from "@/lib/utils";
 import { escapeHtml } from "@/lib/html";
 import { SITE_URL } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 import {
   sendEmail,
   baseTemplate,
@@ -65,7 +66,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
   const safeName = escapeHtml(customerName);
   const safeOrderNumber = escapeHtml(orderNumber);
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Bestellbest\u00e4tigung", `Bestellung ${safeOrderNumber} erfolgreich eingegangen`)}
 
     <div style="padding:36px 40px;">
@@ -171,7 +172,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Zahlung best\u00e4tigt", `Bestellung ${safeOrderNumber}`, "#059669")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -211,7 +212,7 @@ export async function sendShippedConfirmation(data: OrderEmailData, trackingNumb
   const safeName = escapeHtml(data.customerName);
   const trackingUrl = `https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?piececode=${encodeURIComponent(trackingNumber)}`;
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Versandbest\u00e4tigung", `Bestellung ${safeOrderNumber} ist unterwegs`, "#1D4ED8")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -257,8 +258,9 @@ export async function sendShippedConfirmation(data: OrderEmailData, trackingNumb
 export async function sendOrderCancelled(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);
+  const contactEmail = (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@HAUSAURA.de";
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Bestellung storniert", `Bestellung ${safeOrderNumber}`, "#DC2626")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -281,7 +283,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
         Bei Fragen zu dieser Stornierung stehen wir Ihnen gerne zur Verf\u00fcgung:
       </p>
       <div style="text-align:center;padding:8px 0;">
-        <a href="mailto:hilfe@HAUSAURA.de" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="mailto:${contactEmail}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Kontakt aufnehmen
         </a>
       </div>
@@ -308,7 +310,7 @@ export async function sendNewOrderAdminNotification(data: AdminOrderNotification
   const safeCity = escapeHtml(data.customerCity);
   const safeZip = escapeHtml(data.customerZip);
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Neue Bestellung", `Bestellung ${safeOrderNumber} eingegangen`, "#D14A0C")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -399,7 +401,7 @@ export async function sendPaymentReminder(data: PaymentReminderData) {
     (Date.now() - new Date(data.createdAt).getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Zahlungserinnerung", `Bestellung ${safeOrderNumber}`, "#D97706")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
@@ -481,7 +483,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
   const vatAmount = netTotal * (vatRate / (100 + vatRate));
   const netBeforeVat = netTotal - vatAmount;
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Zahlungsbest\u00e4tigung", `Rechnung ${safeInvoice}`, "#059669")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">

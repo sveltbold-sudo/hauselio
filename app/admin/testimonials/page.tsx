@@ -262,7 +262,7 @@ export default function TestimonialsPage() {
 
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12 text-[var(--color-text-muted)]" role="status">Laden...</div>
+          <div className="space-y-3 py-4" role="status" aria-label="Wird geladen">{[1,2,3].map((i) => <div key={i} className="h-24 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />)}</div>
         ) : loadError ? (
           <div className="text-center py-12 text-[var(--color-danger)]" role="alert">Testimonials konnten nicht geladen werden.</div>
         ) : testimonials.length === 0 ? (

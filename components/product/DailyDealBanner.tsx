@@ -31,8 +31,8 @@ interface DailyDealBannerProps {
 
 function getTimeLeft() {
   const now = new Date();
-  const end = new Date(now);
-  end.setHours(23, 59, 59, 999);
+  const berlinStr = now.toLocaleString("sv-SE", { timeZone: "Europe/Berlin" });
+  const end = new Date(berlinStr.slice(0, 10) + "T23:59:59.999");
   const diff = end.getTime() - now.getTime();
   return {
     hours: Math.floor(diff / (1000 * 60 * 60)),

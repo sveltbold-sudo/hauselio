@@ -89,7 +89,7 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
         <div
           key={review.id}
           className="bg-white rounded-2xl p-6 border border-[var(--color-border-light)] animate-fade-in-up"
-          style={{ animationDelay: `${i * 80}ms` }}
+          style={{ animationDelay: `${Math.min(i, 5) * 80}ms` }}
         >
           <div className="flex items-start justify-between mb-3">
             <div>

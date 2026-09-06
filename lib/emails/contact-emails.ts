@@ -1,6 +1,7 @@
 import { FROM_EMAIL } from "@/lib/resend";
 import { escapeHtml } from "@/lib/html";
 import { SITE_URL } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 import { sendEmail, baseTemplate, headerBanner, divider } from "./helpers";
 
 const SITE = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
@@ -20,7 +21,7 @@ export async function sendContactForward(data: {
     message: escapeHtml(data.message),
   };
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Neue Kontaktanfrage", "Eingegangen \u00fcber das Kontaktformular")}
     <div style="padding:36px 40px;">
       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
@@ -60,7 +61,7 @@ export async function sendContactForward(data: {
 
   return sendEmail({
     from: FROM_EMAIL,
-    to: "hilfe@HAUSAURA.de",
+    to: (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@HAUSAURA.de",
     subject: `[Kontakt] ${safe.subject}`,
     html,
   });
@@ -76,7 +77,7 @@ export async function sendContactAutoReply(data: {
     lastName: escapeHtml(data.lastName),
   };
 
-  const html = baseTemplate(`
+  const html = await baseTemplate(`
     ${headerBanner("Vielen Dank f\u00fcr Ihre Nachricht!", "Wir melden uns bei Ihnen")}
     <div style="padding:36px 40px;">
       <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">

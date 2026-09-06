@@ -215,7 +215,7 @@ export default function KategorienPage() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden...</td></tr>
+              <tr><td colSpan={4} className="px-4 py-12"><div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse" />)}</div></td></tr>
             ) : error ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">{error}</td></tr>
             ) : categories.length === 0 ? (

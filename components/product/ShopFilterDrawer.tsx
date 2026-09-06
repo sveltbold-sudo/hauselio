@@ -114,6 +114,7 @@ export default function ShopFilterDrawer({
           <div
             className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${prefersReduced ? "" : "animate-fade-in"}`}
             onClick={() => setIsOpen(false)}
+            aria-hidden="true"
           />
           <div ref={drawerRef} id="shop-filter-drawer" className={`absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-[var(--shadow-2xl)] overflow-y-auto ${prefersReduced ? "" : "animate-slide-in-left"}`}>
             <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[var(--color-border-light)]">

@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const token = await createUnsubscribeToken(email);
     const unsubscribeUrl = `${SITE_URL}/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
 
-    const html = baseTemplate(`
+    const html = await baseTemplate(`
       ${headerNewsletterUnsubscribe()}
       <div style="padding:36px 40px;">
         <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">

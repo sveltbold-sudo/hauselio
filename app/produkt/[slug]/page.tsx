@@ -127,6 +127,12 @@ export default async function ProductPage({ params }: PageProps) {
   const product = data.product;
   const relatedProducts = data.relatedProducts || [];
 
+  let sellerName = "HAUSAURA GmbH";
+  try {
+    const settings = await prisma.siteSettings.findFirst();
+    if (settings?.companyName) sellerName = settings.companyName;
+  } catch {}
+
   const formattedProduct = {
     id: product.id,
     name: product.name,
@@ -177,6 +183,7 @@ export default async function ProductPage({ params }: PageProps) {
           date: r.createdAt.split("T")[0] as string,
         }))}
         availability="InStock"
+        sellerName={sellerName}
       />
       <main id="main-content">
         <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />

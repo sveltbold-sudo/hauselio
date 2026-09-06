@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 const fallbackSettings = {
+  companyName: "HAUSAURA GmbH",
   contactEmail: "info@HAUSAURA.de",
   contactPhone: "+49 (0)1525 9140453",
   contactAddress: "Kastanienallee 42, 10435 Berlin",
@@ -41,6 +42,7 @@ async function getSettings() {
     const settings = await prisma.siteSettings.findFirst();
     if (!settings) return fallbackSettings;
     return {
+      companyName: settings.companyName || fallbackSettings.companyName,
       contactEmail: settings.contactEmail || fallbackSettings.contactEmail,
       contactPhone: settings.contactPhone || fallbackSettings.contactPhone,
       contactAddress: settings.contactAddress || fallbackSettings.contactAddress,
@@ -60,7 +62,7 @@ export default async function KontaktPage() {
     url: `${SITE_URL}/kontakt`,
     mainEntity: {
       "@type": "Organization",
-      name: "HAUSAURA GmbH",
+      name: settings.companyName,
       telephone: settings.contactPhone,
       email: settings.contactEmail,
       address: settings.contactAddress,

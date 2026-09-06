@@ -60,7 +60,7 @@ export default function StatistikenPage() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden...</div>;
+    return <div className="p-8 space-y-4">{[1,2,3].map((i) => <div key={i} className="h-32 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />)}</div>;
   }
 
   if (error || !stats) {

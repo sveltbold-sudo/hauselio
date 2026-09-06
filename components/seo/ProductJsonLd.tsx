@@ -23,6 +23,7 @@ interface ProductJsonLdProps {
   reviews?: Review[];
   availability?: "InStock" | "OutOfStock";
   url?: string;
+  sellerName?: string;
 }
 
 export default function ProductJsonLd({
@@ -40,6 +41,7 @@ export default function ProductJsonLd({
   reviews = [],
   availability = "InStock",
   url,
+  sellerName = "HAUSAURA GmbH",
 }: ProductJsonLdProps) {
   const productUrl = url || `${SITE_URL}/produkt/${slug}`;
   const absoluteImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
@@ -65,7 +67,7 @@ export default function ProductJsonLd({
       itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: "HAUSAURA GmbH",
+        name: sellerName,
       },
       shippingDetails: {
         "@type": "OfferShippingDetails",

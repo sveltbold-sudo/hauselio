@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 
 interface SiteSettings {
+  companyName: string;
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
@@ -207,7 +208,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                 <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
               </div>
               <span className="font-medium">
-                HAUSAURA GmbH
+                {settings.companyName}
                 <br />
                 {addressLines.map((line, i) => (
                   <span key={i}>{line}{i < addressLines.length - 1 ? <br /> : ""}</span>

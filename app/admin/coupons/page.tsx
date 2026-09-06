@@ -309,7 +309,7 @@ export default function CouponsPage() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Laden...</td></tr>
+              <tr><td colSpan={6} className="px-4 py-12"><div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse" />)}</div></td></tr>
             ) : loadError ? (
               <tr><td colSpan={6} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">Gutscheine konnten nicht geladen werden.</td></tr>
             ) : coupons.length === 0 ? (

@@ -42,7 +42,19 @@ export interface OrderEmailData {
   shippingCost: number;
 }
 
-export function baseTemplate(content: string): string {
+export async function baseTemplate(content: string): Promise<string> {
+  let companyName = "HAUSAURA GmbH";
+  let companyAddress = "Kastanienallee 42, 10435 Berlin";
+  let contactEmail = "info@HAUSAURA.de";
+  try {
+    const settings = await prisma.siteSettings.findFirst();
+    if (settings) {
+      companyName = settings.companyName || companyName;
+      companyAddress = settings.companyAddress || companyAddress;
+      contactEmail = settings.contactEmail || contactEmail;
+    }
+  } catch {}
+
   return `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -76,14 +88,14 @@ export function baseTemplate(content: string): string {
           <tr>
             <td style="padding:24px 0;text-align:center;">
               <p style="color:#9CA3AF;font-size:11px;margin:0 0 4px 0;">
-                &copy; ${new Date().getFullYear()} HAUSAURA GmbH &middot; Kastanienallee 42, 10435 Berlin
+                &copy; ${new Date().getFullYear()} ${companyName} &middot; ${companyAddress}
               </p>
               <p style="color:#9CA3AF;font-size:11px;margin:0;">
                 <a href="${SITE}/impressum" style="color:#9CA3AF;text-decoration:underline;">Impressum</a>
                 &nbsp;&middot;&nbsp;
                 <a href="${SITE}/datenschutz" style="color:#9CA3AF;text-decoration:underline;">Datenschutz</a>
                 &nbsp;&middot;&nbsp;
-                <a href="mailto:info@HAUSAURA.de" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
+                <a href="mailto:${contactEmail}" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
               </p>
             </td>
           </tr>

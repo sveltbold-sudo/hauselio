@@ -127,14 +127,14 @@ export default function KundenPage() {
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                <button onClick={() => { setSortField("name"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                <button onClick={() => { setSortField("name"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Name sortieren, aktuell ${sortField === "name" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
                   Kunde <ArrowUpDown className="w-3 h-3" />
                 </button>
               </th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden md:table-cell">Kontakt</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden lg:table-cell">Adresse</th>
               <th className="text-center px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                <button onClick={() => { setSortField("orders"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                <button onClick={() => { setSortField("orders"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Bestellungen sortieren, aktuell ${sortField === "orders" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
                   Bestellungen <ArrowUpDown className="w-3 h-3" />
                 </button>
               </th>
@@ -148,8 +148,8 @@ export default function KundenPage() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-12 text-center text-[var(--color-text-muted)]">
-                  Laden…
+                <td colSpan={5} className="px-4 py-12">
+                  <div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse" />)}</div>
                 </td>
               </tr>
             ) : customers.length === 0 ? (

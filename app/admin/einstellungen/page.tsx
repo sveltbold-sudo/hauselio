@@ -142,7 +142,7 @@ export default function EinstellungenPage() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-[var(--color-text-muted)]">Laden…</div>;
+    return <div className="p-8 space-y-4">{[1,2,3,4].map((i) => <div key={i} className="h-16 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />)}</div>;
   }
 
   if (loadError) {
