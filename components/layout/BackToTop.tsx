@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { usePathname } from "next/navigation";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
   const prefersReduced = useReducedMotion();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,7 @@ export default function BackToTop() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  if (pathname.startsWith("/admin")) return null;
   if (!visible) return null;
 
   const scrollToTop = () => {

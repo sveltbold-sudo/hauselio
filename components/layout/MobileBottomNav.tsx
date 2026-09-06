@@ -17,6 +17,8 @@ export default function MobileBottomNav() {
   const pathname = usePathname();
   const itemCount = useCartStore(selectItemCount);
 
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <nav
       aria-label="Mobile Navigation"
