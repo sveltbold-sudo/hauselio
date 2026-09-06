@@ -48,6 +48,7 @@ interface Product {
   originalPrice: number | null;
   isPromo: boolean;
   rating: number;
+  liveRating: number;
   reviewCount: number;
   isNew: boolean;
   brand: string | null;
@@ -166,7 +167,6 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     <div className="container-hausaura py-6 lg:py-10 pb-20 lg:pb-10">
       <Breadcrumb
         items={[
-          { label: "Startseite", href: "/" },
           { label: "Kategorien", href: "/kategorie" },
           { label: product.categoryName, href: `/kategorie/${product.categorySlug}` },
           { label: product.name },
@@ -210,8 +210,8 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           </h1>
 
           <div className="flex items-center gap-2 mb-5">
-            <StarRating rating={product.rating} size="md" />
-            <span className="text-sm text-[var(--color-text-secondary)]">{product.rating}</span>
+            <StarRating rating={product.liveRating} size="md" />
+            <span className="text-sm text-[var(--color-text-secondary)]">{product.liveRating}</span>
             <span className="text-[var(--color-border)]">·</span>
             <a
               href="#kundenbewertungen"

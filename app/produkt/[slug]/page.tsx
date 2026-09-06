@@ -44,6 +44,13 @@ async function getProductFromDb(slug: string) {
       where: { productId: product.id, isApproved: true },
     });
 
+    const liveAggregate = await prisma.review.aggregate({
+      where: { productId: product.id, isApproved: true },
+      _avg: { rating: true },
+    });
+
+    const liveRating = Number(liveAggregate._avg.rating ?? product.rating);
+
     const relatedProducts = await prisma.product.findMany({
       where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
       select: {
@@ -59,6 +66,7 @@ async function getProductFromDb(slug: string) {
       product: {
         ...product,
         reviewCount: realReviewCount,
+        liveRating,
         price: Number(product.price),
         originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
         rating: Number(product.rating),
@@ -145,6 +153,7 @@ export default async function ProductPage({ params }: PageProps) {
       : null,
     isPromo: product.isPromo,
     rating: Number(product.rating),
+    liveRating: product.liveRating,
     reviewCount: product.reviewCount,
     isNew: product.isNew,
     brand: product.brand?.name || null,

@@ -27,6 +27,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           title: true,
           content: true,
           createdAt: true,
+          isVerified: true,
           product: { select: { name: true, slug: true } },
         },
       }),

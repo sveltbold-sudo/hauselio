@@ -31,8 +31,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   }
 
   const pageTitle = sub
-    ? `${sub} | ${category.name} | HAUSAURA`
-    : `${category.name} online kaufen | HAUSAURA`;
+    ? `${sub} | ${category.name}`
+    : `${category.name} online kaufen`;
   const pageDescription = sub
     ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`
     : category.description || `Hochwertige ${category.name} bei HAUSAURA entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;

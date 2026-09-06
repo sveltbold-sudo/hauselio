@@ -11,6 +11,7 @@ interface Review {
   content: string | null;
   createdAt: Date;
   formattedDate: string;
+  isVerified: boolean;
   product: { name: string; slug: string };
 }
 
@@ -97,6 +98,12 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
                 <span className="font-semibold text-[var(--color-text-primary)]">
                   {review.authorName}
                 </span>
+                {review.isVerified && (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-success-light)] text-[var(--color-success)] text-xs font-bold rounded-full">
+                    <Check className="w-3 h-3" />
+                    Verifiziert
+                  </span>
+                )}
               </div>
               <div className="flex items-center gap-1" aria-label={`${review.rating} von 5 Sternen`}>
                 {[...Array(5)].map((_, j) => (
