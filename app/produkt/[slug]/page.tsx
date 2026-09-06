@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "@/lib/constants";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 import PressReviewsSection from "@/components/product/PressReviewsSection";
@@ -175,6 +176,7 @@ export default async function ProductPage({ params }: PageProps) {
         gtin={product.barcode || undefined}
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
+        shippingRate={Number(product.price) >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST}
         reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title: string | null; content: string | null; createdAt: string }) => ({
           author: r.authorName,
           rating: r.rating,

@@ -24,6 +24,8 @@ interface ProductJsonLdProps {
   availability?: "InStock" | "OutOfStock";
   url?: string;
   sellerName?: string;
+  shippingRate?: number;
+  shippingCurrency?: string;
 }
 
 export default function ProductJsonLd({
@@ -42,6 +44,8 @@ export default function ProductJsonLd({
   availability = "InStock",
   url,
   sellerName = "HAUSAURA GmbH",
+  shippingRate = 4.99,
+  shippingCurrency = "EUR",
 }: ProductJsonLdProps) {
   const productUrl = url || `${SITE_URL}/produkt/${slug}`;
   const absoluteImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
@@ -73,8 +77,8 @@ export default function ProductJsonLd({
         "@type": "OfferShippingDetails",
         shippingRate: {
           "@type": "MonetaryAmount",
-          value: "0",
-          currency: "EUR",
+          value: shippingRate.toFixed(2),
+          currency: shippingCurrency,
         },
         shippingDestination: {
           "@type": "DefinedRegion",
