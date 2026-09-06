@@ -53,7 +53,7 @@ const fallbackTestimonials: Testimonial[] = [
   },
   {
     id: "5",
-    name: "Markus W.",
+    name: "Michael W.",
     location: "Frankfurt",
     rating: 5,
     content: "Der Thermomix TM7 ist ein Traum. HAUSAURA hatte den besten Preis und die Lieferung war innerhalb von 24 Stunden da. Top!",
