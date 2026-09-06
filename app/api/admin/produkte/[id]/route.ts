@@ -6,6 +6,7 @@ import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/a
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { getCloudinary } from "@/lib/cloudinary";
 
 export async function GET(
   request: NextRequest,
@@ -118,6 +119,12 @@ export async function PUT(
       await prisma.product.updateMany({ where: { isDailyDeal: true, NOT: { id } }, data: { isDailyDeal: false } });
     }
 
+    // Fetch existing images to delete from Cloudinary
+    const existingImages = await prisma.productImage.findMany({
+      where: { productId: id },
+      select: { publicId: true },
+    });
+
     try {
       await prisma.$transaction([
         prisma.productSpec.deleteMany({ where: { productId: id } }),
@@ -151,7 +158,7 @@ export async function PUT(
                 }
               : undefined,
             images: data.imageUrl
-              ? { create: [{ url: data.imageUrl, position: 0 }] }
+              ? { create: [{ url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 }] }
               : undefined,
           },
         }),
@@ -164,6 +171,18 @@ export async function PUT(
         );
       }
       throw err;
+    }
+
+    // Delete old Cloudinary images (after DB transaction succeeds)
+    const cloudinary = getCloudinary();
+    for (const img of existingImages) {
+      if (img.publicId) {
+        try {
+          await cloudinary.uploader.destroy(img.publicId);
+        } catch (cloudErr) {
+          logger.error("cloudinary-delete", cloudErr instanceof Error ? cloudErr : new Error(String(cloudErr)), { publicId: img.publicId });
+        }
+      }
     }
 
     const product = await prisma.product.findUnique({
@@ -241,6 +260,22 @@ export async function DELETE(
         { error: `Produkt kann nicht gelöscht werden — es ist in ${orderItemCount} Bestellung(en) verknüpft.` },
         { status: 409 }
       );
+    }
+
+    // Delete Cloudinary images before removing from DB
+    const imagesToDelete = await prisma.productImage.findMany({
+      where: { productId: id },
+      select: { publicId: true },
+    });
+    const cloudinary = getCloudinary();
+    for (const img of imagesToDelete) {
+      if (img.publicId) {
+        try {
+          await cloudinary.uploader.destroy(img.publicId);
+        } catch (cloudErr) {
+          logger.error("cloudinary-delete", cloudErr instanceof Error ? cloudErr : new Error(String(cloudErr)), { publicId: img.publicId });
+        }
+      }
     }
 
     await prisma.product.delete({

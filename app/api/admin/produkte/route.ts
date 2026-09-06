@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
             }
           : undefined,
         images: data.imageUrl
-          ? { create: [{ url: data.imageUrl, position: 0 }] }
+          ? { create: [{ url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 }] }
           : undefined,
       },
       select: {

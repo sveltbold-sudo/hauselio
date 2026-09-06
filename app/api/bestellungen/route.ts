@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       return { productId: item.id, quantity, price };
     });
 
-    const shippingCost = getShippingCost(subtotal);
+    const shippingCost = getShippingCost(subtotal, country || "DE");
 
     // Apply coupon discount
     if (couponRecord) {

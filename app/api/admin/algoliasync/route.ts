@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { syncProductsToAlgolia } from "@/lib/algolia-sync";
-import { handleApiError } from "@/lib/api-helpers";
+import { handleApiError, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
   try {
+    if (!validateCsrfOrigin(request)) {
+      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
+    }
+
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-algoliasync:${ip}`, 10, 60_000);
     if (!allowed) {

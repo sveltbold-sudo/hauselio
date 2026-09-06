@@ -9,7 +9,7 @@ import Input from "@/components/ui/Input";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice, getVatLabel } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
-import { getShippingCost, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { getShippingCost, getShippingThreshold } from "@/lib/constants";
 import { trackBeginCheckout } from "@/lib/analytics";
 
 interface PriceChange {
@@ -78,7 +78,7 @@ export default function BestellungPage() {
   }, [mounted]);
 
   const total = useCartStore(selectTotal);
-  const shippingCost = getShippingCost(total);
+  const shippingCost = getShippingCost(total, formData.country);
   const couponDiscount = coupon ? total * (coupon.discountPercent / 100) : 0;
   const finalTotal = total - couponDiscount + shippingCost;
 
@@ -722,10 +722,10 @@ export default function BestellungPage() {
                 <span className="text-[var(--color-text-secondary)]">Zwischensumme</span>
                 <span className="font-semibold">{formatPrice(total)}</span>
               </div>
-              {shippingCost > 0 && total < FREE_SHIPPING_THRESHOLD && (
+              {shippingCost > 0 && total < getShippingThreshold(formData.country) && (
                 <div className="bg-[var(--color-primary-50)] rounded-xl p-3">
                   <p className="text-xs text-[var(--color-primary)] font-medium">
-                    Noch {formatPrice(FREE_SHIPPING_THRESHOLD - total)} bis zum kostenlosen Versand
+                    Noch {formatPrice(getShippingThreshold(formData.country) - total)} bis zum kostenlosen Versand
                   </p>
                 </div>
               )}

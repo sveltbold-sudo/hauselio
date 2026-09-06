@@ -54,6 +54,7 @@ const mockPrisma = {
   },
   productImage: {
     deleteMany: vi.fn().mockResolvedValue({}),
+    findMany: vi.fn().mockResolvedValue([]),
   },
   $transaction: vi.fn(async (arg: unknown[] | ((tx: typeof mockPrisma) => Promise<unknown>)) => {
     if (typeof arg === "function") {
@@ -74,6 +75,14 @@ vi.mock("@/lib/prisma", () => ({
 vi.mock("@/lib/auth", () => ({
   requireAdmin: vi.fn().mockResolvedValue({ id: "1", email: "admin@test.de", role: "ADMIN" }),
   requireRole: vi.fn().mockResolvedValue({ id: "1", email: "admin@test.de", role: "ADMIN" }),
+}));
+
+vi.mock("@/lib/cloudinary", () => ({
+  getCloudinary: vi.fn().mockReturnValue({
+    uploader: {
+      destroy: vi.fn().mockResolvedValue({}),
+    },
+  }),
 }));
 
 vi.mock("@/lib/api-helpers", () => ({

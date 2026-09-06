@@ -17,6 +17,13 @@ export const CreateOrderSchema = z.object({
   couponCode: z.string().max(50).optional().nullable(),
 });
 
+export const PASSWORD_RULES = z.string()
+  .min(8, "Passwort muss mindestens 8 Zeichen lang sein")
+  .max(128, "Passwort darf maximal 128 Zeichen lang sein")
+  .regex(/[A-Z]/, "Passwort muss mindestens einen Großbuchstaben enthalten")
+  .regex(/[0-9]/, "Passwort muss mindestens eine Ziffer enthalten")
+  .regex(/[^A-Za-z0-9]/, "Passwort muss mindestens ein Sonderzeichen enthalten");
+
 export const LoginSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
   password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128, "Passwort darf maximal 128 Zeichen lang sein"),
@@ -53,6 +60,7 @@ export const CreateProductSchema = z.object({
   seoTitle: z.string().max(200).optional().nullable(),
   seoDesc: z.string().max(500).optional().nullable(),
   imageUrl: z.string().url().optional().nullable(),
+  imagePublicId: z.string().optional().nullable(),
 });
 
 export const UpdateSettingsSchema = z.object({
@@ -79,7 +87,7 @@ export const CreateBrandSchema = z.object({
 export const RegisterSchema = z.object({
   name: z.string().min(1, "Name ist erforderlich").max(100),
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
-  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+  password: PASSWORD_RULES,
 });
 
 export const CustomerLoginSchema = z.object({
@@ -102,7 +110,7 @@ export const ForgotPasswordSchema = z.object({
 
 export const ResetPasswordSchema = z.object({
   token: z.string().min(1, "Token ist erforderlich"),
-  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+  password: PASSWORD_RULES,
 });
 
 export const CreateCouponSchema = z.object({
@@ -126,14 +134,14 @@ export const CreateTestimonialSchema = z.object({
 
 export const CreateAdminSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
-  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128),
+  password: PASSWORD_RULES,
   name: z.string().max(100).optional().nullable(),
   role: z.enum(["ADMIN", "EDITOR"]).default("ADMIN"),
 });
 
 export const UpdateAdminSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254).optional(),
-  password: z.string().min(8, "Passwort muss mindestens 8 Zeichen lang sein").max(128).optional(),
+  password: PASSWORD_RULES.optional(),
   name: z.string().max(100).optional().nullable(),
   role: z.enum(["ADMIN", "EDITOR"]).optional(),
 });
