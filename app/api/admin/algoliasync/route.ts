@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { syncProductsToAlgolia } from "@/lib/algolia-sync";
+import { syncProductsToAlgolia, configureAlgoliaIndex } from "@/lib/algolia-sync";
 import { handleApiError, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
 
     await requireAdmin();
 
+    await configureAlgoliaIndex();
     const result = await syncProductsToAlgolia();
 
     return NextResponse.json(result);

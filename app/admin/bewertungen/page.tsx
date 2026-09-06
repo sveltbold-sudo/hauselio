@@ -30,6 +30,8 @@ export default function BewertungenPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkLoading, setBulkLoading] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
@@ -76,10 +78,55 @@ export default function BewertungenPage() {
       const res = await fetch(`/api/admin/bewertungen/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
       setReviews((prev) => prev.filter((r) => r.id !== deleteId));
+      setSelectedIds((prev) => { const next = new Set(prev); next.delete(deleteId); return next; });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
     } finally {
       setDeleteId(null);
+    }
+  };
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === reviews.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(reviews.map((r) => r.id)));
+    }
+  };
+
+  const handleBulkAction = async (action: "approve" | "reject" | "delete") => {
+    if (selectedIds.size === 0) return;
+    if (action === "delete" && !confirm(`${selectedIds.size} Bewertung(en) wirklich löschen?`)) return;
+
+    setBulkLoading(true);
+    try {
+      const res = await fetch("/api/admin/bewertungen/bulk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, ids: Array.from(selectedIds) }),
+      });
+      if (!res.ok) throw new Error("Fehler bei der Massenaktion");
+
+      if (action === "delete") {
+        setReviews((prev) => prev.filter((r) => !selectedIds.has(r.id)));
+      } else {
+        const isApproved = action === "approve";
+        setReviews((prev) => prev.map((r) => selectedIds.has(r.id) ? { ...r, isApproved: isApproved } : r));
+      }
+      setSelectedIds(new Set());
+      toast.success(`${selectedIds.size} Bewertung(en) aktualisiert`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler bei der Massenaktion");
+    } finally {
+      setBulkLoading(false);
     }
   };
 
@@ -102,7 +149,7 @@ export default function BewertungenPage() {
         {(["all", "pending", "approved"] as const).map((f) => (
           <button
             key={f}
-            onClick={() => { setFilter(f); setPage(1); }}
+            onClick={() => { setFilter(f); setPage(1); setSelectedIds(new Set()); }}
             aria-pressed={filter === f}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f
@@ -114,6 +161,18 @@ export default function BewertungenPage() {
           </button>
         ))}
       </div>
+
+      {/* Bulk Actions Bar */}
+      {selectedIds.size > 0 && (
+        <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl p-3 mb-4 flex items-center justify-between">
+          <span className="text-sm font-medium text-[var(--color-text-primary)]">{selectedIds.size} ausgewählt</span>
+          <div className="flex gap-2">
+            <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50">Genehmigen</button>
+            <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50">Ablehnen</button>
+            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50">Löschen</button>
+          </div>
+        </div>
+      )}
 
       {/* Reviews */}
       <div className="space-y-4">
@@ -134,7 +193,15 @@ export default function BewertungenPage() {
               }`}
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
+                <div className="flex items-start gap-3 flex-1">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.has(review.id)}
+                    onChange={() => toggleSelect(review.id)}
+                    className="mt-1 h-4 w-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
+                    aria-label={`${review.authorName} auswählen`}
+                  />
+                  <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="flex" role="img" aria-label={`Bewertung: ${review.rating} von 5 Sternen`}>
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -172,6 +239,7 @@ export default function BewertungenPage() {
                     <span>{review.product.name}</span>
                     <span>•</span>
                     <span>{new Date(review.createdAt).toLocaleDateString("de-DE")}</span>
+                  </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">

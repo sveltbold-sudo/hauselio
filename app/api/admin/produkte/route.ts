@@ -6,6 +6,7 @@ import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/a
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { logActivity } from "@/lib/activity-log";
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const adminUser = await requireAdmin();
     const body = await request.json();
     const parsed = CreateProductSchema.safeParse(body);
 
@@ -126,6 +127,8 @@ export async function POST(request: NextRequest) {
     } catch (algoliaError) {
       logger.error("algolia-sync", algoliaError);
     }
+
+    logActivity({ action: "product.create", entity: "product", entityId: product.id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product.name } });
 
     return NextResponse.json({ product }, { status: 201 });
   } catch (error) {
