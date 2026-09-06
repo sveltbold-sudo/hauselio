@@ -41,6 +41,7 @@ export default function ExportCsvButton({ status, q }: ExportCsvButtonProps) {
     <button
       onClick={handleExport}
       disabled={loading}
+      aria-busy={loading}
       className="flex items-center gap-2 px-4 py-2 min-h-[44px] border border-[var(--color-border)] rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-colors disabled:opacity-50"
     >
       <Download className="w-4 h-4" />

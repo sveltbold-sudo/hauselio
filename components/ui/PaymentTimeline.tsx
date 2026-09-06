@@ -24,7 +24,7 @@ export default function PaymentTimeline({ currentStep }: PaymentTimelineProps) {
         {/* Connector line */}
         <div className="absolute top-5 left-0 right-0 h-0.5 bg-[var(--color-border)]" />
         <div
-          className="absolute top-5 left-0 h-0.5 bg-[var(--color-success)] transition-all duration-500"
+          className="absolute top-5 left-0 h-0.5 bg-[var(--color-success)] transition-all duration-500 motion-reduce:transition-none"
           style={{ width: `${(currentIndex / (steps.length - 1)) * 100}%` }}
         />
 

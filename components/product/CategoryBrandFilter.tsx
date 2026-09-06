@@ -30,6 +30,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
       <span className="text-xs text-[var(--color-text-muted)] whitespace-nowrap">Marke:</span>
       <button
         onClick={() => handleBrandChange(null)}
+        aria-pressed={!selectedBrand}
           className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
           !selectedBrand
             ? "bg-[var(--color-primary)] text-white"
@@ -42,6 +43,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
         <button
           key={brand.slug}
           onClick={() => handleBrandChange(brand.slug)}
+          aria-pressed={selectedBrand === brand.slug}
         className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
             selectedBrand === brand.slug
               ? "bg-[var(--color-primary)] text-white"
