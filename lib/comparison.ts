@@ -10,6 +10,7 @@ export interface CompareItem {
   isPromo?: boolean;
   image: string;
   brand: string;
+  categorySlug?: string;
   rating: number;
   reviewCount: number;
   specs?: { key: string; value: string }[];

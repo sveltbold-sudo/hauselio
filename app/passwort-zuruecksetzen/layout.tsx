@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Produkte vergleichen",
-  description: "Vergleichen Sie Produkte Seiten an Seite — Preise, Bewertungen und Funktionen im direkten Vergleich.",
+  title: "Passwort zurücksetzen",
+  description: "Setzen Sie Ihr HAUSAURA-Passwort sicher zurück.",
   robots: { index: false },
 };
 

@@ -14,6 +14,7 @@ interface CompareButtonProps {
     isPromo?: boolean;
     image: string;
     brand: string;
+    categorySlug?: string;
     rating: number;
     reviewCount: number;
     specs?: { key: string; value: string }[];
@@ -40,6 +41,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
       isPromo: product.isPromo,
       image: product.image,
       brand: product.brand,
+      categorySlug: product.categorySlug,
       rating: product.rating,
       reviewCount: product.reviewCount,
       specs: product.specs,

@@ -157,6 +157,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     isPromo: product.isPromo,
     image: product.images[0] || "/images/placeholder-product.svg",
     brand: product.brand ?? "",
+    categorySlug: product.categorySlug,
     rating: product.rating,
     reviewCount: product.reviewCount,
   };

@@ -315,6 +315,7 @@ export async function GET(request: NextRequest) {
       select: {
         id: true,
         orderNumber: true,
+        invoiceNumber: true,
         total: true,
         subtotal: true,
         couponDiscount: true,

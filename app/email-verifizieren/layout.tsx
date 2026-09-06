@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Produkte vergleichen",
-  description: "Vergleichen Sie Produkte Seiten an Seite — Preise, Bewertungen und Funktionen im direkten Vergleich.",
+  title: "E-Mail verifizieren",
+  description: "Verifizieren Sie Ihre E-Mail-Adresse für Ihr HAUSAURA-Konto.",
   robots: { index: false },
 };
 

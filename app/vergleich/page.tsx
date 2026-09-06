@@ -127,7 +127,7 @@ export default function VergleichPage() {
                             originalPrice: item.originalPrice ?? undefined,
                             image: item.image,
                             brand: item.brand,
-                            categorySlug: "vergleich",
+                            categorySlug: item.categorySlug,
                           });
                           window.dispatchEvent(new CustomEvent("cart:item-added"));
                           toast.success("Zum Warenkorb hinzugefügt!");

@@ -11,6 +11,7 @@ function EmailVerificationContent() {
   const token = searchParams.get("token");
   const [status, setStatus] = useState<"loading" | "success" | "error" | "no-token">("loading");
   const [error, setError] = useState("");
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     if (!token) {
@@ -19,6 +20,7 @@ function EmailVerificationContent() {
     }
 
     async function verifyEmail() {
+      setStatus("loading");
       try {
         const res = await fetch("/api/customer/verify-email/confirm", {
           method: "POST",
@@ -40,7 +42,7 @@ function EmailVerificationContent() {
     }
 
     verifyEmail();
-  }, [token]);
+  }, [token, retryCount]);
 
   return (
     <main id="main-content" className="container-hausaura py-20 min-h-[60vh] flex items-center justify-center">
@@ -73,11 +75,16 @@ function EmailVerificationContent() {
             <XCircle className="w-16 h-16 text-[var(--color-danger)] mx-auto mb-4" />
             <h1 className="heading-2 mb-2">Verifizierung fehlgeschlagen</h1>
             <p className="text-[var(--color-text-muted)] mb-6">{error}</p>
-            <Link href="/konto">
-              <Button size="lg" className="w-full">
-                Zurück zum Konto
+            <div className="flex flex-col gap-3">
+              <Button size="lg" className="w-full" onClick={() => setRetryCount((c) => c + 1)}>
+                Erneut versuchen
               </Button>
-            </Link>
+              <Link href="/konto">
+                <Button size="lg" variant="outline" className="w-full">
+                  Zurück zum Konto
+                </Button>
+              </Link>
+            </div>
           </>
         )}
 
