@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import { Prisma } from "@prisma/client";
 
 interface LogActivityParams {
   action: string;
@@ -18,7 +19,7 @@ export async function logActivity(params: LogActivityParams): Promise<void> {
         entityId: params.entityId || null,
         adminId: params.adminId,
         adminEmail: params.adminEmail,
-        details: params.details || undefined,
+        details: params.details ? (params.details as Prisma.InputJsonValue) : Prisma.JsonNull,
       },
     });
   } catch {
