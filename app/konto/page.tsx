@@ -40,7 +40,8 @@ interface Order {
 
 export default function KontoPage() {
   const [tab, setTab] = useState<"login" | "register">("login");
-  const [showPassword, setShowPassword] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -225,8 +226,9 @@ export default function KontoPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            <div
-              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow"
+            <button
+              onClick={() => document.getElementById("bestellungen")?.scrollIntoView({ behavior: "smooth" })}
+              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left"
             >
               <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
               <div className="flex-1">
@@ -235,7 +237,7 @@ export default function KontoPage() {
                   {ordersLoading ? "Wird geladen…" : orders.length === 0 ? "Noch keine Bestellungen" : `${orders.length} Bestellung${orders.length > 1 ? "en" : ""}`}
                 </div>
               </div>
-            </div>
+            </button>
 
             <Link
               href="/wunschliste"
@@ -261,14 +263,19 @@ export default function KontoPage() {
           </div>
 
           {/* Orders section */}
-          {orders.length > 0 && (
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] mb-10">
-              <div className="p-5 border-b border-[var(--color-border-light)]">
-                <h2 className="heading-3 flex items-center gap-2">
-                  <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
-                  Bestellungen
-                </h2>
+          <div id="bestellungen" className="bg-white rounded-2xl border border-[var(--color-border-light)] mb-10">
+            <div className="p-5 border-b border-[var(--color-border-light)]">
+              <h2 className="heading-3 flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
+                Bestellungen
+              </h2>
+            </div>
+            {orders.length === 0 ? (
+              <div className="p-8 text-center">
+                <ShoppingBag className="w-10 h-10 text-[var(--color-text-muted)] mx-auto mb-3" />
+                <p className="text-[var(--color-text-muted)] text-sm">Noch keine Bestellungen vorhanden.</p>
               </div>
+            ) : (
               <div className="divide-y divide-[var(--color-border-light)]">
                 {orders.map((order) => {
                   const isExpanded = expandedOrder === order.id;
@@ -362,8 +369,8 @@ export default function KontoPage() {
                   );
                 })}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Profile form */}
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6">
@@ -566,7 +573,7 @@ export default function KontoPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
                   id="login-password"
-                  type={showPassword ? "text" : "password"}
+                  type={showLoginPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -575,11 +582,11 @@ export default function KontoPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+                  onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  aria-label={showLoginPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showLoginPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -643,7 +650,7 @@ export default function KontoPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
                   id="register-password"
-                  type={showPassword ? "text" : "password"}
+                  type={showRegisterPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Mindestens 8 Zeichen"
@@ -653,11 +660,11 @@ export default function KontoPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+                  onClick={() => setShowRegisterPassword(!showRegisterPassword)}
+                  aria-label={showRegisterPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showRegisterPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>

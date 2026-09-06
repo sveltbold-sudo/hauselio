@@ -439,7 +439,7 @@ export default function WarenkorbPage() {
               </li>
               <li className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Truck className="w-4 h-4 text-[var(--color-success)]" />
-                <span>Kostenloser Versand ab 50€</span>
+                <span>Kostenloser Versand ab {formatPrice(FREE_SHIPPING_THRESHOLD)}</span>
               </li>
               <li className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
                 <Shield className="w-4 h-4 text-[var(--color-success)]" />
