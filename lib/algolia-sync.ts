@@ -39,30 +39,32 @@ export async function configureAlgoliaIndex(): Promise<void> {
   try {
     await getAlgoliaAdminClient().setSettings({
       indexName: PRODUCTS_INDEX,
-      searchableAttributes: [
-        "name",
-        "brand",
-        "categoryName",
-        "description",
-        "slug",
-      ],
-      attributesForFaceting: [
-        "filterable(categoryName)",
-        "filterable(brand)",
-        "filterable(isNew)",
-        "filterable(isPromo)",
-        "searchable(brand)",
-      ],
-      customRanking: [
-        "desc(isNew)",
-        "desc(isPromo)",
-        "desc(rating)",
-        "desc(reviewCount)",
-        "asc(price)",
-      ],
-      distinct: true,
-      attributeForDistinct: "slug",
-      unretrievableAttributes: ["description"],
+      indexSettings: {
+        searchableAttributes: [
+          "name",
+          "brand",
+          "categoryName",
+          "description",
+          "slug",
+        ],
+        attributesForFaceting: [
+          "filterable(categoryName)",
+          "filterable(brand)",
+          "filterable(isNew)",
+          "filterable(isPromo)",
+          "searchable(brand)",
+        ],
+        customRanking: [
+          "desc(isNew)",
+          "desc(isPromo)",
+          "desc(rating)",
+          "desc(reviewCount)",
+          "asc(price)",
+        ],
+        distinct: true,
+        attributeForDistinct: "slug",
+        unretrievableAttributes: ["description"],
+      },
     });
     logger.info("algolia-config", "Index settings configured successfully");
   } catch (error) {
