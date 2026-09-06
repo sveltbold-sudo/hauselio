@@ -18,7 +18,7 @@ export async function logActivity(params: LogActivityParams): Promise<void> {
         entityId: params.entityId || null,
         adminId: params.adminId,
         adminEmail: params.adminEmail,
-        details: params.details || null,
+        details: params.details || undefined,
       },
     });
   } catch {
