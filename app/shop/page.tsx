@@ -371,7 +371,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
               aria-label={`${categories.find((c) => c.slug === category)?.name || category} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -381,7 +381,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {brand && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
               aria-label={`${brand} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -391,7 +391,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {promo === "true" && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
               aria-label="Angebote Filter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
@@ -401,7 +401,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {q && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
               aria-label="Suche entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
@@ -411,7 +411,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {rating && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); return p.toString() || "" })()}`}
+              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (price) p.set("price", price); return p.toString() || "" })()}`}
               aria-label="Bewertungsfilter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >

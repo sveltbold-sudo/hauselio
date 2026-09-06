@@ -8,6 +8,7 @@ interface MobileShopBarProps {
   onScrollToTop?: () => void;
   totalResults?: number;
   sort?: string;
+  basePath?: string;
 }
 
 const sortOptions = [
@@ -19,7 +20,7 @@ const sortOptions = [
   { value: "name", label: "Name A–Z" },
 ];
 
-export default function MobileShopBar({ onScrollToTop, totalResults, sort }: MobileShopBarProps) {
+export default function MobileShopBar({ onScrollToTop, totalResults, sort, basePath = "/shop" }: MobileShopBarProps) {
   const [visible, setVisible] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,7 +37,7 @@ export default function MobileShopBar({ onScrollToTop, totalResults, sort }: Mob
     const params = new URLSearchParams(searchParams.toString());
     params.set("sort", value);
     params.delete("page");
-    router.push(`/shop?${params.toString()}`);
+    router.push(`${basePath}?${params.toString()}`);
   };
 
   if (!visible) return null;

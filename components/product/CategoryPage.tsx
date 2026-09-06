@@ -212,7 +212,7 @@ export default function CategoryPage({
           )}
         </>
       )}
-      <MobileShopBar />
+      <MobileShopBar totalResults={total} sort={sort} basePath={`/kategorie/${slug}`} />
     </div>
   );
 }

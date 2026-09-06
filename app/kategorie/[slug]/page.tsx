@@ -86,6 +86,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   else if (sort === "price_desc") orderBy = { price: "desc" };
   else if (sort === "rating") orderBy = { rating: "desc" };
   else if (sort === "popular") orderBy = { reviewCount: "desc" };
+  else if (sort === "name") orderBy = { name: "asc" };
 
   const where: Record<string, unknown> = { category: { slug } };
   if (brand) where.brand = { slug: brand };

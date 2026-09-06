@@ -170,12 +170,11 @@ export default function ShopFilters({
           <Tag className="w-3 h-3" />
           Marke
         </h3>
-        <div className="space-y-0.5 max-h-48 overflow-y-auto" role="list">
+        <div className="space-y-0.5 max-h-48 overflow-y-auto" role="group" aria-label="Marken">
           {brands.map((brand) => (
             <button
               key={brand.slug}
-              role="option"
-              aria-selected={selectedBrand === brand.slug}
+              aria-pressed={selectedBrand === brand.slug}
               onClick={() =>
                 updateFilter(
                   "brand",
