@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main id="main-content" className="container-hausaura py-8" role="status" aria-label="Wird geladen">
+    <div className="container-hausaura py-8" role="status" aria-label="Wird geladen">
       <div className="animate-pulse">
         {/* Header skeleton */}
         <div className="mb-10">
@@ -28,6 +28,6 @@ export default function Loading() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
