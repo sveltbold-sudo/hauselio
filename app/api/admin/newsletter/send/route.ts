@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
       ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "br", "ul", "ol", "li", "h1", "h2", "h3", "h4", "a", "img", "table", "thead", "tbody", "tr", "th", "td", "blockquote", "hr", "div", "span"],
       ALLOWED_ATTR: ["href", "src", "alt", "title", "width", "height", "target", "rel"],
       ALLOW_DATA_ATTR: false,
+      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
     });
 
     const subscribers = await prisma.newsletter.findMany({

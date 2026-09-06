@@ -55,6 +55,10 @@ export async function baseTemplate(content: string): Promise<string> {
     }
   } catch {}
 
+  const safeCompanyName = escapeHtml(companyName);
+  const safeCompanyAddress = escapeHtml(companyAddress);
+  const safeContactEmail = escapeHtml(contactEmail);
+
   return `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -88,14 +92,14 @@ export async function baseTemplate(content: string): Promise<string> {
           <tr>
             <td style="padding:24px 0;text-align:center;">
               <p style="color:#9CA3AF;font-size:11px;margin:0 0 4px 0;">
-                &copy; ${new Date().getFullYear()} ${companyName} &middot; ${companyAddress}
+                &copy; ${new Date().getFullYear()} ${safeCompanyName} &middot; ${safeCompanyAddress}
               </p>
               <p style="color:#9CA3AF;font-size:11px;margin:0;">
                 <a href="${SITE}/impressum" style="color:#9CA3AF;text-decoration:underline;">Impressum</a>
                 &nbsp;&middot;&nbsp;
                 <a href="${SITE}/datenschutz" style="color:#9CA3AF;text-decoration:underline;">Datenschutz</a>
                 &nbsp;&middot;&nbsp;
-                <a href="mailto:${contactEmail}" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
+                <a href="mailto:${safeContactEmail}" style="color:#9CA3AF;text-decoration:underline;">Kontakt</a>
               </p>
             </td>
           </tr>

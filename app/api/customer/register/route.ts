@@ -9,6 +9,9 @@ import {
 import { validateContentType, validateCsrfOrigin, applyCookiesToResponse } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { sendEmailVerification } from "@/lib/emails";
+import crypto from "crypto";
+import { SITE_URL } from "@/lib/constants";
 
 export async function POST(request: NextRequest) {
   try {
@@ -64,6 +67,29 @@ export async function POST(request: NextRequest) {
       },
       select: { id: true, email: true, name: true },
     });
+
+    // Send email verification (don't block response)
+    try {
+      const siteUrl = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
+      const token = crypto.randomBytes(32).toString("hex");
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+      await prisma.verificationToken.create({
+        data: { token, email, expiresAt },
+      });
+
+      const verificationUrl = `${siteUrl}/email-verifizieren?token=${token}`;
+      await sendEmailVerification({
+        to: email,
+        name: customer.name,
+        verificationUrl,
+      });
+    } catch (emailError) {
+      logger.error("Failed to send verification email", {
+        email,
+        error: emailError instanceof Error ? emailError.message : String(emailError),
+      });
+    }
 
     const token = await generateCustomerToken(customer);
     const cookieOptions = setCustomerCookie(token, request);

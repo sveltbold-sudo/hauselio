@@ -55,6 +55,7 @@ export async function POST(request: NextRequest) {
         slug: true,
         price: true,
         originalPrice: true,
+        stockQuantity: true,
 
         images: {
           take: 1,
@@ -75,6 +76,8 @@ export async function POST(request: NextRequest) {
         };
       }
 
+      const outOfStock = product.stockQuantity !== null && item.quantity > product.stockQuantity;
+
       const currentPrice = Number(product.price);
       if (Math.abs(item.price - currentPrice) > 0.01) {
         return {
@@ -88,6 +91,8 @@ export async function POST(request: NextRequest) {
           slug: product.slug,
           image: product.images[0]?.url || "/images/placeholder-product.svg",
           quantity: item.quantity,
+          outOfStock,
+          stockQuantity: product.stockQuantity,
         };
       }
 
@@ -100,6 +105,8 @@ export async function POST(request: NextRequest) {
         price: currentPrice,
         image: product.images[0]?.url || "/images/placeholder-product.svg",
         quantity: item.quantity,
+        outOfStock,
+        stockQuantity: product.stockQuantity,
       };
     });
 

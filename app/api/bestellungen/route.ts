@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     const productIds = items.map((item) => item.id);
     const products = await prisma.product.findMany({
       where: { id: { in: productIds } },
-      select: { id: true, price: true, name: true },
+      select: { id: true, price: true, name: true, stockQuantity: true },
     });
 
     const productMap = new Map(products.map((p) => [p.id, p]));
@@ -87,6 +87,9 @@ export async function POST(request: NextRequest) {
       const quantity = Math.max(1, Math.min(99, item.quantity));
       if (item.quantity < 1 || item.quantity > 99) {
         throw new ValidationError(`Ungültige Menge für ${product.name}: ${item.quantity}`);
+      }
+      if (product.stockQuantity !== null && quantity > product.stockQuantity) {
+        throw new ValidationError(`Nur ${product.stockQuantity} Stück verfügbar für ${product.name}`);
       }
       const price = Number(product.price);
       subtotal += price * quantity;
@@ -110,20 +113,6 @@ export async function POST(request: NextRequest) {
       try {
         const orderNumber = generateOrderNumber();
         lastOrderNumber = orderNumber;
-
-        // Validate & increment coupon atomically (PgBouncer-compatible, no interactive transaction)
-        if (couponRecord) {
-          const affected = await prisma.$executeRaw`
-            UPDATE "Coupon" SET "usedCount" = "usedCount" + 1
-            WHERE "code" = ${couponRecord.code}
-            AND "isActive" = true
-            AND ("expiresAt" IS NULL OR "expiresAt" > NOW())
-            AND ("maxUses" = 0 OR "usedCount" < "maxUses")
-          `;
-          if (affected === 0) {
-            throw new ValidationError("Gutscheincode wurde bereits maximal oft verwendet");
-          }
-        }
 
         order = await prisma.order.create({
           data: {
@@ -193,6 +182,34 @@ export async function POST(request: NextRequest) {
         { error: "Bestellung konnte nicht erstellt werden. Bitte versuchen Sie es erneut." },
         { status: 500 }
       );
+    }
+
+    // Decrement stock after successful order creation
+    for (const item of validatedItems) {
+      const product = productMap.get(item.productId);
+      if (product && product.stockQuantity !== null) {
+        await prisma.$executeRaw`
+          UPDATE "Product" SET "stockQuantity" = "stockQuantity" - ${item.quantity}
+          WHERE "id" = ${item.productId} AND "stockQuantity" >= ${item.quantity}
+        `;
+      }
+    }
+
+    // Increment coupon after successful order creation (outside retry loop)
+    if (couponRecord) {
+      const affected = await prisma.$executeRaw`
+        UPDATE "Coupon" SET "usedCount" = "usedCount" + 1
+        WHERE "code" = ${couponRecord.code}
+        AND "isActive" = true
+        AND ("expiresAt" IS NULL OR "expiresAt" > NOW())
+        AND ("maxUses" = 0 OR "usedCount" < "maxUses")
+      `;
+      if (affected === 0) {
+        logger.error("coupon-increment-failed", new Error("Coupon increment failed after order creation"), {
+          orderNumber: order.orderNumber,
+          couponCode: couponRecord.code,
+        });
+      }
     }
 
     const emailItems = validatedItems.map((item) => {
