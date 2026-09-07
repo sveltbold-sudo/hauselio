@@ -203,7 +203,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
             name: collectionName,
             description: collectionDescription,
             url: collectionUrl,
-          }),
+          }).replace(/</g, "\\u003C"),
         }}
       />
       <main id="main-content">

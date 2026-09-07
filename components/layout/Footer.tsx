@@ -219,7 +219,7 @@ export default async function Footer() {
                 {contact.contactEmail}
               </a>
               <a
-                href={`tel:${contact.contactPhone.replace(/\s/g, "")}`}
+                href={`tel:${contact.contactPhone.replace(/[\s()]/g, "")}`}
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
                 <Phone className="w-3.5 h-3.5" aria-hidden="true" />

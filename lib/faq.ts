@@ -14,7 +14,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: "Kann ich ein Gerät zurückgeben?",
-    answer: "Ja, Sie haben ein 30-tägiges Rückgaberecht. Die Rücksendung ist kostenlos. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir organisieren den Rückversand für Sie.",
+    answer: "Ja, Sie haben ein 14-tägiges Widerrufsrecht. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir informieren Sie über den Rückversand.",
   },
   {
     question: "Welche Garantie bieten Sie?",
@@ -26,7 +26,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: "Bieten Sie einen Anschlussservice an?",
-    answer: "Ja, bei vielen Geräten bieten wir einen kostenlosen Anschlussservice an. Bei der Bestellung können Sie angeben, ob Sie eine fachgerechte Installation wünschen.",
+    answer: "Ja, bei vielen Geräten bieten wir einen Anschlussservice an. Bei der Bestellung können Sie angeben, ob Sie eine fachgerechte Installation wünschen.",
   },
 ];
 

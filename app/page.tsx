@@ -345,22 +345,7 @@ export default async function HomePage() {
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: SITE_NAME,            url: SITE_URL,
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.8",
-              bestRating: "5",
-              reviewCount: "2500",
-            },
-          }),
-        }}
-      />
+
       <h1 className="heading-1 container-hausaura pt-8 pb-2 text-[var(--color-text-primary)]">
         HAUSAURA — Moderne Haushaltsgeräte
       </h1>
@@ -369,7 +354,9 @@ export default async function HomePage() {
       </p>
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 
-      <ThermomixSection />
+      <Suspense fallback={<ThermomixSkeleton />}>
+        <ThermomixSection />
+      </Suspense>
 
       {/* Trust scores — like Coolblue */}
       <section className="py-6 lg:py-8 border-b border-[var(--color-border-light)]">
@@ -435,7 +422,9 @@ export default async function HomePage() {
       {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
 
       <PressReviewsSection />
-      <TestimonialsSection />
+      <Suspense fallback={<ProductRowSkeleton />}>
+        <TestimonialsSection />
+      </Suspense>
       <RecentlyViewedSection />
       <NewsletterSection />
     </main>

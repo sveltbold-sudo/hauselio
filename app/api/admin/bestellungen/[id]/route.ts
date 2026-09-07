@@ -21,14 +21,18 @@ async function generateInvoiceNumber(): Promise<string> {
 
   const prefix = settings.invoicePrefix || "RE";
 
-  let counter = (settings.invoiceCounter || 0) + 1;
   if (settings.invoiceYear !== year) {
-    counter = 1;
+    await prisma.siteSettings.update({
+      where: { id: settings.id },
+      data: { invoiceCounter: 1, invoiceYear: year },
+    });
+    settings.invoiceCounter = 0;
   }
 
+  const counter = (settings.invoiceCounter || 0) + 1;
   await prisma.siteSettings.update({
     where: { id: settings.id },
-    data: { invoiceCounter: counter, invoiceYear: year },
+    data: { invoiceCounter: counter },
   });
 
   return `${prefix}-${year}-${String(counter).padStart(5, "0")}`;

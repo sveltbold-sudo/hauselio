@@ -38,7 +38,7 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const baseUrl = SITE_URL;
 
   let title = `Alle Haushaltsgeräte online kaufen | ${SITE_NAME}`;
-  let desc = "Entdecken Sie 279+ Haushaltsgeräte von Top-Marken wie Miele, Bosch, Siemens, Dyson und Thermomix. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.";
+  let desc = "Entdecken Sie Haushaltsgeräte von Top-Marken wie Miele, Bosch, Siemens, Dyson und Thermomix. Kostenloser Versand ab 50\u20AC, 30 Tage Rückgaberecht.";
 
   if (q) {
     title = `Suche "${q}" | ${SITE_NAME} Shop`;
@@ -239,7 +239,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     }
     const ratingWhereClause = ratingWhere.join(" AND ");
     const allRatings = await prisma.$queryRawUnsafe<{ rating: number; count: bigint }[]>(
-      `SELECT ROUND("rating")::int AS rating, COUNT(*)::int AS count FROM "Product" WHERE ${ratingWhereClause} GROUP BY ROUND("rating")`,
+      `SELECT FLOOR("rating" + 0.5)::int AS rating, COUNT(*)::int AS count FROM "Product" WHERE ${ratingWhereClause} GROUP BY FLOOR("rating" + 0.5)`,
       ...ratingParams
     );
     for (const row of allRatings) {

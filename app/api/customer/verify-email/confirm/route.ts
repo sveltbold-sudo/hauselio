@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mark email as verified
-    await prisma.customer.update({
+    // Mark email as verified (ignore if customer was deleted)
+    await prisma.customer.updateMany({
       where: { email: verificationToken.email },
       data: { emailVerified: new Date() },
     });

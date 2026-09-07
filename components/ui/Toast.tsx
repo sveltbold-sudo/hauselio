@@ -76,9 +76,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleMouseLeave = useCallback((id: number) => {
-    const toast = toasts.find((t) => t.id === id);
-    startAutoDismiss(id, toast?.type);
-  }, [startAutoDismiss, toasts]);
+    setToasts((prev) => {
+      const toast = prev.find((t) => t.id === id);
+      if (toast) startAutoDismiss(id, toast.type);
+      return prev;
+    });
+  }, [startAutoDismiss]);
 
   const toast = {
     success: (message: string) => addToast("success", message),

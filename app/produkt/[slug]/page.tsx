@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: desc,
       url: `${SITE_URL}/produkt/${slug}`,
       siteName: SITE_NAME,      locale: "de_DE",
-      type: "website",
+      type: "website" as const,
       images: product.images?.[0]
         ? [{ url: product.images[0], width: 800, height: 600, alt: product.name }]
         : undefined,

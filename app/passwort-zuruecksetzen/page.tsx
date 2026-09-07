@@ -185,10 +185,11 @@ function PasswortZuruecksetzenForm() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Neues Passwort</label>
+            <label htmlFor="new-password" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Neues Passwort</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
               <input
+                id="new-password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -208,10 +209,11 @@ function PasswortZuruecksetzenForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort bestätigen</label>
+            <label htmlFor="confirm-password" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Passwort bestätigen</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
               <input
+                id="confirm-password"
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

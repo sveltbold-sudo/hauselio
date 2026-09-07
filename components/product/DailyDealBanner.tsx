@@ -56,9 +56,11 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                   <Flame className="w-3.5 h-3.5" />
                   Angebot des Tages
                 </span>
-                <span className="inline-flex items-center px-2.5 py-1.5 bg-white text-[var(--color-danger)] text-sm font-extrabold rounded-full shadow-sm">
-                  -{discount}%
-                </span>
+                {discount > 0 && (
+                  <span className="inline-flex items-center px-2.5 py-1.5 bg-white text-[var(--color-danger)] text-sm font-extrabold rounded-full shadow-sm">
+                    -{discount}%
+                  </span>
+                )}
               </div>
 
               {/* Brand */}

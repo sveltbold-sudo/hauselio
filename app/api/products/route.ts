@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    let orderBy: Record<string, string> = { createdAt: "desc" };
+    let orderBy: Record<string, "asc" | "desc"> = { createdAt: "desc" };
     if (sort === "price_asc") orderBy = { price: "asc" };
     else if (sort === "price_desc") orderBy = { price: "desc" };
     else if (sort === "name") orderBy = { name: "asc" };

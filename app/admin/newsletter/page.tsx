@@ -154,7 +154,7 @@ export default function NewsletterPage() {
         }
         return val;
       };
-      const csv = "E-Mail;Aktiv;Datum\n" + allSubscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
+      const csv = "\uFEFFE-Mail;Aktiv;Datum\n" + allSubscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
       const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

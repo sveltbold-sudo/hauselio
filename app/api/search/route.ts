@@ -25,6 +25,8 @@ export async function GET(request: NextRequest) {
     const limit = Number.isFinite(rawLimit)
       ? Math.min(50, Math.max(1, rawLimit))
       : 10;
+    const rawPage = parseInt(searchParams.get("page") || "1", 10);
+    const page = Number.isFinite(rawPage) ? Math.max(1, rawPage) : 1;
 
     if (!query || query.trim().length === 0) {
       return NextResponse.json({ hits: [], nbHits: 0 }, {
@@ -108,6 +110,7 @@ export async function GET(request: NextRequest) {
           images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
         },
         take: limit,
+        skip: (page - 1) * limit,
         orderBy: { rating: "desc" },
       }),
       prisma.product.count({
