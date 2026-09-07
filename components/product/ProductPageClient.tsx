@@ -79,6 +79,9 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       originalPrice: product.originalPrice ?? undefined,
       image: product.images[0] || "/images/placeholder-product.svg",
       brand: product.brand ?? "",
+      isPromo: product.isPromo,
+      rating: product.rating,
+      reviewCount: product.reviewCount,
       categorySlug: product.categorySlug,
     }, quantity);
     trackAddToCart({
@@ -90,6 +93,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       brand: product.brand || undefined,
     });
     toast.success(`${quantity > 1 ? quantity + " Artikel" : "Artikel"} zum Warenkorb hinzugefügt!`);
+    setQuantity(1);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setAdded(true);
     window.dispatchEvent(new CustomEvent("cart:item-added"));

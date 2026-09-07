@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß Barrierefreiheitsstärkungsgesetz (BFSG).",
   alternates: { canonical: `${SITE_URL}/barrierefreiheit` },
   openGraph: {
-    title: "Barrierefreiheitserklärung ",
+    title: "Barrierefreiheitserklärung",
     description: "Informationen zur Barrierefreiheit der HAUSAURA Website gemäß BFSG.",
     siteName: "HAUSAURA",
     locale: "de_DE",
@@ -97,7 +97,7 @@ export default async function BarrierefreiheitPage() {
           <h2 className="heading-3 mb-3">5. Feedback und Kontaktdaten</h2>
           <p className="text-[var(--color-text-secondary)]">
             Sie können auf Probleme bei der Barrierefreiheit dieser Website hinweisen oder
-            Verbesserungsvorschläge unterfolgenden Kontaktdaten mitteilen:
+            Verbesserungsvorschläge unter folgenden Kontaktdaten mitteilen:
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 mt-4 space-y-3">
             <div className="flex items-center gap-3">

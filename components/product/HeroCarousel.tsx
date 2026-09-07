@@ -159,8 +159,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") next();
         if (e.key === "ArrowLeft") prev();
-        if (e.key === "Home") { e.preventDefault(); setCurrent(0); }
-        if (e.key === "End") { e.preventDefault(); setCurrent(slides.length - 1); }
+        if (e.key === "Home") { e.preventDefault(); goTo(0); }
+        if (e.key === "End") { e.preventDefault(); goTo(slides.length - 1); }
       }}
     >
       {/* ── MOBILE: Product-first hero ── */}

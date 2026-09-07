@@ -48,7 +48,7 @@ function getFaqs(s: typeof fallback) {
   },
   {
     question: "Wie lange dauert die Lieferung?",
-    answer: "Die Lieferung erfolgt innerhalb von 1-3 Werktagen nach Eingang Ihrer Zahlung. Versandkostenfrei innerhalb Deutschlands ab einem Bestellwert von 50 Euro. Darunter fallen 5,99 Euro Versandkosten an.",
+    answer: "Die Lieferung erfolgt innerhalb von 2-5 Werktagen nach Eingang Ihrer Zahlung. Versandkostenfrei innerhalb Deutschlands ab einem Bestellwert von 50 Euro. Darunter fallen 4,99 Euro Versandkosten an.",
   },
   {
     question: "Kann ich ein Gerät zurückgeben?",

@@ -270,7 +270,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }));
 
   return (
-    <main id="shop-content" className="container-hausaura py-6 sm:py-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8">
       {/* ItemList JSON-LD for SEO */}
       <script
         type="application/ld+json"

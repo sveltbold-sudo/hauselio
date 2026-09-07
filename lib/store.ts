@@ -9,6 +9,9 @@ export interface CartItem {
   originalPrice?: number;
   image: string;
   brand?: string;
+  isPromo?: boolean;
+  rating?: number;
+  reviewCount?: number;
   categorySlug?: string;
   quantity: number;
 

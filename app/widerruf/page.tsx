@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/widerruf" },
   openGraph: {
-    title: "Widerrufsbelehrung ",
+    title: "Widerrufsbelehrung",
     description: "Ihr Widerrufsrecht bei Einkäufen im HAUSAURA Online-Shop.",
     siteName: "HAUSAURA",
     locale: "de_DE",

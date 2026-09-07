@@ -126,6 +126,20 @@ export default function KontoPage() {
       setProfileName(data.customer.name || "");
       setEmail("");
       setPassword("");
+      try {
+        const meRes = await fetch("/api/customer/me");
+        if (meRes.ok) {
+          const meData = await meRes.json();
+          if (meData?.customer) {
+            setCustomer(meData.customer);
+            setProfilePhone(meData.customer.phone || "");
+            setProfileAddress(meData.customer.address || "");
+            setProfileZip(meData.customer.zip || "");
+            setProfileCity(meData.customer.city || "");
+            setProfileCountry(meData.customer.country || "DE");
+          }
+        }
+      } catch {}
     } catch (err) {
       setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {

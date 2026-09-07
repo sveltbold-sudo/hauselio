@@ -197,8 +197,10 @@ export default function WarenkorbPage() {
                                 originalPrice: item.originalPrice,
                                 image: item.image,
                                 brand: item.brand ?? "",
-                                rating: 0,
-                                reviewCount: 0,
+                                isPromo: item.isPromo,
+                                rating: item.rating ?? 0,
+                                reviewCount: item.reviewCount ?? 0,
+                                categorySlug: item.categorySlug,
                               });
                             }
                             removeItem(item.id);

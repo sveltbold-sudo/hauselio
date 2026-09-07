@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/datenschutz" },
   openGraph: {
-    title: "Datenschutzerklärung ",
+    title: "Datenschutzerklärung",
     description: "Informationen zum Schutz Ihrer Daten bei der HAUSAURA GmbH.",
     siteName: "HAUSAURA",
     locale: "de_DE",
