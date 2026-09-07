@@ -69,7 +69,7 @@ export default async function AdminOrderDetailPage({
     });
   } catch (error) {
     logger.error("bestellungen/[id]: DB error", error);
-    notFound();
+    throw new Error("Datenbankfehler beim Laden der Bestellung");
   }
 
   if (!order) {

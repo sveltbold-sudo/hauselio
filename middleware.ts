@@ -90,12 +90,6 @@ export async function middleware(request: NextRequest) {
       );
     }
     try {
-      if (await isTokenRevoked(customerToken)) {
-        return NextResponse.json(
-          { error: "Token widerrufen" },
-          { status: 401 }
-        );
-      }
       const { payload } = await jwtVerify(customerToken, getCustomerJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-customer",
@@ -104,6 +98,12 @@ export async function middleware(request: NextRequest) {
       if (payload.exp && payload.exp < now) {
         return NextResponse.json(
           { error: "Sitzung abgelaufen" },
+          { status: 401 }
+        );
+      }
+      if (await isTokenRevoked(customerToken)) {
+        return NextResponse.json(
+          { error: "Token widerrufen" },
           { status: 401 }
         );
       }

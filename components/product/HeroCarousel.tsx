@@ -370,7 +370,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   alt={slide.name}
                   fill
                   className="object-contain p-8 xl:p-10"
-                  priority
+                  priority={current === 0}
                   sizes="480px"
                 />
                 {slide.isPromo && discount > 0 && (

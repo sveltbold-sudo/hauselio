@@ -195,7 +195,9 @@ export default function CategoryPage({
           )}
         </>
       )}
-      <MobileShopBar totalResults={total} sort={sort} basePath={`/kategorie/${slug}`} />
+      <Suspense fallback={null}>
+        <MobileShopBar totalResults={total} sort={sort} basePath={`/kategorie/${slug}`} />
+      </Suspense>
     </div>
   );
 }
