@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import NewsletterUnsubscribeForm from "@/components/newsletter/NewsletterUnsubscribeForm";
 import { SITE_URL } from "@/lib/constants";
 
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 export default function NewsletterAbmeldenPage() {
   return (
     <main id="main-content">
+      <BreadcrumbJsonLd items={[{ name: "Startseite", url: "/" }, { name: "Newsletter abmelden", url: "/newsletter-abmelden" }]} />
       <div className="container-hausaura py-6 sm:py-8">
         <Breadcrumb items={[{ label: "Newsletter abmelden" }]} />
 

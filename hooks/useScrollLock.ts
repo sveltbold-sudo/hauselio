@@ -11,6 +11,11 @@ export function useScrollLock(isLocked: boolean) {
   const id = useId();
 
   useEffect(() => {
+    if (!isLocked) {
+      instances.delete(id);
+      return;
+    }
+
     const prev = instances.get(id);
     if (prev) {
       prev.locked = isLocked;
@@ -20,7 +25,7 @@ export function useScrollLock(isLocked: boolean) {
 
     const wasLocked = lockCount > 0;
 
-    if (isLocked && !wasLocked) {
+    if (!wasLocked) {
       savedOverflow = document.body.style.overflow;
       savedPaddingRight = document.body.style.paddingRight;
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -30,18 +35,14 @@ export function useScrollLock(isLocked: boolean) {
       }
     }
 
-    if (isLocked) {
-      lockCount++;
-    }
+    lockCount++;
 
     return () => {
-      if (isLocked) {
-        lockCount = Math.max(0, lockCount - 1);
-        instances.delete(id);
-        if (lockCount === 0) {
-          document.body.style.overflow = savedOverflow;
-          document.body.style.paddingRight = savedPaddingRight;
-        }
+      lockCount = Math.max(0, lockCount - 1);
+      instances.delete(id);
+      if (lockCount === 0) {
+        document.body.style.overflow = savedOverflow;
+        document.body.style.paddingRight = savedPaddingRight;
       }
     };
   }, [isLocked, id]);

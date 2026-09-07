@@ -101,7 +101,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
   };
 
   const handleShare = async () => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
+    const url = window.location.href;
     if (navigator.share) {
       try {
         await navigator.share({ title: product.name, url });

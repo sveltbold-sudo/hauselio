@@ -58,14 +58,20 @@ export default async function KontaktPage() {
   const contactJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Kontakt ",
+    name: "Kontakt",
     url: `${SITE_URL}/kontakt`,
     mainEntity: {
       "@type": "Organization",
       name: settings.companyName,
       telephone: settings.contactPhone,
       email: settings.contactEmail,
-      address: settings.contactAddress,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Kastanienallee 42",
+        postalCode: "10435",
+        addressLocality: "Berlin",
+        addressCountry: "DE",
+      },
     },
   };
 

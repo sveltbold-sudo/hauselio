@@ -1,16 +1,20 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 export function useNewsletter() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState("");
+  const abortRef = useRef<AbortController | null>(null);
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
+
+    abortRef.current?.abort();
+    abortRef.current = new AbortController();
 
     setIsSubmitting(true);
     setError("");
@@ -20,6 +24,7 @@ export function useNewsletter() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
+        signal: abortRef.current.signal,
       });
 
       const data = await res.json();
@@ -31,6 +36,7 @@ export function useNewsletter() {
       setIsSubscribed(true);
       setEmail("");
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setError(err instanceof Error ? err.message : "Ein Fehler ist aufgetreten");
     } finally {
       setIsSubmitting(false);
