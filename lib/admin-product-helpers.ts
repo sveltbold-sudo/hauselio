@@ -9,7 +9,7 @@ export function serializeProductBody(data: FormData) {
     description: data.description,
     shortDesc: data.shortDesc || undefined,
     price: Number(data.price) || 0.01,
-    originalPrice: data.originalPrice
+    originalPrice: data.originalPrice !== undefined && data.originalPrice !== ""
       ? Number(data.originalPrice) || undefined
       : undefined,
     categoryId: data.categoryId,
@@ -18,7 +18,7 @@ export function serializeProductBody(data: FormData) {
     isFeatured: data.isFeatured,
     isPromo: data.isPromo,
     isDailyDeal: data.isDailyDeal,
-    weight: data.weight ? Number(data.weight) || undefined : undefined,
+    weight: data.weight !== undefined && data.weight !== "" ? Number(data.weight) || undefined : undefined,
     features: data.features,
     specs: data.specs,
     imageUrl: data.imageUrl || undefined,

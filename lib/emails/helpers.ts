@@ -116,8 +116,8 @@ export function headerBanner(title: string, subtitle: string, bgColor: string = 
   return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${bgColor};">
     <tr>
       <td style="padding:36px 40px 32px 40px;">
-        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${escapeHtml(title)}</h1>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${escapeHtml(subtitle)}</p>
+        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${title}</h1>
+        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${subtitle}</p>
       </td>
     </tr>
   </table>`;

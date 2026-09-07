@@ -299,7 +299,6 @@ export async function sendOrderCancelled(data: OrderEmailData) {
 }
 
 export async function sendNewOrderAdminNotification(data: AdminOrderNotificationData) {
-  const { prisma } = await import("@/lib/prisma");
   const settings = await prisma.siteSettings.findFirst();
   const adminEmail = settings?.contactEmail || "hilfe@hausaura.de";
 

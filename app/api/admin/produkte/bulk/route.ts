@@ -3,6 +3,7 @@ import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { deleteProductFromAlgolia } from "@/lib/algolia-sync";
+import { getCloudinary } from "@/lib/cloudinary";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { z } from "zod";
 
@@ -54,7 +55,16 @@ export async function POST(request: NextRequest) {
       const result = await prisma.product.deleteMany({
         where: { id: { in: ids } },
       });
+      const cloudinary = getCloudinary();
       for (const id of ids) {
+        try {
+          const images = await prisma.productImage.findMany({ where: { productId: id }, select: { publicId: true } });
+          for (const img of images) {
+            if (img.publicId) {
+              try { await cloudinary.uploader.destroy(img.publicId); } catch { /* ignore */ }
+            }
+          }
+        } catch { /* ignore */ }
         try { await deleteProductFromAlgolia(id); } catch { /* ignore */ }
       }
       return NextResponse.json({ count: result.count });

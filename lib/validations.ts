@@ -69,7 +69,7 @@ export const CreateProductSchema = z.object({
 });
 
 export const UpdateSettingsSchema = z.object({
-  bankIban: z.string().regex(/^[A-Z]{2}\d{2}[\sA-Z0-9]{11,30}$/i, "Ungültige IBAN (z.B. DE89 3704 0044 0532 0130 00)").max(100).optional(),
+  bankIban: z.string().regex(/^(DE\d{20}|AT\d{18}|CH\d{21}|FR\d{27}|NL\d{14}|BE\d{16}|ES\d{24}|IT\d{27}|PL\d{28})$/i, "Ungültige IBAN").max(100).optional(),
   bankBic: z.string().max(20).optional(),
   bankAccountName: z.string().max(200).optional(),
   bankName: z.string().max(200).optional(),

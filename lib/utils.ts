@@ -47,7 +47,7 @@ export function getVatRate(country: string): number {
   switch (country) {
     case "AT": return 20;
     case "CH": return 0;
-    case "DE": default: return 19;
+    default: return 19;
   }
 }
 
