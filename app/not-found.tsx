@@ -3,10 +3,6 @@
 import Link from "next/link";
 import { PackageOpen, Home, ArrowLeft } from "lucide-react";
 
-export const metadata = {
-  title: "Seite nicht gefunden",
-};
-
 export default function NotFound() {
   return (
     <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
