@@ -258,7 +258,6 @@ export default function BestellungPage() {
       }
 
       sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
-      orderSubmitted.current = true;
       const checkoutItems: { id: string; name: string; price: number; quantity: number }[] = items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity }));
       trackBeginCheckout(finalTotal, checkoutItems);
       clearCart();
@@ -718,6 +717,12 @@ export default function BestellungPage() {
               {orderError && (
                 <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">
                   {orderError}
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="ml-2 underline font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
+                  >
+                    Neu laden
+                  </button>
                 </div>
               )}
             </>

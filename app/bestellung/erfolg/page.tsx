@@ -33,7 +33,7 @@ interface Order {
 
 function getOrderCouponDiscount(order: Order): number {
   const itemsSubtotal = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const expectedTotal = itemsSubtotal - 0 + order.shippingCost;
+  const expectedTotal = itemsSubtotal + order.shippingCost;
   const diff = expectedTotal - order.total;
   return diff > 0.01 ? Math.round(diff * 100) / 100 : 0;
 }
@@ -150,6 +150,10 @@ function OrderSuccessContent() {
 
   const handleProofUpload = async () => {
     if (!proofFile || !orderId || !order) return;
+    if (proofFile.size > 10 * 1024 * 1024) {
+      setProofError("Datei ist zu groß (max. 10MB)");
+      return;
+    }
     setProofUploading(true);
     setProofError("");
     try {
@@ -492,8 +496,8 @@ function OrderSuccessContent() {
               Zusammenfassung
             </h2>
             <div className="space-y-2 mb-4" role="list">
-              {order.items.map((item, i) => (
-                <div key={i} className="flex justify-between text-sm" role="listitem">
+              {order.items.map((item) => (
+                <div key={item.id || item.name} className="flex justify-between text-sm" role="listitem">
                     <span className="text-[var(--color-text-secondary)]">
                       {item.name} × {item.quantity}
                     </span>

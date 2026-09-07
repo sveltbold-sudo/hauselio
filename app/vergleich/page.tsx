@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BarChart3, ShoppingBag, X, ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -12,10 +13,22 @@ import { useComparisonStore } from "@/lib/comparison";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function VergleichPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const items = useComparisonStore((s) => s.items);
   const removeItem = useComparisonStore((s) => s.removeItem);
   const addItem = useCartStore((state) => state.addItem);
   const toast = useToast();
+
+  if (!mounted) {
+    return (
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+        <div className="h-20 w-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse mx-auto mb-6" />
+        <div className="h-8 w-64 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto mb-4" />
+        <div className="h-4 w-48 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto" />
+      </main>
+    );
+  }
 
   if (items.length === 0) {
     return (

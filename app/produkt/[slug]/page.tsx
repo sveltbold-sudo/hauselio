@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
@@ -16,7 +17,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getProductFromDb(slug: string) {
+const getProductFromDb = cache(async function getProductFromDb(slug: string) {
   try {
     const product = await prisma.product.findUnique({
       where: { slug },
@@ -82,7 +83,7 @@ async function getProductFromDb(slug: string) {
     logger.error("produkt-slug-db", error);
     return null;
   }
-}
+});
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;

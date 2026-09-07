@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
 import type { CategoryProduct, CategoryBrand } from "@/components/product/CategoryPage";
@@ -80,14 +81,14 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
 
   const skip = (page - 1) * PAGE_SIZE;
 
-  let orderBy: Record<string, string> = { createdAt: "desc" };
+  let orderBy: Prisma.ProductOrderByWithRelationInput = { createdAt: "desc" };
   if (sort === "price_asc") orderBy = { price: "asc" };
   else if (sort === "price_desc") orderBy = { price: "desc" };
   else if (sort === "rating") orderBy = { rating: "desc" };
   else if (sort === "popular") orderBy = { reviewCount: "desc" };
   else if (sort === "name") orderBy = { name: "asc" };
 
-  const where: Record<string, unknown> = { category: { slug } };
+  const where: Prisma.ProductWhereInput = { category: { slug } };
   if (brand) where.brand = { slug: brand };
   if (sub) where.subCategory = sub;
 
@@ -110,7 +111,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
         isNew: true,
         isPromo: true,
         brand: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
+        images: { take: 1, orderBy: { position: "asc" as const }, select: { url: true } },
       },
       orderBy,
       skip,

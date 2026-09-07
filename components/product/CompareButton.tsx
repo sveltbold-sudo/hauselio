@@ -24,11 +24,11 @@ interface CompareButtonProps {
 export default function CompareButton({ product }: CompareButtonProps) {
   const isComparing = useComparisonStore((s) => s.isComparing(product.id));
   const toggleItem = useComparisonStore((s) => s.toggleItem);
-  const canAdd = useComparisonStore((s) => s.canAdd);
+  const canAdd = useComparisonStore((s) => s.items.length < 4);
   const toast = useToast();
 
   const toggleCompare = () => {
-    if (!isComparing && !canAdd()) {
+    if (!isComparing && !canAdd) {
       toast.info("Maximal 4 Produkte zum Vergleich");
       return;
     }
