@@ -12,8 +12,8 @@ interface ShopFilterDrawerProps {
   selectedBrand?: string;
   selectedRating?: string;
   ratingCounts?: Record<number, number>;
-  price?: string;
-  promo?: string;
+  selectedPrice?: string;
+  selectedPromo?: string;
 }
 
 export default function ShopFilterDrawer({
@@ -23,8 +23,8 @@ export default function ShopFilterDrawer({
   selectedBrand,
   selectedRating,
   ratingCounts,
-  price,
-  promo,
+  selectedPrice,
+  selectedPromo,
 }: ShopFilterDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -70,8 +70,8 @@ export default function ShopFilterDrawer({
   const activeCount = [
     selectedCategory,
     selectedBrand,
-    price,
-    promo === "true" ? "promo" : null,
+    selectedPrice,
+    selectedPromo === "true" ? "promo" : null,
     selectedRating,
   ].filter(Boolean).length;
 
@@ -103,8 +103,8 @@ export default function ShopFilterDrawer({
           selectedBrand={selectedBrand}
           selectedRating={selectedRating}
           ratingCounts={ratingCounts}
-          selectedPrice={price}
-          selectedPromo={promo}
+          selectedPrice={selectedPrice}
+          selectedPromo={selectedPromo}
         />
       </aside>
 
@@ -138,8 +138,8 @@ export default function ShopFilterDrawer({
                 selectedBrand={selectedBrand}
                 selectedRating={selectedRating}
                 ratingCounts={ratingCounts}
-                selectedPrice={price}
-                selectedPromo={promo}
+                selectedPrice={selectedPrice}
+                selectedPromo={selectedPromo}
               />
             </div>
           </div>

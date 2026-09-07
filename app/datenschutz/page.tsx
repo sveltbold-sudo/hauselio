@@ -23,7 +23,7 @@ const fallback = {
   companyName: "HAUSAURA GmbH",
   companyAddress: "Kastanienallee 42, 10435 Berlin",
   contactPhone: "+49 (0)1525 9140453",
-  contactEmail: "datenschutz@HAUSAURA.de",
+  contactEmail: "datenschutz@hausaura.de",
 };
 
 async function getSettings() {

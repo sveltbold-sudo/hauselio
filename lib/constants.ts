@@ -1,5 +1,7 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://HAUSAURA.de").replace(/\/+$/, "");
 
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "HAUSAURA";
+
 export const FREE_SHIPPING_THRESHOLD = 50;
 export const SHIPPING_COST = 4.99;
 

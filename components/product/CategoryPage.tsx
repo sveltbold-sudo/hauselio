@@ -6,29 +6,12 @@ import CategorySortSelect from "@/components/product/CategorySortSelect";
 import CategoryBrandFilter from "@/components/product/CategoryBrandFilter";
 import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import type { ProductListItem, CategoryBrand } from "@/lib/product-types";
+
+export type { CategoryBrand } from "@/lib/product-types";
+export type CategoryProduct = ProductListItem & { categorySlug: string };
 
 const PAGE_SIZE = 20;
-
-export interface CategoryProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice: number | null;
-  rating: number;
-  reviewCount: number;
-  isNew: boolean;
-  isPromo: boolean;
-  brand: string | null;
-  image: string;
-  categorySlug: string;
-}
-
-export interface CategoryBrand {
-  name: string;
-  slug: string;
-  count: number;
-}
 
 interface CategoryPageProps {
   slug: string;

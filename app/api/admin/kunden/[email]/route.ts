@@ -1,100 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import { handleApiError } from "@/lib/api-helpers";
-import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { NextRequest } from "next/server";
+import { toCustomerId } from "@/lib/customer-id";
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ email: string }> }
 ) {
-  try {
-    const ip = getClientIp(request);
-    if (!await checkRateLimit(`admin-kunden-email:${ip}`, 30, 60_000)) {
-      return NextResponse.json(
-        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
-        { status: 429, headers: { "Retry-After": "60" } }
-      );
-    }
-
-    await requireAdmin();
-    const { email } = await params;
-    const decodedEmail = decodeURIComponent(email);
-
-    if (!decodedEmail || !decodedEmail.includes("@") || decodedEmail.length > 254) {
-      return NextResponse.json(
-        { error: "Ungültige E-Mail-Adresse." },
-        { status: 400 }
-      );
-    }
-
-    const orders = await prisma.order.findMany({
-      where: { customerEmail: decodedEmail },
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        orderNumber: true,
-        total: true,
-        status: true,
-        paymentStatus: true,
-        createdAt: true,
-        customerFirstName: true,
-        customerLastName: true,
-        customerPhone: true,
-        customerAddress: true,
-        customerCity: true,
-        customerZip: true,
-        customerCountry: true,
-        items: {
-          select: {
-            quantity: true,
-            price: true,
-            product: {
-              select: { name: true },
-            },
-          },
-        },
-      },
-    });
-
-    if (orders.length === 0) {
-      return NextResponse.json(
-        { error: "Kunde nicht gefunden." },
-        { status: 404 }
-      );
-    }
-
-    const latest = orders[0]!;
-    const totalSpent = orders.reduce((sum, o) => sum + Number(o.total), 0);
-
-    return NextResponse.json({
-      customer: {
-        email: decodedEmail,
-        firstName: latest.customerFirstName,
-        lastName: latest.customerLastName,
-        phone: latest.customerPhone,
-        address: latest.customerAddress,
-        city: latest.customerCity,
-        zip: latest.customerZip,
-        country: latest.customerCountry,
-        orderCount: orders.length,
-        totalSpent,
-      },
-      orders: orders.map((o) => ({
-        id: o.id,
-        orderNumber: o.orderNumber,
-        total: Number(o.total),
-        status: o.status,
-        paymentStatus: o.paymentStatus,
-        createdAt: o.createdAt,
-        items: o.items.map((item) => ({
-          productName: item.product.name,
-          quantity: item.quantity,
-          price: Number(item.price),
-        })),
-      })),
-    });
-  } catch (error) {
-    return handleApiError(error);
-  }
+  const { email } = await params;
+  const decodedEmail = decodeURIComponent(email);
+  const customerId = toCustomerId(decodedEmail);
+  return Response.redirect(new URL(`/api/admin/kunden/${customerId}`, _request.url), 301);
 }

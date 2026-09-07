@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { createUnsubscribeToken } from "@/lib/auth";
-import { sendEmail, baseTemplate, headerBanner } from "@/lib/emails/helpers";
+import { sendEmail, baseTemplate } from "@/lib/emails/helpers";
 import { FROM_EMAIL } from "@/lib/resend";
 import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
@@ -99,8 +99,6 @@ export async function POST(request: NextRequest) {
 }
 
 function headerNewsletterUnsubscribe(): string {
-  const SITE = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
-  const LOGO_URL = `${SITE}/logos/logosecondaire.png`;
   return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0A2540;">
     <tr>
       <td style="padding:36px 40px 32px 40px;">

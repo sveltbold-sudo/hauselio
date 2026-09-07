@@ -7,7 +7,6 @@ import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
-import { randomBytes } from "crypto";
 
 async function generateInvoiceNumber(): Promise<string> {
   const now = new Date();

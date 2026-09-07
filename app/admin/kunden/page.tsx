@@ -4,6 +4,7 @@ import { useMemo, useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { Search, Mail, Phone, MapPin, ArrowUpDown } from "lucide-react";
 import { logger } from "@/lib/logger";
+import { toCustomerId } from "@/lib/customer-id";
 
 export const dynamic = "force-dynamic";
 
@@ -162,7 +163,7 @@ export default function KundenPage() {
               customers.map((customer) => (
                 <tr key={customer.email} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/kunden/${encodeURIComponent(customer.email)}`} className="block">
+                    <Link href={`/admin/kunden/${toCustomerId(customer.email)}`} className="block">
                       <p className="font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)]">
                         {customer.firstName} {customer.lastName}
                       </p>

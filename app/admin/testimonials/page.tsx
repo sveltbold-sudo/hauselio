@@ -5,6 +5,8 @@ import { Plus, Pencil, Trash2, X, Star, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
 
 export const dynamic = "force-dynamic";
 
@@ -203,14 +205,22 @@ export default function TestimonialsPage() {
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="t-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Name *</label>
-                  <input id="t-name" type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" required />
-                </div>
-                <div>
-                  <label htmlFor="t-location" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Standort</label>
-                  <input id="t-location" type="text" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="z.B. Berlin" className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" />
-                </div>
+                <Input
+                  label="Name"
+                  id="t-name"
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
+                <Input
+                  label="Standort"
+                  id="t-location"
+                  type="text"
+                  value={form.location}
+                  onChange={(e) => setForm({ ...form, location: e.target.value })}
+                  placeholder="z.B. Berlin"
+                />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -229,14 +239,25 @@ export default function TestimonialsPage() {
                     ))}
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="t-product" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Produkt</label>
-                  <input id="t-product" type="text" value={form.product} onChange={(e) => setForm({ ...form, product: e.target.value })} placeholder="z.B. Dyson V15" className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" />
-                </div>
+                <Input
+                  label="Produkt"
+                  id="t-product"
+                  type="text"
+                  value={form.product}
+                  onChange={(e) => setForm({ ...form, product: e.target.value })}
+                  placeholder="z.B. Dyson V15"
+                />
               </div>
               <div>
-                <label htmlFor="t-content" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Inhalt *</label>
-                <textarea id="t-content" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" rows={3} maxLength={2000} required />
+                <Textarea
+                  label="Inhalt"
+                  id="t-content"
+                  value={form.content}
+                  onChange={(e) => setForm({ ...form, content: e.target.value })}
+                  rows={3}
+                  maxLength={2000}
+                  required
+                />
                 <p className="mt-1 text-xs text-[var(--color-text-muted)] text-right">{form.content.length} / 2000</p>
               </div>
               <div className="flex items-center gap-6">

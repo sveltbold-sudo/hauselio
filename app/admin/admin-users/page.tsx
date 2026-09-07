@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash2, X, Shield, ShieldOff } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import Input from "@/components/ui/Input";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,7 @@ export default function AdminUsersPage() {
   const [form, setForm] = useState({ email: "", password: "", name: "", role: "ADMIN" });
   const [submitting, setSubmitting] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; email: string } | null>(null);
+  const [currentAdminId, setCurrentAdminId] = useState<string | null>(null);
   const [, startTransition] = useTransition();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +55,13 @@ export default function AdminUsersPage() {
   };
 
   useEffect(() => { loadAdmins(); }, []);
+
+  useEffect(() => {
+    fetch("/api/admin/me")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data?.admin?.id) setCurrentAdminId(data.admin.id); })
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,20 +162,30 @@ export default function AdminUsersPage() {
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="admin-name" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Name</label>
-                <input id="admin-name" type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" />
-              </div>
-              <div>
-                <label htmlFor="admin-email" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">E-Mail *</label>
-                <input id="admin-email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" required />
-              </div>
-              <div>
-                <label htmlFor="admin-password" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">
-                  Passwort {editingId ? "(leer lassen, um nicht zu ändern)" : "*"}
-                </label>
-                <input id="admin-password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} minLength={editingId ? undefined : 8} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20" required={!editingId} />
-              </div>
+              <Input
+                label="Name"
+                id="admin-name"
+                type="text"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
+              <Input
+                label="E-Mail"
+                id="admin-email"
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
+              <Input
+                label={editingId ? "Passwort (leer lassen, um nicht zu ändern)" : "Passwort"}
+                id="admin-password"
+                type="password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                minLength={editingId ? undefined : 8}
+                required={!editingId}
+              />
               <div>
                 <label htmlFor="admin-role" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rolle</label>
                 <select id="admin-role" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20">
@@ -230,9 +249,11 @@ export default function AdminUsersPage() {
                     <button onClick={() => handleEdit(admin)} aria-label="Admin bearbeiten" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" />
                     </button>
-                    <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    {admin.id !== currentAdminId && (
+                      <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>

@@ -9,23 +9,10 @@ import WishlistButton from "@/components/product/WishlistButton";
 import StarRating from "@/components/ui/StarRating";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import DeliveryEstimate from "@/components/product/DeliveryEstimate";
+import type { ProductListItem } from "@/lib/product-types";
 
 interface ProductCardProps {
-  product: {
-    id: string;
-    name: string;
-    slug: string;
-    price: number;
-    originalPrice?: number | null;
-    image: string;
-    rating: number;
-    reviewCount: number;
-    isNew?: boolean;
-    isPromo?: boolean;
-    brand?: string | null;
-    categorySlug?: string | null;
-
-  };
+  product: ProductListItem;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {

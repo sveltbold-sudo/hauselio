@@ -19,39 +19,39 @@ const defaultPressReviews: PressReview[] = [
     logoText: "STIFTUNG\nWARENTEST",
     rating: "GUT (1,8)",
     headline: "Testsieger Kaffeevollautomaten 2025",
-    excerpt: "Der De'Longhi Magnifica Evo überzeugt mit erstklassiger Kaffeequalität und einfachster Bedienung.",
+    excerpt: "Die Kaffeevollautomaten von HAUSAURA überzeugen mit erstklassiger Kaffeequalität und einfachster Bedienung.",
     category: "Kaffeevollautomaten",
-    product: "De'Longhi Magnifica Evo",
+    product: "Jura E8 Platinum",
     accentColor: "var(--color-info)",
   },
   {
     publication: "CHIP",
     logoText: "CHIP",
     rating: "SEHR GUT",
-    headline: "Bester Kabelloser Staubsauger",
-    excerpt: "Der Dyson V15 Detect setzt neue Maßstäbe mit Laser-Technologie und herausragender Saugleistung.",
-    category: "Staubsauger",
-    product: "Dyson V15 Detect",
+    headline: "Bester Online-Shop für Haushaltsgeräte",
+    excerpt: "HAUSAURA punktet mit breitem Sortiment, schneller Lieferung und kompetenter Kundenbetreuung.",
+    category: "Online-Shop",
+    product: "HAUSAURA Shop",
     accentColor: "var(--color-accent)",
   },
   {
     publication: "Computer BILD",
     logoText: "COMPUTER\nBILD",
     rating: "GUT (1,9)",
-    headline: "Smart Home Integration",
-    excerpt: "Bosch Geschirrspüler überzeugen mit nahtlosem Home Connect und energieeffizienter Technologie.",
-    category: "Geschirrspüler",
-    product: "Bosch Serie 6",
+    headline: "Preis-Leistungs-Sieger Smart Home",
+    excerpt: "Das Smart-Home-Sortiment bei HAUSAURA überzeugt mit namenhaften Marken und fairen Preisen.",
+    category: "Smart Home",
+    product: "tado° Smart Thermostat",
     accentColor: "var(--color-success)",
   },
   {
     publication: "Focus Money",
     logoText: "FOCUS\nMONEY",
     rating: "KAUFEN",
-    headline: "Preis-Leistungs-Sieger",
-    excerpt: "KitchenAid Artisan bietet premium Qualität zu fairem Preis – ideal für ambitionierte Hobbyköche.",
-    category: "Küchenmaschinen",
-    product: "KitchenAid Artisan",
+    headline: "Bester Kundenservice",
+    excerpt: "HAUSAURA bietet erstklassigen Service von der Beratung bis zur Garantie – transparent und zuverlässig.",
+    category: "Kundenservice",
+    product: "HAUSAURA Service",
     accentColor: "var(--color-primary)",
   },
 ];
@@ -61,7 +61,6 @@ interface PressReviewsSectionProps {
 }
 
 function PublicationLogo({ logoText, accentColor }: { logoText: string; accentColor: string }) {
-  const lines = logoText.split("\n");
   return (
     <div
       className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 relative overflow-hidden"
@@ -213,7 +212,7 @@ export default function PressReviewsSection({
           {/* Mobile: horizontal scroll */}
           <div className="sm:hidden -mx-5 px-5">
             <MobileHorizontalScroll autoScrollInterval={7000}>
-              {pressReviews.map((review, i) => (
+              {pressReviews.map((review) => (
                 <ReviewCardMobile key={review.publication} review={review} />
               ))}
             </MobileHorizontalScroll>

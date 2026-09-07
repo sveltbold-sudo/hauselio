@@ -22,6 +22,7 @@ export function serializeProductBody(data: FormData) {
     features: data.features,
     specs: data.specs,
     imageUrl: data.imageUrl || undefined,
+    images: data.images || [],
     seoTitle: data.seoTitle || undefined,
     seoDesc: data.seoDesc || undefined,
   };

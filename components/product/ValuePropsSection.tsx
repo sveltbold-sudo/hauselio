@@ -28,7 +28,7 @@ const valueProps = [
   {
     icon: Clock,
     title: "Schnelle Lieferung",
-    description: "1-3 Werktage",
+    description: "2-5 Werktage",
     color: "text-[var(--color-info)]",
   },
   {

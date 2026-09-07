@@ -72,7 +72,6 @@ export async function GET(request: NextRequest) {
     ]);
 
     const revenueByProduct = new Map<string, number>();
-    const revenueByCategory = new Map<string, number>();
     const orderCountByProduct = new Map<string, number>();
     for (const item of allOrderItems) {
       const lineTotal = Number(item.price) * item.quantity;

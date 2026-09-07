@@ -3,11 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ShoppingBag, Share2, Truck, Check, Minus, Plus } from "lucide-react";
+import { ShoppingBag, Share2, Truck, Check } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
 import ProductPaymentInfo from "@/components/product/ProductPaymentInfo";
+import QuantitySelector from "@/components/product/QuantitySelector";
+import ProductPricing from "@/components/product/ProductPricing";
+import MobileAddToCartBar from "@/components/product/MobileAddToCartBar";
 import { trackViewItem, trackAddToCart } from "@/lib/analytics";
 import WishlistButton from "@/components/product/WishlistButton";
 import CompareButton from "@/components/product/CompareButton";
@@ -18,6 +21,7 @@ import { formatPrice, calcDiscount } from "@/lib/utils";
 import { getEstimatedDeliveryDate } from "@/lib/delivery";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
+import type { ProductDetail, BundleProduct } from "@/lib/product-types";
 
 const ProductTabs = dynamic(() => import("@/components/product/ProductTabs"), { ssr: true });
 const FrequentlyBoughtTogether = dynamic(() => import("@/components/product/FrequentlyBoughtTogether"), { ssr: false });
@@ -25,41 +29,7 @@ const RecentlyViewedSection = dynamic(() => import("@/components/product/Recentl
 const SimilarProductsSection = dynamic(() => import("@/components/product/SimilarProductsSection"), { ssr: true });
 const ImageLightbox = dynamic(() => import("@/components/ui/ImageLightbox"), { ssr: false });
 
-interface ProductSpec {
-  key: string;
-  value: string;
-}
-
-interface RelatedProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  image: string;
-  brand: string | null;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  originalPrice: number | null;
-  isPromo: boolean;
-  rating: number;
-  liveRating: number;
-  reviewCount: number;
-  isNew: boolean;
-  brand: string | null;
-  brandSlug: string | null;
-  categoryName: string;
-  categorySlug: string;
-  specs: ProductSpec[];
-  images: string[];
-}
-
-export default function ProductPageClient({ product, relatedProducts = [] }: { product: Product; relatedProducts?: RelatedProduct[] }) {
+export default function ProductPageClient({ product, relatedProducts = [] }: { product: ProductDetail; relatedProducts?: BundleProduct[] }) {
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [added, setAdded] = useState(false);
@@ -232,24 +202,12 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
 
 
-          <div className="flex flex-wrap items-baseline gap-3 mb-5 pb-5 border-b border-[var(--color-border-light)]">
-            <span className="text-3xl lg:text-4xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
-              {formatPrice(product.price)}
-            </span>
-            {product.isPromo && product.originalPrice && (
-              <>
-                <span className="text-base text-[var(--color-text-muted)] line-through">
-                  {formatPrice(product.originalPrice)}
-                </span>
-                <span className="text-sm font-bold text-[var(--color-danger)] bg-[var(--color-danger-light)] px-2.5 py-1 rounded-lg">
-                  -{discount}%
-                </span>
-                <span className="text-sm font-bold text-[var(--color-success)] bg-[var(--color-success)]/10 px-2.5 py-1 rounded-lg">
-                  Sie sparen {formatPrice(product.originalPrice - product.price)}
-                </span>
-              </>
-            )}
-          </div>
+          <ProductPricing
+            price={product.price}
+            originalPrice={product.originalPrice}
+            isPromo={product.isPromo}
+            discount={discount}
+          />
 
           <div className="flex items-center gap-2 mb-4">
             <Check className="w-4 h-4 text-[var(--color-success)]" />
@@ -268,34 +226,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
           {/* Quantity & Add to cart */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex items-center border border-[var(--color-border-light)] rounded-xl bg-[var(--color-bg-secondary)]" role="group" aria-label="Artikelmenge">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                aria-label="Menge verringern"
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-l-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <input
-                type="number"
-                min={1}
-                max={99}
-                value={quantity}
-                onChange={(e) => {
-                  const v = parseInt(e.target.value, 10);
-                  if (!isNaN(v) && v >= 1 && v <= 99) setQuantity(v);
-                }}
-                className="px-3 sm:px-4 py-2.5 sm:py-3 font-bold tabular-nums min-w-[48px] text-center text-sm bg-transparent border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-lg [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                aria-label="Artikelmenge"
-              />
-              <button
-                onClick={() => setQuantity(Math.min(99, quantity + 1))}
-                aria-label="Menge erhöhen"
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors rounded-r-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
+            <QuantitySelector quantity={quantity} onChange={setQuantity} />
             <Button
               onClick={handleAddToCart}
               className={`flex-1 transition-colors duration-300 font-bold ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
@@ -354,23 +285,12 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       <RecentlyViewedSection currentProductId={product.id} />
       <SimilarProductsSection currentProductId={product.id} categorySlug={product.categorySlug} />
 
-      {/* Sticky mobile add-to-cart bar */}
-      <div className="sticky-bottom-bar lg:hidden" role="complementary" aria-label="Schnellzugriff">
-        <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
-          <div className="flex-1 min-w-0">
-            <p className="text-sm text-[var(--color-text-muted)] truncate">{product.name}</p>
-            <p className="font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(product.price)}</p>
-          </div>
-          <Button
-            onClick={handleAddToCart}
-            aria-label={added ? "Zum Warenkorb hinzugefügt" : "In den Warenkorb"}
-            className={`transition-colors duration-300 ${added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""}`}
-            size="md"
-          >
-            {added ? <Check className="w-4 h-4" /> : <><ShoppingBag className="w-4 h-4" /> <span className="hidden sm:inline">In den Warenkorb</span></>}
-          </Button>
-        </div>
-      </div>
+      <MobileAddToCartBar
+        name={product.name}
+        price={product.price}
+        added={added}
+        onAddToCart={handleAddToCart}
+      />
 
       <ImageLightbox
         images={product.images}

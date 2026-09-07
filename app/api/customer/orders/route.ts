@@ -28,34 +28,45 @@ export async function GET(request: NextRequest) {
       throw error;
     }
 
-    const orders = await prisma.order.findMany({
-      where: {
-        OR: [
-          { customerId },
-          { customerEmail: { equals: email, mode: "insensitive" } },
-        ],
-      },
-      select: {
-        id: true,
-        orderNumber: true,
-        invoiceNumber: true,
-        status: true,
-        total: true,
-        shippingCost: true,
-        createdAt: true,
-        items: {
-          select: {
-            quantity: true,
-            price: true,
-            product: {
-              select: { name: true, slug: true, images: { take: 1, select: { url: true } } },
+    const { searchParams } = new URL(request.url);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+    const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "20", 10)));
+    const skip = (page - 1) * limit;
+
+    const where = {
+      OR: [
+        { customerId },
+        { customerEmail: { equals: email, mode: "insensitive" as const } },
+      ],
+    };
+
+    const [orders, total] = await Promise.all([
+      prisma.order.findMany({
+        where,
+        select: {
+          id: true,
+          orderNumber: true,
+          invoiceNumber: true,
+          status: true,
+          total: true,
+          shippingCost: true,
+          createdAt: true,
+          items: {
+            select: {
+              quantity: true,
+              price: true,
+              product: {
+                select: { name: true, slug: true, images: { take: 1, select: { url: true } } },
+              },
             },
           },
         },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 20,
-    });
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+      prisma.order.count({ where }),
+    ]);
 
     return NextResponse.json({
       orders: orders.map((order) => ({
@@ -74,6 +85,12 @@ export async function GET(request: NextRequest) {
           price: Number(item.price),
         })),
       })),
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
     return handleApiError(error);

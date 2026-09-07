@@ -4,6 +4,8 @@ import { useState, useRef, useCallback, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 
+import { SITE_NAME } from "@/lib/constants";
+
 const THROTTLE_MS = 2000;
 
 function LoginForm() {
@@ -22,7 +24,7 @@ function LoginForm() {
   const redirect = rawRedirect.startsWith("/admin") ? rawRedirect : "/admin";
 
   useEffect(() => {
-    document.title = "Admin-Anmeldung | HAUSAURA";
+    document.title = `Admin-Anmeldung | ${SITE_NAME}`;
   }, []);
 
   const isLocked = lockoutSeconds > 0;
@@ -91,7 +93,7 @@ function LoginForm() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-extrabold text-[var(--color-primary)]">
-            HAUSAURA
+            {SITE_NAME}
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mt-2">
             Admin-Bereich
@@ -145,7 +147,7 @@ function LoginForm() {
                   disabled={lockoutSeconds > 0}
                   aria-describedby={error ? "login-error" : undefined}
                   className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="admin@HAUSAURA.de"
+                  placeholder="admin@hausaura.de"
                 />
               </div>
             </div>
@@ -177,7 +179,7 @@ function LoginForm() {
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   disabled={lockoutSeconds > 0}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -191,7 +193,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={isLoading || lockoutSeconds > 0}
-              className="w-full py-3 min-h-[44px] bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 min-h-[44px] bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               {isLoading ? "Wird angemeldet…" : lockoutSeconds > 0 ? `Gesperrt (${formatTime(lockoutSeconds)})` : "Anmelden"}
             </button>
@@ -199,7 +201,7 @@ function LoginForm() {
         </div>
 
         <p className="text-center text-xs text-[var(--color-text-muted)] mt-6">
-          HAUSAURA Admin Panel © 2026
+          {SITE_NAME} Admin Panel © 2026
         </p>
       </div>
     </div>

@@ -5,7 +5,7 @@ import dynamicImport from "next/dynamic";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 function HeroSkeleton() {
   return <div className="container-hausaura py-8"><div className="h-[400px] bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" /></div>;
@@ -74,10 +74,9 @@ export const metadata: Metadata = {
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
     url: SITE_URL,
-    siteName: "HAUSAURA",
-    locale: "de_DE",
+    siteName: SITE_NAME,    locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSAURA — Moderne Haushaltsgeräte" }],
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} — Moderne Haushaltsgeräte` }],
   },
   twitter: {
     card: "summary_large_image",
@@ -195,7 +194,7 @@ async function getDailyDeal() {
     return {
       name: product.name,
       slug: product.slug,
-      brand: product.brand?.name || "HAUSAURA",
+      brand: product.brand?.name || SITE_NAME,
       price: Number(product.price),
       originalPrice: Number(product.originalPrice || product.price),
       image: product.images[0]?.url || "/images/placeholder-product.svg",
@@ -341,7 +340,7 @@ export default async function HomePage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "HAUSAURA", item: SITE_URL },
+              { "@type": "ListItem", position: 1, name: SITE_NAME, item: SITE_URL },
             ],
           }),
         }}
@@ -352,8 +351,7 @@ export default async function HomePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "HAUSAURA",
-            url: SITE_URL,
+            name: SITE_NAME,            url: SITE_URL,
             aggregateRating: {
               "@type": "AggregateRating",
               ratingValue: "4.8",

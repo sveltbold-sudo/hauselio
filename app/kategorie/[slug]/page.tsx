@@ -5,7 +5,7 @@ import CategoryPage from "@/components/product/CategoryPage";
 import type { CategoryProduct, CategoryBrand } from "@/components/product/CategoryPage";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { logger } from "@/lib/logger";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     : `${category.name} online kaufen`;
   const pageDescription = sub
     ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`
-    : category.description || `Hochwertige ${category.name} bei HAUSAURA entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;
+    : category.description || `Hochwertige ${category.name} bei ${SITE_NAME} entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;
   const canonical = sub
     ? `/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
     : `/kategorie/${slug}`;
@@ -48,8 +48,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       title: pageTitle,
       description: pageDescription,
       url: canonical,
-      siteName: "HAUSAURA",
-      locale: "de_DE",
+      siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
       images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
     },

@@ -91,6 +91,11 @@ export default function EditProductPage({
           weight: p.weight ? String(p.weight) : "",
           imageUrl: p.images[0]?.url || "",
           imagePublicId: "",
+          images: p.images.slice(1).map((img, idx) => ({
+            url: img.url,
+            publicId: "",
+            position: idx + 1,
+          })),
           features: p.features || [],
           specs: p.specs || [],
           seoTitle: p.seoTitle || "",
@@ -150,6 +155,7 @@ export default function EditProductPage({
     weight: string;
     imageUrl: string;
     imagePublicId: string;
+    images: { url: string; publicId: string; position: number }[];
     features: string[];
     specs: { key: string; value: string }[];
     seoTitle: string;

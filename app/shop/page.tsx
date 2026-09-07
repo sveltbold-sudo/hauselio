@@ -10,7 +10,7 @@ import ShopSortSelect from "@/components/product/ShopSortSelect";
 import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
@@ -37,19 +37,19 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const q = params.q;
   const baseUrl = SITE_URL;
 
-  let title = "Alle Haushaltsgeräte online kaufen | HAUSAURA";
+  let title = `Alle Haushaltsgeräte online kaufen | ${SITE_NAME}`;
   let desc = "Entdecken Sie 279+ Haushaltsgeräte von Top-Marken wie Miele, Bosch, Siemens, Dyson und Thermomix. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.";
 
   if (q) {
-    title = `Suche "${q}" | HAUSAURA Shop`;
-    desc = `Suchergebnisse für "${q}" — Entdecken Sie passende Haushaltsgeräte bei HAUSAURA. Kostenloser Versand ab 50€.`;
+    title = `Suche "${q}" | ${SITE_NAME} Shop`;
+    desc = `Suchergebnisse für "${q}" — Entdecken Sie passende Haushaltsgeräte bei ${SITE_NAME}. Kostenloser Versand ab 50€.`;
   } else if (category) {
     const catName = category.charAt(0).toUpperCase() + category.slice(1);
-    title = `${catName} kaufen | HAUSAURA Shop`;
-    desc = `Hochwertige ${catName} von Top-Marken bei HAUSAURA entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
+    title = `${catName} kaufen | ${SITE_NAME} Shop`;
+    desc = `Hochwertige ${catName} von Top-Marken bei ${SITE_NAME} entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
   } else if (brand) {
-    title = `${brand} Produkte online kaufen | HAUSAURA`;
-    desc = `Alle ${brand} Haushaltsgeräte bei HAUSAURA — von Küchengeräten bis Smart Home. Kostenloser Versand ab 50€.`;
+    title = `${brand} Produkte online kaufen | ${SITE_NAME}`;
+    desc = `Alle ${brand} Haushaltsgeräte bei ${SITE_NAME} — von Küchengeräten bis Smart Home. Kostenloser Versand ab 50€.`;
   }
 
   const searchParamsObj = new URLSearchParams();
@@ -67,10 +67,9 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
       title,
       description: desc,
       url: canonical,
-      siteName: "HAUSAURA",
-      locale: "de_DE",
+      siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
-      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSAURA Shop" }],
+      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} Shop` }],
     },
     twitter: {
       card: "summary_large_image",
@@ -279,7 +278,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "HAUSAURA Shop",
+            name: `${SITE_NAME} Shop`,
             url: `${SITE_URL}/shop`,
             itemListElement: formattedProducts.slice(0, 20).map((p, i) => ({
               "@type": "ListItem",
@@ -300,7 +299,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           }).replace(/</g, "\\u003C"),
         }}
       />
-      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: SITE_URL }, { name: "Shop", url: `${SITE_URL}/shop` }]} />
+      <BreadcrumbJsonLd items={[{ name: SITE_NAME, url: SITE_URL }, { name: "Shop", url: `${SITE_URL}/shop` }]} />
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
@@ -458,8 +457,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             selectedBrand={brand}
             selectedRating={rating}
             ratingCounts={ratingCounts}
-            price={price}
-            promo={promo}
+            selectedPrice={price}
+            selectedPromo={promo}
           />
         </Suspense>
 

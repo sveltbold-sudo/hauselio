@@ -6,15 +6,7 @@ import ProductImage from "@/components/product/ProductImage";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
-
-interface BundleProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  image: string;
-  brand: string | null;
-}
+import type { BundleProduct } from "@/lib/product-types";
 
 interface FrequentlyBoughtTogetherProps {
   currentProduct: { id: string; name: string; slug: string; price: number; image: string; categorySlug: string };

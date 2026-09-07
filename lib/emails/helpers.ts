@@ -1,4 +1,4 @@
-import { getResendClient, FROM_EMAIL } from "@/lib/resend";
+import { getResendClient } from "@/lib/resend";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { escapeHtml } from "@/lib/html";
@@ -45,7 +45,7 @@ export interface OrderEmailData {
 export async function baseTemplate(content: string): Promise<string> {
   let companyName = "HAUSAURA GmbH";
   let companyAddress = "Kastanienallee 42, 10435 Berlin";
-  let contactEmail = "info@HAUSAURA.de";
+  let contactEmail = "info@hausaura.de";
   try {
     const settings = await prisma.siteSettings.findFirst();
     if (settings) {

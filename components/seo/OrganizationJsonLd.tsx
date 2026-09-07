@@ -5,7 +5,7 @@ const fallback = {
   companyName: "HAUSAURA GmbH",
   companyAddress: "Kastanienallee 42, 10435 Berlin",
   contactPhone: "+4915259140453",
-  contactEmail: "info@HAUSAURA.de",
+  contactEmail: "info@hausaura.de",
 };
 
 async function getSettings() {

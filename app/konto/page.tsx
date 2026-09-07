@@ -234,7 +234,7 @@ export default function KontoPage() {
               <div className="flex-1">
                 <div className="font-bold text-sm">Meine Bestellungen</div>
                 <div className="text-xs text-[var(--color-text-muted)]">
-                  {ordersLoading ? "Wird geladen…" : orders.length === 0 ? "Noch keine Bestellungen" : `${orders.length} Bestellung${orders.length > 1 ? "en" : ""}`}
+                  {ordersLoading ? <span className="inline-block h-3 w-20 bg-[var(--color-bg-secondary)] rounded animate-pulse" /> : orders.length === 0 ? "Noch keine Bestellungen" : `${orders.length} Bestellung${orders.length > 1 ? "en" : ""}`}
                 </div>
               </div>
             </button>

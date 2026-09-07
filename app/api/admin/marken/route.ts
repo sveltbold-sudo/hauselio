@@ -18,11 +18,26 @@ export async function GET(request: NextRequest) {
 
     await requireAdmin();
 
-    const brands = await prisma.brand.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true, slug: true, _count: { select: { products: true } } },
+    const { searchParams } = new URL(request.url);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "50", 10)));
+
+    const where = {};
+    const [brands, total] = await Promise.all([
+      prisma.brand.findMany({
+        where,
+        orderBy: { name: "asc" },
+        select: { id: true, name: true, slug: true, _count: { select: { products: true } } },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      prisma.brand.count({ where }),
+    ]);
+
+    return NextResponse.json({
+      brands,
+      pagination: { page, limit, total, pages: Math.ceil(total / limit) },
     });
-    return NextResponse.json({ brands });
   } catch (error) {
     return handleApiError(error);
   }

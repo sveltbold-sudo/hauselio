@@ -68,7 +68,6 @@ function OrderSuccessContent() {
   const [orderError, setOrderError] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [showEmailForm, setShowEmailForm] = useState(true);
-  const [hydrated, setHydrated] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
   const [proofFile, setProofFile] = useState<File | null>(null);
@@ -85,7 +84,6 @@ function OrderSuccessContent() {
       setOrderEmail(stored);
       setShowEmailForm(false);
     }
-    setHydrated(true);
   }, [orderId]);
 
   useEffect(() => {

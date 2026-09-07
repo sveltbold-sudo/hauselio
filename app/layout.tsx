@@ -1,15 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import ClientShell from "@/components/layout/ClientShell";
 import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import ClientProviders from "@/components/ui/ClientProviders";
-import GtmNoscript from "@/components/analytics/GtmNoscript";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import AdminShellHide from "@/components/admin/AdminShellHide";
 import "./globals.css";
 
@@ -23,8 +20,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
-    template: "%s | HAUSAURA",
+    default: `${SITE_NAME} — Moderne Haushaltsgeräte für Ihr Zuhause`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "Entdecken Sie hochwertige Küchengeräte, Kaffeevollautomaten, Staubsauger und Smart Home Lösungen. Moderne Haushaltsgeräte für ein komfortables Zuhause.",
@@ -44,19 +41,19 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
+    title: `${SITE_NAME} — Moderne Haushaltsgeräte für Ihr Zuhause`,
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
     url: SITE_URL,
-    siteName: "HAUSAURA",
+    siteName: SITE_NAME,
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "HAUSAURA — Premium Haushaltsgeräte" }],
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} — Premium Haushaltsgeräte` }],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@HAUSAURA",
-    title: "HAUSAURA — Moderne Haushaltsgeräte für Ihr Zuhause",
+    site: `@${SITE_NAME}`,
+    title: `${SITE_NAME} — Moderne Haushaltsgeräte für Ihr Zuhause`,
     description:
       "Hochwertige Küchengeräte, Kaffeevollautomaten und Smart Home Lösungen.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],
@@ -99,7 +96,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
-        <GtmNoscript />
         <OrganizationJsonLd />
         <WebSiteJsonLd />
         <a

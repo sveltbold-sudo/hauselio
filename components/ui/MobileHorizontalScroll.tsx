@@ -71,14 +71,13 @@ export default function MobileHorizontalScroll({
 
   useEffect(() => {
     if (autoScrollInterval <= 0) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
     autoScrollRef.current = setInterval(scrollToNext, autoScrollInterval);
     return () => {
       if (autoScrollRef.current) clearInterval(autoScrollRef.current);
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     };
-  }, [scrollToNext, autoScrollInterval]);
+  }, [scrollToNext, autoScrollInterval, prefersReduced]);
 
   const handleTouchStart = () => setIsPaused(true);
   const handleTouchEnd = () => {

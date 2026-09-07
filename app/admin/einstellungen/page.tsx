@@ -4,6 +4,8 @@ import { useEffect, useState, useTransition, useRef } from "react";
 import { Save, Building2, Truck, Globe, FileText } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
+import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
 
 export const dynamic = "force-dynamic";
 
@@ -178,48 +180,36 @@ export default function EinstellungenPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="bankAccountName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Kontoinhaber</label>
-              <input
-                id="bankAccountName"
-                type="text"
-                value={settings.bankAccountName}
-                onChange={(e) => handleChange("bankAccountName", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
-            <div>
-              <label htmlFor="bankName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Bank</label>
-              <input
-                id="bankName"
-                type="text"
-                value={settings.bankName}
-                onChange={(e) => handleChange("bankName", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
-            <div>
-              <label htmlFor="bankIban" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">IBAN</label>
-              <input
-                id="bankIban"
-                type="text"
-                value={settings.bankIban}
-                onChange={(e) => handleChange("bankIban", e.target.value)}
-                placeholder="DE89 3704 0044 0532 0130 00"
-                className={`w-full px-3 py-3 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${errors.bankIban ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
-              />
-              {errors.bankIban && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.bankIban}</p>}
-            </div>
-            <div>
-              <label htmlFor="bankBic" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">BIC</label>
-              <input
-                id="bankBic"
-                type="text"
-                value={settings.bankBic}
-                onChange={(e) => handleChange("bankBic", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
+            <Input
+              label="Kontoinhaber"
+              id="bankAccountName"
+              type="text"
+              value={settings.bankAccountName}
+              onChange={(e) => handleChange("bankAccountName", e.target.value)}
+            />
+            <Input
+              label="Bank"
+              id="bankName"
+              type="text"
+              value={settings.bankName}
+              onChange={(e) => handleChange("bankName", e.target.value)}
+            />
+            <Input
+              label="IBAN"
+              id="bankIban"
+              type="text"
+              value={settings.bankIban}
+              onChange={(e) => handleChange("bankIban", e.target.value)}
+              placeholder="DE89 3704 0044 0532 0130 00"
+              error={errors.bankIban}
+            />
+            <Input
+              label="BIC"
+              id="bankBic"
+              type="text"
+              value={settings.bankBic}
+              onChange={(e) => handleChange("bankBic", e.target.value)}
+            />
           </div>
         </div>
 
@@ -235,35 +225,28 @@ export default function EinstellungenPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="contactEmail" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">E-Mail</label>
-              <input
-                id="contactEmail"
-                type="email"
-                value={settings.contactEmail}
-                onChange={(e) => handleChange("contactEmail", e.target.value)}
-                className={`w-full px-3 py-3 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${errors.contactEmail ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"}`}
-              />
-              {errors.contactEmail && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.contactEmail}</p>}
-            </div>
-            <div>
-              <label htmlFor="contactPhone" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Telefon</label>
-              <input
-                id="contactPhone"
-                type="tel"
-                value={settings.contactPhone}
-                onChange={(e) => handleChange("contactPhone", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
+            <Input
+              label="E-Mail"
+              id="contactEmail"
+              type="email"
+              value={settings.contactEmail}
+              onChange={(e) => handleChange("contactEmail", e.target.value)}
+              error={errors.contactEmail}
+            />
+            <Input
+              label="Telefon"
+              id="contactPhone"
+              type="tel"
+              value={settings.contactPhone}
+              onChange={(e) => handleChange("contactPhone", e.target.value)}
+            />
             <div className="md:col-span-2">
-              <label htmlFor="contactAddress" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Adresse</label>
-              <input
+              <Input
+                label="Adresse"
                 id="contactAddress"
                 type="text"
                 value={settings.contactAddress}
                 onChange={(e) => handleChange("contactAddress", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
               />
             </div>
           </div>
@@ -280,12 +263,11 @@ export default function EinstellungenPage() {
               <p className="text-xs text-[var(--color-text-muted)]">Text für Versandkonditionen</p>
             </div>
           </div>
-          <label htmlFor="shippingInfo" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Versandinformationen</label>
-          <textarea
+          <Textarea
+            label="Versandinformationen"
             id="shippingInfo"
             value={settings.shippingInfo}
             onChange={(e) => handleChange("shippingInfo", e.target.value)}
-            className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
             rows={3}
             maxLength={2000}
           />
@@ -303,75 +285,59 @@ export default function EinstellungenPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Firmenname</label>
-              <input
-                id="companyName"
-                type="text"
-                value={settings.companyName}
-                onChange={(e) => handleChange("companyName", e.target.value)}
-                placeholder="HAUSAURA GmbH"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
-            <div>
-              <label htmlFor="vatId" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">USt-IdNr.</label>
-              <input
-                id="vatId"
-                type="text"
-                value={settings.vatId}
-                onChange={(e) => handleChange("vatId", e.target.value)}
-                placeholder="DE 312 847 609"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
+            <Input
+              label="Firmenname"
+              id="companyName"
+              type="text"
+              value={settings.companyName}
+              onChange={(e) => handleChange("companyName", e.target.value)}
+              placeholder="HAUSAURA GmbH"
+            />
+            <Input
+              label="USt-IdNr."
+              id="vatId"
+              type="text"
+              value={settings.vatId}
+              onChange={(e) => handleChange("vatId", e.target.value)}
+              placeholder="DE 312 847 609"
+            />
             <div className="md:col-span-2">
-              <label htmlFor="companyAddress" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Firmenadresse</label>
-              <input
+              <Input
+                label="Firmenadresse"
                 id="companyAddress"
                 type="text"
                 value={settings.companyAddress}
                 onChange={(e) => handleChange("companyAddress", e.target.value)}
                 placeholder="Kastanienallee 42, 10435 Berlin"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
               />
             </div>
-            <div>
-              <label htmlFor="managingDirector" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Geschäftsführer</label>
-              <input
-                id="managingDirector"
-                type="text"
-                value={settings.managingDirector}
-                onChange={(e) => handleChange("managingDirector", e.target.value)}
-                placeholder="Max Mustermann"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
-            <div>
-              <label htmlFor="defaultVatRate" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Standard-MwSt-Satz (%)</label>
-              <input
-                id="defaultVatRate"
-                type="number"
-                min="0"
-                max="100"
-                step="0.5"
-                value={settings.defaultVatRate}
-                onChange={(e) => handleChange("defaultVatRate", e.target.value)}
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
-            <div>
-              <label htmlFor="invoicePrefix" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Rechnungspräfix</label>
-              <input
-                id="invoicePrefix"
-                type="text"
-                maxLength={10}
-                value={settings.invoicePrefix}
-                onChange={(e) => handleChange("invoicePrefix", e.target.value)}
-                placeholder="RE"
-                className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
-              />
-            </div>
+            <Input
+              label="Geschäftsführer"
+              id="managingDirector"
+              type="text"
+              value={settings.managingDirector}
+              onChange={(e) => handleChange("managingDirector", e.target.value)}
+              placeholder="Max Mustermann"
+            />
+            <Input
+              label="Standard-MwSt-Satz (%)"
+              id="defaultVatRate"
+              type="number"
+              min="0"
+              max="100"
+              step="0.5"
+              value={settings.defaultVatRate}
+              onChange={(e) => handleChange("defaultVatRate", e.target.value)}
+            />
+            <Input
+              label="Rechnungspräfix"
+              id="invoicePrefix"
+              type="text"
+              maxLength={10}
+              value={settings.invoicePrefix}
+              onChange={(e) => handleChange("invoicePrefix", e.target.value)}
+              placeholder="RE"
+            />
           </div>
         </div>
 

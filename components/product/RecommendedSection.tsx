@@ -2,23 +2,15 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
+import type { ProductListItem } from "@/lib/product-types";
 
-interface RecommendedProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice: number | null;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  isNew: boolean;
-  isPromo: boolean;
-  brand: string | null;
+interface RecommendedSectionProps {
+  products: ProductListItem[];
+  title?: string;
 }
 
 interface RecommendedSectionProps {
-  products: RecommendedProduct[];
+  products: ProductListItem[];
 }
 
 export default function RecommendedSection({ products }: RecommendedSectionProps) {

@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useCallback } from "react";
 import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import DOMPurify from "isomorphic-dompurify";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import Textarea from "@/components/ui/Textarea";
 
 export const dynamic = "force-dynamic";
 
@@ -16,12 +17,21 @@ interface Subscriber {
   createdAt: string;
 }
 
+interface PaginatedSubscribers {
+  subscribers: Subscriber[];
+  pagination: { page: number; limit: number; total: number; pages: number };
+  activeCount: number;
+}
+
 export default function NewsletterPage() {
   const toast = useToast();
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [activeCount, setActiveCount] = useState(0);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState<{ page: number; pages: number; total: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
@@ -34,19 +44,30 @@ export default function NewsletterPage() {
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    fetch("/api/admin/newsletter?limit=1000")
+    const timer = setTimeout(() => { setDebouncedSearch(search); setPage(1); }, 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const loadSubscribers = useCallback(() => {
+    setLoading(true);
+    const params = new URLSearchParams({ page: String(page), limit: "50" });
+    if (debouncedSearch) params.set("search", debouncedSearch);
+    fetch(`/api/admin/newsletter?${params}`)
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
-      .then((data) => startTransition(() => {
+      .then((data: PaginatedSubscribers) => startTransition(() => {
         setSubscribers(data.subscribers || []);
-        setTotalCount(data.pagination?.total ?? data.subscribers?.length ?? 0);
-        setActiveCount(data.activeCount ?? data.subscribers?.filter((s: Subscriber) => s.isActive).length ?? 0);
+        setTotalCount(data.pagination?.total ?? 0);
+        setPagination(data.pagination ?? null);
+        setActiveCount(data.activeCount ?? 0);
       }))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
-  }, [startTransition]);
+  }, [page, debouncedSearch, startTransition]);
+
+  useEffect(() => { loadSubscribers(); }, [loadSubscribers]);
 
   const handleToggle = async (id: string, isActive: boolean) => {
     try {
@@ -73,7 +94,7 @@ export default function NewsletterPage() {
     try {
       const res = await fetch(`/api/admin/newsletter/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
-      setSubscribers((prev) => prev.filter((s) => s.id !== deleteId));
+      loadSubscribers();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
     } finally {
@@ -122,26 +143,29 @@ export default function NewsletterPage() {
     }
   };
 
-  const exportCSV = () => {
-    const escapeCSV = (val: string) => {
-      if (val.includes(";") || val.includes('"') || val.includes("\n")) {
-        return `"${val.replace(/"/g, '""')}"`;
-      }
-      return val;
-    };
-    const csv = "E-Mail;Aktiv;Datum\n" + subscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `newsletter-abonnenten-${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const exportCSV = async () => {
+    try {
+      const res = await fetch("/api/admin/newsletter?limit=10000");
+      const data: PaginatedSubscribers = await res.json();
+      const allSubscribers = data.subscribers || [];
+      const escapeCSV = (val: string) => {
+        if (val.includes(";") || val.includes('"') || val.includes("\n")) {
+          return `"${val.replace(/"/g, '""')}"`;
+        }
+        return val;
+      };
+      const csv = "E-Mail;Aktiv;Datum\n" + allSubscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `newsletter-abonnenten-${new Date().toISOString().split("T")[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Exportieren");
+    }
   };
-
-  const filtered = subscribers.filter((s) =>
-    s.email.toLowerCase().includes(search.toLowerCase())
-  );
 
   return (
     <div>
@@ -218,13 +242,13 @@ export default function NewsletterPage() {
                 </div>
               </div>
               {previewTab === "edit" ? (
-                <textarea
+                <Textarea
                   id="campaign-content"
                   rows={8}
                   value={campaignContent}
                   onChange={(e) => setCampaignContent(e.target.value)}
                   placeholder="<h2>Ueberschrift</h2><p>Ihr Text hier...</p>"
-                  className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 resize-none"
+                  className="font-mono resize-none"
                 />
               ) : (
                 <div className="border border-[var(--color-border)] rounded-xl overflow-hidden">
@@ -303,10 +327,10 @@ export default function NewsletterPage() {
               <tr><td colSpan={4} className="px-4 py-12"><div className="space-y-3">{[1,2,3].map((i) => <div key={i} className="h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse" />)}</div></td></tr>
             ) : loadError ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-danger)]" role="alert">Abonnenten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</td></tr>
-            ) : filtered.length === 0 ? (
+            ) : subscribers.length === 0 ? (
               <tr><td colSpan={4} className="px-4 py-12 text-center text-[var(--color-text-muted)]">Keine Abonnenten gefunden.</td></tr>
             ) : (
-              filtered.map((sub) => (
+              subscribers.map((sub) => (
                 <tr key={sub.id} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                    <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
@@ -347,6 +371,29 @@ export default function NewsletterPage() {
           </tbody>
         </table>
       </div>
+      {pagination && pagination.pages > 1 && (
+        <div className="flex items-center justify-between mt-6">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            Seite {pagination.page} von {pagination.pages}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Zurück
+            </button>
+            <button
+              onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))}
+              disabled={page >= pagination.pages}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Weiter
+            </button>
+          </div>
+        </div>
+      )}
       <ConfirmDialog
         open={!!deleteId}
         title="Abonnent löschen"

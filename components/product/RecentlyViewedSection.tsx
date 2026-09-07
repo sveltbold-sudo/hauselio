@@ -3,26 +3,12 @@
 import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
-
-interface ViewedProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice?: number | null;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  isNew?: boolean;
-  isPromo?: boolean;
-  brand?: string | null;
-  categorySlug?: string | null;
-}
+import type { ProductListItem } from "@/lib/product-types";
 
 const STORAGE_KEY = "HAUSAURA-recently-viewed";
 const MAX_ITEMS = 8;
 
-function isValidViewedProduct(item: unknown): item is ViewedProduct {
+function isValidViewedProduct(item: unknown): item is ProductListItem {
   if (!item || typeof item !== "object") return false;
   const obj = item as Record<string, unknown>;
   return (
@@ -36,11 +22,11 @@ function isValidViewedProduct(item: unknown): item is ViewedProduct {
   );
 }
 
-export function trackRecentlyViewed(product: ViewedProduct) {
+export function trackRecentlyViewed(product: ProductListItem) {
   if (typeof window === "undefined") return;
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    const items: ViewedProduct[] = stored ? JSON.parse(stored) : [];
+    const items: ProductListItem[] = stored ? JSON.parse(stored) : [];
     const filtered = Array.isArray(items) ? items.filter((i) => isValidViewedProduct(i) && i.id !== product.id) : [];
     filtered.unshift(product);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered.slice(0, MAX_ITEMS)));
@@ -50,7 +36,7 @@ export function trackRecentlyViewed(product: ViewedProduct) {
 }
 
 export default function RecentlyViewedSection({ currentProductId }: { currentProductId?: string }) {
-  const [items, setItems] = useState<ViewedProduct[]>([]);
+  const [items, setItems] = useState<ProductListItem[]>([]);
 
   useEffect(() => {
     try {

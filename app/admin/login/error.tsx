@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function LoginError({
   error,
@@ -11,7 +12,7 @@ export default function LoginError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("login-error", error);
+    logger.error("login-error", error);
   }, [error]);
 
   return (

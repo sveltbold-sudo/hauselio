@@ -8,7 +8,7 @@ import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
 import { prisma } from "@/lib/prisma";
 
 const fallback = {
-  contactEmail: "hilfe@HAUSAURA.de",
+  contactEmail: "hilfe@hausaura.de",
   contactPhone: "+49 (0)1525 9140453",
 };
 

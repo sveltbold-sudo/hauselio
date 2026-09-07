@@ -61,7 +61,7 @@ export async function sendContactForward(data: {
 
   return sendEmail({
     from: FROM_EMAIL,
-    to: (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@HAUSAURA.de",
+    to: (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@hausaura.de",
     subject: `[Kontakt] ${safe.subject}`,
     html,
   });

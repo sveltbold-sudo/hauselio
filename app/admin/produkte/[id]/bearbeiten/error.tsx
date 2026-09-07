@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function ProductEditError({
   error,
@@ -12,7 +13,7 @@ export default function ProductEditError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("product-edit-error", error);
+    logger.error("product-edit-error", error);
   }, [error]);
 
   return (

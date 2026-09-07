@@ -61,6 +61,11 @@ export const CreateProductSchema = z.object({
   seoDesc: z.string().max(500).optional().nullable(),
   imageUrl: z.string().url().optional().nullable(),
   imagePublicId: z.string().optional().nullable(),
+  images: z.array(z.object({
+    url: z.string().url(),
+    publicId: z.string().optional().nullable(),
+    position: z.number().int().min(0).optional(),
+  })).max(10).optional().default([]),
 });
 
 export const UpdateSettingsSchema = z.object({

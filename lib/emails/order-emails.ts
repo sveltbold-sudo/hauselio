@@ -258,7 +258,7 @@ export async function sendShippedConfirmation(data: OrderEmailData, trackingNumb
 export async function sendOrderCancelled(data: OrderEmailData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);
-  const contactEmail = (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@HAUSAURA.de";
+  const contactEmail = (await prisma.siteSettings.findFirst())?.contactEmail || "hilfe@hausaura.de";
 
   const html = await baseTemplate(`
     ${headerBanner("Bestellung storniert", `Bestellung ${safeOrderNumber}`, "#DC2626")}
@@ -301,7 +301,7 @@ export async function sendOrderCancelled(data: OrderEmailData) {
 export async function sendNewOrderAdminNotification(data: AdminOrderNotificationData) {
   const { prisma } = await import("@/lib/prisma");
   const settings = await prisma.siteSettings.findFirst();
-  const adminEmail = settings?.contactEmail || "hilfe@HAUSAURA.de";
+  const adminEmail = settings?.contactEmail || "hilfe@hausaura.de";
 
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);

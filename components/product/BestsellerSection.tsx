@@ -2,23 +2,15 @@ import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/product/ProductCard";
 import MobileHorizontalScroll from "@/components/ui/MobileHorizontalScroll";
+import type { ProductListItem } from "@/lib/product-types";
 
-interface BestsellerProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice: number | null;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  isNew: boolean;
-  isPromo: boolean;
-  brand: string | null;
+interface BestsellerSectionProps {
+  products: ProductListItem[];
+  title?: string;
 }
 
 interface BestsellerSectionProps {
-  products: BestsellerProduct[];
+  products: ProductListItem[];
 }
 
 export default function BestsellerSection({ products }: BestsellerSectionProps) {

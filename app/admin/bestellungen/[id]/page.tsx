@@ -6,7 +6,7 @@ import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants"
 import { logger } from "@/lib/logger";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Receipt, Clock, FileText, Send, Download } from "lucide-react";
+import { ArrowLeft, Receipt, Download } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 import OrderNotes from "@/components/admin/OrderNotes";
 import ResendReceiptButton from "@/components/admin/ResendReceiptButton";

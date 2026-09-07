@@ -6,6 +6,7 @@ import { slugify } from "@/lib/utils";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import Textarea from "@/components/ui/Textarea";
 
 interface Category {
   id: string;
@@ -178,12 +179,11 @@ export default function KategorienPage() {
                 />
               </div>
               <div>
-                <label htmlFor="cat-desc" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Beschreibung</label>
-                <textarea
+                <Textarea
+                  label="Beschreibung"
                   id="cat-desc"
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-3 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
                   rows={3}
                   maxLength={2000}
                 />

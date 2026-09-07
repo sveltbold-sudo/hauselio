@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import ImageUpload from "@/components/admin/ImageUpload";
 import Button from "@/components/ui/Button";
 import { slugify } from "@/lib/utils";
@@ -637,21 +638,90 @@ export default function ProductForm({
               </div>
             </div>
 
-            {/* Bild */}
+            {/* Bilder */}
             <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-6">
               <h2 className="font-bold text-[var(--color-text-primary)] mb-4">
-                Produktbild
+                Produktbilder
               </h2>
-              <ImageUpload
-                currentImage={formData.imageUrl || undefined}
-                folder="HAUSAURA/products"
-                onUpload={(url, publicId) =>
-                  setFormData((prev) => ({ ...prev, imageUrl: url, imagePublicId: publicId }))
-                }
-                onRemove={() =>
-                  setFormData((prev) => ({ ...prev, imageUrl: "", imagePublicId: "" }))
-                }
-              />
+              <div className="space-y-4">
+                {/* Hauptbild */}
+                <div>
+                  <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Hauptbild</p>
+                  <ImageUpload
+                    currentImage={formData.imageUrl || undefined}
+                    folder="HAUSAURA/products"
+                    onUpload={(url, publicId) =>
+                      setFormData((prev) => ({ ...prev, imageUrl: url, imagePublicId: publicId }))
+                    }
+                    onRemove={() =>
+                      setFormData((prev) => ({ ...prev, imageUrl: "", imagePublicId: "" }))
+                    }
+                  />
+                </div>
+
+                {/* Zusätzliche Bilder */}
+                {formData.images.length > 0 && (
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Zusätzliche Bilder</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                      {formData.images.map((img, idx) => (
+                        <div key={idx} className="relative group">
+                          <Image
+                            src={img.url}
+                            alt={`Bild ${idx + 2}`}
+                            width={96}
+                            height={96}
+                            className="w-full h-24 object-cover rounded-lg border border-[var(--color-border-light)]"
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                images: prev.images.filter((_, i) => i !== idx),
+                              }))
+                            }
+                            className="absolute top-1 right-1 w-6 h-6 bg-[var(--color-danger)] text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                            aria-label={`Bild ${idx + 2} entfernen`}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Upload-Button für zusätzliche Bilder */}
+                <label className="flex items-center justify-center gap-2 w-full h-20 border-2 border-dashed border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 rounded-xl cursor-pointer transition-colors text-sm text-[var(--color-text-muted)]">
+                  <Plus className="w-4 h-4" />
+                  Weiteres Bild hochladen
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) return;
+                      const formDataUpload = new FormData();
+                      formDataUpload.append("file", file);
+                      formDataUpload.append("folder", "HAUSAURA/products");
+                      try {
+                        const res = await fetch("/api/admin/upload", { method: "POST", body: formDataUpload });
+                        const data = await res.json();
+                        if (res.ok && data.url) {
+                          setFormData((prev) => ({
+                            ...prev,
+                            images: [...prev.images, { url: data.url, publicId: data.publicId || "", position: prev.images.length + 1 }],
+                          }));
+                        }
+                      } catch {}
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+              </div>
             </div>
 
             {/* SEO */}

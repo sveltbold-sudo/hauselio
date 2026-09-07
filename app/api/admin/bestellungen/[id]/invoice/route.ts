@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateCsrfOrigin } from "@/lib/api-helpers";
+import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { generateInvoicePdf } from "@/lib/invoice-pdf";
 import { logger } from "@/lib/logger";

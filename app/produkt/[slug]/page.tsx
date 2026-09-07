@@ -3,12 +3,11 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import ProductPageClient from "@/components/product/ProductPageClient";
 import ProductJsonLd from "@/components/seo/ProductJsonLd";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "@/lib/constants";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, SITE_URL, SITE_NAME } from "@/lib/constants";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 import PressReviewsSection from "@/components/product/PressReviewsSection";
 import TestimonialsSection from "@/components/product/TestimonialsSection";
-import { SITE_URL } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 
 export const dynamic = "force-dynamic";
@@ -97,7 +96,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "\u2026"
-    : `Jetzt ${product.name} bei HAUSAURA kaufen. Ab ${priceStr} \u20AC.`;
+    : `Jetzt ${product.name} bei ${SITE_NAME} kaufen. Ab ${priceStr} \u20AC.`;
 
   return {
     title: product.name,
@@ -109,8 +108,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: product.name,
       description: desc,
       url: `${SITE_URL}/produkt/${slug}`,
-      siteName: "HAUSAURA",
-      locale: "de_DE",
+      siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
       images: product.images?.[0]
         ? [{ url: product.images[0], width: 800, height: 600, alt: product.name }]
@@ -136,7 +134,7 @@ export default async function ProductPage({ params }: PageProps) {
   const product = data.product;
   const relatedProducts = data.relatedProducts || [];
 
-  let sellerName = "HAUSAURA GmbH";
+  let sellerName = `${SITE_NAME} GmbH`;
   try {
     const settings = await prisma.siteSettings.findFirst();
     if (settings?.companyName) sellerName = settings.companyName;
@@ -179,7 +177,7 @@ export default async function ProductPage({ params }: PageProps) {
         description={product.description}
         image={product.images?.[0] || "/images/placeholder-product.svg"}
         price={Number(product.price)}
-        brand={product.brand?.name || "HAUSAURA"}
+        brand={product.brand?.name || SITE_NAME}
         slug={product.slug}
         sku={product.sku || undefined}
         gtin={product.barcode || undefined}

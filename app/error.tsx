@@ -32,13 +32,13 @@ export default function Error({
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <button
           onClick={() => reset()}
-          className="inline-flex items-center px-8 py-4 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-primary)]/20 hover:bg-[var(--color-primary-hover)] transition-colors transition-shadow duration-300"
+          className="inline-flex items-center px-8 py-4 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-primary)]/20 hover:bg-[var(--color-primary-hover)] transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           Erneut versuchen
         </button>
         <Link
           href="/"
-          className="inline-flex items-center px-8 py-4 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)] transition-colors duration-300"
+          className="inline-flex items-center px-8 py-4 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           Zurück zur Startseite
         </Link>

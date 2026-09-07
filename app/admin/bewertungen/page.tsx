@@ -94,14 +94,6 @@ export default function BewertungenPage() {
     });
   };
 
-  const toggleSelectAll = () => {
-    if (selectedIds.size === reviews.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(reviews.map((r) => r.id)));
-    }
-  };
-
   const handleBulkAction = async (action: "approve" | "reject" | "delete") => {
     if (selectedIds.size === 0) return;
     if (action === "delete" && !confirm(`${selectedIds.size} Bewertung(en) wirklich löschen?`)) return;

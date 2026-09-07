@@ -3,27 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Clock, ArrowRight, Flame, Star, Shield, Truck, Check } from "lucide-react";
+import { Clock, ArrowRight, Flame, Star, Shield, Truck } from "lucide-react";
 import { formatPrice, calcDiscount } from "@/lib/utils";
-
-interface DealReview {
-  name: string;
-  rating: number;
-  content: string;
-}
-
-interface DealProduct {
-  name: string;
-  slug: string;
-  brand: string;
-  price: number;
-  originalPrice: number;
-  image: string;
-  tagline: string;
-  rating?: number;
-  reviewCount?: number;
-  reviews?: DealReview[];
-}
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import type { DealProduct } from "@/lib/product-types";
 
 interface DailyDealBannerProps {
   product: DealProduct;
@@ -44,15 +27,15 @@ function getTimeLeft() {
 export default function DailyDealBanner({ product }: DailyDealBannerProps) {
   const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
     setTime(getTimeLeft());
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const interval = prefersReduced ? 30_000 : 1_000;
     const timer = setInterval(() => setTime(getTimeLeft()), interval);
     return () => clearInterval(timer);
-  }, []);
+  }, [prefersReduced]);
 
   const discount = calcDiscount(product.price, product.originalPrice);
   const savings = product.originalPrice - product.price;

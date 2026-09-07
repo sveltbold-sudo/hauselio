@@ -14,6 +14,7 @@ export interface ProductFormData {
   weight: string;
   imageUrl: string;
   imagePublicId: string;
+  images: { url: string; publicId: string; position: number }[];
   features: string[];
   newFeature: string;
   specs: { key: string; value: string }[];
@@ -49,6 +50,7 @@ export const emptyFormData: ProductFormData = {
   weight: "",
   imageUrl: "",
   imagePublicId: "",
+  images: [],
   features: [],
   newFeature: "",
   specs: [],

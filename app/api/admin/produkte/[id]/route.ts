@@ -158,8 +158,25 @@ export async function PUT(
                 }
               : undefined,
             images: data.imageUrl
-              ? { create: [{ url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 }] }
-              : undefined,
+              ? {
+                  create: [
+                    { url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 },
+                    ...(data.images || []).map((img, idx) => ({
+                      url: img.url,
+                      publicId: img.publicId || null,
+                      position: img.position ?? idx + 1,
+                    })),
+                  ],
+                }
+              : data.images && data.images.length > 0
+                ? {
+                    create: data.images.map((img, idx) => ({
+                      url: img.url,
+                      publicId: img.publicId || null,
+                      position: img.position ?? idx,
+                    })),
+                  }
+                : undefined,
           },
         }),
       ]);

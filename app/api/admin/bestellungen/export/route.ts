@@ -7,6 +7,8 @@ import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { logger } from "@/lib/logger";
 
+const EXPORT_MAX_ORDERS = 5000;
+
 function escapeCsv(value: string): string {
   if (value.includes(",") || value.includes('"') || value.includes("\n")) {
     return `"${value.replace(/"/g, '""')}"`;
@@ -40,10 +42,13 @@ export async function GET(request: NextRequest) {
       ];
     }
 
+    const total = await prisma.order.count({ where });
+    const truncated = total > EXPORT_MAX_ORDERS;
+
     const orders = await prisma.order.findMany({
       where,
       orderBy: { createdAt: "desc" },
-      take: 5000,
+      take: EXPORT_MAX_ORDERS,
     });
 
     const header = [
@@ -94,11 +99,15 @@ export async function GET(request: NextRequest) {
     ].join("\n");
 
     const bom = "\uFEFF";
+    const disposition = truncated
+      ? `attachment; filename="Bestellungen_${new Date().toISOString().slice(0, 10)}_max${EXPORT_MAX_ORDERS}.csv"`
+      : `attachment; filename="Bestellungen_${new Date().toISOString().slice(0, 10)}.csv"`;
     return new NextResponse(bom + csv, {
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="Bestellungen_${new Date().toISOString().slice(0, 10)}.csv"`,
+        "Content-Disposition": disposition,
         "Cache-Control": "private, no-store",
+        ...(truncated ? { "X-Export-Truncated": "true", "X-Export-Total": String(total) } : {}),
       },
     });
   } catch (error) {

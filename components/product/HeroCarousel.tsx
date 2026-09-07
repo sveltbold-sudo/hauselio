@@ -130,8 +130,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) return;
+    if (prefersReduced) return;
     let interval: ReturnType<typeof setInterval> | null = null;
     const start = () => { interval = setInterval(next, 5000); };
     const stop = () => { if (interval) clearInterval(interval); };
@@ -142,7 +141,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
       stop();
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, [isAutoPlaying, next]);
+  }, [isAutoPlaying, next, prefersReduced]);
 
   const slide = slides[current]!;
   const discount = calcDiscount(slide.price, slide.originalPrice);

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowUp, ArrowUpDown } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface MobileShopBarProps {
   onScrollToTop?: () => void;
@@ -24,6 +25,7 @@ export default function MobileShopBar({ onScrollToTop, totalResults, sort, baseP
   const [visible, setVisible] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +75,6 @@ export default function MobileShopBar({ onScrollToTop, totalResults, sort, baseP
 
           <button
             onClick={onScrollToTop || (() => {
-              const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
               window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
             })}
             className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] bg-[var(--color-bg-secondary)] rounded-xl text-xs font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"

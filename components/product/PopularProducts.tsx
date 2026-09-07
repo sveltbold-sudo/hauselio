@@ -2,23 +2,10 @@
 
 import { useState, useEffect } from "react";
 import ProductCard from "@/components/product/ProductCard";
-
-interface ApiProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice: number | null;
-  image: string | null;
-  rating: number;
-  reviewCount: number;
-  isNew: boolean;
-  isPromo: boolean;
-  brand: string | null;
-}
+import type { ProductListItem } from "@/lib/product-types";
 
 export default function PopularProducts() {
-  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const [products, setProducts] = useState<ProductListItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

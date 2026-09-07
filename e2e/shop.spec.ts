@@ -17,7 +17,6 @@ test.describe("Shop Page", () => {
   test("category tab filters products", async ({ page }) => {
     const categoryTab = page.locator('a[href*="category="]').first();
     if (await categoryTab.isVisible()) {
-      const categoryText = await categoryTab.textContent();
       await categoryTab.click();
       await expect(page).toHaveURL(/category=/);
     }

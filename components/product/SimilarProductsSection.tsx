@@ -5,19 +5,7 @@ import Link from "next/link";
 import { Users } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import ProductImage from "@/components/product/ProductImage";
-
-interface SimilarProduct {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  originalPrice?: number | null;
-  isPromo?: boolean;
-  image: string;
-  brand: string;
-  rating: number;
-  reviewCount: number;
-}
+import type { SimilarProduct as SimilarProductType } from "@/lib/product-types";
 
 interface SimilarProductsSectionProps {
   currentProductId: string;
@@ -25,7 +13,7 @@ interface SimilarProductsSectionProps {
 }
 
 export default function SimilarProductsSection({ currentProductId, categorySlug }: SimilarProductsSectionProps) {
-  const [products, setProducts] = useState<SimilarProduct[]>([]);
+  const [products, setProducts] = useState<SimilarProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 

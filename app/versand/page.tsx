@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const fallback = {
-  contactEmail: "hilfe@HAUSAURA.de",
+  contactEmail: "hilfe@hausaura.de",
   contactPhone: "+49 (0)1525 9140453",
   shippingInfo: "",
 };

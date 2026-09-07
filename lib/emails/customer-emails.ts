@@ -3,8 +3,6 @@ import { escapeHtml } from "@/lib/html";
 import { SITE_URL } from "@/lib/constants";
 import { sendEmail, baseTemplate, headerBanner } from "./helpers";
 
-const SITE = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
-
 export async function sendPasswordResetEmail(email: string, name: string, token: string) {
   const resetUrl = `${SITE_URL}/passwort-zuruecksetzen?token=${encodeURIComponent(token)}`;
   const safeName = escapeHtml(name);

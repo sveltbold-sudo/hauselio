@@ -593,7 +593,7 @@ const products: ProductData[] = [
   {
     name: "Sage The Bakery Boss", slug: "sage-the-bakery-boss",
     description: "Die Sage The Bakery Boss ist ein Premium-Handmixer für anspruchsvolle Bäcker. Die 600 Watt Leistung und 8 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die integrierte Waage erlaubt präzise Zutatenabmessung. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Die Soft-Start-Funktion verhindert Spritzer beim Einschalten. Das elegante Design in Bürstmetall passt zu jeder Kücheneinrichtung. Ein Premium-Handmixer für anspruchsvolle Bäcker.", shortDesc: "Premium-Handmixer mit integrierter Waage und 600W",
-    price: 1730, sku: "SAGETHEBAKERYBO",
+    price: 599, sku: "SAGETHEBAKERYBO",
     rating: 4.4, reviewCount: 65, categorySlug: "kueche", brandSlug: "sage",
     specs: [
       { key: "Leistung", value: "600 Watt" },
@@ -606,7 +606,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Foodi Multi Cooker Nc300", slug: "ninja-foodi-multi-cooker-nc300",
     description: "Die Ninja Foodi Multi-Cooker NC300 ist ein multifunktionaler Kochtopf mit 8 Funktionen. Die 8 Funktionen – Kochen, Dünsten, Braten, Sous-Vide, Slow-Cook, Dämpfen, Braten, Aufwärmen – bieten maximale Versatilität. Die 6-Liter-Kapazität fügt große Portionen. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Kochen. Das elegante Design in Schwarz passt zu jeder Kücheneinrichtung. Perfekt für alle, die vielseitig und gesund kochen wollen.", shortDesc: "Multifunktionaler Kochtopf mit 8 Funktionen und 6L-Kapazität",
-    price: 1580, originalPrice: 1817, sku: "NINJAFOODIMULTI", isPromo: true,
+    price: 299, originalPrice: 399, sku: "NINJAFOODIMULTI", isPromo: true,
     rating: 4.3, reviewCount: 226, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
       { key: "Kapazität", value: "6 Liter" },
@@ -620,7 +620,7 @@ const products: ProductData[] = [
   {
     name: "WMF Kitchenminis Handmixer", slug: "wmf-kitchenminis-handmixer",
     description: "Der WMF KitchenMinis Handmixer ist ein kompakter Handmixer für kleine Portionen. Die 400 Watt Leistung und 5 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für maximale Leistung. Das kompakte Design von nur 15 cm Breite passt in jede Küche. Das elegante Cromargan®-Design passt zu jeder Kücheneinrichtung. Perfekt für Singles oder kleine Haushalte.", shortDesc: "Kompakter Handmixer mit 400W und Cromargan®-Design",
-    price: 1080, sku: "WMFKITCHENMI2",
+    price: 399, sku: "WMFKITCHENMI2",
     rating: 4.7, reviewCount: 276, categorySlug: "kueche", brandSlug: "wmf",
     specs: [
       { key: "Leistung", value: "400 Watt" },
@@ -633,7 +633,7 @@ const products: ProductData[] = [
   {
     name: "Tefal Jamie Oliver Cook Smart", slug: "tefal-jamie-oliver-cook-smart",
     description: "Der Tefal Jamie Oliver Cook Smart ist eine Kochtopf-Serie für anspruchsvolles Kochen. Die 3-teilige Serie umfasst einen Kasserole, einen Bräter und eine Pfanne. Die harte Anodise-Gehäuse sorgt für gleichmäßige Wärmeverteilung. Die induktionsgeeignete Basis funktioniert auf allen Herdtypen. Die ergonomischen Griffe sorgen für sicheren Halt. Die spülmaschinenfeste Pflege erleichtert die Reinigung. Das elegante Design passt zu jeder Kücheneinrichtung. Perfekt für anspruchsvolle Köche.", shortDesc: "Jamie Oliver Kochtopf-Serie mit 3 Teilen und Hartanodise-Gehäuse",
-    price: 540, sku: "TEFALJAMIEOLIVE",
+    price: 199, sku: "TEFALJAMIEOLIVE",
     rating: 4.2, reviewCount: 166, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
       { key: "Material", value: "Hartanodise Aluminium" },
@@ -646,7 +646,7 @@ const products: ProductData[] = [
   {
     name: "Gastroback Advanced Dual Plus 40882", slug: "gastroback-advanced-dual-plus-40882",
     description: "Der Gastroback Advanced Dual Plus 40882 ist ein leistungsstarker Handmixer mit 2 Motoren. Die 2 unabhängigen Motoren bieten maximale Flexibilität beim Mischen. Die 6 Geschwindigkeitsstufen und 2 Turbo-Stufen ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze aus Edelstahl sind spülmaschinenfest. Der ergonomische Griff sorgt für sicheren Halt. Das kompakte Design lässt sich platzsparend aufbewahren. Perfekt für anspruchsvolle Küchenarbeiten.", shortDesc: "Dual-Motor-Handmixer mit 6 Geschwindigkeiten und 2 Turbo-Stufen",
-    price: 380, originalPrice: 437, sku: "GASTROBACKAD2", isPromo: true,
+    price: 199, originalPrice: 249, sku: "GASTROBACKAD2", isPromo: true,
     rating: 4.7, reviewCount: 273, categorySlug: "kueche", brandSlug: "gastroback",
     specs: [
       { key: "Leistung", value: "2 x 300 Watt" },
@@ -659,7 +659,7 @@ const products: ProductData[] = [
   {
     name: "Vorwerk Kobold VK200", slug: "vorwerk-kobold-vk200",
     description: "Der Vorwerk Kobold VK200 ist ein Premium-Staubsauger mit revolutionärer Reinigungstechnologie. Die Power-Brush VB1000 entfernt Staub und Schmutz gründlich. Die eigene Kinematik sorgt für optimale Bodenkontaktaufnahme. Die 2-in-1-Funktionalität ermöglicht das Saugen von Teppichen und Böden. Die kompakte Bauform lässt sich platzsparend aufbewahren. Die hohe Saugleistung entfernt selbst feinsten Staub. Das Premium-Design in various Farben passt zu jeder Haushaltsführung. Das Flaggschiff für makellose Sauberkeit.", shortDesc: "Vorwerk-Premium-Staubsauger mit Power-Brush und revolutionärer Technologie",
-    price: 840, sku: "VORWERKKOBOL2",
+    price: 599, sku: "VORWERKKOBOL2",
     rating: 4.5, reviewCount: 236, categorySlug: "reinigung", brandSlug: "vorwerk",
     specs: [
       { key: "Technologie", value: "Power-Brush VB1000" },
@@ -671,7 +671,7 @@ const products: ProductData[] = [
   {
     name: "Kenwood Chef Xl Elite Kvl6325s", slug: "kenwood-chef-xl-elite-kvl6325s",
     description: "Die Kenwood Chef XL Elite KVL6325S ist eine Premium-Küchenmaschine mit 1700 Watt Leistung. Das planetarische Mischsystem sorgt für gleichmäßige Ergebnisse. Die 8 Geschwindigkeitsstufen und der Pulsbetrieb ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – Knethaken, Schneebesen, Kartoffelstab – bieten maximale Vielseitigkeit. Der abnehmbare 6,7-Liter-Rüssel ist spülmaschinenfeste. Die LED-Anzeige zeigt Geschwindigkeit und Timer an. Das elegante Design in Rot passt zu jeder Kücheneinrichtung. Ein Premium-Küchenhelfer für anspruchsvolle Hobby-Köche.", shortDesc: "Premium-Küchenmaschine mit 1700W und 6,7L-Rüssel",
-    price: 1880, sku: "KENWOODCHEFXLEL", isFeatured: true,
+    price: 699, sku: "KENWOODCHEFXLEL", isFeatured: true,
     rating: 4.1, reviewCount: 303, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
       { key: "Leistung", value: "1700 Watt" },
@@ -685,7 +685,7 @@ const products: ProductData[] = [
   {
     name: "Russell Hobbs Hobbs Go Create Handmixer", slug: "russell-hobbs-go-create-handmixer",
     description: "Der Russell Hobbs Go Create Handmixer ist ein kompakter Helfer mit 300 Watt Leistung. Die 5 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für zusätzliche Leistung. Das ergonomische Design sorgt für sicheren Halt. Das kompakte Design lässt sich platzsparend aufbewahren. Ein zuverlässiger Einstiegs-Handmixer für den täglichen Gebrauch.", shortDesc: "Kompakter Einstiegs-Handmixer mit 300W und 5 Geschwindigkeiten",
-    price: 1970, originalPrice: 2266, sku: "RUSSELLHOBBSGOC", isNew: true, isPromo: true,
+    price: 299, originalPrice: 399, sku: "RUSSELLHOBBSGOC", isNew: true, isPromo: true,
     rating: 4.7, reviewCount: 219, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
       { key: "Leistung", value: "300 Watt" },
@@ -697,7 +697,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Mfq3540 Handmixer", slug: "bosch-mfq3540-handmixer",
     description: "Der Bosch MFQ 3540 Handmixer überzeugt mit 450 Watt Leistung und 5 Geschwindigkeitsstufen. Das ergonomische Leichtgewicht von nur 1,1 kg macht auch längere Küchenarbeiten zur Freude. Die rotierenden Knethaken aus Edelstahl sorgen für gleichmäßiges Vermischen. Der praktische Schnellwechselaufsatz ermöglicht einen schnellen Wechsel zwischen den Aufsätzen. Die mitgelieferten Aufätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Die Einhand-Auswurftaste erleichtert die Reinigung. Die simplen Drucktasten ermöglichen eine intuitive Bedienung. Ein zuverlässiger Helfer für jeden Tag.", shortDesc: "Ergonomischer Handmixer mit 450W und Schnellwechselaufsatz",
-    price: 170, originalPrice: 195, sku: "BOSCHMFQ3540HAN", isPromo: true,
+    price: 49, originalPrice: 59, sku: "BOSCHMFQ3540HAN", isPromo: true,
     rating: 4.8, reviewCount: 232, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
       { key: "Leistung", value: "450 Watt" },
@@ -710,7 +710,7 @@ const products: ProductData[] = [
   {
     name: "Electrolux Assist 9 Handmixer", slug: "electrolux-assist-9-handmixer",
     description: "Der Electrolux Assist 9 Handmixer bietet 900 Watt Leistung für professionelle Ergebnisse. Die variable Geschwindigkeitsregelung mit Turbo-Boost ermöglicht individuelle Einstellungen. Die ergonomische Form und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Die Easy-Click-Aufnahme ermöglicht schnellen Wechsel der Aufsätze. Das elegante Design in Schwarz passt zu jeder Kücheneinrichtung. Ein leistungsstarker Helfer für anspruchsvolle Küchenarbeiten.", shortDesc: "Leistungsstarker 900W-Handmixer mit variabler Geschwindigkeitsregelung",
-    price: 1700, sku: "ELECTROLUXASSIS",
+    price: 599, sku: "ELECTROLUXASSIS",
     rating: 4.4, reviewCount: 298, categorySlug: "kueche", brandSlug: "electrolux",
     specs: [
       { key: "Leistung", value: "900 Watt" },
@@ -723,7 +723,7 @@ const products: ProductData[] = [
   {
     name: "AEG Hm 400 Handmixer", slug: "aeg-hm-400-handmixer",
     description: "Der AEG HM 400 Handmixer überzeugt mit 5 Geschwindigkeitsstufen und einem Turbo-Boost für maximale Leistung. Das leistungsstarke 400-Watt-Motor sorgt für gleichmäßiges Vermischen von Teigen und Cremes. Der ergonomische Griff liegt dank Softgrip-Beschichtung besonders gut in der Hand. Die mitgelieferten Knethaken und Schneebesen aus Edelstahl sind spülmaschinenfest. Das Leichtgewicht von nur 0,9 kg macht auch längere Küchenarbeiten zur Freude. Die simplen Drucktasten ermöglichen eine intuitive Bedienung. Perfekt für den täglichen Gebrauch in der Küche.", shortDesc: "Leichter Handmixer mit 5 Geschwindigkeiten und Turbo-Boost",
-    price: 830, originalPrice: 954, sku: "AEGHM400HANDMIX", isPromo: true,
+    price: 299, originalPrice: 349, sku: "AEGHM400HANDMIX", isPromo: true,
     rating: 4.4, reviewCount: 110, categorySlug: "kueche", brandSlug: "aeg",
     specs: [
       { key: "Leistung", value: "400 Watt" },
@@ -737,7 +737,7 @@ const products: ProductData[] = [
   {
     name: "Braun Mq7 Multiquick Handmixer", slug: "braun-mq7-multiquick-handmixer",
     description: "Der Braun MultiQuick 7 Handmixer bietet 600 Watt Leistung und das innovative PowerBell-System für optimale Ergebnisse. Die 5 Geschwindigkeitsstufen und der Turbo-Boost ermöglichen individuelle Einstellungen. Das einzigartige PowerBell sorgt für gleichmäßiges Mischen ohne Spritzer. Die EasyClick-Aufsätze lassen sich mit einem Klick wechseln. Die mitgelieferten Aufätze aus Edelstahl sind spülmaschinenfest. Der ergonomische Softgrip-Griff sorgt für sicheren Halt. Das kompakte Design lässt sich platzsparend aufbewahren. Ein Premium-Handmixer für anspruchsvolle Hobby-Köche.", shortDesc: "Premium-Handmixer mit PowerBell-System und 600W",
-    price: 2270, originalPrice: 2611, sku: "BRAUNMQ7MULTIQU", isPromo: true,
+    price: 449, originalPrice: 549, sku: "BRAUNMQ7MULTIQU", isPromo: true,
     rating: 4.4, reviewCount: 31, categorySlug: "kueche", brandSlug: "braun",
     specs: [
       { key: "Leistung", value: "600 Watt" },
@@ -750,7 +750,7 @@ const products: ProductData[] = [
   {
     name: "Philips Hr3655 Handmixer", slug: "philips-hr3655-handmixer",
     description: "Der Philips HR 3655 Handmixer bietet 450 Watt Leistung und 5 Geschwindigkeitsstufen. Das ergonomische Design und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufsätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Der Turbo-Boost sorgt für maximale Leistung. Die Einzelhand-Auswurftaste erleichtert die Reinigung. Das elegante Design in Weiß passt zu jeder Kücheneinrichtung. Ein zuverlässiger Helfer für den täglichen Gebrauch.", shortDesc: "Leichter Handmixer mit 450W und 5 Geschwindigkeiten",
-    price: 610, sku: "PHILIPSHR3655HA", isNew: true,
+    price: 249, sku: "PHILIPSHR3655HA", isNew: true,
     rating: 4.2, reviewCount: 26, categorySlug: "kueche", brandSlug: "philips",
     specs: [
       { key: "Leistung", value: "450 Watt" },
@@ -763,7 +763,7 @@ const products: ProductData[] = [
   {
     name: "Smeg Hmf01 Handmixer", slug: "smeg-hmf01-handmixer",
     description: "Der SMEG HMF01 Handmixer ist ein stilvoller Handmixer im modernen SMEG-Design. Die 400 Watt Leistung und 9 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für maximale Leistung. Der ergonomische Softgrip-Griff sorgt für sicheren Halt. Das elegante Design in various Farben passt zu jeder Kücheneinrichtung. Ein stylischer Helfer für designbewusste Küchenfreunde.", shortDesc: "Moderner SMEG-Handmixer mit 400W und 9 Geschwindigkeiten",
-    price: 2210, sku: "SMEGHMF01HANDMI", isNew: true,
+    price: 499, sku: "SMEGHMF01HANDMI", isNew: true,
     rating: 4.6, reviewCount: 118, categorySlug: "kueche", brandSlug: "smeg",
     specs: [
       { key: "Leistung", value: "400 Watt" },
@@ -776,7 +776,7 @@ const products: ProductData[] = [
   {
     name: "Smeg 50er Jahre Hmf02 Handmixer", slug: "smeg-50er-jahre-hmf02-handmixer",
     description: "Der SMEG 50er Jahre HMF02 Handmixer ist ein stilvoller Handmixer im Retro-Design der 50er Jahre. Die 400 Watt Leistung und 9 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für maximale Leistung. Der ergonomische Softgrip-Griff sorgt für sicheren Halt. Das elegante Retro-Design in various Farben passt zu jeder Kücheneinrichtung. Ein stylischer Helfer für designbewusste Küchenfreunde.", shortDesc: "Retro-Handmixer im 50er-Jahre-Design mit 400W und 9 Geschwindigkeiten",
-    price: 580, sku: "SMEG50ERJAHREHM",
+    price: 249, sku: "SMEG50ERJAHREHM",
     rating: 4.7, reviewCount: 302, categorySlug: "kueche", brandSlug: "smeg",
     specs: [
       { key: "Leistung", value: "400 Watt" },
@@ -789,7 +789,7 @@ const products: ProductData[] = [
   {
     name: "Russell Hobbs Hobbs Eagle 23211 Handmixer", slug: "russell-hobbs-eagle-23211-handmixer",
     description: "Der Russell Hobbs Eagle 23211 Handmixer bietet 400 Watt Leistung und 5 Geschwindigkeitsstufen. Das elegante Design in Chrom sorgt für einen modernen Look. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für maximale Leistung. Der ergonomische Griff sorgt für sicheren Halt. Das kompakte Design lässt sich platzsparend aufbewahren. Ein stylischer Helfer für den täglichen Gebrauch.", shortDesc: "Chrom-Handmixer mit 400W und 5 Geschwindigkeiten",
-    price: 2020, originalPrice: 2323, sku: "RUSSELLHOBBSEAG", isPromo: true,
+    price: 199, originalPrice: 249, sku: "RUSSELLHOBBSEAG", isPromo: true,
     rating: 4, reviewCount: 264, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
       { key: "Leistung", value: "400 Watt" },
@@ -802,7 +802,7 @@ const products: ProductData[] = [
   {
     name: "Moulinex Optichef Ht4101 Handmixer", slug: "moulinex-optichef-ht4101-handmixer",
     description: "Der Moulinex OptiChef HT4101 Handmixer bietet 450 Watt Leistung und 5 Geschwindigkeitsstufen. Das ergonomische Design und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufsätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Der Turbo-Boost sorgt für maximale Leistung. Die Einzelhand-Auswurftaste erleichtert die Reinigung. Das elegante Design in Weiß passt zu jeder Kücheneinrichtung. Ein zuverlässiger Helfer für den täglichen Gebrauch.", shortDesc: "Leichter Handmixer mit 450W und 5 Geschwindigkeiten",
-    price: 1120, originalPrice: 1288, sku: "MOULINEXOPTICHE", isNew: true, isPromo: true,
+    price: 299, originalPrice: 349, sku: "MOULINEXOPTICHE", isNew: true, isPromo: true,
     rating: 4.2, reviewCount: 247, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
       { key: "Leistung", value: "450 Watt" },
@@ -815,7 +815,7 @@ const products: ProductData[] = [
   {
     name: "Tefal Optichef Ht4508 Handmixer", slug: "tefal-optichef-ht4508-handmixer",
     description: "Der Tefal OptiChef HT4508 Handmixer bietet 450 Watt Leistung und 5 Geschwindigkeitsstufen. Das ergonomische Design und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Der Turbo-Boost sorgt für maximale Leistung. Die Einzelhand-Auswurftaste erleichtert die Reinigung. Das elegante Design in Weiß passt zu jeder Kücheneinrichtung. Ein zuverlässiger Helfer für den täglichen Gebrauch.", shortDesc: "Leichter Handmixer mit 450W und 5 Geschwindigkeiten",
-    price: 1240, originalPrice: 1426, sku: "TEFALOPTICHEFHT", isPromo: true,
+    price: 349, originalPrice: 399, sku: "TEFALOPTICHEFHT", isPromo: true,
     rating: 4.2, reviewCount: 122, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
       { key: "Leistung", value: "450 Watt" },
@@ -841,7 +841,7 @@ const products: ProductData[] = [
   {
     name: "KitchenAid Artisan 5khb25ay Handmixer", slug: "kitchenaid-artisan-5khb25ay-handmixer",
     description: "Der KitchenAid Artisan 5KHB25AY Handmixer ist ein Premium-Handmixer im ikonischen KitchenAid-Design. Die 9 Geschwindigkeitsstufen und der Boost-Modus ermöglichen individuelle Einstellungen. Die Soft-Start-Funktion verhindert Spritzer beim Einschalten. Die ergonomische Form und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufsätze sind spülmaschinenfest. Das elegante Design in verschiedenen Farben passt zu jeder Kücheneinrichtung. Ein Premium-Handmixer für anspruchsvolle Küchenarbeiten.", shortDesc: "Ikonischer KitchenAid-Handmixer mit 9 Geschwindigkeiten und Soft-Start",
-    price: 1390, sku: "KITCHENAIDARTIS",
+    price: 549, sku: "KITCHENAIDARTIS",
     rating: 4.2, reviewCount: 292, categorySlug: "kueche", brandSlug: "kitchenaid",
     specs: [
       { key: "Leistung", value: "85 Watt" },
@@ -854,7 +854,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Mums2ew48 Kuechenmaschine", slug: "bosch-mums2ew48-kuechenmaschine",
     description: "Die Bosch MUMS2EW48 Küchenmaschine ist ein vielseitiges Multitalent mit 1200 Watt Leistung. Das planetarische Mischsystem sorgt für gleichmäßige Ergebnisse bei Teig, Creme und Sahne. Die 4 Geschwindigkeitsstufen und der Puls-Modus ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – Knethaken, Schneebesen, Kneter – bieten maximale Vielseitigkeit. Der abnehmbare 3,9-Liter-Rüssel ist spülmaschinenfeste. Das elegante Design in Weiß passt zu jeder Kücheneinrichtung. Die integrierte Übersetzungsmechanik sorgt für leisen Betrieb. Perfekt für alle, die eine zuverlässige Küchenmaschine suchen.", shortDesc: "1200W-Küchenmaschine mit planetarischem Mischsystem und 3,9L-Rüssel",
-    price: 2160, originalPrice: 2484, sku: "BOSCHMUMS2EW48K", isPromo: true,
+    price: 599, originalPrice: 699, sku: "BOSCHMUMS2EW48K", isPromo: true,
     rating: 4.5, reviewCount: 266, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
       { key: "Leistung", value: "1200 Watt" },
@@ -868,7 +868,7 @@ const products: ProductData[] = [
   {
     name: "Moulinex Quickmix 654 Handmixer", slug: "moulinex-quickmix-654-handmixer",
     description: "Der Moulinex QuickMix 654 Handmixer ist ein kompakter Helfer mit 300 Watt Leistung. Die 4 Geschwindigkeitsstufen ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – 2 Knethaken und 2 Schneebesen – bieten maximale Vielseitigkeit. Der Turbo-Boost sorgt für zusätzliche Leistung. Das ergonomische Design sorgt für sicheren Halt. Das kompakte Design lässt sich platzsparend aufbewahren. Ein zuverlässiger Einstiegs-Handmixer für den täglichen Gebrauch.", shortDesc: "Kompakter Einstiegs-Handmixer mit 300W und 4 Geschwindigkeiten",
-    price: 2170, sku: "MOULINEXQUICKMI", isNew: true,
+    price: 399, sku: "MOULINEXQUICKMI", isNew: true,
     rating: 4.8, reviewCount: 227, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
       { key: "Leistung", value: "300 Watt" },
@@ -880,7 +880,7 @@ const products: ProductData[] = [
   {
     name: "Kenwood Hm430 Handmixer", slug: "kenwood-hm430-handmixer",
     description: "Der Kenwood HM 430 Handmixer bietet 450 Watt Leistung und 5 Geschwindigkeitsstufen. Das ergonomische Design und das geringe Gewicht sorgen für komfortables Arbeiten. Die mitgelieferten Edelstahl-Aufsätze – 2 Knethaken und 2 Schneebesen – sind spülmaschinenfest. Der Turbo-Boost sorgt für maximale Leistung. Die Einzelhand-Auswurftaste erleichtert die Reinigung. Das elegante Design in Weiß passt zu jeder Kücheneinrichtung. Ein zuverlässiger Helfer für den täglichen Gebrauch.", shortDesc: "Komfortabler Handmixer mit 450W und 5 Geschwindigkeiten",
-    price: 1170, originalPrice: 1346, sku: "KENWOODHM430HAN", isPromo: true,
+    price: 299, originalPrice: 349, sku: "KENWOODHM430HAN", isPromo: true,
     rating: 4.6, reviewCount: 163, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
       { key: "Leistung", value: "450 Watt" },
@@ -893,7 +893,7 @@ const products: ProductData[] = [
   {
     name: "Jura E4 Platinum", slug: "jura-e4-platinum",
     description: "Die Jura E4 Platinum ist der Einstieg in die Premium-Vollautomaten-Welt von Jura. Das professionelle Aromamahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Die P.E.P.-Technologie optimiert die Extraktionszeit für intensiven Espressogenuss. Der reduzierte Funktionsumfang auf die wichtigsten Kaffeespezialitäten sorgt für intuitive Bedienung. Das Aroma-Schutz-System bewahrt die Bohnen in einem luftdicht versiegelten Behälter. Die abnehmbare Milchleitung ist einfach zu reinigen. Die Elegance-Serie bietet ein zeitloses Design in Dunkelchrom. Perfekt für alle, die reine Kaffeequalität ohne Schnick-Schnack schätzen.", shortDesc: "Premium-Einstiegsvollautomat mit P.E.P. und Edelstahl-Mahlwerk",
-    price: 940, originalPrice: 1081, sku: "JURAE4PLATINUM", isPromo: true,
+    price: 599, originalPrice: 699, sku: "JURAE4PLATINUM", isPromo: true,
     rating: 4.1, reviewCount: 83, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
       { key: "Mahlwerk", value: "Aromamahlwerk Edelstahl" },
@@ -909,7 +909,7 @@ const products: ProductData[] = [
   {
     name: "Jura S8 Chrome", slug: "jura-s8-chrome",
     description: "Die Jura S8 Chrome ist der Premium-Vollautomat mit Touchdisplay und exklusivem Design. Das 4,3-Zoll-Touchdisplay bietet intuitive Bedienung und individuelle Rezeptanpassung. Das professionelle Aromamahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Die P.E.P.-Technologie optimiert die Extraktion für intensiven Geschmack. Der automatische Milchschaumer erzeugt in Sekunden perfekten Cappuccino-Schaum. Die S.O.E.-Technologie (Smart Operated Espresso) sorgt für konsistente Qualität. Das elegante Chrome-Gehäuse unterstreicht den Premium-Anspruch. Mit 12 Kaffeespezialitäten und individuellen Anpassungsmöglichkeiten für jeden Geschmack.", shortDesc: "Premium-Touchvollautomat mit 4,3-Zoll-Display und 12 Spezialitäten",
-    price: 2060, sku: "JURAS8CHROME",
+    price: 999, sku: "JURAS8CHROME",
     rating: 4.7, reviewCount: 268, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
       { key: "Display", value: "4,3 Zoll Touch" },
@@ -925,7 +925,7 @@ const products: ProductData[] = [
   {
     name: "Jura D6 Dark Inox", slug: "jura-d6-dark-inox",
     description: "Die Jura D6 Dark Inox ist ein eleganter Vollautomat im edlen Dunkelchrom-Design. Das feinste Jura-Mahlwerk aus Edelstahl mahlt die Bohnen besonders schonend für optimalen Geschmack. Der automatische Milchschaumer erzeugt in Sekunden perfekten Milchschaum für Cappuccino und Latte. Die P.E.P.-Technologie (Pulse Extraction Process) optimiert die Extraktionszeit für Short und Long Espressos. Die EASY-Schaltmatrix bietet alle Funktionen auf einen Blick. Das Aroma-Schutz-System bewahrt die Bohnen vor Feuchtigkeit und Licht. Die abnehmbare Milchleitung ist einfach zu reinigen und spülmaschinengeeignet. Die kompakte Bauform von nur 23,8 cm Breite passt in jede Küchenzeile.", shortDesc: "Eleganter Vollautomat mit P.E.P.-Technologie und Inox-Design",
-    price: 1240, sku: "JURAD6DARKINOX",
+    price: 699, sku: "JURAD6DARKINOX",
     rating: 4.9, reviewCount: 14, categorySlug: "kaffee", brandSlug: "jura",
     specs: [
       { key: "Milchsystem", value: "Automatisch" },
@@ -941,7 +941,7 @@ const products: ProductData[] = [
   {
     name: "De'Longhi Magnifica Evo Ecam29233", slug: "delonghi-magnifica-evo-ecam29233",
     description: "Die De'Longhi Magnifica Evo Ecam29233 ist ein kompakter Vollautomat für den täglichen Kaffeegenuss. Das 13-stufige Mahlwerk aus gehärtetem Stahl bietet individuelle Einstellungen für jeden Geschmack. Die LatteCrema-Technologie erzeugt automatisch cremigen Milchschaum für Cappuccino und Latte Macchiato. Mit der One-Touch-Funktion bereiten Sie bis zu 8 Kaffeespezialitäten mit einem Knopfdruck zu. Die Aroma-Sperre schützt die Bohnen vor Luftfeuchtigkeit und bewahrt das frische Aroma. Die abnehmbare Brühgruppe lässt sich leicht auswaschen und ist spülmaschinengeeignet. Das kompakte Gehäuse passt in jede Küchenzeile. Die LED-Steuerung mit Symbolen macht die Bedienung kinderleicht.", shortDesc: "Kompakter Vollautomat mit LatteCrema und 8 Spezialitäten",
-    price: 1090, sku: "DELONGHIMAGNIFI",
+    price: 349, sku: "DELONGHIMAGNIFI",
     rating: 4.1, reviewCount: 35, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
       { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
@@ -957,7 +957,7 @@ const products: ProductData[] = [
   {
     name: "De'Longhi Dinamica Ecam35055", slug: "delonghi-dinamica-ecam35055",
     description: "Die De'Longhi Dinamica Ecam35055 ist ein vollautomatischer Kaffeevollautomat mit integriertem MILK-SYSTEM für Cappuccino und Latte Macchiato. Das 13-stufige Mahlwerk aus gehärtetem Stahl zerkleinert Bohnen schonend und leise. Der automatische Latte Crema-Schaumer erzeugt cremigen Milchschaum direkt in die Tasse. Die One-Touch-Funktion bereitet mit einem Knopfdruck bis zu 12 verschiedene Kaffeespezialitäten zu. Die Aromaseal-Technologie schließt den Bohnenbehälter luftdicht und bewahrt das Aroma. Die abnehmbare Brühgruppe und der Milchschaumer sind spülmaschinenfest. Das integrierte Entkalkungssystem warnt rechtzeitig vor Wartungsintervallen. Perfekt für alle, die Vielseitigkeit und Kompaktheit in einem Gerät suchen.", shortDesc: "Kompakter Vollautomat mit Milk System und 13 Mahlgraden",
-    price: 1200, sku: "DELONGHIDINAMIC", isNew: true,
+    price: 499, sku: "DELONGHIDINAMIC", isNew: true,
     rating: 4.5, reviewCount: 78, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
       { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
@@ -973,7 +973,7 @@ const products: ProductData[] = [
   {
     name: "De'Longhi Primadonna Soul Ecam61075", slug: "delonghi-primadonna-soul-ecam61075",
     description: "Die De'Longhi Primadonna Soul Ecam61075 ist der Premium-Vollautomat mit deutscher Technologie. Das feinste Mahlwerk aus gehärtetem Stahl bietet 13 Mahlgradeinstellungen für perfekten Geschmack. Die LatteCrema-System-Technologie erzeugt automatisch crémeigen Milchschaum für jeden Kaffee. Das Large-Cappuccino-System bereitet bis zu 3 Tassen gleichzeitig zu. Die Connession-App ermöglicht die Fernbedienung per Smartphone. Die Aroma-Funktion lässt Sie zwischen mild, mittel und stark wählen. Die Premium-Veredelung aus Metall und Edelstahl unterstreicht den luxuriösen Anspruch. Perfekt für anspruchsvolle Genießer, die das Beste vom Besten wollen.", shortDesc: "Premium-Vollautomat mit App-Steuerung und Large-Cappuccino-System",
-    price: 1980, originalPrice: 2277, sku: "DELONGHIPRIMADO", isPromo: true,
+    price: 699, originalPrice: 899, sku: "DELONGHIPRIMADO", isPromo: true,
     rating: 4.3, reviewCount: 308, categorySlug: "kaffee", brandSlug: "delonghi",
     specs: [
       { key: "Mahlwerk", value: "13-stufig, gehärteter Stahl" },
@@ -1005,7 +1005,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Eq500 Plus S500", slug: "siemens-eq500-plus-s500",
     description: "Die Siemens EQ500 Plus S500 ist der Mittelklasse-Vollautomat mit erweiterten Funktionen. Das 5-stufige Mahlwerk bietet individuelle Einstellungen für jeden Geschmack. Die autoMilk-Technologie erzeugt automatisch cremigen Milchschaum und reinigt die Milchleitung nach jedem Getränk. Die oneTouch DoubleCup-Funktion bereitet 2 Tassen gleichzeitig zu. Die AromaBalance-Funktion passt die Brühparameter an Ihre Vorlieben an. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Die Siemens-Home-Connect-App ermöglicht die Fernbedienung per Smartphone. Die Premium-Veredelung unterstreicht den Qualitätsanspruch. Ein vielseitiger Vollautomat für anspruchsvolle Kaffeegenießer.", shortDesc: "Mittelklasse-Vollautomat mit autoMilk und Home Connect App",
-    price: 2030, sku: "SIEMENSEQ500PLU",
+    price: 699, sku: "SIEMENSEQ500PLU",
     rating: 4.2, reviewCount: 130, categorySlug: "kaffee", brandSlug: "siemens",
     specs: [
       { key: "Mahlwerk", value: "5-stufig" },
@@ -1021,7 +1021,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Eq300 S300", slug: "siemens-eq300-s300",
     description: "Die Siemens EQ300 S300 ist der Einstiegsvollautomat der EQ-Serie für den täglichen Kaffeegenuss. Das 3-stufige Mahlwerk bietet grundlegende Einstellungen für milden, mittleren oder starken Kaffee. Der automatische Milchschaumer erzeugt cremigen Milchschaum für Cappuccino und Latte Macchiato. Die One-Touch-Funktion bereitet alle gängigen Spezialitäten zu. Die automatische Spülung reinigt die Leitungen nach jedem Milchgetränk. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Die kompakte Bauform passt in jede Küchenzeile. Die Siemens-Qualität bietet Zuverlässigkeit und Langlebigkeit. Der perfekte Einstieg in die Siemens-Vollautomaten-Welt.", shortDesc: "Einstiegsvollautomat mit 3 Mahlgraden und automatischem Milchschaumer",
-    price: 1710, sku: "SIEMENSEQ300S30",
+    price: 499, sku: "SIEMENSEQ300S30",
     rating: 4.2, reviewCount: 304, categorySlug: "kaffee", brandSlug: "siemens",
     specs: [
       { key: "Mahlwerk", value: "3-stufig" },
@@ -1037,7 +1037,7 @@ const products: ProductData[] = [
   {
     name: "Saeco Xelsis Sm8780", slug: "saeco-xelsis-sm8780",
     description: "Die Saeco Xelsis SM8780 ist der Premium-Vollautomat mit HygieSteaM-Technologie. Das feinste Mahlwerk aus gehärtetem Stahl bietet 12 Mahlgradeinstellungen. Die HygieSteaM-Technologie nutztheißen Dampf zur automatischen Reinigung der Milchleitung. Die LatteDuo-Funktion bereitet bis zu 2 Tassen gleichzeitig zu. Die 6 Kaffeespezialitäten sind über die intuitive Touch-Steuerung wählbar. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Die Premium-Veredelung aus Metall und Edelstahl unterstreicht den Qualitätsanspruch. Die inteligente Aroma-Erkennung passt die Brühparameter automatisch an. Perfekt für anspruchsvolle Kaffeegenießer.", shortDesc: "Premium-Vollautomat mit HygieSteaM-Technologie und Touch-Steuerung",
-    price: 2380, sku: "SAECOXELSISSM87",
+    price: 799, sku: "SAECOXELSISSM87",
     rating: 4.1, reviewCount: 62, categorySlug: "kaffee", brandSlug: "saeco",
     specs: [
       { key: "Mahlwerk", value: "12-stufig, gehärteter Stahl" },
@@ -1069,7 +1069,7 @@ const products: ProductData[] = [
   {
     name: "Krups Virtuoso Xp442c10", slug: "krups-virtuoso-xp442c10",
     description: "Die Krups Virtuoso XP442C10 ist der Premium-Vollautomat mit 15 Kaffeespezialitäten. Das feinste Mahlwerk aus Edelstahl bietet 3 Mahlgradeinstellungen für individuelle Brühresultate. Der integrierte Milchschaumer erzeugt automatisch cremigen Milchschaum für Cappuccino und Latte. Die One-Touch-Funktion bereitet mit einem Knopfdruck alle Spezialitäten zu. Die LED-Anzeige zeigt alle Funktionen übersichtlich an. Das Aroma-System bewahrt die Bohnen vor Feuchtigkeit. Die Premium-Veredelung aus Metall und Edelstahl unterstreicht den Qualitätsanspruch. Perfekt für alle, die Vielseitigkeit und Premium-Qualität in einem Gerät suchen.", shortDesc: "Premium-Vollautomat mit 15 Spezialitäten und integriertem Milchschaumer",
-    price: 2360, originalPrice: 2714, sku: "KRUPSVIRTUOSOXP", isPromo: true,
+    price: 699, originalPrice: 899, sku: "KRUPSVIRTUOSOXP", isPromo: true,
     rating: 4.7, reviewCount: 79, categorySlug: "kaffee", brandSlug: "krups",
     specs: [
       { key: "Mahlwerk", value: "Edelstahl, 3 Stufen" },
@@ -1085,7 +1085,7 @@ const products: ProductData[] = [
   {
     name: "Krups Evidence Plus Ea894c", slug: "krups-evidence-plus-ea894c",
     description: "Die Krups Evidence Plus Ecommand ist ein Kaffeevollautomat mit innovativer Quattro-Technologie. Das 4-stufige Mahlwerk bietet individuelle Einstellungen für jeden Geschmack. Die Quattro-Kopf-Technologie verteilt das Wasser gleichmäßig über das Kaffeemehl für optimale Extraktion. Der thermoblock-Heizungsschnelle bringt die Maschine in 40 Sekunden auf Betriebstemperatur. Die Latte-Shot-Funktion bereitet automatisch cremigen Milchschaum. Die intuitive Touch-Steuerung bietet 8 Kaffeespezialitäten auf einen Blick. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Die kompakte Bauform passt in jede Küchenzeile. Ein leistungsstarker Vollautomat für anspruchsvolle Kaffeegenießer.", shortDesc: "Quattro-Technologie Vollautomat mit 8 Spezialitäten und 40s Aufheizzeit",
-    price: 1170, originalPrice: 1346, sku: "KRUPSEVIDENCEPL", isPromo: true,
+    price: 399, originalPrice: 499, sku: "KRUPSEVIDENCEPL", isPromo: true,
     rating: 4.2, reviewCount: 274, categorySlug: "kaffee", brandSlug: "krups",
     specs: [
       { key: "Mahlwerk", value: "4-stufig" },
@@ -1101,7 +1101,7 @@ const products: ProductData[] = [
   {
     name: "Tchibo Barista Bean To Cup", slug: "tchibo-barista-bean-to-cup",
     description: "Die Tchibo Barista Bean to Cup ist ein Kaffeevollautomat mit integriertem Mahlwerk. Das feinste Mahlwerk aus Edelstahl mahlt die Bohnen frisch für jede Tasse. Die 3 Intensitätsstufen bieten individuelle Einstellungen für milden, mittleren oder starken Kaffee. Der integrierte Milchschaumer erzeugt automatisch cremigen Milchschaum. Die One-Touch-Funktion bereitet Espresso, Kaffee, Cappuccino und Latte Macchiato zu. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Das kompakte Design passt in jede Küchenzeile. Die Tchibo-Qualität bietet Zuverlässigkeit und Langlebigkeit. Perfekt für alle, die frischen Kaffee-Genuss ohne Aufwand suchen.", shortDesc: "Vollautomat mit Edelstahl-Mahlwerk und 3 Intensitätsstufen",
-    price: 1600, originalPrice: 1840, sku: "TCHIBOBARISTABE", isPromo: true,
+    price: 399, originalPrice: 499, sku: "TCHIBOBARISTABE", isPromo: true,
     rating: 4.5, reviewCount: 286, categorySlug: "kaffee", brandSlug: "tchibo",
     specs: [
       { key: "Mahlwerk", value: "Edelstahl" },
@@ -1117,7 +1117,7 @@ const products: ProductData[] = [
   {
     name: "Tchibo Privilegio Bean To Cup", slug: "tchibo-privilegio-bean-to-cup",
     description: "Die Tchibo Privilegio Bean to Cup ist ein Premium-Kaffeevollautomat mit edlem Metall-Design. Das feinste Mahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Die One-Touch-Funktion bereitet Espresso, Kaffee, Cappuccino und Latte Macchiato zu. Der integrierte Milchschaumer erzeugt cremigen Milchschaum. Die 3 Intensitätsstufen bieten individuelle Einstellungen. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Das Premium-Design in various Farben passt zu jeder Kücheneinrichtung. Perfekt für anspruchsvolle Kaffeegenießer.", shortDesc: "Premium-Vollautomat mit Metall-Design und 3 Intensitätsstufen",
-    price: 2790, originalPrice: 3208, sku: "TCHIBOPRIVILEGI", isPromo: true,
+    price: 599, originalPrice: 799, sku: "TCHIBOPRIVILEGI", isPromo: true,
     rating: 4.6, reviewCount: 257, categorySlug: "kaffee", brandSlug: "tchibo",
     specs: [
       { key: "Mahlwerk", value: "Edelstahl" },
@@ -1132,7 +1132,7 @@ const products: ProductData[] = [
   {
     name: "Melitta Purista Pure Black Neu", slug: "melitta-purista-pure-black-neu",
     description: "Die Melitta Purista Pure Black Neu ist die neue Version des beliebten Filterkaffeevollautomaten. Das 5-stufige Mahlwerk bietet erweiterte Einstellungsmöglichkeiten für individuelle Geschmäcker. Die Aromafavorites-Funktion speichert Ihre persönlichen Lieblingseinstellungen. Der integrierte Milchschaumer erzeugt automatisch cremigen Milchschaum. Die One-Touch-Funktion bereitet Espresso, Kaffee und Milchgetränke zu. Die abnehmbare Brühgruppe ist spülmaschinenfeste. Das elegante Pure-Black-Design passt zu jeder Kücheneinrichtung. Die Energy-Saving-Funktion reduziert den Stromverbrauch. Ein vielseitiger Vollautomat für alle, die Filterkaffee und Espresso in einem Gerät suchen.", shortDesc: "Neuer Vollautomat mit 5 Mahlgraden, Milchsystem und Aromafavorites",
-    price: 1310, originalPrice: 1506, sku: "MELITTAPURISTAP", isPromo: true,
+    price: 149, originalPrice: 199, sku: "MELITTAPURISTAP", isPromo: true,
     rating: 4.2, reviewCount: 217, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
       { key: "Mahlwerk", value: "5-stufig" },
@@ -1164,7 +1164,7 @@ const products: ProductData[] = [
   {
     name: "Melitta Enjoy 5 Purge", slug: "melitta-enjoy-5-purge",
     description: "Die Melitta Enjoy 5 Purge ist ein Kaffeevollautomat mit Aromafavorites-Funktion. Das 5-stufige Mahlwerk bietet individuelle Einstellungen für jeden Geschmack. Die Aromafavorites-Funktion speichert Ihre persönlichen Lieblingseinstellungen. Der integrierte Milchschaumer erzeugt automatisch cremigen Milchschaum. Die One-Touch-Funktion bereitet Espresso, Kaffee, Cappuccino und Latte Macchiato zu. Die abnehmbare Brühgruppe ist einfach zu reinigen. Die Purge-Funktion spült die Leitungen automatisch nach jedem Milchgetränk. Die kompakte Bauform passt in jede Küchenzeile. Ein zuverlässiger Alltags-Vollautomat für den täglichen Kaffeegenuss.", shortDesc: "Alltags-Vollautomat mit Aromafavorites und automatischer Purge-Funktion",
-    price: 960, originalPrice: 1104, sku: "MELITTAENJOY5PU", isPromo: true,
+    price: 99, originalPrice: 129, sku: "MELITTAENJOY5PU", isPromo: true,
     rating: 4.4, reviewCount: 67, categorySlug: "kaffee", brandSlug: "melitta",
     specs: [
       { key: "Mahlwerk", value: "5-stufig" },
@@ -1180,7 +1180,7 @@ const products: ProductData[] = [
   {
     name: "Breville Barista Express", slug: "breville-barista-express",
     description: "Die Breville Barista Express ist eine halbautomatische Espressomaschine für ambitionierte Home-Baristas. Das integrierte Kegelmahlwerk aus Edelstahl mahlt frische Bohnen direkt vor dem Brühen für maximalen Geschmack. Der digitale PID-Temperaturregulator hält die Brühtemperatur konstant zwischen 90°C und 96°C. Der Crona-Milchaufschäumer erzeugt samtigen Mikroschaum für Cappuccino und Latte Art. Das 58mm-Brühsystem im Profi-Format sorgt für gleichmäßige Extraktion. Der abnehmbare 2-Liter-Wassertank mit integriertem Active-Water-Management erleichtert die Reinigung. Die integrierte Beleuchtung zeigt den Fortschritt der Kaffeezubereitung an. Die Maschine bietet 30 Einstellungen für die Mahlgradfeinheit und eine manuelle Brühdruckregulierung.", shortDesc: "Halbautomatische Espressomaschine mit integriertem Mahlwerk und Profi-Brühgruppe",
-    price: 1720, sku: "BREVILLEBARI2",
+    price: 549, sku: "BREVILLEBARI2",
     rating: 4.9, reviewCount: 281, categorySlug: "kaffee", brandSlug: "breville",
     specs: [
       { key: "Brühgruppe", value: "58mm Edelstahl" },
@@ -1196,7 +1196,7 @@ const products: ProductData[] = [
   {
     name: "Breville Barista Touch", slug: "breville-barista-touch",
     description: "Die Breville Barista Touch kombiniert professionelle Espresso-Technologie mit einem intuitiven Touchdisplay. Das 4-Zoll-Farbtouchscreen zeigt alle Brühoptionen übersichtlich an und ermöglicht die Speicherung individueller Rezepte. Der integrierte Kegelmahlwerk aus Edelstahl mahlt die Bohnen frisch für jede Tasse. Der automatische Milchaufschäumer erzeugt in Sekunden perfekten Cappuccino-Schaum. Die Maschine bietet 6 voreingestellte Kaffeespezialitäten und individuelle Anpassungsmöglichkeiten. Der PID-Temperaturregulator sorgt für konstante Brühtemperaturen. Das kompakte Design passt in jede Küche und bietet dennoch Profi-Qualität. Ideal für alle, die einfachen Zugang zu Premium-Espresso suchen.", shortDesc: "Touchscreen-Espressomaschine mit automatischem Milchaufschäumer",
-    price: 1230, sku: "BREVILLEBARISTA",
+    price: 449, sku: "BREVILLEBARISTA",
     rating: 4.8, reviewCount: 107, categorySlug: "kaffee", brandSlug: "breville",
     specs: [
       { key: "Display", value: "4-Zoll Farbtouch" },
@@ -1212,7 +1212,7 @@ const products: ProductData[] = [
   {
     name: "Sage Barista Express Impress", slug: "sage-barista-express-impress",
     description: "Die Sage Barista Express Impress ist eine Premium-Espressomaschine mit integriertem Mahlwerk. Das Impression-Dosing-System misst die Bohnenmenge automatisch präzise. Das Kegelmahlwerk aus Edelstahl mahlt die Bohnen besonders schonend. Der Crona-Milchaufschäumer erzeugt cremigen Mikroschaum. Die 58mm-Brühgruppe sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Das elegante Design in Edelstahl passt in jede Küche. Das absolute Flaggschiff für Home-Baristas.", shortDesc: "Sage-Premium-Espressomaschine mit Impression-Dosing und 58mm-Gruppe",
-    price: 1360, originalPrice: 1564, sku: "SAGEBARISTAEXPR", isPromo: true,
+    price: 549, originalPrice: 699, sku: "SAGEBARISTAEXPR", isPromo: true,
     rating: 4.7, reviewCount: 241, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
       { key: "Brühgruppe", value: "58mm Edelstahl" },
@@ -1226,7 +1226,7 @@ const products: ProductData[] = [
   {
     name: "Sage The Oracle Touch", slug: "sage-the-oracle-touch",
     description: "Die Sage The Oracle Touch ist die ultimative Premium-Espressomaschine mit Touchdisplay. Das 4-Zoll-Farbtouchdisplay zeigt alle Brühoptionen übersichtlich an. Die automatische Milchaufschäumung erzeugt in Sekunden perfekten Cappuccino-Schaum. Die 58mm-Brühgruppe aus Edelstahl sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Die 6 voreingestellten Spezialitäten bieten Vielseitigkeit. Das elegante Design in Edelstahl passt in jede Küche. Das absolute Flaggschiff für Home-Baristas.", shortDesc: "Sage-Flaggschiff mit Touchdisplay und automatischer Milchaufschäumung",
-    price: 2420, sku: "SAGETHEORACLETO",
+    price: 899, sku: "SAGETHEORACLETO",
     rating: 4.2, reviewCount: 179, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
       { key: "Display", value: "4-Zoll Farbtouch" },
@@ -1240,7 +1240,7 @@ const products: ProductData[] = [
   {
     name: "Sage The Dual Boiler", slug: "sage-the-dual-boiler",
     description: "Die Sage The Dual Boiler ist eine Premium-Espressomaschine mit 2 Heizsystemen. Die 2 separaten Heizsysteme ermöglichen gleichzeitiges Brühen und Aufschäumen. Die 58mm-Brühgruppe aus Edelstahl sorgt für gleichmäßige Extraktion. Die PID-Temperaturregulation hält die Brühtemperatur konstant. Der Crona-Milchaufschäumer erzeugt cremigen Mikroschaum. Die Präzisions-Dosierung ermöglicht individuelle Einstellungen. Das elegante Design in Edelstahl passt in jede Küche. Das Premium-Modell für anspruchsvolle Baristas.", shortDesc: "Sage-Premium-Espressomaschine mit Dual Boiler und PID",
-    price: 1760, sku: "SAGETHEDUALBOIL",
+    price: 699, sku: "SAGETHEDUALBOIL",
     rating: 4.3, reviewCount: 176, categorySlug: "kaffee", brandSlug: "sage",
     specs: [
       { key: "Brühgruppe", value: "58mm Edelstahl" },
@@ -1254,7 +1254,7 @@ const products: ProductData[] = [
   {
     name: "Gastroback Design Espresso 42603", slug: "gastroback-design-espresso-42603",
     description: "Der Gastroback Design Espresso 42603 ist eine elegante Espressomaschine mit 15 bar Bruck. Die Edelstahl-Brühgruppe sorgt für gleichmäßige Extraktion. Der integrierte Milchaufschäumer erzeugt cremigen Milchschaum. Die einfache Ein-Tassen- und Zwei-Tassen-Brühung ermöglicht individuelle Zubereitung. Die Edelstahl-Tasse wärmt die Tasse vor. Das elegante Design in Schwarz und Edelstahl passt zu jeder Kücheneinrichtung. Perfekt für alle, die Espresso-Genuss im stilvollen Design suchen.", shortDesc: "Elegante Espressomaschine mit 15 bar und integriertem Milchaufschäumer",
-    price: 1760, sku: "GASTROBACKDE2",
+    price: 499, sku: "GASTROBACKDE2",
     rating: 4.5, reviewCount: 132, categorySlug: "kaffee", brandSlug: "gastroback",
     specs: [
       { key: "Brühdruck", value: "15 bar" },
@@ -1281,7 +1281,7 @@ const products: ProductData[] = [
   {
     name: "Nespresso Lattissima Touch En560", slug: "nespresso-lattissima-touch-en560",
     description: "Die Nespresso Lattissima Touch EN560 ist die Premium-Kapselmaschine mit automatischem Milchschaumer. Das patented Fresh-Foam-System erzeugt in Sekunden cremigen Milchschaum für Cappuccino und Latte Macchiato. Die 6 Tasten bieten alle Kaffeespezialitäten auf einen Blick. Die automatische Tassenhöhenanpassung passt für große und kleine Tassen. Der abnehmbare Milchtank ist spülmaschinenfeste. Die 19 bar Brühdruck-Technologie extrahiert das volle Aroma. Die Energiesparfunktion schaltet die Maschine nach 9 Minuten Inaktivität aus. Das elegante Touch-Design in verschiedenen Farben unterstreicht den Premium-Anspruch. Perfekt für alle, die Milchgetränke ohne Aufwand genießen wollen.", shortDesc: "Premium-Kapselmaschine mit Fresh-Foam-Milchschaumer und 6 Touch-Tasten",
-    price: 2440, sku: "NESPRESSOLATTIS", isFeatured: true, isNew: true,
+    price: 249, sku: "NESPRESSOLATTIS", isFeatured: true, isNew: true,
     rating: 4.9, reviewCount: 117, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
       { key: "Kaffeesystem", value: "Nespresso Original" },
@@ -1297,7 +1297,7 @@ const products: ProductData[] = [
   {
     name: "Nespresso Essenza Mini D50", slug: "nespresso-essenza-mini-d50",
     description: "Die Nespresso Essenza Mini D50 ist die kompakteste Nespresso-Maschine überhaupt. Mit nur 11 cm Breite und 20 cm Tiefe ist sie perfekt für kleine Küchen. Die 19 bar Hochdruck-Technologie extrahiert das volle Aroma aus jeder Nespresso-Kapsel. Die zwei Tassenfunktionen Espresso und Lungo bieten Vielseitigkeit. Die Energiesparfunktion schaltet die Maschine nach 9 Minuten Inaktivität aus. Das minimalistische Design in verschiedenen Farben passt zu jeder Kücheneinrichtung. Die automatische Abschaltfunktion spart Energie. Die Nespresso-Recycling-Box ermöglicht umweltgerechte Entsorgung. Der perfekte Einstieg in die Nespresso-Welt.", shortDesc: "Kompakteste Nespresso-Maschine mit 19 bar und 2 Tassenfunktionen",
-    price: 1960, sku: "NESPRESSOESSENZ",
+    price: 99, sku: "NESPRESSOESSENZ",
     rating: 4.4, reviewCount: 260, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
       { key: "Kaffeesystem", value: "Nespresso Original" },
@@ -1313,7 +1313,7 @@ const products: ProductData[] = [
   {
     name: "Nespresso Vertuo Next", slug: "nespresso-vertuo-next",
     description: "Die Nespresso Vertuo Next ist die Vielseitigste Nespresso-Maschine mit 5 Tassengrößen. Die innovative Centrifusion-Technologie zentrifugiert die Kapsel mit bis zu 7.000 Umdrehungen pro Minute für optimalen Geschmack. Die Barcode-Technologie erkennt jede Kapsel automatisch und passt Brühzeit, Temperatur und Drehzahl an. Die 5 Tassengrößen Espresso, Double Espresso, Gran Lungo, Mug und Alto bieten Vielseitigkeit für jeden Moment. Die large-Cara-Kanne fasst bis zu 535 ml für große Tassen. Das elegante Design in verschiedenen Farben passt zu jeder Kücheneinrichtung. Die 100% recycelbaren Aluminium-Kapseln sind umweltfreundlich. Perfekt für alle, die Kaffeevielseitigkeit im modernen Design suchen.", shortDesc: "Vielseitigste Nespresso-Maschine mit Centrifusion und 5 Tassengrößen",
-    price: 1440, sku: "NESPRESSOVER2", isFeatured: true,
+    price: 179, sku: "NESPRESSOVER2", isFeatured: true,
     rating: 4.4, reviewCount: 86, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
       { key: "Kaffeesystem", value: "Nespresso Vertuo" },
@@ -1329,7 +1329,7 @@ const products: ProductData[] = [
   {
     name: "Nespresso Vertuo Pop", slug: "nespresso-vertuo-pop",
     description: "Die Nespresso Vertuo Pop ist die kompakte Variante der Vertuo-Serie mit 5 Tassengrößen. Die Centrifusion-Technologie zentrifugiert die Kapsel mit bis zu 7.000 Umdrehungen pro Minute für optimalen Geschmack. Die Barcode-Technologie erkennt jede Kapsel automatisch und passt die Brühparameter an. Die 5 Tassengrößen bieten Vielseitigkeit für jeden Moment. Das kompakte Design von nur 14 cm Breite passt selbst in die kleinste Küche. Die verschiedenen Farboptionen machen jede Kaffeeecke zum Highlight. Die 100% recycelbaren Aluminium-Kapseln sind umweltfreundlich. Die Vertuo Pop ist der perfekte Einstieg in die Vertuo-Welt.", shortDesc: "Kompakte Vertuo-Maschine mit 5 Tassengrößen und Centrifusion",
-    price: 690, originalPrice: 793, sku: "NESPRESSOVERTUO", isPromo: true,
+    price: 79, originalPrice: 99, sku: "NESPRESSOVERTUO", isPromo: true,
     rating: 4.9, reviewCount: 42, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
       { key: "Kaffeesystem", value: "Nespresso Vertuo" },
@@ -1345,7 +1345,7 @@ const products: ProductData[] = [
   {
     name: "Nespresso Citiz En895", slug: "nespresso-citiz-en895",
     description: "Die Nespresso Citiz EN895 ist eine elegante Kapselmaschine mit integriertem Milchschaumer. Das Whisper-Quiet-System macht die Maschine besonders leise beim Brühen. Die automatische Tassenhöhenanpassung passt für große und kleine Tassen. Die 19 bar Brühdruck-Technologie extrahiert das Aroma optimal aus jeder Nespresso-Kapsel. Der abnehmbare Milchtank erzeugt automatisch cremigen Milchschaum. Die Energiesparfunktion schaltet die Maschine nach 9 Minuten Inaktivität aus. Das kompakte Design von nur 23 cm Breite passt in jede Küche. Die Nespresso-Recycling-Box ermöglicht umweltgerechte Entsorgung der Kapseln. Perfekt für alle, die Kaffee-Genuss und Design schätzen.", shortDesc: "Elegante Kapselmaschine mit leisem Betrieb und integriertem Milchschaumer",
-    price: 1410, originalPrice: 1621, sku: "NESPRESSOCITIZE", isPromo: true,
+    price: 199, originalPrice: 249, sku: "NESPRESSOCITIZE", isPromo: true,
     rating: 4.7, reviewCount: 297, categorySlug: "kaffee", brandSlug: "nespresso",
     specs: [
       { key: "Kaffeesystem", value: "Nespresso Original" },
@@ -1361,7 +1361,7 @@ const products: ProductData[] = [
   {
     name: "Lavazza A Modo Mio Jl01", slug: "lavazza-a-modo-mio-jl01",
     description: "Die Lavazza A Modo Mio JL01 ist ein kompakter Kapselkaffeemacher im typischen Lavazza-Design. Das patentierte A Modo Mio-System extrahiert Kaffee mit optimalem Druck für authentischen italienischen Espresso. Die Kapseln sind speziell für die ideale Extraktionszeit entwickelt. Die Maschine bringt sich in 25 Sekunden auf Betriebstemperatur. Die abnehmbare Auffangschale passt für große und kleine Tassen. Das kompakte Design von nur 20 cm Breite passt in jede Küche. Die Lavazza-Blend-Kapseln bieten authentischen italienischen Kaffee-Geschmack. Perfekt für alle, die italienischen Espresso ohne Aufwand genießen wollen.", shortDesc: "Kompakter Lavazza-Kapselkaffeemacher für authentischen italienischen Espresso",
-    price: 1430, originalPrice: 1644, sku: "LAVAZZAAMODOMIO", isPromo: true,
+    price: 149, originalPrice: 199, sku: "LAVAZZAAMODOMIO", isPromo: true,
     rating: 4.4, reviewCount: 82, categorySlug: "kaffee", brandSlug: "lavazza",
     specs: [
       { key: "Kaffeesystem", value: "Lavazza A Modo Mio" },
@@ -1477,7 +1477,7 @@ const products: ProductData[] = [
   {
     name: "Xiaomi Robot Vacuum X10 Plus", slug: "xiaomi-robot-vacuum-x10-plus",
     description: "Der Xiaomi Robot Vacuum X10+ ist ein intelligenter Saugroboter mit LDS-Navigation. Die LDS-Navigation erkennt den Grundriss und plant optimale Reinigungswege. Die 4000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das Preis-Leistungs-Wunder für automatische Reinigung.", shortDesc: "Xiaomi-Saugroboter mit LDS-Navigation und automatischer Entleerung",
-    price: 2080, sku: "XIAOMIROBOTVACU", isFeatured: true,
+    price: 399, sku: "XIAOMIROBOTVACU", isFeatured: true,
     rating: 4.2, reviewCount: 117, categorySlug: "reinigung", brandSlug: "xiaomi",
     specs: [
       { key: "Saugkraft", value: "4000 Pa" },
@@ -1505,7 +1505,7 @@ const products: ProductData[] = [
   {
     name: "Samsung Jet Bot Ai Plus Vr50t9990", slug: "samsung-jet-bot-ai-plus-vr50t9990",
     description: "Der Samsung Jet Bot AI+ VR50T9990 ist ein intelligenter Saugroboter mit KI-Navigation. Die KI-Navigation erkennt Hindernisse und vermeidet Kollisionen. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die 3D-Sensorik scannt den Raum in Echtzeit. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Live-View-Kamera zeigt den Live-Feed des Roboters. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Samsung-Flaggschiff-Saugroboter mit KI und 5100 Pa Saugkraft",
-    price: 1710, sku: "SAMSUNGJETBOTAI",
+    price: 799, sku: "SAMSUNGJETBOTAI",
     rating: 4.6, reviewCount: 151, categorySlug: "reinigung", brandSlug: "samsung",
     specs: [
       { key: "Saugkraft", value: "5100 Pa" },
@@ -1518,7 +1518,7 @@ const products: ProductData[] = [
   {
     name: "LG Cordzero A9 Kompressor", slug: "lg-cordzero-a9-kompressor",
     description: "Der LG CordZero A9 Kompressor ist ein kabelloser Akkusauger mit Kompressor-Technologie. Die Kompressor-Technologie sorgt für konstante Saugleistung. Die 2 Batterien bieten bis zu 80 Minuten Laufzeit. Die Power-Funktion erhöht die Saugleistung für schwere Verschmutzungen. Die Smart-Inverter-Motor arbeitet besonders leise und langlebig. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Perfekt für gründliches Saugen.", shortDesc: "Kabelloser Akkusauger mit Kompressor und 80 Min. Laufzeit",
-    price: 1350, originalPrice: 1552, sku: "LGCORDZEROA9KOM", isFeatured: true, isPromo: true,
+    price: 599, originalPrice: 699, sku: "LGCORDZEROA9KOM", isFeatured: true, isPromo: true,
     rating: 4.3, reviewCount: 70, categorySlug: "reinigung", brandSlug: "lg",
     specs: [
       { key: "Laufzeit", value: "Bis zu 80 Minuten" },
@@ -1531,7 +1531,7 @@ const products: ProductData[] = [
   {
     name: "LG Cordzero Thinq R9", slug: "lg-cordzero-thinq-r9",
     description: "Der LG CordZero ThinQ R9 ist ein intelligenter Saugroboter mit AI-Navigation. Die AI-Navigation erkennt Hindernisse und plant optimale Reinigungswege. Die 5100 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die automatische Staubertertiung bei voll gedocktem Base-Station. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Kompatibilität mit Alexa und Google Home bietet Sprachsteuerung. Das absolute Flaggschiff für automatische Reinigung.", shortDesc: "Intelligenter Saugroboter mit AI-Navigation und 5100 Pa Saugkraft",
-    price: 900, originalPrice: 1035, sku: "LGCORDZEROTHINQ", isPromo: true,
+    price: 399, originalPrice: 499, sku: "LGCORDZEROTHINQ", isPromo: true,
     rating: 4.1, reviewCount: 303, categorySlug: "reinigung", brandSlug: "lg",
     specs: [
       { key: "Saugkraft", value: "5100 Pa" },
@@ -1585,7 +1585,7 @@ const products: ProductData[] = [
   {
     name: "Miele Scout Rx3 Home Vision", slug: "miele-scout-rx3-home-vision",
     description: "Der Miele Scout RX3 Home Vision ist ein intelligenter Saugroboter mit 3D-Navigation. Die 3D-Navigation erkennt Hindernisse und plant optimale Reinigungswege. Die 3000 Pa Saugkraft entfernt Staub und Schmutz gründlich. Die Wischfunktion reinigt den Boden feucht. Die App-Steuerung ermöglicht die Fernbedienung von überall. Die Home Vision-Kamera zeigt den Live-Feed des Roboters. Die automatische Rückkehrladung ist standard. Das Premium-Modell für automatische Reinigung.", shortDesc: "Miele-Saugroboter mit 3D-Navigation und Home Vision",
-    price: 1130, sku: "MIELESCOUTRX3HO",
+    price: 599, sku: "MIELESCOUTRX3HO",
     rating: 4, reviewCount: 268, categorySlug: "reinigung", brandSlug: "miele",
     specs: [
       { key: "Saugkraft", value: "3000 Pa" },
@@ -1598,7 +1598,7 @@ const products: ProductData[] = [
   {
     name: "Philips 8000 Series Led", slug: "philips-8000-series-led",
     description: "Die Philips 8000 Series LED ist ein Premium-Traubsauger mit LED-Technologie. Die LED-Beleuchtung am Saugkopf macht Staub in dunklen Ecken sichtbar. Die 18V-Li-Ionen-Batterie bietet bis zu 60 Minuten Laufzeit. Die PowerBlade-Technologie sorgt für maximale Saugleistung. Die TriActive-Türbürste entfernt Staub gründlich. Die EasyClean-Technologie ermöglicht einfache Reinigung der Bürste. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das Premium-Modell für makellose Sauberkeit.", shortDesc: "Philips-Premium-Traubsauger mit LED und 60 Min. Laufzeit",
-    price: 1480, sku: "PHILIPS8000SERI", isFeatured: true,
+    price: 599, sku: "PHILIPS8000SERI", isFeatured: true,
     rating: 4.4, reviewCount: 198, categorySlug: "reinigung", brandSlug: "philips",
     specs: [
       { key: "Akku", value: "18V Li-Ionen" },
@@ -1650,7 +1650,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Unlimited Serie8 Bss81pob", slug: "bosch-unlimited-serie8-bss81pob",
     description: "Der Bosch Unlimited Serie 8 BSS81POB ist ein Premium-kabelloser Akkusauger mit Exchangeable-Battery-System. Die austauschbare Batterie ermöglicht unbegrenzte Laufzeit. Die AllFloor-HighPower-Bürste sorgt für gründliches Saugen. Die LED-Beleuchtung am Saugkopf macht Staub sichtbar. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das Premium-Design in various Farben passt zu jeder Haushaltsführung. Das absolute Flaggschiff für kabelloses Saugen.", shortDesc: "Premium-kabelloser Akkusauger mit austauschbarer Batterie",
-    price: 1580, sku: "BOSCHUNLIMITEDS",
+    price: 499, sku: "BOSCHUNLIMITEDS",
     rating: 4.4, reviewCount: 63, categorySlug: "reinigung", brandSlug: "bosch",
     specs: [
       { key: "Akku", value: "18V Li-Ionen (austauschbar)" },
@@ -1699,7 +1699,7 @@ const products: ProductData[] = [
   {
     name: "Vorwerk Kobold Vk200 Plus", slug: "vorwerk-kobold-vk200-plus",
     description: "Der Vorwerk Kobold VK200 Plus ist die Premium-Version des Kobold VK200 mit erweitertem Zubehör. Die Power-Brush VB1000 entfernt Staub und Schmutz gründlich. Die eigene Kinematik sorgt für optimale Bodenkontaktaufnahme. Die 2-in-1-Funktionalität ermöglicht das Saugen von Teppichen und Böden. Die kompakte Bauform lässt sich platzsparend aufbewahren. Die hohe Saugleistung entfernt selbst feinsten Staub. Das Premium-Design mit erweitertem Zubehör. Das ultimative Flaggschiff für makellose Sauberkeit.", shortDesc: "Vorwerk-Flaggschiff mit VB1000 und erweitertem Premium-Zubehör",
-    price: 1180, originalPrice: 1357, sku: "VORWERKKOBOLDVK", isPromo: true,
+    price: 849, originalPrice: 999, sku: "VORWERKKOBOLDVK", isPromo: true,
     rating: 4.4, reviewCount: 116, categorySlug: "reinigung", brandSlug: "vorwerk",
     specs: [
       { key: "Technologie", value: "Power-Brush VB1000" },
@@ -1712,7 +1712,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Detect Duo Cordless", slug: "ninja-detect-duo-cordless",
     description: "Der Ninja Detect Duo Cordless ist ein kabelloser Akkusauger mit Detect-Technologie. Die Detect-Technologie erkennt unterschiedliche Böden und passt die Saugleistung an. Die 2 Batterien bieten bis zu 80 Minuten Laufzeit. Die Power-Funktion erhöht die Saugleistung für schwere Verschmutzungen. Die multiple Ausstattung bietet Werkzeuge für jeden Einsatzzweck. Die Wandhalterung sorgt für platzsparende Aufbewahrung. Das elegante Design passt zu jeder Haushaltsführung. Perfekt für vielseitiges Saugen.", shortDesc: "Kabelloser Ninja-Akkusauger mit Detect-Technologie und 80 Min.",
-    price: 1750, sku: "NINJADETECTDUOC",
+    price: 399, sku: "NINJADETECTDUOC",
     rating: 4.7, reviewCount: 265, categorySlug: "reinigung", brandSlug: "ninja",
     specs: [
       { key: "Laufzeit", value: "Bis zu 80 Minuten" },
@@ -1738,7 +1738,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Foodi Max Af400eu", slug: "ninja-foodi-max-af400eu",
     description: "Die Ninja Foodi Max AF400EU ist ein großer Airfryer mit XL-Kapazität. Die 7 Funktionen – Airfry, Backen, Braten, Grillen, Trocknen, Rehydratieren, Dehydrieren – bieten maximale Vielseitigkeit. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Kochen. Das elegante Design in Schwarz passt zu jeder Kücheneinrichtung. Perfekt für Familien, die gesund und vielseitig kochen wollen.", shortDesc: "XL-Airfryer mit 7 Funktionen und großer Kapazität",
-    price: 1040, sku: "NINJAFOODIMAXAF",
+    price: 249, sku: "NINJAFOODIMAXAF",
     rating: 4.7, reviewCount: 118, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
       { key: "Kapazität", value: "7,6 Liter" },
@@ -1752,7 +1752,7 @@ const products: ProductData[] = [
   {
     name: "Ninja Speedi Sp101eu", slug: "ninja-speedi-sp101eu",
     description: "Der Ninja Speedi SP101EU ist ein multifunktionaler Heißluft-Fritteuse mit Speedi-Technologie. Die Speedi-Technologie kocht bis zu 30% schneller als herkömmliche Methoden. Die 10 Funktionen bieten maximale Vielseitigkeit. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das kompakte Design passt in jede Küche. Perfekt für schnelles und gesundes Garen.", shortDesc: "Ninja-Heißluft-Fritteuse mit Speedi und 10 Funktionen",
-    price: 1500, originalPrice: 1725, sku: "NINJASPEEDISP10", isFeatured: true, isPromo: true,
+    price: 399, originalPrice: 499, sku: "NINJASPEEDISP10", isFeatured: true, isPromo: true,
     rating: 4.4, reviewCount: 260, categorySlug: "kueche", brandSlug: "ninja",
     specs: [
       { key: "Kapazität", value: "3,8 Liter" },
@@ -1765,7 +1765,7 @@ const products: ProductData[] = [
   {
     name: "Cosori Pro2 Airfryer L501", slug: "cosori-pro2-airfryer-l501",
     description: "Die Cosori Pro2 Airfryer L501 ist ein leistungsstarker Heißluft-Fritteuse mit XL-Kapazität. Die 5,5 Liter Kapazität eignet sich für mittlere bis große Portionen. Die 13 Funktionen bieten maximale Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das elegante Design passt in jede Küche. Perfekt für gesundes Garen mit minimalem Fett.", shortDesc: "Leistungsstarker Heißluft-Fritteuse mit 5,5L und 13 Funktionen",
-    price: 2120, sku: "COSORIPRO2AIRFR", isNew: true,
+    price: 199, sku: "COSORIPRO2AIRFR", isNew: true,
     rating: 4.6, reviewCount: 12, categorySlug: "kueche", brandSlug: "cosori",
     specs: [
       { key: "Kapazität", value: "5,5 Liter" },
@@ -1791,7 +1791,7 @@ const products: ProductData[] = [
   {
     name: "Tefal Easy Fry Max Ey4018", slug: "tefal-easy-fry-max-ey4018",
     description: "Die Tefal Easy Fry Max EY4018 ist ein kompakter Heißluft-Fritteuse für kleine Portionen. Die 4,2 Liter Kapazität eignet sich für kleine bis mittlere Haushalte. Die 8 Funktionen bieten Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das elegante Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Kompakte Heißluft-Fritteuse mit 4,2L und 8 Funktionen",
-    price: 2750, sku: "TEFALEASYFRYMAX",
+    price: 299, sku: "TEFALEASYFRYMAX",
     rating: 4.8, reviewCount: 282, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
       { key: "Kapazität", value: "4,2 Liter" },
@@ -1817,7 +1817,7 @@ const products: ProductData[] = [
   {
     name: "Tefal Easy Grill Precision Dg2558", slug: "tefal-easy-grill-precision-dg2558",
     description: "Der Tefal Easy Grill Precision DG2558 ist ein Kontaktgrill mit präziser Temperaturregelung. Die 2 Temperaturen ermöglichen individuelle Einstellungen. Die Grillflächen mit Antihaft-Beschichtung sorgen für einfaches Reinigen. Die integrierte Fettablauerschale fängt überschüssiges Fett auf. Die zentrale Schließmulde sorgt für gleichmäßiges Grillen. Das kompakte Design lässt sich platzsparend aufbewahren. Perfekt für schnelle Grillgerichte zu Hause.", shortDesc: "Kontaktgrill mit präziser Temperaturregelung und Antihaft",
-    price: 1760, sku: "TEFALEASYGRILLP",
+    price: 249, sku: "TEFALEASYGRILLP",
     rating: 4.1, reviewCount: 123, categorySlug: "kueche", brandSlug: "tefal",
     specs: [
       { key: "Leistung", value: "2500 Watt" },
@@ -1857,7 +1857,7 @@ const products: ProductData[] = [
   {
     name: "Siemens Iq700 Induktionskochfeld Ex877ly44e", slug: "siemens-iq700-induktionskochfeld-ex877ly44e",
     description: "Das Siemens iQ700 Induktionskochfeld EX877LY44E bietet 4 Induktionskochfelder mit flexiblen Kochbereich. Die FlexInduction-Technologie ermöglicht die Kombination von Kochfeldern für große Kochgeschirre. Die PowerBoost-Funktion sorgt für schnelles Aufkochen. Das perfectFry-Sensorkochfeld regelt die Temperatur automatisch. Die intuitive Bedienung über Schieberegler ist einfach und komfortabel. Die Scheibenkeramik-Oberfläche ist leicht zu reinigen. Das 60-cm-Design passt in jede moderne Küchenzeile. Ein Premium-Kochfeld für anspruchsvolle Köche.", shortDesc: "Premium-Induktionskochfeld mit FlexInduction und perfectFry-Sensor",
-    price: 2070, originalPrice: 2381, sku: "SIEMENSIQ700IND", isPromo: true,
+    price: 999, originalPrice: 1199, sku: "SIEMENSIQ700IND", isPromo: true,
     rating: 4.4, reviewCount: 61, categorySlug: "kueche", brandSlug: "siemens",
     specs: [
       { key: "Kochfelder", value: "4 Induktionskochfelder" },
@@ -1899,7 +1899,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie8 Backofen Hbg8780b1", slug: "bosch-serie8-backofen-hbg8780b1",
     description: "Der Bosch Serie 8 Backofen HBG8780B1 ist ein einbau-würdiger Backofen mit 14 Funktionen. Die 3D-Heißluft-Verteilung sorgt für gleichmäßiges Backen auf allen Ebenen. Das Large-Account-Display mit TFT-Touchdisplay ermöglicht intuitive Bedienung. Die Home-Connect-App ermöglicht die Fernbedienung per Smartphone. Die SelfCleaning-Funktion reinigt den Ofen automatisch pyrolytisch. Die SoftOpen- und SoftClose-Tür sorgt für sanftes Öffnen und Schließen. Die Beleuchtung mit LED-Technik sorgt für optimale Sicht. Ein Premium-Backofen für anspruchsvolle Bäcker.", shortDesc: "Premium-Einbau-Backofen mit 14 Funktionen, Home Connect und Pyrolyse",
-    price: 1510, sku: "BOSCHSERIE8BACK",
+    price: 899, sku: "BOSCHSERIE8BACK",
     rating: 4.2, reviewCount: 175, categorySlug: "kueche", brandSlug: "bosch",
     specs: [
       { key: "Funktionen", value: "14 Backfunktionen" },
@@ -1998,7 +1998,7 @@ const products: ProductData[] = [
   {
     name: "Russell Hobbs Hobbs Retro Air Fryer 24530", slug: "russell-hobbs-retro-air-fryer-24530",
     description: "Der Russell Hobbs Retro Air Fryer 24530 ist ein stilvoller Airfryer im Retro-Design. Die 3 Funktionen – Airfry, Backen, Grillen – bieten Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Kochen. Das elegante Retro-Design in various Farben passt zu jeder Kücheneinrichtung. Perfekt für alle, die gesund und stilvoll kochen wollen.", shortDesc: "Retro-Airfryer mit 3 Funktionen und stilvollem Design",
-    price: 1530, originalPrice: 1759, sku: "RUSSELLHOBBSRET", isFeatured: true, isNew: true, isPromo: true,
+    price: 149, originalPrice: 199, sku: "RUSSELLHOBBSRET", isFeatured: true, isNew: true, isPromo: true,
     rating: 4.2, reviewCount: 12, categorySlug: "kueche", brandSlug: "russell-hobbs",
     specs: [
       { key: "Funktionen", value: "Airfry, Backen, Grillen" },
@@ -2011,7 +2011,7 @@ const products: ProductData[] = [
   {
     name: "De'Longhi Multifry Fh1394", slug: "delonghi-multifry-fh1394",
     description: "Die De'Longhi Multifry FH1394 ist ein multifunktionaler Heißluft-Fritteuse mit 2 Kochbereichen. Die 2 Kochbereiche ermöglichen das Gleichzeitiges Zubereiten von 2 Gerichten. Die Heat-Distribution-Technologie sorgt für gleichmäßiges Garen. Die 2,5 Liter Kapazität eignet sich für kleine bis mittlere Portionen. Die abnehmbaren Teile sind spülmaschinenfest. Die einfache Bedienung mit Drehregler ist intuitiv. Das kompakte Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Heißluft-Fritteuse mit 2 Kochbereichen und Heat-Distribution",
-    price: 1760, sku: "DELONGHIMULTIFR", isNew: true,
+    price: 399, sku: "DELONGHIMULTIFR", isNew: true,
     rating: 4.6, reviewCount: 284, categorySlug: "kueche", brandSlug: "delonghi",
     specs: [
       { key: "Kapazität", value: "2,5 Liter" },
@@ -2025,7 +2025,7 @@ const products: ProductData[] = [
   {
     name: "Moulinex Easy Fry Max Fx9029", slug: "moulinex-easy-fry-max-fx9029",
     description: "Die Moulinex Easy Fry Max FX9029 ist ein kompakter Heißluft-Fritteuse für kleine Portionen. Die 4,1 Liter Kapazität eignet sich für kleine bis mittlere Haushalte. Die 8 Funktionen bieten Vielseitigkeit für jeden Tag. Die schnelle Erhitzung spart Zeit und Energie. Die abnehmbaren Teile sind spülmaschinenfest. Die integrierte Timer-Funktion ermöglicht automatisches Garen. Das elegante Design passt in jede Küche. Perfekt für gesundes Garen ohne viel Fett.", shortDesc: "Kompakte Moulinex-Heißluft-Fritteuse mit 4,1L und 8 Funktionen",
-    price: 1540, originalPrice: 1771, sku: "MOULINEXEASYFRY", isPromo: true,
+    price: 149, originalPrice: 199, sku: "MOULINEXEASYFRY", isPromo: true,
     rating: 4.4, reviewCount: 215, categorySlug: "kueche", brandSlug: "moulinex",
     specs: [
       { key: "Kapazität", value: "4,1 Liter" },
@@ -2038,7 +2038,7 @@ const products: ProductData[] = [
   {
     name: "Kenwood Multipro Express Fdm79190ba", slug: "kenwood-multipro-express-fdm79190ba",
     description: "Die Kenwood Multipro Express FDM79190BA ist eine Premium-Küchenmaschine mit 1500 Watt Leistung. Das planetarische Mischsystem sorgt für gleichmäßige Ergebnisse. Die 10 Geschwindigkeitsstufen und der Pulsbetrieb ermöglichen individuelle Einstellungen. Die mitgelieferten Aufätze – Knethaken, Schneebesen, Saftpresse – bieten maximale Vielseitigkeit. Der abnehmbare 6,7-Liter-Rüssel ist spülmaschinenfeste. Die LED-Anzeige zeigt Geschwindigkeit und Timer an. Das elegante Design in Rot passt zu jeder Kücheneinrichtung. Ein Premium-Küchenhelfer.", shortDesc: "Premium-Küchenmaschine mit 1500W, Saftpresse und 6,7L-Rüssel",
-    price: 1510, sku: "KENWOODMULTIPRO",
+    price: 499, sku: "KENWOODMULTIPRO",
     rating: 4.8, reviewCount: 184, categorySlug: "kueche", brandSlug: "kenwood",
     specs: [
       { key: "Leistung", value: "1500 Watt" },
@@ -2336,7 +2336,7 @@ const products: ProductData[] = [
   {
     name: "Bosch Serie2 Waschmaschine Wgg244z01", slug: "bosch-serie2-waschmaschine-wgg244z01",
     description: "Die Bosch Serie 2 Waschmaschine WGG244Z01 ist eine kompakte Waschmaschine mit i-DOS-Technologie. Die i-DOS-Technologie dosiert Waschmittel automatisch präzise. Die 9 kg Kapazität eignet sich für mittlere Haushalte. Die 1400 U/min Schleuderung sorgt für optimale Ergebnisse. Das A+++ Energiesiegel sorgt für Energieeffizienz. Die varioSpeed-Funktion verkürzt die Waschzeit. Die Home-Connect-App ermöglicht die Fernbedienung. Perfekt für automatisches Waschen.", shortDesc: "Bosch-Kompakt-Waschmaschine mit i-DOS und 9 kg Kapazität",
-    price: 1100, sku: "BOSCHSERIE2WASC", isNew: true,
+    price: 549, sku: "BOSCHSERIE2WASC", isNew: true,
     rating: 4.9, reviewCount: 54, categorySlug: "haushaltsgeraete", brandSlug: "bosch",
     specs: [
       { key: "Kapazität", value: "9 kg" },

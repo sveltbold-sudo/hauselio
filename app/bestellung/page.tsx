@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText, Lock, Clock, HelpCircle } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice, getVatLabel } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
@@ -282,10 +283,48 @@ export default function BestellungPage() {
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hausaura py-20 text-center">
-        <h1 className="heading-2 mb-4 sr-only">Bestellung</h1>
-        <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-sm text-[var(--color-text-muted)] mt-4">Wird geladen…</p>
+      <main id="main-content" className="container-hausaura py-8" role="status" aria-label="Wird geladen">
+        <h1 className="heading-2 mb-8 sr-only">Bestellung</h1>
+        <div className="animate-pulse">
+          <div className="h-8 w-64 bg-[var(--color-border-light)] rounded mb-8" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 space-y-4">
+                  <div className="h-5 w-40 bg-[var(--color-border-light)] rounded" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="h-10 w-full bg-[var(--color-border-light)] rounded-xl" />
+                    <div className="h-10 w-full bg-[var(--color-border-light)] rounded-xl" />
+                  </div>
+                  <div className="h-10 w-full bg-[var(--color-border-light)] rounded-xl" />
+                </div>
+              ))}
+            </div>
+            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 space-y-4 h-fit">
+              <div className="h-5 w-32 bg-[var(--color-border-light)] rounded" />
+              <div className="space-y-3">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-[var(--color-border-light)] rounded-xl flex-shrink-0" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-3 w-32 bg-[var(--color-border-light)] rounded" />
+                      <div className="h-3 w-20 bg-[var(--color-border-light)] rounded" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="border-t border-[var(--color-border-light)] pt-4 space-y-3">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="flex justify-between">
+                    <div className="h-4 w-24 bg-[var(--color-border-light)] rounded" />
+                    <div className="h-4 w-16 bg-[var(--color-border-light)] rounded" />
+                  </div>
+                ))}
+              </div>
+              <div className="h-12 w-full bg-[var(--color-border-light)] rounded-xl" />
+            </div>
+          </div>
+        </div>
       </main>
     );
   }
@@ -508,16 +547,14 @@ export default function BestellungPage() {
 
               {/* Notes */}
               <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6">
-                <label htmlFor="checkout-notes" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">
-                  Bestellhinweise (optional)
-                </label>
-                <textarea
+                <Textarea
+                  label="Bestellhinweise (optional)"
                   id="checkout-notes"
                   name="notes"
                   value={formData.notes}
                   onChange={handleInputChange}
                   rows={3}
-                  className="block w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-text-primary)] shadow-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] hover:border-[var(--color-border)] resize-none min-h-[100px]"
+                  className="resize-none min-h-[100px]"
                   placeholder="Klingel links, Hinterhof, Etage…"
                 />
               </div>

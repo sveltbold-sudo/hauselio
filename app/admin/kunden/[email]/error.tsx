@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export default function CustomerDetailError({
   error,
@@ -12,7 +13,7 @@ export default function CustomerDetailError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("customer-detail-error", error);
+    logger.error("customer-detail-error", error);
   }, [error]);
 
   return (

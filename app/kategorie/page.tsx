@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Breadcrumb from "@/components/ui/Breadcrumb";
@@ -16,8 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kategorien ",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
-    siteName: "HAUSAURA",
-    locale: "de_DE",
+    siteName: SITE_NAME,    locale: "de_DE",
     type: "website",
   },
   twitter: {

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { CustomerLoginSchema } from "@/lib/validations";
 import {
   authenticateCustomer,
-  authenticateAdmin,
   generateCustomerToken,
   setCustomerCookie,
   checkCustomerLockout,
@@ -63,20 +62,6 @@ export async function POST(request: NextRequest) {
     const customer = await authenticateCustomer(email, password);
 
     if (!customer) {
-      const admin = await authenticateAdmin(email, password);
-      if (admin) {
-        await resetCustomerFailedLogins(email).catch(() => {});
-        const payload = { id: admin.id, email: admin.email, name: admin.name || admin.email };
-        const token = await generateCustomerToken(payload);
-        const cookieOptions = setCustomerCookie(token, request);
-        const response = NextResponse.json({
-          success: true,
-          customer: { id: admin.id, email: admin.email, name: admin.name || admin.email },
-          isAdmin: true,
-        });
-        applyCookiesToResponse(response, cookieOptions);
-        return response;
-      }
       await recordCustomerFailedLogin(email).catch((e) =>
         logger.error("record-customer-failed-login", e)
       );

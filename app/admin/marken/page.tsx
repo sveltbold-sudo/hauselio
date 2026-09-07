@@ -14,9 +14,15 @@ interface Brand {
   _count: { products: number };
 }
 
+interface BrandsResponse {
+  brands: Brand[];
+  pagination: { page: number; limit: number; total: number; pages: number };
+}
+
 export default function MarkenPage() {
   const toast = useToast();
   const [brands, setBrands] = useState<Brand[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -54,7 +60,10 @@ export default function MarkenPage() {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
-      .then((data) => startTransition(() => setBrands(data.brands || [])))
+      .then((data: BrandsResponse) => startTransition(() => {
+        setBrands(data.brands || []);
+        setTotalCount(data.pagination?.total ?? data.brands?.length ?? 0);
+      }))
       .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
       .finally(() => setLoading(false));
   }, [startTransition]);
@@ -120,7 +129,7 @@ export default function MarkenPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Marken</h1>
-          <p className="text-[var(--color-text-secondary)] mt-1">{brands.length} Marken</p>
+          <p className="text-[var(--color-text-secondary)] mt-1">{totalCount} Marken</p>
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", slug: "" }); }}
