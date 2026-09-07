@@ -9,10 +9,6 @@ interface RecommendedSectionProps {
   title?: string;
 }
 
-interface RecommendedSectionProps {
-  products: ProductListItem[];
-}
-
 export default function RecommendedSection({ products }: RecommendedSectionProps) {
   if (products.length === 0) return null;
 

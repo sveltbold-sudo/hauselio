@@ -136,7 +136,8 @@ export default function CookieConsent() {
   const handleSaveSelection = () => {
     setCookiePreferences(prefs);
     setVisible(false);
-    window.dispatchEvent(new CustomEvent("HAUSAURA:cookie-saved", { detail: { consent: true } }));
+    const hasOptional = prefs.functional || prefs.analytics;
+    window.dispatchEvent(new CustomEvent("HAUSAURA:cookie-saved", { detail: { consent: hasOptional } }));
   };
 
   const handleKeyDown = useCallback(
@@ -268,7 +269,7 @@ export default function CookieConsent() {
               </div>
             </div>
             <button
-              onClick={handleRejectAll}
+              onClick={() => setVisible(false)}
               className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Schließen"
             >

@@ -138,7 +138,7 @@ export default async function ProductPage({ params }: PageProps) {
   try {
     const settings = await prisma.siteSettings.findFirst();
     if (settings?.companyName) sellerName = settings.companyName;
-  } catch {}
+  } catch (e) { logger.error("site-settings", e); }
 
   const formattedProduct = {
     id: product.id,

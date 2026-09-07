@@ -6,8 +6,6 @@ import { Search, Mail, Phone, MapPin, ArrowUpDown } from "lucide-react";
 import { logger } from "@/lib/logger";
 import { toCustomerId } from "@/lib/customer-id";
 
-export const dynamic = "force-dynamic";
-
 interface Customer {
   email: string;
   firstName: string;

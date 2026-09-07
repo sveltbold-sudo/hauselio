@@ -100,6 +100,12 @@ export default function KontoPage() {
       .finally(() => setOrdersLoading(false));
   }, [customer?.email]);
 
+  useEffect(() => {
+    if (!profileSuccess) return;
+    const t = setTimeout(() => setProfileSuccess(""), 5000);
+    return () => clearTimeout(t);
+  }, [profileSuccess]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");

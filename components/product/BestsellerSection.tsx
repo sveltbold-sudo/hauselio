@@ -9,10 +9,6 @@ interface BestsellerSectionProps {
   title?: string;
 }
 
-interface BestsellerSectionProps {
-  products: ProductListItem[];
-}
-
 export default function BestsellerSection({ products }: BestsellerSectionProps) {
   if (products.length === 0) return null;
 

@@ -351,7 +351,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {categories.map((cat) => (
             <Link
               key={cat.id}
-              href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}${brand ? `&brand=${brand}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}${promo === "true" ? "&promo=true" : ""}`}
+              href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}${promo === "true" ? "&promo=true" : ""}`}
               aria-current={category === cat.slug ? "page" : undefined}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 category === cat.slug
