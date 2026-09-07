@@ -8,6 +8,7 @@
 :root {
   /* ── Brand Colors ── */
   --color-primary: #0A2540;
+  --color-primary-rgb: 10, 37, 64;
   --color-primary-hover: #123B5E;
   --color-primary-light: #1a3a5c;
   --color-primary-dark: #061a2e;

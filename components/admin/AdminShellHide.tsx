@@ -1,10 +1,10 @@
 "use client";
 
+import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
-export default function AdminShellHide({ children }: { children: React.ReactNode }) {
+export default function AdminShellHide({ children, footer }: { children: ReactNode; footer: ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -18,7 +18,7 @@ export default function AdminShellHide({ children }: { children: React.ReactNode
       <div className="flex-1 pb-20 lg:pb-0">
         {children}
       </div>
-      <Footer />
+      {footer}
     </>
   );
 }

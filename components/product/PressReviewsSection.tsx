@@ -194,7 +194,7 @@ export default function PressReviewsSection({
     <section className="relative overflow-hidden" aria-label="Pressestimmen">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg-secondary)] via-white to-[var(--color-bg-secondary)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(var(--color-primary-rgb,59,130,246),0.03),transparent_70%)]" />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at top, rgba(59,130,246,0.03), transparent 70%)" }} />
 
       <div className="relative section-py">
         <div className="container-hausaura">

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import ClientShell from "@/components/layout/ClientShell";
 import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
@@ -8,6 +9,7 @@ import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import ClientProviders from "@/components/ui/ClientProviders";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import AdminShellHide from "@/components/admin/AdminShellHide";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -105,7 +107,7 @@ export default function RootLayout({
           Direkt zum Inhalt
         </a>
         <ToastProvider>
-          <AdminShellHide>
+          <AdminShellHide footer={<Suspense fallback={null}><Footer /></Suspense>}>
             {children}
           </AdminShellHide>
           <ClientProviders />

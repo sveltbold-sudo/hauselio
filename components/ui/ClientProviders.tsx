@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const AnalyticsGate = dynamic(() => import("@/components/analytics/AnalyticsGate"), { ssr: false });
@@ -9,7 +10,9 @@ export default function ClientProviders() {
   return (
     <>
       <AnalyticsGate />
-      <NewsletterToast />
+      <Suspense fallback={null}>
+        <NewsletterToast />
+      </Suspense>
     </>
   );
 }
