@@ -42,7 +42,7 @@ export default function ProductImage({
     lg: "text-sm",
   };
 
-  if (src && src.trim() !== "" && !src.includes("placeholder")) {
+  if (src && src.trim() !== "") {
     return (
       <div className={`relative bg-[var(--color-bg-secondary)] flex items-center justify-center overflow-hidden ${sizeClasses[size]} ${className}`}>
         <Image

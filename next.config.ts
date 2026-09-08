@@ -84,7 +84,7 @@ const nextConfig: NextConfig = {
     { source: "/reinigung", destination: "/kategorie/reinigung", permanent: true },
     { source: "/haushaltsgeraete", destination: "/kategorie/haushaltsgeraete", permanent: true },
     { source: "/kategorien", destination: "/kategorie", permanent: true },
-    { source: "/anmelden", destination: "/kontakt", permanent: false },
+    { source: "/anmelden", destination: "/konto", permanent: true },
     { source: "/suche", destination: "/shop", permanent: false },
   ],
   async headers() {
