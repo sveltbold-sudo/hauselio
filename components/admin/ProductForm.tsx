@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ImageUpload from "@/components/admin/ImageUpload";
 import Button from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 import { slugify } from "@/lib/utils";
 import type { Category, Brand, ProductFormData } from "@/lib/admin-product-types";
 import { emptyFormData } from "@/lib/admin-product-types";
@@ -47,8 +48,8 @@ export default function ProductForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [showSavedHint, setShowSavedHint] = useState(false);
   const isDirty = useRef(false);
+  const toast = useToast();
   const initialDataRef = useRef(initialData);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -191,14 +192,6 @@ export default function ProductForm({
     const cleanup = handleKeyDown();
     return cleanup;
   }, [handleKeyDown]);
-
-  useEffect(() => {
-    if (!isSubmitting && !showSavedHint) return;
-    if (showSavedHint) {
-      const timer = setTimeout(() => setShowSavedHint(false), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [isSubmitting, showSavedHint]);
 
   const isDisabled = isLoading || isSubmitting;
 
@@ -716,7 +709,9 @@ export default function ProductForm({
                             images: [...prev.images, { url: data.url, publicId: data.publicId || "", position: prev.images.length + 1 }],
                           }));
                         }
-                      } catch {}
+                      } catch {
+                        toast.error("Bild-Upload fehlgeschlagen.");
+                      }
                       e.target.value = "";
                     }}
                   />

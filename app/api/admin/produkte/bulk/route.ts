@@ -10,7 +10,7 @@ import { z } from "zod";
 const BulkActionSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("delete"),
-    ids: z.array(z.string().uuid()).min(1).max(50),
+    ids: z.array(z.string().regex(/^c[a-z0-9]{20,}$/i)).min(1).max(50),
   }),
 ]);
 

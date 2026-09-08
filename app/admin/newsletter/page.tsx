@@ -8,8 +8,6 @@ import DOMPurify from "isomorphic-dompurify";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import Textarea from "@/components/ui/Textarea";
 
-export const dynamic = "force-dynamic";
-
 interface Subscriber {
   id: string;
   email: string;
