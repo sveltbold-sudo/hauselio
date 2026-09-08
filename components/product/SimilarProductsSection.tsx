@@ -54,7 +54,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
           <Users className="w-5 h-5 text-[var(--color-primary)]" />
           Andere kauften auch
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[1fr]">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="bg-white rounded-2xl border border-[var(--color-border-light)] p-3 animate-pulse">
               <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg mb-3" />
@@ -75,7 +75,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
         <Users className="w-5 h-5 text-[var(--color-primary)]" />
         Andere kauften auch
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[1fr]">
         {products.map((product) => (
           <Link
             key={product.id}

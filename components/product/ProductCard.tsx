@@ -78,7 +78,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center gap-1.5 mb-2.5">
             <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />
           </div>
-          <div className="flex-1" />
           <div className="flex items-baseline gap-2">
             <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
               {formatPrice(product.price)}

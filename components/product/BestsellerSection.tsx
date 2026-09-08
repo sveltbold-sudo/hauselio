@@ -61,7 +61,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
           </MobileHorizontalScroll>
         </div>
         {/* Desktop: grid */}
-        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[1fr]">
           {products.map((product, i) => (
             <div
               key={product.id}

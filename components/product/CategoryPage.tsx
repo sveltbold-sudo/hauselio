@@ -129,7 +129,7 @@ export default function CategoryPage({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 auto-rows-[1fr]">
             {products.map((product, i) => (
               <div
                 key={product.id}
