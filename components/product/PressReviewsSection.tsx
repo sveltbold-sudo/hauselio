@@ -107,7 +107,7 @@ function ReviewCard({ review, index }: { review: PressReview; index: number }) {
         </div>
 
         {/* Headline */}
-        <h3 className="text-base font-bold text-[var(--color-text-primary)] mb-2 leading-snug">
+        <h3 className="text-base font-bold text-[var(--color-text-primary)] mb-2 leading-snug line-clamp-2">
           {review.headline}
         </h3>
 
@@ -118,7 +118,7 @@ function ReviewCard({ review, index }: { review: PressReview; index: number }) {
             style={{ color: review.accentColor }}
             aria-hidden="true"
           />
-          <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed pl-4">
+          <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed pl-4 line-clamp-3">
             {review.excerpt}
           </p>
         </div>

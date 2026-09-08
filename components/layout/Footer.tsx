@@ -215,15 +215,15 @@ export default async function Footer() {
                 href={`mailto:${contact.contactEmail}`}
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
-                <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                {contact.contactEmail}
+                <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span className="truncate">{contact.contactEmail}</span>
               </a>
               <a
                 href={`tel:${contact.contactPhone.replace(/[\s()]/g, "")}`}
                 className="flex items-center gap-2 px-2.5 py-2 min-h-[44px] text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
               >
-                <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-                {contact.contactPhone}
+                <Phone className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span className="truncate">{contact.contactPhone}</span>
               </a>
             </div>
           </div>

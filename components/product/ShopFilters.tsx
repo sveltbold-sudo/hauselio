@@ -60,7 +60,7 @@ export default function ShopFilters({
               router.push(`/shop?${params.toString()}`);
             }}
             aria-label="Alle Filter zurücksetzen"
-            className="text-xs text-[var(--color-primary)] hover:underline font-medium"
+            className="text-xs text-[var(--color-primary)] hover:underline font-medium min-h-[44px] flex items-center"
           >
             Zurücksetzen
           </button>

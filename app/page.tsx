@@ -293,7 +293,7 @@ async function CategoriesSection() {
 
           {/* Content */}
           <div className="absolute inset-0 flex flex-col justify-end p-4">
-            <h3 className="font-bold text-sm text-white mb-0.5 leading-tight">
+            <h3 className="font-bold text-sm text-white mb-0.5 leading-tight truncate">
               {cat.name}
             </h3>
           </div>

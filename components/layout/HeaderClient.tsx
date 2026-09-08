@@ -414,7 +414,7 @@ export default function HeaderClient() {
         className="hidden lg:block relative z-10 border-t border-[var(--color-border-light)]"
       >
         <div className="container-hausaura">
-          <div className="flex items-center gap-1 h-11">
+          <div className="flex items-center gap-1 h-11 overflow-x-auto scrollbar-hide">
             {navCategories.map((cat) => (
               <div
                 key={cat.href}
