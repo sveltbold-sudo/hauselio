@@ -9,10 +9,6 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "multipart/form-data");
     if (ctError) return ctError;
 
-    await requireAdmin();
-
-    const cloudinary = getCloudinary();
-
     if (!validateCsrfOrigin(request)) {
       return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
     }
@@ -21,6 +17,10 @@ export async function POST(request: NextRequest) {
     if (!await checkRateLimit(`admin-upload:${ip}`, 20, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
+
+    await requireAdmin();
+
+    const cloudinary = getCloudinary();
 
     const formData = await request.formData();
     const file = formData.get("file") as File;

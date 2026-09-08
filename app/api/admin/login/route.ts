@@ -8,7 +8,7 @@ import {
   recordFailedLogin,
   resetFailedLogins,
 } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
@@ -103,7 +103,6 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    logger.error("login", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

@@ -69,6 +69,11 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-activity-create:${ip}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+
     const admin = await requireAdmin();
     const body = await request.json();
 

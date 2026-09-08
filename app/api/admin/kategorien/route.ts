@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     if (ctError) return ctError;
 
     if (!validateCsrfOrigin(request)) {
-      return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
+      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
     }
 
     await requireAdmin();

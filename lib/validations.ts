@@ -38,10 +38,10 @@ export const ContactSchema = z.object({
 });
 
 export const CreateProductSchema = z.object({
-  name: z.string().min(1, "Name ist erforderlich").max(200),
+  name: z.string().min(3, "Name muss mindestens 3 Zeichen lang sein.").max(200),
   slug: z.string().min(1, "Slug ist erforderlich").max(200)
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten"),
-  description: z.string().min(1, "Beschreibung ist erforderlich").max(10000),
+  description: z.string().min(10, "Beschreibung muss mindestens 10 Zeichen lang sein.").max(10000),
   shortDesc: z.string().max(500).optional().nullable(),
   price: z.number().min(0.01, "Preis muss größer als 0 sein").max(999999.99),
   originalPrice: z.number().min(0).max(999999.99).optional().nullable(),
