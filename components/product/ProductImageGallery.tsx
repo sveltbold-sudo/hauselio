@@ -54,7 +54,7 @@ export default function ProductImageGallery({
           else if (e.key === "ArrowLeft" && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
         }}
         aria-label={`Bild vergrößern. Bild ${activeImageIndex + 1} von ${images.length}. Pfeiltasten zum Navigieren.`}
-        className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left active:scale-[0.98] transition-transform duration-150"
+        className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left active:scale-[0.98] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         onTouchStart={(e) => setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY })}
         onTouchEnd={(e) => {
           if (touchStart === null) return;
@@ -120,7 +120,7 @@ export default function ProductImageGallery({
                 role="option"
                 aria-selected={activeImageIndex === i}
                 aria-label={`${name} Bild ${i + 1} anzeigen`}
-                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-all duration-200 active:scale-95 relative ${
+                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-[var(--color-bg-secondary)] rounded-xl flex items-center border-2 overflow-hidden transition-all duration-200 active:scale-95 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                   activeImageIndex === i
                     ? "border-[var(--color-primary)] shadow-sm"
                     : "border-transparent hover:border-[var(--color-border)]"

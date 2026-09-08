@@ -719,7 +719,7 @@ export default function BestellungPage() {
                   {orderError}
                   <button
                     onClick={() => window.location.reload()}
-                    className="ml-2 underline font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
+                    className="ml-2 underline font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] min-h-[44px] min-w-[44px] inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
                   >
                     Neu laden
                   </button>

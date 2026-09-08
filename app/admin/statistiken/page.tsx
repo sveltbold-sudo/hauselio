@@ -65,7 +65,7 @@ export default function StatistikenPage() {
     return (
       <div className="p-8 text-center">
         <p className="text-[var(--color-danger)]" role="alert">{error || "Fehler beim Laden der Statistiken."}</p>
-        <button onClick={() => fetchStats(dateRange)} className="mt-4 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)]">Erneut versuchen</button>
+        <button onClick={() => fetchStats(dateRange)} className="mt-4 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Erneut versuchen</button>
       </div>
     );
   }
@@ -84,7 +84,7 @@ export default function StatistikenPage() {
               key={opt.value}
               onClick={() => handleRangeChange(opt.value)}
               aria-pressed={dateRange === opt.value}
-              className={`px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors ${
+              className={`px-3 py-2.5 min-h-[44px] rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 dateRange === opt.value
                   ? "bg-white text-[var(--color-text-primary)] shadow-sm"
                   : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"

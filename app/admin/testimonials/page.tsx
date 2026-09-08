@@ -162,7 +162,7 @@ export default function TestimonialsPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", location: "", rating: 5, content: "", product: "", avatar: "", isApproved: false, isFeatured: false }); }}
-          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           <Plus className="w-4 h-4" /> Neues Testimonial
         </button>
@@ -174,7 +174,7 @@ export default function TestimonialsPage() {
             key={f}
             onClick={() => { setFilter(f); setPage(1); }}
             aria-pressed={filter === f}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               filter === f
                 ? "bg-[var(--color-primary)] text-white"
                 : "bg-white border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]"
@@ -197,7 +197,7 @@ export default function TestimonialsPage() {
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h2 id="testimonial-form-title" className="text-lg font-bold">{editingId ? "Testimonial bearbeiten" : "Neues Testimonial"}</h2>
-              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg">
+              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -229,7 +229,7 @@ export default function TestimonialsPage() {
                         key={r}
                         type="button"
                         onClick={() => setForm({ ...form, rating: r })}
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                         aria-label={`${r} Stern${r > 1 ? "en" : ""}`}
                       >
                         <Star className={`w-6 h-6 ${r <= form.rating ? "text-[var(--color-accent)] fill-[var(--color-accent)]" : "text-[var(--color-star-empty)]"}`} />
@@ -269,8 +269,8 @@ export default function TestimonialsPage() {
                 </label>
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">Abbrechen</button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Abbrechen</button>
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -312,22 +312,22 @@ export default function TestimonialsPage() {
                 <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                   <button
                     onClick={() => handleToggle(t.id, "isApproved", !t.isApproved)}
-                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isApproved ? "Genehmigung entziehen" : "Genehmigen"}
                   >
                     {t.isApproved ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={() => handleToggle(t.id, "isFeatured", !t.isFeatured)}
-                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isFeatured ? "Hervorhebung entfernen" : "Hervorheben"}
                   >
                     <Star className="w-4 h-4" />
                   </button>
-                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                     <Pencil className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
@@ -341,8 +341,8 @@ export default function TestimonialsPage() {
         <div className="flex items-center justify-between mt-6">
           <p className="text-sm text-[var(--color-text-muted)]">Seite {pagination.page} von {pagination.pages}</p>
           <div className="flex gap-2">
-            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Zurück</button>
-            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Weiter</button>
+            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Zurück</button>
+            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Weiter</button>
           </div>
         </div>
       )}

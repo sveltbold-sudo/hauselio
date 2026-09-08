@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, ExternalLink } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
@@ -128,8 +128,9 @@ export default async function BarrierefreiheitPage() {
               Allgemeine Schlichtungsstelle des Bundes<br />
               Representativesstraße 10<br />
               77654 Offenburg<br />
-              <a href="https://www.ergaenzende-schlichtung.de" className="text-[var(--color-primary)] hover:underline break-all" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.ergaenzende-schlichtung.de" className="text-[var(--color-primary)] hover:underline break-all inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" aria-label="www.ergaenzende-schlichtung.de (öffnet in neuem Fenster)">
                 www.ergaenzende-schlichtung.de
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               </a>
             </p>
           </div>

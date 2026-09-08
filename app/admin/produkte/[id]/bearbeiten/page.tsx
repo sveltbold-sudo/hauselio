@@ -127,11 +127,11 @@ export default function EditProductPage({
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Erneut versuchen
           </button>
-          <a href="/admin/produkte" className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:underline">
+          <a href="/admin/produkte" className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
             Zurück zur Produktliste
           </a>
         </div>

@@ -184,7 +184,7 @@ export default function CouponsPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ code: "", discountPercent: 10, maxUses: 0, expiresAt: "", isActive: true }); }}
-          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           <Plus className="w-4 h-4" /> Neuer Gutschein
         </button>
@@ -198,7 +198,8 @@ export default function CouponsPage() {
           value={search}
           onChange={(e) => debouncedSearch(e.target.value)}
           placeholder="Gutscheincode suchen…"
-          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20"
+          aria-label="Gutscheine suchen"
+          className="w-full pl-10 pr-4 py-3 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:ring-offset-2"
         />
       </div>
 
@@ -213,7 +214,7 @@ export default function CouponsPage() {
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">{editingId ? "Gutschein bearbeiten" : "Neuer Gutschein"}</h2>
-               <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg">
+               <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -280,10 +281,10 @@ export default function CouponsPage() {
                 <label htmlFor="coupon-active" className="text-sm text-[var(--color-text-secondary)]">Aktiv</label>
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
+                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                   Abbrechen
                 </button>
-                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -323,7 +324,7 @@ export default function CouponsPage() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <code className="text-sm font-bold font-mono text-[var(--color-primary)]">{coupon.code}</code>
-                       <button onClick={() => copyCode(coupon.code)} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)]" aria-label="Code kopieren">
+                       <button onClick={() => copyCode(coupon.code)} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]" aria-label="Code kopieren">
                         <Copy className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -356,10 +357,10 @@ export default function CouponsPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
-                       <button onClick={() => handleEdit(coupon)} aria-label="Gutschein bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                       <button onClick={() => handleEdit(coupon)} aria-label="Gutschein bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                          <Pencil className="w-4 h-4" />
                        </button>
-                       <button onClick={() => setDeleteId(coupon.id)} aria-label="Gutschein löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                       <button onClick={() => setDeleteId(coupon.id)} aria-label="Gutschein löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -376,8 +377,8 @@ export default function CouponsPage() {
         <div className="flex items-center justify-between mt-6">
           <p className="text-sm text-[var(--color-text-muted)]">Seite {pagination.page} von {pagination.pages}</p>
           <div className="flex gap-2">
-            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Zurück</button>
-            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Weiter</button>
+            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Zurück</button>
+            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Weiter</button>
           </div>
         </div>
       )}

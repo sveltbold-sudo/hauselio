@@ -430,7 +430,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Alle entfernen
           </Link>
@@ -494,7 +494,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               </p>
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 <ShoppingBag className="w-4 h-4" aria-hidden="true" />
                 Alle Produkte ansehen
@@ -519,7 +519,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   {page > 1 && (
                     <Link
                       href={shopUrl(page - 1, category, brand, q, sort, price, promo, rating)}
-                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                       aria-label="Vorherige Seite"
                     >
                       <ChevronLeft className="w-4 h-4" aria-hidden="true" />
@@ -542,7 +542,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                         key={p}
                         href={shopUrl(p, category, brand, q, sort, price, promo, rating)}
                         aria-current={p === page ? "page" : undefined}
-                        className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 ${
+                        className={`min-w-[44px] min-h-[44px] flex items-center justify-center text-sm rounded-xl font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                           p === page
                             ? "bg-[var(--color-primary)] text-white shadow-md shadow-[var(--color-primary)]/15"
                             : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)]"
@@ -555,7 +555,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   {page < totalPages && (
                     <Link
                       href={shopUrl(page + 1, category, brand, q, sort, price, promo, rating)}
-                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1"
+                      className="px-3 sm:px-4 py-2.5 min-h-[44px] text-sm rounded-xl font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                       aria-label="Nächste Seite"
                     >
                       <span className="hidden sm:inline">Weiter</span>

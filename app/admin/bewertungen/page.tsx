@@ -142,7 +142,7 @@ export default function BewertungenPage() {
             key={f}
             onClick={() => { setFilter(f); setPage(1); setSelectedIds(new Set()); }}
             aria-pressed={filter === f}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               filter === f
                 ? "bg-[var(--color-primary)] text-white"
                 : "bg-white border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]"
@@ -158,9 +158,9 @@ export default function BewertungenPage() {
         <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl p-3 mb-4 flex items-center justify-between">
           <span className="text-sm font-medium text-[var(--color-text-primary)]">{selectedIds.size} ausgewählt</span>
           <div className="flex gap-2">
-            <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50">Genehmigen</button>
-            <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50">Ablehnen</button>
-            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50">Löschen</button>
+            <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Genehmigen</button>
+            <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Ablehnen</button>
+            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Löschen</button>
           </div>
         </div>
       )}
@@ -237,7 +237,7 @@ export default function BewertungenPage() {
                   {!review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, true)}
-                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       aria-label="Bewertung genehmigen"
                     >
                       <Check className="w-4 h-4" />
@@ -246,15 +246,15 @@ export default function BewertungenPage() {
                   {review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, false)}
-                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                       aria-label="Genehmigung entziehen"
                     >
                       <X className="w-4 h-4" />
                     </button>
                   )}
-                  <button
-                    onClick={() => handleDelete(review.id)}
-                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                    <button
+                      onClick={() => handleDelete(review.id)}
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     aria-label="Bewertung löschen"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -274,14 +274,14 @@ export default function BewertungenPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Zurück
             </button>
             <button
               onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))}
               disabled={page === pagination.pages}
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Weiter
             </button>

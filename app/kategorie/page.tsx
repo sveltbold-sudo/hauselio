@@ -82,7 +82,7 @@ export default async function KategoriePage() {
             <Link
               key={cat.slug}
               href={`/kategorie/${cat.slug}`}
-              className="group bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden hover:shadow-lg hover:border-[var(--color-primary)]/20 transition-colors transition-shadow duration-300"
+              className="group bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden hover:shadow-lg hover:border-[var(--color-primary)]/20 transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               <div className="aspect-[16/9] relative overflow-hidden bg-[var(--color-bg-secondary)]">
                 {cat.products[0]?.images[0] ? (

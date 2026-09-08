@@ -63,7 +63,7 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
             id={`tab-${tab.key}`}
             tabIndex={activeTab === tab.key ? 0 : -1}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-5 py-3.5 text-sm font-semibold border-b-2 transition-[border-color,color] duration-200 whitespace-nowrap ${
+            className={`px-5 py-3.5 text-sm font-semibold border-b-2 transition-[border-color,color] duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               activeTab === tab.key
                 ? "border-[var(--color-primary)] text-[var(--color-primary)]"
                 : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"

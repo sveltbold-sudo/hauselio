@@ -81,7 +81,7 @@ export default async function AdminDashboard() {
           </p>
           <Link
             href="/admin"
-            className="inline-flex px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors"
+            className="inline-flex px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Erneut versuchen
           </Link>
@@ -183,7 +183,7 @@ export default async function AdminDashboard() {
             </h2>
             <Link
               href="/admin/bestellungen"
-              className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+              className="text-sm font-medium text-[var(--color-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Alle ansehen
             </Link>
@@ -217,7 +217,7 @@ export default async function AdminDashboard() {
                     <td className="px-5 py-3">
                       <Link
                         href={`/admin/bestellungen/${order.id}`}
-                        className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+                        className="text-sm font-medium text-[var(--color-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                       >
                         {order.orderNumber}
                       </Link>
@@ -265,7 +265,7 @@ export default async function AdminDashboard() {
                   <div>
                     <Link
                       href={`/admin/bestellungen/${order.id}`}
-                      className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+                      className="text-sm font-medium text-[var(--color-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                     >
                       {order.orderNumber}
                     </Link>

@@ -133,7 +133,7 @@ export default function MarkenPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", slug: "" }); }}
-          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           <Plus className="w-4 h-4" /> Neue Marke
         </button>
@@ -181,10 +181,10 @@ export default function MarkenPage() {
                 />
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">
+                <button type="button" onClick={() => setShowForm(false)} className="min-h-[44px] px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                   Abbrechen
                 </button>
-                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="min-h-[44px] px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -227,10 +227,10 @@ export default function MarkenPage() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <button onClick={() => handleEdit(brand)} aria-label={`Marke ${brand.name} bearbeiten`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                    <button onClick={() => handleEdit(brand)} aria-label={`Marke ${brand.name} bearbeiten`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
                       <Pencil className="w-4 h-4" />
                     </button>
-                    <button onClick={() => handleDelete(brand.id, brand.name, brand._count.products)} disabled={brand._count.products > 0} aria-label={brand._count.products > 0 ? `Marke ${brand.name} hat ${brand._count.products} Produkte und kann nicht gelöscht werden` : `Marke ${brand.name} löschen`} title={brand._count.products > 0 ? `${brand._count.products} Produkte zugeordnet` : undefined} className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${brand._count.products > 0 ? "text-[var(--color-text-muted)] opacity-40 cursor-not-allowed" : "text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)]"}`}>
+                    <button onClick={() => handleDelete(brand.id, brand.name, brand._count.products)} disabled={brand._count.products > 0} aria-label={brand._count.products > 0 ? `Marke ${brand.name} hat ${brand._count.products} Produkte und kann nicht gelöscht werden` : `Marke ${brand.name} löschen`} title={brand._count.products > 0 ? `${brand._count.products} Produkte zugeordnet` : undefined} className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${brand._count.products > 0 ? "text-[var(--color-text-muted)] opacity-40 cursor-not-allowed" : "text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)]"}`}>
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>

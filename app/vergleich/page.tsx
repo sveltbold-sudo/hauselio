@@ -85,7 +85,7 @@ export default function VergleichPage() {
 
       {/* Comparison table */}
       <div className="relative overflow-x-auto px-5 pb-4">
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 sm:hidden" aria-hidden="true" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 sm:hidden" aria-hidden="true" />
         <table className="w-full min-w-[600px] border-collapse">
           <caption className="sr-only">Produktvergleich</caption>
           {/* Product headers */}
@@ -96,7 +96,7 @@ export default function VergleichPage() {
                 const discount = calcDiscount(item.price, item.originalPrice ?? null);
                 return (
                   <th key={item.id} className="p-3 text-center align-top">
-                    <div className="relative bg-white rounded-2xl border border-[var(--color-border-light)] p-4">
+                    <div className="relative bg-[var(--color-bg)] rounded-2xl border border-[var(--color-border-light)] p-4">
                       <button
                         onClick={() => removeItem(item.id)}
                         aria-label={`${item.name} vom Vergleich entfernen`}

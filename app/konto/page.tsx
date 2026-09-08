@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp, X } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
+import { useCartStore } from "@/lib/store";
 
 interface Customer {
   id: string;
@@ -177,6 +178,7 @@ export default function KontoPage() {
     try {
       await fetch("/api/customer/logout", { method: "POST" });
     } catch {}
+    useCartStore.getState().clearCart();
     setCustomer(null);
     setProfileName("");
     setProfilePhone("");
@@ -254,7 +256,7 @@ export default function KontoPage() {
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Bitte überprüfen Sie Ihre E-Mail-Adresse.</p>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Wir haben einen Verifizierungslink an {customer.email} gesendet. Klicken Sie auf den Link, um Ihr Konto zu aktivieren.</p>
               </div>
-              <button onClick={() => setShowVerifyPrompt(false)} className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" aria-label="Schließen">
+              <button onClick={() => setShowVerifyPrompt(false)} className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2" aria-label="Schließen">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -263,7 +265,7 @@ export default function KontoPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <button
               onClick={() => document.getElementById("bestellungen")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left"
+              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               <ShoppingBag className="w-5 h-5 text-[var(--color-primary)]" />
               <div className="flex-1">
@@ -287,7 +289,7 @@ export default function KontoPage() {
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left"
+              className="flex items-center gap-3 p-5 bg-white rounded-2xl border border-[var(--color-border-light)] hover:shadow-md transition-shadow text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               <LogOut className="w-5 h-5 text-[var(--color-danger)]" />
               <div>
@@ -340,7 +342,7 @@ export default function KontoPage() {
                       <button
                         onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
                         aria-expanded={isExpanded}
-                        className="w-full flex items-center gap-4 p-5 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
+                        className="w-full flex items-center gap-4 p-5 text-left hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-inset"
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-1 flex-wrap min-w-0">
@@ -513,7 +515,7 @@ export default function KontoPage() {
               <button
                 type="submit"
                 disabled={isProfileLoading}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 {isProfileLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gespeichert…</> : "Profil speichern"}
               </button>
@@ -629,7 +631,7 @@ export default function KontoPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird angemeldet…</> : "Anmelden"}
             </button>
@@ -707,7 +709,7 @@ export default function KontoPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird erstellt…</> : "Konto erstellen"}
             </button>

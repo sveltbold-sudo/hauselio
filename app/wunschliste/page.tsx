@@ -93,7 +93,7 @@ export default function WunschlistePage() {
             </button>
             <button
               onClick={() => setConfirmClear(false)}
-              className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors"
+              className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-border-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Nein
             </button>
@@ -101,7 +101,7 @@ export default function WunschlistePage() {
         ) : (
           <button
             onClick={() => setConfirmClear(true)}
-            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-2 min-h-[44px]"
+            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors p-2 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
           >
             Alle entfernen
           </button>
@@ -193,7 +193,7 @@ export default function WunschlistePage() {
                       toast.success("Von Wunschliste entfernt");
                     }}
                     aria-label={`${item.name} von Wunschliste entfernen`}
-                    className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors"
+                    className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

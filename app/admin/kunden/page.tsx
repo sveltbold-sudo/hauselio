@@ -126,19 +126,19 @@ export default function KundenPage() {
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                <button onClick={() => { setSortField("name"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Name sortieren, aktuell ${sortField === "name" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                <button onClick={() => { setSortField("name"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Name sortieren, aktuell ${sortField === "name" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded">
                   Kunde <ArrowUpDown className="w-3 h-3" />
                 </button>
               </th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden md:table-cell">Kontakt</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase hidden lg:table-cell">Adresse</th>
               <th className="text-center px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                <button onClick={() => { setSortField("orders"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Bestellungen sortieren, aktuell ${sortField === "orders" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                <button onClick={() => { setSortField("orders"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} aria-label={`Nach Bestellungen sortieren, aktuell ${sortField === "orders" ? sortDir === "asc" ? "aufsteigend" : "absteigend" : "nicht sortiert"}`} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded">
                   Bestellungen <ArrowUpDown className="w-3 h-3" />
                 </button>
               </th>
               <th className="text-right px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase">
-                <button onClick={() => { setSortField("spent"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors">
+                <button onClick={() => { setSortField("spent"); setSortDir((p) => p === "asc" ? "desc" : "asc"); }} className="inline-flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded">
                   Umsatz <ArrowUpDown className="w-3 h-3" />
                 </button>
               </th>
@@ -161,7 +161,7 @@ export default function KundenPage() {
               customers.map((customer) => (
                 <tr key={customer.email} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/kunden/${toCustomerId(customer.email)}`} className="block">
+                    <Link href={`/admin/kunden/${toCustomerId(customer.email)}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg">
                       <p className="font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)]">
                         {customer.firstName} {customer.lastName}
                       </p>
@@ -212,14 +212,14 @@ export default function KundenPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Zurück
             </button>
             <button
               onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))}
               disabled={page === pagination.pages}
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               Weiter
             </button>
