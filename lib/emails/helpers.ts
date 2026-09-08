@@ -133,11 +133,14 @@ export async function baseTemplate(content: string): Promise<string> {
 }
 
 export function headerBanner(title: string, subtitle: string, bgColor: string = "#0A2540"): string {
-  return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${bgColor};">
+  const safeTitle = escapeHtml(title);
+  const safeSubtitle = escapeHtml(subtitle);
+  const safeBgColor = /^#[0-9A-Fa-f]{3,8}$/.test(bgColor) ? bgColor : "#0A2540";
+  return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${safeBgColor};">
     <tr>
       <td style="padding:36px 40px 32px 40px;">
-        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${title}</h1>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${subtitle}</p>
+        <h1 style="color:#FFFFFF;font-size:22px;font-weight:800;margin:0 0 6px 0;letter-spacing:-0.3px;">${safeTitle}</h1>
+        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0;font-weight:400;">${safeSubtitle}</p>
       </td>
     </tr>
   </table>`;

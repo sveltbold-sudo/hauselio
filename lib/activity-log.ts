@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 import { Prisma } from "@prisma/client";
+import { logger } from "./logger";
 
 interface LogActivityParams {
   action: string;
@@ -22,7 +23,7 @@ export async function logActivity(params: LogActivityParams): Promise<void> {
         details: params.details ? (params.details as Prisma.InputJsonValue) : Prisma.JsonNull,
       },
     });
-  } catch {
-    // Silently fail — activity logging should never block operations
+  } catch (e) {
+    logger.error("activity-log", e instanceof Error ? e : new Error(String(e)));
   }
 }

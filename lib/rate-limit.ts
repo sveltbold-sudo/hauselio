@@ -63,6 +63,7 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
 
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 const MAX_STORE_SIZE = 10_000;
+let _rateLimitWarned = false;
 
 if (process.env.NODE_ENV === "production" && !useUpstash) {
   console.warn("[HAUSAURA] CRITICAL: Upstash Redis not configured. Rate limiting is per-invocation only. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
@@ -117,7 +118,8 @@ export async function checkRateLimit(
   // In production without Upstash — in-memory is per-invocation only
   // (won't be shared between serverless instances, but better than no rate limiting)
   const isProd = process.env.NODE_ENV === "production";
-  if (isProd && !useUpstash) {
+  if (isProd && !useUpstash && !_rateLimitWarned) {
+    _rateLimitWarned = true;
     logger.warn("rate-limit", "Upstash not configured — using per-invocation in-memory rate limiting (not shared across instances)");
   }
 

@@ -43,6 +43,7 @@ export async function middleware(request: NextRequest) {
       const { payload } = await jwtVerify(token, getAdminJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-admin",
+        audience: "HAUSAURA-admin",
       });
 
       if (await isTokenRevoked(token)) {
@@ -94,6 +95,7 @@ export async function middleware(request: NextRequest) {
       const { payload } = await jwtVerify(customerToken, getCustomerJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-customer",
+        audience: "HAUSAURA-customer",
       });
       const now = Math.floor(Date.now() / 1000);
       if (payload.exp && payload.exp < now) {
