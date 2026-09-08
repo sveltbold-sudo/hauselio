@@ -179,7 +179,7 @@ function LoginForm() {
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
                   disabled={lockoutSeconds > 0}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />

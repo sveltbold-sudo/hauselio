@@ -231,7 +231,7 @@ export default async function Footer() {
       </div>
 
       {/* Bottom bar — payment methods + copyright */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/10" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
         <div className="container-hausaura py-5">
           {/* Payment methods — icon only */}
           <div className="flex flex-wrap justify-center gap-3 mb-4">

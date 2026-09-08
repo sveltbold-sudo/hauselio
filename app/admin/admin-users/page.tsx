@@ -205,7 +205,8 @@ export default function AdminUsersPage() {
       )}
 
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px]">
           <caption className="sr-only">Admin-Benutzer</caption>
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
@@ -226,7 +227,7 @@ export default function AdminUsersPage() {
             ) : admins.map((admin) => (
               <tr key={admin.id} className="border-b border-[var(--color-border-light)] last:border-0 hover:bg-[var(--color-bg)]">
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-[var(--color-text-primary)]">{admin.email}</p>
+                  <p className="font-semibold text-[var(--color-text-primary)] truncate max-w-[200px]">{admin.email}</p>
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell">
                   <span className="text-sm text-[var(--color-text-secondary)]">{admin.name || "—"}</span>
@@ -246,11 +247,11 @@ export default function AdminUsersPage() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <button onClick={() => handleEdit(admin)} aria-label="Admin bearbeiten" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                    <button onClick={() => handleEdit(admin)} aria-label="Admin bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" />
                     </button>
                     {admin.id !== currentAdminId && (
-                      <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                      <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     )}
@@ -260,6 +261,7 @@ export default function AdminUsersPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       <ConfirmDialog

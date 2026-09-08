@@ -231,7 +231,7 @@ export default function TestimonialsPage() {
                         key={r}
                         type="button"
                         onClick={() => setForm({ ...form, rating: r })}
-                        className="p-0.5"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2"
                         aria-label={`${r} Stern${r > 1 ? "en" : ""}`}
                       >
                         <Star className={`w-6 h-6 ${r <= form.rating ? "text-[var(--color-accent)] fill-[var(--color-accent)]" : "text-[var(--color-star-empty)]"}`} />
@@ -303,33 +303,33 @@ export default function TestimonialsPage() {
                     {!t.isApproved && <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--color-accent-light)] text-[var(--color-text-primary)]">Ausstehend</span>}
                     {t.isFeatured && <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)]">Hervorgehoben</span>}
                   </div>
-                  <p className="text-sm text-[var(--color-text-secondary)] mb-2">{t.content}</p>
-                  <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-2 line-clamp-3">{t.content}</p>
+                  <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)] flex-wrap">
                     <span className="font-medium text-[var(--color-text-primary)]">{t.name}</span>
                     {t.location && <span>• {t.location}</span>}
                     {t.product && <span>• {t.product}</span>}
                     <span>• {new Date(t.createdAt).toLocaleDateString("de-DE")}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-0.5 sm:gap-1">
+                <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                   <button
                     onClick={() => handleToggle(t.id, "isApproved", !t.isApproved)}
-                    className={`p-1.5 sm:p-2 rounded-lg transition-colors ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${t.isApproved ? "text-[var(--color-success)] hover:bg-[var(--color-success)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isApproved ? "Genehmigung entziehen" : "Genehmigen"}
                   >
                     {t.isApproved ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={() => handleToggle(t.id, "isFeatured", !t.isFeatured)}
-                    className={`p-1.5 sm:p-2 rounded-lg transition-colors ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${t.isFeatured ? "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10" : "text-[var(--color-text-muted)] hover:bg-[var(--color-bg)]"}`}
                     aria-label={t.isFeatured ? "Hervorhebung entfernen" : "Hervorheben"}
                   >
                     <Star className="w-4 h-4" />
                   </button>
-                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="p-1.5 sm:p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                  <button onClick={() => handleEdit(t)} aria-label="Testimonial bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                     <Pencil className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="p-1.5 sm:p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                  <button onClick={() => setDeleteId(t.id)} aria-label="Testimonial löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>

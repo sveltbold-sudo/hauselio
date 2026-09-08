@@ -111,9 +111,9 @@ export default function RootLayout({
             {children}
           </AdminShellHide>
           <ClientProviders />
+          <ClientShell />
+          <LazyComparisonBar />
         </ToastProvider>
-        <ClientShell />
-        <LazyComparisonBar />
       </body>
     </html>
   );

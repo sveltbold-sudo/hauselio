@@ -160,9 +160,9 @@ export default function BewertungenPage() {
         <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl p-3 mb-4 flex items-center justify-between">
           <span className="text-sm font-medium text-[var(--color-text-primary)]">{selectedIds.size} ausgewählt</span>
           <div className="flex gap-2">
-            <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50">Genehmigen</button>
-            <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50">Ablehnen</button>
-            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-1.5 text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50">Löschen</button>
+            <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50">Genehmigen</button>
+            <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50">Ablehnen</button>
+            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50">Löschen</button>
           </div>
         </div>
       )}
@@ -221,10 +221,10 @@ export default function BewertungenPage() {
                   <h3 className="font-semibold text-[var(--color-text-primary)] mb-1">
                     {review.title}
                   </h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] mb-2">
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-2 line-clamp-3">
                     {review.content}
                   </p>
-                  <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+                  <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)] flex-wrap">
                     <span>{review.authorName}</span>
                     <span>•</span>
                     <span>{review.authorEmail}</span>
@@ -235,11 +235,11 @@ export default function BewertungenPage() {
                   </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
+                <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                   {!review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, true)}
-                      className="p-1.5 sm:p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-success)] hover:bg-[var(--color-success)]/10 rounded-lg transition-colors"
                       aria-label="Bewertung genehmigen"
                     >
                       <Check className="w-4 h-4" />
@@ -248,7 +248,7 @@ export default function BewertungenPage() {
                   {review.isApproved && (
                     <button
                       onClick={() => handleApprove(review.id, false)}
-                      className="p-1.5 sm:p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-accent)] hover:bg-[var(--color-accent-light)] rounded-lg transition-colors"
                       aria-label="Genehmigung entziehen"
                     >
                       <X className="w-4 h-4" />
@@ -256,7 +256,7 @@ export default function BewertungenPage() {
                   )}
                   <button
                     onClick={() => handleDelete(review.id)}
-                    className="p-1.5 sm:p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
                     aria-label="Bewertung löschen"
                   >
                     <Trash2 className="w-4 h-4" />

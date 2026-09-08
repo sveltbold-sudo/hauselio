@@ -86,7 +86,7 @@ export default function CustomerDetailPage({
         <Link
           href="/admin/kunden"
           aria-label="Zurück"
-          className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>

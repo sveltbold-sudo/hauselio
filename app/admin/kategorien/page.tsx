@@ -203,7 +203,8 @@ export default function KategorienPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px]">
           <caption className="sr-only">Kategorien</caption>
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
@@ -254,6 +255,7 @@ export default function KategorienPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
       <ConfirmDialog
         open={!!deleteTarget}
