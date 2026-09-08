@@ -49,7 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Content — clean like Coolblue */}
-        <div className="p-3 sm:p-4 flex-1 flex flex-col">
+        <div className="p-3 sm:p-4 pb-20 flex-1 flex flex-col">
           {/* Brand */}
           {product.brand && (
             <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
