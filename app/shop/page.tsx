@@ -30,6 +30,30 @@ function shopUrl(page: number, category?: string, brand?: string, q?: string, so
   return `/shop?${params.toString()}`;
 }
 
+function chipUrl(exclude: string, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
+  const params = new URLSearchParams();
+  if (exclude !== "category" && category) params.set("category", category);
+  if (exclude !== "brand" && brand) params.set("brand", brand);
+  if (exclude !== "q" && q) params.set("q", q);
+  if (exclude !== "sort" && sort && sort !== "newest") params.set("sort", sort);
+  if (exclude !== "price" && price) params.set("price", price);
+  if (exclude !== "promo" && promo === "true") params.set("promo", "true");
+  if (exclude !== "rating" && rating) params.set("rating", rating);
+  return `/shop?${params.toString()}`;
+}
+
+function chipUrlAll(category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
+  const params = new URLSearchParams();
+  if (q) params.set("q", q);
+  if (sort && sort !== "newest") params.set("sort", sort);
+  if (brand) params.set("brand", brand);
+  if (category) params.set("category", category);
+  if (promo === "true") params.set("promo", "true");
+  if (rating) params.set("rating", rating);
+  if (price) params.set("price", price);
+  return `/shop?${params.toString()}`;
+}
+
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
   const params = await searchParams;
   const category = params.category;
@@ -315,7 +339,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <div className="mb-6 sm:mb-8">
         <nav aria-label="Kategorien" className="flex flex-nowrap sm:flex-wrap overflow-x-auto scrollbar-hide gap-2 sm:gap-3">
           <Link
-            href={q ? `/shop?q=${encodeURIComponent(q)}` : "/shop"}
+            href={q ? `/shop?q=${encodeURIComponent(q)}${sort && sort !== "newest" ? `&sort=${sort}` : ""}` : `/shop${sort && sort !== "newest" ? `?sort=${sort}` : ""}`}
             aria-current={!category ? "page" : undefined}
               className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               !category
@@ -326,7 +350,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             Alle Produkte
           </Link>
           <Link
-            href={`/shop?promo=true${category ? `&category=${encodeURIComponent(category)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}`}
+            href={`/shop?promo=true${category ? `&category=${encodeURIComponent(category)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}${sort && sort !== "newest" ? `&sort=${sort}` : ""}`}
             aria-current={promo === "true" ? "page" : undefined}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
               promo === "true"
@@ -339,7 +363,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           {categories.map((cat) => (
             <Link
               key={cat.id}
-              href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}${promo === "true" ? "&promo=true" : ""}`}
+              href={`/shop?category=${cat.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}${brand ? `&brand=${encodeURIComponent(brand)}` : ""}${price ? `&price=${price}` : ""}${rating ? `&rating=${rating}` : ""}${promo === "true" ? "&promo=true" : ""}${sort && sort !== "newest" ? `&sort=${sort}` : ""}`}
               aria-current={category === cat.slug ? "page" : undefined}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 ${
                 category === cat.slug
@@ -358,7 +382,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
+              href={chipUrl("category", category, brand, q, sort, price, promo, rating)}
               aria-label={`${categories.find((c) => c.slug === category)?.name || category} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -368,17 +392,17 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {brand && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
-              aria-label={`${brand} Filter entfernen`}
+              href={chipUrl("brand", category, brand, q, sort, price, promo, rating)}
+              aria-label={`${brands.find((b) => b.slug === brand)?.name || brand} Filter entfernen`}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
-              {brand}
+              {brands.find((b) => b.slug === brand)?.name || brand}
               <X className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           )}
           {promo === "true" && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (q) p.set("q", q); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
+              href={chipUrl("promo", category, brand, q, sort, price, promo, rating)}
               aria-label="Angebote Filter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-sm font-medium rounded-lg hover:bg-[var(--color-danger)]/20 transition-colors"
             >
@@ -388,7 +412,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {q && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (rating) p.set("rating", rating); if (price) p.set("price", price); return p.toString() || "" })()}`}
+              href={chipUrl("q", category, brand, q, sort, price, promo, rating)}
               aria-label="Suche entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/20 transition-colors"
             >
@@ -398,7 +422,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {rating && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (price) p.set("price", price); return p.toString() || "" })()}`}
+              href={chipUrl("rating", category, brand, q, sort, price, promo, rating)}
               aria-label="Bewertungsfilter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm font-medium rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
             >
@@ -408,7 +432,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           )}
           {price && (
             <Link
-              href={`/shop?${(() => { const p = new URLSearchParams(); if (category) p.set("category", category); if (brand) p.set("brand", brand); if (promo === "true") p.set("promo", "true"); if (q) p.set("q", q); if (rating) p.set("rating", rating); return p.toString() || "" })()}`}
+              href={chipUrl("price", category, brand, q, sort, price, promo, rating)}
               aria-label="Preisfilter entfernen"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-sm font-medium rounded-lg hover:bg-[var(--color-accent)]/20 transition-colors"
             >
@@ -417,7 +441,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </Link>
           )}
           <Link
-            href="/shop"
+            href={chipUrlAll(category, brand, q, sort, price, promo, rating)}
             className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Alle entfernen
@@ -453,11 +477,21 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         {/* Product grid */}
         <div className="flex-1 min-w-0">
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-4 sm:mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-4 sm:px-5 py-3">
+          <div className="hidden lg:flex items-center justify-between mb-4 sm:mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-4 sm:px-5 py-3">
             <p className="text-sm text-[var(--color-text-secondary)]">
               {category && (
                 <span className="text-[var(--color-text-muted)]">
                   in {categories.find((c) => c.slug === category)?.name || category}
+                </span>
+              )}
+              {category && brand && (
+                <span className="text-[var(--color-text-muted)]">
+                  {" · "}
+                </span>
+              )}
+              {brand && (
+                <span className="text-[var(--color-text-muted)]">
+                  {categories.find((c) => c.slug === category) ? "" : "in "}{brands.find((b) => b.slug === brand)?.name || brand}
                 </span>
               )}
             </p>

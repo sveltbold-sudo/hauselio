@@ -352,15 +352,7 @@ export default async function HomePage() {
       <p className="container-hausaura text-[var(--color-text-secondary)] text-sm sm:text-base mb-4 -mt-1">
         Bis zu 40% sparen auf Markengeräte · Kostenloser Versand ab 50€
       </p>
-      <div className="container-hausaura mb-6">
-        <Link
-          href="/shop"
-          className="inline-flex items-center gap-2 px-6 py-3 min-h-[44px] bg-[var(--color-primary)] text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-xl hover:brightness-110 active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
-        >
-          Jetzt entdecken
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
+
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 
       <Suspense fallback={<ThermomixSkeleton />}>

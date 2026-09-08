@@ -84,10 +84,22 @@ export default function ShopFilters({
           )}
           {selectedBrand && (
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary)] rounded-lg text-xs font-semibold">
-              {selectedBrand}
+              {brands.find((b) => b.slug === selectedBrand)?.name || selectedBrand}
               <button
                 onClick={() => updateFilter("brand", null)}
                 className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
+                aria-label="Filter entfernen"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          {selectedPromo === "true" && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-danger-50)] text-[var(--color-danger)] rounded-lg text-xs font-semibold">
+              Angebote
+              <button
+                onClick={() => updateFilter("promo", null)}
+                className="hover:bg-[var(--color-danger)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
                 aria-label="Filter entfernen"
               >
                 <X className="w-3 h-3" />
@@ -100,6 +112,11 @@ export default function ShopFilters({
               {searchParams.get("price") === "500-1000" && "500–1.000€"}
               {searchParams.get("price") === "1000-2000" && "1.000–2.000€"}
               {searchParams.get("price") === "2000-" && "Über 2.000€"}
+              {!["0-500", "500-1000", "1000-2000", "2000-"].includes(searchParams.get("price") || "") && (
+                searchParams.get("price")!.includes("-")
+                  ? `Preis: ${searchParams.get("price")!.replace("-", "–")}€`
+                  : `Preis: ${searchParams.get("price")}€`
+              )}
               <button
                 onClick={() => updateFilter("price", null)}
                 className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
