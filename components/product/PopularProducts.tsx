@@ -11,7 +11,10 @@ export default function PopularProducts() {
   useEffect(() => {
     const controller = new AbortController();
     fetch("/api/products?limit=4&sort=newest", { signal: controller.signal })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API error");
+        return res.json();
+      })
       .then((data) => setProducts(data.products ?? []))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));

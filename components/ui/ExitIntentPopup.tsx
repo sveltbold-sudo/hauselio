@@ -44,7 +44,7 @@ export default function ExitIntentPopup() {
     if (!visible || remaining <= 0) return;
     const timer = setInterval(() => setRemaining((r) => r - 1), 1000);
     return () => clearInterval(timer);
-  }, [visible, remaining]);
+  }, [visible]);
 
   useScrollLock(visible);
 

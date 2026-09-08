@@ -15,12 +15,17 @@ export default function WhatsAppChat() {
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    fetch("/api/kontakt/settings")
-      .then((r) => r.json())
+    const controller = new AbortController();
+    fetch("/api/kontakt/settings", { signal: controller.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
       .then((data) => {
         if (data.contactPhone) setPhone(data.contactPhone);
       })
       .catch(() => {});
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {

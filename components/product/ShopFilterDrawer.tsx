@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import ShopFilters from "@/components/product/ShopFilters";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 interface ShopFilterDrawerProps {
   categories: { name: string; slug: string }[];
@@ -29,12 +30,10 @@ export default function ShopFilterDrawer({
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
+  useScrollLock(isOpen);
 
   useEffect(() => {
     if (!isOpen) return;
-
-    // Lock body scroll
-    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -63,7 +62,6 @@ export default function ShopFilterDrawer({
     firstFocusable?.focus();
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
