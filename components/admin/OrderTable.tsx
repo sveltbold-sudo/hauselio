@@ -332,7 +332,7 @@ function OrderTable({
               {page > 1 && (
                 <Link
                   href={`/admin/bestellungen?page=${page - 1}${status ? `&status=${status}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  className="px-2 py-2.5 min-h-[44px] rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                   aria-label="Vorherige Seite"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -353,7 +353,7 @@ function OrderTable({
                       key={item}
                       href={`/admin/bestellungen?page=${item}${status ? `&status=${status}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
                       aria-current={item === page ? "page" : undefined}
-                      className={`px-3 py-1 rounded text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+                      className={`px-3 py-2.5 min-h-[44px] rounded text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
                         item === page
                           ? "bg-[var(--color-primary)] text-white"
                           : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
@@ -366,7 +366,7 @@ function OrderTable({
               {page < totalPages && (
                 <Link
                   href={`/admin/bestellungen?page=${page + 1}${status ? `&status=${status}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  className="px-2 py-2.5 min-h-[44px] rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                   aria-label="Nächste Seite"
                 >
                   <ChevronRight className="w-4 h-4" />

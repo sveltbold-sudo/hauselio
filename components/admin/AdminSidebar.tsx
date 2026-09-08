@@ -142,7 +142,7 @@ export default function AdminSidebar({ admin, children }: AdminSidebarProps) {
               ref={closeButtonRef}
               onClick={() => setSidebarOpen(false)}
               aria-label="Menü schließen"
-              className="lg:hidden p-1 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="lg:hidden p-2.5 min-w-[44px] min-h-[44px] text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

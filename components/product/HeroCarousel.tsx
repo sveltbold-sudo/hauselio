@@ -203,7 +203,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               </span>
 
               {/* Product name */}
-              <h2 className="text-xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">
+              <h2 className="text-xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg line-clamp-2">
                 {s.name}
               </h2>
 
@@ -307,7 +307,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               <span className="inline-block px-3 py-1 bg-[var(--color-bg-secondary)] rounded-md text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-5" translate="no">
                 {slide.brand}
               </span>
-              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold text-[var(--color-text-primary)] mb-4 leading-[1.05] tracking-tight line-clamp-2">
                 {slide.name}
               </h2>
               <p className="text-lg xl:text-xl font-semibold text-[var(--color-text-primary)] mb-3">

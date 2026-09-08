@@ -206,7 +206,7 @@ export default function CouponsPage() {
 
       {showForm && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[70]"
           role="dialog"
           aria-modal="true"
           onClick={(e) => { if (e.target === e.currentTarget) setShowForm(false); }}
@@ -295,7 +295,8 @@ export default function CouponsPage() {
       )}
 
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[600px]">
           <caption className="sr-only">Gutscheine</caption>
           <thead>
             <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
@@ -370,14 +371,15 @@ export default function CouponsPage() {
             })}
           </tbody>
         </table>
+        </div>
       </div>
 
       {pagination.pages > 1 && (
         <div className="flex items-center justify-between mt-6">
           <p className="text-sm text-[var(--color-text-muted)]">Seite {pagination.page} von {pagination.pages}</p>
           <div className="flex gap-2">
-            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Zurück</button>
-            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Weiter</button>
+            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Zurück</button>
+            <button onClick={() => setPage((p) => Math.min(pagination.pages, p + 1))} disabled={page === pagination.pages} className="px-4 py-2.5 min-h-[44px] text-sm font-medium rounded-lg border border-[var(--color-border-light)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Weiter</button>
           </div>
         </div>
       )}

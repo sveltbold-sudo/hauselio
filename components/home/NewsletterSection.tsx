@@ -67,7 +67,7 @@ export default function NewsletterSection() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-3 bg-white text-[var(--color-primary)] font-semibold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-transform duration-200 whitespace-nowrap text-sm disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-primary)]"
+              className="px-5 py-3 min-h-[44px] bg-white text-[var(--color-primary)] font-semibold rounded-xl hover:bg-white/90 active:scale-[0.97] transition-colors transition-transform duration-200 whitespace-nowrap text-sm disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-primary)]"
             >
               {isSubmitting ? "Wird gesendet…" : "Anmelden"}
             </button>

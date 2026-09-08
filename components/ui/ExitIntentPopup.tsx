@@ -129,7 +129,7 @@ export default function ExitIntentPopup() {
         tabIndex={-1}
         className="fixed inset-0 z-[62] flex items-center justify-center p-4"
       >
-        <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto bg-white rounded-2xl shadow-[var(--shadow-2xl)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto bg-white rounded-2xl shadow-[var(--shadow-2xl)] animate-in fade-in zoom-in-95 duration-200">
           {/* Close button */}
           <button
             onClick={handleClose}

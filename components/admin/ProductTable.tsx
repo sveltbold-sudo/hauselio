@@ -101,7 +101,7 @@ function ProductTable({
     <>
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full hidden md:table">
+          <table className="w-full hidden md:table min-w-[750px]">
             <caption className="sr-only">Produkte</caption>
             <thead>
               <tr className="border-b border-[var(--color-border-light)] bg-[var(--color-bg)]">
@@ -234,14 +234,14 @@ function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
-                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-4 h-4" />
@@ -317,14 +317,14 @@ function ProductTable({
                         href={`/produkt/${product.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} ansehen`}
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       <Link
                         href={`/admin/produkte/${product.id}/bearbeiten`}
-                        className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
                         aria-label={`Produkt ${product.name} bearbeiten`}
                       >
                         <Pencil className="w-3.5 h-3.5" />
@@ -355,7 +355,7 @@ function ProductTable({
               {page > 1 && (
                 <Link
                   href={`/admin/produkte?page=${page - 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  className="px-2 py-2.5 min-h-[44px] rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                   aria-label="Vorherige Seite"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -376,7 +376,7 @@ function ProductTable({
                       key={item}
                       href={`/admin/produkte?page=${item}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
                       aria-current={item === page ? "page" : undefined}
-                      className={`px-3 py-1 rounded text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+                      className={`px-3 py-2.5 min-h-[44px] rounded text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
                         item === page
                           ? "bg-[var(--color-primary)] text-white"
                           : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
@@ -389,7 +389,7 @@ function ProductTable({
               {page < totalPages && (
                 <Link
                   href={`/admin/produkte?page=${page + 1}${category ? `&category=${category}` : ""}${brand ? `&brand=${brand}` : ""}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-                  className="px-2 py-1 rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  className="px-2 py-2.5 min-h-[44px] rounded text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                   aria-label="Nächste Seite"
                 >
                   <ChevronRight className="w-4 h-4" />

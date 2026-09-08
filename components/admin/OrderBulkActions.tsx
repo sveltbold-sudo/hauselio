@@ -117,7 +117,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
 
   return (
     <>
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-[calc(100vw-2rem)]">
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] bg-[var(--color-secondary)] text-white rounded-2xl shadow-[var(--shadow-2xl)] px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-[calc(100vw-2rem)]" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom, 0px))" }}>
         <span className="text-sm font-semibold">{selectedIds.length} ausgewählt</span>
         <div className="w-px h-6 bg-white/20" />
         <div className="relative">
@@ -127,7 +127,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
             disabled={loading}
             aria-haspopup="menu"
             aria-expanded={showStatusMenu}
-            className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Status ändern ▾"}
           </button>
@@ -154,7 +154,7 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
         <button
           onClick={onClearSelection}
           aria-label="Auswahl abbrechen"
-          className="px-3 py-1.5 text-white/60 hover:text-white text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          className="px-3 py-2.5 min-h-[44px] text-white/60 hover:text-white text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
         >
           Abbrechen
         </button>

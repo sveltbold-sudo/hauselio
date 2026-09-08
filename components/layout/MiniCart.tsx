@@ -185,58 +185,60 @@ export default function MiniCart() {
                         {item.quantity > 1 ? `${item.quantity} × ` : ""}{formatPrice(item.price)}{item.quantity > 1 ? ` = ${formatPrice(item.price * item.quantity)}` : ""}
                       </p>
                     </div>
-                    <div className="flex items-center border border-[var(--color-border)] rounded-xl">
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, Math.max(1, item.quantity - 1))
-                        }
-                        disabled={item.quantity <= 1}
-                        aria-label="Menge verringern"
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:pointer-events-none"
-                      >
-                        <Minus className="w-3 h-3" />
-                      </button>
-                      <span className="w-8 sm:w-10 text-center text-sm font-medium tabular-nums" role="status" aria-live="polite">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, Math.min(99, item.quantity + 1))
-                        }
-                        aria-label="Menge erhöhen"
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-                      >
-                        <Plus className="w-3 h-3" />
-                      </button>
-                    </div>
                     {confirmDelete === item.id ? (
-                      <div className="flex items-center gap-1.5 min-w-[100px] justify-end">
+                      <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={() => {
                             removeItem(item.id);
                             setConfirmDelete(null);
                           }}
                           aria-label={`${item.name} entfernen bestätigen`}
-                          className="px-3 py-2 min-h-[44px] min-w-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)] focus-visible:ring-offset-2"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-white bg-[var(--color-danger)] rounded-lg hover:bg-[var(--color-danger-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-danger)] focus-visible:ring-offset-2 whitespace-nowrap"
                         >
                           Entfernen
                         </button>
                         <button
                           onClick={() => setConfirmDelete(null)}
                           aria-label="Abbrechen"
-                          className="px-3 py-2 min-h-[44px] min-w-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 whitespace-nowrap"
                         >
                           Abbrechen
                         </button>
                       </div>
                     ) : (
-                      <button
-                        onClick={() => setConfirmDelete(item.id)}
-                        aria-label="Artikel entfernen"
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
+                      <>
+                        <div className="flex items-center border border-[var(--color-border)] rounded-xl shrink-0">
+                          <button
+                            onClick={() =>
+                              updateQuantity(item.id, Math.max(1, item.quantity - 1))
+                            }
+                            disabled={item.quantity <= 1}
+                            aria-label="Menge verringern"
+                            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-l-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-30 disabled:pointer-events-none"
+                          >
+                            <Minus className="w-3 h-3" />
+                          </button>
+                          <span className="w-8 sm:w-10 text-center text-sm font-medium tabular-nums" role="status" aria-live="polite">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() =>
+                              updateQuantity(item.id, Math.min(99, item.quantity + 1))
+                            }
+                            aria-label="Menge erhöhen"
+                            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-r-xl transition-colors transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                          >
+                            <Plus className="w-3 h-3" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => setConfirmDelete(item.id)}
+                          aria-label="Artikel entfernen"
+                          className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] rounded-xl hover:bg-[var(--color-danger-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </>
                     )}
                   </div>
                 ))}

@@ -21,9 +21,14 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
   const lastTouchDistance = useRef<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef(scale);
 
   useEffect(() => {
-     
+    scaleRef.current = scale;
+  });
+
+  useEffect(() => {
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
@@ -36,6 +41,26 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     setScale(1);
   }, [images.length]);
+
+  useEffect(() => {
+    if (!isOpen || !containerRef.current) return;
+    const el = containerRef.current;
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const dx = e.touches[0]!.clientX - e.touches[1]!.clientX;
+        const dy = e.touches[0]!.clientY - e.touches[1]!.clientY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (lastTouchDistance.current !== null) {
+          const newScale = Math.min(3, Math.max(1, scaleRef.current * (distance / lastTouchDistance.current)));
+          setScale(newScale);
+        }
+        lastTouchDistance.current = distance;
+      }
+    };
+    el.addEventListener("touchmove", handleTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", handleTouchMove);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -102,6 +127,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
       )}
 
       <div
+        ref={containerRef}
         className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
         onClick={(e) => e.stopPropagation()}
         role="group"
@@ -114,17 +140,6 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
             lastTouchDistance.current = Math.sqrt(dx * dx + dy * dy);
           } else {
             setTouchStart({ x: e.touches[0]!.clientX, y: e.touches[0]!.clientY });
-          }
-        }}
-        onTouchMove={(e) => {
-          if (e.touches.length === 2 && lastTouchDistance.current !== null) {
-            e.preventDefault();
-            const dx = e.touches[0]!.clientX - e.touches[1]!.clientX;
-            const dy = e.touches[0]!.clientY - e.touches[1]!.clientY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const newScale = Math.min(3, Math.max(1, scale * (distance / lastTouchDistance.current)));
-            setScale(newScale);
-            lastTouchDistance.current = distance;
           }
         }}
         onTouchEnd={(e) => {

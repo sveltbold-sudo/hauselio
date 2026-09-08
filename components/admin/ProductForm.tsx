@@ -341,7 +341,7 @@ export default function ProductForm({
                       type="button"
                       onClick={() => removeFeature(i)}
                       aria-label={`Feature "${feature}" entfernen`}
-                      className="min-w-[28px] min-h-[28px] flex items-center justify-center rounded hover:text-[var(--color-danger-hover)]"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded hover:text-[var(--color-danger-hover)]"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -426,7 +426,7 @@ export default function ProductForm({
                             type="button"
                             onClick={() => removeSpec(i)}
                             aria-label={`Spezifikation "${spec.key}" entfernen`}
-                            className="min-w-[28px] min-h-[28px] flex items-center justify-center rounded text-[var(--color-danger)] hover:text-[var(--color-danger)]"
+                            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded text-[var(--color-danger)] hover:text-[var(--color-danger)]"
                           >
                             <X className="w-4 h-4" />
                           </button>
@@ -681,7 +681,7 @@ export default function ProductForm({
                                 images: prev.images.filter((_, i) => i !== idx),
                               }))
                             }
-                            className="absolute top-1 right-1 w-6 h-6 bg-[var(--color-danger)] text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute top-1 right-1 min-w-[44px] min-h-[44px] bg-[var(--color-danger)] text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                             aria-label={`Bild ${idx + 2} entfernen`}
                           >
                             ×

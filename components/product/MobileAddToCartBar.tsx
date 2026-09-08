@@ -13,7 +13,7 @@ interface MobileAddToCartBarProps {
 
 export default function MobileAddToCartBar({ name, price, added, onAddToCart }: MobileAddToCartBarProps) {
   return (
-    <div className="sticky-bottom-bar lg:hidden" role="complementary" aria-label="Schnellzugriff">
+    <div className="sticky-bottom-bar lg:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }} role="complementary" aria-label="Schnellzugriff">
       <div className="flex items-center gap-3 max-w-lg mx-auto px-4 py-3">
         <div className="flex-1 min-w-0">
           <p className="text-sm text-[var(--color-text-muted)] truncate">{name}</p>
