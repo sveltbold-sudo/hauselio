@@ -38,6 +38,15 @@ export async function GET(request: NextRequest) {
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
+        select: {
+          id: true,
+          action: true,
+          entity: true,
+          entityId: true,
+          adminEmail: true,
+          details: true,
+          createdAt: true,
+        },
       }),
       prisma.activityLog.count({ where }),
     ]);

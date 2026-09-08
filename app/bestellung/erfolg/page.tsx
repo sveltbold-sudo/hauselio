@@ -93,8 +93,9 @@ function OrderSuccessContent() {
   }, [orderId, orderLoading]);
 
   useEffect(() => {
+    const controller = new AbortController();
     if (orderId && orderEmail) {
-      fetch(`/api/bestellungen?orderNumber=${encodeURIComponent(orderId)}&email=${encodeURIComponent(orderEmail)}`)
+      fetch(`/api/bestellungen?orderNumber=${encodeURIComponent(orderId)}&email=${encodeURIComponent(orderEmail)}`, { signal: controller.signal })
         .then((r) => {
           if (!r.ok) throw new Error("Bestellung nicht gefunden");
           return r.json();
@@ -121,8 +122,11 @@ function OrderSuccessContent() {
         })
         .finally(() => setOrderLoading(false));
 
-      fetch("/api/bank")
-        .then((r) => r.json())
+      fetch("/api/bank", { signal: controller.signal })
+        .then((r) => {
+          if (!r.ok) throw new Error("API error");
+          return r.json();
+        })
         .then((data) => {
           if (data.bank) {
             setBankDetails({
@@ -140,6 +144,7 @@ function OrderSuccessContent() {
           });
         });
     }
+    return () => controller.abort();
   }, [orderId, orderEmail]);
 
   const copyToClipboard = (text: string, field: string) => {

@@ -44,6 +44,7 @@ export async function PATCH(
     const testimonial = await prisma.testimonial.update({
       where: { id },
       data: parsed.data,
+      select: { id: true, name: true, location: true, rating: true, content: true, product: true, avatar: true, isApproved: true, isFeatured: true, createdAt: true },
     });
 
     // admin already captured
@@ -89,6 +90,7 @@ export async function PUT(
     const testimonial = await prisma.testimonial.update({
       where: { id },
       data: parsed.data,
+      select: { id: true, name: true, location: true, rating: true, content: true, product: true, avatar: true, isApproved: true, isFeatured: true, createdAt: true },
     });
 
     try {

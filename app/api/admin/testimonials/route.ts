@@ -32,6 +32,18 @@ export async function GET(request: NextRequest) {
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
+        select: {
+          id: true,
+          name: true,
+          location: true,
+          rating: true,
+          content: true,
+          product: true,
+          avatar: true,
+          isApproved: true,
+          isFeatured: true,
+          createdAt: true,
+        },
       }),
       prisma.testimonial.count({ where }),
       prisma.testimonial.count({ where: { isApproved: false } }),
@@ -69,7 +81,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: parsed.error.issues[0]!.message }, { status: 400 });
     }
 
-    const testimonial = await prisma.testimonial.create({ data: parsed.data });
+    const testimonial = await prisma.testimonial.create({
+      data: parsed.data,
+      select: {
+        id: true,
+        name: true,
+        location: true,
+        rating: true,
+        content: true,
+        product: true,
+        avatar: true,
+        isApproved: true,
+        isFeatured: true,
+        createdAt: true,
+      },
+    });
 
     // admin already captured
     logger.info("testimonial-created", `Testimonial created by ${admin.email}: ${testimonial.name}`);

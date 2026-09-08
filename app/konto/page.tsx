@@ -69,7 +69,8 @@ export default function KontoPage() {
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/customer/me")
+    const controller = new AbortController();
+    fetch("/api/customer/me", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) return null;
         return r.json();
@@ -87,12 +88,14 @@ export default function KontoPage() {
       })
       .catch(() => {})
       .finally(() => setIsAuthLoading(false));
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
     if (!customer?.email) return;
     setOrdersLoading(true);
-    fetch("/api/customer/orders")
+    const controller = new AbortController();
+    fetch("/api/customer/orders", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) return { orders: [] };
         return r.json();
@@ -100,6 +103,7 @@ export default function KontoPage() {
       .then((data) => setOrders(data.orders || []))
       .catch(() => setOrders([]))
       .finally(() => setOrdersLoading(false));
+    return () => controller.abort();
   }, [customer?.email]);
 
   useEffect(() => {
