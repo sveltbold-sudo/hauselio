@@ -119,9 +119,7 @@ export default async function KontaktPage() {
 
         <KontaktForm settings={settings} />
       </div>
-      <div className="container-hausaura py-6 sm:py-8">
-        <FaqSection />
-      </div>
+      <FaqSection />
     </main>
     </>
   );
