@@ -9,33 +9,30 @@ import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
 
 async function generateInvoiceNumber(): Promise<string> {
-  const now = new Date();
-  const year = now.getFullYear();
-
-  let settings = await prisma.siteSettings.findFirst();
-  if (!settings) {
-    settings = await prisma.siteSettings.create({
-      data: { bankIban: "", bankBic: "", bankAccountName: "", bankName: "", shippingInfo: "", contactEmail: "", contactPhone: "", contactAddress: "" },
-    });
-  }
-
-  const prefix = settings.invoicePrefix || "RE";
-
-  if (settings.invoiceYear !== year) {
-    await prisma.siteSettings.update({
+  return prisma.$transaction(async (tx) => {
+    const now = new Date();
+    const year = now.getFullYear();
+    let settings = await tx.siteSettings.findFirst();
+    if (!settings) {
+      settings = await tx.siteSettings.create({
+        data: { bankIban: "", bankBic: "", bankAccountName: "", bankName: "", shippingInfo: "", contactEmail: "", contactPhone: "", contactAddress: "" },
+      });
+    }
+    const prefix = settings.invoicePrefix || "RE";
+    if (settings.invoiceYear !== year) {
+      await tx.siteSettings.update({
+        where: { id: settings.id },
+        data: { invoiceCounter: 1, invoiceYear: year },
+      });
+      settings.invoiceCounter = 0;
+    }
+    const counter = (settings.invoiceCounter || 0) + 1;
+    await tx.siteSettings.update({
       where: { id: settings.id },
-      data: { invoiceCounter: 1, invoiceYear: year },
+      data: { invoiceCounter: counter },
     });
-    settings.invoiceCounter = 0;
-  }
-
-  const counter = (settings.invoiceCounter || 0) + 1;
-  await prisma.siteSettings.update({
-    where: { id: settings.id },
-    data: { invoiceCounter: counter },
+    return `${prefix}-${year}-${String(counter).padStart(5, "0")}`;
   });
-
-  return `${prefix}-${year}-${String(counter).padStart(5, "0")}`;
 }
 
 const UpdateOrderSchema = z.object({

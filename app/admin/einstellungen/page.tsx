@@ -61,13 +61,15 @@ export default function EinstellungenPage() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/admin/einstellungen")
+    const controller = new AbortController();
+    let cancelled = false;
+    fetch("/api/admin/einstellungen", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
       .then((data) => {
-        if (data.settings) {
+        if (!cancelled && data.settings) {
           const raw = data.settings as Record<string, unknown>;
           const normalized: Settings = {
             bankIban: (raw.bankIban as string) ?? "",
@@ -89,8 +91,9 @@ export default function EinstellungenPage() {
           initialSettingsRef.current = normalized;
         }
       })
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
-      .finally(() => setLoading(false));
+      .catch((err) => { if (!cancelled) { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; controller.abort(); };
   }, [startTransition]);
 
   const validate = (): boolean => {

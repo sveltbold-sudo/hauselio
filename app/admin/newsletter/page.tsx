@@ -70,17 +70,19 @@ export default function NewsletterPage() {
   useEffect(() => { const cleanup = loadSubscribers(); return cleanup; }, [loadSubscribers]);
 
   const handleToggle = async (id: string, isActive: boolean) => {
+    const previousSubscribers = subscribers;
     try {
+      setSubscribers((prev) =>
+        prev.map((s) => (s.id === id ? { ...s, isActive: !isActive } : s))
+      );
       const res = await fetch(`/api/admin/newsletter/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isActive: !isActive }),
       });
       if (!res.ok) throw new Error("Fehler beim Aktualisieren");
-      setSubscribers((prev) =>
-        prev.map((s) => (s.id === id ? { ...s, isActive: !isActive } : s))
-      );
     } catch (err) {
+      setSubscribers(previousSubscribers);
       toast.error(err instanceof Error ? err.message : "Fehler beim Aktualisieren");
     }
   };
@@ -145,17 +147,28 @@ export default function NewsletterPage() {
 
   const exportCSV = async () => {
     try {
-      const res = await fetch("/api/admin/newsletter?limit=10000");
-      if (!res.ok) throw new Error("Export fehlgeschlagen");
-      const data: PaginatedSubscribers = await res.json();
-      const allSubscribers = data.subscribers || [];
+      let allSubscribers: { email: string; createdAt: string }[] = [];
+      let page = 1;
+      let hasMore = true;
+
+      while (hasMore) {
+        const res = await fetch(`/api/admin/newsletter?page=${page}&limit=100`);
+        if (!res.ok) throw new Error("Export fehlgeschlagen");
+        const data = await res.json();
+        const subs = data.subscribers || [];
+        allSubscribers = allSubscribers.concat(subs.map((s: { email: string; createdAt: string }) => ({ email: s.email, createdAt: s.createdAt })));
+        hasMore = subs.length === 100;
+        page++;
+        if (page > 100) break;
+      }
+
       const escapeCSV = (val: string) => {
         if (val.includes(";") || val.includes('"') || val.includes("\n")) {
           return `"${val.replace(/"/g, '""')}"`;
         }
         return val;
       };
-      const csv = "\uFEFFE-Mail;Aktiv;Datum\n" + allSubscribers.map((s) => `${escapeCSV(s.email)};${s.isActive};${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
+      const csv = "\uFEFFE-Mail;Aktiv;Datum\n" + allSubscribers.map((s) => `${escapeCSV(s.email)};true;${new Date(s.createdAt).toLocaleDateString("de-DE")}`).join("\n");
       const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

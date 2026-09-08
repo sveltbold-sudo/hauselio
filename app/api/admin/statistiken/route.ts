@@ -39,19 +39,15 @@ export async function GET(request: NextRequest) {
       totalOrders,
       totalProducts,
       pendingOrders,
-      allOrderItems,
       recentOrders,
       categoryStats,
       totalCustomers,
+      revenueByProduct,
     ] = await Promise.all([
       prisma.order.aggregate({ _sum: { total: true }, where: orderFilter }),
       prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
-      prisma.orderItem.findMany({
-        select: { productId: true, price: true, quantity: true },
-        where: { order: orderFilter },
-      }),
       prisma.order.findMany({
         select: {
           orderNumber: true,
@@ -71,55 +67,25 @@ export async function GET(request: NextRequest) {
         },
       }),
       prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order"`,
+      prisma.$queryRawUnsafe<{ name: string; orderCount: number; revenue: number }[]>(
+        `SELECT p.name, COUNT(DISTINCT oi."orderId")::int AS "orderCount", SUM(oi.price * oi.quantity)::float AS revenue
+         FROM "OrderItem" oi JOIN "Product" p ON oi."productId" = p.id
+         GROUP BY p.name ORDER BY revenue DESC LIMIT 5`
+      ),
     ]);
 
-    const revenueByProduct = new Map<string, number>();
-    const orderCountByProduct = new Map<string, number>();
-    for (const item of allOrderItems) {
-      const lineTotal = Number(item.price) * item.quantity;
-      revenueByProduct.set(item.productId, (revenueByProduct.get(item.productId) || 0) + lineTotal);
-      orderCountByProduct.set(item.productId, (orderCountByProduct.get(item.productId) || 0) + 1);
-    }
-
-    const topProducts = Array.from(revenueByProduct.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-
-    const topProductIds = topProducts.map(([id]) => id);
-    const topProductNames = await prisma.product.findMany({
-      where: { id: { in: topProductIds } },
-      select: { id: true, name: true },
-    });
-    const topProductNameMap = new Map(topProductNames.map((p) => [p.id, p.name]));
-
-    const topProductsWithNames = topProducts.map(([productId, revenue]) => ({
-      name: topProductNameMap.get(productId) || "Unbekannt",
-      orderCount: orderCountByProduct.get(productId) || 0,
-      revenue,
+    const topProductsWithNames = revenueByProduct.map((row) => ({
+      name: row.name,
+      orderCount: row.orderCount,
+      revenue: row.revenue,
     }));
 
-    const productCategoryMap = new Map<string, string>();
-    if (allOrderItems.length > 0) {
-      const productIds = [...new Set(allOrderItems.map((i) => i.productId))];
-      const products = await prisma.product.findMany({
-        where: { id: { in: productIds } },
-        select: { id: true, categoryId: true },
-      });
-      for (const p of products) {
-        productCategoryMap.set(p.id, p.categoryId);
-      }
-    }
-
-    const categoryRevenueMap = new Map<string, number>();
-    for (const item of allOrderItems) {
-      const catId = productCategoryMap.get(item.productId);
-      if (catId) {
-        categoryRevenueMap.set(
-          catId,
-          (categoryRevenueMap.get(catId) || 0) + Number(item.price) * item.quantity
-        );
-      }
-    }
+    const categoryRevenueRaw = await prisma.$queryRawUnsafe<{ categoryId: string; revenue: number }[]>(
+      `SELECT p."categoryId", SUM(oi.price * oi.quantity)::float AS revenue
+       FROM "OrderItem" oi JOIN "Product" p ON oi."productId" = p.id
+       GROUP BY p."categoryId"`
+    );
+    const categoryRevenueMap = new Map(categoryRevenueRaw.map((r) => [r.categoryId, r.revenue]));
 
     const categoryStatsWithRevenue = categoryStats.map((cat) => ({
       name: cat.name,

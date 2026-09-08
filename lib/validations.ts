@@ -62,7 +62,7 @@ export const CreateProductSchema = z.object({
   imageUrl: z.string().url().refine((u) => u.startsWith("https://"), { message: "URL muss mit https:// beginnen" }).optional().nullable(),
   imagePublicId: z.string().optional().nullable(),
   images: z.array(z.object({
-    url: z.string().url(),
+    url: z.string().url().refine((u) => u.startsWith("https://"), { message: "URL muss mit https:// beginnen" }),
     publicId: z.string().optional().nullable(),
     position: z.number().int().min(0).optional(),
   })).max(10).optional().default([]),

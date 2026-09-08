@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, hashPassword } from "@/lib/auth";
+import { requireAdmin, requireRole, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateAdminSchema } from "@/lib/validations";
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    await requireRole("ADMIN");
     const body = await request.json();
     const parsed = CreateAdminSchema.safeParse(body);
 

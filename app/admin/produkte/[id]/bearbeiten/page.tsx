@@ -59,13 +59,14 @@ export default function EditProductPage({
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
     async function load() {
       setIsLoading(true);
       try {
         const [idResolved, catsRes, brsRes] = await Promise.all([
           params,
-          fetch("/api/admin/kategorien"),
-          fetch("/api/admin/marken"),
+          fetch("/api/admin/kategorien", { signal: controller.signal }),
+          fetch("/api/admin/marken", { signal: controller.signal }),
         ]);
 
         const catsData = catsRes.ok ? await catsRes.json() : { categories: [] };
@@ -76,7 +77,7 @@ export default function EditProductPage({
           setBrands(brsData.brands || []);
         }
 
-        const res = await fetch(`/api/admin/produkte/${idResolved.id}`);
+        const res = await fetch(`/api/admin/produkte/${idResolved.id}`, { signal: controller.signal });
         if (!res.ok) throw new Error("Produkt nicht gefunden");
 
         const data = await res.json();
@@ -121,7 +122,7 @@ export default function EditProductPage({
       }
     }
     load();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; controller.abort(); };
   }, [params, toast, loadKey]);
 
   if (isLoading) {

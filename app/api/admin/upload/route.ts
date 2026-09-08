@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     // Upload to Cloudinary
-    const result = await new Promise<{ secure_url: string; public_id: string }>(
+    const uploadPromise = new Promise<{ secure_url: string; public_id: string }>(
       (resolve, reject) => {
         cloudinary.uploader.upload(
           base64,
@@ -101,6 +101,10 @@ export async function POST(request: NextRequest) {
         );
       }
     );
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Cloudinary-Upload-Timeout")), 30_000)
+    );
+    const result = await Promise.race([uploadPromise, timeoutPromise]);
 
     return NextResponse.json({
       url: result.secure_url,

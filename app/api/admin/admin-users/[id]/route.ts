@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, hashPassword } from "@/lib/auth";
+import { requireAdmin, requireRole, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateAdminSchema } from "@/lib/validations";
@@ -19,7 +19,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    await requireRole("ADMIN");
     const { id } = await params;
     const body = await request.json();
     const parsed = UpdateAdminSchema.safeParse(body);
@@ -47,6 +47,7 @@ export async function PUT(
 
     if (parsed.data.password) {
       updateData.password = await hashPassword(parsed.data.password);
+      updateData.lastLogin = new Date(0);
     }
 
     if (parsed.data.name !== undefined) {
@@ -102,6 +103,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Der letzte Admin kann nicht gelöscht werden" }, { status: 400 });
     }
 
+    await prisma.adminUser.update({ where: { id }, data: { lastLogin: new Date(0) } });
     await prisma.adminUser.delete({ where: { id } });
 
     logger.info("admin-deleted", `Admin deleted: ${existing.email} by ${currentUser.email}`);

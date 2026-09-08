@@ -43,21 +43,24 @@ export default function AdminUsersPage() {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }, []);
 
-  const loadAdmins = () => {
+  const abortRef = useRef<(() => void) | null>(null);
+
+  const loadAdmins = useCallback(() => {
+    abortRef.current?.();
     const controller = new AbortController();
+    abortRef.current = () => controller.abort();
     setLoading(true);
     fetch("/api/admin/admin-users", { signal: controller.signal })
       .then((r) => { if (!r.ok) throw new Error("Failed"); return r.json(); })
       .then((data) => startTransition(() => setAdmins(data.admins || [])))
       .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
-    return () => controller.abort();
-  };
+  }, []);
 
   useEffect(() => {
-    const cleanup = loadAdmins();
-    return cleanup;
-  }, []);
+    loadAdmins();
+    return () => abortRef.current?.();
+  }, [loadAdmins]);
 
   useEffect(() => {
     let cancelled = false;
@@ -75,6 +78,8 @@ export default function AdminUsersPage() {
       toast.error("Passwort muss mindestens 8 Zeichen lang sein");
       return;
     }
+    const existingAdmin = editingId ? admins.find((a) => a.id === editingId) : null;
+    if (existingAdmin && form.role !== existingAdmin.role && !confirm(`Rolle von ${existingAdmin.email} wirklich ändern?`)) return;
     setSubmitting(true);
     try {
       const payload: Record<string, unknown> = {

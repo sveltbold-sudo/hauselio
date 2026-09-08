@@ -108,10 +108,6 @@ export async function PUT(
       );
     }
 
-    if (data.isDailyDeal) {
-      await prisma.product.updateMany({ where: { isDailyDeal: true, NOT: { id } }, data: { isDailyDeal: false } });
-    }
-
     // Fetch existing images to delete from Cloudinary
     const existingImages = await prisma.productImage.findMany({
       where: { productId: id },
@@ -120,6 +116,7 @@ export async function PUT(
 
     try {
       await prisma.$transaction([
+        ...(data.isDailyDeal ? [prisma.product.updateMany({ where: { isDailyDeal: true, NOT: { id } }, data: { isDailyDeal: false } })] : []),
         prisma.productSpec.deleteMany({ where: { productId: id } }),
         prisma.productImage.deleteMany({ where: { productId: id } }),
         prisma.product.update({
@@ -265,11 +262,18 @@ export async function DELETE(
       );
     }
 
-    // Delete Cloudinary images before removing from DB
+    // Fetch images before DB delete (cascade will remove them from DB)
     const imagesToDelete = await prisma.productImage.findMany({
       where: { productId: id },
       select: { publicId: true },
     });
+
+    // Delete from DB first (source of truth)
+    await prisma.product.delete({
+      where: { id },
+    });
+
+    // Then clean up Cloudinary images (best-effort)
     const cloudinary = getCloudinary();
     for (const img of imagesToDelete) {
       if (img.publicId) {
@@ -280,10 +284,6 @@ export async function DELETE(
         }
       }
     }
-
-    await prisma.product.delete({
-      where: { id },
-    });
 
     try {
       await deleteProductFromAlgolia(id);
