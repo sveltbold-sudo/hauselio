@@ -16,13 +16,6 @@ export const ORDER_STATUS_COLORS: Record<string, string> = {
   CANCELLED: "bg-[var(--color-danger-light)] text-[var(--color-danger)]",
 };
 
-export const PAYMENT_STATUS_LABELS: Record<string, string> = {
-  PENDING: "Ausstehend",
-  CONFIRMED: "Bestätigt",
-  FAILED: "Fehlgeschlagen",
-  REFUNDED: "Erstattet",
-};
-
 export const ALLOWED_ORDER_STATUSES = [
   "PENDING_PAYMENT",
   "PAYMENT_CONFIRMED",

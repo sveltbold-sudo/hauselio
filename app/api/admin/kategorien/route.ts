@@ -96,6 +96,16 @@ export async function POST(request: NextRequest) {
         slug: parsed.data.slug,
         description: parsed.data.description,
       },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        image: true,
+        sortOrder: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     return NextResponse.json({ category }, { status: 201 });

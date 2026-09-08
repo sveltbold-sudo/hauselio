@@ -28,6 +28,16 @@ export async function GET(request: NextRequest) {
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
+        select: {
+          id: true,
+          code: true,
+          discountPercent: true,
+          maxUses: true,
+          usedCount: true,
+          expiresAt: true,
+          isActive: true,
+          createdAt: true,
+        },
       }),
       prisma.coupon.count({ where }),
     ]);
