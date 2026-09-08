@@ -20,7 +20,10 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
   useEffect(() => {
     const controller = new AbortController();
     fetch(`/api/products?category=${encodeURIComponent(categorySlug)}&limit=5`, { signal: controller.signal })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API error");
+        return res.json();
+      })
       .then((data) => {
         if (data.products) {
           setProducts(

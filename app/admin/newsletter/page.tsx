@@ -146,6 +146,7 @@ export default function NewsletterPage() {
   const exportCSV = async () => {
     try {
       const res = await fetch("/api/admin/newsletter?limit=10000");
+      if (!res.ok) throw new Error("Export fehlgeschlagen");
       const data: PaginatedSubscribers = await res.json();
       const allSubscribers = data.subscribers || [];
       const escapeCSV = (val: string) => {

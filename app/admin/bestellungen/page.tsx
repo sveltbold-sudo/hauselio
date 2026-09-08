@@ -35,7 +35,16 @@ export default async function AdminOrdersPage({
     ];
   }
 
-  let orders: Awaited<ReturnType<typeof prisma.order.findMany>> = [];
+  let orders: {
+    id: string;
+    orderNumber: string;
+    customerFirstName: string;
+    customerLastName: string;
+    customerEmail: string;
+    createdAt: Date;
+    total: Prisma.Decimal;
+    status: string;
+  }[] = [];
   let total = 0;
   let dbError = false;
 
@@ -46,6 +55,16 @@ export default async function AdminOrdersPage({
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
+        select: {
+          id: true,
+          orderNumber: true,
+          customerFirstName: true,
+          customerLastName: true,
+          customerEmail: true,
+          createdAt: true,
+          total: true,
+          status: true,
+        },
       }),
       prisma.order.count({ where }),
     ]);

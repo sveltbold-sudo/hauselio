@@ -72,7 +72,7 @@ export default function SearchDropdown({
           `/api/search?q=${encodeURIComponent(query.trim())}&limit=6`,
           { signal: controller.signal }
         );
-        const data = await res.json();
+        const data = await res.json().catch(() => ({ hits: [], nbHits: 0 }));
         if (!cancelled) {
           setResults(data.hits || []);
           setNbHits(data.nbHits || 0);
