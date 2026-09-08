@@ -59,7 +59,7 @@ const paymentMethods = [
 export default async function Footer() {
   const contact = await getContactSettings();
   return (
-    <footer className="bg-[var(--color-secondary)] text-white pb-[env(safe-area-inset-bottom,0px)]">
+    <footer className="bg-[var(--color-secondary)] text-white">
       {/* Trust badges bar */}
       <div className="border-b border-white/10">
         <div className="container-hausaura py-6">

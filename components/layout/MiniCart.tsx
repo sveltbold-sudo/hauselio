@@ -171,7 +171,7 @@ export default function MiniCart() {
             </div>
           ) : (
             <>
-              <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4" aria-live="polite">
+              <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)]">
@@ -200,7 +200,7 @@ export default function MiniCart() {
                         <button
                           onClick={() => setConfirmDelete(null)}
                           aria-label="Abbrechen"
-                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 whitespace-nowrap"
+                          className="px-3 py-2 min-h-[44px] text-xs font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-lg hover:bg-[var(--color-border-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 whitespace-nowrap"
                         >
                           Abbrechen
                         </button>

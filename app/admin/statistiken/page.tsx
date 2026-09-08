@@ -4,8 +4,6 @@ import { useEffect, useState, useTransition, useCallback } from "react";
 import { TrendingUp, Package, ShoppingCart, Users } from "lucide-react";
 import { logger } from "@/lib/logger";
 
-export const dynamic = "force-dynamic";
-
 type DateRange = "all" | "7d" | "30d" | "90d";
 
 const DATE_RANGE_OPTIONS: { value: DateRange; label: string }[] = [

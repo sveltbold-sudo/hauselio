@@ -469,7 +469,7 @@ export default function WarenkorbPage() {
       <CartCrossSell />
 
       {/* Sticky mobile checkout button */}
-      <div className="fixed bottom-14 left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-4 pb-[env(safe-area-inset-bottom,0px)]">
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
           <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">

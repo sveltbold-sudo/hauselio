@@ -230,7 +230,7 @@ export default function MarkenPage() {
                     <button onClick={() => handleEdit(brand)} aria-label={`Marke ${brand.name} bearbeiten`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
                       <Pencil className="w-4 h-4" />
                     </button>
-                    <button onClick={() => handleDelete(brand.id, brand.name, brand._count.products)} aria-label={`Marke ${brand.name} löschen`} className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                    <button onClick={() => handleDelete(brand.id, brand.name, brand._count.products)} disabled={brand._count.products > 0} aria-label={brand._count.products > 0 ? `Marke ${brand.name} hat ${brand._count.products} Produkte und kann nicht gelöscht werden` : `Marke ${brand.name} löschen`} title={brand._count.products > 0 ? `${brand._count.products} Produkte zugeordnet` : undefined} className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors ${brand._count.products > 0 ? "text-[var(--color-text-muted)] opacity-40 cursor-not-allowed" : "text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)]"}`}>
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>

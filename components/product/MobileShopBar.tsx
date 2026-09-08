@@ -45,7 +45,7 @@ export default function MobileShopBar({ onScrollToTop, totalResults, sort, baseP
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-white border-t border-[var(--color-border-light)] shadow-lg animate-slide-up safe-area-bottom" role="complementary" aria-label="Shop-Kontrollen" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", bottom: "max(0px, env(safe-area-inset-bottom, 0px))" }}>
+    <div className="fixed left-0 right-0 z-[85] lg:hidden bg-white border-t border-[var(--color-border-light)] shadow-lg animate-slide-up" role="complementary" aria-label="Shop-Kontrollen" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", bottom: "calc(56px + env(safe-area-inset-bottom, 0px))" }}>
       <div className="flex items-center justify-between px-4 py-3 gap-3">
         {typeof totalResults === "number" && (
           <span className="text-xs text-[var(--color-text-muted)] whitespace-nowrap">

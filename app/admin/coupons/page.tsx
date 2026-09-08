@@ -6,8 +6,6 @@ import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
-export const dynamic = "force-dynamic";
-
 interface Coupon {
   id: string;
   code: string;

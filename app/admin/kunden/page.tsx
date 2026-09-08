@@ -52,7 +52,7 @@ export default function KundenPage() {
   useEffect(() => {
     setLoading(true);
     fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}&sort=${sortField}&dir=${sortDir}`)
-      .then((r) => r.json())
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((d: PaginatedResponse) => startTransition(() => setData(d)))
       .catch((err) => {
         logger.error("Failed to load data", { error: err });

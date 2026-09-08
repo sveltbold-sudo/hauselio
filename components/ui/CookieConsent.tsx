@@ -168,7 +168,7 @@ export default function CookieConsent() {
 
   return (
     <>
-      <div className="fixed inset-0 z-[65] bg-black/40" aria-hidden="true" />
+      <div className="fixed inset-0 z-[64] bg-black/40" aria-hidden="true" />
       <div
         ref={dialogRef}
         role="dialog"

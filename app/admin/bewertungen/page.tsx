@@ -6,8 +6,6 @@ import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
-export const dynamic = "force-dynamic";
-
 interface Review {
   id: string;
   rating: number;
@@ -128,7 +126,7 @@ export default function BewertungenPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">Bewertungen</h1>
         <p className="text-[var(--color-text-secondary)] mt-1">
-          {reviews.length} Bewertungen insgesamt
+          {pagination.total} Bewertungen insgesamt
           {pendingCount > 0 && (
             <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]">
               {pendingCount} ausstehend

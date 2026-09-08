@@ -8,8 +8,6 @@ import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 
-export const dynamic = "force-dynamic";
-
 interface Testimonial {
   id: string;
   name: string;

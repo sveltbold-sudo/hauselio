@@ -110,7 +110,7 @@ export default function ShopFilterDrawer({
 
       {/* Mobile drawer overlay */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 z-[90]" role="dialog" aria-modal="true" aria-label="Filter">
+        <div className="lg:hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Filter">
           <div
             className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${prefersReduced ? "" : "animate-fade-in"}`}
             onClick={() => setIsOpen(false)}

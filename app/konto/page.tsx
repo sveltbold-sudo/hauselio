@@ -435,7 +435,7 @@ export default function KontoPage() {
                     type="text"
                     value={profileName}
                     onChange={(e) => setProfileName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                     required
                   />
                 </div>
@@ -451,7 +451,7 @@ export default function KontoPage() {
                     value={profilePhone}
                     onChange={(e) => setProfilePhone(e.target.value)}
                     placeholder="+49 ..."
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   />
                 </div>
               </div>
@@ -466,7 +466,7 @@ export default function KontoPage() {
                     value={profileAddress}
                     onChange={(e) => setProfileAddress(e.target.value)}
                     placeholder="Straße und Hausnummer"
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   />
                 </div>
               </div>
@@ -480,7 +480,7 @@ export default function KontoPage() {
                     value={profileZip}
                     onChange={(e) => setProfileZip(e.target.value)}
                     placeholder="10435"
-                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   />
                 </div>
                 <div className="col-span-2">
@@ -491,7 +491,7 @@ export default function KontoPage() {
                     value={profileCity}
                     onChange={(e) => setProfileCity(e.target.value)}
                     placeholder="Berlin"
-                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   />
                 </div>
               </div>
@@ -596,7 +596,7 @@ export default function KontoPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@beispiel.de"
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
                 />
               </div>
@@ -612,7 +612,7 @@ export default function KontoPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
                 />
                 <button
@@ -657,7 +657,7 @@ export default function KontoPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ihr Name"
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
                 />
               </div>
@@ -673,7 +673,7 @@ export default function KontoPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@beispiel.de"
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
                 />
               </div>
@@ -689,7 +689,7 @@ export default function KontoPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Mindestens 8 Zeichen"
-                  className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
+                  className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
                   minLength={8}
                 />

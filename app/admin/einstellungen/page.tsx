@@ -7,8 +7,6 @@ import { logger } from "@/lib/logger";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 
-export const dynamic = "force-dynamic";
-
 interface Settings {
   bankIban: string;
   bankBic: string;

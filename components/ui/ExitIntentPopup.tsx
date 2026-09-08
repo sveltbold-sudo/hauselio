@@ -129,7 +129,7 @@ export default function ExitIntentPopup() {
         tabIndex={-1}
         className="fixed inset-0 z-[62] flex items-center justify-center p-4"
       >
-        <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto bg-white rounded-2xl shadow-[var(--shadow-2xl)] animate-in fade-in zoom-in-95 duration-200">
+        <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto bg-white rounded-2xl shadow-[var(--shadow-2xl)] animate-fade-in-up duration-200">
           {/* Close button */}
           <button
             onClick={handleClose}
@@ -209,8 +209,8 @@ export default function ExitIntentPopup() {
                 )}
               </form>
             ) : (
-              <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-sm text-green-700 font-medium">
+              <div className="mb-6 p-3 bg-[var(--color-success-light)] border border-[var(--color-success)]/20 rounded-lg">
+                <p className="text-sm text-[var(--color-success)] font-medium">
                   ✓ Vielen Dank! Bestätigen Sie Ihre E-Mail-Adresse.
                 </p>
               </div>

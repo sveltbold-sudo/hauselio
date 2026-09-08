@@ -21,7 +21,7 @@ interface ProductJsonLdProps {
   rating?: number;
   reviewCount?: number;
   reviews?: Review[];
-  availability?: "InStock" | "OutOfStock";
+  availability?: "InStock" | "OutOfStock" | "PreOrder";
   url?: string;
   sellerName?: string;
   shippingRate?: number;
