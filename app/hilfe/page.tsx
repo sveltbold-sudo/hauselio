@@ -9,7 +9,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Hilfe & FAQ",
     description: "Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe bei HAUSAURA.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   alternates: { canonical: "/hilfe" },
   openGraph: {
     title: "Hilfe & FAQ",
