@@ -64,23 +64,21 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Content */}
-        <div className="p-3 sm:p-4 flex flex-col gap-1">
+        <div className="px-3 pb-2 pt-2.5 flex flex-col gap-0.5">
           {product.brand && (
             <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">
               {product.brand}
             </p>
           )}
-          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-primary)] transition-colors">
             {product.name}
           </h3>
-          <div className="flex items-center gap-1.5 mt-1">
-            <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />
-          </div>
+          <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />
         </div>
       </Link>
 
       {/* Price + Cart button — pinned at bottom */}
-      <div className="px-3 pb-3 pt-0 flex flex-col gap-2">
+      <div className="px-3 pb-3 pt-1 flex flex-col gap-1.5">
         <div className="flex items-baseline gap-2">
           <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
