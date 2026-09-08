@@ -94,7 +94,7 @@ export default async function KontaktPage() {
       <main id="main-content">
       <div className="container-hausaura py-6 sm:py-8">
         {/* Breadcrumb */}
-        <Breadcrumb items={[{ label: "Kontakt" }]} />
+        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Kontakt" }]} />
 
         {/* Header */}
         <div className="mb-8 sm:mb-12">
