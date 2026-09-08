@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         failedAttempts: 0,
         lockedUntil: null,
-        lastLogin: new Date(),
+        lastLogin: new Date(0),
       },
     });
 

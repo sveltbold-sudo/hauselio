@@ -35,28 +35,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!customer) {
-      const admin = await prisma.adminUser.findUnique({
-        where: { id: auth.id },
-        select: {
-          id: true,
-          email: true,
-          name: true,
-          createdAt: true,
-        },
-      });
-      if (!admin) {
-        return NextResponse.json({ error: "Konto nicht gefunden" }, { status: 404 });
-      }
-      return NextResponse.json({
-        customer: {
-          ...admin,
-          phone: null,
-          address: null,
-          zip: null,
-          city: null,
-          country: "DE",
-        },
-      });
+      return NextResponse.json({ error: "Konto nicht gefunden" }, { status: 404 });
     }
 
     return NextResponse.json({ customer });
