@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ShoppingBag, Share2, Truck, Check, AlertTriangle } from "lucide-react";
+import { ShoppingBag, Share2, Truck, Check } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductTrustBadges from "@/components/product/ProductTrustBadges";
@@ -213,22 +213,10 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
             discount={discount}
           />
 
-          {product.stockQuantity != null && product.stockQuantity > 0 ? (
-            <div className="flex items-center gap-2 mb-4">
-              <Check className="w-4 h-4 text-[var(--color-success)]" />
-              <span className="text-sm font-semibold text-[var(--color-success)]">Sofort versandfertig</span>
-            </div>
-          ) : product.stockQuantity === 0 ? (
-            <div className="flex items-center gap-2 mb-4">
-              <AlertTriangle className="w-4 h-4 text-[var(--color-warning)]" />
-              <span className="text-sm font-semibold text-[var(--color-warning)]">Nach Bestellung verfügbar</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2 mb-4">
-              <Check className="w-4 h-4 text-[var(--color-success)]" />
-              <span className="text-sm font-semibold text-[var(--color-success)]">Sofort versandfertig</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2 mb-4">
+            <Check className="w-4 h-4 text-[var(--color-success)]" />
+            <span className="text-sm font-semibold text-[var(--color-success)]">Sofort versandfertig</span>
+          </div>
 
           <div className="flex items-center gap-3 p-2.5 sm:p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">
             <Truck className="w-5 h-5 text-[var(--color-success)] shrink-0" />

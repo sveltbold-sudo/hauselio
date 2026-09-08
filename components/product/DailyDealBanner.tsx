@@ -121,10 +121,13 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                       { value: time.seconds, label: "Sek" },
                     ].map((unit, i) => (
                       <div key={i} className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center justify-center min-w-[40px] h-10 px-2 bg-white/10 backdrop-blur-sm rounded-lg text-sm font-extrabold text-white tabular-nums border border-white/10">
-                          {String(unit.value).padStart(2, "0")}
-                        </span>
-                        {i < 2 && <span className="text-white/30 text-xs font-bold">:</span>}
+                        <div className="flex flex-col items-center gap-1">
+                          <span className="inline-flex items-center justify-center min-w-[40px] h-10 px-2 bg-white/10 backdrop-blur-sm rounded-lg text-sm font-extrabold text-white tabular-nums border border-white/10">
+                            {String(unit.value).padStart(2, "0")}
+                          </span>
+                          <span className="text-[10px] font-medium text-white/50">{unit.label}</span>
+                        </div>
+                        {i < 2 && <span className="text-white/30 text-xs font-bold mb-4">:</span>}
                       </div>
                     ))}
                   </div>

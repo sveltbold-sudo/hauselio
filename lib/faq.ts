@@ -14,7 +14,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: "Kann ich ein Gerät zurückgeben?",
-    answer: "Ja, Sie haben ein 14-tägiges Widerrufsrecht. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir informieren Sie über den Rückversand.",
+    answer: "Ja, Sie haben ein 30-tägiges Rückgaberecht. Kontaktieren Sie uns einfach per E-Mail oder Telefon und wir informieren Sie über den Rückversand.",
   },
   {
     question: "Welche Garantie bieten Sie?",

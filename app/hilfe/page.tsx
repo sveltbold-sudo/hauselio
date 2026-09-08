@@ -52,7 +52,7 @@ function getFaqs(s: typeof fallback) {
   },
   {
     question: "Kann ich ein Gerät zurückgeben?",
-    answer: "Ja, Sie haben ein 14-tägiges Widerrufsrecht ab Erhalt der Ware. Die Ware muss unbenutzt und in der Originalverpackung sein. Kontaktieren Sie uns per E-Mail oder Telefon und wir klären die Rücksendung mit Ihnen ab. Die Rücksendekosten tragen Sie als Verbraucher.",
+    answer: "Ja, Sie haben ein 30-tägiges Rückgaberecht ab Erhalt der Ware. Die Ware muss unbenutzt und in der Originalverpackung sein. Kontaktieren Sie uns per E-Mail oder Telefon und wir klären die Rücksendung mit Ihnen ab. Die Rücksendekosten tragen Sie als Verbraucher.",
   },
   {
     question: "Welche Garantie bieten Sie?",

@@ -52,7 +52,7 @@ const values = [
   {
     icon: Heart,
     title: "Kundenzufriedenheit",
-    description: "14 Tage Widerrufsrecht und transparente Geschäftsbedingungen. Sie kaufen risikofrei bei uns ein.",
+    description: "30 Tage Rückgaberecht und transparente Geschäftsbedingungen. Sie kaufen risikofrei bei uns ein.",
   },
   {
     icon: Zap,
