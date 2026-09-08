@@ -45,7 +45,6 @@ export async function GET(
         rating: true,
         reviewCount: true,
         features: true,
-        tags: true,
         seoTitle: true,
         seoDesc: true,
         categoryId: true,
@@ -109,17 +108,43 @@ export async function PUT(
       );
     }
 
-    // Fetch existing images to delete from Cloudinary
+    // Fetch existing images for incremental diff
     const existingImages = await prisma.productImage.findMany({
       where: { productId: id },
-      select: { publicId: true },
+      select: { id: true, url: true, publicId: true, position: true },
+      orderBy: { position: "asc" },
     });
+
+    // Build new images list
+    const newImages: { url: string; publicId: string | null; position: number }[] = [];
+    if (data.imageUrl) {
+      newImages.push({ url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 });
+      (data.images || []).forEach((img, idx) => {
+        newImages.push({ url: img.url, publicId: img.publicId || null, position: img.position ?? idx + 1 });
+      });
+    } else if (data.images && data.images.length > 0) {
+      data.images.forEach((img, idx) => {
+        newImages.push({ url: img.url, publicId: img.publicId || null, position: img.position ?? idx });
+      });
+    }
+
+    // Diff: find images to delete (in DB but not in new list by URL)
+    const newUrls = new Set(newImages.map(i => i.url));
+    const imagesToDeleteFromDb = existingImages.filter(e => !newUrls.has(e.url));
+    const imagesToDeleteFromCloudinary = imagesToDeleteFromDb.filter(i => i.publicId);
+
+    // Diff: find images to add (in new list but not in DB by URL)
+    const existingUrls = new Set(existingImages.map(e => e.url));
+    const imagesToAdd = newImages.filter(n => !existingUrls.has(n.url));
 
     try {
       await prisma.$transaction([
         ...(data.isDailyDeal ? [prisma.product.updateMany({ where: { isDailyDeal: true, NOT: { id } }, data: { isDailyDeal: false } })] : []),
         prisma.productSpec.deleteMany({ where: { productId: id } }),
-        prisma.productImage.deleteMany({ where: { productId: id } }),
+        // Only delete images that were removed
+        ...(imagesToDeleteFromDb.length > 0
+          ? [prisma.productImage.deleteMany({ where: { id: { in: imagesToDeleteFromDb.map(i => i.id) } } })]
+          : []),
         prisma.product.update({
           where: { id },
           data: {
@@ -150,26 +175,10 @@ export async function PUT(
                   })),
                 }
               : undefined,
-            images: data.imageUrl
-              ? {
-                  create: [
-                    { url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 },
-                    ...(data.images || []).map((img, idx) => ({
-                      url: img.url,
-                      publicId: img.publicId || null,
-                      position: img.position ?? idx + 1,
-                    })),
-                  ],
-                }
-              : data.images && data.images.length > 0
-                ? {
-                    create: data.images.map((img, idx) => ({
-                      url: img.url,
-                      publicId: img.publicId || null,
-                      position: img.position ?? idx,
-                    })),
-                  }
-                : undefined,
+            // Only add new images
+            ...(imagesToAdd.length > 0
+              ? { images: { create: imagesToAdd } }
+              : {}),
           },
         }),
       ]);
@@ -183,12 +192,12 @@ export async function PUT(
       throw err;
     }
 
-    // Delete old Cloudinary images (after DB transaction succeeds)
-    const cloudinary = getCloudinary();
-    for (const img of existingImages) {
-      if (img.publicId) {
+    // Delete only removed images from Cloudinary (after DB transaction succeeds)
+    if (imagesToDeleteFromCloudinary.length > 0) {
+      const cloudinary = getCloudinary();
+      for (const img of imagesToDeleteFromCloudinary) {
         try {
-          await cloudinary.uploader.destroy(img.publicId);
+          await cloudinary.uploader.destroy(img.publicId!);
         } catch (cloudErr) {
           logger.error("cloudinary-delete", cloudErr instanceof Error ? cloudErr : new Error(String(cloudErr)), { publicId: img.publicId });
         }
@@ -215,7 +224,6 @@ export async function PUT(
         rating: true,
         reviewCount: true,
         features: true,
-        tags: true,
         seoTitle: true,
         seoDesc: true,
         categoryId: true,
