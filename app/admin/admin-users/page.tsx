@@ -140,7 +140,7 @@ export default function AdminUsersPage() {
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setForm({ email: "", password: "", name: "", role: "ADMIN" }); }}
-          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
+          className="flex items-center gap-2 px-4 py-3 bg-[var(--color-accent)] text-white rounded-xl text-sm font-medium hover:bg-[var(--color-accent-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           <Plus className="w-4 h-4" /> Neuer Admin
         </button>
@@ -157,7 +157,7 @@ export default function AdminUsersPage() {
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">{editingId ? "Admin bearbeiten" : "Neuer Admin"}</h2>
-              <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg">
+               <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -194,8 +194,8 @@ export default function AdminUsersPage() {
                 </select>
               </div>
               <div className="flex gap-3 justify-end">
-                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg">Abbrechen</button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50">
+                <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">Abbrechen</button>
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-accent-hover)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
                   {submitting ? "Wird gespeichert…" : editingId ? "Speichern" : "Erstellen"}
                 </button>
               </div>
@@ -247,11 +247,11 @@ export default function AdminUsersPage() {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <button onClick={() => handleEdit(admin)} aria-label="Admin bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg">
+                     <button onClick={() => handleEdit(admin)} aria-label="Admin bearbeiten" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
                       <Pencil className="w-4 h-4" />
                     </button>
                     {admin.id !== currentAdminId && (
-                      <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg">
+                       <button onClick={() => handleDelete(admin.id, admin.email)} aria-label="Admin löschen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     )}

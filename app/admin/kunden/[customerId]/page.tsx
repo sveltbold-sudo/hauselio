@@ -73,7 +73,7 @@ export default function CustomerDetailPage({
     return (
       <div className="p-8 text-center">
         <p className="text-[var(--color-danger)] mb-4" role="alert">Kunde nicht gefunden.</p>
-        <Link href="/admin/kunden" className="text-sm text-[var(--color-primary)] hover:underline">
+        <Link href="/admin/kunden" className="text-sm text-[var(--color-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
           Zurück zur Kundenübersicht
         </Link>
       </div>
@@ -86,7 +86,7 @@ export default function CustomerDetailPage({
         <Link
           href="/admin/kunden"
           aria-label="Zurück"
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
@@ -105,12 +105,12 @@ export default function CustomerDetailPage({
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
               <Mail className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
-              <a href={`mailto:${customer.email}`} className="hover:text-[var(--color-primary)]">{customer.email}</a>
+              <a href={`mailto:${customer.email}`} className="hover:text-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded">{customer.email}</a>
             </div>
             {customer.phone && (
               <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
                 <Phone className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
-                <a href={`tel:${customer.phone}`} className="hover:text-[var(--color-primary)]">{customer.phone}</a>
+                <a href={`tel:${customer.phone}`} className="hover:text-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded">{customer.phone}</a>
               </div>
             )}
             <div className="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]">
@@ -151,7 +151,7 @@ export default function CustomerDetailPage({
                   <div className="flex items-center gap-3">
                     <Link
                       href={`/admin/bestellungen/${order.id}`}
-                      className="text-sm font-semibold text-[var(--color-primary)] hover:underline"
+                      className="text-sm font-semibold text-[var(--color-primary)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
                     >
                       {order.orderNumber}
                     </Link>

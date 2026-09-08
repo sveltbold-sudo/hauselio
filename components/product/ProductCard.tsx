@@ -108,7 +108,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </div>
       <div
-        className="absolute bottom-3 left-3 right-3 z-10 transition-opacity transition-transform duration-300"
+        className="absolute bottom-3 left-3 right-3 z-10"
         role="presentation"
         onClick={(e) => e.stopPropagation()}
         onMouseDown={(e) => e.stopPropagation()}

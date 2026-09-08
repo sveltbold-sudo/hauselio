@@ -158,6 +158,22 @@ export default function HeaderClient() {
   useScrollLock(searchOpen && isMobile);
 
   useEffect(() => {
+    if (!activeMega) return;
+    const recalc = () => {
+      const tabs = megaNavRef.current?.querySelectorAll<HTMLElement>("[data-mega-tab]");
+      tabs?.forEach((tab) => {
+        if (tab.getAttribute("data-mega-href") === activeMega) {
+          const tabRect = tab.getBoundingClientRect();
+          const navRect = megaNavRef.current!.getBoundingClientRect();
+          setMegaPos({ left: tabRect.left - navRect.left, width: tabRect.width });
+        }
+      });
+    };
+    window.addEventListener("resize", recalc);
+    return () => window.removeEventListener("resize", recalc);
+  }, [activeMega]);
+
+  useEffect(() => {
     const handleOpenSearch = () => setSearchOpen(true);
     window.addEventListener("HAUSAURA:open-search", handleOpenSearch);
     return () => window.removeEventListener("HAUSAURA:open-search", handleOpenSearch);
@@ -408,6 +424,8 @@ export default function HeaderClient() {
               >
                 <Link
                   href={cat.href}
+                  data-mega-tab
+                  data-mega-href={cat.href}
                   onFocus={() => handleMegaFocus(cat.href)}
                   onBlur={handleMegaBlur}
                   onKeyDown={(e) => {

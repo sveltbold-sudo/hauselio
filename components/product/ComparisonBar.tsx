@@ -56,7 +56,7 @@ export default function ComparisonBar() {
               <Link
                 key={`empty-${i}`}
                 href="/shop"
-                className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0 hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors group"
+                className="w-[180px] h-14 border-2 border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center shrink-0 hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 <span className="text-xs text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] transition-colors">Produkt hinzufügen</span>
               </Link>

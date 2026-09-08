@@ -81,7 +81,7 @@ export default function SimilarProductsSection({ currentProductId, categorySlug 
             key={product.id}
             href={`/produkt/${product.slug}`}
             aria-label={product.name}
-            className="group bg-white rounded-xl border border-[var(--color-border-light)] p-3 hover:shadow-md hover:border-[var(--color-primary)]/20 transition-colors transition-shadow"
+            className="group bg-white rounded-xl border border-[var(--color-border-light)] p-3 hover:shadow-md hover:border-[var(--color-primary)]/20 transition-colors transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden mb-3">
               <ProductImage src={product.image} alt={product.name} brand={product.brand} size="sm" />

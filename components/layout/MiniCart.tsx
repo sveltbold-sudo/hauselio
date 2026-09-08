@@ -27,6 +27,7 @@ export default function MiniCart() {
   const couponDiscount = coupon ? total * (coupon.discountPercent / 100) : 0;
   const finalTotal = total - couponDiscount;
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -42,7 +43,10 @@ export default function MiniCart() {
     }
   }, [itemCount]);
 
-  const close = useCallback(() => setIsOpen(false), []);
+  const close = useCallback(() => {
+    setIsOpen(false);
+    triggerRef.current?.focus();
+  }, []);
 
   useScrollLock(isOpen);
 
@@ -110,6 +114,7 @@ export default function MiniCart() {
     <div className="relative" ref={ref}>
       {/* Cart button */}
       <button
+        ref={triggerRef}
         onClick={() => setIsOpen(!isOpen)}
         className="relative flex items-center gap-2 w-11 lg:w-auto h-11 lg:h-11 lg:px-3 justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)]"
         aria-label="Warenkorb"
