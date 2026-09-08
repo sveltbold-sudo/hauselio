@@ -37,18 +37,18 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   const q = params.q;
   const baseUrl = SITE_URL;
 
-  let title = `Alle Haushaltsgeräte online kaufen | ${SITE_NAME}`;
+  let title = "Alle Haushaltsgeräte online kaufen";
   let desc = "Entdecken Sie Haushaltsgeräte von Top-Marken wie Miele, Bosch, Siemens, Dyson und Thermomix. Kostenloser Versand ab 50\u20AC, 30 Tage Rückgaberecht.";
 
   if (q) {
-    title = `Suche "${q}" | ${SITE_NAME} Shop`;
+    title = `Suche „${q}"`;
     desc = `Suchergebnisse für "${q}" — Entdecken Sie passende Haushaltsgeräte bei ${SITE_NAME}. Kostenloser Versand ab 50€.`;
   } else if (category) {
     const catName = category.charAt(0).toUpperCase() + category.slice(1);
-    title = `${catName} kaufen | ${SITE_NAME} Shop`;
+    title = `${catName} kaufen`;
     desc = `Hochwertige ${catName} von Top-Marken bei ${SITE_NAME} entdecken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.`;
   } else if (brand) {
-    title = `${brand} Produkte online kaufen | ${SITE_NAME}`;
+    title = `${brand} Produkte online kaufen`;
     desc = `Alle ${brand} Haushaltsgeräte bei ${SITE_NAME} — von Küchengeräten bis Smart Home. Kostenloser Versand ab 50€.`;
   }
 
