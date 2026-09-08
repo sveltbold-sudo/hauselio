@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clearAuthCookie, revokeToken, requireAdmin } from "@/lib/auth";
-import { handleApiError, validateCsrfOrigin } from "@/lib/api-helpers";
+import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json(
-        { error: "CSRF-Schutz: Ungültige Herkunft" },
-        { status: 403 }
-      );
-    }
-
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-logout:${ip}`, 20, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateTestimonialSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -11,10 +11,6 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
-    }
-
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-testimonial-update:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -61,10 +57,6 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
-    }
-
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-testimonial-update:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -111,10 +103,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    if (!validateCsrfOrigin(_request)) {
-      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
-    }
-
     const ip = getClientIp(_request);
     if (!await checkRateLimit(`admin-testimonial-delete:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });

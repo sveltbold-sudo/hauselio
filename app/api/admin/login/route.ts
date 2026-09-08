@@ -8,7 +8,7 @@ import {
   recordFailedLogin,
   resetFailedLogins,
 } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
+import { validateContentType, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
@@ -26,13 +26,6 @@ async function withRetry<T>(fn: () => Promise<T>, retries = 2): Promise<T> {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json(
-        { error: "CSRF-Schutz: Ungültige Herkunft" },
-        { status: 403 }
-      );
-    }
-
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 

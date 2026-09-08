@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireRole, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateAdminSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
@@ -35,10 +35,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
-    }
-
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-admin-create:${ip}`, 10, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
