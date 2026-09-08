@@ -254,7 +254,7 @@ export default function KontoPage() {
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Bitte überprüfen Sie Ihre E-Mail-Adresse.</p>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Wir haben einen Verifizierungslink an {customer.email} gesendet. Klicken Sie auf den Link, um Ihr Konto zu aktivieren.</p>
               </div>
-              <button onClick={() => setShowVerifyPrompt(false)} className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" aria-label="Schließen">
+              <button onClick={() => setShowVerifyPrompt(false)} className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" aria-label="Schließen">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -343,7 +343,7 @@ export default function KontoPage() {
                         className="w-full flex items-center gap-4 p-5 text-left hover:bg-[var(--color-bg-secondary)] transition-colors"
                       >
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-3 mb-1">
+                          <div className="flex items-center gap-3 mb-1 flex-wrap min-w-0">
                             <span className="font-bold text-sm text-[var(--color-text-primary)]">
                               Bestell-Nr. {order.orderNumber}
                             </span>

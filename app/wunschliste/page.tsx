@@ -83,7 +83,7 @@ export default function WunschlistePage() {
           </p>
         </div>
         {confirmClear ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm text-[var(--color-danger)]">Wirklich alle entfernen?</span>
             <button
               onClick={() => { clearAll(); setConfirmClear(false); toast.success("Wunschliste geleert"); }}

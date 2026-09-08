@@ -2,7 +2,7 @@ import { Truck, Shield, RotateCcw } from "lucide-react";
 
 export default function ProductTrustBadges() {
   return (
-    <div className="grid grid-cols-3 gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-xl mb-5">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-xl mb-5">
       <button
         type="button"
         onClick={() => document.getElementById("tab-shipping")?.click()}

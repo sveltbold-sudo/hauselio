@@ -84,7 +84,8 @@ export default function VergleichPage() {
       </div>
 
       {/* Comparison table */}
-      <div className="overflow-x-auto px-5 pb-4">
+      <div className="relative overflow-x-auto px-5 pb-4">
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 sm:hidden" aria-hidden="true" />
         <table className="w-full min-w-[600px] border-collapse">
           <caption className="sr-only">Produktvergleich</caption>
           {/* Product headers */}

@@ -198,6 +198,7 @@ export default function CategoryPage({
       <Suspense fallback={null}>
         <MobileShopBar totalResults={total} sort={sort} basePath={`/kategorie/${slug}`} />
       </Suspense>
+      <div className="h-16 lg:hidden" />
     </div>
   );
 }

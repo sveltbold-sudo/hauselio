@@ -166,7 +166,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>
-              <Button type="submit" size="lg" isLoading={isLoading} aria-describedby={error ? "form-error" : undefined}>
+              <Button type="submit" size="lg" className="w-full" isLoading={isLoading} aria-describedby={error ? "form-error" : undefined}>
                 <Send className="w-4 h-4 mr-2" />
                 Nachricht senden
               </Button>
@@ -190,7 +190,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               href={`mailto:${settings.contactEmail}`}
               className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors group"
             >
-               <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
+               <div className="w-11 h-11 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
                 <Mail className="w-4 h-4 text-[var(--color-primary)] group-hover:text-white" />
               </div>
               <span className="font-medium">{settings.contactEmail}</span>
@@ -199,13 +199,13 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               href={`tel:${settings.contactPhone.replace(/\s/g, "")}`}
               className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors group"
             >
-               <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
+               <div className="w-11 h-11 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
                 <Phone className="w-4 h-4 text-[var(--color-primary)] group-hover:text-white" />
               </div>
               <span className="font-medium">{settings.contactPhone}</span>
             </a>
             <div className="flex items-start gap-3 text-[var(--color-text-secondary)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center flex-shrink-0">
                 <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
               </div>
               <span className="font-medium">

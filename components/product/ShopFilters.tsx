@@ -75,7 +75,7 @@ export default function ShopFilters({
               {categories.find((c) => c.slug === selectedCategory)?.name || selectedCategory}
               <button
                 onClick={() => updateFilter("category", null)}
-                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
+                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
                 aria-label="Filter entfernen"
               >
                 <X className="w-3 h-3" />
@@ -87,7 +87,7 @@ export default function ShopFilters({
               {selectedBrand}
               <button
                 onClick={() => updateFilter("brand", null)}
-                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
+                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
                 aria-label="Filter entfernen"
               >
                 <X className="w-3 h-3" />
@@ -102,7 +102,7 @@ export default function ShopFilters({
               {searchParams.get("price") === "2000-" && "Über 2.000€"}
               <button
                 onClick={() => updateFilter("price", null)}
-                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
+                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
                 aria-label="Filter entfernen"
               >
                 <X className="w-3 h-3" />
@@ -114,7 +114,7 @@ export default function ShopFilters({
               Ab {selectedRating}★
               <button
                 onClick={() => updateFilter("rating", null)}
-                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 transition-colors"
+                className="hover:bg-[var(--color-primary)]/10 rounded p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
                 aria-label="Filter entfernen"
               >
                 <X className="w-3 h-3" />
