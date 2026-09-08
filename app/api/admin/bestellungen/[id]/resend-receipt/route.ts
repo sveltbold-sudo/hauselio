@@ -61,6 +61,14 @@ export async function POST(
       );
     }
 
+    // Idempotency: prevent duplicate resend within 5 minutes
+    if (!await checkRateLimit(`resend-receipt:${id}`, 1, 300_000)) {
+      return NextResponse.json(
+        { error: "Diese Quittung wurde kürzlich bereits erneut gesendet. Bitte warten Sie 5 Minuten." },
+        { status: 429 }
+      );
+    }
+
     const settings = await prisma.siteSettings.findFirst();
 
     const customerName = `${order.customerFirstName} ${order.customerLastName}`;

@@ -5,6 +5,7 @@ import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateBrandSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { logActivity } from "@/lib/activity-log";
 
 export async function GET(request: NextRequest) {
   try {
@@ -69,9 +70,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name } = parsed.data;
+    const { name, slug: customSlug } = parsed.data;
 
-    const slug = name
+    const slug = customSlug || name
       .toLowerCase()
       .replace(/[äöüß]/g, (m) => ({ ä: "ae", ö: "oe", ü: "ue", ß: "ss" }[m] || m))
       .replace(/[^a-z0-9]+/g, "-")
@@ -95,6 +96,7 @@ export async function POST(request: NextRequest) {
 
     // admin already captured
     logger.info("brand-created", `Brand created: ${brand.name} by ${admin.email}`);
+    logActivity({ action: "brand.create", entity: "brand", entityId: brand.id, adminId: admin.id, adminEmail: admin.email, details: { name: brand.name } });
 
     return NextResponse.json(brand, { status: 201 });
   } catch (error) {

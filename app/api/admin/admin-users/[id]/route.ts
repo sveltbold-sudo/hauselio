@@ -54,8 +54,9 @@ export async function PUT(
       updateData.name = parsed.data.name || null;
     }
 
-    if (parsed.data.role) {
+    if (parsed.data.role && parsed.data.role !== existing.role) {
       updateData.role = parsed.data.role;
+      updateData.lastLogin = new Date(0);
     }
 
     const admin = await prisma.adminUser.update({

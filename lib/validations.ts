@@ -87,11 +87,12 @@ export const UpdateSettingsSchema = z.object({
   vatId: z.string().max(50).optional(),
   managingDirector: z.string().max(200).optional(),
   defaultVatRate: z.number().min(0).max(100).optional(),
-  invoicePrefix: z.string().min(1, "Rechnungspräfix ist erforderlich").max(10).optional(),
+  invoicePrefix: z.string().min(1, "Rechnungspräfix ist erforderlich").max(10).regex(/^[A-Za-z0-9_-]+$/, "Nur alphanumerische Zeichen erlaubt").optional(),
 });
 
 export const CreateBrandSchema = z.object({
   name: z.string().min(1, "Markenname ist erforderlich").max(100),
+  slug: z.string().max(100).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten").optional(),
 });
 
 export const RegisterSchema = z.object({

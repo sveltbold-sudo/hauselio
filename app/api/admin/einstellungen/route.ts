@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    await requireAdmin();
+    const adminUser = await requireAdmin();
 
     let settings = await prisma.siteSettings.findFirst();
 
@@ -35,7 +35,12 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ settings });
+    const settingsData = settings ? { ...settings } : null;
+    if (settingsData && adminUser.role !== "ADMIN" && settingsData.bankIban) {
+      settingsData.bankIban = settingsData.bankIban.replace(/.{4}(?=.{4}$)/g, "*");
+    }
+
+    return NextResponse.json({ settings: settingsData });
   } catch (error) {
     return handleApiError(error);
   }

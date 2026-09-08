@@ -5,6 +5,7 @@ import { sendPaymentConfirmed, sendShippedConfirmation, sendOrderCancelled, send
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { logActivity } from "@/lib/activity-log";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
 
@@ -54,7 +55,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const adminUser = await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-bestellung:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -76,6 +77,8 @@ export async function PUT(
     if (!currentOrder) {
       return NextResponse.json({ error: "Bestellung nicht gefunden" }, { status: 404 });
     }
+
+    const previousStatus = currentOrder.status;
 
     const { VALID_ORDER_TRANSITIONS } = await import("@/lib/admin-constants");
     const allowed = VALID_ORDER_TRANSITIONS[currentOrder.status] ?? [];
@@ -199,6 +202,8 @@ export async function PUT(
     } catch (emailError) {
       logger.error("order-status-email", emailError);
     }
+
+    logActivity({ action: "order.status_change", entity: "order", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { orderNumber: order.orderNumber, from: previousStatus, to: status } });
 
     return NextResponse.json({ order });
   } catch (error) {

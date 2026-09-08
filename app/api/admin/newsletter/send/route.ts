@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const adminUser = await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-newsletter-send:${ip}`, 3, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const emails = subscribers.map((s) => s.email);
 
     // Simple idempotency: check if a campaign with same subject was sent in last 5 minutes
-    const recentKey = `newsletter-campaign:${subject}`;
+    const recentKey = `newsletter-campaign:${adminUser.id}:${subject}`;
     if (!await checkRateLimit(recentKey, 1, 300_000)) {
       return NextResponse.json(
         { error: "Diese Kampagne wurde kürzlich bereits gesendet. Bitte warten Sie 5 Minuten." },
