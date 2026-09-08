@@ -54,7 +54,7 @@ export async function GET(
         updatedAt: true,
         category: { select: { id: true, name: true, slug: true, description: true, image: true } },
         brand: { select: { id: true, name: true, slug: true, logo: true } },
-        images: { orderBy: { position: "asc" }, select: { id: true, url: true, alt: true, position: true } },
+        images: { orderBy: { position: "asc" }, select: { id: true, url: true, publicId: true, alt: true, position: true } },
         specs: { orderBy: { position: "asc" }, select: { id: true, key: true, value: true, position: true } },
       },
     });

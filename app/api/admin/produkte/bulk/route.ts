@@ -52,19 +52,23 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      // Fetch image publicIds BEFORE deleting from DB
+      const imagesToDelete = await prisma.productImage.findMany({
+        where: { productId: { in: ids } },
+        select: { publicId: true, productId: true },
+      });
+
       const result = await prisma.product.deleteMany({
         where: { id: { in: ids } },
       });
+
       const cloudinary = getCloudinary();
+      for (const img of imagesToDelete) {
+        if (img.publicId) {
+          try { await cloudinary.uploader.destroy(img.publicId); } catch { /* ignore */ }
+        }
+      }
       for (const id of ids) {
-        try {
-          const images = await prisma.productImage.findMany({ where: { productId: id }, select: { publicId: true } });
-          for (const img of images) {
-            if (img.publicId) {
-              try { await cloudinary.uploader.destroy(img.publicId); } catch { /* ignore */ }
-            }
-          }
-        } catch { /* ignore */ }
         try { await deleteProductFromAlgolia(id); } catch { /* ignore */ }
       }
       return NextResponse.json({ count: result.count });

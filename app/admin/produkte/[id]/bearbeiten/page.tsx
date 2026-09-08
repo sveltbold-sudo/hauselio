@@ -14,6 +14,7 @@ interface ProductSpec {
 
 interface ProductImage {
   url: string;
+  publicId: string | null;
   position: number;
 }
 
@@ -90,10 +91,10 @@ export default function EditProductPage({
           isDailyDeal: p.isDailyDeal,
           weight: p.weight ? String(p.weight) : "",
           imageUrl: p.images[0]?.url || "",
-          imagePublicId: "",
+          imagePublicId: p.images[0]?.publicId || "",
           images: p.images.slice(1).map((img, idx) => ({
             url: img.url,
-            publicId: "",
+            publicId: img.publicId || "",
             position: idx + 1,
           })),
           features: p.features || [],

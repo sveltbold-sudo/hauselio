@@ -149,7 +149,9 @@ export default function ProductForm({
     }
     if (formData.originalPrice) {
       const orig = parseFloat(formData.originalPrice);
-      if (!isNaN(orig) && orig <= price) {
+      if (isNaN(orig)) {
+        newErrors.originalPrice = "Der Originalpreis muss eine gültige Zahl sein.";
+      } else if (!isNaN(price) && orig <= price) {
         newErrors.originalPrice = "Der Originalpreis muss höher als der Verkaufspreis sein.";
       }
     }

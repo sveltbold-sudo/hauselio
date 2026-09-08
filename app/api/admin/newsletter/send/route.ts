@@ -8,7 +8,7 @@ import { z } from "zod";
 import DOMPurify from "isomorphic-dompurify";
 
 const CampaignSchema = z.object({
-  subject: z.string().min(1, "Betreff ist erforderlich").max(200),
+  subject: z.string().min(1, "Betreff ist erforderlich").max(200).refine((v) => !/[\r\n]/.test(v), "Betreff darf keine Zeilenumbrüche enthalten"),
   content: z.string().min(1, "Inhalt ist erforderlich").max(100000),
 });
 
