@@ -176,6 +176,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                   fill
                   className="object-contain drop-shadow-2xl relative z-10"
                   sizes="(max-width: 1024px) 280px, 340px"
+                  priority
                 />
               </div>
             </div>

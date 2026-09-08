@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       {
         bank: {
           accountName: settings.bankAccountName,
-          iban: settings.bankIban,
+          iban: settings.bankIban ? `DE${"*".repeat(settings.bankIban.length - 2)}${settings.bankIban.slice(-2)}` : null,
           bic: settings.bankBic,
           bankName: settings.bankName,
         },

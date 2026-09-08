@@ -8,7 +8,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { logger } from "@/lib/logger";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const PAGE_SIZE = 20;
 

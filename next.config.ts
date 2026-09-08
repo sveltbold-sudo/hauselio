@@ -20,7 +20,7 @@ const securityHeaders = [
   },
   {
     key: "X-XSS-Protection",
-    value: "1; mode=block",
+    value: "0",
   },
   {
     key: "X-Permitted-Cross-Domain-Policies",
@@ -71,7 +71,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "2mb",
     },
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "@prisma/client"],
   },
   compiler: {
     removeConsole: { exclude: ["error"] },

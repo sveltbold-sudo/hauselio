@@ -11,7 +11,7 @@ import PressReviewsSection from "@/components/product/PressReviewsSection";
 import TestimonialsSection from "@/components/product/TestimonialsSection";
 import { logger } from "@/lib/logger";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -40,14 +40,15 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
 
     if (!product) return null;
 
-    const realReviewCount = await prisma.review.count({
-      where: { productId: product.id, isApproved: true },
-    });
-
-    const liveAggregate = await prisma.review.aggregate({
-      where: { productId: product.id, isApproved: true },
-      _avg: { rating: true },
-    });
+    const [realReviewCount, liveAggregate] = await Promise.all([
+      prisma.review.count({
+        where: { productId: product.id, isApproved: true },
+      }),
+      prisma.review.aggregate({
+        where: { productId: product.id, isApproved: true },
+        _avg: { rating: true },
+      }),
+    ]);
 
     const liveRating = Number(liveAggregate._avg.rating ?? product.rating);
 

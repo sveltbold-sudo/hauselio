@@ -101,22 +101,22 @@ export function getJWTSecret(): Uint8Array {
 }
 
 export function getAdminJWTSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET_ADMIN || process.env.JWT_SECRET;
-  if (!secret) throw new Error("JWT_SECRET_ADMIN (or JWT_SECRET) environment variable is required");
+  const secret = process.env.JWT_SECRET_ADMIN;
+  if (!secret) throw new Error("JWT_SECRET_ADMIN environment variable is required — do not share secrets across token types");
   validateSecret(secret, "JWT_SECRET_ADMIN");
   return encodeSecret(secret);
 }
 
 export function getCustomerJWTSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET_CUSTOMER || process.env.JWT_SECRET;
-  if (!secret) throw new Error("JWT_SECRET_CUSTOMER (or JWT_SECRET) environment variable is required");
+  const secret = process.env.JWT_SECRET_CUSTOMER;
+  if (!secret) throw new Error("JWT_SECRET_CUSTOMER environment variable is required — do not share secrets across token types");
   validateSecret(secret, "JWT_SECRET_CUSTOMER");
   return encodeSecret(secret);
 }
 
 export function getUnsubscribeJWTSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET_UNSUBSCRIBE || process.env.JWT_SECRET;
-  if (!secret) throw new Error("JWT_SECRET_UNSUBSCRIBE (or JWT_SECRET) environment variable is required");
+  const secret = process.env.JWT_SECRET_UNSUBSCRIBE;
+  if (!secret) throw new Error("JWT_SECRET_UNSUBSCRIBE environment variable is required — do not share secrets across token types");
   validateSecret(secret, "JWT_SECRET_UNSUBSCRIBE");
   return encodeSecret(secret);
 }
@@ -128,6 +128,10 @@ const TOKEN_EXPIRY_SEC = 24 * 60 * 60;
 // serverless instances. Use a short expiry as a safety net.
 const EFFECTIVE_TOKEN_EXPIRY = (process.env.NODE_ENV === "production" && !useUpstash) ? "1h" : TOKEN_EXPIRY;
 const EFFECTIVE_TOKEN_EXPIRY_SEC = (process.env.NODE_ENV === "production" && !useUpstash) ? 3600 : TOKEN_EXPIRY_SEC;
+
+if (process.env.NODE_ENV === "production" && !useUpstash) {
+  logger.warn("auth", "CRITICAL: Upstash Redis not configured. Token revocation is per-invocation only. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+}
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -420,8 +424,8 @@ export async function authenticateAdmin(
 // ═══════════════════════════════════════════
 
 const CUSTOMER_COOKIE = "customer_token";
-const CUSTOMER_TOKEN_EXPIRY = "7d";
-const CUSTOMER_TOKEN_EXPIRY_SEC = 7 * 24 * 60 * 60;
+const CUSTOMER_TOKEN_EXPIRY = "2d";
+const CUSTOMER_TOKEN_EXPIRY_SEC = 2 * 24 * 60 * 60;
 const CUSTOMER_MAX_FAILED = 5;
 const CUSTOMER_LOCKOUT_MS = 15 * 60 * 1000;
 

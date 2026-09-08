@@ -64,6 +64,10 @@ function getUpstashLimiter(maxRequests: number, windowMs: number): Ratelimit {
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 const MAX_STORE_SIZE = 10_000;
 
+if (process.env.NODE_ENV === "production" && !useUpstash) {
+  console.warn("[HAUSAURA] CRITICAL: Upstash Redis not configured. Rate limiting is per-invocation only. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+}
+
 let lastCleanup = Date.now();
 const CLEANUP_INTERVAL_MS = 60_000;
 
