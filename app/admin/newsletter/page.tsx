@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition, useCallback } from "react";
+import { useEffect, useState, useTransition, useCallback, useRef } from "react";
 import { Mail, Search, Trash2, Download, Send } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { logger } from "@/lib/logger";
@@ -40,6 +40,7 @@ export default function NewsletterPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showSendConfirm, setShowSendConfirm] = useState(false);
   const [, startTransition] = useTransition();
+  const exportAbortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => { setDebouncedSearch(search); setPage(1); }, 300);
@@ -96,6 +97,7 @@ export default function NewsletterPage() {
     try {
       const res = await fetch(`/api/admin/newsletter/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Fehler beim Löschen");
+      toast.success("Abonnent gelöscht!");
       loadSubscribers();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
@@ -111,12 +113,12 @@ export default function NewsletterPage() {
     }
 
     if (sending) return;
+    setSending(true);
     setShowSendConfirm(true);
   };
 
   const confirmSend = async () => {
     setShowSendConfirm(false);
-    setSending(true);
     try {
       const res = await fetch("/api/admin/newsletter/send", {
         method: "POST",
@@ -146,13 +148,16 @@ export default function NewsletterPage() {
   };
 
   const exportCSV = async () => {
+    exportAbortRef.current?.abort();
+    const controller = new AbortController();
+    exportAbortRef.current = controller;
     try {
       let allSubscribers: { email: string; createdAt: string }[] = [];
       let page = 1;
       let hasMore = true;
 
-      while (hasMore) {
-        const res = await fetch(`/api/admin/newsletter?page=${page}&limit=100`);
+      while (hasMore && !controller.signal.aborted) {
+        const res = await fetch(`/api/admin/newsletter?page=${page}&limit=100`, { signal: controller.signal });
         if (!res.ok) throw new Error("Export fehlgeschlagen");
         const data = await res.json();
         const subs = data.subscribers || [];
@@ -177,7 +182,10 @@ export default function NewsletterPage() {
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
       toast.error(err instanceof Error ? err.message : "Fehler beim Exportieren");
+    } finally {
+      exportAbortRef.current = null;
     }
   };
 
@@ -423,7 +431,7 @@ export default function NewsletterPage() {
         message={`Newsletter wirklich an ${activeCount} aktive Abonnenten senden?`}
         confirmLabel="Senden"
         onConfirm={confirmSend}
-        onCancel={() => setShowSendConfirm(false)}
+        onCancel={() => { setShowSendConfirm(false); setSending(false); }}
       />
     </div>
   );
