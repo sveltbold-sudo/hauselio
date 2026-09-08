@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function NewsletterAbmeldenPage() {
   return (
-    <main id="main-content">
+    <main id="main-content" className="pt-[env(safe-area-inset-top,0px)]">
       <BreadcrumbJsonLd items={[{ name: "Startseite", url: "/" }, { name: "Newsletter abmelden", url: "/newsletter-abmelden" }]} />
       <div className="container-hausaura py-6 sm:py-8">
         <Breadcrumb items={[{ label: "Newsletter abmelden" }]} />

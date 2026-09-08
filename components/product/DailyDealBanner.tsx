@@ -157,6 +157,8 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                 <Link
                   href={`/produkt/${product.slug}`}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/5 transition-colors"
+                  aria-hidden="true"
+                  tabIndex={-1}
                 >
                   Details ansehen
                 </Link>

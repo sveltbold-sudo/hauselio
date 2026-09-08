@@ -100,7 +100,7 @@ export default async function KategoriePage() {
                     </span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/5" />
                 <div className="absolute bottom-4 left-4 right-4">
                   <h2 className="heading-3 text-white mb-1">{cat.name}</h2>
                   <p className="text-sm text-white/80">{cat._count?.products > 0 ? `${cat._count.products}+` : "0"} Produkte</p>

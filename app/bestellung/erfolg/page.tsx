@@ -298,8 +298,8 @@ function OrderSuccessContent() {
           {/* Order Number */}
           <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-center">
             <p className="text-sm text-[var(--color-text-muted)] mb-2">Bestellnummer</p>
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-2xl font-extrabold text-[var(--color-primary)] tracking-tight">
+            <div className="flex items-center justify-center gap-2 min-w-0">
+              <p className="text-xl sm:text-2xl font-extrabold text-[var(--color-primary)] tracking-tight min-w-0 truncate">
                 {order.orderNumber}
               </p>
               <button
@@ -351,14 +351,14 @@ function OrderSuccessContent() {
               <>
               <div className="bg-[var(--color-primary)] text-white rounded-xl p-4 mb-4 text-center">
                 <p className="text-xs text-white/70 mb-1 uppercase tracking-wider font-medium">Zu zahlender Betrag</p>
-                <p className="text-3xl font-extrabold tracking-tight">{formatPrice(order.total)}</p>
+                <p className="text-2xl sm:text-3xl font-extrabold tracking-tight">{formatPrice(order.total)}</p>
               </div>
 
               {/* Reference - HERO */}
               <div className="bg-[var(--color-accent-light)] border border-[var(--color-accent)]/20 rounded-xl p-4 mb-4 text-center">
                 <p className="text-xs text-[var(--color-text-muted)] mb-1 uppercase tracking-wider font-medium">Verwendungszweck</p>
-                <div className="flex items-center justify-center gap-2">
-                  <p className="text-2xl font-extrabold text-[var(--color-accent)] tracking-wider font-mono">
+                <div className="flex items-center justify-center gap-2 min-w-0">
+                  <p className="text-xl sm:text-2xl font-extrabold text-[var(--color-accent)] tracking-wide sm:tracking-wider font-mono min-w-0 truncate">
                     {order.orderNumber}
                   </p>
                    <button
@@ -389,10 +389,10 @@ function OrderSuccessContent() {
                     {copied === "name" ? <Check className="w-3.5 h-3.5 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="min-w-0">
                     <p className="text-xs text-[var(--color-text-muted)]">IBAN</p>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono tracking-wide">{bankDetails.iban}</p>
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono tracking-wide truncate">{bankDetails.iban}</p>
                   </div>
                    <button
                     onClick={() => copyToClipboard(bankDetails.iban, "iban")}
@@ -497,11 +497,11 @@ function OrderSuccessContent() {
             </h2>
             <div className="space-y-2 mb-4" role="list">
               {order.items.map((item) => (
-                <div key={item.id || item.name} className="flex justify-between text-sm" role="listitem">
-                    <span className="text-[var(--color-text-secondary)]">
+                <div key={item.id || item.name} className="flex justify-between text-sm gap-2" role="listitem">
+                    <span className="text-[var(--color-text-secondary)] min-w-0 truncate">
                       {item.name} × {item.quantity}
                     </span>
-                  <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
+                  <span className="font-medium shrink-0">{formatPrice(item.price * item.quantity)}</span>
                 </div>
               ))}
             </div>

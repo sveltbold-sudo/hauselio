@@ -32,7 +32,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
           className={cn(
-            "w-full min-h-[120px] px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm resize-y",
+            "w-full min-h-[120px] px-4 py-3 border border-[var(--color-border)] rounded-xl text-sm resize-y appearance-none",
             "bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]",
             "transition-colors duration-300",

@@ -13,7 +13,7 @@ export default function CookieSettingsButton() {
     <button
       type="button"
       onClick={openCookieSettings}
-      className="block px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250"
+      className="px-2.5 py-2 min-h-[44px] flex items-center text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
     >
       Cookie-Einstellungen
     </button>
