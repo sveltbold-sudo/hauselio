@@ -237,6 +237,7 @@ export default function ShopFilters({
           {[5, 4, 3, 2, 1].map((rating) => {
             const count = ratingCounts[rating] ?? 0;
             const isActive = selectedRating === String(rating);
+            if (count === 0 && !isActive) return null;
             return (
               <button
                 key={rating}

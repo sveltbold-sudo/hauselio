@@ -43,7 +43,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
   return (
     <section className="py-6 lg:py-8" aria-label="Angebot des Tages">
       <div className="container-hausaura">
-        <div className="relative bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] rounded-3xl overflow-hidden">
+        <div className="relative bg-gradient-to-br from-[var(--color-primary-dark)] via-[var(--color-primary)] to-[var(--color-primary-hover)] rounded-3xl overflow-hidden">
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
@@ -152,7 +152,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href={`/produkt/${product.slug}`}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-[#1a1a2e] font-bold rounded-xl hover:bg-white/95 active:scale-[0.98] transition-all duration-200 shadow-xl shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a2e]"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-[var(--color-primary)] font-bold rounded-xl hover:bg-white/95 active:scale-[0.98] transition-all duration-200 shadow-xl shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-primary)]"
                 >
                   Jetzt sichern
                   <ArrowRight className="w-4 h-4" />
