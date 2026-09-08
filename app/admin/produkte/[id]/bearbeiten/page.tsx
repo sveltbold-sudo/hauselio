@@ -26,6 +26,8 @@ interface Product {
   shortDesc: string | null;
   price: number;
   originalPrice: number | null;
+  sku: string | null;
+  barcode: string | null;
   categoryId: string;
   brandId: string | null;
   isNew: boolean;
@@ -91,6 +93,8 @@ export default function EditProductPage({
             shortDesc: p.shortDesc || "",
             price: String(p.price),
             originalPrice: p.originalPrice ? String(p.originalPrice) : "",
+            sku: p.sku || "",
+            barcode: p.barcode || "",
             categoryId: p.categoryId,
             brandId: p.brandId || "",
             isNew: p.isNew,
@@ -159,6 +163,8 @@ export default function EditProductPage({
     shortDesc: string;
     price: string;
     originalPrice: string;
+    sku: string;
+    barcode: string;
     categoryId: string;
     brandId: string;
     isNew: boolean;

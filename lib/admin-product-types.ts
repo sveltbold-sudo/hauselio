@@ -5,6 +5,8 @@ export interface ProductFormData {
   shortDesc: string;
   price: string;
   originalPrice: string;
+  sku: string;
+  barcode: string;
   categoryId: string;
   brandId: string;
   isNew: boolean;
@@ -41,6 +43,8 @@ export const emptyFormData: ProductFormData = {
   shortDesc: "",
   price: "",
   originalPrice: "",
+  sku: "",
+  barcode: "",
   categoryId: "",
   brandId: "",
   isNew: false,

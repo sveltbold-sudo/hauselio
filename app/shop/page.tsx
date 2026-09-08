@@ -178,6 +178,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   type ProductWithRelations = {
     id: string; name: string; slug: string; price: number; originalPrice: number | null;
     rating: number; reviewCount: number; isNew: boolean; isPromo: boolean;
+    stockQuantity: number | null;
     category: string | null;
     categorySlug: string | null;
     brand: string | null;
@@ -196,7 +197,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         where,
         select: {
           id: true, name: true, slug: true, price: true, originalPrice: true,
-          rating: true, reviewCount: true, isNew: true, isPromo: true,
+          rating: true, reviewCount: true, isNew: true, isPromo: true, stockQuantity: true,
           brand: { select: { name: true } },
           category: { select: { name: true, slug: true } },
           images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
@@ -219,6 +220,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       reviewCount: p.reviewCount,
       isNew: p.isNew,
       isPromo: p.isPromo,
+      stockQuantity: p.stockQuantity,
       category: p.category?.name || null,
       categorySlug: p.category?.slug || null,
       brand: p.brand?.name || null,
@@ -277,6 +279,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     reviewCount: product.reviewCount,
     isNew: product.isNew,
     isPromo: product.isPromo,
+    stockQuantity: product.stockQuantity,
     brand: product.brand || null,
     categorySlug: product.categorySlug || null,
   }));
@@ -304,7 +307,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                   "@type": "Offer",
                   price: p.price.toFixed(2),
                   priceCurrency: "EUR",
-                  availability: "https://schema.org/InStock",
+                  availability: p.stockQuantity === null || p.stockQuantity > 0
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
                 },
               },
             })),

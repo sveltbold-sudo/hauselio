@@ -506,6 +506,44 @@ export default function ProductForm({
                     className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
                   />
                 </div>
+                <div>
+                  <label htmlFor="sku" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                    SKU
+                  </label>
+                  <input
+                    id="sku"
+                    type="text"
+                    maxLength={50}
+                    value={formData.sku}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        sku: e.target.value,
+                      }))
+                    }
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    placeholder="z.B. HAUS-AF-001"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="barcode" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
+                    Barcode (EAN/GTIN)
+                  </label>
+                  <input
+                    id="barcode"
+                    type="text"
+                    maxLength={50}
+                    value={formData.barcode}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        barcode: e.target.value,
+                      }))
+                    }
+                    className="w-full px-4 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]"
+                    placeholder="z.B. 4006381333931"
+                  />
+                </div>
                 <div className="space-y-2">
                   <label className="flex items-center gap-2">
                     <input

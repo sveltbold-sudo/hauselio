@@ -12,6 +12,8 @@ export function serializeProductBody(data: FormData) {
     originalPrice: data.originalPrice !== undefined && data.originalPrice !== ""
       ? Number(data.originalPrice) || undefined
       : undefined,
+    sku: data.sku || undefined,
+    barcode: data.barcode || undefined,
     categoryId: data.categoryId,
     brandId: data.brandId || undefined,
     isNew: data.isNew,

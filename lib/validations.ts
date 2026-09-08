@@ -45,6 +45,8 @@ export const CreateProductSchema = z.object({
   shortDesc: z.string().max(500).optional().nullable(),
   price: z.number().min(0.01, "Preis muss größer als 0 sein").max(999999.99),
   originalPrice: z.number().min(0).max(999999.99).optional().nullable(),
+  sku: z.string().max(50).optional().nullable(),
+  barcode: z.string().max(50).optional().nullable(),
   categoryId: z.string().min(1, "Kategorie ist erforderlich"),
   brandId: z.string().optional().nullable(),
   isNew: z.boolean().optional().default(false),
@@ -66,6 +68,9 @@ export const CreateProductSchema = z.object({
     publicId: z.string().optional().nullable(),
     position: z.number().int().min(0).optional(),
   })).max(10).optional().default([]),
+}).refine((data) => !data.originalPrice || data.originalPrice > data.price, {
+  message: "Originalpreis muss größer als der Verkaufspreis sein",
+  path: ["originalPrice"],
 });
 
 export const UpdateSettingsSchema = z.object({

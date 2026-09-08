@@ -6,6 +6,7 @@ import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateProductSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { logActivity } from "@/lib/activity-log";
 import { getCloudinary } from "@/lib/cloudinary";
 
 export async function GET(
@@ -80,7 +81,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const adminUser = await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -128,6 +129,8 @@ export async function PUT(
             shortDesc: data.shortDesc || null,
             price: data.price,
             originalPrice: data.originalPrice || null,
+            sku: data.sku || null,
+            barcode: data.barcode || null,
             categoryId: data.categoryId,
             brandId: data.brandId || null,
             isNew: data.isNew,
@@ -233,6 +236,8 @@ export async function PUT(
       logger.error("algolia-sync", algoliaError);
     }
 
+    logActivity({ action: "product.update", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product?.name ?? "unknown" } });
+
     return NextResponse.json({ product });
   } catch (error) {
     return handleApiError(error);
@@ -244,12 +249,17 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdmin();
+    const adminUser = await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
     const { id } = await params;
+
+    const existingProduct = await prisma.product.findUnique({ where: { id }, select: { name: true } });
+    if (!existingProduct) {
+      return NextResponse.json({ error: "Produkt nicht gefunden" }, { status: 404 });
+    }
 
     const orderItemCount = await prisma.orderItem.count({
       where: { productId: id },
@@ -290,6 +300,8 @@ export async function DELETE(
     } catch (algoliaError) {
       logger.error("algolia-delete", algoliaError);
     }
+
+    logActivity({ action: "product.delete", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: existingProduct.name } });
 
     return NextResponse.json({ success: true });
   } catch (error) {
