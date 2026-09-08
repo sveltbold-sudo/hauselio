@@ -38,7 +38,7 @@ export default function ShopFilters({
     router.push(`/shop?${params.toString()}`);
   };
 
-  const hasActiveFilters = selectedCategory || selectedBrand || selectedPrice || selectedRating || selectedPromo;
+  const hasActiveFilters = selectedCategory || selectedBrand || searchParams.get("price") || selectedRating || selectedPromo;
 
   return (
     <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-5">

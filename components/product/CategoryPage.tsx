@@ -75,7 +75,7 @@ export default function CategoryPage({
       {subCategories.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-6">
           <Link
-            href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}`}
+            href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}${sort !== "newest" ? `${brand ? "&" : "?"}sort=${sort}` : ""}`}
             className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
               !sub
                 ? "bg-[var(--color-primary)] text-white"
@@ -87,7 +87,7 @@ export default function CategoryPage({
           {subCategories.map((sc) => (
             <Link
               key={sc.name}
-              href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}`}
+              href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
               className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
                 sub === sc.name
                   ? "bg-[var(--color-primary)] text-white"

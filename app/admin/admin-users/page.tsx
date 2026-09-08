@@ -7,8 +7,6 @@ import { logger } from "@/lib/logger";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import Input from "@/components/ui/Input";
 
-export const dynamic = "force-dynamic";
-
 interface AdminUser {
   id: string;
   email: string;
