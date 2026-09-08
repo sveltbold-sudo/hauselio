@@ -74,7 +74,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               </div>
               <h2 className="heading-2 mb-3">Nachricht gesendet!</h2>
               <p className="body-large">
-                Vielen Dank für Ihre Nachricht. Wir melden uns bei Ihnen.
+                Vielen Dank für Ihre Nachricht. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
               </p>
               <Button
                 onClick={() => {

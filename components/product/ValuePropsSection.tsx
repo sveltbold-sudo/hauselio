@@ -16,7 +16,7 @@ const valueProps = [
   {
     icon: Shield,
     title: "Garantie bis 5 J.",
-    description: "Kostenlos verlängern",
+    description: "Erweiterte Option",
     color: "text-[var(--color-success)]",
   },
   {
