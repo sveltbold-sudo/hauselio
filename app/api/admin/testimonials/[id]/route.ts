@@ -26,14 +26,13 @@ export async function PATCH(
     const admin = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
+    const parsed = CreateTestimonialSchema.partial().safeParse(body);
 
-    const allowedFields = ["isApproved", "isFeatured"];
-    const invalidKeys = Object.keys(body).filter((k) => !allowedFields.includes(k));
-    if (invalidKeys.length > 0) {
-      return NextResponse.json({ error: `Ungültige Felder: ${invalidKeys.join(", ")}` }, { status: 400 });
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0]!.message }, { status: 400 });
     }
 
-    if (Object.keys(body).length === 0) {
+    if (Object.keys(parsed.data).length === 0) {
       return NextResponse.json({ error: "Keine Änderungen angegeben" }, { status: 400 });
     }
 
@@ -44,7 +43,7 @@ export async function PATCH(
 
     const testimonial = await prisma.testimonial.update({
       where: { id },
-      data: body,
+      data: parsed.data,
     });
 
     // admin already captured
