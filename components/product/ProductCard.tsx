@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Truck } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import ProductImage from "@/components/product/ProductImage";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import WishlistButton from "@/components/product/WishlistButton";
 import StarRating from "@/components/ui/StarRating";
 import { formatPrice, calcDiscount } from "@/lib/utils";
-import DeliveryEstimate from "@/components/product/DeliveryEstimate";
 import type { ProductListItem } from "@/lib/product-types";
 
 interface ProductCardProps {
@@ -19,7 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col">
+    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col h-full">
       {/* Wishlist button — top right */}
       <div className="absolute top-3 right-3 z-10" role="presentation">
         <WishlistButton
@@ -66,56 +64,53 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Content */}
-        <div className="p-3 sm:p-4 flex-1 flex flex-col">
+        <div className="p-3 sm:p-4 flex flex-col gap-1">
           {product.brand && (
-            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-1" translate="no">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">
               {product.brand}
             </p>
           )}
-          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] mb-2 line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
+          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors leading-snug">
             {product.name}
           </h3>
-          <div className="flex items-center gap-1.5 mb-2.5">
+          <div className="flex items-center gap-1.5 mt-1">
             <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
-              {formatPrice(product.price)}
-            </span>
-            {product.isPromo && product.originalPrice && (
-              <span className="text-xs text-[var(--color-text-muted)] line-through">
-                UVP {formatPrice(product.originalPrice)}
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-1.5 mt-2">
-            <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[var(--color-text-muted)]" aria-hidden="true" />
-            <DeliveryEstimate />
           </div>
         </div>
       </Link>
 
-      {/* Add to Cart — flows naturally at card bottom */}
-      <div
-        className="px-3 pb-3 pt-0"
-        role="presentation"
-        onClick={(e) => e.stopPropagation()}
-        onMouseDown={(e) => e.stopPropagation()}
-      >
-        <AddToCartButton
-          product={{
-            id: product.id,
-            name: product.name,
-            slug: product.slug,
-            price: product.price,
-            originalPrice: product.originalPrice,
-            image: product.image,
-            brand: product.brand ?? "",
-            categorySlug: product.categorySlug ?? undefined,
-            rating: product.rating,
-            reviewCount: product.reviewCount,
-          }}
-        />
+      {/* Price + Cart button — pinned at bottom */}
+      <div className="px-3 pb-3 pt-0 flex flex-col gap-2">
+        <div className="flex items-baseline gap-2">
+          <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
+            {formatPrice(product.price)}
+          </span>
+          {product.isPromo && product.originalPrice && (
+            <span className="text-xs text-[var(--color-text-muted)] line-through">
+              UVP {formatPrice(product.originalPrice)}
+            </span>
+          )}
+        </div>
+        <div
+          role="presentation"
+          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          <AddToCartButton
+            product={{
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              price: product.price,
+              originalPrice: product.originalPrice,
+              image: product.image,
+              brand: product.brand ?? "",
+              categorySlug: product.categorySlug ?? undefined,
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
