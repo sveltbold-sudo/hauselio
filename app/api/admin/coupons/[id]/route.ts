@@ -32,7 +32,7 @@ export async function PUT(
       return NextResponse.json({ error: parsed.error.issues[0]!.message }, { status: 400 });
     }
 
-    const existing = await prisma.coupon.findUnique({ where: { id } });
+    const existing = await prisma.coupon.findUnique({ where: { id }, select: { id: true } });
     if (!existing) {
       return NextResponse.json({ error: "Gutschein nicht gefunden" }, { status: 404 });
     }
@@ -49,6 +49,7 @@ export async function PUT(
     const coupon = await prisma.coupon.update({
       where: { id },
       data: { code: code.toUpperCase(), ...data },
+      select: { id: true, code: true, discountPercent: true, maxUses: true, usedCount: true, expiresAt: true, isActive: true },
     });
 
     try {
@@ -82,7 +83,7 @@ export async function DELETE(
 
     const { id } = await params;
 
-    const coupon = await prisma.coupon.findUnique({ where: { id } });
+    const coupon = await prisma.coupon.findUnique({ where: { id }, select: { id: true, code: true } });
     if (!coupon) {
       return NextResponse.json({ error: "Gutschein nicht gefunden" }, { status: 404 });
     }

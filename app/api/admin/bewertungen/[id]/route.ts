@@ -21,11 +21,12 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-bewertung:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
+
+    await requireAdmin();
     const { id } = await params;
     const body = await request.json();
     const parsed = UpdateReviewSchema.safeParse(body);
@@ -80,7 +81,6 @@ export async function DELETE(
       return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
     }
 
-    await requireAdmin();
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-bewertung-delete:${ip}`, 30, 60_000);
     if (!allowed) {
@@ -89,6 +89,8 @@ export async function DELETE(
         { status: 429, headers: { "Retry-After": "60" } }
       );
     }
+
+    await requireAdmin();
     const { id } = await params;
 
     const review = await prisma.review.findUnique({ where: { id }, select: { productId: true } });

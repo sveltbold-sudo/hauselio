@@ -49,6 +49,7 @@ export async function PUT(
     const category = await prisma.category.update({
       where: { id },
       data: parsed.data,
+      select: { id: true, name: true, slug: true, description: true },
     });
 
     return NextResponse.json({ category });

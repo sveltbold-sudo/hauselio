@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 import { z } from "zod";
 
 const UpdateNewsletterSchema = z.object({
@@ -21,7 +22,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-newsletter:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -42,6 +43,12 @@ export async function PUT(
       data: { isActive: parsed.data.isActive },
     });
 
+    try {
+      logger.info("newsletter-subscriber-updated", `Newsletter subscriber ${subscriber.email} updated (isActive: ${subscriber.isActive}) by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("newsletter-update-audit-failed", auditErr);
+    }
+
     return NextResponse.json({ subscriber });
   } catch (error) {
     return handleApiError(error);
@@ -57,7 +64,7 @@ export async function DELETE(
       return NextResponse.json({ error: "CSRF-Schutz: Ungültige Herkunft" }, { status: 403 });
     }
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-newsletter-delete:${ip}`, 30, 60_000);
     if (!allowed) {
@@ -68,7 +75,18 @@ export async function DELETE(
     }
     const { id } = await params;
 
+    const subscriber = await prisma.newsletter.findUnique({ where: { id }, select: { email: true } });
+    if (!subscriber) {
+      return NextResponse.json({ error: "Abonnent nicht gefunden" }, { status: 404 });
+    }
+
     await prisma.newsletter.delete({ where: { id } });
+
+    try {
+      logger.info("newsletter-subscriber-deleted", `Newsletter subscriber ${subscriber.email} deleted by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("newsletter-delete-audit-failed", auditErr);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

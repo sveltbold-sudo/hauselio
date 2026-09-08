@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { UpdateSettingsSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -58,7 +59,7 @@ export async function PUT(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireAdmin();
+    const admin = await requireAdmin();
     const body = await request.json();
 
     // Convert empty strings and nulls to undefined so .optional() fields pass validation
@@ -86,6 +87,12 @@ export async function PUT(request: NextRequest) {
       });
     } else {
       settings = await prisma.siteSettings.create({ data });
+    }
+
+    try {
+      logger.info("settings-updated", `Site settings updated by ${admin.email}`);
+    } catch (auditErr) {
+      logger.error("settings-update-audit-failed", auditErr);
     }
 
     return NextResponse.json({ settings });

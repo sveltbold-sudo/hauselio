@@ -711,6 +711,8 @@ export default function ProductForm({
                             ...prev,
                             images: [...prev.images, { url: data.url, publicId: data.publicId || "", position: prev.images.length + 1 }],
                           }));
+                        } else {
+                          toast.error(data.error || "Bild-Upload fehlgeschlagen.");
                         }
                       } catch {
                         toast.error("Bild-Upload fehlgeschlagen.");
