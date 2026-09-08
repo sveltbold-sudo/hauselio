@@ -19,7 +19,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg h-full flex flex-col">
+    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col">
       {/* Wishlist button — top right */}
       <div className="absolute top-3 right-3 z-10" role="presentation">
         <WishlistButton
