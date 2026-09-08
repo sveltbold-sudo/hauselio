@@ -113,10 +113,11 @@ function PasswortZuruecksetzenForm() {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
+              <label htmlFor="reset-email" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">E-Mail</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                 <input
+                  id="reset-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -202,6 +203,7 @@ function PasswortZuruecksetzenForm() {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -226,6 +228,7 @@ function PasswortZuruecksetzenForm() {
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[44px] min-h-[44px] p-2 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                aria-label={showConfirmPassword ? "Passwort verbergen" : "Passwort anzeigen"}
               >
                 {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>

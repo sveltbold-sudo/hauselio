@@ -158,6 +158,12 @@ export default function HeaderClient() {
   useScrollLock(searchOpen && isMobile);
 
   useEffect(() => {
+    const handleOpenSearch = () => setSearchOpen(true);
+    window.addEventListener("HAUSAURA:open-search", handleOpenSearch);
+    return () => window.removeEventListener("HAUSAURA:open-search", handleOpenSearch);
+  }, []);
+
+  useEffect(() => {
     if (!mobileMenuOpen) setExpandedMobileCat(null);
   }, [mobileMenuOpen]);
 
@@ -410,11 +416,11 @@ export default function HeaderClient() {
                       (e.target as HTMLElement).blur();
                     }
                   }}
-                  aria-current={pathname.startsWith(cat.href) ? "page" : undefined}
+                  aria-current={pathname === cat.href || pathname.startsWith(cat.href + "/") || pathname.startsWith(cat.href + "?") ? "page" : undefined}
                   aria-haspopup="true"
                   aria-expanded={activeMega === cat.href}
                   className={`header-nav-tab flex items-center gap-1 ${
-                    pathname.startsWith(cat.href) ? "active" : ""
+                    pathname === cat.href || pathname.startsWith(cat.href + "/") || pathname.startsWith(cat.href + "?") ? "active" : ""
                   } ${activeMega === cat.href ? "hovered" : ""}`}
                 >
                   {cat.name}

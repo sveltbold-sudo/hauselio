@@ -24,7 +24,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
       select: {
         id: true, name: true, slug: true, sku: true, barcode: true,
         description: true, price: true, originalPrice: true,
-        isPromo: true, isNew: true, rating: true, reviewCount: true,
+        isPromo: true, isNew: true, rating: true, reviewCount: true, stockQuantity: true,
         category: { select: { name: true, slug: true } },
         brand: { select: { name: true, slug: true } },
         images: { orderBy: { position: "asc" as const }, select: { url: true } },
@@ -161,6 +161,7 @@ export default async function ProductPage({ params }: PageProps) {
     categorySlug: product.category?.slug || "",
     specs: product.specs || [],
     images: product.images || [],
+    stockQuantity: product.stockQuantity ?? null,
   };
 
   return (

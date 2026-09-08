@@ -12,6 +12,7 @@ function EmailVerificationContent() {
   const [status, setStatus] = useState<"loading" | "success" | "error" | "no-token">("loading");
   const [error, setError] = useState("");
   const [retryCount, setRetryCount] = useState(0);
+  const [resendStatus, setResendStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   useEffect(() => {
     if (!token) {
@@ -43,6 +44,20 @@ function EmailVerificationContent() {
 
     verifyEmail();
   }, [token, retryCount]);
+
+  const handleResend = async () => {
+    setResendStatus("loading");
+    try {
+      const res = await fetch("/api/customer/verify-email", { method: "POST" });
+      if (res.ok) {
+        setResendStatus("success");
+      } else {
+        setResendStatus("error");
+      }
+    } catch {
+      setResendStatus("error");
+    }
+  };
 
   return (
     <main id="main-content" className="container-hausaura py-20 min-h-[60vh] flex items-center justify-center">
@@ -79,6 +94,13 @@ function EmailVerificationContent() {
               <Button size="lg" className="w-full" onClick={() => setRetryCount((c) => c + 1)}>
                 Erneut versuchen
               </Button>
+              {resendStatus === "success" ? (
+                <p className="text-sm text-[var(--color-success)]" role="status">Ein neuer Verifizierungslink wurde gesendet.</p>
+              ) : (
+                <Button size="lg" variant="outline" className="w-full" onClick={handleResend} disabled={resendStatus === "loading"}>
+                  {resendStatus === "loading" ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gesendet…</> : "Neuen Verifizierungslink senden"}
+                </Button>
+              )}
               <Link href="/konto">
                 <Button size="lg" variant="outline" className="w-full">
                   Zurück zum Konto
@@ -95,11 +117,20 @@ function EmailVerificationContent() {
             <p className="text-[var(--color-text-muted)] mb-6">
               Bitte öffnen Sie den Link in der Verifizierungs-E-Mail, die wir Ihnen zugesendet haben.
             </p>
-            <Link href="/konto">
-              <Button size="lg" className="w-full">
-                Zurück zum Konto
-              </Button>
-            </Link>
+            <div className="flex flex-col gap-3">
+              {resendStatus === "success" ? (
+                <p className="text-sm text-[var(--color-success)]" role="status">Ein neuer Verifizierungslink wurde gesendet.</p>
+              ) : (
+                <Button size="lg" className="w-full" onClick={handleResend} disabled={resendStatus === "loading"}>
+                  {resendStatus === "loading" ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gesendet…</> : "Neuen Verifizierungslink senden"}
+                </Button>
+              )}
+              <Link href="/konto">
+                <Button size="lg" variant="outline" className="w-full">
+                  Zurück zum Konto
+                </Button>
+              </Link>
+            </div>
           </>
         )}
       </div>

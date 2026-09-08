@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp, X } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
 
@@ -60,6 +60,7 @@ export default function KontoPage() {
   const [profileZip, setProfileZip] = useState("");
   const [profileCity, setProfileCity] = useState("");
   const [profileCountry, setProfileCountry] = useState("DE");
+  const [showVerifyPrompt, setShowVerifyPrompt] = useState(false);
 
   // Orders state
   const [orders, setOrders] = useState<Order[]>([]);
@@ -164,6 +165,7 @@ export default function KontoPage() {
       setEmail("");
       setPassword("");
       setName("");
+      setShowVerifyPrompt(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {
@@ -244,6 +246,19 @@ export default function KontoPage() {
               <p className="text-[var(--color-text-muted)] text-sm">{customer.email}</p>
             </div>
           </div>
+
+          {showVerifyPrompt && (
+            <div role="alert" className="p-4 mb-6 bg-[var(--color-warning-light, #fef3cd)] border border-[var(--color-warning, #f59e0b)]/30 rounded-xl flex items-start gap-3">
+              <Mail className="w-5 h-5 text-[var(--color-warning, #f59e0b)] shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Bitte überprüfen Sie Ihre E-Mail-Adresse.</p>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Wir haben einen Verifizierungslink an {customer.email} gesendet. Klicken Sie auf den Link, um Ihr Konto zu aktivieren.</p>
+              </div>
+              <button onClick={() => setShowVerifyPrompt(false)} className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]" aria-label="Schließen">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <button

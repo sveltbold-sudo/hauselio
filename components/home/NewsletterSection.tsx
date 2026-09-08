@@ -95,7 +95,7 @@ export default function NewsletterSection() {
             ))}
           </div>
           <p className="text-xs font-semibold text-white/70">
-            Schließen Sie sich 2.500+ zufriedenen Abonnenten an
+            Schließen Sie sich unseren zufriedenen Abonnenten an
           </p>
         </div>
       </div>

@@ -51,7 +51,8 @@ export default function WhatsAppChat() {
   };
 
   const handleOpen = () => {
-    const url = `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+    const cleaned = phone.replace(/[^0-9]/g, "").replace(/^490/, "49");
+    const url = `https://wa.me/${cleaned}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     handleDismiss();
   };

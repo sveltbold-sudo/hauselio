@@ -190,6 +190,7 @@ export default function CookieConsent() {
               <p id="cookie-desc" className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
                 Wir verwenden Cookies, um das Nutzererlebnis zu verbessern.
                 Sie können wählen, welche Cookies Sie zulassen möchten.
+                Weitere Informationen finden Sie in unserer <a href="/datenschutz" className="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a>.
               </p>
 
               {showDetails && (

@@ -36,6 +36,7 @@ export interface ProductDetail {
   categorySlug: string;
   specs: ProductSpec[];
   images: string[];
+  stockQuantity: number | null;
 }
 
 export interface BundleProduct {

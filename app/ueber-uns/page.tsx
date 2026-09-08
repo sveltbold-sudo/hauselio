@@ -37,7 +37,7 @@ const values = [
   {
     icon: Truck,
     title: "Schneller Versand",
-    description: "Kostenloser Versand innerhalb Deutschlands ab 50€ Bestellwert. Ihre Bestellung wird innerhalb von 1-3 Werktagen geliefert.",
+    description: "Kostenloser Versand innerhalb Deutschlands ab 50€ Bestellwert. Ihre Bestellung wird innerhalb von 2-5 Werktagen geliefert.",
   },
   {
     icon: Shield,

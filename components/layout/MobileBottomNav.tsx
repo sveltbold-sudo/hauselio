@@ -8,7 +8,7 @@ import { useCartStore, selectItemCount } from "@/lib/store";
 const navItems = [
   { href: "/", icon: Home, label: "Start" },
   { href: "/kategorie", icon: Grid3X3, label: "Kategorien" },
-  { href: "/shop", icon: Search, label: "Suche" },
+  { href: "/shop", icon: Search, label: "Suche", isSearch: true },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
   { href: "/konto", icon: User, label: "Konto" },
 ];
@@ -29,27 +29,42 @@ export default function MobileBottomNav() {
           const isActive = pathname === item.href || (item.href !== "/" && item.href !== "/shop" && pathname.startsWith(item.href));
           return (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                aria-current={isActive ? "page" : undefined}
-                className={`relative flex flex-col items-center justify-center min-w-[52px] min-h-[48px] gap-0.5 text-xs transition-colors transition-transform active:scale-90 ${
-                  isActive
-                    ? "text-[var(--color-accent)] font-semibold"
-                    : "text-[var(--color-text-muted)]"
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
-                {item.href === "/warenkorb" && itemCount > 0 && (
-                  <span
-                    className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-xs font-bold rounded-full flex items-center justify-center"
-                    aria-label={`${itemCount} Artikel im Warenkorb`}
-                    aria-live="polite"
-                  >
-                    {itemCount > 99 ? "99+" : itemCount}
-                  </span>
-                )}
-              </Link>
+              {item.isSearch ? (
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent("HAUSAURA:open-search"))}
+                  className={`relative flex flex-col items-center justify-center min-w-[52px] min-h-[48px] gap-0.5 text-xs transition-colors transition-transform active:scale-90 ${
+                    isActive
+                      ? "text-[var(--color-accent)] font-semibold"
+                      : "text-[var(--color-text-muted)]"
+                  }`}
+                  aria-label="Suche öffnen"
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span>{item.label}</span>
+                </button>
+              ) : (
+                <Link
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative flex flex-col items-center justify-center min-w-[52px] min-h-[48px] gap-0.5 text-xs transition-colors transition-transform active:scale-90 ${
+                    isActive
+                      ? "text-[var(--color-accent)] font-semibold"
+                      : "text-[var(--color-text-muted)]"
+                  }`}
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span>{item.label}</span>
+                  {item.href === "/warenkorb" && itemCount > 0 && (
+                    <span
+                      className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-xs font-bold rounded-full flex items-center justify-center"
+                      aria-label={`${itemCount} Artikel im Warenkorb`}
+                      aria-live="polite"
+                    >
+                      {itemCount > 99 ? "99+" : itemCount}
+                    </span>
+                  )}
+                </Link>
+              )}
             </li>
           );
         })}

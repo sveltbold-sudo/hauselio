@@ -171,7 +171,7 @@ export default function BestellungPage() {
         const invalidItems: string[] = [];
 
         for (const item of data.items) {
-          if (!item.valid) {
+          if (!item.valid || item.outOfStock) {
             invalidItems.push(item.name || item.id);
             removeItem(item.id);
           } else if (item.priceChanged) {

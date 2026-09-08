@@ -18,7 +18,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: "Welche Garantie bieten Sie?",
-    answer: "Wir bieten eine erweiterte Garantie von bis zu 5 Jahren auf alle Geräte. Zusätzlich haben Sie die gesetzliche Gewährleistung. Bei Defekten übernehmen wir die Reparatur oder den Ersatz kostenfrei.",
+    answer: "Alle Produkte unterliegen der gesetzlichen Gewährleistung von 24 Monaten. Für ausgewählte Premium-Produkte (Miele, Gaggenau, V-ZUG) bieten wir eine optionale Premium-Garantie bis zu 5 Jahre an. Diese kann direkt beim Kauf gebucht werden.",
   },
   {
     question: "Kann ich eine Beratung vor dem Kauf erhalten?",
@@ -26,7 +26,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: "Bieten Sie einen Anschlussservice an?",
-    answer: "Ja, bei vielen Geräten bieten wir einen Anschlussservice an. Bei der Bestellung können Sie angeben, ob Sie eine fachgerechte Installation wünschen.",
+    answer: "Derzeit konzentrieren wir uns auf den Verkauf hochwertiger Haushaltsgeräte. Für technische Probleme oder Reparaturwünsche verweisen wir Sie gerne an den jeweiligen Herstellerservice. Bei Garantiefällen helfen wir Ihnen selbstverständlich weiter.",
   },
 ];
 
