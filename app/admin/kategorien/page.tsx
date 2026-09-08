@@ -52,18 +52,21 @@ export default function KategorienPage() {
   }, []);
 
   const loadCategories = useCallback(() => {
-    fetch("/api/admin/kategorien")
+    const controller = new AbortController();
+    fetch("/api/admin/kategorien", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
       .then((data) => startTransition(() => setCategories(data.categories || [])))
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setError("Kategorien konnten nicht geladen werden."); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setError("Kategorien konnten nicht geladen werden."); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [startTransition]);
 
   useEffect(() => {
-    loadCategories();
+    const cleanup = loadCategories();
+    return cleanup;
   }, [loadCategories]);
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -56,10 +56,11 @@ export default function CouponsPage() {
   }, []);
 
   const loadCoupons = useCallback(() => {
+    const controller = new AbortController();
     setLoading(true);
     const params = new URLSearchParams({ page: String(page), limit: "20" });
     if (search.trim()) params.set("search", search.trim());
-    fetch(`/api/admin/coupons?${params}`)
+    fetch(`/api/admin/coupons?${params}`, { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
@@ -70,11 +71,12 @@ export default function CouponsPage() {
           if (data.pagination) setPagination(data.pagination);
         });
       })
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [page, search]);
 
-  useEffect(() => { loadCoupons(); }, [page, search, loadCoupons]);
+  useEffect(() => { const cleanup = loadCoupons(); return cleanup; }, [page, search, loadCoupons]);
 
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debouncedSearch = useCallback((value: string) => {

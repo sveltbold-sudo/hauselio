@@ -34,9 +34,10 @@ export default function StatistikenPage() {
   const [, startTransition] = useTransition();
 
   const fetchStats = useCallback((range: DateRange) => {
+    const controller = new AbortController();
     setLoading(true);
     setError(null);
-    fetch(`/api/admin/statistiken?range=${range}`)
+    fetch(`/api/admin/statistiken?range=${range}`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -45,12 +46,14 @@ export default function StatistikenPage() {
         if (data.error) throw new Error(data.error);
         startTransition(() => setStats(data));
       })
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setError(err instanceof Error ? err.message : "Fehler beim Laden der Statistiken."); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setError(err instanceof Error ? err.message : "Fehler beim Laden der Statistiken."); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [startTransition]);
 
   useEffect(() => {
-    fetchStats(dateRange);
+    const cleanup = fetchStats(dateRange);
+    return cleanup;
   }, [dateRange, fetchStats]);
 
   const handleRangeChange = (range: DateRange) => {

@@ -52,8 +52,9 @@ export default function TestimonialsPage() {
   }, []);
 
   const loadTestimonials = useCallback(() => {
+    const controller = new AbortController();
     setLoading(true);
-    fetch(`/api/admin/testimonials?page=${page}&limit=20&filter=${filter}`)
+    fetch(`/api/admin/testimonials?page=${page}&limit=20&filter=${filter}`, { signal: controller.signal })
       .then((r) => { if (!r.ok) throw new Error("Failed"); return r.json(); })
       .then((data) => {
         startTransition(() => {
@@ -62,11 +63,12 @@ export default function TestimonialsPage() {
           if (data.pendingCount !== undefined) setTotalPendingCount(data.pendingCount);
         });
       })
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [page, filter]);
 
-  useEffect(() => { loadTestimonials(); }, [page, filter, loadTestimonials]);
+  useEffect(() => { const cleanup = loadTestimonials(); return cleanup; }, [page, filter, loadTestimonials]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

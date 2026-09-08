@@ -126,7 +126,8 @@ export default function EinstellungenPage() {
       toast.success("Einstellungen gespeichert!");
       isDirty.current = false;
       initialSettingsRef.current = settings;
-    } catch {
+    } catch (err) {
+      logger.error("einstellungen-save", err);
       toast.error("Fehler beim Speichern.");
     } finally {
       setSaving(false);

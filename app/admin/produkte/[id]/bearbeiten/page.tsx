@@ -55,8 +55,12 @@ export default function EditProductPage({
     Record<string, unknown> | null
   >(null);
 
+  const [loadKey, setLoadKey] = useState(0);
+
   useEffect(() => {
+    let cancelled = false;
     async function load() {
+      setIsLoading(true);
       try {
         const [idResolved, catsRes, brsRes] = await Promise.all([
           params,
@@ -67,8 +71,10 @@ export default function EditProductPage({
         const catsData = catsRes.ok ? await catsRes.json() : { categories: [] };
         const brsData = brsRes.ok ? await brsRes.json() : { brands: [] };
 
-        setCategories(catsData.categories || []);
-        setBrands(brsData.brands || []);
+        if (!cancelled) {
+          setCategories(catsData.categories || []);
+          setBrands(brsData.brands || []);
+        }
 
         const res = await fetch(`/api/admin/produkte/${idResolved.id}`);
         if (!res.ok) throw new Error("Produkt nicht gefunden");
@@ -76,42 +82,47 @@ export default function EditProductPage({
         const data = await res.json();
         const p: Product = data.product;
 
-        setInitialData({
-          name: p.name,
-          slug: p.slug,
-          description: p.description,
-          shortDesc: p.shortDesc || "",
-          price: String(p.price),
-          originalPrice: p.originalPrice ? String(p.originalPrice) : "",
-          categoryId: p.categoryId,
-          brandId: p.brandId || "",
-          isNew: p.isNew,
-          isFeatured: p.isFeatured,
-          isPromo: p.isPromo,
-          isDailyDeal: p.isDailyDeal,
-          weight: p.weight ? String(p.weight) : "",
-          imageUrl: p.images[0]?.url || "",
-          imagePublicId: p.images[0]?.publicId || "",
-          images: p.images.slice(1).map((img, idx) => ({
-            url: img.url,
-            publicId: img.publicId || "",
-            position: idx + 1,
-          })),
-          features: p.features || [],
-          specs: p.specs || [],
-          seoTitle: p.seoTitle || "",
-          seoDesc: p.seoDesc || "",
-        });
+        if (!cancelled) {
+          setInitialData({
+            name: p.name,
+            slug: p.slug,
+            description: p.description,
+            shortDesc: p.shortDesc || "",
+            price: String(p.price),
+            originalPrice: p.originalPrice ? String(p.originalPrice) : "",
+            categoryId: p.categoryId,
+            brandId: p.brandId || "",
+            isNew: p.isNew,
+            isFeatured: p.isFeatured,
+            isPromo: p.isPromo,
+            isDailyDeal: p.isDailyDeal,
+            weight: p.weight ? String(p.weight) : "",
+            imageUrl: p.images[0]?.url || "",
+            imagePublicId: p.images[0]?.publicId || "",
+            images: p.images.slice(1).map((img, idx) => ({
+              url: img.url,
+              publicId: img.publicId || "",
+              position: idx + 1,
+            })),
+            features: p.features || [],
+            specs: p.specs || [],
+            seoTitle: p.seoTitle || "",
+            seoDesc: p.seoDesc || "",
+          });
+        }
       } catch (err) {
-        toast.error(
-          err instanceof Error ? err.message : "Fehler beim Laden"
-        );
+        if (!cancelled) {
+          toast.error(
+            err instanceof Error ? err.message : "Fehler beim Laden"
+          );
+        }
       } finally {
-        setIsLoading(false);
+        if (!cancelled) setIsLoading(false);
       }
     }
     load();
-  }, [params, toast]);
+    return () => { cancelled = true; };
+  }, [params, toast, loadKey]);
 
   if (isLoading) {
     return (
@@ -127,7 +138,7 @@ export default function EditProductPage({
         <p className="text-[var(--color-text-muted)] mb-4">Produkt konnte nicht geladen werden.</p>
         <div className="flex items-center justify-center gap-3">
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => setLoadKey((k) => k + 1)}
             className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Erneut versuchen

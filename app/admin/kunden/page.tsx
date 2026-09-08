@@ -50,15 +50,20 @@ export default function KundenPage() {
   }, [search]);
 
   useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
     setLoading(true);
-    fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}&sort=${sortField}&dir=${sortDir}`)
+    fetch(`/api/admin/kunden?page=${page}&limit=20&search=${encodeURIComponent(debouncedSearch)}&sort=${sortField}&dir=${sortDir}`, { signal: controller.signal })
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then((d: PaginatedResponse) => startTransition(() => setData(d)))
+      .then((d: PaginatedResponse) => { if (!cancelled) startTransition(() => setData(d)); })
       .catch((err) => {
-        logger.error("Failed to load data", { error: err });
-        setError(true);
+        if (!cancelled && err.name !== "AbortError") {
+          logger.error("Failed to load data", { error: err });
+          setError(true);
+        }
       })
-      .finally(() => setLoading(false));
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; controller.abort(); };
   }, [page, debouncedSearch, sortField, sortDir, startTransition]);
 
   const customers = useMemo(() => data?.customers ?? [], [data?.customers]);

@@ -46,21 +46,29 @@ export default function AdminUsersPage() {
   }, []);
 
   const loadAdmins = () => {
+    const controller = new AbortController();
     setLoading(true);
-    fetch("/api/admin/admin-users")
+    fetch("/api/admin/admin-users", { signal: controller.signal })
       .then((r) => { if (!r.ok) throw new Error("Failed"); return r.json(); })
       .then((data) => startTransition(() => setAdmins(data.admins || [])))
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   };
 
-  useEffect(() => { loadAdmins(); }, []);
+  useEffect(() => {
+    const cleanup = loadAdmins();
+    return cleanup;
+  }, []);
 
   useEffect(() => {
-    fetch("/api/admin/me")
+    let cancelled = false;
+    const controller = new AbortController();
+    fetch("/api/admin/me", { signal: controller.signal })
       .then((r) => r.ok ? r.json() : null)
-      .then((data) => { if (data?.admin?.id) setCurrentAdminId(data.admin.id); })
+      .then((data) => { if (!cancelled && data?.admin?.id) setCurrentAdminId(data.admin.id); })
       .catch(() => {});
+    return () => { cancelled = true; controller.abort(); };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {

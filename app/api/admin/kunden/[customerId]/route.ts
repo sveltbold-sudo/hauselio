@@ -28,9 +28,8 @@ export async function GET(
       );
     }
 
-    const allEmails = await prisma.order.findMany({
-      select: { customerEmail: true },
-      distinct: ["customerEmail"],
+    const allEmails = await prisma.order.groupBy({
+      by: ["customerEmail"],
     });
 
     const matchedEmail = allEmails.find(

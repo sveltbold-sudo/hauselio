@@ -50,85 +50,160 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (data.isDailyDeal) {
-      await prisma.product.updateMany({ where: { isDailyDeal: true }, data: { isDailyDeal: false } });
-    }
-
     let product;
     try {
-      product = await prisma.product.create({
-        data: {
-        name: data.name,
-        slug: data.slug,
-        description: data.description,
-        shortDesc: data.shortDesc || null,
-        price: data.price,
-        originalPrice: data.originalPrice || null,
-        categoryId: data.categoryId,
-        brandId: data.brandId || null,
-        isNew: data.isNew,
-        isFeatured: data.isFeatured,
-        isPromo: data.isPromo,
-        isDailyDeal: data.isDailyDeal,
-        weight: data.weight || null,
-        features: data.features,
-        seoTitle: data.seoTitle || null,
-        seoDesc: data.seoDesc || null,
-        specs: data.specs.length
-          ? {
-              create: data.specs.map((spec, i) => ({
-                key: spec.key,
-                value: spec.value,
-                position: i,
-              })),
-            }
-          : undefined,
-        images: data.imageUrl
-          ? {
-              create: [
-                { url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 },
-                ...(data.images || []).map((img, idx) => ({
-                  url: img.url,
-                  publicId: img.publicId || null,
-                  position: img.position ?? idx + 1,
-                })),
-              ],
-            }
-          : data.images && data.images.length > 0
-            ? {
-                create: data.images.map((img, idx) => ({
-                  url: img.url,
-                  publicId: img.publicId || null,
-                  position: img.position ?? idx,
-                })),
-              }
-            : undefined,
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        description: true,
-        shortDesc: true,
-        price: true,
-        originalPrice: true,
-        categoryId: true,
-        brandId: true,
-        isNew: true,
-        isFeatured: true,
-        isPromo: true,
-        isDailyDeal: true,
-        weight: true,
-        features: true,
-        seoTitle: true,
-        seoDesc: true,
-        rating: true,
-        reviewCount: true,
-        createdAt: true,
-        updatedAt: true,
-        images: { select: { id: true, url: true, alt: true, position: true } },
-      },
-    });
+      if (data.isDailyDeal) {
+        product = await prisma.$transaction(async (tx) => {
+          await tx.product.updateMany({ where: { isDailyDeal: true }, data: { isDailyDeal: false } });
+          return tx.product.create({
+            data: {
+              name: data.name,
+              slug: data.slug,
+              description: data.description,
+              shortDesc: data.shortDesc || null,
+              price: data.price,
+              originalPrice: data.originalPrice || null,
+              categoryId: data.categoryId,
+              brandId: data.brandId || null,
+              isNew: data.isNew,
+              isFeatured: data.isFeatured,
+              isPromo: data.isPromo,
+              isDailyDeal: data.isDailyDeal,
+              weight: data.weight || null,
+              features: data.features,
+              seoTitle: data.seoTitle || null,
+              seoDesc: data.seoDesc || null,
+              specs: data.specs.length
+                ? {
+                    create: data.specs.map((spec, i) => ({
+                      key: spec.key,
+                      value: spec.value,
+                      position: i,
+                    })),
+                  }
+                : undefined,
+              images: data.imageUrl
+                ? {
+                    create: [
+                      { url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 },
+                      ...(data.images || []).map((img, idx) => ({
+                        url: img.url,
+                        publicId: img.publicId || null,
+                        position: img.position ?? idx + 1,
+                      })),
+                    ],
+                  }
+                : data.images && data.images.length > 0
+                  ? {
+                      create: data.images.map((img, idx) => ({
+                        url: img.url,
+                        publicId: img.publicId || null,
+                        position: img.position ?? idx,
+                      })),
+                    }
+                  : undefined,
+            },
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              description: true,
+              shortDesc: true,
+              price: true,
+              originalPrice: true,
+              categoryId: true,
+              brandId: true,
+              isNew: true,
+              isFeatured: true,
+              isPromo: true,
+              isDailyDeal: true,
+              weight: true,
+              features: true,
+              seoTitle: true,
+              seoDesc: true,
+              rating: true,
+              reviewCount: true,
+              createdAt: true,
+              updatedAt: true,
+              images: { select: { id: true, url: true, alt: true, position: true } },
+            },
+          });
+        });
+      } else {
+        product = await prisma.product.create({
+          data: {
+            name: data.name,
+            slug: data.slug,
+            description: data.description,
+            shortDesc: data.shortDesc || null,
+            price: data.price,
+            originalPrice: data.originalPrice || null,
+            categoryId: data.categoryId,
+            brandId: data.brandId || null,
+            isNew: data.isNew,
+            isFeatured: data.isFeatured,
+            isPromo: data.isPromo,
+            isDailyDeal: data.isDailyDeal,
+            weight: data.weight || null,
+            features: data.features,
+            seoTitle: data.seoTitle || null,
+            seoDesc: data.seoDesc || null,
+            specs: data.specs.length
+              ? {
+                  create: data.specs.map((spec, i) => ({
+                    key: spec.key,
+                    value: spec.value,
+                    position: i,
+                  })),
+                }
+              : undefined,
+            images: data.imageUrl
+              ? {
+                  create: [
+                    { url: data.imageUrl, publicId: data.imagePublicId || null, position: 0 },
+                    ...(data.images || []).map((img, idx) => ({
+                      url: img.url,
+                      publicId: img.publicId || null,
+                      position: img.position ?? idx + 1,
+                    })),
+                  ],
+                }
+              : data.images && data.images.length > 0
+                ? {
+                    create: data.images.map((img, idx) => ({
+                      url: img.url,
+                      publicId: img.publicId || null,
+                      position: img.position ?? idx,
+                    })),
+                  }
+                : undefined,
+          },
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            description: true,
+            shortDesc: true,
+            price: true,
+            originalPrice: true,
+            categoryId: true,
+            brandId: true,
+            isNew: true,
+            isFeatured: true,
+            isPromo: true,
+            isDailyDeal: true,
+            weight: true,
+            features: true,
+            seoTitle: true,
+            seoDesc: true,
+            rating: true,
+            reviewCount: true,
+            createdAt: true,
+            updatedAt: true,
+            images: { select: { id: true, url: true, alt: true, position: true } },
+          },
+        });
+      }
     } catch (err) {
       if (err && typeof err === "object" && "code" in err && err.code === "P2002") {
         return NextResponse.json(

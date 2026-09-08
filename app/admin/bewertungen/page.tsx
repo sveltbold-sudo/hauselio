@@ -30,24 +30,30 @@ export default function BewertungenPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkLoading, setBulkLoading] = useState(false);
+  const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
     setLoading(true);
-    fetch(`/api/admin/bewertungen?page=${page}&limit=20&filter=${filter}`)
+    fetch(`/api/admin/bewertungen?page=${page}&limit=20&filter=${filter}`, { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
       })
       .then((data) => {
-        startTransition(() => {
-          setReviews(data.reviews || []);
-          if (data.pagination) setPagination(data.pagination);
-          if (typeof data.pendingCount === "number") setPendingCount(data.pendingCount);
-        });
+        if (!cancelled) {
+          startTransition(() => {
+            setReviews(data.reviews || []);
+            if (data.pagination) setPagination(data.pagination);
+            if (typeof data.pendingCount === "number") setPendingCount(data.pendingCount);
+          });
+        }
       })
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
-      .finally(() => setLoading(false));
+      .catch((err) => { if (!cancelled && err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; controller.abort(); };
   }, [page, filter, startTransition]);
 
   const handleApprove = async (id: string, approved: boolean) => {
@@ -92,9 +98,30 @@ export default function BewertungenPage() {
     });
   };
 
-  const handleBulkAction = async (action: "approve" | "reject" | "delete") => {
+  const executeBulkDelete = async () => {
     if (selectedIds.size === 0) return;
-    if (action === "delete" && !confirm(`${selectedIds.size} Bewertung(en) wirklich löschen?`)) return;
+    setBulkLoading(true);
+    const count = selectedIds.size;
+    try {
+      const res = await fetch("/api/admin/bewertungen/bulk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "delete", ids: Array.from(selectedIds) }),
+      });
+      if (!res.ok) throw new Error("Fehler bei der Massenaktion");
+
+      setReviews((prev) => prev.filter((r) => !selectedIds.has(r.id)));
+      setSelectedIds(new Set());
+      toast.success(`${count} Bewertung(en) gelöscht`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler bei der Massenaktion");
+    } finally {
+      setBulkLoading(false);
+    }
+  };
+
+  const handleBulkAction = async (action: "approve" | "reject") => {
+    if (selectedIds.size === 0) return;
 
     setBulkLoading(true);
     const count = selectedIds.size;
@@ -106,12 +133,8 @@ export default function BewertungenPage() {
       });
       if (!res.ok) throw new Error("Fehler bei der Massenaktion");
 
-      if (action === "delete") {
-        setReviews((prev) => prev.filter((r) => !selectedIds.has(r.id)));
-      } else {
-        const isApproved = action === "approve";
-        setReviews((prev) => prev.map((r) => selectedIds.has(r.id) ? { ...r, isApproved: isApproved } : r));
-      }
+      const isApproved = action === "approve";
+      setReviews((prev) => prev.map((r) => selectedIds.has(r.id) ? { ...r, isApproved: isApproved } : r));
       setSelectedIds(new Set());
       toast.success(`${count} Bewertung(en) aktualisiert`);
     } catch (err) {
@@ -160,7 +183,7 @@ export default function BewertungenPage() {
           <div className="flex gap-2">
             <button onClick={() => handleBulkAction("approve")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-success)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Genehmigen</button>
             <button onClick={() => handleBulkAction("reject")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-accent)] text-white rounded-lg hover:bg-[var(--color-accent)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Ablehnen</button>
-            <button onClick={() => handleBulkAction("delete")} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Löschen</button>
+            <button onClick={() => setBulkDeleteOpen(true)} disabled={bulkLoading} className="px-3 py-2.5 min-h-[44px] text-xs font-medium bg-[var(--color-danger)] text-white rounded-lg hover:bg-[var(--color-danger)]/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">Löschen</button>
           </div>
         </div>
       )}
@@ -296,6 +319,15 @@ export default function BewertungenPage() {
         danger
         onConfirm={confirmDelete}
         onCancel={() => setDeleteId(null)}
+      />
+      <ConfirmDialog
+        open={bulkDeleteOpen}
+        title="Bewertungen löschen"
+        message={`${selectedIds.size} Bewertung(en) wirklich löschen?`}
+        confirmLabel="Löschen"
+        danger
+        onConfirm={() => { setBulkDeleteOpen(false); executeBulkDelete(); }}
+        onCancel={() => setBulkDeleteOpen(false)}
       />
     </div>
   );

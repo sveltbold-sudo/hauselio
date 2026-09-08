@@ -16,24 +16,31 @@ export default function NewProductPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
     Promise.all([
-      fetch("/api/admin/kategorien").then((r) => {
+      fetch("/api/admin/kategorien", { signal: controller.signal }).then((r) => {
         if (!r.ok) throw new Error("Fehler beim Laden der Kategorien");
         return r.json();
       }),
-      fetch("/api/admin/marken").then((r) => {
+      fetch("/api/admin/marken", { signal: controller.signal }).then((r) => {
         if (!r.ok) throw new Error("Fehler beim Laden der Marken");
         return r.json();
       }),
     ])
       .then(([cats, brs]) => {
-        setCategories(cats.categories || []);
-        setBrands(brs.brands || []);
+        if (!cancelled) {
+          setCategories(cats.categories || []);
+          setBrands(brs.brands || []);
+        }
       })
       .catch((err) => {
-        logger.error("Failed to load data", { error: err });
-        toast.error("Kategorien oder Marken konnten nicht geladen werden.");
+        if (!cancelled && err.name !== "AbortError") {
+          logger.error("Failed to load data", { error: err });
+          toast.error("Kategorien oder Marken konnten nicht geladen werden.");
+        }
       });
+    return () => { cancelled = true; controller.abort(); };
   }, [toast]);
 
   const handleSubmit = async (

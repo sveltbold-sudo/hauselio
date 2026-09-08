@@ -55,7 +55,8 @@ export default function MarkenPage() {
   }, []);
 
   const loadBrands = useCallback(() => {
-    fetch("/api/admin/marken")
+    const controller = new AbortController();
+    fetch("/api/admin/marken", { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
@@ -64,11 +65,12 @@ export default function MarkenPage() {
         setBrands(data.brands || []);
         setTotalCount(data.pagination?.total ?? data.brands?.length ?? 0);
       }))
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [startTransition]);
 
-  useEffect(() => { loadBrands(); }, [loadBrands]);
+  useEffect(() => { const cleanup = loadBrands(); return cleanup; }, [loadBrands]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

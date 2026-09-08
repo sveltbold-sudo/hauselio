@@ -47,10 +47,11 @@ export default function NewsletterPage() {
   }, [search]);
 
   const loadSubscribers = useCallback(() => {
+    const controller = new AbortController();
     setLoading(true);
     const params = new URLSearchParams({ page: String(page), limit: "50" });
     if (debouncedSearch) params.set("search", debouncedSearch);
-    fetch(`/api/admin/newsletter?${params}`)
+    fetch(`/api/admin/newsletter?${params}`, { signal: controller.signal })
       .then((r) => {
         if (!r.ok) throw new Error("Failed to load");
         return r.json();
@@ -61,11 +62,12 @@ export default function NewsletterPage() {
         setPagination(data.pagination ?? null);
         setActiveCount(data.activeCount ?? 0);
       }))
-      .catch((err) => { logger.error("Failed to load data", { error: err }); setLoadError(true); })
+      .catch((err) => { if (err.name !== "AbortError") { logger.error("Failed to load data", { error: err }); setLoadError(true); } })
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, [page, debouncedSearch, startTransition]);
 
-  useEffect(() => { loadSubscribers(); }, [loadSubscribers]);
+  useEffect(() => { const cleanup = loadSubscribers(); return cleanup; }, [loadSubscribers]);
 
   const handleToggle = async (id: string, isActive: boolean) => {
     try {

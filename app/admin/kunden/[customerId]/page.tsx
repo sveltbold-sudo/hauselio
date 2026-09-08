@@ -46,19 +46,24 @@ export default function CustomerDetailPage({
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
     params.then(({ customerId }) => {
-      fetch(`/api/admin/kunden/${customerId}`)
+      fetch(`/api/admin/kunden/${customerId}`, { signal: controller.signal })
         .then((r) => {
           if (!r.ok) throw new Error("Not found");
           return r.json();
         })
         .then((data) => {
-          setCustomer(data.customer);
-          setOrders(data.orders);
+          if (!cancelled) {
+            setCustomer(data.customer);
+            setOrders(data.orders);
+          }
         })
-        .catch(() => setError(true))
-        .finally(() => setLoading(false));
+        .catch((err) => { if (!cancelled && err.name !== "AbortError") setError(true); })
+        .finally(() => { if (!cancelled) setLoading(false); });
     });
+    return () => { cancelled = true; controller.abort(); };
   }, [params]);
 
   if (loading) {
