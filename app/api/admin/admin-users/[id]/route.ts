@@ -51,7 +51,6 @@ export async function PUT(
 
     if (parsed.data.password) {
       updateData.password = await hashPassword(parsed.data.password);
-      updateData.lastLogin = new Date();
     }
 
     if (parsed.data.name !== undefined) {

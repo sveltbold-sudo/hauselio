@@ -42,6 +42,7 @@ export async function GET(request: NextRequest) {
       allOrderItems,
       recentOrders,
       categoryStats,
+      totalCustomers,
     ] = await Promise.all([
       prisma.order.aggregate({ _sum: { total: true }, where: orderFilter }),
       prisma.order.count({ where: orderFilter }),
@@ -69,6 +70,7 @@ export async function GET(request: NextRequest) {
           _count: { select: { products: true } },
         },
       }),
+      prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order"`,
     ]);
 
     const revenueByProduct = new Map<string, number>();
@@ -133,6 +135,7 @@ export async function GET(request: NextRequest) {
       totalRevenue: totalRevenueNum,
       totalOrders,
       totalProducts,
+      totalCustomers: Number(totalCustomers[0]?.count || 0),
       pendingOrders,
       activeProducts: totalProducts,
       avgOrderValue,

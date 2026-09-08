@@ -87,9 +87,24 @@ export async function POST(
       );
     }
 
-    const cloudinary = getCloudinary();
+    // Magic byte validation
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    if (file.type !== "application/pdf") {
+      const isValidImage =
+        (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) ||
+        (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) ||
+        (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) ||
+        (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46);
+      if (!isValidImage) {
+        return NextResponse.json(
+          { error: "Datei ist kein gültiges Bild" },
+          { status: 400 }
+        );
+      }
+    }
+
+    const cloudinary = getCloudinary();
     const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     const result = await new Promise<{ secure_url: string; public_id: string }>(

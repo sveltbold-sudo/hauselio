@@ -41,6 +41,11 @@ export async function PUT(
       );
     }
 
+    const existing = await prisma.category.findFirst({ where: { slug: parsed.data.slug, NOT: { id } } });
+    if (existing) {
+      return NextResponse.json({ error: "Eine Kategorie mit diesem Slug existiert bereits" }, { status: 409 });
+    }
+
     const category = await prisma.category.update({
       where: { id },
       data: parsed.data,
