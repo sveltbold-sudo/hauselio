@@ -78,6 +78,16 @@ export async function POST(request: NextRequest) {
 
     const coupon = await prisma.coupon.create({
       data: { code: code.toUpperCase(), ...data },
+      select: {
+        id: true,
+        code: true,
+        discountPercent: true,
+        maxUses: true,
+        usedCount: true,
+        expiresAt: true,
+        isActive: true,
+        createdAt: true,
+      },
     });
 
     logger.info("coupon-created", `Coupon created: ${coupon.code} (${coupon.discountPercent}%) by ${admin.email}`);

@@ -66,7 +66,9 @@ export async function GET(request: NextRequest) {
           _count: { select: { products: true } },
         },
       }),
-      prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order"`,
+      dateFrom
+        ? prisma.$queryRawUnsafe<[{ count: bigint }]>('SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order" WHERE "createdAt" >= $1', dateFrom)
+        : prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(DISTINCT "customerEmail") as count FROM "Order"`,
       prisma.$queryRawUnsafe<{ name: string; orderCount: number; revenue: number }[]>(
         `SELECT p.name, COUNT(DISTINCT oi."orderId")::int AS "orderCount", SUM(oi.price * oi.quantity)::float AS revenue
          FROM "OrderItem" oi JOIN "Product" p ON oi."productId" = p.id

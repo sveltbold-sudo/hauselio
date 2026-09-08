@@ -235,7 +235,8 @@ export async function getAdminFromRequest(): Promise<AdminPayload | null> {
       where: { id: payload.id },
       select: { lastLogin: true },
     });
-    if (admin?.lastLogin) {
+    if (!admin) return null;
+    if (admin.lastLogin) {
       const lastLoginSec = Math.floor(admin.lastLogin.getTime() / 1000);
       if (payload.lastLoginAt < lastLoginSec) {
         return null;

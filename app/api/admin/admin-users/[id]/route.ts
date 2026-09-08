@@ -86,7 +86,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    const currentUser = await requireAdmin();
+    const currentUser = await requireRole("ADMIN");
     const { id } = await params;
 
     if (currentUser.id === id) {

@@ -115,6 +115,7 @@ export default function EinstellungenPage() {
     try {
       const body = {
         ...settings,
+        bankIban: settings.bankIban ? settings.bankIban.replace(/\s/g, "") : settings.bankIban,
         defaultVatRate: parseFloat(settings.defaultVatRate) || 19,
       };
       const res = await fetch("/api/admin/einstellungen", {
