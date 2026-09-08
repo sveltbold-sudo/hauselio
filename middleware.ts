@@ -28,8 +28,9 @@ export async function middleware(request: NextRequest) {
 
     if (!token) {
       if (isAdminRoute) {
+        const safePathname = pathname.startsWith("/") && !pathname.includes("://") ? pathname : "/";
         const loginUrl = new URL("/admin/login", request.url);
-        loginUrl.searchParams.set("redirect", pathname);
+        loginUrl.searchParams.set("redirect", safePathname);
         return NextResponse.redirect(loginUrl);
       }
       return NextResponse.json(

@@ -12,9 +12,13 @@ const useUpstash = Boolean(UPSTASH_URL && UPSTASH_TOKEN);
 async function redisSet(key: string, value: string, exSec: number): Promise<void> {
   if (!useUpstash || !UPSTASH_URL || !UPSTASH_TOKEN) return;
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}?EX=${exSec}`, {
       headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
   } catch (err) {
     logger.warn("auth", "Failed to set Redis key for token blacklist", { error: err });
   }
@@ -48,9 +52,13 @@ async function redisExists(key: string): Promise<boolean> {
     return true;
   }
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     const res = await fetch(`${UPSTASH_URL}/exists/${encodeURIComponent(key)}`, {
       headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
     const data = await res.json();
     return data.result === 1;
   } catch {
@@ -482,11 +490,7 @@ export async function getCustomerFromRequest(): Promise<CustomerPayload | null> 
       where: { id: payload.id },
       select: { lastLogin: true },
     });
-    const admin = customer ? null : await prisma.adminUser.findUnique({
-      where: { id: payload.id },
-      select: { lastLogin: true },
-    });
-    const lastLogin = customer?.lastLogin || admin?.lastLogin;
+    const lastLogin = customer?.lastLogin;
     if (lastLogin) {
       const lastLoginSec = Math.floor(lastLogin.getTime() / 1000);
       if (payload.lastLoginAt < lastLoginSec) {

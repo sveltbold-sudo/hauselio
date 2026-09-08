@@ -42,18 +42,38 @@ export interface OrderEmailData {
   shippingCost: number;
 }
 
-export async function baseTemplate(content: string): Promise<string> {
-  let companyName = "HAUSAURA GmbH";
-  let companyAddress = "Kastanienallee 42, 10435 Berlin";
-  let contactEmail = "info@hausaura.de";
+let _settingsCache: { companyName: string; companyAddress: string; contactEmail: string } | null = null;
+let _settingsCacheExpiry = 0;
+
+async function getCachedSettings() {
+  const now = Date.now();
+  if (_settingsCache && now < _settingsCacheExpiry) return _settingsCache;
   try {
     const settings = await prisma.siteSettings.findFirst();
     if (settings) {
-      companyName = settings.companyName || companyName;
-      companyAddress = settings.companyAddress || companyAddress;
-      contactEmail = settings.contactEmail || contactEmail;
+      _settingsCache = {
+        companyName: settings.companyName || "HAUSAURA GmbH",
+        companyAddress: settings.companyAddress || "Kastanienallee 42, 10435 Berlin",
+        contactEmail: settings.contactEmail || "info@hausaura.de",
+      };
     }
   } catch {}
+  if (!_settingsCache) {
+    _settingsCache = {
+      companyName: "HAUSAURA GmbH",
+      companyAddress: "Kastanienallee 42, 10435 Berlin",
+      contactEmail: "info@hausaura.de",
+    };
+  }
+  _settingsCacheExpiry = now + 60_000;
+  return _settingsCache;
+}
+
+export async function baseTemplate(content: string): Promise<string> {
+  const cached = await getCachedSettings();
+  const companyName = cached.companyName;
+  const companyAddress = cached.companyAddress;
+  const contactEmail = cached.contactEmail;
 
   const safeCompanyName = escapeHtml(companyName);
   const safeCompanyAddress = escapeHtml(companyAddress);

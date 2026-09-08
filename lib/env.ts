@@ -1,6 +1,9 @@
 const requiredEnvVars = {
   DATABASE_URL: process.env.DATABASE_URL,
   JWT_SECRET: process.env.JWT_SECRET,
+  JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN,
+  JWT_SECRET_CUSTOMER: process.env.JWT_SECRET_CUSTOMER,
+  JWT_SECRET_UNSUBSCRIBE: process.env.JWT_SECRET_UNSUBSCRIBE,
 } as const;
 
 const optionalEnvVars = {
@@ -40,6 +43,12 @@ export function validateEnv() {
 
   if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
     throw new Error("JWT_SECRET must be at least 32 characters long.");
+  }
+
+  for (const [key, value] of Object.entries(requiredEnvVars)) {
+    if (value && value.length < 32) {
+      throw new Error(`${key} must be at least 32 characters long.`);
+    }
   }
 
   _validated = true;
