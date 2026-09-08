@@ -256,6 +256,7 @@ export async function PATCH(
         ...(trackingNumber !== undefined && { trackingNumber: trackingNumber || null }),
         ...(bankReference !== undefined && { bankReference: bankReference || null }),
       },
+      select: { id: true },
     });
 
     return NextResponse.json({ order });

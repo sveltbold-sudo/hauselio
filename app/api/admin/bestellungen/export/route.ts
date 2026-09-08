@@ -53,6 +53,27 @@ export async function GET(request: NextRequest) {
       where,
       orderBy: { createdAt: "desc" },
       take: EXPORT_MAX_ORDERS,
+      select: {
+        orderNumber: true,
+        invoiceNumber: true,
+        createdAt: true,
+        status: true,
+        paymentStatus: true,
+        customerFirstName: true,
+        customerLastName: true,
+        customerEmail: true,
+        customerAddress: true,
+        customerZip: true,
+        customerCity: true,
+        customerCountry: true,
+        subtotal: true,
+        couponDiscount: true,
+        shippingCost: true,
+        total: true,
+        paymentMethod: true,
+        bankReference: true,
+        trackingNumber: true,
+      },
     });
 
     const header = [

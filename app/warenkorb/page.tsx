@@ -42,7 +42,10 @@ export default function WarenkorbPage() {
       body: JSON.stringify({ code: coupon.code, cartTotal: total }),
       signal: controller.signal,
     })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
       .then((data) => {
         if (!data.valid) {
           removeCoupon();
@@ -349,6 +352,10 @@ export default function WarenkorbPage() {
                               headers: { "Content-Type": "application/json" },
                               body: JSON.stringify({ code: couponCode.trim(), cartTotal: total }),
                             });
+                            if (!res.ok) {
+                              const err = await res.json().catch(() => null);
+                              throw new Error(err?.error || "Fehler bei der Gutscheinprüfung");
+                            }
                             const data = await res.json();
                             if (data.valid) {
                               applyCoupon({ code: data.code, discountPercent: data.discountPercent, label: data.label });
