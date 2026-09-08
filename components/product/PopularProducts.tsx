@@ -9,11 +9,13 @@ export default function PopularProducts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/products?limit=4&sort=newest")
+    const controller = new AbortController();
+    fetch("/api/products?limit=4&sort=newest", { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => setProducts(data.products ?? []))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
+    return () => controller.abort();
   }, []);
 
   if (loading) {

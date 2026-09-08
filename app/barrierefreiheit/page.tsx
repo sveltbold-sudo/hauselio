@@ -63,7 +63,7 @@ export default async function BarrierefreiheitPage() {
             Die Website hausaura.de wird derzeit auf ihren Grad der Barrierefreiheit hin überprüft und
             ist teilweise barrierefrei. Die folgenden Bereiche sind barrierefrei:
           </p>
-          <ul className="list-disc list-inside text-[var(--color-text-secondary)] space-y-1 mt-2">
+          <ul className="list-disc pl-5 text-[var(--color-text-secondary)] space-y-1 mt-2">
             <li>Semantische HTML-Struktur mit korrekten Überschriftenhierarchien</li>
             <li>Keyboard-Navigation für alle interaktiven Elemente</li>
             <li>Ausreichende Farbkontraste (WCAG 2.1 AA)</li>
@@ -86,7 +86,7 @@ export default async function BarrierefreiheitPage() {
           <p className="text-[var(--color-text-secondary)]">
             Trotz unserer Bemühungen um vollständige Barrierefreiheit können einige Einschränkungen bestehen:
           </p>
-          <ul className="list-disc list-inside text-[var(--color-text-secondary)] space-y-1 mt-2">
+          <ul className="list-disc pl-5 text-[var(--color-text-secondary)] space-y-1 mt-2">
             <li>Einige ältere Produktbilder verfügen möglicherweise über unvollständige Alternativtexte</li>
             <li>Externe Inhalte (z.B. Zahlungsanbieter) unterliegen nicht unserer Barrierefreiheitskontrolle</li>
             <li>Die administrative Oberfläche (Login) ist nicht für Endnutzer bestimmt und wird nicht als barrierefrei bewertet</li>
@@ -149,7 +149,7 @@ export default async function BarrierefreiheitPage() {
           <p className="text-[var(--color-text-secondary)]">
             Die Website ist nach den WCAG 2.1 Richtlinien auf Konformitätsstufe AA ausgelegt. Dies umfasst:
           </p>
-          <ul className="list-disc list-inside text-[var(--color-text-secondary)] space-y-1 mt-2">
+          <ul className="list-disc pl-5 text-[var(--color-text-secondary)] space-y-1 mt-2">
             <li>WCAG 2.1 Level AA als Zielkonformität</li>
             <li>EN 301 549 als technischer Standard</li>
             <li>semantische HTML5-Struktur</li>

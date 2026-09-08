@@ -363,8 +363,8 @@ export default function BestellungPage() {
           href="/warenkorb"
           className="flex items-center gap-2 text-sm text-[var(--color-success)] font-semibold"
         >
-          <span className="w-6 h-6 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs">
-            <CheckIcon className="w-3.5 h-3.5" />
+          <span className="w-8 h-8 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs">
+            <CheckIcon className="w-4 h-4" />
           </span>
           <span className="hidden sm:inline">Warenkorb</span>
         </Link>
@@ -373,14 +373,14 @@ export default function BestellungPage() {
           className={`flex items-center gap-2 text-sm font-bold ${step === "address" ? "text-[var(--color-primary)]" : "text-[var(--color-success)]"}`}
           aria-current={step === "address" ? "step" : undefined}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === "address" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-success)] text-white"}`}>
-            {step === "review" ? <CheckIcon className="w-3.5 h-3.5" /> : "2"}
+          <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${step === "address" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-success)] text-white"}`}>
+            {step === "review" ? <CheckIcon className="w-4 h-4" /> : "2"}
           </span>
           <span className="hidden sm:inline">Adresse</span>
         </span>
         <div className="w-4 sm:w-8 h-px bg-[var(--color-border)]" />
         <span className={`flex items-center gap-2 text-sm font-bold ${step === "review" ? "text-[var(--color-primary)]" : "text-[var(--color-text-muted)]"}`}>
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === "review" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"}`}>
+          <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${step === "review" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"}`}>
             3
           </span>
           <span className="hidden sm:inline">Bestätigung</span>
