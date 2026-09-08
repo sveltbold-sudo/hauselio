@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Download } from "lucide-react";
+import { useToast } from "@/components/ui/Toast";
 
 interface ExportCsvButtonProps {
   status?: string;
@@ -10,6 +11,7 @@ interface ExportCsvButtonProps {
 
 export default function ExportCsvButton({ status, q }: ExportCsvButtonProps) {
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const handleExport = async () => {
     setLoading(true);
@@ -20,6 +22,11 @@ export default function ExportCsvButton({ status, q }: ExportCsvButtonProps) {
 
       const res = await fetch(`/api/admin/bestellungen/export?${params.toString()}`);
       if (!res.ok) throw new Error("Export fehlgeschlagen");
+
+      if (res.headers.get("X-Export-Truncated") === "true") {
+        const total = res.headers.get("X-Export-Total");
+        toast.error(`Export auf max. 5.000 Einträge beschränkt (${total || "?"} insgesamt)`);
+      }
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);

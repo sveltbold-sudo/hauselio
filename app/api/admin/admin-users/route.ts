@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireRole, hashPassword } from "@/lib/auth";
+import { requireAdmin, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { CreateAdminSchema } from "@/lib/validations";
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    await requireRole("ADMIN");
+    await requireAdmin();
 
     const admins = await prisma.adminUser.findMany({
       select: {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireRole("ADMIN");
+    await requireAdmin();
     const body = await request.json();
     const parsed = CreateAdminSchema.safeParse(body);
 

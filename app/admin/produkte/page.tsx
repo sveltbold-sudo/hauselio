@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { logger } from "@/lib/logger";
 import Link from "next/link";
 import { Plus } from "lucide-react";
@@ -13,7 +13,7 @@ export default async function AdminProductsPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  await requireRole("ADMIN");
+  await requireAdmin();
   const params = await searchParams;
   const category = typeof params.category === "string" ? params.category : undefined;
   const brand = typeof params.brand === "string" ? params.brand : undefined;

@@ -4,10 +4,8 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
+import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES, EXPORT_MAX_ORDERS } from "@/lib/admin-constants";
 import { logger } from "@/lib/logger";
-
-const EXPORT_MAX_ORDERS = 5000;
 
 function escapeCsv(value: string): string {
   let safe = value;

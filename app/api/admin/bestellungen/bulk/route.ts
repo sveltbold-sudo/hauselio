@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireRole("ADMIN");
+    await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-bestellung-bulk:${ip}`, 10, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });

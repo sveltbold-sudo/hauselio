@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { handleApiError, validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
 import { sendNewsletterConfirmation } from "@/lib/emails";
 import { logger } from "@/lib/logger";
@@ -86,7 +86,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "CSRF-Token ungültig" }, { status: 403 });
     }
 
-    await requireRole("ADMIN");
+    await requireAdmin();
 
     const ip = getClientIp(request);
     if (!await checkRateLimit(`newsletter-delete:${ip}`, 10, 60 * 1000)) {

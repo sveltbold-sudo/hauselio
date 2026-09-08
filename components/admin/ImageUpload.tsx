@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { Image as ImageIcon } from "lucide-react";
+import { MAX_UPLOAD_SIZE_BYTES } from "@/lib/admin-constants";
 
 interface ImageUploadProps {
   currentImage?: string;
@@ -37,7 +38,7 @@ export default function ImageUpload({
       setError("Nur Bilddateien erlaubt");
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > MAX_UPLOAD_SIZE_BYTES) {
       setError("Max. 5MB");
       return;
     }

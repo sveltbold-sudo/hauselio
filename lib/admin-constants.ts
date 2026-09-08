@@ -40,3 +40,9 @@ export const VALID_ORDER_TRANSITIONS: Record<string, readonly string[]> = {
   DELIVERED: [],
   CANCELLED: [],
 };
+
+export const EXPORT_MAX_ORDERS = 5000;
+export const MAX_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
+export const OVERDUE_DAYS = 7;
+export const ADMIN_PAGE_LIMIT = 50;
+export const ADMIN_ORDER_PAGE_LIMIT = 20;

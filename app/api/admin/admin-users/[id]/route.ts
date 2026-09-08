@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireRole, hashPassword } from "@/lib/auth";
+import { requireAdmin, hashPassword } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { UpdateAdminSchema } from "@/lib/validations";
@@ -19,7 +19,7 @@ export async function PUT(
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 
-    await requireRole("ADMIN");
+    await requireAdmin();
     const { id } = await params;
     const body = await request.json();
     const parsed = UpdateAdminSchema.safeParse(body);
@@ -85,7 +85,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    const currentUser = await requireRole("ADMIN");
+    const currentUser = await requireAdmin();
     const { id } = await params;
 
     if (currentUser.id === id) {

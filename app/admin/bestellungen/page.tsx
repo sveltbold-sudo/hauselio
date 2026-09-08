@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { ORDER_STATUS_LABELS, ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { logger } from "@/lib/logger";
 import OrderTable from "@/components/admin/OrderTable";
@@ -14,7 +14,7 @@ export default async function AdminOrdersPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  await requireRole("ADMIN");
+  await requireAdmin();
   const params = await searchParams;
   const status = typeof params.status === "string" ? params.status : undefined;
   const q = typeof params.q === "string" ? params.q : undefined;

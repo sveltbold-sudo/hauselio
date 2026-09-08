@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import {
   Euro,
   ShoppingCart,
@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
-import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants";
+import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS, OVERDUE_DAYS } from "@/lib/admin-constants";
 import AlgoliaSyncButton from "@/components/admin/AlgoliaSyncButton";
 import DashboardRefresh from "@/components/admin/DashboardRefresh";
 import { logger } from "@/lib/logger";
@@ -50,7 +50,7 @@ async function fetchDashboardData() {
     prisma.order.count({
       where: {
         status: "PENDING_PAYMENT",
-        createdAt: { lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+        createdAt: { lt: new Date(Date.now() - OVERDUE_DAYS * 24 * 60 * 60 * 1000) },
       },
     }),
   ]);
@@ -59,7 +59,7 @@ async function fetchDashboardData() {
 }
 
 export default async function AdminDashboard() {
-  await requireRole("ADMIN");
+  await requireAdmin();
 
   let data;
   try {

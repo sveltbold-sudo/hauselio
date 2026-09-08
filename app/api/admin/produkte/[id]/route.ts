@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, requireRole } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { updateProductInAlgolia, deleteProductFromAlgolia } from "@/lib/algolia-sync";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
@@ -247,7 +247,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireRole("ADMIN");
+    await requireAdmin();
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
