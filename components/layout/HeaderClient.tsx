@@ -329,7 +329,7 @@ export default function HeaderClient() {
                 aria-controls={searchOpen && searchQuery.trim().length >= 2 ? "search-results-list" : undefined}
                 aria-autocomplete="list"
                 aria-activedescendant={searchActiveIndex >= 0 && searchActiveIndex < searchResultCount ? `search-result-${searchActiveIndex}` : undefined}
-                className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+                className="w-full h-full pl-11 pr-4 bg-transparent text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-1 rounded-lg"
               />
             </div>
             {!isMobile && (
@@ -511,9 +511,9 @@ export default function HeaderClient() {
                       <CategoryIcon category={cat.icon} className="w-6 h-6 text-[var(--color-accent)]" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-[var(--color-text-primary)] text-sm">
+                      <span className="font-bold text-[var(--color-text-primary)] text-sm block">
                         {cat.name}
-                      </h3>
+                      </span>
                       <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
                         {cat.description}
                       </p>
@@ -582,7 +582,7 @@ export default function HeaderClient() {
               aria-controls={searchQuery.trim().length >= 2 ? "search-results-list" : undefined}
               aria-autocomplete="list"
               aria-activedescendant={searchActiveIndex >= 0 && searchActiveIndex < searchResultCount ? `search-result-${searchActiveIndex}` : undefined}
-              className="flex-1 bg-transparent text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none"
+              className="flex-1 bg-transparent text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-1 rounded-lg"
             />
             <button
               onClick={() => { setSearchOpen(false); setSearchQuery(""); setSearchActiveIndex(-1); }}

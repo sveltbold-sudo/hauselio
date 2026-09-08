@@ -71,5 +71,5 @@ interface CategoryIconProps extends IconProps {
 export default function CategoryIcon({ category, className, ...props }: CategoryIconProps) {
   const Icon = icons[category];
   if (!Icon) return null;
-  return <Icon className={className} {...props} />;
+  return <Icon className={className} aria-hidden="true" {...props} />;
 }

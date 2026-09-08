@@ -3,7 +3,7 @@ import { SearchX } from "lucide-react";
 
 export default function ProduktNotFound() {
   return (
-    <div className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+    <main className="container-hausaura py-24 text-center max-w-2xl mx-auto">
       <div className="relative mb-8">
         <p className="text-[10rem] font-black leading-none text-[var(--color-text-muted)] select-none">
           404
@@ -24,17 +24,17 @@ export default function ProduktNotFound() {
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link
           href="/shop"
-          className="px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
+          className="px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           Zurück zum Shop
         </Link>
         <Link
           href="/"
-          className="px-6 py-3 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:bg-[var(--color-bg-secondary)] transition-colors"
+          className="px-6 py-3 border border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
         >
           Startseite
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

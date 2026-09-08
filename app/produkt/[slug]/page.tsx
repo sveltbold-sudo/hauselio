@@ -91,7 +91,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = await getProductFromDb(slug);
 
   if (!data?.product) {
-    return { title: "Produkt nicht gefunden" };
+    return {
+      title: "Produkt nicht gefunden",
+      description: "Das gesuchte Produkt existiert leider nicht oder wurde aus unserem Sortiment entfernt.",
+      robots: { index: false },
+    };
   }
 
   const product = data.product;
