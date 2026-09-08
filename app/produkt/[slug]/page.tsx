@@ -198,7 +198,7 @@ export default async function ProductPage({ params }: PageProps) {
           content: r.content ?? undefined,
           date: r.createdAt.split("T")[0] as string,
         }))}
-        availability={product.stockQuantity != null && product.stockQuantity > 0 ? "InStock" : "OutOfStock"}
+        availability={product.stockQuantity == null || product.stockQuantity > 0 ? "InStock" : "OutOfStock"}
         sellerName={sellerName}
       />
       <main id="main-content">

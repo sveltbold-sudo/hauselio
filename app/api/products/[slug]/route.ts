@@ -22,7 +22,6 @@ export async function GET(
         name: true,
         slug: true,
         sku: true,
-        barcode: true,
         description: true,
         price: true,
         originalPrice: true,

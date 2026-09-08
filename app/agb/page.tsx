@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
   },
   alternates: { canonical: "/agb" },
   twitter: {
