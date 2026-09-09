@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
+    images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
 };
 
@@ -101,7 +103,7 @@ export default async function HilfePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Hilfe & FAQ", url: "/hilfe" }]} />
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Hilfe & FAQ" }]} />
+      <Breadcrumb items={[{ label: "Hilfe & FAQ" }]} />
       <h1 className="heading-1 mb-4">Hilfe & FAQ</h1>
       <p className="text-[var(--color-text-secondary)] mb-8">
         Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe.

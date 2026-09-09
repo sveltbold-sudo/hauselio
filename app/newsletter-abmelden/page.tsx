@@ -25,7 +25,7 @@ export default function NewsletterAbmeldenPage() {
     <main id="main-content" className="pt-[env(safe-area-inset-top,0px)]">
       <BreadcrumbJsonLd items={[{ name: "Startseite", url: "/" }, { name: "Newsletter abmelden", url: "/newsletter-abmelden" }]} />
       <div className="container-hausaura py-6 sm:py-8">
-        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Newsletter abmelden" }]} />
+        <Breadcrumb items={[{ label: "Newsletter abmelden" }]} />
 
         <div className="max-w-lg mx-auto">
           <h1 className="heading-1 mb-4">Newsletter abmelden</h1>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Truck, Package, Landmark } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { SITE_URL } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
+    images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
 };
 
@@ -64,7 +66,7 @@ export default async function VersandPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
-      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Versand" }]} />
+      <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>

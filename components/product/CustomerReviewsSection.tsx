@@ -73,9 +73,9 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
         <div className="container-hausaura">
           <div className="text-center py-12">
             <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
-            <h2 className="heading-2 mb-4">Fehler beim Laden der Bewertungen</h2>
+            <h2 className="heading-2 mb-4">{productId ? "Produktbewertungen" : "Was unsere Kunden sagen"}</h2>
             <p className="text-[var(--color-text-muted)] mb-6">
-              Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+              Bewertungen werden gerade geladen. Bitte aktualisieren Sie die Seite.
             </p>
           </div>
         </div>
