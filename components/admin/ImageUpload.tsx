@@ -173,6 +173,7 @@ export default function ImageUpload({
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"
         onChange={handleFileChange}
+        aria-label="Produktbild hochladen"
         className="hidden"
       />
     </div>

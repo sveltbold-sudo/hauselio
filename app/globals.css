@@ -754,3 +754,53 @@ a, button, input, select, textarea, [role="button"] {
     transform: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   High Contrast Mode (Windows High Contrast)
+   ═══════════════════════════════════════════════════ */
+
+@media forced-colors {
+  /* Ensure buttons are visible */
+  button, [role="button"], a[role="button"] {
+    border: 1px solid ButtonText;
+  }
+
+  /* Ensure form controls are visible */
+  input, select, textarea {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+  }
+
+  /* Ensure focus rings are visible */
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* Ensure error states are visible */
+  [role="alert"], [aria-invalid="true"] {
+    border: 1px solid LinkText;
+  }
+
+  /* Ensure badges/tags are visible */
+  .badge, [class*="badge"] {
+    border: 1px solid ButtonText;
+  }
+
+  /* Ensure cards have visible borders */
+  [class*="rounded-xl"][class*="border"] {
+    border: 1px solid ButtonText;
+  }
+
+  /* Ensure dropdown menus are visible */
+  [role="menu"], [role="listbox"] {
+    border: 1px solid ButtonText;
+  }
+
+  /* Skip link remains visible in forced colors */
+  .sr-only:focus {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

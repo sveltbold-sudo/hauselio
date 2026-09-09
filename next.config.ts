@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import withSerwist from "@serwist/next";
 
 const securityHeaders = [
   {
@@ -109,11 +110,18 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-export default bundleAnalyzer(withSentryConfig(nextConfig, {
+const serwist = withSerwist({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+  reloadOnOnline: true,
+});
+
+export default serwist(bundleAnalyzer(withSentryConfig(nextConfig, {
   silent: true,
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   sourcemaps: {
     disable: true,
   },
-}));
+})));

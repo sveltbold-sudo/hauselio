@@ -101,7 +101,7 @@ export default async function AdminProductsPage({
 
       {/* Filters */}
       <div className="bg-white rounded-xl border border-[var(--color-border-light)] p-4 mb-6">
-        <form className="flex flex-wrap gap-3">
+        <form role="search" aria-label="Produkte filtern" className="flex flex-wrap gap-3">
           <input
             type="text"
             name="q"

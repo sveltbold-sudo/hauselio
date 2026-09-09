@@ -162,12 +162,13 @@ export default function AdminUsersPage() {
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
           role="dialog"
           aria-modal="true"
+          aria-labelledby="admin-modal-title"
           onClick={(e) => { if (e.target === e.currentTarget) setShowForm(false); }}
           onKeyDown={handleModalKeyDown}
         >
           <div ref={modalRef} className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold">{editingId ? "Admin bearbeiten" : "Neuer Admin"}</h2>
+              <h2 id="admin-modal-title" className="text-lg font-bold">{editingId ? "Admin bearbeiten" : "Neuer Admin"}</h2>
                <button onClick={() => setShowForm(false)} aria-label="Modal schließen" className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 hover:bg-[var(--color-bg)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2">
                 <X className="w-5 h-5" />
               </button>

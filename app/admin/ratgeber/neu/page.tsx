@@ -103,8 +103,11 @@ export default function NewRatgeberArticlePage() {
           <Input label="Slug" value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="artikel-slug" />
           <Textarea label="Excerpt" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Kurzbeschreibung (150-200 Zeichen)" rows={3} />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Inhalt *</label>
+            <label htmlFor="ratgeber-content" className="block text-sm font-medium text-gray-700 mb-1">Inhalt *</label>
             <textarea
+              id="ratgeber-content"
+              required
+              aria-required="true"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="HTML-Inhalt des Artikels"
@@ -116,8 +119,11 @@ export default function NewRatgeberArticlePage() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Kategorie *</label>
+            <label htmlFor="ratgeber-category" className="block text-sm font-medium text-gray-700 mb-1">Kategorie *</label>
             <select
+              id="ratgeber-category"
+              required
+              aria-required="true"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"

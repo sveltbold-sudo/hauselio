@@ -238,13 +238,16 @@ export default function ProductForm({
                     id="product-name"
                     type="text"
                     required
+                    aria-required="true"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "error-product-name" : undefined}
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
                     className={`w-full px-4 py-2.5 border rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 ${
                       errors.name ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
                     }`}
                   />
-                  {errors.name && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.name}</p>}
+                  {errors.name && <p id="error-product-name" role="alert" className="mt-1 text-xs text-[var(--color-danger)]">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-slug" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -267,6 +270,9 @@ export default function ProductForm({
                   <textarea
                     id="product-desc"
                     required
+                    aria-required="true"
+                    aria-invalid={!!errors.description}
+                    aria-describedby={errors.description ? "error-product-desc" : undefined}
                     rows={6}
                     value={formData.description}
                     onChange={(e) =>
@@ -279,7 +285,7 @@ export default function ProductForm({
                       errors.description ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
                     }`}
                   />
-                  {errors.description && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.description}</p>}
+                  {errors.description && <p id="error-product-desc" role="alert" className="mt-1 text-xs text-[var(--color-danger)]">{errors.description}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-shortdesc" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -460,6 +466,9 @@ export default function ProductForm({
                     step="0.01"
                     min="0.01"
                     required
+                    aria-required="true"
+                    aria-invalid={!!errors.price}
+                    aria-describedby={errors.price ? "error-product-price" : undefined}
                     value={formData.price}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -471,7 +480,7 @@ export default function ProductForm({
                       errors.price ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
                     }`}
                   />
-                  {errors.price && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.price}</p>}
+                  {errors.price && <p id="error-product-price" role="alert" className="mt-1 text-xs text-[var(--color-danger)]">{errors.price}</p>}
                 </div>
                 <div>
                   <label htmlFor="product-original-price" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -482,6 +491,8 @@ export default function ProductForm({
                     type="number"
                     step="0.01"
                     min="0"
+                    aria-invalid={!!errors.originalPrice}
+                    aria-describedby={errors.originalPrice ? "error-product-original-price" : undefined}
                     value={formData.originalPrice}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -493,7 +504,7 @@ export default function ProductForm({
                       errors.originalPrice ? "border-[var(--color-danger)]" : "border-[var(--color-border)] focus:border-[var(--color-primary)]"
                     }`}
                   />
-                  {errors.originalPrice && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.originalPrice}</p>}
+                  {errors.originalPrice && <p id="error-product-original-price" role="alert" className="mt-1 text-xs text-[var(--color-danger)]">{errors.originalPrice}</p>}
                 </div>
                 <div>
                   <label htmlFor="weight" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -634,6 +645,9 @@ export default function ProductForm({
                   <select
                     id="categoryId"
                     required
+                    aria-required="true"
+                    aria-invalid={!!errors.categoryId}
+                    aria-describedby={errors.categoryId ? "error-categoryId" : undefined}
                     value={formData.categoryId}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -652,7 +666,7 @@ export default function ProductForm({
                       </option>
                     ))}
                   </select>
-                  {errors.categoryId && <p className="mt-1 text-xs text-[var(--color-danger)]">{errors.categoryId}</p>}
+                  {errors.categoryId && <p id="error-categoryId" role="alert" className="mt-1 text-xs text-[var(--color-danger)]">{errors.categoryId}</p>}
                 </div>
                 <div>
                   <label htmlFor="brandId" className="block text-sm font-semibold text-[var(--color-text-primary)] mb-1.5">
@@ -826,7 +840,7 @@ export default function ProductForm({
 
             {/* Submit */}
             {submitError && (
-              <div className="p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 rounded-xl text-sm text-[var(--color-danger)]">
+              <div role="alert" className="p-3 bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 rounded-xl text-sm text-[var(--color-danger)]">
                 {submitError}
               </div>
             )}

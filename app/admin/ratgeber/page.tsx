@@ -67,6 +67,7 @@ export default async function AdminRatgeberPage() {
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <table className="w-full text-sm">
+          <caption className="sr-only">Ratgeber-Artikel</caption>
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left px-4 py-3 font-medium text-gray-600">Titel</th>
@@ -119,7 +120,7 @@ export default async function AdminRatgeberPage() {
                       <Link
                         href={`/admin/ratgeber/${article.id}/bearbeiten`}
                         className="p-1.5 text-gray-500 hover:text-[var(--color-primary)] hover:bg-gray-100 rounded-lg transition-colors"
-                        title="Bearbeiten"
+                        aria-label={`Bearbeiten: ${article.title}`}
                       >
                         <Pencil className="w-4 h-4" />
                       </Link>
