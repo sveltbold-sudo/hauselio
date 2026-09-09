@@ -56,8 +56,8 @@ const RecommendedSection = dynamicImport(() => import("@/components/product/Reco
 
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"), { loading: () => <ProductRowSkeleton /> });
 const ThermomixSection = dynamicImport(() => import("@/components/product/ThermomixSection"), { loading: () => <ThermomixSkeleton /> });
-const TestimonialsSection = dynamicImport(() => import("@/components/product/TestimonialsSection"), { ssr: false });
-const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"), { ssr: false });
+const TestimonialsSection = dynamicImport(() => import("@/components/product/TestimonialsSection"), { loading: () => <div className="h-64" /> });
+const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"), { loading: () => <div className="h-64" /> });
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"), { loading: () => <NewsletterSkeleton /> });
 
 export const revalidate = 300;
