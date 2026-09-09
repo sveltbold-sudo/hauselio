@@ -18,6 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/garantie`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/ueber-uns`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/barrierefreiheit`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/impressum`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/datenschutz`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/agb`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/widerruf`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/versand`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${SITE_URL}/zahlungsarten`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.4 },
   ];
 
   const [categories, products, ratgeberArticles] = await Promise.all([

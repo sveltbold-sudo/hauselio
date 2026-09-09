@@ -84,6 +84,7 @@ export default function ProductTabs({ description, longDescription, specs }: Pro
       >
         {activeTab === "description" && (
           <div className="max-w-3xl">
+            <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">Produktbeschreibung</h2>
             {(longDescription || description) ? (
               <p className="text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
                 {longDescription || description}
@@ -96,6 +97,7 @@ export default function ProductTabs({ description, longDescription, specs }: Pro
 
         {activeTab === "specs" && (
           <div className="max-w-3xl">
+            <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-4">Technische Daten</h2>
             {specs.length > 0 ? (
               <div className="bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden">
                 {specs.map((spec, i) => (

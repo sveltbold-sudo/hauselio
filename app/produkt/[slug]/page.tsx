@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const brandName = product.brand?.name || "";
   const catName = product.category?.name || "";
   const desc = product.description
-    ? product.description.slice(0, 147).replace(/\s+\S*$/, "") + "\u2026"
+    ? product.description.slice(0, 155).replace(/\s+\S*$/, "") + "\u2026"
     : `Jetzt ${product.name} bei ${SITE_NAME} kaufen. Ab ${priceStr} \u20AC.`;
   const titleSuffix = brandName ? ` — ${brandName}` : "";
 

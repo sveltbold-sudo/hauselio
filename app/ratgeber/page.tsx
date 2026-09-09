@@ -75,7 +75,11 @@ export default async function RatgeberPage({ searchParams }: RatgeberPageProps) 
                   "@type": "Article",
                   headline: article.title,
                   url: `${SITE_URL}/ratgeber/${article.slug}`,
-                  image: article.coverImage || undefined,
+                  image: article.coverImage
+                    ? article.coverImage.startsWith("http")
+                      ? article.coverImage
+                      : `${SITE_URL}${article.coverImage}`
+                    : undefined,
                   datePublished: article.publishedAt?.toISOString() || article.createdAt.toISOString(),
                   author: { "@type": "Organization", name: article.authorName },
                 },
