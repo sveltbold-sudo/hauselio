@@ -192,7 +192,12 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
     ? `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
     : `${SITE_URL}/kategorie/${slug}`;
 
-  const ratgeberArticles = await getArticlesByCategory(slug, 3);
+  let ratgeberArticles: Awaited<ReturnType<typeof getArticlesByCategory>> = [];
+  try {
+    ratgeberArticles = await getArticlesByCategory(slug, 3);
+  } catch (error) {
+    logger.error("kategorie-ratgeber", error);
+  }
 
   return (
     <>

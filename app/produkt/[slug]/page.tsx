@@ -143,9 +143,14 @@ export default async function ProductPage({ params }: PageProps) {
   const product = data.product;
   const relatedProducts = data.relatedProducts || [];
 
-  const ratgeberArticles = product.category?.slug
-    ? await getArticlesByCategory(product.category.slug, 3)
-    : [];
+  let ratgeberArticles: Awaited<ReturnType<typeof getArticlesByCategory>> = [];
+  try {
+    ratgeberArticles = product.category?.slug
+      ? await getArticlesByCategory(product.category.slug, 3)
+      : [];
+  } catch (e) {
+    logger.error("produkt-ratgeber", e);
+  }
 
   let sellerName = `${SITE_NAME} GmbH`;
   try {
