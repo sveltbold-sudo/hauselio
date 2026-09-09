@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Versand & Lieferung — Kostenlos ab 50€",
   description: "Alle Infos zu Versand, Lieferzeiten und Kosten bei HAUSAURA. Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   alternates: { canonical: "/versand" },
   openGraph: {
     title: "Versand & Lieferung | HAUSAURA",

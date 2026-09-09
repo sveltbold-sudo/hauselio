@@ -3,7 +3,7 @@ import { SignJWT } from "jose";
 import { prisma } from "@/lib/prisma";
 import { ForgotPasswordSchema } from "@/lib/validations";
 import { getCustomerJWTSecret } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { sendPasswordResetEmail } from "@/lib/emails";
 import { logger } from "@/lib/logger";
@@ -70,7 +70,6 @@ export async function POST(request: NextRequest) {
       message: "Falls ein Konto mit dieser E-Mail-Adresse existiert, haben wir Ihnen einen Link zum Zurücksetzen des Passworts gesendet.",
     });
   } catch (error) {
-    logger.error("customer-reset-password", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { UpdateProfileSchema } from "@/lib/validations";
 import { getCustomerFromRequest } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { logger } from "@/lib/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -40,8 +39,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ customer });
   } catch (error) {
-    logger.error("customer-me-get", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }
 
@@ -112,7 +110,6 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ customer });
   } catch (error) {
-    logger.error("customer-me-put", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

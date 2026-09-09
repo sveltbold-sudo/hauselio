@@ -9,7 +9,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Widerrufsbelehrung",
   description: "Ihr Widerrufsrecht bei Einkäufen im HAUSAURA Online-Shop.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   alternates: { canonical: "/widerruf" },
   openGraph: {
     title: "Widerrufsbelehrung",

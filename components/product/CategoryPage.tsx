@@ -52,11 +52,12 @@ export default function CategoryPage({
 
   function pageUrl(p: number) {
     const params = new URLSearchParams();
-    params.set("page", String(p));
+    if (p > 1) params.set("page", String(p));
     if (sort !== "newest") params.set("sort", sort);
     if (brand) params.set("brand", brand);
     if (sub) params.set("sub", sub);
-    return `/kategorie/${slug}?${params.toString()}`;
+    const qs = params.toString();
+    return qs ? `/kategorie/${slug}?${qs}` : `/kategorie/${slug}`;
   }
 
   const breadcrumbItems = [

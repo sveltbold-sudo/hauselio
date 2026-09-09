@@ -3,9 +3,8 @@ import { jwtVerify } from "jose";
 import { prisma } from "@/lib/prisma";
 import { ResetPasswordSchema } from "@/lib/validations";
 import { getCustomerJWTSecret, hashPassword } from "@/lib/auth";
-import { validateContentType, validateCsrfOrigin } from "@/lib/api-helpers";
+import { validateContentType, validateCsrfOrigin, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -98,7 +97,6 @@ export async function POST(request: NextRequest) {
       message: "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie können sich jetzt anmelden.",
     });
   } catch (error) {
-    logger.error("customer-reset-confirm", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

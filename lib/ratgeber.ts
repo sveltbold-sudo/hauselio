@@ -101,7 +101,7 @@ export async function getArticleBySlug(
   slug: string
 ): Promise<RatgeberArticleDetail | null> {
   const article = await prisma.ratgeberArticle.findUnique({
-    where: { slug },
+    where: { slug, isPublished: true },
     select: {
       id: true,
       title: true,

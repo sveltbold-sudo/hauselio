@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revokeToken, clearCustomerCookie } from "@/lib/auth";
-import { validateCsrfOrigin, applyCookiesToResponse } from "@/lib/api-helpers";
+import { validateCsrfOrigin, applyCookiesToResponse, handleApiError } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { cookies } from "next/headers";
 import { logger } from "@/lib/logger";
@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    logger.error("customer-logout", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { RegisterSchema } from "@/lib/validations";
+import { handleApiError } from "@/lib/api-helpers";
 import {
   hashPassword,
   generateCustomerToken,
@@ -103,7 +104,6 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    logger.error("customer-register", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }

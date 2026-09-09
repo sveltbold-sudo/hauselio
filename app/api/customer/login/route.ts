@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CustomerLoginSchema } from "@/lib/validations";
+import { handleApiError } from "@/lib/api-helpers";
 import {
   authenticateCustomer,
   generateCustomerToken,
@@ -85,7 +86,6 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    logger.error("customer-login", error);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    return handleApiError(error);
   }
 }
