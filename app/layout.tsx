@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     languages: {
       "de": SITE_URL,
       "de-DE": SITE_URL,
+      "x-default": SITE_URL,
     },
   },
   openGraph: {
@@ -100,6 +101,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#FAFAF8" />
         <link rel="sitemap" href="/sitemap.xml" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="HAUSAURA" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

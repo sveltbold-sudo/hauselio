@@ -43,7 +43,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {error && (
-          <p id={errorId} className="mt-1.5 text-sm text-[var(--color-danger)] font-medium">{error}</p>
+          <p id={errorId} role="alert" className="mt-1.5 text-sm text-[var(--color-danger)] font-medium">{error}</p>
         )}
       </div>
     );

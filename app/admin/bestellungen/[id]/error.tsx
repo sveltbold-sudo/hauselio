@@ -19,9 +19,9 @@ export default function OrderDetailError({
   return (
     <div className="text-center py-20">
       <AlertTriangle className="w-12 h-12 text-[var(--color-danger)] mx-auto mb-4" />
-      <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+      <h1 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
         Fehler beim Laden der Bestellung
-      </h2>
+      </h1>
       <p className="text-sm text-[var(--color-text-muted)] mb-6">
         Die Bestellung konnte nicht geladen werden.
       </p>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, RotateCcw } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, RotateCcw, Pause, Play } from "lucide-react";
 import { formatPrice, calcDiscount } from "@/lib/utils";
 import { getBlurDataURL } from "@/lib/image-helpers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -164,6 +164,11 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         if (e.key === "End") { e.preventDefault(); goTo(slides.length - 1); }
       }}
     >
+      {/* Screen reader slide announcement */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        Folie {current + 1} von {slides.length}: {slide.name}
+      </div>
+
       {/* ── MOBILE: Product-first hero ── */}
       <div className="lg:hidden relative h-[62vh] min-h-[380px] max-h-[540px]" aria-live="polite">
         {slides.map((s, i) => (
@@ -272,6 +277,15 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             </button>
           ))}
         </div>
+
+        {/* Pause/Play toggle */}
+        <button
+          onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+          className="absolute bottom-3 right-4 z-20 flex items-center justify-center w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors focus-visible:ring-2 focus-visible:ring-white"
+          aria-label={isAutoPlaying ? "Karussell pausieren" : "Karussell abspielen"}
+        >
+          {isAutoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+        </button>
 
         {/* Nav arrows — hidden on mobile, swipe is enough */}
         <button

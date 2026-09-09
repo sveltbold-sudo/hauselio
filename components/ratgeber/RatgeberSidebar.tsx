@@ -32,7 +32,7 @@ export default function RatgeberSidebar({
           <BookOpen className="w-4 h-4 text-[var(--color-primary)]" />
           Kategorien
         </h3>
-        <nav className="space-y-1">
+        <nav className="space-y-1" aria-label="Ratgeber-Kategorien">
           <Link
             href="/ratgeber"
             className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
