@@ -19,9 +19,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/barrierefreiheit`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const [categories, products] = await Promise.all([
+  const [categories, products, ratgeberArticles] = await Promise.all([
     prisma.category.findMany({ select: { slug: true } }),
     prisma.product.findMany({ select: { slug: true, updatedAt: true } }),
+    prisma.ratgeberArticle.findMany({
+      where: { isPublished: true },
+      select: { slug: true, updatedAt: true },
+    }),
   ]);
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((cat) => ({
@@ -38,5 +42,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...categoryPages, ...productPages];
+  const ratgeberPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/ratgeber`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.7 },
+    ...ratgeberArticles.map((a) => ({
+      url: `${SITE_URL}/ratgeber/${a.slug}`,
+      lastModified: a.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
+
+  return [...staticPages, ...categoryPages, ...productPages, ...ratgeberPages];
 }

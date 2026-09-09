@@ -31,6 +31,7 @@ const service = [
   { name: "Kontakt", href: "/kontakt" },
   { name: "Über uns", href: "/ueber-uns" },
   { name: "Hilfe & FAQ", href: "/hilfe" },
+  { name: "Ratgeber", href: "/ratgeber" },
   { name: "Wunschliste", href: "/wunschliste" },
   { name: "Garantie", href: "/garantie" },
   { name: "Versandinformationen", href: "/versand" },
