@@ -101,7 +101,7 @@ export default async function HilfePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Hilfe & FAQ", url: "/hilfe" }]} />
-      <Breadcrumb items={[{ label: "Hilfe & FAQ" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Hilfe & FAQ" }]} />
       <h1 className="heading-1 mb-4">Hilfe & FAQ</h1>
       <p className="text-[var(--color-text-secondary)] mb-8">
         Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe.

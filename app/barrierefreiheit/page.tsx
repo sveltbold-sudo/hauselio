@@ -44,7 +44,7 @@ export default async function BarrierefreiheitPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Barrierefreiheit", url: "/barrierefreiheit" }]} />
-      <Breadcrumb items={[{ label: "Barrierefreiheit" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Barrierefreiheit" }]} />
       <h1 className="heading-1 mb-8">Barrierefreiheitserklärung</h1>
 
       <div className="prose-hausaura space-y-8">

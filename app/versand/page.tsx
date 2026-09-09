@@ -64,7 +64,7 @@ export default async function VersandPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
-      <Breadcrumb items={[{ label: "Versand" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
       </h1>
@@ -82,7 +82,7 @@ export default async function VersandPage() {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center">
-                  <method.icon className="w-5 h-5 text-[var(--color-primary)]" />
+                  <method.icon className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-[var(--color-text-primary)]">{method.name}</h3>
               </div>
@@ -148,7 +148,7 @@ export default async function VersandPage() {
         <div className="bg-[var(--color-bg)] rounded-xl p-6">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-              <Landmark className="w-5 h-5 text-[var(--color-primary)]" />
+              <Landmark className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">

@@ -132,6 +132,9 @@ export const config = {
     "/admin/:path*",
     "/api/admin/:path*",
     "/api/customer/:path*",
-    "/api/newsletter/unsubscribe/:path*",
+    "/api/newsletter/:path*",
+    "/api/contact/:path*",
+    "/api/reviews/:path*",
+    "/api/cart/:path*",
   ],
 };

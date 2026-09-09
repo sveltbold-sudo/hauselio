@@ -86,6 +86,8 @@ const nextConfig: NextConfig = {
     { source: "/kategorien", destination: "/kategorie", permanent: true },
     { source: "/anmelden", destination: "/konto", permanent: true },
     { source: "/suche", destination: "/shop", permanent: false },
+    { source: "/versandinformationen", destination: "/versand", permanent: true },
+    { source: "/widerrufsrecht", destination: "/widerruf", permanent: true },
   ],
   async headers() {
     return [

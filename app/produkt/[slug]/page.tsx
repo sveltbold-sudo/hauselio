@@ -82,7 +82,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
     };
   } catch (error) {
     logger.error("produkt-slug-db", error);
-    return null;
+    throw error;
   }
 });
 

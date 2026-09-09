@@ -216,7 +216,11 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
 
           <div className="flex items-center gap-2 mb-4">
             <Check className="w-4 h-4 text-[var(--color-success)]" />
-            <span className="text-sm font-semibold text-[var(--color-success)]">Sofort versandfertig</span>
+            <span className="text-sm font-semibold text-[var(--color-success)]">
+              {product.stockQuantity === null || product.stockQuantity > 0
+                ? "Sofort versandfertig"
+                : "Auf Lager"}
+            </span>
           </div>
 
           <div className="flex items-center gap-3 p-2.5 sm:p-3 bg-[var(--color-bg-secondary)] rounded-xl mb-4">

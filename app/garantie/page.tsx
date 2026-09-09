@@ -102,7 +102,7 @@ export default async function GarantiePage() {
       />
 
       <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-4xl">
-        <Breadcrumb items={[{ label: "Garantie" }]} />
+        <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Garantie" }]} />
 
         <h1 className="heading-1 mb-8">Garantie & Gewährleistung</h1>
         <p className="text-[var(--color-text-secondary)] text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl">
@@ -116,7 +116,7 @@ export default async function GarantiePage() {
               className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6 hover:shadow-md transition-shadow"
             >
               <div className={`w-12 h-12 rounded-xl ${tier.bgColor} flex items-center justify-center mb-4`}>
-                <tier.icon className={`w-6 h-6 ${tier.color}`} />
+                <tier.icon className={`w-6 h-6 ${tier.color}`} aria-hidden="true" />
               </div>
               <div className="text-sm font-bold text-[var(--color-primary)] mb-1">{tier.duration}</div>
               <h2 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">{tier.title}</h2>

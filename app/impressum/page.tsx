@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { SITE_URL } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export const revalidate = 86400;
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
-    images: [{ url: "/logos/logoprincipale.png", width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
   },
 };
 
@@ -53,7 +54,7 @@ export default async function ImpressumPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Impressum", url: "/impressum" }]} />
-      <Breadcrumb items={[{ label: "Impressum" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Impressum" }]} />
       <h1 className="heading-1 mb-8">Impressum</h1>
 
       <div className="prose-hausaura space-y-8">

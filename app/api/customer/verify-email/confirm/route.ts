@@ -1,22 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { validateCsrfOrigin } from "@/lib/api-helpers";
-import { z } from "zod";
-
-const ConfirmVerificationSchema = z.object({
-  token: z.string().min(1, "Token ist erforderlich"),
-});
 
 export async function POST(request: NextRequest) {
   try {
-    if (!validateCsrfOrigin(request)) {
-      return NextResponse.json(
-        { error: "CSRF-Schutz: Ungültige Herkunft" },
-        { status: 403 }
-      );
-    }
-
     const ip = getClientIp(request);
     if (!await checkRateLimit(`verify-email-confirm:${ip}`, 5, 15 * 60 * 1000)) {
       return NextResponse.json(
@@ -26,16 +13,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const parsed = ConfirmVerificationSchema.safeParse(body);
+    const { token } = body as { token?: string };
 
-    if (!parsed.success) {
+    if (!token || typeof token !== "string") {
       return NextResponse.json(
-        { error: parsed.error.issues[0]!.message },
+        { error: "Ungültiges Token" },
         { status: 400 }
       );
     }
-
-    const { token } = parsed.data;
 
     const verificationToken = await prisma.verificationToken.findUnique({
       where: { token },
@@ -43,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     if (!verificationToken) {
       return NextResponse.json(
-        { error: "Ungültiges oder abgelaufenes Verifizierungs-Token" },
+        { error: "Ungültiges oder abgelaufenes Token" },
         { status: 400 }
       );
     }
@@ -51,24 +36,40 @@ export async function POST(request: NextRequest) {
     if (verificationToken.expiresAt < new Date()) {
       await prisma.verificationToken.delete({ where: { token } });
       return NextResponse.json(
-        { error: "Token abgelaufen. Bitte fordern Sie eine neue Verifizierungs-E-Mail an." },
+        { error: "Token ist abgelaufen. Bitte fordern Sie einen neuen an." },
         { status: 400 }
       );
     }
 
-    // Mark email as verified (ignore if customer was deleted)
-    await prisma.customer.updateMany({
+    const customer = await prisma.customer.findUnique({
       where: { email: verificationToken.email },
-      data: { emailVerified: new Date() },
     });
 
-    // Delete used token
-    await prisma.verificationToken.delete({ where: { token } });
+    if (!customer) {
+      await prisma.verificationToken.delete({ where: { token } });
+      return NextResponse.json(
+        { error: "Konto nicht gefunden" },
+        { status: 400 }
+      );
+    }
+
+    if (customer.emailVerified) {
+      await prisma.verificationToken.delete({ where: { token } });
+      return NextResponse.json({ success: true });
+    }
+
+    await prisma.$transaction([
+      prisma.customer.update({
+        where: { id: customer.id },
+        data: { emailVerified: new Date() },
+      }),
+      prisma.verificationToken.delete({ where: { token } }),
+    ]);
 
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
-      { error: "Fehler bei der E-Mail-Verifizierung" },
+      { error: "Fehler bei der Verifizierung" },
       { status: 500 }
     );
   }

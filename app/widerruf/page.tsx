@@ -48,7 +48,7 @@ export default async function WiderrufPage() {
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Widerruf", url: "/widerruf" }]} />
-      <Breadcrumb items={[{ label: "Widerruf" }]} />
+      <Breadcrumb items={[{ label: "Startseite", href: "/" }, { label: "Widerruf" }]} />
       <h1 className="heading-1 mb-8">Widerrufsbelehrung</h1>
 
       <div className="prose-hausaura space-y-8">

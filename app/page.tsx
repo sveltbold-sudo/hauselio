@@ -88,17 +88,21 @@ export const metadata: Metadata = {
 };
 
 async function getCategories() {
-  const cats = await prisma.category.findMany({
-    orderBy: { name: "asc" },
-    take: 6,
-    select: { name: true, slug: true, _count: { select: { products: true } } },
-  });
-  return cats.map((cat) => ({
-    name: cat.name,
-    href: `/kategorie/${cat.slug}`,
-    image: `/images/categories/${cat.slug}.jpg`,
-    count: `${cat._count.products}+`,
-  }));
+  try {
+    const cats = await prisma.category.findMany({
+      orderBy: { name: "asc" },
+      take: 6,
+      select: { name: true, slug: true, _count: { select: { products: true } } },
+    });
+    return cats.map((cat) => ({
+      name: cat.name,
+      href: `/kategorie/${cat.slug}`,
+      image: `/images/categories/${cat.slug}.jpg`,
+      count: `${cat._count.products}+`,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 async function getHeroSlides() {
