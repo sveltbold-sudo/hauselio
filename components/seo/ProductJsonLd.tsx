@@ -56,7 +56,7 @@ export default function ProductJsonLd({
     name,
     description,
     image: absoluteImage,
-    sku,
+    ...(sku ? { sku } : {}),
     brand: {
       "@type": "Brand",
       name: brand,

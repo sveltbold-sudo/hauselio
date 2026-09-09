@@ -15,7 +15,7 @@ import { logger } from "@/lib/logger";
 
 const ShopFilterDrawer = dynamicImport(() => import("@/components/product/ShopFilterDrawer"));
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 function shopUrl(page: number, category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
   const params = new URLSearchParams();
@@ -190,6 +190,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   let total = 0;
   let categoryCounts: Record<string, number> = {};
   const ratingCounts: Record<number, number> = {};
+  let dbError = false;
 
   try {
     const [raw, countResult, catResult, brandResult, groupResult] = await Promise.all([
@@ -238,6 +239,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     categoryCounts = countMap;
   } catch (error) {
     logger.error("shop-products", error);
+    dbError = true;
   }
 
   try {
@@ -320,7 +322,20 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       {/* Breadcrumb */}
       <Breadcrumb items={[{ label: "Shop" }]} />
 
+      {dbError && (
+        <div className="text-center py-12 sm:py-20" role="alert">
+          <div className="w-20 h-20 rounded-full bg-[var(--color-danger)]/10 flex items-center justify-center mx-auto mb-6">
+            <SearchX className="w-10 h-10 text-[var(--color-danger)]" aria-hidden="true" />
+          </div>
+          <h2 className="heading-3 mb-2">Fehler beim Laden der Produkte</h2>
+          <p className="text-[var(--color-text-muted)] mb-6 max-w-sm mx-auto">
+            Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+          </p>
+        </div>
+      )}
+
       {/* Header */}
+      {!dbError && (<>
       <div className="mb-6 sm:mb-8">
         <p className="caption text-[var(--color-accent)] mb-3">Sortiment</p>
         <h1 className="heading-1 mb-4">
@@ -600,6 +615,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <Suspense fallback={null}>
         <MobileShopBar totalResults={total} sort={sort} />
       </Suspense>
+      </>)}
     </main>
   );
 }

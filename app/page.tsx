@@ -56,8 +56,8 @@ const RecommendedSection = dynamicImport(() => import("@/components/product/Reco
 
 const RecentlyViewedSection = dynamicImport(() => import("@/components/product/RecentlyViewedSection"), { loading: () => <ProductRowSkeleton /> });
 const ThermomixSection = dynamicImport(() => import("@/components/product/ThermomixSection"), { loading: () => <ThermomixSkeleton /> });
-import TestimonialsSection from "@/components/product/TestimonialsSection";
-import PressReviewsSection from "@/components/product/PressReviewsSection";
+const TestimonialsSection = dynamicImport(() => import("@/components/product/TestimonialsSection"), { ssr: false });
+const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"), { ssr: false });
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"), { loading: () => <NewsletterSkeleton /> });
 
 export const revalidate = 300;
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   description:
     "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. Überweisung (Vorkasse).",
   alternates: {
-    canonical: "/",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: "Moderne Haushaltsgeräte aus Deutschland",
@@ -430,7 +430,9 @@ export default async function HomePage() {
       <Suspense fallback={<ProductRowSkeleton />}>
         <TestimonialsSection />
       </Suspense>
-      <RecentlyViewedSection />
+      <Suspense fallback={null}>
+        <RecentlyViewedSection />
+      </Suspense>
       <NewsletterSection />
     </main>
   );

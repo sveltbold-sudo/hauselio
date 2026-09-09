@@ -40,7 +40,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
 
     if (!product) return null;
 
-    const [realReviewCount, liveAggregate] = await Promise.all([
+    const [realReviewCount, liveAggregate, relatedProducts] = await Promise.all([
       prisma.review.count({
         where: { productId: product.id, isApproved: true },
       }),
@@ -48,20 +48,19 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
         where: { productId: product.id, isApproved: true },
         _avg: { rating: true },
       }),
+      prisma.product.findMany({
+        where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
+        select: {
+          id: true, name: true, slug: true, price: true,
+          brand: { select: { name: true } },
+          images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+        },
+        take: 3,
+        orderBy: { rating: "desc" },
+      }),
     ]);
 
     const liveRating = Number(liveAggregate._avg.rating ?? product.rating);
-
-    const relatedProducts = await prisma.product.findMany({
-      where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
-      select: {
-        id: true, name: true, slug: true, price: true,
-        brand: { select: { name: true } },
-        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
-      },
-      take: 3,
-      orderBy: { rating: "desc" },
-    });
 
     return {
       product: {
@@ -115,7 +114,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: desc,
       url: `${SITE_URL}/produkt/${slug}`,
       siteName: SITE_NAME,      locale: "de_DE",
-      type: "website" as const,
+      type: "website",
       images: product.images?.[0]
         ? [{ url: product.images[0], width: 800, height: 600, alt: product.name }]
         : undefined,

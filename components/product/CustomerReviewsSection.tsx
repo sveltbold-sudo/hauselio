@@ -10,10 +10,21 @@ interface CustomerReviewsSectionProps {
 export default async function CustomerReviewsSection({ productId }: CustomerReviewsSectionProps) {
   const where = productId ? { productId, isApproved: true } : { isApproved: true };
 
-  let reviews;
+  let reviews: Array<{
+    id: string;
+    authorName: string;
+    rating: number;
+    title: string | null;
+    content: string | null;
+    createdAt: Date;
+    isVerified: boolean;
+    product: { name: string; slug: string } | null;
+    formattedDate?: string;
+  }> = [];
   let totalReviews = 0;
   let averageRating = 0;
   let distribution = [5, 4, 3, 2, 1].map((stars) => ({ stars, count: 0, percentage: 0 }));
+  let error = false;
   try {
     const [fetchedReviews, aggregate, count, distributionRows] = await Promise.all([
       prisma.review.findMany({
@@ -51,9 +62,25 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
       const c = distMap.get(stars) ?? 0;
       return { stars, count: c, percentage: totalReviews > 0 ? (c / totalReviews) * 100 : 0 };
     });
-  } catch (error) {
-    logger.error("customer-reviews", error);
-    return null;
+  } catch (err) {
+    logger.error("customer-reviews", err);
+    error = true;
+  }
+
+  if (error) {
+    return (
+      <section id="kundenbewertungen" className="section-py bg-white" aria-label="Kundenbewertungen">
+        <div className="container-hausaura">
+          <div className="text-center py-12">
+            <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
+            <h2 className="heading-2 mb-4">Fehler beim Laden der Bewertungen</h2>
+            <p className="text-[var(--color-text-muted)] mb-6">
+              Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   if (reviews.length === 0) {
@@ -150,7 +177,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           </div>
 
           {/* Reviews List */}
-          <ReviewFilters reviews={reviewsWithFormattedDates} />
+          <ReviewFilters reviews={reviewsWithFormattedDates.filter((r): r is typeof reviewsWithFormattedDates[number] & { product: { name: string; slug: string } } => r.product !== null)} />
         </div>
       </div>
     </section>

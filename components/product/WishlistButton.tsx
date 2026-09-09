@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { useWishlistStore, type WishlistItem } from "@/lib/wishlist";
+import { useToast } from "@/components/ui/Toast";
 
 interface WishlistButtonProps {
   item: WishlistItem;
@@ -15,6 +16,7 @@ export default function WishlistButton({ item, size = "sm", className = "" }: Wi
   const toggleItem = useWishlistStore((s) => s.toggleItem);
   const inList = useWishlistStore((s) => s.items.some((i) => i.id === item.id));
   const isWishlisted = mounted && inList;
+  const toast = useToast();
 
   useEffect(() => {
     setMounted(true);
@@ -33,6 +35,11 @@ export default function WishlistButton({ item, size = "sm", className = "" }: Wi
         e.preventDefault();
         e.stopPropagation();
         toggleItem(item);
+        if (isWishlisted) {
+          toast.success("Aus der Wunschliste entfernt");
+        } else {
+          toast.success("Zur Wunschliste hinzugefügt");
+        }
       }}
     >
       <Heart className={`${iconSize} ${isWishlisted ? "fill-current" : ""}`} />

@@ -134,6 +134,7 @@ export default function ProductImageGallery({
                   height={80}
                   sizes="80px"
                   className="w-full h-full object-contain p-1.5"
+                  loading="lazy"
                 />
               </button>
             ))}

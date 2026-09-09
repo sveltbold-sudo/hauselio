@@ -29,7 +29,7 @@ export default function CompareButton({ product }: CompareButtonProps) {
 
   const toggleCompare = () => {
     if (!isComparing && !canAdd) {
-      toast.info("Maximal 4 Produkte zum Vergleich");
+      toast.error("Maximal 4 Produkte zum Vergleich hinzufügen");
       return;
     }
     toggleItem({

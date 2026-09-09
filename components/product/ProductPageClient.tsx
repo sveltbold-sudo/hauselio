@@ -71,6 +71,10 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
   const discount = calcDiscount(product.price, product.originalPrice);
 
   const handleAddToCart = () => {
+    if (product.stockQuantity !== null && product.stockQuantity <= 0) {
+      toast.error("Dieses Produkt ist leider nicht verfügbar.");
+      return;
+    }
     addItem({
       id: product.id,
       name: product.name,

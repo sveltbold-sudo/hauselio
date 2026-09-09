@@ -14,15 +14,18 @@ export const metadata: Metadata = {
   description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten. Küche, Kaffee, Reinigung, Klima, Smart Home und mehr.",
   alternates: { canonical: `${SITE_URL}/kategorie` },
   openGraph: {
-    title: "Kategorien ",
+    title: "Kategorien",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
-    siteName: SITE_NAME,    locale: "de_DE",
+    siteName: SITE_NAME,
+    locale: "de_DE",
     type: "website",
+    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} — Kategorien` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kategorien ",
+    title: "Kategorien",
     description: "Entdecken Sie unser gesamtes Sortiment an Premium-Haushaltsgeräten.",
+    images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
 };
 
