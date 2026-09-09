@@ -10,14 +10,16 @@ import type { SimilarProduct as SimilarProductType } from "@/lib/product-types";
 interface SimilarProductsSectionProps {
   currentProductId: string;
   categorySlug: string;
+  initialProducts?: SimilarProductType[];
 }
 
-export default function SimilarProductsSection({ currentProductId, categorySlug }: SimilarProductsSectionProps) {
-  const [products, setProducts] = useState<SimilarProductType[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function SimilarProductsSection({ currentProductId, categorySlug, initialProducts }: SimilarProductsSectionProps) {
+  const [products, setProducts] = useState<SimilarProductType[]>(initialProducts || []);
+  const [loading, setLoading] = useState(!initialProducts);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (initialProducts && initialProducts.length > 0) return;
     const controller = new AbortController();
     fetch(`/api/products?category=${encodeURIComponent(categorySlug)}&limit=5`, { signal: controller.signal })
       .then((res) => {

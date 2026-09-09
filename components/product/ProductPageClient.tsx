@@ -141,7 +141,6 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
     <div className="container-hausaura py-6 lg:py-10 pb-20 lg:pb-10">
       <Breadcrumb
         items={[
-          { label: "Startseite", href: "/" },
           { label: "Kategorien", href: "/kategorie" },
           { label: product.categoryName, href: `/kategorie/${product.categorySlug}` },
           { label: product.name },
@@ -292,7 +291,18 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
       />
 
       <RecentlyViewedSection currentProductId={product.id} />
-      <SimilarProductsSection currentProductId={product.id} categorySlug={product.categorySlug} />
+      <SimilarProductsSection
+        currentProductId={product.id}
+        categorySlug={product.categorySlug}
+        initialProducts={relatedProducts.map((p) => ({
+          ...p,
+          originalPrice: null,
+          isPromo: false,
+          brand: p.brand || "",
+          rating: 0,
+          reviewCount: 0,
+        }))}
+      />
 
       <MobileAddToCartBar
         name={product.name}
