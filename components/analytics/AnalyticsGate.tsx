@@ -3,6 +3,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import GoogleAnalytics from "./GoogleAnalytics";
+import CWVReporter from "./CWVReporter";
 import { getCookieConsent } from "@/components/ui/CookieConsent";
 import { useState, useEffect, Suspense } from "react";
 
@@ -27,6 +28,7 @@ export default function AnalyticsGate() {
     <>
       <Analytics />
       <SpeedInsights />
+      <CWVReporter />
       <Suspense fallback={null}>
         <GoogleAnalytics />
       </Suspense>
