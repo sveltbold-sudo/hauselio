@@ -35,8 +35,12 @@ export function getExpectedOrigin(request: NextRequest): string {
       return new URL(SITE_URL).origin;
     } catch {}
   }
+  // In production without SITE_URL, reject rather than trust spoofable headers
+  if (process.env.NODE_ENV === "production") {
+    return "https://www.hausaura.de";
+  }
   const proto = request.headers.get("x-forwarded-proto") || "https";
-  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "HAUSAURA.de";
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:3000";
   return `${proto}://${host}`;
 }
 

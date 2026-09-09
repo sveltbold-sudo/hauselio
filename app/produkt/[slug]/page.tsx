@@ -105,10 +105,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "\u2026"
     : `Jetzt ${product.name} bei ${SITE_NAME} kaufen. Ab ${priceStr} \u20AC.`;
-  const titleSuffix = brandName ? ` von ${brandName}` : "";
+  const titleSuffix = brandName ? ` — ${brandName}` : "";
 
   return {
-    title: `${product.name} kaufen — Preis & Angebote${titleSuffix}`,
+    title: `${product.name}${titleSuffix}`,
     description: desc,
     alternates: {
       canonical: `${SITE_URL}/produkt/${slug}`,
@@ -202,7 +202,7 @@ export default async function ProductPage({ params }: PageProps) {
         category={product.category?.name || undefined}
         sku={product.sku || undefined}
         gtin={product.barcode || undefined}
-        rating={Number(product.rating)}
+        rating={product.liveRating || Number(product.rating)}
         reviewCount={product.reviewCount}
         shippingRate={Number(product.price) >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST}
         specs={(product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value }))}

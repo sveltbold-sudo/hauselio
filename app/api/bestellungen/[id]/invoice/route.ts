@@ -23,6 +23,14 @@ export async function GET(
       return NextResponse.json({ error: "E-Mail und Bestellnummer erforderlich" }, { status: 400 });
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+      return NextResponse.json({ error: "Ungültige E-Mail-Adresse" }, { status: 400 });
+    }
+
+    if (orderNumber.length > 50) {
+      return NextResponse.json({ error: "Ungültige Bestellnummer" }, { status: 400 });
+    }
+
     const order = await prisma.order.findFirst({
       where: {
         id,

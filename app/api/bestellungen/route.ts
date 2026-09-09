@@ -114,42 +114,83 @@ export async function POST(request: NextRequest) {
         const orderNumber = generateOrderNumber();
         lastOrderNumber = orderNumber;
 
-        order = await prisma.order.create({
-          data: {
-            orderNumber,
-            customerId: customerId || undefined,
-            customerEmail: email,
-            customerFirstName: firstName,
-            customerLastName: lastName,
-            customerPhone: phone || null,
-            customerAddress: address,
-            customerZip: zip,
-            customerCity: city,
-            customerCountry: country || "DE",
-            customerNotes: notes || null,
-            subtotal,
-            couponDiscount,
-            shippingCost,
-            total,
-          },
-          select: {
-            id: true,
-            orderNumber: true,
-            total: true,
-          },
+        // Atomic transaction: create order + decrement stock + increment coupon
+        order = await prisma.$transaction(async (tx) => {
+          // Re-check stock inside transaction to prevent race condition
+          const currentProducts = await tx.product.findMany({
+            where: { id: { in: validatedItems.map((i) => i.productId) } },
+            select: { id: true, stockQuantity: true },
+          });
+          const stockMap = new Map(currentProducts.map((p) => [p.id, p.stockQuantity]));
+
+          for (const item of validatedItems) {
+            const stock = stockMap.get(item.productId);
+            if (stock !== null && stock !== undefined && item.quantity > stock) {
+              throw new ValidationError(`Nur ${stock} Stück verfügbar für dieses Produkt`);
+            }
+          }
+
+          const newOrder = await tx.order.create({
+            data: {
+              orderNumber,
+              customerId: customerId || undefined,
+              customerEmail: email,
+              customerFirstName: firstName,
+              customerLastName: lastName,
+              customerPhone: phone || null,
+              customerAddress: address,
+              customerZip: zip,
+              customerCity: city,
+              customerCountry: country || "DE",
+              customerNotes: notes || null,
+              subtotal,
+              couponDiscount,
+              shippingCost,
+              total,
+            },
+          });
+
+          await tx.orderItem.createMany({
+            data: validatedItems.map((item) => ({
+              orderId: newOrder.id,
+              productId: item.productId,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+          });
+
+          // Decrement stock atomically
+          for (const item of validatedItems) {
+            const product = productMap.get(item.productId);
+            if (product && product.stockQuantity !== null) {
+              await tx.$executeRaw`
+                UPDATE "Product" SET "stockQuantity" = "stockQuantity" - ${item.quantity}
+                WHERE "id" = ${item.productId} AND "stockQuantity" >= ${item.quantity}
+              `;
+            }
+          }
+
+          return newOrder;
         });
 
-        await prisma.orderItem.createMany({
-          data: validatedItems.map((item) => ({
-            orderId: order!.id,
-            productId: item.productId,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-        });
+        if (couponRecord) {
+          const affected = await prisma.$executeRaw`
+            UPDATE "Coupon" SET "usedCount" = "usedCount" + 1
+            WHERE "code" = ${couponRecord.code}
+            AND "isActive" = true
+            AND ("expiresAt" IS NULL OR "expiresAt" > NOW())
+            AND ("maxUses" = 0 OR "usedCount" < "maxUses")
+          `;
+          if (affected === 0) {
+            logger.error("coupon-increment-failed", new Error("Coupon increment failed after order creation"), {
+              orderNumber: order.orderNumber,
+              couponCode: couponRecord.code,
+            });
+          }
+        }
 
         order = await prisma.order.findUnique({
-          where: { id: order!.id },
+          where: { id: order.id },
           select: {
             id: true,
             orderNumber: true,
@@ -182,34 +223,6 @@ export async function POST(request: NextRequest) {
         { error: "Bestellung konnte nicht erstellt werden. Bitte versuchen Sie es erneut." },
         { status: 500 }
       );
-    }
-
-    // Decrement stock after successful order creation
-    for (const item of validatedItems) {
-      const product = productMap.get(item.productId);
-      if (product && product.stockQuantity !== null) {
-        await prisma.$executeRaw`
-          UPDATE "Product" SET "stockQuantity" = "stockQuantity" - ${item.quantity}
-          WHERE "id" = ${item.productId} AND "stockQuantity" >= ${item.quantity}
-        `;
-      }
-    }
-
-    // Increment coupon after successful order creation (outside retry loop)
-    if (couponRecord) {
-      const affected = await prisma.$executeRaw`
-        UPDATE "Coupon" SET "usedCount" = "usedCount" + 1
-        WHERE "code" = ${couponRecord.code}
-        AND "isActive" = true
-        AND ("expiresAt" IS NULL OR "expiresAt" > NOW())
-        AND ("maxUses" = 0 OR "usedCount" < "maxUses")
-      `;
-      if (affected === 0) {
-        logger.error("coupon-increment-failed", new Error("Coupon increment failed after order creation"), {
-          orderNumber: order.orderNumber,
-          couponCode: couponRecord.code,
-        });
-      }
     }
 
     const emailItems = validatedItems.map((item) => {
