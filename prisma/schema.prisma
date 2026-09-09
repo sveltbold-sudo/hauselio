@@ -386,6 +386,7 @@ model RatgeberArticle {
   authorName      String    @default("HAUSAURA Redaktion")
   category        String
   tags            String[]  @default([])
+  mentionedProductSlugs String[] @default([])
   seoTitle        String?
   seoDesc         String?
   isPublished     Boolean   @default(false)

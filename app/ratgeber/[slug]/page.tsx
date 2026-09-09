@@ -6,7 +6,9 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import RatgeberArticleContent from "@/components/ratgeber/RatgeberArticleContent";
 import RatgeberArticleCard from "@/components/ratgeber/RatgeberArticleCard";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import RelatedProductsOnRatgeber from "@/components/ratgeber/RelatedProductsOnRatgeber";
 import { getArticleBySlug, getRelatedArticles, formatDate, getReadingTimeText } from "@/lib/ratgeber";
+import { prisma } from "@/lib/prisma";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -69,6 +71,21 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
   const relatedArticles = await getRelatedArticles(article.category, slug, 3);
   const categoryLabel = CATEGORY_LABELS[article.category] || article.category;
 
+  const mentionedSlugs = (article as unknown as Record<string, unknown>).mentionedProductSlugs as string[] | undefined;
+  const relatedProducts = mentionedSlugs && mentionedSlugs.length > 0
+    ? await prisma.product.findMany({
+        where: { slug: { in: mentionedSlugs } },
+        select: {
+          slug: true,
+          name: true,
+          price: true,
+          images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+          brand: { select: { name: true } },
+        },
+        take: 4,
+      })
+    : [];
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -119,7 +136,7 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
             {/* Category badge */}
             <div className="flex items-center gap-3 mb-4">
               <Link
-                href={`/ratgeber?category=${article.category}`}
+                href={`/kategorie/${article.category}`}
                 className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20 transition-colors"
               >
                 {categoryLabel}
@@ -189,6 +206,21 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
             </div>
           )}
         </article>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <section className="mt-12 sm:mt-16">
+            <RelatedProductsOnRatgeber
+              products={relatedProducts.map((p) => ({
+                slug: p.slug,
+                name: p.name,
+                price: Number(p.price),
+                images: p.images.map((img) => img.url),
+                brand: p.brand?.name || null,
+              }))}
+            />
+          </section>
+        )}
 
         {/* Related Articles */}
         {relatedArticles.length > 0 && (

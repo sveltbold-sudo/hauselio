@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Grid3X3, Search, ShoppingBag, User } from "lucide-react";
+import { Home, Grid3X3, Search, ShoppingBag, User, BookOpen } from "lucide-react";
 import { useCartStore, selectItemCount } from "@/lib/store";
 
 const navItems = [
   { href: "/", icon: Home, label: "Start" },
   { href: "/kategorie", icon: Grid3X3, label: "Kategorien" },
   { href: "/shop", icon: Search, label: "Suche", isSearch: true },
+  { href: "/ratgeber", icon: BookOpen, label: "Tipps" },
   { href: "/warenkorb", icon: ShoppingBag, label: "Warenkorb" },
   { href: "/konto", icon: User, label: "Konto" },
 ];

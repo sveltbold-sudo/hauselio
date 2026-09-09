@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import CategoryPage from "@/components/product/CategoryPage";
 import type { CategoryProduct, CategoryBrand } from "@/components/product/CategoryPage";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { getArticlesByCategory } from "@/lib/ratgeber";
 import { logger } from "@/lib/logger";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
@@ -191,6 +192,8 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
     ? `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
     : `${SITE_URL}/kategorie/${slug}`;
 
+  const ratgeberArticles = await getArticlesByCategory(slug, 3);
+
   return (
     <>
       <BreadcrumbJsonLd items={breadcrumbItems} />
@@ -250,6 +253,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           total={total}
           brands={brands}
           subCategories={subCategories}
+          ratgeberArticles={ratgeberArticles}
         />
       </main>
     </>

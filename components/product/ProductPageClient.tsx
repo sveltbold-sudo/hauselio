@@ -22,14 +22,16 @@ import { getEstimatedDeliveryDate } from "@/lib/delivery";
 import { useCartStore } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
 import type { ProductDetail, BundleProduct } from "@/lib/product-types";
+import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 
 const ProductTabs = dynamic(() => import("@/components/product/ProductTabs"), { ssr: true });
 const FrequentlyBoughtTogether = dynamic(() => import("@/components/product/FrequentlyBoughtTogether"), { ssr: false });
 const RecentlyViewedSection = dynamic(() => import("@/components/product/RecentlyViewedSection"), { ssr: false });
 const SimilarProductsSection = dynamic(() => import("@/components/product/SimilarProductsSection"), { ssr: true });
 const ImageLightbox = dynamic(() => import("@/components/ui/ImageLightbox"), { ssr: false });
+const RatgeberOnProductPage = dynamic(() => import("@/components/product/RatgeberOnProductPage"), { ssr: true });
 
-export default function ProductPageClient({ product, relatedProducts = [] }: { product: ProductDetail; relatedProducts?: BundleProduct[] }) {
+export default function ProductPageClient({ product, relatedProducts = [], ratgeberArticles = [] }: { product: ProductDetail; relatedProducts?: BundleProduct[]; ratgeberArticles?: RatgeberArticleListItem[] }) {
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [added, setAdded] = useState(false);
@@ -307,6 +309,22 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
           reviewCount: 0,
         }))}
       />
+
+      <RatgeberOnProductPage
+        articles={ratgeberArticles}
+        categorySlug={product.categorySlug}
+      />
+
+      {product.categorySlug && (
+        <div className="text-center py-4">
+          <Link
+            href={`/kategorie/${product.categorySlug}`}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] font-semibold rounded-xl hover:bg-[var(--color-primary)] hover:text-white transition-colors"
+          >
+            Alle {product.categoryName} ansehen
+          </Link>
+        </div>
+      )}
 
       <MobileAddToCartBar
         name={product.name}

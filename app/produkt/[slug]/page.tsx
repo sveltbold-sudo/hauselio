@@ -9,6 +9,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CustomerReviewsSection from "@/components/product/CustomerReviewsSection";
 import PressReviewsSection from "@/components/product/PressReviewsSection";
 import TestimonialsSection from "@/components/product/TestimonialsSection";
+import { getArticlesByCategory } from "@/lib/ratgeber";
 import { logger } from "@/lib/logger";
 
 export const revalidate = 300;
@@ -142,6 +143,10 @@ export default async function ProductPage({ params }: PageProps) {
   const product = data.product;
   const relatedProducts = data.relatedProducts || [];
 
+  const ratgeberArticles = product.category?.slug
+    ? await getArticlesByCategory(product.category.slug, 3)
+    : [];
+
   let sellerName = `${SITE_NAME} GmbH`;
   try {
     const settings = await prisma.siteSettings.findFirst();
@@ -206,7 +211,7 @@ export default async function ProductPage({ params }: PageProps) {
         sellerName={sellerName}
       />
       <main id="main-content">
-        <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} />
+        <ProductPageClient product={formattedProduct} relatedProducts={relatedProducts} ratgeberArticles={ratgeberArticles} />
         <CustomerReviewsSection productId={product.id} />
         <PressReviewsSection />
         <TestimonialsSection />

@@ -214,3 +214,36 @@ export function getReadingTimeText(minutes: number | null): string {
   if (!minutes) return "5 Min. Lesezeit";
   return `${minutes} Min. Lesezeit`;
 }
+
+export async function getArticlesByCategory(
+  category: string,
+  limit: number = 3,
+  excludeSlug?: string
+): Promise<RatgeberArticleListItem[]> {
+  const where: Record<string, unknown> = {
+    isPublished: true,
+    category,
+  };
+  if (excludeSlug) {
+    where.slug = { not: excludeSlug };
+  }
+
+  return prisma.ratgeberArticle.findMany({
+    where,
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      excerpt: true,
+      coverImage: true,
+      authorName: true,
+      category: true,
+      tags: true,
+      readingTime: true,
+      publishedAt: true,
+      createdAt: true,
+    },
+    orderBy: { publishedAt: "desc" },
+    take: limit,
+  });
+}

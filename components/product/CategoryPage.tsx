@@ -6,7 +6,10 @@ import CategorySortSelect from "@/components/product/CategorySortSelect";
 import CategoryBrandFilter from "@/components/product/CategoryBrandFilter";
 import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import RatgeberOnProductPage from "@/components/product/RatgeberOnProductPage";
+import CategoryCrossLinks from "@/components/product/CategoryCrossLinks";
 import type { ProductListItem, CategoryBrand } from "@/lib/product-types";
+import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 
 export type { CategoryBrand } from "@/lib/product-types";
 export type CategoryProduct = ProductListItem & { categorySlug: string };
@@ -26,6 +29,7 @@ interface CategoryPageProps {
   total: number;
   brands: CategoryBrand[];
   subCategories: { name: string; count: number }[];
+  ratgeberArticles?: RatgeberArticleListItem[];
 }
 
 export default function CategoryPage({
@@ -41,6 +45,7 @@ export default function CategoryPage({
   total,
   brands,
   subCategories,
+  ratgeberArticles = [],
 }: CategoryPageProps) {
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -206,6 +211,20 @@ export default function CategoryPage({
             {longDescription}
           </div>
         </section>
+      )}
+
+      {/* Ratgeber articles for this category */}
+      {!sub && ratgeberArticles.length > 0 && (
+        <div className="mt-12 sm:mt-16">
+          <RatgeberOnProductPage articles={ratgeberArticles} categorySlug={slug} />
+        </div>
+      )}
+
+      {/* Cross-links to other categories */}
+      {!sub && (
+        <div className="mt-12 sm:mt-16">
+          <CategoryCrossLinks currentCategorySlug={slug} />
+        </div>
       )}
 
       <Suspense fallback={null}>

@@ -5,6 +5,7 @@ import dynamicImport from "next/dynamic";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { getFeaturedArticles } from "@/lib/ratgeber";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import { logger } from "@/lib/logger";
 function HeroSkeleton() {
@@ -58,6 +59,7 @@ const RecentlyViewedSection = dynamicImport(() => import("@/components/product/R
 const ThermomixSection = dynamicImport(() => import("@/components/product/ThermomixSection"), { loading: () => <ThermomixSkeleton /> });
 const TestimonialsSection = dynamicImport(() => import("@/components/product/TestimonialsSection"), { loading: () => <div className="h-64" /> });
 const PressReviewsSection = dynamicImport(() => import("@/components/product/PressReviewsSection"), { loading: () => <div className="h-64" /> });
+const RatgeberSection = dynamicImport(() => import("@/components/home/RatgeberSection"), { loading: () => <div className="h-64" /> });
 const NewsletterSection = dynamicImport(() => import("@/components/home/NewsletterSection"), { loading: () => <NewsletterSkeleton /> });
 
 export const revalidate = 300;
@@ -308,17 +310,19 @@ async function CategoriesSection() {
 }
 
 export default async function HomePage() {
-  const [dailyDeal, bestsellers, recommended, heroSlides] = await Promise.allSettled([
+  const [dailyDeal, bestsellers, recommended, heroSlides, ratgeberArticles] = await Promise.allSettled([
     getDailyDeal(),
     getBestsellers(),
     getRecommended(),
     getHeroSlides(),
+    getFeaturedArticles(3),
   ]);
 
   const dealValue = dailyDeal.status === "fulfilled" ? dailyDeal.value : null;
   let bestsellersValue = bestsellers.status === "fulfilled" ? bestsellers.value : [];
   let recommendedValue = recommended.status === "fulfilled" ? recommended.value : [];
   const heroSlidesValue = heroSlides.status === "fulfilled" ? heroSlides.value : [];
+  const ratgeberValue = ratgeberArticles.status === "fulfilled" ? ratgeberArticles.value : [];
 
   if (dailyDeal.status === "rejected") logger.error("Failed to fetch daily deal", dailyDeal.reason);
   if (bestsellers.status === "rejected") logger.error("Failed to fetch bestsellers", bestsellers.reason);
@@ -425,6 +429,9 @@ export default async function HomePage() {
 
       {/* Für Sie empfohlen — top-rated */}
       {recommendedValue.length > 0 && <RecommendedSection products={recommendedValue} />}
+
+      {/* Tipps & Ratgeber */}
+      <RatgeberSection articles={ratgeberValue} />
 
       <PressReviewsSection />
       <Suspense fallback={<ProductRowSkeleton />}>
