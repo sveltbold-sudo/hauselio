@@ -52,7 +52,7 @@ export async function sendContactForward(data: {
         </div>
       </div>
       <div style="text-align:center;padding:8px 0;">
-        <a href="mailto:${safe.email}?subject=Re: ${encodeURIComponent(safe.subject)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="mailto:${safe.email}?subject=Re: ${encodeURIComponent(data.subject)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Antworten
         </a>
       </div>
