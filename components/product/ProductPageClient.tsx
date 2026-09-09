@@ -287,7 +287,7 @@ export default function ProductPageClient({ product, relatedProducts = [] }: { p
         </div>
       </div>
 
-      <ProductTabs description={product.description} specs={product.specs} />
+      <ProductTabs description={product.description} longDescription={product.longDescription} specs={product.specs} />
 
       <FrequentlyBoughtTogether
         currentProduct={{ id: product.id, name: product.name, slug: product.slug, price: product.price, image: product.images[0] || "/images/placeholder-product.svg", categorySlug: product.categorySlug }}

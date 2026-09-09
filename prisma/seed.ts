@@ -1,9 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import { readdirSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { join } from "path";
 
 const prisma = new PrismaClient();
 const IMAGES_DIR = join(process.cwd(), "public", "images", "products");
+const DESCRIPTIONS_PATH = join(process.cwd(), "prisma", "seed-descriptions.json");
+
+// Load generated long descriptions
+let longDescriptions: Record<string, string> = {};
+try {
+  longDescriptions = JSON.parse(readFileSync(DESCRIPTIONS_PATH, "utf-8"));
+} catch {
+  console.warn("⚠️  seed-descriptions.json not found, skipping long descriptions");
+}
 
 const adminEmail = process.env.ADMIN_EMAIL;
 if (!adminEmail) {
@@ -4044,6 +4053,7 @@ async function main() {
     const created = await prisma.product.create({
       data: {
         ...productData,
+        longDescription: longDescriptions[product.slug] || null,
         categoryId: categoryMap[categorySlug]!,
         brandId: brandMap[brandSlug]!,
         features: features || [],

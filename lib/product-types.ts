@@ -23,6 +23,7 @@ export interface ProductDetail {
   name: string;
   slug: string;
   description: string;
+  longDescription?: string;
   price: number;
   originalPrice: number | null;
   isPromo: boolean;

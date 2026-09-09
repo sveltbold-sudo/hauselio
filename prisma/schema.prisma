@@ -43,12 +43,13 @@ model Brand {
 }
 
 model Product {
-  id            String        @id @default(cuid())
-  name          String
-  slug          String        @unique
-  description   String
-  shortDesc     String?
-  price         Decimal       @db.Decimal(10, 2)
+  id              String        @id @default(cuid())
+  name            String
+  slug            String        @unique
+  description     String
+  shortDesc       String?
+  longDescription String?
+  price           Decimal       @db.Decimal(10, 2)
   originalPrice Decimal?      @db.Decimal(10, 2)
   sku           String?       @unique
   barcode       String?

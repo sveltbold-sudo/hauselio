@@ -10,12 +10,13 @@ interface ProductSpec {
 
 interface ProductTabsProps {
   description: string;
+  longDescription?: string;
   specs: ProductSpec[];
 }
 
 type TabKey = "description" | "specs" | "shipping";
 
-export default function ProductTabs({ description, specs }: ProductTabsProps) {
+export default function ProductTabs({ description, longDescription, specs }: ProductTabsProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("description");
   const tabListRef = useRef<HTMLDivElement>(null);
 
@@ -83,9 +84,9 @@ export default function ProductTabs({ description, specs }: ProductTabsProps) {
       >
         {activeTab === "description" && (
           <div className="max-w-3xl">
-            {description ? (
+            {(longDescription || description) ? (
               <p className="text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
-                {description}
+                {longDescription || description}
               </p>
             ) : (
               <p className="text-[var(--color-text-muted)]">Keine Beschreibung verfügbar.</p>
