@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Clock, ArrowRight } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { formatDate, getReadingTimeText } from "@/lib/ratgeber";
+import { getBlurDataURL } from "@/lib/image-helpers";
 
 interface RatgeberArticleCardProps {
   article: RatgeberArticleListItem;
@@ -47,6 +48,8 @@ export default function RatgeberArticleCard({ article }: RatgeberArticleCardProp
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
+            placeholder="blur"
+            blurDataURL={getBlurDataURL(article.coverImage)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-[var(--color-text-muted)]">

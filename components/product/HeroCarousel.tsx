@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, Truck, Shield, RotateCcw } from "lucide-react";
 import { formatPrice, calcDiscount } from "@/lib/utils";
+import { getBlurDataURL } from "@/lib/image-helpers";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface Slide {
@@ -184,6 +185,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 priority={i === 0}
                 fetchPriority={i === 0 ? "high" : undefined}
                 sizes="100vw"
+                placeholder="blur"
+                blurDataURL={getBlurDataURL(s.image)}
               />
               {/* Strong gradient: transparent at top, dark at bottom for text */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
@@ -297,6 +300,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             className="object-cover"
             sizes="100vw"
             aria-hidden="true"
+            placeholder="blur"
+            blurDataURL={getBlurDataURL(slide.bgImage || "/images/hero-kitchen.jpg")}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/30" />
         </div>
@@ -374,6 +379,8 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   priority={current === 0}
                   fetchPriority={current === 0 ? "high" : undefined}
                   sizes="480px"
+                  placeholder="blur"
+                  blurDataURL={getBlurDataURL(slide.image)}
                 />
                 {slide.isPromo && discount > 0 && (
                   <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1 bg-[var(--color-danger)] text-white text-sm font-bold rounded-lg shadow-sm">

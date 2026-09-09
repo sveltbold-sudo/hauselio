@@ -3,6 +3,7 @@ import Image from "next/image";
 import { BookOpen, ArrowRight } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { getReadingTimeText } from "@/lib/ratgeber";
+import { getBlurDataURL } from "@/lib/image-helpers";
 
 const CATEGORY_LABELS: Record<string, string> = {
   kueche: "Küche",
@@ -57,6 +58,8 @@ export default function RatgeberSection({ articles }: RatgeberSectionProps) {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL={getBlurDataURL(article.coverImage)}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">

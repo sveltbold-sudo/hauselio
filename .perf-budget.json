@@ -1,0 +1,46 @@
+{
+  "budgets": [
+    {
+      "name": "Global de JavaScript",
+      "path": "_next/static/chunks/**",
+      "maximumWarning": "200 KiB",
+      "maximumError": "300 KiB"
+    },
+    {
+      "name": "CSS total",
+      "path": "_next/static/css/**",
+      "maximumWarning": "50 KiB",
+      "maximumError": "80 KiB"
+    },
+    {
+      "name": "Homepage",
+      "path": "/",
+      "maximumWarning": "300 KiB",
+      "maximumError": "450 KiB"
+    },
+    {
+      "name": "Page produit",
+      "path": "/produkt/*",
+      "maximumWarning": "280 KiB",
+      "maximumError": "400 KiB"
+    },
+    {
+      "name": "Page catégorie",
+      "path": "/kategorie/*",
+      "maximumWarning": "250 KiB",
+      "maximumError": "380 KiB"
+    },
+    {
+      "name": "Page Ratgeber",
+      "path": "/ratgeber/*",
+      "maximumWarning": "200 KiB",
+      "maximumError": "300 KiB"
+    }
+  ],
+  "performance": {
+    "lcp": 2500,
+    "cls": 0.1,
+    "inp": 200,
+    "ttfb": 800
+  }
+}
