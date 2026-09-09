@@ -101,6 +101,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#FAFAF8" />
         <link rel="sitemap" href="/sitemap.xml" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="HAUSAURA" />
@@ -110,8 +111,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://*.sentry.io" />
-        <link rel="preload" as="image" href="/images/products/thermomix-tm7/1.png" />
-        <link rel="preload" as="image" href="/images/hero-kitchen.jpg" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
         <GoogleTagScript />
