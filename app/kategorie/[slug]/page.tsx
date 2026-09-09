@@ -206,6 +206,36 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           }).replace(/</g, "\\u003C"),
         }}
       />
+      {products.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: collectionName,
+              url: collectionUrl,
+              itemListElement: products.slice(0, 20).map((p, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                item: {
+                  "@type": "Product",
+                  name: p.name,
+                  url: `${SITE_URL}/produkt/${p.slug}`,
+                  image: p.image.startsWith("http") ? p.image : `${SITE_URL}${p.image}`,
+                  brand: p.brand ? { "@type": "Brand", name: p.brand } : undefined,
+                  offers: {
+                    "@type": "Offer",
+                    price: p.price.toFixed(2),
+                    priceCurrency: "EUR",
+                    availability: "https://schema.org/InStock",
+                  },
+                },
+              })),
+            }).replace(/</g, "\\u003C"),
+          }}
+        />
+      )}
       <main id="main-content">
         <CategoryPage
           slug={slug}

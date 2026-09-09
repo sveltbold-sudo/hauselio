@@ -70,7 +70,7 @@ export default function ProductImageGallery({
         <div className="w-full h-full">
           <ProductImage
             src={images.length > 0 ? images[activeImageIndex] || images[0] : "/images/placeholder-product.svg"}
-            alt={name}
+            alt={`${brand ? brand + " " : ""}${name} — Vorderansicht`}
             brand={brand}
             size="lg"
             priority
@@ -129,7 +129,7 @@ export default function ProductImageGallery({
               >
                 <Image
                   src={img}
-                  alt={`${name} ${i + 1}`}
+                  alt={`${brand ? brand + " " : ""}${name} — Bild ${i + 1} von ${images.length}`}
                   width={80}
                   height={80}
                   sizes="80px"

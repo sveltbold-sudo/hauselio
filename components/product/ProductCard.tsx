@@ -46,7 +46,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden p-4">
           <ProductImage
             src={product.image}
-            alt={product.name}
+            alt={`${product.brand ? product.brand + " " : ""}${product.name}`}
             brand={product.brand}
             size="md"
           />

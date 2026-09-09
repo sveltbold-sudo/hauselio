@@ -175,6 +175,7 @@ export default async function ProductPage({ params }: PageProps) {
     <>
       <BreadcrumbJsonLd
         items={[
+          { name: "Startseite", url: SITE_URL },
           { name: "Kategorien", url: "/kategorie" },
           { name: product.category?.name || "Shop", url: `/kategorie/${product.category?.slug || ""}` },
           { name: product.name, url: `/produkt/${product.slug}` },
@@ -187,6 +188,7 @@ export default async function ProductPage({ params }: PageProps) {
         price={Number(product.price)}
         brand={product.brand?.name || SITE_NAME}
         slug={product.slug}
+        category={product.category?.name || undefined}
         sku={product.sku || undefined}
         gtin={product.barcode || undefined}
         rating={Number(product.rating)}

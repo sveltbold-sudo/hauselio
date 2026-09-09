@@ -16,6 +16,7 @@ interface ProductJsonLdProps {
   currency?: string;
   brand: string;
   slug: string;
+  category?: string;
   sku?: string;
   gtin?: string;
   rating?: number;
@@ -36,6 +37,7 @@ export default function ProductJsonLd({
   currency = "EUR",
   brand,
   slug,
+  category,
   sku,
   gtin,
   rating,
@@ -62,6 +64,7 @@ export default function ProductJsonLd({
       name: brand,
     },
     ...(gtin ? { gtin } : {}),
+    ...(category ? { category } : {}),
     offers: {
       "@type": "Offer",
       url: productUrl,

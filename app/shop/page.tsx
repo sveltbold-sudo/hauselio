@@ -305,6 +305,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 name: p.name,
                 image: p.image,
                 url: `${SITE_URL}/produkt/${p.slug}`,
+                brand: p.brand ? { "@type": "Brand", name: p.brand } : undefined,
                 offers: {
                   "@type": "Offer",
                   price: p.price.toFixed(2),
