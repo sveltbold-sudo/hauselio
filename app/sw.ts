@@ -1,4 +1,4 @@
-import { Serwist, ExpirationPlugin, CacheFirst, StaleWhileRevalidate, NetworkFirst } from "serwist";
+import { Serwist, ExpirationPlugin, CacheFirst, NetworkFirst } from "serwist";
 
 declare global {
   interface Window {
