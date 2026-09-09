@@ -244,7 +244,7 @@ export async function PUT(
       logger.error("algolia-sync", algoliaError);
     }
 
-    logActivity({ action: "product.update", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product?.name ?? "unknown" } });
+    await logActivity({ action: "product.update", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product?.name ?? "unknown" } });
 
     return NextResponse.json({ product });
   } catch (error) {
@@ -258,6 +258,9 @@ export async function DELETE(
 ) {
   try {
     const adminUser = await requireAdmin();
+    if (adminUser.role !== "ADMIN") {
+      return NextResponse.json({ error: "Nur Administratoren können Produkte löschen" }, { status: 403 });
+    }
     const ip = getClientIp(request);
     if (!await checkRateLimit(`admin-produkt:${ip}`, 30, 60_000)) {
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
@@ -309,7 +312,7 @@ export async function DELETE(
       logger.error("algolia-delete", algoliaError);
     }
 
-    logActivity({ action: "product.delete", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: existingProduct.name } });
+    await logActivity({ action: "product.delete", entity: "product", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: existingProduct.name } });
 
     return NextResponse.json({ success: true });
   } catch (error) {

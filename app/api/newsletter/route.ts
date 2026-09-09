@@ -108,13 +108,6 @@ export async function DELETE(request: NextRequest) {
 
     const { email } = parsed.data;
 
-    if (!email) {
-      return NextResponse.json(
-        { error: "E-Mail-Adresse ist erforderlich" },
-        { status: 400 }
-      );
-    }
-
     const subscriber = await prisma.newsletter.findUnique({
       where: { email },
     });

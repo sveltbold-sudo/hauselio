@@ -215,7 +215,7 @@ export async function POST(request: NextRequest) {
       logger.error("algolia-sync", algoliaError);
     }
 
-    logActivity({ action: "product.create", entity: "product", entityId: product.id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product.name } });
+    await logActivity({ action: "product.create", entity: "product", entityId: product.id, adminId: adminUser.id, adminEmail: adminUser.email, details: { name: product.name } });
 
     return NextResponse.json({ product }, { status: 201 });
   } catch (error) {

@@ -60,12 +60,14 @@ export default function CategoryPage({
     return qs ? `/kategorie/${slug}?${qs}` : `/kategorie/${slug}`;
   }
 
-  const breadcrumbItems = [
+  const breadcrumbItems: { label: string; href?: string }[] = [
     { label: "Kategorien", href: "/kategorie" },
-    { label: title, href: `/kategorie/${slug}` },
   ];
   if (sub) {
-    breadcrumbItems.push({ label: sub, href: `/kategorie/${slug}?sub=${encodeURIComponent(sub)}` });
+    breadcrumbItems.push({ label: title, href: `/kategorie/${slug}` });
+    breadcrumbItems.push({ label: sub });
+  } else {
+    breadcrumbItems.push({ label: title });
   }
 
   return (

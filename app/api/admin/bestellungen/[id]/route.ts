@@ -203,7 +203,7 @@ export async function PUT(
       logger.error("order-status-email", emailError);
     }
 
-    logActivity({ action: "order.status_change", entity: "order", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { orderNumber: order.orderNumber, from: previousStatus, to: status } });
+    await logActivity({ action: "order.status_change", entity: "order", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { orderNumber: order.orderNumber, from: previousStatus, to: status } });
 
     return NextResponse.json({ order });
   } catch (error) {

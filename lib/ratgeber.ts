@@ -124,11 +124,21 @@ export async function getArticleBySlug(
 
   if (!article) return null;
 
-  // Increment view count
-  await prisma.ratgeberArticle.update({
-    where: { slug },
-    data: { viewCount: { increment: 1 } },
-  });
+  // Increment view count (skip bots and crawlers)
+  try {
+    const { headers } = await import("next/headers");
+    const h = await headers();
+    const ua = h.get("user-agent") || "";
+    const isBot = /bot|crawl|spider|slurp|facebook|google|bing|yandex|semrush|ahref/i.test(ua);
+    if (!isBot) {
+      await prisma.ratgeberArticle.update({
+        where: { slug },
+        data: { viewCount: { increment: 1 } },
+      });
+    }
+  } catch {
+    // Server component — headers() may not be available in all contexts
+  }
 
   return article;
 }

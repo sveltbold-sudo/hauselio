@@ -73,7 +73,7 @@ const serwist = new Serwist({
     entries: [
       {
         url: "/offline",
-        matcher: () => true,
+        matcher: ({ request }: { request: Request }) => request.mode === "navigate" && !request.url.includes("/api/"),
       },
     ],
   },

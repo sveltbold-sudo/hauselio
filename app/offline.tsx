@@ -15,7 +15,13 @@ export default function OfflinePage() {
         Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.
       </p>
       <button
-        onClick={() => window.location.reload()}
+        onClick={() => {
+          if (navigator.onLine) {
+            window.location.reload();
+          } else {
+            window.location.href = "/";
+          }
+        }}
         className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors"
       >
         Erneut versuchen

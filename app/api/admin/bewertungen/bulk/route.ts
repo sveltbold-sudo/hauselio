@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         }
       });
 
-      logActivity({ action: "review.bulk_delete", entity: "review", adminId: admin.id, adminEmail: admin.email, details: { count: ids.length } });
+      await logActivity({ action: "review.bulk_delete", entity: "review", adminId: admin.id, adminEmail: admin.email, details: { count: ids.length } });
       return NextResponse.json({ success: true, affected: ids.length });
     }
 
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    logActivity({ action: `review.bulk_${action}`, entity: "review", adminId: admin.id, adminEmail: admin.email, details: { count: ids.length } });
+    await logActivity({ action: `review.bulk_${action}`, entity: "review", adminId: admin.id, adminEmail: admin.email, details: { count: ids.length } });
     return NextResponse.json({ success: true, affected: ids.length });
   } catch (error) {
     return handleApiError(error);

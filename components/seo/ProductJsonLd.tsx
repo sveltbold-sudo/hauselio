@@ -129,7 +129,7 @@ export default function ProductJsonLd({
     }));
   }
 
-  if (rating && reviewCount) {
+  if (rating != null && rating > 0 && reviewCount) {
     jsonLd.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: rating.toFixed(1),

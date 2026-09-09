@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
 
     // admin already captured
     logger.info("brand-created", `Brand created: ${brand.name} by ${admin.email}`);
-    logActivity({ action: "brand.create", entity: "brand", entityId: brand.id, adminId: admin.id, adminEmail: admin.email, details: { name: brand.name } });
+    await logActivity({ action: "brand.create", entity: "brand", entityId: brand.id, adminId: admin.id, adminEmail: admin.email, details: { name: brand.name } });
 
     return NextResponse.json(brand, { status: 201 });
   } catch (error) {

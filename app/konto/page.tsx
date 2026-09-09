@@ -45,8 +45,10 @@ export default function KontoPage() {
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [error, setError] = useState("");
@@ -120,14 +122,14 @@ export default function KontoPage() {
       const res = await fetch("/api/customer/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen");
       setCustomer(data.customer);
       setProfileName(data.customer.name || "");
-      setEmail("");
-      setPassword("");
+      setLoginEmail("");
+      setLoginPassword("");
       try {
         const meRes = await fetch("/api/customer/me");
         if (meRes.ok) {
@@ -157,14 +159,14 @@ export default function KontoPage() {
       const res = await fetch("/api/customer/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email: registerEmail, password: registerPassword }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Registrierung fehlgeschlagen");
       setCustomer(data.customer);
       setProfileName(data.customer.name || "");
-      setEmail("");
-      setPassword("");
+      setRegisterEmail("");
+      setRegisterPassword("");
       setName("");
       setShowVerifyPrompt(true);
     } catch (err) {
@@ -175,6 +177,7 @@ export default function KontoPage() {
   };
 
   const handleLogout = async () => {
+    if (!window.confirm("Möchten Sie sich wirklich abmelden?")) return;
     try {
       await fetch("/api/customer/logout", { method: "POST" });
     } catch {}
@@ -595,8 +598,8 @@ export default function KontoPage() {
                 <input
                   id="login-email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
                   placeholder="name@beispiel.de"
                   className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
@@ -611,8 +614,8 @@ export default function KontoPage() {
                 <input
                   id="login-password"
                   type={showLoginPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
@@ -672,8 +675,8 @@ export default function KontoPage() {
                 <input
                   id="register-email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={registerEmail}
+                  onChange={(e) => setRegisterEmail(e.target.value)}
                   placeholder="name@beispiel.de"
                   className="w-full pl-10 pr-4 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required
@@ -688,8 +691,8 @@ export default function KontoPage() {
                 <input
                   id="register-password"
                   type={showRegisterPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={registerPassword}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
                   placeholder="Mindestens 8 Zeichen"
                   className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus-visible:border-[var(--color-primary)] transition-colors"
                   required

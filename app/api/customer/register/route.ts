@@ -52,9 +52,10 @@ export async function POST(request: NextRequest) {
     });
 
     if (existing) {
+      // Return success to prevent email enumeration — caller checks via verification email
       return NextResponse.json(
-        { error: "Diese E-Mail-Adresse ist bereits registriert" },
-        { status: 409 }
+        { message: "Falls ein Konto mit dieser E-Mail-Adresse existiert, haben wir einen Bestätigungslink gesendet." },
+        { status: 200 }
       );
     }
 
