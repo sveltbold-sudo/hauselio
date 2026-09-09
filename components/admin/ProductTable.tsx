@@ -309,9 +309,16 @@ function ProductTable({
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-2">
-                    <p className="text-sm font-bold text-[var(--color-text-primary)]">
-                      {formatPrice(Number(product.price))}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-bold text-[var(--color-text-primary)]">
+                        {formatPrice(Number(product.price))}
+                      </p>
+                      {product.originalPrice && Number(product.originalPrice) > Number(product.price) && (
+                        <p className="text-xs text-[var(--color-text-muted)] line-through">
+                          {formatPrice(Number(product.originalPrice))}
+                        </p>
+                      )}
+                    </div>
                     <div className="flex items-center gap-1.5">
                       <a
                         href={`/produkt/${product.slug}`}

@@ -95,13 +95,21 @@ export default function ProductForm({
   };
 
   const addFeature = () => {
-    if (formData.newFeature.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        features: [...prev.features, prev.newFeature.trim()],
-        newFeature: "",
-      }));
+    const trimmed = formData.newFeature.trim();
+    if (!trimmed) return;
+    if (formData.features.includes(trimmed)) {
+      toast.error("Dieses Merkmal existiert bereits.");
+      return;
     }
+    if (formData.features.length >= 20) {
+      toast.error("Maximal 20 Merkmale erlaubt.");
+      return;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      features: [...prev.features, trimmed],
+      newFeature: "",
+    }));
   };
 
   const removeFeature = (index: number) => {
@@ -737,7 +745,10 @@ export default function ProductForm({
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
-                      if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) return;
+                      if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) {
+                        toast.error("Nur Bilddateien (JPG, PNG, WebP, GIF) bis 5 MB erlaubt.");
+                        return;
+                      }
                       const formDataUpload = new FormData();
                       formDataUpload.append("file", file);
                       formDataUpload.append("folder", "HAUSAURA/products");
