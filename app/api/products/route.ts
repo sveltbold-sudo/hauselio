@@ -42,11 +42,11 @@ export async function GET(request: NextRequest) {
     } = {};
 
     if (category) {
-      where.category = { slug: category };
+      where.category = { slug: category.toLowerCase() };
     }
 
     if (brand) {
-      where.brand = { slug: brand };
+      where.brand = { slug: brand.toLowerCase() };
     }
 
     if (search && search.trim().length > 0) {

@@ -135,10 +135,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     where.isPromo = true;
   }
   if (category) {
-    where.category = { slug: category };
+    where.category = { slug: category.toLowerCase() };
   }
   if (brand) {
-    where.brand = { slug: brand };
+    where.brand = { slug: brand.toLowerCase() };
   }
   if (q) {
     where.OR = [
