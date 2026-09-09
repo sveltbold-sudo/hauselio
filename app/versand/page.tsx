@@ -8,13 +8,13 @@ import { prisma } from "@/lib/prisma";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Versandinformationen",
-  description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA",
+  title: "Versand & Lieferung — Kostenlos ab 50€",
+  description: "Alle Infos zu Versand, Lieferzeiten und Kosten bei HAUSAURA. Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/versand" },
   openGraph: {
-    title: "Versandinformationen",
-    description: "Informationen zum Versand, Lieferzeiten und Kosten bei HAUSAURA.",
+    title: "Versand & Lieferung | HAUSAURA",
+    description: "Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",

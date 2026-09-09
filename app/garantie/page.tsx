@@ -9,12 +9,12 @@ import { prisma } from "@/lib/prisma";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Garantie",
-  description: "Informieren Sie sich über unsere Garantie- und Gewährleistungsbedingungen. Bis zu 5 Jahre Garantie auf ausgewählte Produkte.",
+  title: "Garantie & Gewährleistung — 2 Jahre auf alle Produkte",
+  description: "Informieren Sie sich über Garantie- und Gewährleistungsbedingungen bei HAUSAURA. 2 Jahre Garantie auf alle Produkte, bis zu 5 Jahre auf ausgewählte Geräte.",
   alternates: { canonical: `${SITE_URL}/garantie` },
   openGraph: {
-    title: "Garantie",
-    description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
+    title: "Garantie & Gewährleistung | HAUSAURA",
+    description: "2 Jahre Garantie auf alle Produkte. Gewährleistungsbedingungen bei HAUSAURA.",
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Garantie",
+    title: "Garantie & Gewährleistung | HAUSAURA",
     description: "Garantie- und Gewährleistungsbedingungen bei HAUSAURA.",
   },
 };

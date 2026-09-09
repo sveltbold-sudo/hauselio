@@ -10,12 +10,12 @@ import { buildFaqJsonLd } from "@/lib/faq";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Kontakt",
-  description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht. Wir sind für Sie da.",
+  title: "Kontakt — E-Mail, Telefon & Beratung",
+  description: "Kontaktieren Sie HAUSAURA — wir beraten Sie gerne per E-Mail oder Telefon. Schnelle Antwort innerhalb von 24 Stunden.",
   alternates: { canonical: "/kontakt" },
   openGraph: {
-    title: "Kontakt",
-    description: "Kontaktieren Sie HAUSAURA — per E-Mail, Telefon oder persönlicher Nachricht.",
+    title: "Kontakt — E-Mail, Telefon & Beratung | HAUSAURA",
+    description: "Wir beraten Sie gerne per E-Mail oder Telefon. Schnelle Antwort innerhalb von 24 Stunden.",
     url: `${SITE_URL}/kontakt`,
     siteName: "HAUSAURA",
     locale: "de_DE",

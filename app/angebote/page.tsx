@@ -28,12 +28,12 @@ function mapProduct(p: { id: string; name: string; slug: string; price: number |
 }
 
 export const metadata: Metadata = {
-  title: "Angebote & Sale — Bis zu 40% sparen | HAUSAURA",
+  title: "Angebote & Sale — Bis zu 40% sparen auf Haushaltsgeräte",
   description:
     "Entdecken Sie unsere besten Angebote auf Premium-Haushaltsgeräte. Thermomix, Bosch, Siemens, Miele und mehr mit bis zu 40% Rabatt. Kostenloser Versand ab 50€.",
   alternates: { canonical: `${SITE_URL}/angebote` },
   openGraph: {
-    title: "Angebote & Sale — HAUSAURA",
+    title: "Angebote & Sale — Bis zu 40% sparen | HAUSAURA",
     description: "Premium-Haushaltsgeräte mit Rabatt. Sparen Sie bis zu 40%.",
     url: `${SITE_URL}/angebote`,
     images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],

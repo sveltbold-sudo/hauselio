@@ -99,18 +99,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const product = data.product;
   const priceStr = Number(product.price).toFixed(2).replace(".", ",");
+  const brandName = product.brand?.name || "";
+  const catName = product.category?.name || "";
   const desc = product.description
     ? product.description.slice(0, 150).trim() + "\u2026"
     : `Jetzt ${product.name} bei ${SITE_NAME} kaufen. Ab ${priceStr} \u20AC.`;
+  const titleSuffix = brandName ? ` von ${brandName}` : "";
 
   return {
-    title: product.name,
+    title: `${product.name} kaufen — Preis & Angebote${titleSuffix}`,
     description: desc,
     alternates: {
       canonical: `${SITE_URL}/produkt/${slug}`,
     },
     openGraph: {
-      title: product.name,
+      title: `${product.name} kaufen | ${SITE_NAME}`,
       description: desc,
       url: `${SITE_URL}/produkt/${slug}`,
       siteName: SITE_NAME,      locale: "de_DE",
@@ -121,7 +124,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: product.name,
+      title: `${product.name} kaufen | ${SITE_NAME}`,
       description: desc,
       images: product.images?.[0] ? [product.images[0]] : undefined,
     },

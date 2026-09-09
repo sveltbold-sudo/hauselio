@@ -8,13 +8,13 @@ import { prisma } from "@/lib/prisma";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Hilfe & FAQ",
-    description: "Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe bei HAUSAURA.",
+  title: "Hilfe & FAQ — Bestellung, Versand, Garantie",
+    description: "Häufige Fragen zu Bestellung, Versand, Zahlung, Garantie und Rückgabe. Finden Sie schnelle Antworten beim HAUSAURA Kundenservice.",
   robots: { index: true, follow: true },
   alternates: { canonical: "/hilfe" },
   openGraph: {
-    title: "Hilfe & FAQ",
-  description: "Häufige Fragen und Antworten rund um Bestellung, Versand, Zahlung, Garantie und Rückgabe bei HAUSAURA.",
+    title: "Hilfe & FAQ — Bestellung, Versand, Garantie | HAUSAURA",
+  description: "Häufige Fragen zu Bestellung, Versand, Zahlung, Garantie und Rückgabe. Schnelle Antworten vom Kundenservice.",
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",

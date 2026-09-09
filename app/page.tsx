@@ -63,16 +63,16 @@ const NewsletterSection = dynamicImport(() => import("@/components/home/Newslett
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Moderne Haushaltsgeräte aus Deutschland",
+  title: "Haushaltsgeräte online kaufen — Miele, Bosch & Siemens",
   description:
-    "Entdecken Sie hochwertige Haushaltsgeräte von Miele, Bosch, Siemens und mehr. Kostenloser Versand ab 50€. Überweisung (Vorkasse).",
+    "Entdecken Sie Haushaltsgeräte von Miele, Bosch, Siemens & mehr. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht. Jetzt bei HAUSAURA bestellen.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Moderne Haushaltsgeräte aus Deutschland",
+    title: "Haushaltsgeräte online kaufen — Miele, Bosch & Siemens | HAUSAURA",
     description:
-      "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
+      "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.",
     url: SITE_URL,
     siteName: SITE_NAME,    locale: "de_DE",
     type: "website",
@@ -80,9 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Moderne Haushaltsgeräte aus Deutschland",
+    title: "Haushaltsgeräte online kaufen — Miele, Bosch & Siemens | HAUSAURA",
     description:
-      "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€.",
+      "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.",
     images: [`${SITE_URL}/logos/logoprincipale.png`],
   },
 };
