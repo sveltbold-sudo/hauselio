@@ -8,6 +8,11 @@ interface Review {
   date: string;
 }
 
+interface Spec {
+  key: string;
+  value: string;
+}
+
 interface ProductJsonLdProps {
   name: string;
   description: string;
@@ -22,6 +27,7 @@ interface ProductJsonLdProps {
   rating?: number;
   reviewCount?: number;
   reviews?: Review[];
+  specs?: Spec[];
   availability?: "InStock" | "OutOfStock" | "PreOrder";
   url?: string;
   sellerName?: string;
@@ -43,6 +49,7 @@ export default function ProductJsonLd({
   rating,
   reviewCount,
   reviews = [],
+  specs = [],
   availability = "InStock",
   url,
   sellerName = "HAUSAURA GmbH",
@@ -113,6 +120,14 @@ export default function ProductJsonLd({
       },
     },
   };
+
+  if (specs.length > 0) {
+    jsonLd.additionalProperty = specs.map((s) => ({
+      "@type": "PropertyValue",
+      name: s.key,
+      value: s.value,
+    }));
+  }
 
   if (rating && reviewCount) {
     jsonLd.aggregateRating = {

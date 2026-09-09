@@ -59,6 +59,32 @@ export default async function RatgeberPage({ searchParams }: RatgeberPageProps) 
     <div className="container-hausaura py-6 sm:py-8 lg:py-10">
       <Breadcrumb items={[{ label: "Ratgeber", href: "/ratgeber" }]} />
 
+      {articles.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: "Ratgeber & Tipps",
+              url: `${SITE_URL}/ratgeber`,
+              itemListElement: articles.map((article, i) => ({
+                "@type": "ListItem",
+                position: (page - 1) * 9 + i + 1,
+                item: {
+                  "@type": "Article",
+                  headline: article.title,
+                  url: `${SITE_URL}/ratgeber/${article.slug}`,
+                  image: article.coverImage || undefined,
+                  datePublished: article.publishedAt?.toISOString() || article.createdAt.toISOString(),
+                  author: { "@type": "Organization", name: article.authorName },
+                },
+              })),
+            }).replace(/</g, "\\u003C"),
+          }}
+        />
+      )}
+
       {/* Hero */}
       <div className="text-center mb-8 sm:mb-12">
         <p className="caption text-[var(--color-accent)] mb-3">Ratgeber</p>

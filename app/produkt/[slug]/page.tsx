@@ -200,6 +200,7 @@ export default async function ProductPage({ params }: PageProps) {
         rating={Number(product.rating)}
         reviewCount={product.reviewCount}
         shippingRate={Number(product.price) >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST}
+        specs={(product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value }))}
         reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title: string | null; content: string | null; createdAt: string }) => ({
           author: r.authorName,
           rating: r.rating,
