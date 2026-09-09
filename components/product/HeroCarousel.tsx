@@ -182,6 +182,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                 className="object-cover object-center"
                 loading={i === 0 ? "eager" : "lazy"}
                 priority={i === 0}
+                fetchPriority={i === 0 ? "high" : undefined}
                 sizes="100vw"
               />
               {/* Strong gradient: transparent at top, dark at bottom for text */}
@@ -294,7 +295,6 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             alt=""
             fill
             className="object-cover"
-            priority={current === 0}
             sizes="100vw"
             aria-hidden="true"
           />
@@ -372,6 +372,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
                   fill
                   className="object-contain p-8 xl:p-10"
                   priority={current === 0}
+                  fetchPriority={current === 0 ? "high" : undefined}
                   sizes="480px"
                 />
                 {slide.isPromo && discount > 0 && (

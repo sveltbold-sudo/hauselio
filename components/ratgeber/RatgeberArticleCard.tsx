@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, ArrowRight } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { formatDate, getReadingTimeText } from "@/lib/ratgeber";
@@ -39,10 +40,12 @@ export default function RatgeberArticleCard({ article }: RatgeberArticleCardProp
       {/* Image */}
       <div className="aspect-[16/9] overflow-hidden bg-[var(--color-bg-secondary)]">
         {article.coverImage ? (
-          <img
+          <Image
             src={article.coverImage}
             alt={article.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
           />
         ) : (

@@ -48,7 +48,7 @@ function NewsletterSkeleton() {
   return <div className="container-hausaura py-12"><div className="h-48 bg-[var(--color-bg-secondary)] rounded-2xl animate-pulse" /></div>;
 }
 
-const HeroCarousel = dynamicImport(() => import("@/components/product/HeroCarousel"), { loading: () => <HeroSkeleton /> });
+import HeroCarousel from "@/components/product/HeroCarousel";
 import ValuePropsSection from "@/components/product/ValuePropsSection";
 const DailyDealBanner = dynamicImport(() => import("@/components/product/DailyDealBanner"), { loading: () => <DealSkeleton /> });
 const BestsellerSection = dynamicImport(() => import("@/components/product/BestsellerSection"), { loading: () => <ProductRowSkeleton /> });

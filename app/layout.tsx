@@ -103,6 +103,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" as="image" href="/images/products/thermomix-tm7/1.png" />
+        <link rel="preload" as="image" href="/images/hero-kitchen.jpg" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
         <GoogleTagScript />
