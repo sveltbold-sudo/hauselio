@@ -1,24 +1,24 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./e2e",
-  timeout: 60000,
+  testDir: "./tests",
+  timeout: 30000,
   retries: 1,
-  workers: 1,
+  workers: 3,
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "https://www.hausaura.de",
     headless: true,
-    viewport: { width: 1280, height: 720 },
-    actionTimeout: 15000,
-    navigationTimeout: 30000,
-  },
-  webServer: {
-    command: "npm run dev",
-    port: 3000,
-    timeout: 180000,
-    reuseExistingServer: !process.env.CI,
+    screenshot: "only-on-failure",
+    trace: "retain-on-failure",
   },
   projects: [
-    { name: "chromium", use: { browserName: "chromium" } },
+    {
+      name: "chromium",
+      use: { browserName: "chromium" },
+    },
+  ],
+  reporter: [
+    ["list"],
+    ["html", { open: "never", outputFolder: "playwright-report" }],
   ],
 });
