@@ -59,7 +59,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   if (reviews.length === 0) {
     if (productId) {
       return (
-        <section id="kundenbewertungen" tabIndex={-1} className="section-py bg-white focus:outline-none" aria-label="Kundenbewertungen">
+        <section id="kundenbewertungen" className="section-py bg-white" aria-label="Kundenbewertungen">
           <div className="container-hausaura">
             <div className="text-center py-12">
               <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
@@ -87,7 +87,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   }));
 
   return (
-    <section id="kundenbewertungen" tabIndex={-1} className="section-py bg-white focus:outline-none" aria-label="Kundenbewertungen">
+    <section id="kundenbewertungen" className="section-py bg-white" aria-label="Kundenbewertungen">
       <div className="container-hausaura">
         <div className="text-center mb-6 md:mb-10">
           <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>

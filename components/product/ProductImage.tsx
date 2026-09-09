@@ -63,6 +63,8 @@ export default function ProductImage({
   return (
     <div
       className={`group relative bg-gradient-to-br from-[var(--color-bg-secondary)] via-white to-[var(--color-border-light)] flex flex-col items-center justify-center overflow-hidden ${sizeClasses[size]} ${className}`}
+      role="img"
+      aria-label={brand ? `${brand} ${alt}` : alt}
     >
       <div
         className="absolute inset-0 opacity-[0.03]"

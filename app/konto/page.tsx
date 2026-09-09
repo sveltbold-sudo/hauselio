@@ -244,7 +244,7 @@ export default function KontoPage() {
 
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-16 h-16 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-2xl font-bold">
+            <div className="w-16 h-16 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-2xl font-bold" role="img" aria-label="Profilbild">
               {(customer.name || "?").charAt(0).toUpperCase()}
             </div>
             <div>

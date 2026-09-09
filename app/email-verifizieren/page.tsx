@@ -61,7 +61,7 @@ function EmailVerificationContent() {
 
   return (
     <main id="main-content" className="container-hausaura py-20 min-h-[60vh] flex items-center justify-center">
-      <div className="max-w-md w-full text-center">
+      <div className="max-w-md w-full text-center" aria-live="polite">
         {status === "loading" && (
           <>
             <Loader2 className="w-12 h-12 text-[var(--color-primary)] animate-spin mx-auto mb-4" />

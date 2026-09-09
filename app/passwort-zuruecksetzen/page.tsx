@@ -131,7 +131,7 @@ function PasswortZuruecksetzenForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
             >
               {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gesendet…</> : "Link zum Zurücksetzen senden"}
             </button>
@@ -238,7 +238,7 @@ function PasswortZuruecksetzenForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-[var(--color-primary)] text-white text-sm font-semibold rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors min-h-[44px] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gespeichert…</> : "Passwort zurücksetzen"}
           </button>

@@ -108,7 +108,7 @@ export default function FrequentlyBoughtTogether({ currentProduct, products }: F
                 >
                   <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
                     isSelected ? "bg-[var(--color-primary)] border-[var(--color-primary)]" : "border-[var(--color-border)] bg-white"
-                  }`}>
+                  }`} aria-hidden="true">
                     {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
                   </div>
                   <div className="w-14 h-14 bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden flex-shrink-0">
