@@ -4,34 +4,15 @@ import { Clock, ArrowRight } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { formatDate, getReadingTimeText } from "@/lib/ratgeber";
 import { getBlurDataURL } from "@/lib/image-helpers";
+import { RATGEBER_CATEGORY_LABELS, RATGEBER_CATEGORY_COLORS } from "@/lib/ratgeber-constants";
 
 interface RatgeberArticleCardProps {
   article: RatgeberArticleListItem;
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  kueche: "bg-orange-100 text-orange-800",
-  kaffee: "bg-amber-100 text-amber-800",
-  reinigung: "bg-blue-100 text-blue-800",
-  klima: "bg-cyan-100 text-cyan-800",
-  "smart-home": "bg-purple-100 text-purple-800",
-  haushaltsgeraete: "bg-green-100 text-green-800",
-  tipps: "bg-pink-100 text-pink-800",
-};
-
-const CATEGORY_LABELS: Record<string, string> = {
-  kueche: "Küche",
-  kaffee: "Kaffee",
-  reinigung: "Reinigung",
-  klima: "Klima",
-  "smart-home": "Smart Home",
-  haushaltsgeraete: "Haushaltsgeräte",
-  tipps: "Tipps & Tricks",
-};
-
 export default function RatgeberArticleCard({ article }: RatgeberArticleCardProps) {
-  const colorClass = CATEGORY_COLORS[article.category] || "bg-gray-100 text-gray-800";
-  const categoryLabel = CATEGORY_LABELS[article.category] || article.category;
+  const colorClass = RATGEBER_CATEGORY_COLORS[article.category] || "bg-gray-100 text-gray-800";
+  const categoryLabel = RATGEBER_CATEGORY_LABELS[article.category] || article.category;
 
   return (
     <Link

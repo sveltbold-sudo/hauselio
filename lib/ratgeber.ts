@@ -212,7 +212,7 @@ export async function getCategoryArticleCounts(): Promise<
 }
 
 export function formatDate(date: Date | null): string {
-  if (!date) return "";
+  if (!date) return "Datum unbekannt";
   return new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
     month: "long",

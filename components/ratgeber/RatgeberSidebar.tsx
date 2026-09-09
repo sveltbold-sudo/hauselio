@@ -2,22 +2,13 @@ import Link from "next/link";
 import { TrendingUp, BookOpen } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { formatDate, getReadingTimeText } from "@/lib/ratgeber";
+import { RATGEBER_CATEGORY_LABELS } from "@/lib/ratgeber-constants";
 
 interface RatgeberSidebarProps {
   categories: { slug: string; name: string; count: number }[];
   featuredArticles: RatgeberArticleListItem[];
   currentCategory?: string;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  kueche: "Küche",
-  kaffee: "Kaffee",
-  reinigung: "Reinigung",
-  klima: "Klima",
-  "smart-home": "Smart Home",
-  haushaltsgeraete: "Haushaltsgeräte",
-  tipps: "Tipps & Tricks",
-};
 
 export default function RatgeberSidebar({
   categories,
@@ -53,7 +44,7 @@ export default function RatgeberSidebar({
                   : "text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]"
               }`}
             >
-              {CATEGORY_LABELS[cat.slug] || cat.name}
+              {RATGEBER_CATEGORY_LABELS[cat.slug] || cat.name}
               <span className="ml-1 text-xs text-[var(--color-text-muted)]">({cat.count})</span>
             </Link>
           ))}

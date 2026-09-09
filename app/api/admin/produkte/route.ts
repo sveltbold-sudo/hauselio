@@ -10,6 +10,11 @@ import { logActivity } from "@/lib/activity-log";
 
 export async function POST(request: NextRequest) {
   try {
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
+    const adminUser = await requireAdmin();
+
     const ip = getClientIp(request);
     const allowed = await checkRateLimit(`admin-produkt-create:${ip}`, 30, 60_000);
     if (!allowed) {
@@ -18,11 +23,6 @@ export async function POST(request: NextRequest) {
         { status: 429, headers: { "Retry-After": "60" } }
       );
     }
-
-    const ctError = validateContentType(request, "application/json");
-    if (ctError) return ctError;
-
-    const adminUser = await requireAdmin();
     const body = await request.json();
     const parsed = CreateProductSchema.safeParse(body);
 

@@ -472,7 +472,7 @@ export default function HeaderClient() {
               </span>
               <span className="hidden lg:flex items-center gap-1">
                 <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
-                5 Jahre Garantie
+                2 Jahre Garantie
               </span>
               <span className="hidden xl:flex items-center gap-1">
                 <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span>

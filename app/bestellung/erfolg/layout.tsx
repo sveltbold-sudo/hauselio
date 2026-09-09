@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Bestellung erfolgreich",
@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bestellung erfolgreich | HAUSAURA",
     description: "Vielen Dank für Ihre Bestellung bei HAUSAURA.",
+    url: `${SITE_URL}/bestellung/erfolg`,
+    siteName: SITE_NAME,
+    locale: "de_DE",
+    type: "website",
   },
 };
 

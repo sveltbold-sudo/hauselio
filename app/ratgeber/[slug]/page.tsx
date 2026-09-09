@@ -10,16 +10,7 @@ import RelatedProductsOnRatgeber from "@/components/ratgeber/RelatedProductsOnRa
 import { getArticleBySlug, getRelatedArticles, formatDate, getReadingTimeText } from "@/lib/ratgeber";
 import { prisma } from "@/lib/prisma";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  kueche: "Küche",
-  kaffee: "Kaffee",
-  reinigung: "Reinigung",
-  klima: "Klima",
-  "smart-home": "Smart Home",
-  haushaltsgeraete: "Haushaltsgeräte",
-  tipps: "Tipps & Tricks",
-};
+import { RATGEBER_CATEGORY_LABELS } from "@/lib/ratgeber-constants";
 
 interface RatgeberArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -69,7 +60,7 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
   if (!article) notFound();
 
   const relatedArticles = await getRelatedArticles(article.category, slug, 3);
-  const categoryLabel = CATEGORY_LABELS[article.category] || article.category;
+  const categoryLabel = RATGEBER_CATEGORY_LABELS[article.category] || article.category;
 
   const mentionedSlugs = (article as unknown as Record<string, unknown>).mentionedProductSlugs as string[] | undefined;
   const relatedProducts = mentionedSlugs && mentionedSlugs.length > 0

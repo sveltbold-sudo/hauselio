@@ -88,9 +88,13 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         failedAttempts: 0,
         lockedUntil: null,
-        lastLogin: new Date(0),
+        lastLogin: new Date(),
       },
     });
+
+    // Revoke the reset token so it cannot be reused
+    const { revokeToken } = await import("@/lib/auth");
+    await revokeToken(token);
 
     return NextResponse.json({
       success: true,
