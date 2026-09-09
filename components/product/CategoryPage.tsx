@@ -17,6 +17,7 @@ interface CategoryPageProps {
   slug: string;
   title: string;
   description: string;
+  longDescription?: string;
   page?: number;
   sort?: string;
   brand?: string;
@@ -31,6 +32,7 @@ export default function CategoryPage({
   slug,
   title,
   description,
+  longDescription,
   page = 1,
   sort = "newest",
   brand,
@@ -195,6 +197,17 @@ export default function CategoryPage({
           )}
         </>
       )}
+
+      {/* SEO Content Section */}
+      {longDescription && !sub && (
+        <section className="mt-12 sm:mt-16 border-t border-[var(--color-border-light)] pt-8 sm:pt-12">
+          <h2 className="heading-2 mb-4">{title} — Unsere Auswahl</h2>
+          <div className="prose prose-sm sm:prose-base max-w-none text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
+            {longDescription}
+          </div>
+        </section>
+      )}
+
       <Suspense fallback={null}>
         <MobileShopBar totalResults={total} sort={sort} basePath={`/kategorie/${slug}`} />
       </Suspense>

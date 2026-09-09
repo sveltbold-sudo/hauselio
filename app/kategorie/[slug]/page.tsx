@@ -24,7 +24,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 
   const category = await prisma.category.findUnique({
     where: { slug },
-    select: { name: true, description: true },
+    select: { name: true, description: true, longDescription: true },
   }).catch(() => null);
 
   if (!category) {
@@ -72,7 +72,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
 
   const category = await prisma.category.findUnique({
     where: { slug },
-    select: { name: true, description: true },
+    select: { name: true, description: true, longDescription: true },
   }).catch(() => null);
 
   if (!category) {
@@ -242,6 +242,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           title={category.name}
           sub={sub}
           description={category.description || ""}
+          longDescription={category.longDescription || undefined}
           page={page}
           sort={sort}
           brand={brand}
