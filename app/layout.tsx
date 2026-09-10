@@ -6,7 +6,7 @@ import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
-import GoogleTagScript from "@/components/seo/GoogleTagScript";
+
 import ClientProviders from "@/components/ui/ClientProviders";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import AdminShellHide from "@/components/admin/AdminShellHide";
@@ -106,7 +106,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://*.sentry.io" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
-        <GoogleTagScript />
         <OrganizationJsonLd />
         <WebSiteJsonLd />
         <a

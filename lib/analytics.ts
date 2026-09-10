@@ -1,6 +1,7 @@
 "use client";
 
 import { getCookieConsent } from "@/components/ui/CookieConsent";
+import { trackConversionPurchase, trackConversionAddToCart, trackConversionBeginCheckout } from "@/lib/ads";
 
 declare global {
   interface Window {
@@ -62,6 +63,8 @@ export function trackAddToCart(product: {
       },
     ],
   });
+
+  trackConversionAddToCart(product.id, product.name, product.price);
 }
 
 export function trackBeginCheckout(orderTotal: number, items: { id: string; name: string; price: number; quantity: number }[]) {
@@ -75,6 +78,8 @@ export function trackBeginCheckout(orderTotal: number, items: { id: string; name
       quantity: item.quantity,
     })),
   });
+
+  trackConversionBeginCheckout(orderTotal, items);
 }
 
 export function trackPurchase(orderId: string, total: number, items: { id: string; name: string; price: number; quantity: number }[]) {
@@ -89,6 +94,8 @@ export function trackPurchase(orderId: string, total: number, items: { id: strin
       quantity: item.quantity,
     })),
   });
+
+  trackConversionPurchase(orderId, total, items);
 }
 
 export function trackSearch(query: string) {
