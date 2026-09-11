@@ -88,8 +88,8 @@ export async function GET() {
       <g:custom_label_0>${rating > 0 ? rating.toFixed(1) : "unrated"}</g:custom_label_0>
       <g:custom_label_1>${getCustomLabel1({ price, originalPrice: p.originalPrice ? Number(p.originalPrice) : null, isNew: p.isNew, isPromo: p.isPromo, rating, reviewCount: p.reviewCount })}</g:custom_label_1>
       <g:custom_label_2>${getCustomLabel2({ reviewCount: p.reviewCount })}</g:custom_label_2>
-      <g:custom_label_3>${p.category?.name || "uncategorized"}</g:custom_label_3>
-      <g:custom_label_4>${brand}</g:custom_label_4>
+      <g:custom_label_3>${escapeXml(p.category?.name || "uncategorized")}</g:custom_label_3>
+      <g:custom_label_4>${escapeXml(brand)}</g:custom_label_4>
       ${p.originalPrice ? `<g:sale_price>${price.toFixed(2)} EUR</g:sale_price>` : ""}
     </item>`;
       })

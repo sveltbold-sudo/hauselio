@@ -94,7 +94,7 @@ export default function GoogleAnalytics() {
       });
     }
 
-    if (awId && hasConsentFunctional) {
+    if (awId) {
       gtag("config", awId, {
         send_page_view: false,
       });
