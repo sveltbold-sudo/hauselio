@@ -20,6 +20,7 @@ function gtag(...args: unknown[]) {
 export default function GoogleAnalytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const awId = process.env.NEXT_PUBLIC_AW_CONVERSION_ID;
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [consentReady, setConsentReady] = useState(false);
@@ -75,21 +76,30 @@ export default function GoogleAnalytics() {
   }, [consentReady]);
 
   useEffect(() => {
-    if (!consentReady || !gaId) return;
+    if (!consentReady) return;
 
     const prefs = getCookiePreferences();
-    const hasConsent = prefs?.analytics ?? false;
-    if (!hasConsent) return;
+    const hasConsentAnalytics = prefs?.analytics ?? false;
+    const hasConsentFunctional = prefs?.functional ?? false;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = gtag;
 
     gtag("js", new Date());
-    gtag("config", gaId, {
-      send_page_view: false,
-      cookie_flags: "SameSite=None;Secure",
-    });
-  }, [consentReady, gaId]);
+
+    if (gaId && hasConsentAnalytics) {
+      gtag("config", gaId, {
+        send_page_view: false,
+        cookie_flags: "SameSite=None;Secure",
+      });
+    }
+
+    if (awId && hasConsentFunctional) {
+      gtag("config", awId, {
+        send_page_view: false,
+      });
+    }
+  }, [consentReady, gaId, awId]);
 
   useEffect(() => {
     if (!consentReady || !gaId) return;
@@ -116,14 +126,15 @@ export default function GoogleAnalytics() {
     });
   }, [consentReady, gtmId]);
 
-  if (!gaId && !gtmId) return null;
+  const activeId = gaId || awId;
+  if (!activeId && !gtmId) return null;
 
   return (
     <>
-      {gaId && (
+      {(gaId || awId) && (
         <Script
           id="ga4"
-          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${activeId}`}
           strategy="afterInteractive"
         />
       )}
