@@ -80,12 +80,9 @@ export default function GoogleAnalytics() {
 
     const prefs = getCookiePreferences();
     const hasConsentAnalytics = prefs?.analytics ?? false;
-    const hasConsentFunctional = prefs?.functional ?? false;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = gtag;
-
-    gtag("js", new Date());
 
     if (gaId && hasConsentAnalytics) {
       gtag("config", gaId, {
