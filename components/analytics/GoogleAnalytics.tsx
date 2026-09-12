@@ -123,18 +123,10 @@ export default function GoogleAnalytics() {
     });
   }, [consentReady, gtmId]);
 
-  const activeId = gaId || awId;
-  if (!activeId && !gtmId) return null;
+  if (!gaId && !awId && !gtmId) return null;
 
   return (
     <>
-      {(gaId || awId) && (
-        <Script
-          id="ga4"
-          src={`https://www.googletagmanager.com/gtag/js?id=${activeId}`}
-          strategy="afterInteractive"
-        />
-      )}
       {gtmId && (
         <Script
           id="gtm"
