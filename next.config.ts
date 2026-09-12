@@ -42,7 +42,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://adservice.google.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com blob: data:",
+      "img-src 'self' https://res.cloudinary.com https://www.google-analytics.com https://www.googletagmanager.com blob: data:",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googleadservices.com https://adservice.google.com https://pagead2.googlesyndication.com",
       "object-src 'none'",
