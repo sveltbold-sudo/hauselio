@@ -211,7 +211,7 @@ export default function PressReviewsSection({
 
           {/* Mobile: horizontal scroll */}
           <div className="sm:hidden -mx-5 px-5">
-            <MobileHorizontalScroll autoScrollInterval={7000}>
+            <MobileHorizontalScroll autoScrollInterval={7000} label="Pressestimmen — horizontal scrollen">
               {pressReviews.map((review) => (
                 <ReviewCardMobile key={review.publication} review={review} />
               ))}

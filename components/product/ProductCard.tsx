@@ -70,7 +70,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.brand}
             </p>
           )}
-          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-primary)] transition-colors">
+          <h3 className="font-semibold text-xs sm:text-sm text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors">
             {product.name}
           </h3>
           <StarRating rating={product.rating} size="sm" showCount count={product.reviewCount} />

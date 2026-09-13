@@ -50,7 +50,7 @@ export const useCartStore = create<CartState>()(
             return {
               items: state.items.map((i) =>
                 i.id === item.id
-                  ? { ...i, quantity: Math.min(99, (i.quantity || 0) + quantity) }
+                  ? { ...i, quantity: Math.min(99, Math.max(1, (i.quantity || 0) + qty)) }
                   : i
               ),
             };

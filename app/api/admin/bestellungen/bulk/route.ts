@@ -9,7 +9,7 @@ import { z } from "zod";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 
 const BulkOrderSchema = z.object({
-  ids: z.array(z.string().uuid()).min(1).max(50),
+    ids: z.array(z.string().regex(/^c[a-z0-9]{20,}$/i)).min(1).max(50),
   status: z.enum(ALLOWED_ORDER_STATUSES),
 });
 

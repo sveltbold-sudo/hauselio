@@ -1,10 +1,15 @@
-const requiredEnvVars = {
-  DATABASE_URL: process.env.DATABASE_URL,
-  JWT_SECRET: process.env.JWT_SECRET,
-  JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN,
-  JWT_SECRET_CUSTOMER: process.env.JWT_SECRET_CUSTOMER,
-  JWT_SECRET_UNSUBSCRIBE: process.env.JWT_SECRET_UNSUBSCRIBE,
-} as const;
+function readRequiredEnvVars() {
+  return {
+    DATABASE_URL: process.env.DATABASE_URL,
+    DIRECT_URL: process.env.DIRECT_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN,
+    JWT_SECRET_CUSTOMER: process.env.JWT_SECRET_CUSTOMER,
+    JWT_SECRET_UNSUBSCRIBE: process.env.JWT_SECRET_UNSUBSCRIBE,
+  } as const;
+}
+
+const requiredEnvVars = readRequiredEnvVars();
 
 const optionalEnvVars = {
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
@@ -27,8 +32,9 @@ export function validateEnv() {
   if (_validated) return;
 
   const missing: string[] = [];
+  const liveVars = readRequiredEnvVars();
 
-  for (const [key, value] of Object.entries(requiredEnvVars)) {
+  for (const [key, value] of Object.entries(liveVars)) {
     if (!value) {
       missing.push(key);
     }
@@ -45,7 +51,7 @@ export function validateEnv() {
     throw new Error("JWT_SECRET must be at least 32 characters long.");
   }
 
-  for (const [key, value] of Object.entries(requiredEnvVars)) {
+  for (const [key, value] of Object.entries(liveVars)) {
     if (value && value.length < 32) {
       throw new Error(`${key} must be at least 32 characters long.`);
     }
@@ -57,7 +63,7 @@ export function validateEnv() {
 export function getEnv() {
   validateEnv();
   return {
-    ...requiredEnvVars,
+    ...readRequiredEnvVars(),
     ...optionalEnvVars,
   };
 }

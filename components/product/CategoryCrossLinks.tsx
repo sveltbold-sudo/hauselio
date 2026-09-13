@@ -8,7 +8,8 @@ interface CategoryCrossLinksProps {
 }
 
 export default function CategoryCrossLinks({ currentCategorySlug }: CategoryCrossLinksProps) {
-  const otherCategories = navCategories.filter((c) => !c.href.includes(currentCategorySlug));
+  const currentHref = `/kategorie/${currentCategorySlug}`;
+  const otherCategories = navCategories.filter((c) => c.href !== currentHref);
 
   if (otherCategories.length === 0) return null;
 

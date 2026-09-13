@@ -177,7 +177,7 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
           </div>
 
           {/* Reviews List */}
-          <ReviewFilters reviews={reviewsWithFormattedDates.filter((r): r is typeof reviewsWithFormattedDates[number] & { product: { name: string; slug: string } } => r.product !== null)} />
+          <ReviewFilters reviews={productId ? reviewsWithFormattedDates.filter((r): r is typeof reviewsWithFormattedDates[number] & { product: { name: string; slug: string } } => r.product !== null) : reviewsWithFormattedDates} />
         </div>
       </div>
     </section>

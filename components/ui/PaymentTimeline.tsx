@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, CreditCard, Truck, Package } from "lucide-react";
+import { Check, CreditCard, Truck, Package, Landmark } from "lucide-react";
 
 interface PaymentTimelineProps {
   currentStep: "ordered" | "payment-pending" | "payment-received" | "shipped" | "delivered";
@@ -9,7 +9,7 @@ interface PaymentTimelineProps {
 const steps = [
   { key: "ordered", label: "Bestellung", icon: Check, description: "Erfolgreich aufgegeben" },
   { key: "payment-pending", label: "Zahlung", icon: CreditCard, description: "Überweisung ausstehend" },
-  { key: "payment-received", label: "Eingang", icon: Package, description: "Zahlungseingang bestätigt" },
+  { key: "payment-received", label: "Eingang", icon: Landmark, description: "Zahlungseingang bestätigt" },
   { key: "shipped", label: "Versand", icon: Truck, description: "Paket unterwegs" },
   { key: "delivered", label: "Lieferung", icon: Package, description: "Zugestellt" },
 ] as const;

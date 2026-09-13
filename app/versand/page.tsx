@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Versand & Lieferung — Kostenlos ab 50€",
   description: "Alle Infos zu Versand, Lieferzeiten und Kosten bei HAUSAURA. Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
   robots: { index: true, follow: true },
-  alternates: { canonical: "/versand" },
+  alternates: { canonical: `${SITE_URL}/versand` },
   openGraph: {
     title: "Versand & Lieferung | HAUSAURA",
     description: "Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
@@ -65,7 +65,7 @@ export default async function VersandPage() {
   const s = await getSettings();
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
-      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Versand", url: "/versand" }]} />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: SITE_URL }, { name: "Versand", url: `${SITE_URL}/versand` }]} />
       <Breadcrumb items={[{ label: "Versand" }]} />
       <h1 className="heading-1 mb-8">
         Versandinformationen
@@ -116,6 +116,15 @@ export default async function VersandPage() {
           ))}
         </div>
       </section>
+
+      {/* Hinweis des Shops (admin-pflegbar) */}
+      {s.shippingInfo && (
+        <div className="mb-8 sm:mb-12 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-6">
+          <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
+            {s.shippingInfo}
+          </p>
+        </div>
+      )}
 
       {/* Lieferung */}
       <section className="mb-8 sm:mb-12">

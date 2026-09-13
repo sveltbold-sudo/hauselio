@@ -92,6 +92,7 @@ export async function GET(request: NextRequest) {
         where: {
           OR: [
             { name: { contains: searchQuery, mode: "insensitive" } },
+            { description: { contains: searchQuery, mode: "insensitive" } },
             { brand: { name: { contains: searchQuery, mode: "insensitive" } } },
           ],
         },
@@ -117,6 +118,7 @@ export async function GET(request: NextRequest) {
         where: {
           OR: [
             { name: { contains: searchQuery, mode: "insensitive" } },
+            { description: { contains: searchQuery, mode: "insensitive" } },
             { brand: { name: { contains: searchQuery, mode: "insensitive" } } },
           ],
         },

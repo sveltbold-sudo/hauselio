@@ -69,7 +69,7 @@ export default function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-[70] p-4"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-[75] p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
@@ -85,7 +85,7 @@ export default function ConfirmDialog({
             className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
               danger
                 ? "bg-[var(--color-danger-light)]"
-                : "bg-[var(--color-accent-light)]"
+                : "bg-[var(--color-accent-soft)]"
             }`}
           >
             {danger ? (

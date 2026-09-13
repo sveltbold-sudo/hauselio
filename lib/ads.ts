@@ -19,7 +19,7 @@ function hasAdsConsent(): boolean {
   if (typeof window === "undefined") return false;
   if (!AW_ID) return false;
   const prefs = getCookiePreferences();
-  return prefs?.functional ?? false;
+  return prefs?.analytics ?? false;
 }
 
 function pushConversion(eventName: string, params: Record<string, unknown>, label?: string) {
@@ -40,6 +40,9 @@ export function trackConversionPurchase(orderId: string, total: number, items: {
     value: total,
     items: items.map((item) => ({
       id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
       google_business_vertical: "retail",
     })),
   }, AW_LABELS.purchase);
@@ -62,6 +65,9 @@ export function trackConversionBeginCheckout(orderTotal: number, items: { id: st
     value: orderTotal,
     items: items.map((item) => ({
       id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
       google_business_vertical: "retail",
     })),
   }, AW_LABELS.beginCheckout);

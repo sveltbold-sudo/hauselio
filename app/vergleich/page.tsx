@@ -66,10 +66,10 @@ export default function VergleichPage() {
     );
   }
 
-  // Collect all unique spec keys
+  // Collect all unique spec keys (sorted for stable column order)
   const allSpecKeys = Array.from(
     new Set(items.flatMap((item) => item.specs?.map((s) => s.key) ?? []))
-  );
+  ).sort((a, b) => a.localeCompare(b, "de"));
 
   return (
     <main id="main-content" className="container-hausaura py-6 sm:py-8">

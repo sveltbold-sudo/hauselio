@@ -62,8 +62,8 @@ export default async function ImpressumPage() {
           <h2 className="heading-3 mb-3">Angaben gemäß § 5 TMG</h2>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-2">
             <p className="text-[var(--color-text-secondary)]">{s.companyName}</p>
-            {addressLines.map((line) => (
-              <p key={line} className="text-[var(--color-text-secondary)]">{line}</p>
+            {addressLines.map((line, i) => (
+              <p key={`${line}-${i}`} className="text-[var(--color-text-secondary)]">{line}</p>
             ))}
             <p className="text-[var(--color-text-secondary)]">Deutschland</p>
           </div>

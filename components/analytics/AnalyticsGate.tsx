@@ -15,7 +15,16 @@ export default function AnalyticsGate() {
 
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "HAUSAURA_cookie_consent") {
-        setConsent(e.newValue === "true");
+        if (e.newValue === "true") {
+          setConsent(true);
+          return;
+        }
+        try {
+          const parsed = e.newValue ? JSON.parse(e.newValue) : null;
+          setConsent(!!(parsed?.functional || parsed?.analytics));
+        } catch {
+          setConsent(false);
+        }
       }
     };
     window.addEventListener("storage", handleStorageChange);

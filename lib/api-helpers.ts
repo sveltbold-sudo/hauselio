@@ -76,7 +76,8 @@ export function validateContentType(
   ...allowed: string[]
 ): NextResponse | null {
   const contentType = request.headers.get("content-type") || "";
-  if (!allowed.some((type) => contentType.includes(type))) {
+  const mime = contentType.split(";")[0]!.trim().toLowerCase();
+  if (!allowed.some((type) => mime === type.toLowerCase())) {
     return NextResponse.json(
       { error: "Ungültiger Content-Type. Erwartet: " + allowed.join(" oder ") },
       { status: 415 }

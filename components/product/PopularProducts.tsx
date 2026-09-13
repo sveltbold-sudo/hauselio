@@ -31,7 +31,7 @@ export default function PopularProducts() {
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="bg-[var(--color-bg-secondary)] rounded-2xl aspect-[3/4] animate-pulse"
+              className="bg-[var(--color-bg-secondary)] rounded-2xl aspect-square animate-pulse"
             />
           ))}
         </div>

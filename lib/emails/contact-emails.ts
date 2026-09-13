@@ -34,7 +34,7 @@ export async function sendContactForward(data: {
               </tr>
               <tr>
                 <td style="padding:3px 0;font-size:13px;color:#6B7280;">E-Mail</td>
-                <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;"><a href="mailto:${safe.email}" style="color:#0A2540;">${safe.email}</a></td>
+                <td style="padding:3px 0;font-size:13px;color:#0A2540;font-weight:600;"><a href="mailto:${encodeURIComponent(data.email)}" style="color:#0A2540;">${safe.email}</a></td>
               </tr>
               <tr>
                 <td style="padding:3px 0;font-size:13px;color:#6B7280;">Betreff</td>
@@ -52,7 +52,7 @@ export async function sendContactForward(data: {
         </div>
       </div>
       <div style="text-align:center;padding:8px 0;">
-        <a href="mailto:${safe.email}?subject=Re: ${encodeURIComponent(data.subject)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="mailto:${encodeURIComponent(data.email)}?subject=Re: ${encodeURIComponent(data.subject)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Antworten
         </a>
       </div>

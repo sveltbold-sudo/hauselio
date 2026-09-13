@@ -35,8 +35,6 @@ export async function sendEmailWithRetry(
       }
       const delay = Math.pow(2, attempt) * 1000;
       logger.warn("resend", `Email send failed (attempt ${attempt}/${maxRetries}), retrying in ${delay}ms`, {
-        to: params.to,
-        subject: params.subject,
         error: err instanceof Error ? err.message : String(err),
       });
       await sleep(delay);

@@ -1,10 +1,9 @@
 import { FROM_EMAIL } from "@/lib/resend";
 import { escapeHtml } from "@/lib/html";
-import { SITE_URL } from "@/lib/constants";
-import { sendEmail, baseTemplate, headerBanner } from "./helpers";
+import { sendEmail, baseTemplate, headerBanner, SITE } from "./helpers";
 
 export async function sendPasswordResetEmail(email: string, name: string, token: string) {
-  const resetUrl = `${SITE_URL}/passwort-zuruecksetzen?token=${encodeURIComponent(token)}`;
+  const resetUrl = `${SITE}/passwort-zuruecksetzen?token=${encodeURIComponent(token)}`;
   const safeName = escapeHtml(name);
 
   const html = await baseTemplate(`

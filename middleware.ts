@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
         audience: "HAUSAURA-admin",
       });
 
-      if (await isTokenRevoked(token)) {
+      if (await isTokenRevoked(token, "admin")) {
         if (isAdminRoute) {
           return NextResponse.redirect(new URL("/admin/login", request.url));
         }
@@ -104,7 +104,7 @@ export async function middleware(request: NextRequest) {
           { status: 401 }
         );
       }
-      if (await isTokenRevoked(customerToken)) {
+      if (await isTokenRevoked(customerToken, "customer")) {
         return NextResponse.json(
           { error: "Token widerrufen" },
           { status: 401 }
@@ -130,11 +130,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*",
-    "/api/admin/:path*",
-    "/api/customer/:path*",
-    "/api/newsletter/:path*",
-    "/api/contact/:path*",
-    "/api/reviews/:path*",
-    "/api/cart/:path*",
+    "/api/:path*",
   ],
 };

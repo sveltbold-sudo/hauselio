@@ -42,10 +42,8 @@ function chipUrl(exclude: string, category?: string, brand?: string, q?: string,
   return `/shop?${params.toString()}`;
 }
 
-function chipUrlAll(q?: string) {
-  const params = new URLSearchParams();
-  if (q) params.set("q", q);
-  return `/shop${params.toString() ? `?${params.toString()}` : ""}`;
+function chipUrlAll() {
+  return "/shop";
 }
 
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
@@ -461,7 +459,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </Link>
           )}
           <Link
-            href={chipUrlAll(q)}
+            href={chipUrlAll()}
             className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Alle entfernen

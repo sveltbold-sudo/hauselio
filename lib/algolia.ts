@@ -5,9 +5,11 @@ const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
 const ALGOLIA_SEARCH_KEY = process.env.ALGOLIA_SEARCH_API_KEY;
 const ALGOLIA_ADMIN_KEY = process.env.ALGOLIA_ADMIN_API_KEY;
 
+export const isAlgoliaSearchConfigured = Boolean(ALGOLIA_APP_ID && ALGOLIA_SEARCH_KEY);
+
 const isAlgoliaConfigured = Boolean(ALGOLIA_APP_ID && ALGOLIA_SEARCH_KEY && ALGOLIA_ADMIN_KEY);
 
-if (!isAlgoliaConfigured) {
+if (!isAlgoliaConfigured && process.env.NODE_ENV === "production") {
   logger.warn("algolia", "Algolia env vars missing — search will not work");
 }
 

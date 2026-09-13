@@ -9,6 +9,7 @@ interface MobileHorizontalScrollProps {
   className?: string;
   autoScrollInterval?: number;
   gradientColor?: string;
+  label?: string;
 }
 
 export default function MobileHorizontalScroll({
@@ -16,6 +17,7 @@ export default function MobileHorizontalScroll({
   className = "",
   autoScrollInterval = 7000,
   gradientColor = "white",
+  label = "Horizontale Produktauswahl",
 }: MobileHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
@@ -134,7 +136,7 @@ export default function MobileHorizontalScroll({
       <div
         ref={scrollRef}
         role="region"
-        aria-label="Horizontale Produktauswahl"
+        aria-label={label}
         tabIndex={0}
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-snap-center pb-2 pl-[calc(50vw-9rem)] pr-4 focus:outline-none"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingInline: "0" }}

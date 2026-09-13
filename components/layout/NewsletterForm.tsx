@@ -1,10 +1,12 @@
 "use client";
 
+import { useId } from "react";
 import { Check } from "lucide-react";
 import { useNewsletter } from "@/hooks/useNewsletter";
 
 export default function NewsletterForm() {
   const { email, setEmail, isSubmitting, isSubscribed, error, handleSubmit } = useNewsletter();
+  const inputId = useId();
 
   if (isSubscribed) {
     return (
@@ -18,11 +20,11 @@ export default function NewsletterForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex gap-2" aria-label="Newsletter-Anmeldung">
-        <label htmlFor="footer-newsletter-email" className="sr-only">
+        <label htmlFor={inputId} className="sr-only">
           E-Mail-Adresse
         </label>
         <input
-          id="footer-newsletter-email"
+          id={inputId}
           type="email"
           required
           value={email}
@@ -41,7 +43,7 @@ export default function NewsletterForm() {
         </button>
       </form>
       {error && (
-        <p className="text-xs text-[var(--color-danger)] mt-2" role="alert">{error}</p>
+        <p className="text-xs text-red-300 mt-2" role="alert">{error}</p>
       )}
     </>
   );

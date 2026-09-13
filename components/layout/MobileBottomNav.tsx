@@ -57,7 +57,7 @@ export default function MobileBottomNav() {
                   <span>{item.label}</span>
                   {item.href === "/warenkorb" && itemCount > 0 && (
                     <span
-                      className="absolute -top-1 right-1 w-4 h-4 bg-[var(--color-accent)] text-white text-xs font-bold rounded-full flex items-center justify-center"
+                      className="absolute -top-1 right-0 min-w-4 h-4 px-0.5 bg-[var(--color-accent)] text-white text-[10px] font-bold rounded-full flex items-center justify-center"
                       aria-label={`${itemCount} Artikel im Warenkorb`}
                       aria-live="polite"
                     >

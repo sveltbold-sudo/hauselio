@@ -4,7 +4,7 @@ export const CreateOrderSchema = z.object({
   email: z.string().email("Ungültige E-Mail-Adresse").max(254),
   firstName: z.string().min(1, "Vorname ist erforderlich").max(100),
   lastName: z.string().min(1, "Nachname ist erforderlich").max(100),
-  phone: z.string().max(30).regex(/^\+?[\d\s\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
+  phone: z.string().max(30).regex(/^(?=.*\d)\+?[\d\s\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
   address: z.string().min(1, "Adresse ist erforderlich").max(200),
   city: z.string().min(1, "Stadt ist erforderlich").max(100),
   zip: z.string().min(1, "PLZ ist erforderlich").regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten (DE/AT/CH)").max(10),
@@ -61,10 +61,10 @@ export const CreateProductSchema = z.object({
   })).max(30).optional().default([]),
   seoTitle: z.string().max(200).optional().nullable(),
   seoDesc: z.string().max(500).optional().nullable(),
-  imageUrl: z.string().url().refine((u) => u.startsWith("https://"), { message: "URL muss mit https:// beginnen" }).optional().nullable(),
+  imageUrl: z.string().refine((u) => u.startsWith("https://") || u.startsWith("/") || u.startsWith("http://localhost"), { message: "URL muss mit https:// beginnen oder ein lokaler Pfad sein" }).optional().nullable(),
   imagePublicId: z.string().optional().nullable(),
   images: z.array(z.object({
-    url: z.string().url().refine((u) => u.startsWith("https://"), { message: "URL muss mit https:// beginnen" }),
+    url: z.string().refine((u) => u.startsWith("https://") || u.startsWith("/") || u.startsWith("http://localhost"), { message: "URL muss mit https:// beginnen oder ein lokaler Pfad sein" }),
     publicId: z.string().optional().nullable(),
     position: z.number().int().min(0).optional(),
   })).max(10).optional().default([]),
@@ -74,7 +74,7 @@ export const CreateProductSchema = z.object({
 });
 
 export const UpdateSettingsSchema = z.object({
-  bankIban: z.string().regex(/^(DE\d{20}|AT\d{18}|CH\d{21}|FR\d{27}|NL\d{14}|BE\d{16}|ES\d{24}|IT\d{27}|PL\d{28})$/i, "Ungültige IBAN").max(100).optional(),
+  bankIban: z.preprocess((v) => (typeof v === "string" ? v.replace(/\s/g, "") : v), z.string().regex(/^(DE\d{20}|AT\d{18}|CH\d{21}|FR\d{27}|NL\d{14}|BE\d{16}|ES\d{24}|IT\d{27}|PL\d{28})$/i, "Ungültige IBAN").max(100).optional()),
   bankBic: z.string().max(20).optional(),
   bankAccountName: z.string().max(200).optional(),
   bankName: z.string().max(200).optional(),
@@ -108,7 +108,7 @@ export const CustomerLoginSchema = z.object({
 
 export const UpdateProfileSchema = z.object({
   name: z.string().min(1, "Name ist erforderlich").max(100).optional(),
-  phone: z.string().max(30).regex(/^\+?[\d\s\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
+  phone: z.string().max(30).regex(/^(?=.*\d)\+?[\d\s\-\(\)]{7,20}$/, "Ungültige Telefonnummer").optional().nullable(),
   address: z.string().max(200).optional().nullable(),
   zip: z.string().regex(/^\d{4,5}$/, "PLZ muss 4 oder 5 Ziffern enthalten").optional().nullable(),
   city: z.string().max(100).optional().nullable(),

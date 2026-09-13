@@ -9,7 +9,7 @@ interface BestsellerSectionProps {
   title?: string;
 }
 
-export default function BestsellerSection({ products }: BestsellerSectionProps) {
+export default function BestsellerSection({ products, title = "Am besten verkauft" }: BestsellerSectionProps) {
   if (products.length === 0) return null;
 
   return (
@@ -21,7 +21,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
               <TrendingUp className="w-5 h-5 text-[var(--color-accent)]" />
               <p className="caption text-[var(--color-accent)]">Bestseller</p>
             </div>
-            <h2 className="heading-2">Am besten verkauft</h2>
+            <h2 className="heading-2">{title}</h2>
             <p className="body-large mt-2 line-clamp-2">
               Unsere meistverkauften Produkte — vertrauen Sie auf die Wahl tausender Kunden
             </p>
@@ -37,7 +37,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
 
         {/* Mobile: dark luxe horizontal scroll */}
         <div className="sm:hidden -mx-[var(--container-padding)] px-[var(--container-padding)] bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6 rounded-2xl overflow-hidden">
-          <MobileHorizontalScroll autoScrollInterval={7000} gradientColor="var(--color-primary-dark)">
+          <MobileHorizontalScroll autoScrollInterval={7000} gradientColor="var(--color-primary-dark)" label="Bestseller — horizontal scrollen">
             {products.map((product, i) => (
               <div
                 key={product.id}

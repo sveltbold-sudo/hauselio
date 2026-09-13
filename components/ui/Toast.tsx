@@ -76,6 +76,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleMouseLeave = useCallback((id: number) => {
+    const existing = timersRef.current.get(id);
+    if (existing) clearTimeout(existing);
     setToasts((prev) => {
       const toast = prev.find((t) => t.id === id);
       if (toast) startAutoDismiss(id, toast.type);

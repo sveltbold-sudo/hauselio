@@ -3988,6 +3988,9 @@ const sampleReviews = [
 ];
 
 async function main() {
+  if (process.env.NODE_ENV === "production" && !process.env.ALLOW_SEED) {
+    throw new Error("Refusing to seed in production without ALLOW_SEED=1. This script wipes orders, products and customers.");
+  }
   console.log("🌱 Seeding database...");
 
   await prisma.orderItem.deleteMany();
@@ -4023,7 +4026,7 @@ async function main() {
 
   await prisma.siteSettings.create({
     data: {
-      bankIban: "DE89 3704 0044 0532 0130 00",
+      bankIban: "DE89370400440532013000",
       bankBic: "COBADEFFXXX",
       bankAccountName: "HAUSAURA GmbH",
       bankName: "Commerzbank Berlin",

@@ -35,13 +35,13 @@ export default function NewsletterUnsubscribeForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 text-center">
-        <svg className="mx-auto mb-3 h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <div role="status" className="rounded-2xl border border-[var(--color-success)]/30 bg-[var(--color-success-light)] p-6 text-center">
+        <svg className="mx-auto mb-3 h-10 w-10 text-[var(--color-success)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
-        <p className="text-lg font-semibold text-green-800">E-Mail gesendet</p>
-        <p className="mt-2 text-sm text-green-700">{message}</p>
-        <p className="mt-3 text-xs text-green-600">
+        <p className="text-lg font-semibold text-[var(--color-text-primary)]">E-Mail gesendet</p>
+        <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{message}</p>
+        <p className="mt-3 text-xs text-[var(--color-text-muted)]">
           Überprüfen Sie auch Ihren Spam-Ordner, falls Sie die E-Mail nicht finden.
         </p>
       </div>
@@ -65,7 +65,7 @@ export default function NewsletterUnsubscribeForm() {
       />
 
       {status === "error" && (
-        <p className="mt-2 text-sm text-red-600">{message}</p>
+        <p role="alert" className="mt-2 text-sm text-[var(--color-danger)]">{message}</p>
       )}
 
       <button

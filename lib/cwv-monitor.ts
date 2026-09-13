@@ -45,8 +45,12 @@ function sendToSentry(name: MetricName, value: number, rating: Rating) {
   });
 }
 
+const KNOWN_METRICS: MetricName[] = ["LCP", "CLS", "INP", "TTFB"];
+
 function handleMetric(metric: { name: string; value: number; delta: number }) {
-  const name = metric.name.toUpperCase() as MetricName;
+  const upper = metric.name.toUpperCase();
+  if (!(KNOWN_METRICS as string[]).includes(upper)) return;
+  const name = upper as MetricName;
   const rating = getRating(name, metric.value);
 
   sendToGA4(name, metric.value, rating, metric.delta);

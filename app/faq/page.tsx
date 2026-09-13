@@ -3,7 +3,19 @@ import Link from "next/link";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
-import { buildFaqJsonLd } from "@/lib/faq";
+
+function sectionId(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/ß/g, "ss")
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 export const revalidate = 86400;
 
@@ -92,7 +104,7 @@ const faqSections = [
     items: [
       {
         q: "Brauche ich ein Konto, um zu bestellen?",
-        a: "Nein, Sie können auch als Gast bestellen. Mit einem Konto können Sie however Ihren Bestellstatus verfolgen, Bestellhistorie einsehen und Ihren Newsletter-Abonnement verwalten.",
+        a: "Nein, Sie können auch als Gast bestellen. Mit einem Konto können Sie Ihren Bestellstatus verfolgen, Ihre Bestellhistorie einsehen und Ihr Newsletter-Abonnement verwalten.",
       },
       {
         q: "Wie kann ich meinen Newsletter abbestellen?",
@@ -120,8 +132,6 @@ const faqSections = [
 ];
 
 export default function FaqPage() {
-  const faqJsonLd = buildFaqJsonLd();
-
   const allQuestions = faqSections.flatMap((s) => s.items);
 
   const enhancedFaqJsonLd = {
@@ -145,8 +155,8 @@ export default function FaqPage() {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "HAUSAURA", url: "/" },
-          { name: "FAQ", url: "/faq" },
+          { name: "HAUSAURA", url: SITE_URL },
+          { name: "FAQ", url: `${SITE_URL}/faq` },
         ]}
       />
       <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">
@@ -161,7 +171,7 @@ export default function FaqPage() {
           {faqSections.map((section) => (
             <a
               key={section.title}
-              href={`#${section.title.toLowerCase().replace(/[& ]/g, "-")}`}
+              href={`#${sectionId(section.title)}`}
               className="block px-4 py-2.5 text-sm font-medium text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)] rounded-lg hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-colors"
             >
               {section.title}
@@ -172,7 +182,7 @@ export default function FaqPage() {
         {faqSections.map((section) => (
           <section
             key={section.title}
-            id={section.title.toLowerCase().replace(/[& ]/g, "-")}
+            id={sectionId(section.title)}
             className="mb-12 scroll-mt-24"
           >
             <h2 className="heading-3 mb-4">{section.title}</h2>

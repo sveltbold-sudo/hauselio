@@ -9,7 +9,7 @@ interface RecommendedSectionProps {
   title?: string;
 }
 
-export default function RecommendedSection({ products }: RecommendedSectionProps) {
+export default function RecommendedSection({ products, title = "Unsere Besten" }: RecommendedSectionProps) {
   if (products.length === 0) return null;
 
   return (
@@ -21,7 +21,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
               <Sparkles className="w-5 h-5 text-[var(--color-accent)]" />
               <p className="caption text-[var(--color-accent)]">Top-Bewertet</p>
             </div>
-            <h2 className="heading-2">Unsere Besten</h2>
+            <h2 className="heading-2">{title}</h2>
             <p className="body-large mt-2">
               Produkte mit den besten Bewertungen unserer Kunden
             </p>
@@ -37,7 +37,7 @@ export default function RecommendedSection({ products }: RecommendedSectionProps
 
         {/* Mobile: soft pastel horizontal scroll */}
         <div className="sm:hidden -mx-5 px-5 bg-gradient-to-br from-[var(--color-primary-50)] via-white to-[var(--color-accent)]/5 py-6 -mt-6 overflow-hidden">
-          <MobileHorizontalScroll autoScrollInterval={7000}>
+          <MobileHorizontalScroll autoScrollInterval={7000} label="Empfehlungen — horizontal scrollen">
             {products.map((product) => (
               <div key={product.id} className="snap-start shrink-0 w-[260px]">
                   <ProductCard product={product} />

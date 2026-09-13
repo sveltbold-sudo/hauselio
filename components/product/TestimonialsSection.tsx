@@ -144,7 +144,7 @@ export default async function TestimonialsSection() {
 
         {/* Mobile: centered scroll */}
         <div className="sm:hidden -mx-5 overflow-hidden">
-          <MobileHorizontalScroll autoScrollInterval={8000}>
+          <MobileHorizontalScroll autoScrollInterval={8000} label="Kundenstimmen — horizontal scrollen">
             {testimonials.map((t) => (
               <div key={t.id} className="shrink-0 w-[280px]">
                 <TestimonialCard testimonial={t} />

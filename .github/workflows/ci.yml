@@ -52,7 +52,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
           NEXT_PUBLIC_SITE_URL: https://hausaura.de
-          JWT_SECRET: ci-placeholder
+          JWT_SECRET: ci-placeholder-secret-32-chars-long
           ALGOLIA_APP_ID: ci-placeholder
           ALGOLIA_SEARCH_API_KEY: ci-placeholder
           ALGOLIA_ADMIN_API_KEY: ci-placeholder

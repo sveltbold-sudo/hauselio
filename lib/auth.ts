@@ -14,11 +14,14 @@ async function redisSet(key: string, value: string, exSec: number): Promise<void
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
-    await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}?EX=${exSec}`, {
-      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
+    try {
+      await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}?EX=${exSec}`, {
+        headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
   } catch (err) {
     logger.warn("auth", "Failed to set Redis key for token blacklist", { error: err });
   }
@@ -54,13 +57,17 @@ async function redisExists(key: string): Promise<boolean> {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(`${UPSTASH_URL}/exists/${encodeURIComponent(key)}`, {
-      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-    const data = await res.json();
-    return data.result === 1;
+    try {
+      const res = await fetch(`${UPSTASH_URL}/exists/${encodeURIComponent(key)}`, {
+        headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+        signal: controller.signal,
+      });
+      if (!res.ok) return false;
+      const data = await res.json();
+      return data.result === 1;
+    } finally {
+      clearTimeout(timeout);
+    }
   } catch {
     return false;
   }
@@ -143,8 +150,8 @@ if (process.env.NODE_ENV === "production" && !useUpstash) {
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
-export async function revokeToken(token: string): Promise<void> {
-  const key = `HAUSAURA:blacklist:${token}`;
+export async function revokeToken(token: string, type: "admin" | "customer" | "reset" = "admin"): Promise<void> {
+  const key = `HAUSAURA:blacklist:${type}:${token}`;
   await redisSet(key, "1", EFFECTIVE_TOKEN_EXPIRY_SEC);
   if (!useUpstash) {
     memoryBlacklist.set(key, Date.now() + EFFECTIVE_TOKEN_EXPIRY_SEC * 1000);
@@ -154,8 +161,8 @@ export async function revokeToken(token: string): Promise<void> {
   }
 }
 
-export async function isTokenRevoked(token: string): Promise<boolean> {
-  return redisExists(`HAUSAURA:blacklist:${token}`);
+export async function isTokenRevoked(token: string, type: "admin" | "customer" | "reset" = "admin"): Promise<boolean> {
+  return redisExists(`HAUSAURA:blacklist:${type}:${token}`);
 }
 
 export interface AdminPayload {
@@ -206,11 +213,13 @@ export async function verifyToken(token: string): Promise<AdminPayload | null> {
       "email" in p &&
       "role" in p
     ) {
+      if (typeof p.id !== "string" || typeof p.email !== "string") return null;
+      if (p.role !== "ADMIN" && p.role !== "EDITOR") return null;
       const result: AdminPayload = {
-        id: p.id as string,
-        email: p.email as string,
-        role: p.role as "ADMIN" | "EDITOR",
-        name: (p.name as string) || undefined,
+        id: p.id,
+        email: p.email,
+        role: p.role,
+        name: typeof p.name === "string" ? p.name : undefined,
         lastLoginAt: typeof p.lastLoginAt === "number" ? p.lastLoginAt : undefined,
       };
       return result;
@@ -257,7 +266,7 @@ export async function requireAdmin(): Promise<AdminPayload> {
 
 export async function requireRole(role: "ADMIN" | "EDITOR"): Promise<AdminPayload> {
   const admin = await requireAdmin();
-  if (admin.role !== role) {
+  if (admin.role !== "ADMIN" && admin.role !== role) {
     throw new UnauthorizedError("Keine Berechtigung für diese Aktion");
   }
   return admin;
@@ -481,7 +490,7 @@ export async function getCustomerFromRequest(): Promise<CustomerPayload | null> 
   const cookieStore = await cookies();
   const token = cookieStore.get(CUSTOMER_COOKIE)?.value;
   if (!token) return null;
-  if (await isTokenRevoked(token)) return null;
+  if (await isTokenRevoked(token, "customer")) return null;
   const payload = await verifyCustomerToken(token);
   if (!payload) return null;
 

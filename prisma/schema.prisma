@@ -398,5 +398,4 @@ model RatgeberArticle {
 
   @@index([isPublished, publishedAt])
   @@index([category])
-  @@index([slug])
 }

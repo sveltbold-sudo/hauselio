@@ -1,5 +1,6 @@
 export function toCustomerId(email: string): string {
   const input = email.toLowerCase().trim();
+  if (!input) return "";
   let hash = 0x811c9dc5;
   for (let i = 0; i < input.length; i++) {
     hash ^= input.charCodeAt(i);

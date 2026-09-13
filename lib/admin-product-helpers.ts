@@ -8,9 +8,9 @@ export function serializeProductBody(data: FormData) {
     slug: data.slug,
     description: data.description,
     shortDesc: data.shortDesc || undefined,
-    price: Number(data.price) || 0.01,
+    price: Number.isFinite(Number(data.price)) ? Number(data.price) : undefined,
     originalPrice: data.originalPrice !== undefined && data.originalPrice !== ""
-      ? Number(data.originalPrice) || undefined
+      ? (Number.isFinite(Number(data.originalPrice)) ? Number(data.originalPrice) : undefined)
       : undefined,
     sku: data.sku || undefined,
     barcode: data.barcode || undefined,

@@ -91,8 +91,8 @@ export function generateInvoicePdf(data: InvoiceData): Buffer {
 
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...black);
-  const paidAtDate = data.paidAt ? new Date(data.paidAt) : new Date();
-  doc.text(isNaN(paidAtDate.getTime()) ? new Date().toLocaleDateString("de-DE") : paidAtDate.toLocaleDateString("de-DE"), metaX + 30, y);
+  const paidAtDate = data.paidAt ? new Date(data.paidAt) : null;
+  doc.text(paidAtDate && !isNaN(paidAtDate.getTime()) ? paidAtDate.toLocaleDateString("de-DE") : "—", metaX + 30, y);
   doc.text(data.orderNumber, metaX + 30, y + 5);
   doc.text("\u00dcberweisung (SEPA)", metaX + 30, y + 10);
   if (data.vatId) {

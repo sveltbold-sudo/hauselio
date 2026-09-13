@@ -16,6 +16,7 @@ export function stripHtml(html: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'")
+    .replace(/&#39;/g, "'")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -135,7 +136,7 @@ export async function baseTemplate(content: string): Promise<string> {
 export function headerBanner(title: string, subtitle: string, bgColor: string = "#0A2540"): string {
   const safeTitle = escapeHtml(title);
   const safeSubtitle = escapeHtml(subtitle);
-  const safeBgColor = /^#[0-9A-Fa-f]{3,8}$/.test(bgColor) ? bgColor : "#0A2540";
+  const safeBgColor = /^#(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(bgColor) ? bgColor : "#0A2540";
   return `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:${safeBgColor};">
     <tr>
       <td style="padding:36px 40px 32px 40px;">

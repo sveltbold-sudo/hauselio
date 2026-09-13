@@ -2,6 +2,8 @@
 
 import { useState, useRef, useCallback } from "react";
 import { Truck, Shield, RotateCcw } from "lucide-react";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "@/lib/constants";
+import { formatPrice } from "@/lib/utils";
 
 interface ProductSpec {
   key: string;
@@ -133,8 +135,8 @@ export default function ProductTabs({ description, longDescription, specs }: Pro
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 Kostenloser Versand innerhalb Deutschlands ab einem
-                Bestellwert von 50€. Unterhalb dieses Bestellwerts betragen
-                die Versandkosten 4,99€.
+                Bestellwert von {FREE_SHIPPING_THRESHOLD}€. Unterhalb dieses Bestellwerts betragen
+                die Versandkosten {formatPrice(SHIPPING_COST)}.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-6">

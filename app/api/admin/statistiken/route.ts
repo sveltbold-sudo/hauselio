@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
       totalCustomers,
       revenueByProduct,
     ] = await Promise.all([
-      prisma.order.aggregate({ _sum: { total: true }, where: orderFilter }),
+      prisma.order.aggregate({ _sum: { total: true }, where: { ...orderFilter, status: { not: "CANCELLED" } } }),
       prisma.order.count({ where: orderFilter }),
       prisma.product.count(),
       prisma.order.count({ where: { status: "PENDING_PAYMENT", ...orderFilter } }),
@@ -72,7 +72,10 @@ export async function GET(request: NextRequest) {
       prisma.$queryRawUnsafe<{ name: string; orderCount: number; revenue: number }[]>(
         `SELECT p.name, COUNT(DISTINCT oi."orderId")::int AS "orderCount", SUM(oi.price * oi.quantity)::float AS revenue
          FROM "OrderItem" oi JOIN "Product" p ON oi."productId" = p.id
-         GROUP BY p.name ORDER BY revenue DESC LIMIT 5`
+         JOIN "Order" o ON oi."orderId" = o.id AND o.status != 'CANCELLED'
+         WHERE o."createdAt" >= $1
+         GROUP BY p.name ORDER BY revenue DESC LIMIT 5`,
+        dateFrom ?? new Date(0)
       ),
     ]);
 
@@ -85,7 +88,10 @@ export async function GET(request: NextRequest) {
     const categoryRevenueRaw = await prisma.$queryRawUnsafe<{ categoryId: string; revenue: number }[]>(
       `SELECT p."categoryId", SUM(oi.price * oi.quantity)::float AS revenue
        FROM "OrderItem" oi JOIN "Product" p ON oi."productId" = p.id
-       GROUP BY p."categoryId"`
+       JOIN "Order" o ON oi."orderId" = o.id AND o.status != 'CANCELLED'
+       WHERE o."createdAt" >= $1
+       GROUP BY p."categoryId"`,
+      dateFrom ?? new Date(0)
     );
     const categoryRevenueMap = new Map(categoryRevenueRaw.map((r) => [r.categoryId, r.revenue]));
 

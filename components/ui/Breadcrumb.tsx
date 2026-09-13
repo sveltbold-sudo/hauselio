@@ -11,7 +11,7 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <nav className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] mb-6 overflow-hidden min-w-0" aria-label="Breadcrumb">
+    <nav className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] mb-6 overflow-hidden min-w-0" aria-label="Brotkrumen">
       <Link href="/" className="hover:text-[var(--color-primary)] transition-colors shrink-0">Startseite</Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1.5">

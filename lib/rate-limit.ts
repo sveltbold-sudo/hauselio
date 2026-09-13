@@ -66,7 +66,9 @@ const MAX_STORE_SIZE = 10_000;
 let _rateLimitWarned = false;
 
 if (process.env.NODE_ENV === "production" && !useUpstash) {
-  console.warn("[HAUSAURA] CRITICAL: Upstash Redis not configured. Rate limiting is per-invocation only. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+  import("@/lib/logger").then(({ logger }) =>
+    logger.warn("rate-limit", "CRITICAL: Upstash Redis not configured. Rate limiting is per-invocation only.")
+  );
 }
 
 let lastCleanup = Date.now();

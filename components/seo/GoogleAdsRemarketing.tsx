@@ -15,7 +15,7 @@ export default function GoogleAdsRemarketing() {
 
   useEffect(() => {
     const prefs = getCookiePreferences();
-    if (!prefs?.functional) return;
+    if (!prefs?.analytics) return;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() {
@@ -25,7 +25,7 @@ export default function GoogleAdsRemarketing() {
 
   useEffect(() => {
     const prefs = getCookiePreferences();
-    if (!prefs?.functional) return;
+    if (!prefs?.analytics) return;
 
     if (typeof window.gtag !== "function") return;
 
@@ -40,7 +40,7 @@ export default function GoogleAdsRemarketing() {
 
 export function sendDynamicRemarketing(items: { id: string; name: string; price: number; category?: string; brand?: string }[]) {
   const prefs = getCookiePreferences();
-  if (!prefs?.functional) return;
+  if (!prefs?.analytics) return;
   if (typeof window.gtag !== "function") return;
   if (!process.env.NEXT_PUBLIC_AW_CONVERSION_ID) return;
 

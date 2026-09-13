@@ -36,7 +36,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             "bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]",
             "transition-colors duration-300",
-            "hover:border-[var(--color-border)]",
             error && "border-[var(--color-danger)] focus-visible:ring-[var(--color-danger)]/20 focus-visible:border-[var(--color-danger)]",
             className
           )}

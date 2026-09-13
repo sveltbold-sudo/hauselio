@@ -92,13 +92,15 @@ const guaranteeSteps = [
 
 export default async function GarantiePage() {
   const s = await getSettings();
-  const phoneDigits = s.contactPhone.replace(/\D/g, "");
+  const phoneDigits = s.contactPhone.startsWith("+")
+    ? "+" + s.contactPhone.slice(1).replace(/\D/g, "")
+    : s.contactPhone.replace(/\D/g, "");
   return (
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Startseite", url: "/" },
-          { name: "Garantie", url: "/garantie" },
+          { name: "Startseite", url: SITE_URL },
+          { name: "Garantie", url: `${SITE_URL}/garantie` },
         ]}
       />
 

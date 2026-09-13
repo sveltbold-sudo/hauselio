@@ -113,7 +113,7 @@ export default function CookieConsent() {
     return () => window.removeEventListener("HAUSAURA:open-cookie-settings", handleOpenSettings);
   }, []);
 
-  useScrollLock(visible);
+  useScrollLock(showDetails);
 
   useEffect(() => {
     if (visible && firstButtonRef.current) {
@@ -168,7 +168,7 @@ export default function CookieConsent() {
 
   return (
     <>
-      <div className="fixed inset-0 z-[64] bg-black/40" aria-hidden="true" />
+      <div className="fixed inset-0 z-[95] bg-black/40" aria-hidden="true" />
       <div
         ref={dialogRef}
         role="dialog"
@@ -176,7 +176,7 @@ export default function CookieConsent() {
         aria-label="Cookie-Einstellungen"
         aria-describedby="cookie-desc"
         onKeyDown={handleKeyDown}
-        className="fixed bottom-0 left-0 right-0 z-[65] p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
+        className="fixed bottom-0 left-0 right-0 z-[96] p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
       >
         <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-6">
           <div className="flex items-start gap-4">

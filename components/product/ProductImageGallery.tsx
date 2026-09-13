@@ -117,7 +117,7 @@ export default function ProductImageGallery({
       {/* Thumbnails */}
       {images.length > 1 && (
         <div className="relative">
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="listbox" aria-label="Produktbilder" aria-activedescendant={`thumb-${activeImageIndex}`}>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin" role="listbox" aria-label="Produktbilder" aria-orientation="horizontal" aria-activedescendant={`thumb-${activeImageIndex}`}>
             {images.map((img, i) => (
               <button
                 key={i}

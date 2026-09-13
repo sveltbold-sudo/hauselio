@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     const token = cookieStore.get("admin_token")?.value;
     if (token) {
-      await revokeToken(token);
+      await revokeToken(token, "admin");
     }
 
     const response = NextResponse.json({ success: true });

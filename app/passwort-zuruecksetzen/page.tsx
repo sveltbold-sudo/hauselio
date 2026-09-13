@@ -195,6 +195,7 @@ function PasswortZuruecksetzenForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Mindestens 8 Zeichen"
+                autoComplete="new-password"
                 className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
                 required
                 minLength={8}
@@ -220,6 +221,7 @@ function PasswortZuruecksetzenForm() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Passwort wiederholen"
+                autoComplete="new-password"
                 className="w-full pl-10 pr-12 py-3 bg-white border border-[var(--color-border)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] transition-colors"
                 required
                 minLength={8}

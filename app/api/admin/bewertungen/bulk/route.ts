@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const BulkReviewSchema = z.object({
   action: z.enum(["approve", "reject", "delete"]),
-  ids: z.array(z.string().uuid()).min(1).max(100),
+  ids: z.array(z.string().regex(/^c[a-z0-9]{20,}$/i)).min(1).max(100),
 });
 
 export async function POST(request: NextRequest) {

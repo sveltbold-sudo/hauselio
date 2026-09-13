@@ -19,7 +19,7 @@ Premium E-Commerce für Haushaltsgeräte — Next.js 16, React 19, Prisma, Tailw
 
 ```bash
 npm install
-cp .env.example .env.local   # Configureer je environment variables
+cp .env.example .env   # Configure your environment variables (the project reads `.env`)
 npx prisma generate
 npx prisma db push
 npm run db:seed

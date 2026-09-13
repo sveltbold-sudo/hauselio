@@ -172,7 +172,10 @@ export async function updateProductInAlgolia(productId: string): Promise<void> {
       },
     });
 
-    if (!product) return;
+    if (!product) {
+      await deleteProductFromAlgolia(productId);
+      return;
+    }
 
     const record = formatProduct(product);
 

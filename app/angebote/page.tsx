@@ -41,7 +41,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AngebotePage() {
-  const [promoProducts, bestsellers, newProducts] = await Promise.all([
+  let promoProducts: Parameters<typeof mapProduct>[0][] = [];
+  let bestsellers: typeof promoProducts = [];
+  let newProducts: typeof promoProducts = [];
+  try {
+    [promoProducts, bestsellers, newProducts] = await Promise.all([
     prisma.product.findMany({
       where: { isPromo: true },
       select: {
@@ -81,7 +85,12 @@ export default async function AngebotePage() {
       orderBy: { createdAt: "desc" },
       take: 8,
     }),
-  ]);
+    ]);
+  } catch {
+    promoProducts = [];
+    bestsellers = [];
+    newProducts = [];
+  }
 
   const maxDiscount = promoProducts.reduce((max, p) => {
     if (p.originalPrice) {
@@ -154,7 +163,7 @@ export default async function AngebotePage() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-dark)] transition-colors"
                 >
                   Alle Angebote ansehen
-                  <span className="text-sm opacity-80">({promoProducts.length}+ Produkte)</span>
+                  <span className="text-sm opacity-80">({promoProducts.length} Produkte)</span>
                 </Link>
               </div>
             </div>

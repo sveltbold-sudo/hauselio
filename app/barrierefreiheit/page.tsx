@@ -126,9 +126,9 @@ export default async function BarrierefreiheitPage() {
           </p>
           <div className="bg-[var(--color-bg)] rounded-xl p-6 mt-4">
             <p className="text-sm text-[var(--color-text-secondary)]">
-              Allgemeine Schlichtungsstelle des Bundes<br />
-              Representativesstraße 10<br />
-              77654 Offenburg<br />
+              Schlichtungsstelle nach § 16 BGG<br />
+              Mauerstraße 53<br />
+              10117 Berlin<br />
               <a href="https://www.ergaenzende-schlichtung.de" className="text-[var(--color-primary)] hover:underline break-all inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" aria-label="www.ergaenzende-schlichtung.de (öffnet in neuem Fenster)">
                 www.ergaenzende-schlichtung.de
                 <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />

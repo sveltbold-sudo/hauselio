@@ -35,7 +35,7 @@ async function getSettings() {
     return {
       contactPhone: s.contactPhone || fallback.contactPhone,
       contactEmail: s.contactEmail || fallback.contactEmail,
-      companyAddress: s.companyAddress || fallback.companyAddress,
+      companyAddress: s.contactAddress || s.companyAddress || fallback.companyAddress,
     };
   } catch {
     return fallback;
@@ -118,7 +118,7 @@ export default async function HilfePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Hilfe & FAQ", url: "/hilfe" }]} />
+      <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: SITE_URL }, { name: "Hilfe & FAQ", url: `${SITE_URL}/hilfe` }]} />
       <Breadcrumb items={[{ label: "Hilfe & FAQ" }]} />
       <h1 className="heading-1 mb-4">Hilfe & FAQ</h1>
       <p className="text-[var(--color-text-secondary)] mb-8">
@@ -129,7 +129,7 @@ export default async function HilfePage() {
         {faqs.map((faq, i) => (
           <details
             key={i}
-            className="group bg-[var(--color-bg)] rounded-xl overflow-hidden"
+            className="group bg-[var(--color-bg)] rounded-xl overflow-hidden border border-[var(--color-border-light)]"
           >
             <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-[var(--color-text-primary)] hover:bg-[var(--color-bg-secondary)] transition-colors">
               {faq.question}

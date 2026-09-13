@@ -9,8 +9,9 @@ export function escapeHtml(str: string): string {
 
 export function getInitials(name: string): string {
   return name
-    .split(" ")
-    .map((w) => w[0])
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w[0] as string)
     .join("")
     .toUpperCase()
     .slice(0, 2);

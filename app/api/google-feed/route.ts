@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { SITE_URL, SITE_NAME } from "@/lib/constants";
+import { SITE_URL, SITE_NAME, getShippingCost } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -83,7 +83,7 @@ export async function GET() {
       <g:shipping>
         <g:country>DE</g:country>
         <g:service>Standard</g:service>
-        <g:price>0.00 EUR</g:price>
+        <g:price>${getShippingCost(price, "DE").toFixed(2)} EUR</g:price>
       </g:shipping>
       <g:custom_label_0>${rating > 0 ? rating.toFixed(1) : "unrated"}</g:custom_label_0>
       <g:custom_label_1>${getCustomLabel1({ price, originalPrice: p.originalPrice ? Number(p.originalPrice) : null, isNew: p.isNew, isPromo: p.isPromo, rating, reviewCount: p.reviewCount })}</g:custom_label_1>

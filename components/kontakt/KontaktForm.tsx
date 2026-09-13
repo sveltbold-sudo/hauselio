@@ -196,7 +196,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
               <span className="font-medium">{settings.contactEmail}</span>
             </a>
             <a
-              href={`tel:${settings.contactPhone.replace(/\s/g, "")}`}
+              href={`tel:${settings.contactPhone.replace(/[\s()/-]/g, "")}`}
               className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors group"
             >
                <div className="w-11 h-11 rounded-xl bg-[var(--color-primary-50)] flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">

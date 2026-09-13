@@ -159,7 +159,7 @@ export default function WunschlistePage() {
                         name: item.name,
                         slug: item.slug,
                         price: item.price,
-                        originalPrice: item.originalPrice,
+                        originalPrice: item.originalPrice ?? undefined,
                         image: item.image,
                         brand: item.brand ?? "",
                         categorySlug: item.categorySlug,

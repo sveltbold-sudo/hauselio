@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import type { RatgeberArticle as PrismaRatgeberArticle } from "@prisma/client";
+import type { RatgeberArticle as PrismaRatgeberArticle, Prisma } from "@prisma/client";
 
 export type RatgeberArticle = PrismaRatgeberArticle;
 
@@ -49,17 +49,11 @@ function slugify(text: string): string {
     .replace(/[ü]/g, "ue")
     .replace(/[ß]/g, "ss")
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/^-+|-+$/g, "");
 }
 
 export function generateArticleSlug(title: string): string {
   return slugify(title);
-}
-
-function estimateReadingTime(html: string): number {
-  const text = html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
-  const words = text.split(" ").length;
-  return Math.max(1, Math.ceil(words / 200));
 }
 
 export async function getPublishedArticles(
@@ -67,7 +61,7 @@ export async function getPublishedArticles(
   page: number = 1,
   pageSize: number = RATGEBER_PAGE_SIZE
 ): Promise<{ articles: RatgeberArticleListItem[]; total: number }> {
-  const where: Record<string, unknown> = { isPublished: true };
+  const where: Prisma.RatgeberArticleWhereInput = { isPublished: true };
   if (category && category !== "alle") {
     where.category = category;
   }
@@ -232,7 +226,7 @@ export async function getArticlesByCategory(
   limit: number = 3,
   excludeSlug?: string
 ): Promise<RatgeberArticleListItem[]> {
-  const where: Record<string, unknown> = {
+  const where: Prisma.RatgeberArticleWhereInput = {
     isPublished: true,
     category,
   };

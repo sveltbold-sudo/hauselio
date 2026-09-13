@@ -49,7 +49,10 @@ const serwist = new Serwist({
       }),
     },
     {
-      matcher: /^\/api\/.*/i,
+      matcher: ({ url, request }: { url: URL; request: Request }) =>
+        request.method === "GET" &&
+        /^\/api\//i.test(url.pathname) &&
+        !/^\/(api\/(customer|bestellungen|coupon|cart|newsletter|contact|reviews)|admin)/i.test(url.pathname),
       handler: new NetworkFirst({
         cacheName: "api-cache",
         networkTimeoutSeconds: 5,
@@ -59,7 +62,7 @@ const serwist = new Serwist({
       }),
     },
     {
-      matcher: /^\/.*/i,
+      matcher: ({ url }: { url: URL }) => /^\//.test(url.pathname) && !url.pathname.startsWith("/admin"),
       handler: new NetworkFirst({
         cacheName: "pages",
         networkTimeoutSeconds: 5,

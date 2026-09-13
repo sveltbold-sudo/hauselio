@@ -69,7 +69,6 @@ export default function GoogleAnalytics() {
     };
 
     window.addEventListener("HAUSAURA:cookie-saved", handleConsentChange);
-    window.addEventListener("HAUSAURA:cookie-saved", handleConsentChange as EventListener);
     return () => {
       window.removeEventListener("HAUSAURA:cookie-saved", handleConsentChange);
     };

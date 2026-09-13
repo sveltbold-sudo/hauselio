@@ -128,7 +128,7 @@ export default function ImageLightbox({ images, initialIndex = 0, productName, b
 
       <div
         ref={containerRef}
-        className="max-w-[90vw] max-h-[85vh] w-full aspect-square"
+        className="max-w-[90vw] max-h-[85vh] w-full aspect-square overflow-hidden"
         onClick={(e) => e.stopPropagation()}
         role="group"
         aria-live="polite"

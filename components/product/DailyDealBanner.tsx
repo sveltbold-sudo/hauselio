@@ -139,7 +139,7 @@ export default function DailyDealBanner({ product }: DailyDealBannerProps) {
                 <div className="flex items-center gap-2 mb-5">
                   <div className="flex items-center gap-0.5" role="group" aria-label={`Bewertung: ${product.rating?.toFixed(1)} von 5 Sternen`}>
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`w-3.5 h-3.5 ${i < Math.round(product.rating || 0) ? "text-yellow-400 fill-yellow-400" : "text-white/20"}`} />
+                      <Star key={i} className={`w-3.5 h-3.5 ${i < Math.round(product.rating || 0) ? "text-[var(--color-star-filled)] fill-[var(--color-star-filled)]" : "text-white/20"}`} />
                     ))}
                   </div>
                   <span className="text-xs text-white/60">

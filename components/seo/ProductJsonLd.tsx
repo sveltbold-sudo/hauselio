@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SHIPPING_COST } from "@/lib/constants";
 
 interface Review {
   author: string;
@@ -53,7 +53,7 @@ export default function ProductJsonLd({
   availability = "InStock",
   url,
   sellerName = "HAUSAURA GmbH",
-  shippingRate = 4.99,
+  shippingRate = SHIPPING_COST,
   shippingCurrency = "EUR",
 }: ProductJsonLdProps) {
   const productUrl = url || `${SITE_URL}/produkt/${slug}`;
@@ -112,7 +112,7 @@ export default function ProductJsonLd({
       },
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
-        applicableCountry: "DE",
+        applicableCountry: ["DE", "AT", "CH"],
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: 30,
         returnMethod: "https://schema.org/ReturnByMail",

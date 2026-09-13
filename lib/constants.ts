@@ -1,4 +1,4 @@
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://HAUSAURA.de").replace(/\/+$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.hausaura.de").replace(/\/+$/, "");
 
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "HAUSAURA";
 

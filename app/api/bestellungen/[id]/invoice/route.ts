@@ -34,7 +34,7 @@ export async function GET(
     const order = await prisma.order.findFirst({
       where: {
         id,
-        customerEmail: email,
+        customerEmail: { equals: email, mode: "insensitive" },
         orderNumber,
       },
       select: {

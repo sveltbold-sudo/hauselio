@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const token = cookieStore.get("customer_token")?.value;
 
     if (token) {
-      await revokeToken(token).catch((e) =>
+      await revokeToken(token, "customer").catch((e) =>
         logger.error("customer-logout-revoke", e)
       );
     }

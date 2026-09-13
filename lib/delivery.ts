@@ -1,4 +1,4 @@
-export function getEstimatedDeliveryDate(): { from: string; to: string } {
+export function getEstimatedDeliveryDate(): { from: string; to: string; fromISO: string; toISO: string } {
   const now = new Date();
   const dayOfWeek = now.getDay();
 
@@ -22,9 +22,14 @@ export function getEstimatedDeliveryDate(): { from: string; to: string } {
     return `${days[d.getDay()]}, ${d.getDate()}. ${months[d.getMonth()]}`;
   };
 
+  const toISODate = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
   return {
     from: formatGerman(fromDate),
     to: formatGerman(toDate),
+    fromISO: toISODate(fromDate),
+    toISO: toISODate(toDate),
   };
 }
 

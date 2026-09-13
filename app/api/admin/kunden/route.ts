@@ -44,23 +44,19 @@ export async function GET(request: NextRequest) {
         }
       : {};
 
-    const aggregatedCustomers = await prisma.order.groupBy({
+    const allAggregated = await prisma.order.groupBy({
       by: ["customerEmail"],
       where,
       _count: true,
       _sum: { total: true },
       _max: { createdAt: true },
       orderBy: { _max: { createdAt: "desc" } },
-      skip: (page - 1) * limit,
-      take: limit,
     });
 
-    const [statsResult, totalCountResult] = await Promise.all([
-      prisma.$queryRaw<[{ total: string }]>`SELECT COALESCE(SUM("total"), 0) as "total" FROM "Order"`,
-      prisma.$queryRawUnsafe<[{ count: bigint }]>('SELECT COUNT(DISTINCT "customerEmail")::int AS count FROM "Order"'),
-    ]);
+    const statsResult = await prisma.$queryRaw<[{ total: string }]>`SELECT COALESCE(SUM("total"), 0) as "total" FROM "Order"`;
     const totalRevenue = Number(statsResult[0]?.total || 0);
-    const totalCount = Number(totalCountResult[0]?.count || 0);
+    const totalCount = allAggregated.length;
+    const aggregatedCustomers = allAggregated;
 
     const customerEmails = aggregatedCustomers.map((c) => c.customerEmail);
     const latestOrders = await prisma.order.findMany({
@@ -118,8 +114,10 @@ export async function GET(request: NextRequest) {
       }
     });
 
+    const pagedCustomers = customers.slice((page - 1) * limit, page * limit);
+
     return NextResponse.json({
-      customers,
+      customers: pagedCustomers,
       pagination: {
         page,
         limit,

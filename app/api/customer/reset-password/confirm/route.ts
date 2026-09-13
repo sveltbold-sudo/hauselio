@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
 
     // Revoke the reset token so it cannot be reused
     const { revokeToken } = await import("@/lib/auth");
-    await revokeToken(token);
+    await revokeToken(token, "reset");
 
     return NextResponse.json({
       success: true,

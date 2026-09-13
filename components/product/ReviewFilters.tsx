@@ -12,7 +12,7 @@ interface Review {
   createdAt: Date;
   formattedDate: string;
   isVerified: boolean;
-  product: { name: string; slug: string };
+  product: { name: string; slug: string } | null;
 }
 
 interface ReviewFiltersProps {
@@ -135,11 +135,13 @@ export default function ReviewFilters({ reviews }: ReviewFiltersProps) {
             </p>
           )}
 
-          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-[var(--color-border-light)]">
-            <span className="text-xs text-[var(--color-text-muted)]">
-              {review.product.name}
-            </span>
-          </div>
+          {review.product && (
+            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-[var(--color-border-light)]">
+              <span className="text-xs text-[var(--color-text-muted)]">
+                {review.product.name}
+              </span>
+            </div>
+          )}
         </div>
       ))}
     </div>

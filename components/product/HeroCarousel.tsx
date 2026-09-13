@@ -287,21 +287,6 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
           {isAutoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
         </button>
 
-        {/* Nav arrows — hidden on mobile, swipe is enough */}
-        <button
-          onClick={prev}
-          className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
-          aria-label="Vorherige Folie"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
-        <button
-          onClick={next}
-          className="hidden lg:flex absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full items-center justify-center text-white hover:bg-white/40 z-20 active:scale-95 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white"
-          aria-label="Nächste Folie"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
       </div>
 
       {/* ── DESKTOP: Split layout ── */}

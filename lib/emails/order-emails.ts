@@ -153,7 +153,7 @@ export async function sendOrderConfirmation(data: OrderEmailData) {
       </div>
 
       <div style="text-align:center;padding:8px 0 0 0;">
-        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${encodeURIComponent(data.orderNumber)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung ansehen
         </a>
       </div>
@@ -191,7 +191,7 @@ export async function sendPaymentConfirmed(data: OrderEmailData) {
         Wir bereiten Ihre Bestellung nun zur Versendung vor. Sie erhalten eine weitere E-Mail, sobald Ihre Bestellung auf dem Weg zu Ihnen ist.
       </p>
       <div style="text-align:center;">
-        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${encodeURIComponent(data.orderNumber)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung verfolgen
         </a>
       </div>
@@ -396,9 +396,10 @@ export async function sendPaymentReminder(data: PaymentReminderData) {
   const safeOrderNumber = escapeHtml(data.orderNumber);
   const safeName = escapeHtml(data.customerName);
 
-  const daysSinceOrder = Math.floor(
-    (Date.now() - new Date(data.createdAt).getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const createdAtMs = new Date(data.createdAt).getTime();
+  const daysSinceOrder = Number.isFinite(createdAtMs)
+    ? Math.floor((Date.now() - createdAtMs) / (1000 * 60 * 60 * 24))
+    : 0;
 
   const html = await baseTemplate(`
     ${headerBanner("Zahlungserinnerung", `Bestellung ${safeOrderNumber}`, "#D97706")}
@@ -451,7 +452,7 @@ export async function sendPaymentReminder(data: PaymentReminderData) {
         </div>
       </div>
       <div style="text-align:center;padding:8px 0;">
-        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${encodeURIComponent(data.orderNumber)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung ansehen
         </a>
       </div>
@@ -583,7 +584,7 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
         </p>
       </div>
       <div style="text-align:center;padding:16px 0 0 0;">
-        <a href="${SITE}/bestellung/erfolg?order=${safeOrderNumber}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
+        <a href="${SITE}/bestellung/erfolg?order=${encodeURIComponent(data.orderNumber)}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:10px;">
           Bestellung ansehen
         </a>
       </div>

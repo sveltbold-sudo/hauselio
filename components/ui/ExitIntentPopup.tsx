@@ -25,10 +25,10 @@ export default function ExitIntentPopup() {
     let timeout: NodeJS.Timeout | null = null;
 
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !sessionStorage.getItem(EXIT_INTENT_KEY)) {
+      if (e.clientY <= 0 && !localStorage.getItem(EXIT_INTENT_KEY)) {
         timeout = setTimeout(() => {
           setVisible(true);
-          sessionStorage.setItem(EXIT_INTENT_KEY, "1");
+          localStorage.setItem(EXIT_INTENT_KEY, "1");
         }, 500);
       }
     };
@@ -201,7 +201,7 @@ export default function ExitIntentPopup() {
                     disabled={submitting}
                     className="w-full px-4 py-2.5 min-h-[44px] bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
                   >
-                    {submitting ? "..." : "OK"}
+                    {submitting ? "Wird gesendet…" : "Code erhalten"}
                   </button>
                 </div>
                 {newsletterError && (
