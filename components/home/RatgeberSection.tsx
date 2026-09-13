@@ -4,16 +4,7 @@ import { BookOpen, ArrowRight } from "lucide-react";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 import { getReadingTimeText } from "@/lib/ratgeber";
 import { getBlurDataURL } from "@/lib/image-helpers";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  kueche: "Küche",
-  kaffee: "Kaffee",
-  reinigung: "Reinigung",
-  klima: "Klima",
-  "smart-home": "Smart Home",
-  haushaltsgeraete: "Haushaltsgeräte",
-  tipps: "Tipps & Tricks",
-};
+import { RATGEBER_CATEGORY_LABELS } from "@/lib/ratgeber-constants";
 
 interface RatgeberSectionProps {
   articles: RatgeberArticleListItem[];
@@ -69,7 +60,7 @@ export default function RatgeberSection({ articles }: RatgeberSectionProps) {
               </div>
               <div className="p-5">
                 <span className="inline-block text-xs font-semibold text-[var(--color-primary)] mb-2">
-                  {CATEGORY_LABELS[article.category] || article.category}
+                  {RATGEBER_CATEGORY_LABELS[article.category] || article.category}
                 </span>
                 <h3 className="text-lg font-bold text-[var(--color-text-primary)] line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors">
                   {article.title}

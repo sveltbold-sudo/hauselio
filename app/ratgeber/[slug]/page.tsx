@@ -62,10 +62,9 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
   const relatedArticles = await getRelatedArticles(article.category, slug, 3);
   const categoryLabel = RATGEBER_CATEGORY_LABELS[article.category] || article.category;
 
-  const mentionedSlugs = (article as unknown as Record<string, unknown>).mentionedProductSlugs as string[] | undefined;
-  const relatedProducts = mentionedSlugs && mentionedSlugs.length > 0
+  const relatedProducts = article.mentionedProductSlugs && article.mentionedProductSlugs.length > 0
     ? await prisma.product.findMany({
-        where: { slug: { in: mentionedSlugs } },
+        where: { slug: { in: article.mentionedProductSlugs } },
         select: {
           slug: true,
           name: true,
@@ -127,7 +126,7 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
             {/* Category badge */}
             <div className="flex items-center gap-3 mb-4">
               <Link
-                href={`/kategorie/${article.category}`}
+                href={`/ratgeber?category=${article.category}`}
                 className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20 transition-colors"
               >
                 {categoryLabel}
@@ -174,6 +173,7 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
                 src={article.coverImage}
                 alt={article.title}
                 className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
           )}

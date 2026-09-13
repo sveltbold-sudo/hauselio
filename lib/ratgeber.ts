@@ -21,6 +21,7 @@ export interface RatgeberArticleDetail extends RatgeberArticleListItem {
   content: string;
   seoTitle: string | null;
   seoDesc: string | null;
+  mentionedProductSlugs: string[];
   viewCount: number;
   updatedAt: Date;
 }
@@ -112,6 +113,7 @@ export async function getArticleBySlug(
       authorName: true,
       category: true,
       tags: true,
+      mentionedProductSlugs: true,
       readingTime: true,
       seoTitle: true,
       seoDesc: true,
