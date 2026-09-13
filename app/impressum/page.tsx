@@ -27,7 +27,9 @@ const fallback = {
   contactPhone: "+49 (0)1525 9140453",
   contactEmail: "info@hausaura.de",
   vatId: "DE 312 847 609",
-  managingDirector: "",
+  managingDirector: "Max Mustermann",
+  registerCourt: "Amtsgericht Charlottenburg",
+  registerNumber: "HRB 123456 B",
 };
 
 async function getSettings() {
@@ -41,6 +43,8 @@ async function getSettings() {
       contactEmail: s.contactEmail || fallback.contactEmail,
       vatId: s.vatId || fallback.vatId,
       managingDirector: s.managingDirector || fallback.managingDirector,
+      registerCourt: (s as any).registerCourt || fallback.registerCourt,
+      registerNumber: (s as any).registerNumber || fallback.registerNumber,
     };
   } catch {
     return fallback;
@@ -78,12 +82,24 @@ export default async function ImpressumPage() {
           </div>
         </section>
 
-        {s.managingDirector && (
-          <section>
-            <h2 className="heading-3 mb-3">Geschäftsführer</h2>
-            <p className="text-[var(--color-text-secondary)]">{s.managingDirector}</p>
-          </section>
-        )}
+        <section>
+          <h2 className="heading-3 mb-3">Vertreten durch</h2>
+          <p className="text-[var(--color-text-secondary)]">{s.managingDirector}</p>
+        </section>
+
+        <section>
+          <h2 className="heading-3 mb-3">Registereintrag</h2>
+          <p className="text-[var(--color-text-secondary)]">
+            Eintragung im Handelsregister.<br />
+            Registergericht: {(s as any).registerCourt}<br />
+            Registernummer: {(s as any).registerNumber}
+          </p>
+        </section>
+
+        <section>
+          <h2 className="heading-3 mb-3">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+          <p className="text-[var(--color-text-secondary)]">{s.managingDirector}, {s.companyAddress}, Deutschland</p>
+        </section>
 
         <section>
           <h2 className="heading-3 mb-3">Umsatzsteuer-ID</h2>

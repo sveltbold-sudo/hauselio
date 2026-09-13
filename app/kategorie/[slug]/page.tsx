@@ -29,7 +29,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   }).catch(() => null);
 
   if (!category) {
-    return { title: "Kategorie nicht gefunden" };
+    return { title: "Kategorie nicht gefunden", robots: { index: false, follow: false } };
   }
 
   const pageTitle = sub

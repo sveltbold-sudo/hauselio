@@ -165,7 +165,7 @@ export default async function GarantiePage() {
           <section>
             <h2 className="heading-3 mb-3">Ausschlüsse</h2>
             <p className="text-[var(--color-text-secondary)]">
-              Die Garantie umfasst keine Schäden durch unsachgemäße Verwendung, sportliche Aktivitäten,
+              Die Garantie umfasst keine Schäden durch unsachgemäße Verwendung,
               Wasserschäden durch Überschwemmungen, Brandschäden oder andere äußere Einwirkungen. Ebenso ausgeschlossen
               sind Schäden durch nicht autorisierte Reparaturversuche.
             </p>

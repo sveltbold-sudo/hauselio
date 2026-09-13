@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -23,9 +23,10 @@ export default function VergleichPage() {
   if (!mounted) {
     return (
       <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
-        <div className="h-20 w-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse mx-auto mb-6" />
-        <div className="h-8 w-64 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto mb-4" />
-        <div className="h-4 w-48 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto" />
+        <h1 className="sr-only">Produktvergleich</h1>
+        <div className="h-20 w-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse mx-auto mb-6" aria-hidden="true" />
+        <div className="h-8 w-64 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto mb-4" aria-hidden="true" />
+        <div className="h-4 w-48 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto" aria-hidden="true" /><p className="sr-only" aria-live="polite">Produktvergleich wird geladen</p>
       </main>
     );
   }
@@ -36,7 +37,7 @@ export default function VergleichPage() {
         <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
         <h1 className="heading-2 mb-4">Keine Produkte zum Vergleichen</h1>
         <p className="body-large mb-10">
-          Fügen Sie Produkte hinzu, um sie miteinander zu vergleichen.
+          FÃ¼gen Sie Produkte hinzu, um sie miteinander zu vergleichen.
         </p>
         <Link href="/shop">
           <Button size="lg">
@@ -52,9 +53,9 @@ export default function VergleichPage() {
     return (
       <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
         <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
-        <h1 className="heading-2 mb-4">Mindestens 2 Produkte benötigt</h1>
+        <h1 className="heading-2 mb-4">Mindestens 2 Produkte benÃ¶tigt</h1>
         <p className="body-large mb-10">
-          Fügen Sie mindestens 2 Produkte hinzu, um sie miteinander zu vergleichen.
+          FÃ¼gen Sie mindestens 2 Produkte hinzu, um sie miteinander zu vergleichen.
         </p>
         <Link href="/shop">
           <Button size="lg">
@@ -144,7 +145,7 @@ export default function VergleichPage() {
                             categorySlug: item.categorySlug,
                           });
                           window.dispatchEvent(new CustomEvent("cart:item-added"));
-                          toast.success("Zum Warenkorb hinzugefügt!");
+                          toast.success("Zum Warenkorb hinzugefÃ¼gt!");
                         }}
                         className="w-full mt-3"
                         size="sm"
@@ -169,7 +170,7 @@ export default function VergleichPage() {
                     const spec = item.specs?.find((s) => s.key === key);
                     return (
                       <td key={item.id} className="p-3 text-sm text-center text-[var(--color-text-secondary)]">
-                        {spec?.value || "—"}
+                        {spec?.value || "â€”"}
                       </td>
                     );
                   })}

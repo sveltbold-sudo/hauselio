@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import withSerwist from "@serwist/next";
@@ -78,6 +78,7 @@ const nextConfig: NextConfig = {
   },
   redirects: async () => [
     { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
+    { source: "/kategorie/kueche-und-kochen", destination: "/kategorie/kueche", permanent: true },
     { source: "/kaffee", destination: "/kategorie/kaffee", permanent: true },
     { source: "/smart-home", destination: "/kategorie/smart-home", permanent: true },
     { source: "/klima", destination: "/kategorie/klima", permanent: true },
@@ -89,6 +90,7 @@ const nextConfig: NextConfig = {
     { source: "/suche", destination: "/shop", permanent: false },
     { source: "/versandinformationen", destination: "/versand", permanent: true },
     { source: "/widerrufsrecht", destination: "/widerruf", permanent: true },
+    { source: "/faq", destination: "/hilfe", permanent: true },
   ],
   async headers() {
     return [

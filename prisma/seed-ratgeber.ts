@@ -287,7 +287,7 @@ const articles: ArticleData[] = [
   {
     title: "Energie sparen mit modernen Küchengeräten: Ratgeber zum Energiesparen",
     slug: "energie-sparen-kueche",
-    excerpt: "Moderne Küchengeräte可以帮助您节省大量能源。了解如何通过正确的使用方式减少 Strom- und Wasserkosten.",
+    excerpt: "Moderne Küchengeräte können Ihnen helfen, viel Energie zu sparen. Erfahren Sie, wie Sie Strom- und Wasserkosten durch die richtige Nutzung senken.",
     coverImage: "/images/ratgeber/energie-sparen-kueche.jpg",
     authorName: "HAUSAURA Redaktion",
     category: "kueche",

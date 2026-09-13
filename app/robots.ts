@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/api/google-feed"],
         disallow: ["/admin", "/api", "/warenkorb", "/bestellung", "/konto", "/vergleich", "/wunschliste", "/email-verifizieren", "/passwort-zuruecksetzen"],
       },
     ],

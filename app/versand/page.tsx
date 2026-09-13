@@ -9,12 +9,12 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Versand & Lieferung — Kostenlos ab 50€",
-  description: "Alle Infos zu Versand, Lieferzeiten und Kosten bei HAUSAURA. Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
+  description: "Alle Infos zu Versand, Lieferzeiten und Kosten bei HAUSAURA. Kostenloser Versand ab 50€. Schnelle Lieferung in 2-5 Werktagen.",
   robots: { index: true, follow: true },
   alternates: { canonical: `${SITE_URL}/versand` },
   openGraph: {
     title: "Versand & Lieferung | HAUSAURA",
-    description: "Kostenloser Versand ab 50€. Schnelle Lieferung in 1-3 Werktagen.",
+    description: "Kostenloser Versand ab 50€. Schnelle Lieferung in 2-5 Werktagen.",
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
@@ -146,7 +146,7 @@ export default async function VersandPage() {
           <p className="text-[var(--color-text-secondary)] leading-relaxed">
             Bitte stellen Sie sicher, dass bei Lieferung eine Person anwesend
             ist, die die Ware entgegennehmen kann. Bei großen Geräten wird die
-            Lieferung bis zur Bordsteinkante (Kerbdienst) durchgeführt.
+            Lieferung bis zur Bordsteinkante durchgeführt.
           </p>
         </div>
       </section>
