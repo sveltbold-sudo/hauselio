@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/angebote`, lastModified: fixedDate, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/kategorie`, lastModified: fixedDate, changeFrequency: "weekly", priority: 0.6 },
     { url: `${SITE_URL}/hilfe`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/faq`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/kontakt`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/garantie`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/ueber-uns`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
@@ -27,11 +28,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const [categories, products, ratgeberArticles] = await Promise.all([
-    prisma.category.findMany({ select: { slug: true } }),
-    prisma.product.findMany({ select: { slug: true, updatedAt: true } }),
+    prisma.category.findMany({
+      select: {
+        slug: true,
+        products: {
+          select: {
+            slug: true,
+            images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+          },
+          take: 1,
+        },
+      },
+    }),
+    prisma.product.findMany({
+      select: {
+        slug: true,
+        updatedAt: true,
+        images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
+      },
+    }),
     prisma.ratgeberArticle.findMany({
       where: { isPublished: true },
-      select: { slug: true, updatedAt: true },
+      select: {
+        slug: true,
+        updatedAt: true,
+        coverImage: true,
+      },
     }),
   ]);
 
@@ -40,6 +62,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
+    images: cat.products[0]?.images[0]?.url
+      ? [cat.products[0].images[0].url]
+      : undefined,
   }));
 
   const productPages: MetadataRoute.Sitemap = products.map((p) => ({
@@ -47,6 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: p.updatedAt,
     changeFrequency: "weekly" as const,
     priority: 0.8,
+    images: p.images[0]?.url ? [p.images[0].url] : undefined,
   }));
 
   const ratgeberPages: MetadataRoute.Sitemap = [
@@ -56,6 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: a.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.6,
+      images: a.coverImage ? [a.coverImage] : undefined,
     })),
   ];
 

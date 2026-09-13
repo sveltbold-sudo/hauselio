@@ -363,6 +363,27 @@ export default async function HomePage() {
 
       <HeroCarousel slides={heroSlidesValue.length > 0 ? heroSlidesValue : undefined} />
 
+      {/* SEO Text — internal links + keywords */}
+      <section className="container-hausaura py-6 sm:py-8">
+        <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-6 sm:p-8">
+          <h2 className="heading-3 mb-3">HAUSAURA — Ihr Online-Shop für Haushaltsgeräte</h2>
+          <div className="text-sm text-[var(--color-text-secondary)] leading-relaxed space-y-2">
+            <p>
+              Entdecken Sie unsere kuratierte Auswahl an{" "}
+              <Link href="/kategorie/kueche" className="text-[var(--color-primary)] hover:underline font-medium">Küchengeräten</Link>,{" "}
+              <Link href="/kategorie/kaffee" className="text-[var(--color-primary)] hover:underline font-medium">Kaffeevollautomaten</Link>,{" "}
+              <Link href="/kategorie/reinigung" className="text-[var(--color-primary)] hover:underline font-medium">Staubsaugern</Link> und{" "}
+              <Link href="/kategorie/smart-home" className="text-[var(--color-primary)] hover:underline font-medium">Smart-Home-Lösungen</Link>{" "}
+              von Top-Marken wie Miele, Bosch, Siemens und Dyson.
+            </p>
+            <p>
+              Kostenloser Versand ab 50€ · 30 Tage Rückgaberecht · 24 Monate Garantie ·{" "}
+              <Link href="/kontakt" className="text-[var(--color-primary)] hover:underline font-medium">Persönliche Beratung</Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Suspense fallback={<ThermomixSkeleton />}>
         <ThermomixSection />
       </Suspense>
@@ -432,6 +453,11 @@ export default async function HomePage() {
 
       {/* Tipps & Ratgeber */}
       <RatgeberSection articles={ratgeberValue} />
+      <div className="container-hausaura text-center mt-4 mb-8">
+        <Link href="/ratgeber" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors">
+          Alle Ratgeber ansehen →
+        </Link>
+      </div>
 
       <PressReviewsSection />
       <Suspense fallback={<ProductRowSkeleton />}>
@@ -440,6 +466,32 @@ export default async function HomePage() {
       <Suspense fallback={null}>
         <RecentlyViewedSection />
       </Suspense>
+
+      {/* FAQ Quick Links — SEO + internal linking */}
+      <section className="container-hausaura py-8 sm:py-12">
+        <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-6 sm:p-8">
+          <h2 className="heading-3 mb-4 text-center">Häufige Fragen</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+            {[
+              { q: "Wie lang ist die Lieferzeit?", a: "2-5 Werktage nach Zahlungseingang." },
+              { q: "Versandkostenfrei ab 50€?", a: "Ja, innerhalb Deutschlands ab 50€." },
+              { q: "30 Tage Rückgaberecht?", a: "Ja, unbenutzte Ware in Originalverpackung." },
+              { q: "Welche Zahlungsarten?", a: "Überweisung (Vorkasse)." },
+            ].map((faq) => (
+              <div key={faq.q} className="bg-white rounded-xl p-4 border border-[var(--color-border-light)]">
+                <p className="font-semibold text-sm text-[var(--color-text-primary)] mb-1">{faq.q}</p>
+                <p className="text-xs text-[var(--color-text-muted)]">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-5">
+            <Link href="/faq" className="text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors">
+              Alle FAQ ansehen →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <NewsletterSection />
     </main>
   );
