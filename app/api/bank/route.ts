@@ -26,8 +26,8 @@ export async function GET(request: NextRequest) {
       {
         bank: {
           accountName: settings.bankAccountName,
-          iban: settings.bankIban ? `DE${"*".repeat(settings.bankIban.length - 2)}${settings.bankIban.slice(-2)}` : null,
-          bic: settings.bankBic ? `${settings.bankBic.slice(0, 2)}${"*".repeat(Math.max(0, settings.bankBic.length - 4))}${settings.bankBic.slice(-2)}` : null,
+          iban: settings.bankIban || null,
+          bic: settings.bankBic || null,
           bankName: settings.bankName,
         },
       },
