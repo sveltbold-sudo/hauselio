@@ -3704,7 +3704,7 @@ const products: ProductData[] = [
     ]
   },
   {
-    name: "Philips Hue Play Gradient Lightstrip 55\\", slug: "philips-hue-play-gradient-lightstrip-55",
+    name: "Philips Hue Play Gradient Lightstrip 55 Zoll", slug: "philips-hue-play-gradient-lightstrip-55",
     description: "Die Philips Hue Play Gradient Lightstrip 55\" ist eine LED-Lichtleiste für Fernseher und Monitore. Die 16 Millionen Farben und diverse White-Shades bieten endlose Möglichkeiten. Die Gradient-Technologie synchronisiert das Licht mit dem Bildschirminhalt. Die Music-Sync-Funktion reagiert auf Musik und erstellt dynamische Lichtshows. Die einfache Installation am hinteren Teil des Bildschirms erfordert keine professionelle Montage. Die Kompatibilität mit Hue Bridge und diversen Sprachassistenten bietet maximale Konnektivität. Die 55-Zoll-Länge eignet sich für mittlere bis große Bildschirme. Perfekt für ein immersives Unterhaltungserlebnis.", shortDesc: "Gradient-LED-Leiste für 55\" TV mit Bildschirm-Sync",
     price: 50, originalPrice: 57, sku: "PHILIPSHUEPLAYG", isPromo: true,
     rating: 4.6, reviewCount: 259, categorySlug: "smart-home", brandSlug: "philips",

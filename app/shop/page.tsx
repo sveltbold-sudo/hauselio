@@ -493,6 +493,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </Suspense>
 
         {/* Product grid */}
+          <h2 className="sr-only">Produkte</h2>
         <div className="flex-1 min-w-0">
           {/* Toolbar */}
           <div className="hidden lg:flex items-center justify-between mb-4 sm:mb-6 bg-white rounded-xl border border-[var(--color-border-light)] px-4 sm:px-5 py-3">

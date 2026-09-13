@@ -25,7 +25,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 
   const category = await prisma.category.findUnique({
     where: { slug },
-    select: { name: true, description: true, longDescription: true },
+    select: { name: true, description: true, longDescription: true, image: true },
   }).catch(() => null);
 
   if (!category) {
@@ -52,7 +52,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       url: canonical,
       siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
-      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+      images: [{ url: category.image ? (category.image.startsWith("http") ? category.image : `${SITE_URL}${category.image}`) : `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -73,7 +73,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
 
   const category = await prisma.category.findUnique({
     where: { slug },
-    select: { name: true, description: true, longDescription: true },
+    select: { name: true, description: true, longDescription: true, image: true },
   }).catch(() => null);
 
   if (!category) {
