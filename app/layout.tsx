@@ -103,7 +103,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" as="image" href="https://res.cloudinary.com/demo/image/fetch/f_auto/https://www.hausaura.de/logos/logoprincipale.png" fetchPriority="high" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://*.sentry.io" />
