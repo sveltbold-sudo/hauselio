@@ -15,7 +15,7 @@ export default function AdminShellHide({ children, footer }: { children: ReactNo
   return (
     <>
       <Header />
-      <div className="flex-1 pb-20 lg:pb-0">
+      <div className="flex-1 pb-24 lg:pb-0">
         {children}
       </div>
       {footer}
