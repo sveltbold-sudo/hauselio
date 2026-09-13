@@ -5,7 +5,7 @@ import { escapeHtml } from "@/lib/html";
 import { SITE_URL } from "@/lib/constants";
 
 export const SITE = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
-export const LOGO_URL = `${SITE}/logos/logosecondaire.png`;
+export const LOGO_URL = `${SITE}/logos/logoprincipale.png`;
 
 export function stripHtml(html: string): string {
   return html
