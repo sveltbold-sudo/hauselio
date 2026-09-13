@@ -46,7 +46,7 @@ const securityHeaders = [
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://va.vercel-scripts.com https://*.sentry.io https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googleadservices.com https://adservice.google.com https://pagead2.googlesyndication.com https://*.algolia.net https://*.algolianet.com",
       "object-src 'none'",
-      "frame-ancestors 'none'",
+      "frame-ancestors 'self' https://tagassistant.google.com https://www.googletagmanager.com",
       "base-uri 'self'",
       "form-action 'self'",
       "upgrade-insecure-requests",
