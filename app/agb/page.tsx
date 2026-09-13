@@ -91,15 +91,47 @@ export default function AGBPage() {
         <section>
           <h2 className="heading-3 mb-3">§ 4 Lieferung</h2>
           <p className="text-[var(--color-text-secondary)]">
-            (1) Die Lieferung erfolgt innerhalb Deutschlands an die vom Kunden angegebene Lieferadresse,
+            (1) Die Lieferung erfolgt innerhalb Deutschlands, Österreichs und der Schweiz an die vom Kunden angegebene Lieferadresse,
             sofern nichts anderes vereinbart wurde.
           </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-sm text-left border border-[var(--color-border-light)] rounded-xl overflow-hidden">
+              <thead className="bg-[var(--color-bg-secondary)]">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Land</th>
+                  <th className="px-4 py-3 font-semibold">Kosten</th>
+                  <th className="px-4 py-3 font-semibold">Kostenlos ab</th>
+                  <th className="px-4 py-3 font-semibold">Lieferzeit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-[var(--color-border-light)]">
+                  <td className="px-4 py-3">Deutschland</td>
+                  <td className="px-4 py-3">4,99 €</td>
+                  <td className="px-4 py-3">50 €</td>
+                  <td className="px-4 py-3">2–5 Werktage</td>
+                </tr>
+                <tr className="border-t border-[var(--color-border-light)]">
+                  <td className="px-4 py-3">Österreich</td>
+                  <td className="px-4 py-3">7,99 €</td>
+                  <td className="px-4 py-3">75 €</td>
+                  <td className="px-4 py-3">2–5 Werktage</td>
+                </tr>
+                <tr className="border-t border-[var(--color-border-light)]">
+                  <td className="px-4 py-3">Schweiz</td>
+                  <td className="px-4 py-3">9,99 €</td>
+                  <td className="px-4 py-3">100 €</td>
+                  <td className="px-4 py-3">3–6 Werktage</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <p className="text-[var(--color-text-secondary)] mt-3">
-            (2) Die Lieferzeit beträgt innerhalb Deutschlands in der Regel 2-5 Werktage nach
+            (2) Die Lieferzeit beträgt in der Regel 2–5 Werktage (Deutschland/Österreich) bzw. 3–6 Werktage (Schweiz) nach
             Vertragsschluss, sofern in der Produktbeschreibung keine abweichende Lieferzeit angegeben ist.
           </p>
           <p className="text-[var(--color-text-secondary)] mt-3">
-            (3) Der Versand erfolgt über DHL oder einen anderen zuverlässigen Versanddienstleister.
+            (3) Der Versand erfolgt über DHL oder einen anderen zuverlässigen Versanddienstleister. Bei großen Geräten erfolgt die Lieferung bis zur Bordsteinkante. Versandkosten siehe <a href="/versand" className="text-[var(--color-primary)] hover:underline">Versandinformationen</a>.
           </p>
         </section>
 

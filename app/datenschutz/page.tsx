@@ -104,6 +104,25 @@ export default async function DatenschutzPage() {
         </section>
 
         <section>
+          <h2 className="heading-3 mb-3">4a. Externe Dienste und Auftragsverarbeiter</h2>
+          <p className="text-[var(--color-text-secondary)]">
+            Wir setzen folgende Dienste als Auftragsverarbeiter ein (Art. 28 DSGVO):
+          </p>
+          <ul className="list-disc list-outside pl-5 text-[var(--color-text-secondary)] mt-2 space-y-1">
+            <li><strong>Google Analytics / Google Tag Manager</strong> (Google Ireland Ltd.) \u2014 Webanalyse nur nach Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), Daten\u00fcbertragung USA mit EU-US Data Privacy Framework</li>
+            <li><strong>Vercel Hosting & Analytics</strong> (Vercel Inc.) \u2014 Hosting und Performance-Messung, Art. 6 Abs. 1 lit. f DSGVO</li>
+            <li><strong>Sentry</strong> (Functional Software Inc.) \u2014 Fehleranalyse, Art. 6 Abs. 1 lit. f DSGVO</li>
+            <li><strong>Cloudinary</strong> \u2014 Bild-CDN, Art. 6 Abs. 1 lit. f DSGVO</li>
+            <li><strong>Algolia</strong> \u2014 Produktsuche, Art. 6 Abs. 1 lit. f DSGVO</li>
+            <li><strong>Resend</strong> \u2014 E-Mail-Versand (Bestellungen, Newsletter), Art. 6 Abs. 1 lit. b DSGVO</li>
+            <li><strong>Upstash Redis</strong> \u2014 Rate-Limiting, Art. 6 Abs. 1 lit. f DSGVO</li>
+          </ul>
+          <p className="text-[var(--color-text-secondary)] mt-3">
+            Speicherdauer: Kontaktanfragen 6 Monate, Bestelldaten 10 Jahre (gesetzliche Aufbewahrung), Newsletter bis Widerruf, Cookies max. 13 Monate. Sie k\u00f6nnen Cookies jederzeit \u00fcber die Cookie-Einstellungen widerrufen.
+          </p>
+        </section>
+
+        <section>
           <h2 className="heading-3 mb-3">5. Kontaktformular</h2>
           <p className="text-[var(--color-text-secondary)]">
             Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem

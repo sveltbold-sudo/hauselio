@@ -117,6 +117,44 @@ export default async function VersandPage() {
         </div>
       </section>
 
+      {/* Versandkosten nach Land */}
+      <section className="mb-8 sm:mb-12">
+        <h2 className="heading-3 mb-6">Versandkosten nach Land</h2>
+        <div className="overflow-x-auto rounded-xl border border-[var(--color-border-light)]">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-[var(--color-bg-secondary)]">
+              <tr>
+                <th className="px-4 py-3 font-semibold text-[var(--color-text-primary)]">Land</th>
+                <th className="px-4 py-3 font-semibold text-[var(--color-text-primary)]">Kosten</th>
+                <th className="px-4 py-3 font-semibold text-[var(--color-text-primary)]">Kostenlos ab</th>
+                <th className="px-4 py-3 font-semibold text-[var(--color-text-primary)]">Lieferzeit*</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--color-border-light)]">
+              <tr>
+                <td className="px-4 py-3">Deutschland</td>
+                <td className="px-4 py-3">4,99 \u20AC</td>
+                <td className="px-4 py-3">50 \u20AC</td>
+                <td className="px-4 py-3">2\u20135 Werktage</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3">\u00d6sterreich</td>
+                <td className="px-4 py-3">7,99 \u20AC</td>
+                <td className="px-4 py-3">75 \u20AC</td>
+                <td className="px-4 py-3">2\u20135 Werktage</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3">Schweiz</td>
+                <td className="px-4 py-3">9,99 \u20AC</td>
+                <td className="px-4 py-3">100 \u20AC</td>
+                <td className="px-4 py-3">3\u20136 Werktage</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-[var(--color-text-muted)] mt-3">* nach Zahlungseingang. Details siehe Produktseite und Checkout.</p>
+      </section>
+
       {/* Hinweis des Shops (admin-pflegbar) */}
       {s.shippingInfo && (
         <div className="mb-8 sm:mb-12 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-6">

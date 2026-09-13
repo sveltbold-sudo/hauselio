@@ -24,6 +24,7 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
     subject: "",
     message: "",
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -166,7 +167,20 @@ export default function KontaktForm({ settings }: { settings: SiteSettings }) {
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>
-              <Button type="submit" size="lg" className="w-full" isLoading={isLoading} aria-describedby={error ? "form-error" : undefined}>
+              <div className="mb-6 flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="privacy"
+                  required
+                  checked={privacyAccepted}
+                  onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-[var(--color-primary)] shrink-0"
+                />
+                <label htmlFor="privacy" className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                  Ich stimme der Verarbeitung meiner Daten zur Bearbeitung der Anfrage gemäß <a href="/datenschutz" className="text-[var(--color-primary)] hover:underline">Datenschutzerklärung</a> zu. *
+                </label>
+              </div>
+              <Button type="submit" size="lg" className="w-full" isLoading={isLoading} disabled={!privacyAccepted} aria-describedby={error ? "form-error" : undefined}>
                 <Send className="w-4 h-4 mr-2" />
                 Nachricht senden
               </Button>
