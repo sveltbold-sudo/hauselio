@@ -26,6 +26,8 @@ interface Order {
   id: string;
   orderNumber: string;
   invoiceNumber: string | null;
+  status: string;
+  trackingNumber?: string | null;
   total: number;
   shippingCost: number;
   items: OrderItem[];
@@ -105,8 +107,10 @@ function OrderSuccessContent() {
             id: data.order.id,
             orderNumber: data.order.orderNumber,
             invoiceNumber: data.order.invoiceNumber || null,
+            status: data.order.status,
             total: data.order.total,
             shippingCost: data.order.shippingCost,
+            trackingNumber: data.order.trackingNumber || null,
             items: data.order.items,
           });
           // Calculate remaining time from order creation
@@ -232,7 +236,7 @@ function OrderSuccessContent() {
 
       {/* Timeline */}
       <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-5 sm:p-6 mb-6">
-        <PaymentTimeline currentStep="payment-pending" />
+        <PaymentTimeline currentStep={order && (order.status === "PAYMENT_CONFIRMED" || order.status === "PROCESSING") ? "payment-received" : order?.status === "SHIPPED" ? "shipped" : order?.status === "DELIVERED" ? "delivered" : "payment-pending"} />
       </div>
 
       {/* Delivery estimate */}
@@ -330,7 +334,18 @@ function OrderSuccessContent() {
           </div>
 
           {/* ═══ PAYMENT INSTRUCTIONS ═══ */}
-          {bankDetails && (
+          {order && order.status === "PAYMENT_CONFIRMED" ? (
+            <div className="bg-[var(--color-success-light)] border-2 border-[var(--color-success)]/20 rounded-2xl p-6 mb-6 text-center">
+              <p className="text-2xl mb-2">✅</p>
+              <p className="font-bold text-[var(--color-success)]">Zahlung bestätigt</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mt-1">Vielen Dank! Wir bereiten Ihre Bestellung vor. {order.invoiceNumber ? `Rechnung ${order.invoiceNumber}` : ""}</p>
+            </div>
+          ) : order && order.status === "SHIPPED" ? (
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-6 text-center">
+              <p className="font-bold text-blue-700">📦 Versendet{order.trackingNumber ? ` — ${order.trackingNumber}` : ""}</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mt-1">Ihre Bestellung ist unterwegs.</p>
+            </div>
+          ) : bankDetails && (
             <div className="bg-white rounded-2xl border-2 border-[var(--color-primary)]/20 p-4 sm:p-6 mb-6 text-left">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)] flex items-center justify-center">
