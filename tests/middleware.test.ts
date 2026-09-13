@@ -40,6 +40,8 @@ describe("middleware", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.JWT_SECRET = "test-secret-for-unit-tests-that-is-long-enough";
+    process.env.JWT_SECRET_ADMIN = "test-admin-secret-for-unit-tests-long-enough";
+    process.env.JWT_SECRET_CUSTOMER = "test-customer-secret-for-unit-tests-long-enough";
     mockJwtVerify.mockResolvedValue(makeAdminTokenPayload());
     mockPrismaAdminFindUnique.mockResolvedValue({ id: "admin-1", role: "ADMIN" });
   });

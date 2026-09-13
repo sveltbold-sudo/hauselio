@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { getAdminJWTSecret, getCustomerJWTSecret, isTokenRevoked } from "@/lib/auth";
-import { validateCsrfOrigin } from "@/lib/api-helpers";
+import {
+  getEdgeAdminJWTSecret,
+  getEdgeCustomerJWTSecret,
+  isEdgeTokenRevoked,
+  validateEdgeCsrfOrigin,
+} from "@/lib/edge-auth";
 
 const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"];
 
@@ -15,7 +19,7 @@ export async function middleware(request: NextRequest) {
 
   // CSRF on ALL non-safe API routes (not just admin)
   if (isApiRoute && !SAFE_METHODS.includes(request.method)) {
-    if (!validateCsrfOrigin(request)) {
+    if (!validateEdgeCsrfOrigin(request)) {
       return NextResponse.json(
         { error: "CSRF-Schutz: Ungültige Herkunft" },
         { status: 403 }
@@ -40,13 +44,13 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      const { payload } = await jwtVerify(token, getAdminJWTSecret(), {
+      const { payload } = await jwtVerify(token, getEdgeAdminJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-admin",
         audience: "HAUSAURA-admin",
       });
 
-      if (await isTokenRevoked(token, "admin")) {
+      if (await isEdgeTokenRevoked(token, "admin")) {
         if (isAdminRoute) {
           return NextResponse.redirect(new URL("/admin/login", request.url));
         }
@@ -92,7 +96,7 @@ export async function middleware(request: NextRequest) {
       );
     }
     try {
-      const { payload } = await jwtVerify(customerToken, getCustomerJWTSecret(), {
+      const { payload } = await jwtVerify(customerToken, getEdgeCustomerJWTSecret(), {
         algorithms: ["HS256"],
         issuer: "HAUSAURA-customer",
         audience: "HAUSAURA-customer",
@@ -104,7 +108,7 @@ export async function middleware(request: NextRequest) {
           { status: 401 }
         );
       }
-      if (await isTokenRevoked(customerToken, "customer")) {
+      if (await isEdgeTokenRevoked(customerToken, "customer")) {
         return NextResponse.json(
           { error: "Token widerrufen" },
           { status: 401 }
