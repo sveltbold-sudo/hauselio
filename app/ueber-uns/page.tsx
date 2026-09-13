@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 export const revalidate = 86400;
 
@@ -62,8 +62,38 @@ const values = [
 ];
 
 export default function UeberUnsPage() {
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `Über ${SITE_NAME}`,
+    url: `${SITE_URL}/ueber-uns`,
+    description: `${SITE_NAME} wurde mit einer klaren Vision gegründet: hochwertige Haushaltsgeräte zugänglich, transparent und servicestark zu machen. Deutscher Online-Shop für Premium-Haushaltsgeräte mit Sitz in Berlin.`,
+    mainEntity: {
+      "@type": "Organization",
+      name: `${SITE_NAME} GmbH`,
+      url: SITE_URL,
+      foundingDate: "2024",
+      foundingLocation: "Berlin, Deutschland",
+      description: "Deutscher Online-Shop für hochwertige Haushaltsgeräte — von der Kaffeemaschine bis zum Staubsauger.",
+      numberOfEmployees: {
+        "@type": "QuantitativeValue",
+        minValue: 1,
+        maxValue: 10,
+      },
+      sameAs: [
+        "https://www.instagram.com/HAUSAURA",
+        "https://www.facebook.com/HAUSAURA",
+        "https://www.linkedin.com/company/HAUSAURA",
+      ],
+    },
+  };
+
   return (
     <main id="main-content" className="container-hausaura py-6 sm:py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
       <BreadcrumbJsonLd items={[{ name: "HAUSAURA", url: "/" }, { name: "Über uns", url: "/ueber-uns" }]} />
       <Breadcrumb items={[{ label: "Über uns" }]} />
       {/* Header */}
@@ -135,6 +165,57 @@ export default function UeberUnsPage() {
               </p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Categories Overview */}
+      <div className="mb-16 sm:mb-24">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="heading-2 mb-4">Unser Sortiment</h2>
+          <p className="body-large max-w-2xl mx-auto">
+            Von Küchengeräten über Kaffeevollautomaten bis hin zu Smart-Home-Lösungen —
+            entdecken Sie unsere beliebtesten Kategorien.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { name: "Küchengeräte", href: "/kategorie/kueche", desc: "Backöfen, Kühlschränke, Geschirrspüler und mehr" },
+            { name: "Kaffeevollautomaten", href: "/kategorie/kaffee", desc: "Von Jura bis De'Longhi — perfekter Kaffee" },
+            { name: "Staubsauger & Reinigung", href: "/kategorie/reinigung", desc: "Dyson, Miele und weitere Premium-Marken" },
+            { name: "Smart Home", href: "/kategorie/smart-home", desc: "tado°, Philips Hue, Ring und Netatmo" },
+            { name: "Haushaltsgeräte", href: "/kategorie/haushaltsgeraete", desc: "Miele, Bosch und Siemens Qualität" },
+            { name: "Klima & Luftreiniger", href: "/kategorie/klima", desc: "Saubere Luft für Ihr Zuhause" },
+          ].map((cat) => (
+            <Link
+              key={cat.name}
+              href={cat.href}
+              className="bg-[var(--color-bg)] rounded-xl p-5 border border-[var(--color-border-light)] hover:border-[var(--color-primary)]/30 hover:shadow-md transition-all"
+            >
+              <h3 className="font-semibold text-[var(--color-text-primary)] mb-1">{cat.name}</h3>
+              <p className="text-xs text-[var(--color-text-muted)]">{cat.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Trust Elements */}
+      <div className="mb-16 sm:mb-24">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="heading-2 mb-4">Warum HAUSAURA?</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
+            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">279+</div>
+            <p className="text-sm text-[var(--color-text-secondary)]">Premium-Produkte von Top-Marken</p>
+          </div>
+          <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
+            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">4,9/5</div>
+            <p className="text-sm text-[var(--color-text-secondary)]">Durchschnittliche Kundenbewertung</p>
+          </div>
+          <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
+            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">24h</div>
+            <p className="text-sm text-[var(--color-text-secondary)]">Schnelle Bearbeitungszeit</p>
+          </div>
         </div>
       </div>
 

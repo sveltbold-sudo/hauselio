@@ -73,8 +73,24 @@ function getFaqs(s: typeof fallback) {
     answer: "Wir bieten ausschließlich die Zahlungsart Überweisung (Vorkasse) an. Nach Ihrer Bestellung erhalten Sie eine E-Mail mit unseren Bankverbindungsdaten. Die Zahlungsfrist beträgt 5 Werktage nach Abschluss des Vertrages.",
   },
   {
+    question: "Versanden Sie auch nach Österreich und in die Schweiz?",
+    answer: "Ja, wir versanden nach Deutschland, Österreich und der Schweiz. Die Versandkosten betragen 4,99€ (DE, ab 50€ versandkostenfrei), 7,99€ (AT, ab 75€ versandkostenfrei) und 9,99€ (CH, ab 100€ versandkostenfrei).",
+  },
+  {
+    question: "Kann ich meine Bestellung nachverfolgen?",
+    answer: "Ja, nach Versand Ihrer Bestellung erhalten Sie eine E-Mail mit einer Sendungsverfolgungsnummer. Über diese können Sie den aktuellen Status Ihres Pakets jederzeit online verfolgen.",
+  },
+  {
+    question: "Bieten Sie Ratenzahlung an?",
+    answer: "Derzeit bieten wir ausschließlich Zahlung per Überweisung (Vorkasse) an. Eine Ratenzahlung ist leider noch nicht möglich. Wir arbeiten daran, Ihnen weitere Zahlungsmethoden anzubieten.",
+  },
+  {
     question: "Wie kann ich meinen Newsletter abbestellen?",
     answer: "Klicken Sie in jeder Newsletter-E-Mail auf den Abbestell-Link. Alternativ können Sie sich auch über unser Kontaktformular an uns wenden. Wir verarbeiten Ihre Abbestellung umgehend.",
+  },
+  {
+    question: "Welche Marken führen Sie?",
+    answer: "Wir führen eine kuratierte Auswahl an Premium-Marken: Miele, Bosch, Siemens, Dyson, Jura, De'Longhi, Samsung, LG, Liebherr, Thermomix, tado°, Philips Hue, Ring, Netatmo, IKEA Smart Home und weitere. Alle Produkte werden direkt vom Hersteller oder autorisierten Händlern bezogen.",
   },
 ];
 }

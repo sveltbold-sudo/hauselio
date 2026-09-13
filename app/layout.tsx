@@ -6,6 +6,7 @@ import LazyComparisonBar from "@/components/ui/LazyComparisonBar";
 import { ToastProvider } from "@/components/ui/Toast";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 import ClientProviders from "@/components/ui/ClientProviders";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
@@ -130,6 +131,7 @@ gtag('config', 'AW-18441392681');`,
       <body className="min-h-full flex flex-col bg-[var(--color-bg)] font-sans antialiased text-[var(--color-text-primary)]">
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        <LocalBusinessJsonLd />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[var(--color-primary)] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-none"

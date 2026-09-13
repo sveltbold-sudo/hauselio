@@ -117,7 +117,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${product.name} kaufen | ${SITE_NAME}`,
       description: desc,
       url: `${SITE_URL}/produkt/${slug}`,
-      siteName: SITE_NAME,      locale: "de_DE",
+      siteName: SITE_NAME,
+      locale: "de_DE",
       type: "website",
       images: product.images?.[0]
         ? [{ url: product.images[0], width: 800, height: 600, alt: product.name }]
