@@ -8,12 +8,14 @@ interface MobileHorizontalScrollProps {
   children: React.ReactNode;
   className?: string;
   autoScrollInterval?: number;
+  gradientColor?: string;
 }
 
 export default function MobileHorizontalScroll({
   children,
   className = "",
   autoScrollInterval = 7000,
+  gradientColor = "white",
 }: MobileHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
@@ -122,10 +124,10 @@ export default function MobileHorizontalScroll({
     >
       {/* Scroll hints */}
       {canScrollLeft && (
-        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r to-transparent z-10 pointer-events-none`} style={{ background: `linear-gradient(to right, ${gradientColor}, transparent)` }} />
       )}
       {canScrollRight && (
-        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l to-transparent z-10 pointer-events-none`} style={{ background: `linear-gradient(to left, ${gradientColor}, transparent)` }} />
       )}
 
       {/* Scroll container */}

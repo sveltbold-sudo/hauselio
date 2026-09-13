@@ -17,7 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const discount = calcDiscount(product.price, product.originalPrice ?? null);
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col h-full">
+    <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col h-full">
       {/* Wishlist button — top right */}
       <div className="absolute top-3 right-3 z-10" role="presentation">
         <WishlistButton
@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link
         href={`/produkt/${product.slug}`}
         className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 flex-1 flex flex-col"
-        aria-label={`${product.brand ? product.brand + " " : ""}${product.name} - ${formatPrice(product.price)}`}
+        aria-label={`${product.name} - ${formatPrice(product.price)}`}
       >
         {/* Image Container */}
         <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden p-4">

@@ -42,16 +42,10 @@ function chipUrl(exclude: string, category?: string, brand?: string, q?: string,
   return `/shop?${params.toString()}`;
 }
 
-function chipUrlAll(category?: string, brand?: string, q?: string, sort?: string, price?: string, promo?: string, rating?: string) {
+function chipUrlAll(q?: string) {
   const params = new URLSearchParams();
   if (q) params.set("q", q);
-  if (sort && sort !== "newest") params.set("sort", sort);
-  if (brand) params.set("brand", brand);
-  if (category) params.set("category", category);
-  if (promo === "true") params.set("promo", "true");
-  if (rating) params.set("rating", rating);
-  if (price) params.set("price", price);
-  return `/shop?${params.toString()}`;
+  return `/shop${params.toString() ? `?${params.toString()}` : ""}`;
 }
 
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
@@ -462,7 +456,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </Link>
           )}
           <Link
-            href={chipUrlAll(category, brand, q, sort, price, promo, rating)}
+            href={chipUrlAll(q)}
             className="inline-flex items-center gap-1.5 px-3 py-2.5 min-h-[44px] text-[var(--color-text-muted)] text-sm font-medium rounded-lg hover:bg-[var(--color-text-muted)]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
           >
             Alle entfernen

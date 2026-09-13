@@ -37,7 +37,7 @@ export default function BestsellerSection({ products }: BestsellerSectionProps) 
 
         {/* Mobile: dark luxe horizontal scroll */}
         <div className="sm:hidden -mx-[var(--container-padding)] px-[var(--container-padding)] bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-primary-dark)] to-[var(--color-secondary)] py-6 -mt-6 rounded-2xl overflow-hidden">
-          <MobileHorizontalScroll autoScrollInterval={7000}>
+          <MobileHorizontalScroll autoScrollInterval={7000} gradientColor="var(--color-primary-dark)">
             {products.map((product, i) => (
               <div
                 key={product.id}
