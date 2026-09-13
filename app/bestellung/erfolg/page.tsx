@@ -221,7 +221,7 @@ function OrderSuccessContent() {
       </div>
 
       {/* Payment reminder */}
-      {remaining > 0 && (
+      {order && order.status === "PENDING_PAYMENT" && remaining > 0 && (
         <div
           role="status"
           aria-live="off"
@@ -450,8 +450,7 @@ function OrderSuccessContent() {
           )}
 
           {/* Payment Proof Upload */}
-          {order && (
-            <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-left">
+          {order && order.status === "PENDING_PAYMENT" && (          <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6 text-left">
               <h2 className="font-bold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
                 <Upload className="w-5 h-5" />
                 Zahlungsnachweis hochladen
