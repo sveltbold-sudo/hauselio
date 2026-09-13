@@ -20,7 +20,7 @@ export default function RatgeberArticleCard({ article }: RatgeberArticleCardProp
       className="group block bg-white rounded-2xl border border-[var(--color-border-light)] overflow-hidden hover:border-[var(--color-primary)]/30 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300"
     >
       {/* Image */}
-      <div className="aspect-[16/9] overflow-hidden bg-[var(--color-bg-secondary)]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-[var(--color-bg-secondary)]">
         {article.coverImage ? (
           <Image
             src={article.coverImage}
