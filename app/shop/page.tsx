@@ -74,6 +74,11 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
   if (category) searchParamsObj.set("category", category);
   if (brand) searchParamsObj.set("brand", brand);
   if (q) searchParamsObj.set("q", q);
+  if (params.sort && params.sort !== "newest") searchParamsObj.set("sort", params.sort);
+  if (params.price) searchParamsObj.set("price", params.price);
+  if (params.promo) searchParamsObj.set("promo", params.promo);
+  if (params.rating) searchParamsObj.set("rating", params.rating);
+  if (params.page && params.page !== "1") searchParamsObj.set("page", params.page);
   const queryString = searchParamsObj.toString();
   const canonical = `${baseUrl}/shop${queryString ? `?${queryString}` : ""}`;
 

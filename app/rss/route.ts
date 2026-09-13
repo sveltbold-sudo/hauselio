@@ -24,7 +24,7 @@ export async function GET() {
       <title><![CDATA[${a.title}]]></title>
       <link>${SITE_URL}/ratgeber/${a.slug}</link>
       <description><![CDATA[${a.excerpt || ""}]]></description>
-      <category>${a.category}</category>
+      <category>${a.category.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</category>
       <pubDate>${pubDate}</pubDate>
       <guid>${SITE_URL}/ratgeber/${a.slug}</guid>
     </item>`;
@@ -39,7 +39,7 @@ export async function GET() {
     <description>Tipps, Vergleiche und Kaufberatung rund um Haushaltsgeräte von HAUSAURA.</description>
     <language>de</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="${SITE_URL}/rss" rel="self" type="application/rss+xml" />
 ${items}
   </channel>
 </rss>`;

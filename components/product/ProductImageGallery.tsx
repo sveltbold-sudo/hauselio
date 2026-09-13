@@ -46,12 +46,17 @@ export default function ProductImageGallery({
   return (
     <div className="animate-fade-in-up">
       {/* Main image */}
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         onClick={onImageClick}
         onKeyDown={(e) => {
           if (e.key === "ArrowRight" && activeImageIndex < images.length - 1) onImageSelect(activeImageIndex + 1);
           else if (e.key === "ArrowLeft" && activeImageIndex > 0) onImageSelect(activeImageIndex - 1);
+          else if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onImageClick();
+          }
         }}
         aria-label={`Bild vergrößern. Bild ${activeImageIndex + 1} von ${images.length}. Pfeiltasten zum Navigieren.`}
         className="aspect-square bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden mb-4 border border-[var(--color-border-light)] relative group cursor-zoom-in w-full text-left active:scale-[0.98] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
@@ -107,7 +112,7 @@ export default function ProductImageGallery({
             size="md"
           />
         </div>
-      </button>
+      </div>
 
       {/* Thumbnails */}
       {images.length > 1 && (

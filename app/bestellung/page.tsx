@@ -133,16 +133,7 @@ export default function BestellungPage() {
   };
 
   const hasValidated = useRef(false);
-  const clearCartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    return () => {
-      if (clearCartTimerRef.current) {
-        clearTimeout(clearCartTimerRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (items.length === 0 || hasValidated.current) return;
@@ -257,15 +248,13 @@ export default function BestellungPage() {
         throw new Error(data.error || "Fehler bei der Bestellung");
       }
 
-      sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
+      try {
+        sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
+      } catch {}
       const checkoutItems: { id: string; name: string; price: number; quantity: number }[] = items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity }));
       trackBeginCheckout(finalTotal, checkoutItems);
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
-      clearCartTimerRef.current = setTimeout(() => {
-        sessionStorage.removeItem(`order_${data.order.orderNumber}`);
-        clearCartTimerRef.current = null;
-      }, 120000);
     } catch (error) {
       orderSubmitted.current = false;
       setOrderError(error instanceof Error ? error.message : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");

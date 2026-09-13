@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Hilfe & FAQ — Bestellung, Versand, Garantie",
     description: "Häufige Fragen zu Bestellung, Versand, Zahlung, Garantie und Rückgabe. Finden Sie schnelle Antworten beim HAUSAURA Kundenservice.",
   robots: { index: true, follow: true },
-  alternates: { canonical: "/hilfe" },
+  alternates: { canonical: `${SITE_URL}/hilfe` },
   openGraph: {
     title: "Hilfe & FAQ — Bestellung, Versand, Garantie | HAUSAURA",
   description: "Häufige Fragen zu Bestellung, Versand, Zahlung, Garantie und Rückgabe. Schnelle Antworten vom Kundenservice.",

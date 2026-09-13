@@ -45,6 +45,11 @@ export interface BundleProduct {
   name: string;
   slug: string;
   price: number;
+  originalPrice?: number | null;
+  rating?: number;
+  reviewCount?: number;
+  isNew?: boolean;
+  isPromo?: boolean;
   image: string;
   brand: string | null;
 }

@@ -12,7 +12,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Kontakt — E-Mail, Telefon & Beratung",
   description: "Kontaktieren Sie HAUSAURA — wir beraten Sie gerne per E-Mail oder Telefon. Schnelle Antwort innerhalb von 24 Stunden.",
-  alternates: { canonical: "/kontakt" },
+  alternates: { canonical: `${SITE_URL}/kontakt` },
   openGraph: {
     title: "Kontakt — E-Mail, Telefon & Beratung | HAUSAURA",
     description: "Wir beraten Sie gerne per E-Mail oder Telefon. Schnelle Antwort innerhalb von 24 Stunden.",

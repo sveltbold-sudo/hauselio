@@ -39,8 +39,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`
     : category.description || `Hochwertige ${category.name} bei ${SITE_NAME} entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;
   const canonical = sub
-    ? `/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
-    : `/kategorie/${slug}`;
+    ? `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
+    : `${SITE_URL}/kategorie/${slug}`;
 
   return {
     title: pageTitle,
@@ -176,12 +176,12 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
   }
 
   const breadcrumbItems = [
-    { name: "Startseite", url: "/" },
-    { name: "Kategorien", url: "/kategorie" },
-    { name: category.name, url: `/kategorie/${slug}` },
+    { name: "Startseite", url: SITE_URL },
+    { name: "Kategorien", url: `${SITE_URL}/kategorie` },
+    { name: category.name, url: `${SITE_URL}/kategorie/${slug}` },
   ];
   if (sub) {
-    breadcrumbItems.push({ name: sub, url: `/kategorie/${slug}?sub=${encodeURIComponent(sub)}` });
+    breadcrumbItems.push({ name: sub, url: `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}` });
   }
 
   const collectionName = sub ? `${sub} | ${category.name}` : category.name;

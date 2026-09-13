@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Heart, Settings, LogOut, Loader2, User, Phone, MapPin, ChevronDown, ChevronUp, X } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/lib/store";
 
 interface Customer {
   id: string;
@@ -181,7 +180,6 @@ export default function KontoPage() {
     try {
       await fetch("/api/customer/logout", { method: "POST" });
     } catch {}
-    useCartStore.getState().clearCart();
     setCustomer(null);
     setProfileName("");
     setProfilePhone("");

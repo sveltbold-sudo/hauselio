@@ -302,11 +302,11 @@ export default function ProductPageClient({ product, relatedProducts = [], ratge
         categorySlug={product.categorySlug}
         initialProducts={relatedProducts.map((p) => ({
           ...p,
-          originalPrice: null,
-          isPromo: false,
+          originalPrice: p.originalPrice ?? null,
+          isPromo: p.isPromo ?? false,
           brand: p.brand || "",
-          rating: 0,
-          reviewCount: 0,
+          rating: p.rating ?? 0,
+          reviewCount: p.reviewCount ?? 0,
         }))}
       />
 

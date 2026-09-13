@@ -50,9 +50,10 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
         _avg: { rating: true },
       }),
       prisma.product.findMany({
-        where: { category: { slug: product.category?.slug || "" }, id: { not: product.id } },
+        where: product.category?.slug ? { category: { slug: product.category.slug }, id: { not: product.id } } : { id: { not: product.id } },
         select: {
-          id: true, name: true, slug: true, price: true,
+          id: true, name: true, slug: true, price: true, originalPrice: true,
+          rating: true, reviewCount: true, isNew: true, isPromo: true,
           brand: { select: { name: true } },
           images: { select: { url: true }, take: 1, orderBy: { position: "asc" as const } },
         },
@@ -61,7 +62,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
       }),
     ]);
 
-    const liveRating = Number(liveAggregate._avg.rating ?? product.rating);
+    const liveRating = realReviewCount > 0 ? Number(liveAggregate._avg.rating ?? product.rating) : 0;
 
     return {
       product: {
@@ -76,6 +77,9 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
       },
       relatedProducts: relatedProducts.map((p) => ({
         id: p.id, name: p.name, slug: p.slug, price: Number(p.price),
+        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+        rating: Number(p.rating), reviewCount: p.reviewCount,
+        isNew: p.isNew, isPromo: p.isPromo,
         image: p.images[0]?.url || "/images/placeholder-product.svg",
         brand: p.brand?.name || null,
       })),

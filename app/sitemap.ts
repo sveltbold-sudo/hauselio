@@ -9,8 +9,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const fixedDate = new Date("2026-09-01");
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: fixedDate, changeFrequency: "daily", priority: 1.0 },
-    { url: `${SITE_URL}/shop`, lastModified: fixedDate, changeFrequency: "daily", priority: 0.9 },
+    { url: SITE_URL, lastModified: now, changeFrequency: "daily", priority: 1.0 },
+    { url: `${SITE_URL}/shop`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/angebote`, lastModified: fixedDate, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/kategorie`, lastModified: fixedDate, changeFrequency: "weekly", priority: 0.6 },
     { url: `${SITE_URL}/hilfe`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.5 },
@@ -24,8 +24,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/agb`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/widerruf`, lastModified: fixedDate, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/versand`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${SITE_URL}/zahlungsarten`, lastModified: fixedDate, changeFrequency: "monthly", priority: 0.4 },
   ];
+
+  const toAbsoluteImage = (url: string) =>
+    url.startsWith("http") ? url : `${SITE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 
   const [categories, products, ratgeberArticles] = await Promise.all([
     prisma.category.findMany({
@@ -63,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as const,
     priority: 0.7,
     images: cat.products[0]?.images[0]?.url
-      ? [cat.products[0].images[0].url]
+      ? [toAbsoluteImage(cat.products[0].images[0].url)]
       : undefined,
   }));
 
@@ -72,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: p.updatedAt,
     changeFrequency: "weekly" as const,
     priority: 0.8,
-    images: p.images[0]?.url ? [p.images[0].url] : undefined,
+    images: p.images[0]?.url ? [toAbsoluteImage(p.images[0].url)] : undefined,
   }));
 
   const ratgeberPages: MetadataRoute.Sitemap = [
@@ -82,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: a.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.6,
-      images: a.coverImage ? [a.coverImage] : undefined,
+      images: a.coverImage ? [toAbsoluteImage(a.coverImage)] : undefined,
     })),
   ];
 

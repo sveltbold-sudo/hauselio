@@ -19,16 +19,22 @@ export default function UpdateOrderStatus({
   const router = useRouter();
   const toast = useToast();
 
-  useEffect(() => {
-    setStatus(currentStatus);
-  }, [currentStatus]);
-
   const allowedStatuses = VALID_ORDER_TRANSITIONS[currentStatus] ?? [];
+  const initialStatus = allowedStatuses.includes(status) ? status : (allowedStatuses[0] ?? currentStatus);
 
-  const statusOptions = allowedStatuses.map((value) => ({
-    value,
-    label: ORDER_STATUS_LABELS[value] ?? value,
-  }));
+  const statusOptions = [
+    { value: currentStatus, label: `${ORDER_STATUS_LABELS[currentStatus] ?? currentStatus} (aktuell)` },
+    ...allowedStatuses
+      .filter((value) => value !== currentStatus)
+      .map((value) => ({
+        value,
+        label: ORDER_STATUS_LABELS[value] ?? value,
+      })),
+  ];
+
+  useEffect(() => {
+    setStatus(initialStatus);
+  }, [initialStatus]);
 
   const handleUpdate = async () => {
     if (status === "CANCELLED" && currentStatus !== "CANCELLED" && !confirm("Bestellung wirklich stornieren? Dies kann nicht rückgängig gemacht werden.")) {
@@ -73,7 +79,7 @@ export default function UpdateOrderStatus({
         </select>
       ) : (
         <span className="px-3 py-2 text-sm text-[var(--color-text-muted)] bg-[var(--color-bg-secondary)] rounded-xl">
-          Keine weiteren Status moeglich
+          Keine weiteren Status möglich
         </span>
       )}
       <button

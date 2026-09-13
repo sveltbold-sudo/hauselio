@@ -93,7 +93,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#FAFAF8" />
         <link rel="sitemap" href="/sitemap.xml" />
-        <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href="/rss.xml" />
+        <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href="/rss" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

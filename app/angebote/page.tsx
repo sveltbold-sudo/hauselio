@@ -104,7 +104,7 @@ export default async function AngebotePage() {
           <div className="container-hausaura text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium mb-6">
               <Percent className="w-4 h-4" />
-              <span>Bis zu {maxDiscount}% Rabatt</span>
+              <span>{maxDiscount > 0 ? `Bis zu ${maxDiscount}% Rabatt` : "Aktuelle Angebote"}</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight">
               Angebote & Sale
