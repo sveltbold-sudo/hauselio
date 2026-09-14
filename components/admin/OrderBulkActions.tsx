@@ -1,25 +1,29 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { ORDER_STATUS_LABELS } from "@/lib/admin-constants";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 
 interface OrderBulkActionsProps {
   selectedIds: string[];
+  selectedStatuses?: Record<string, string>;
   onClearSelection: () => void;
   onComplete: () => void;
 }
 
-export default function OrderBulkActions({ selectedIds, onClearSelection, onComplete }: OrderBulkActionsProps) {
+export default function OrderBulkActions({ selectedIds, selectedStatuses, onClearSelection, onComplete }: OrderBulkActionsProps) {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [showStatusMenu, setShowStatusMenu] = useState(false);
   const [cancelConfirm, setCancelConfirm] = useState(false);
   const [pendingCancelIds, setPendingCancelIds] = useState<string[]>([]);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const allCancelled = selectedIds.length > 0 && selectedIds.every((id) => selectedStatuses?.[id] === "CANCELLED");
 
   useEffect(() => {
     if (!showStatusMenu) return;
@@ -110,6 +114,30 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
     }
   };
 
+  const handleBulkDelete = async () => {
+    setDeleteConfirm(false);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/bestellungen/bulk", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedIds }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      const msg = data.skipped > 0
+        ? `${data.count} gelöscht, ${data.skipped} übersprungen`
+        : `${data.count} Bestellungen gelöscht.`;
+      toast.success(msg);
+      onClearSelection();
+      onComplete();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const statuses = (["PAYMENT_CONFIRMED", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"] as const).map((value) => ({
     value,
     label: ORDER_STATUS_LABELS[value],
@@ -158,6 +186,19 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
         >
           Abbrechen
         </button>
+        {allCancelled && (
+          <>
+            <div className="w-px h-6 bg-white/20" />
+            <button
+              onClick={() => setDeleteConfirm(true)}
+              disabled={loading}
+              className="flex items-center gap-2 px-3 py-2.5 min-h-[44px] bg-[var(--color-danger)] hover:bg-[var(--color-danger-hover)] rounded-lg text-sm font-medium transition-colors"
+            >
+              <Trash2 className="w-4 h-4" />
+              Löschen
+            </button>
+          </>
+        )}
       </div>
       <ConfirmDialog
         open={cancelConfirm}
@@ -167,6 +208,15 @@ export default function OrderBulkActions({ selectedIds, onClearSelection, onComp
         danger
         onConfirm={confirmCancel}
         onCancel={() => setCancelConfirm(false)}
+      />
+      <ConfirmDialog
+        open={deleteConfirm}
+        title={`${selectedIds.length} Bestellungen löschen`}
+        message="Möchten Sie diese Bestellungen wirklich dauerhaft löschen? Dies kann nicht rückgängig gemacht werden."
+        confirmLabel="Löschen"
+        danger
+        onConfirm={handleBulkDelete}
+        onCancel={() => setDeleteConfirm(false)}
       />
     </>
   );

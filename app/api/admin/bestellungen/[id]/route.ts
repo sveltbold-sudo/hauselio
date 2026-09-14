@@ -228,6 +228,47 @@ export async function PUT(
   }
 }
 
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const adminUser = await requireAdmin();
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-bestellung-delete:${ip}`, 10, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+    const { id } = await params;
+
+    const order = await prisma.order.findUnique({
+      where: { id },
+      select: { id: true, orderNumber: true, status: true, invoiceNumber: true },
+    });
+    if (!order) {
+      return NextResponse.json({ error: "Bestellung nicht gefunden" }, { status: 404 });
+    }
+    if (order.status !== "CANCELLED") {
+      return NextResponse.json({ error: "Nur stornierte Bestellungen können gelöscht werden" }, { status: 400 });
+    }
+
+    await prisma.orderItem.deleteMany({ where: { orderId: id } });
+    await prisma.order.delete({ where: { id } });
+
+    await logActivity({
+      action: "order.delete",
+      entity: "order",
+      entityId: id,
+      adminId: adminUser.id,
+      adminEmail: adminUser.email,
+      details: { orderNumber: order.orderNumber, invoiceNumber: order.invoiceNumber },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

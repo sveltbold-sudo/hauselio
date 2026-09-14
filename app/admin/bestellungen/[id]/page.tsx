@@ -10,6 +10,7 @@ import { ArrowLeft, Receipt, Download } from "lucide-react";
 import UpdateOrderStatus from "@/components/admin/UpdateOrderStatus";
 import OrderNotes from "@/components/admin/OrderNotes";
 import ResendReceiptButton from "@/components/admin/ResendReceiptButton";
+import DeleteOrderButton from "@/components/admin/DeleteOrderButton";
 
 export const dynamic = "force-dynamic";
 
@@ -125,6 +126,11 @@ export default async function AdminOrderDetailPage({
                 currentStatus={order.status}
               />
             </div>
+            {order.status === "CANCELLED" && (
+              <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
+                <DeleteOrderButton orderId={order.id} orderNumber={order.orderNumber} />
+              </div>
+            )}
           </div>
 
           {/* Products */}

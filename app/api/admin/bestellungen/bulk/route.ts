@@ -13,6 +13,10 @@ const BulkOrderSchema = z.object({
   status: z.enum(ALLOWED_ORDER_STATUSES),
 });
 
+const BulkDeleteSchema = z.object({
+  ids: z.array(z.string().regex(/^c[a-z0-9]{20,}$/i)).min(1).max(50),
+});
+
 export async function POST(request: NextRequest) {
   try {
     const ctError = validateContentType(request, "application/json");
@@ -102,6 +106,58 @@ export async function POST(request: NextRequest) {
       count: result.count,
       skipped,
       message: skipped > 0 ? `${skipped} Bestellung(en) übersprungen (ungültiger Übergang)` : undefined,
+    });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const ctError = validateContentType(request, "application/json");
+    if (ctError) return ctError;
+
+    await requireAdmin();
+    const ip = getClientIp(request);
+    if (!await checkRateLimit(`admin-bestellung-bulk-delete:${ip}`, 10, 60_000)) {
+      return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+    const body = await request.json();
+    const parsed = BulkDeleteSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]!.message },
+        { status: 400 }
+      );
+    }
+
+    const { ids } = parsed.data;
+
+    const orders = await prisma.order.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, status: true },
+    });
+
+    const cancellableOrders = orders.filter((o) => o.status === "CANCELLED");
+
+    if (cancellableOrders.length === 0) {
+      return NextResponse.json(
+        { error: "Keine stornierten Bestellungen zum Löschen ausgewählt" },
+        { status: 400 }
+      );
+    }
+
+    const cancellableIds = cancellableOrders.map((o) => o.id);
+
+    await prisma.orderItem.deleteMany({ where: { orderId: { in: cancellableIds } } });
+    const result = await prisma.order.deleteMany({ where: { id: { in: cancellableIds } } });
+
+    const skipped = ids.length - result.count;
+    return NextResponse.json({
+      count: result.count,
+      skipped,
+      message: skipped > 0 ? `${skipped} Bestellung(en) übersprungen (nicht storniert)` : undefined,
     });
   } catch (error) {
     return handleApiError(error);

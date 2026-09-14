@@ -4,10 +4,12 @@ import React from "react";
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from "@/lib/admin-constants";
 import OrderBulkActions from "@/components/admin/OrderBulkActions";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import { useToast } from "@/components/ui/Toast";
 
 interface Order {
   id: string;
@@ -47,7 +49,10 @@ function OrderTable({
   const [selected, setSelected] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<SortKey | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; orderNumber: string } | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
+  const toast = useToast();
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -98,6 +103,25 @@ function OrderTable({
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/bestellungen/${deleteTarget.id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success(`Bestellung ${deleteTarget.orderNumber} gelöscht.`);
+      setDeleteTarget(null);
+      router.refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Fehler beim Löschen");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -231,13 +255,24 @@ function OrderTable({
                     </span>
                   </td>
                   <td className="px-5 py-3 text-right">
-                    <Link
-                      href={`/admin/bestellungen/${order.id}`}
-                      aria-label={`Bestellung ${order.orderNumber} Details`}
-                      className="text-sm font-medium text-[var(--color-primary)] hover:underline"
-                    >
-                      Details
-                    </Link>
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/bestellungen/${order.id}`}
+                        aria-label={`Bestellung ${order.orderNumber} Details`}
+                        className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+                      >
+                        Details
+                      </Link>
+                      {order.status === "CANCELLED" && (
+                        <button
+                          onClick={() => setDeleteTarget({ id: order.id, orderNumber: order.orderNumber })}
+                          aria-label={`Bestellung ${order.orderNumber} löschen`}
+                          className="p-1.5 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded-lg transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -310,6 +345,15 @@ function OrderTable({
                       >
                         Details
                       </Link>
+                      {order.status === "CANCELLED" && (
+                        <button
+                          onClick={() => setDeleteTarget({ id: order.id, orderNumber: order.orderNumber })}
+                          aria-label={`Bestellung ${order.orderNumber} löschen`}
+                          className="p-1 text-[var(--color-danger)] hover:bg-[var(--color-danger-light)] rounded transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -379,8 +423,18 @@ function OrderTable({
 
       <OrderBulkActions
         selectedIds={selected}
+        selectedStatuses={Object.fromEntries(orders.map((o) => [o.id, o.status]))}
         onClearSelection={() => setSelected([])}
         onComplete={() => router.refresh()}
+      />
+      <ConfirmDialog
+        open={!!deleteTarget}
+        title={`Bestellung ${deleteTarget?.orderNumber} löschen`}
+        message="Möchten Sie diese Bestellung wirklich dauerhaft löschen? Dies kann nicht rückgängig gemacht werden."
+        confirmLabel="Löschen"
+        danger
+        onConfirm={handleDelete}
+        onCancel={() => setDeleteTarget(null)}
       />
     </>
   );
