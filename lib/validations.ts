@@ -15,6 +15,10 @@ export const CreateOrderSchema = z.object({
     quantity: z.number().int().min(1).max(99),
   })).min(1, "Mindestens ein Artikel erforderlich"),
   couponCode: z.string().max(50).optional().nullable(),
+  // Google Ads click IDs (captures cote client, optionnels) pour l'import serveur
+  gclid: z.string().max(255).regex(/^[A-Za-z0-9\-_.*/=+]+$/).optional().nullable(),
+  gbraid: z.string().max(255).regex(/^[A-Za-z0-9\-_.*/=+]+$/).optional().nullable(),
+  wbraid: z.string().max(255).regex(/^[A-Za-z0-9\-_.*/=+]+$/).optional().nullable(),
 });
 
 export const PASSWORD_RULES = z.string()

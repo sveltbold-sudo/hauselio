@@ -168,6 +168,14 @@ model Order {
   items             OrderItem[]
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+  // Google Ads: click IDs captures au checkout (90j) pour l'import serveur
+  gclid             String?
+  gbraid            String?
+  wbraid            String?
+  // Google Ads: statut de l'import serveur de conversion (null = pas encore uploade)
+  adsConversionUploadedAt DateTime?
+  adsUploadAttempts Int           @default(0)
+  adsUploadError    String?
 
   @@index([customerEmail])
   @@index([customerId])

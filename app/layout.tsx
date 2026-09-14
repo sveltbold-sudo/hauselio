@@ -9,6 +9,7 @@ import WebSiteJsonLd from "@/components/seo/WebSiteJsonLd";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 import ClientProviders from "@/components/ui/ClientProviders";
+import ClickIdCapture from "@/components/analytics/ClickIdCapture";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 import AdminShellHide from "@/components/admin/AdminShellHide";
 import Footer from "@/components/layout/Footer";
@@ -145,6 +146,9 @@ gtag('config', 'AW-18441392681');`,
           <ClientProviders />
           <ClientShell />
           <LazyComparisonBar />
+          <Suspense fallback={null}>
+            <ClickIdCapture />
+          </Suspense>
         </ToastProvider>
       </body>
     </html>

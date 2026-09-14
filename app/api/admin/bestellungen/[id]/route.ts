@@ -6,6 +6,7 @@ import { handleApiError, validateContentType } from "@/lib/api-helpers";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 import { logActivity } from "@/lib/activity-log";
+import { uploadOrderConversionById } from "@/lib/google-ads.server";
 import { ALLOWED_ORDER_STATUSES } from "@/lib/admin-constants";
 import { z } from "zod";
 
@@ -201,6 +202,22 @@ export async function PUT(
       }
     } catch (emailError) {
       logger.error("order-status-email", emailError);
+    }
+
+    // Import serveur Google Ads (contourne le blocage Consent Mode).
+    // Best-effort: un echec n'empeche pas le changement de statut,
+    // le cron /api/cron/ads-conversions reessaiera (5 tentatives max).
+    if (status === "PAYMENT_CONFIRMED") {
+      try {
+        const outcome = await uploadOrderConversionById(id);
+        if (!outcome.ok) {
+          logger.error("ads-conversion-inline", new Error(outcome.error || outcome.skipped || "upload echoue"), {
+            orderNumber: order.orderNumber,
+          });
+        }
+      } catch (adsError) {
+        logger.error("ads-conversion-inline", adsError);
+      }
     }
 
     await logActivity({ action: "order.status_change", entity: "order", entityId: id, adminId: adminUser.id, adminEmail: adminUser.email, details: { orderNumber: order.orderNumber, from: previousStatus, to: status } });

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, firstName, lastName, phone, address, city, zip, country, notes, items, couponCode } = parsed.data;
+    const { email, firstName, lastName, phone, address, city, zip, country, notes, items, couponCode, gclid, gbraid, wbraid } = parsed.data;
 
     // Optional: link order to logged-in customer account
     let customerId: string | null = null;
@@ -147,6 +147,9 @@ export async function POST(request: NextRequest) {
               couponDiscount,
               shippingCost,
               total,
+              gclid: gclid || null,
+              gbraid: gbraid || null,
+              wbraid: wbraid || null,
             },
           });
 

@@ -89,6 +89,8 @@ export async function POST(request: NextRequest) {
           if (status === "PAYMENT_CONFIRMED") await sendPaymentConfirmed(emailData);
           else if (status === "SHIPPED") await sendShippedConfirmation(emailData, o.trackingNumber || "");
           else if (status === "CANCELLED") await sendOrderCancelled(emailData);
+          // Note: pas d'upload Ads inline ici (limite 30s sur 50 commandes max) —
+          // le cron /api/cron/ads-conversions importe les conversions (toutes les 6h).
         } catch (emailErr) {
           logger.error("bulk-order-email", emailErr instanceof Error ? emailErr : new Error(String(emailErr)), { orderNumber: o.orderNumber });
         }

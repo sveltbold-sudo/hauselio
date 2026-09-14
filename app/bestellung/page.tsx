@@ -12,6 +12,7 @@ import { formatPrice, getVatLabel } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
 import { getShippingCost, getShippingThreshold } from "@/lib/constants";
 import { trackBeginCheckout } from "@/lib/analytics";
+import { getClickIds } from "@/lib/click-ids";
 
 interface PriceChange {
   id: string;
@@ -220,6 +221,7 @@ export default function BestellungPage() {
     setIsLoading(true);
 
     try {
+      const clickIds = getClickIds();
       const response = await fetch("/api/bestellungen", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -239,6 +241,9 @@ export default function BestellungPage() {
             price: item.price,
           })),
           couponCode: coupon?.code || undefined,
+          gclid: clickIds.gclid || undefined,
+          gbraid: clickIds.gbraid || undefined,
+          wbraid: clickIds.wbraid || undefined,
         }),
       });
 
