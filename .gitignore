@@ -54,4 +54,5 @@ next-env.d.ts
 credentials.txt
 client_secrets.json
 
-.vercel
+# opencode skills
+.agents/
