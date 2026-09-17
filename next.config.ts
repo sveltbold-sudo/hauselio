@@ -77,6 +77,9 @@ const nextConfig: NextConfig = {
     removeConsole: { exclude: ["error"] },
   },
   redirects: async () => [
+    { source: "/produkt/breville-barista-express", destination: "/produkt/sage-barista-express", permanent: true },
+    { source: "/produkt/breville-barista-touch", destination: "/produkt/sage-barista-touch", permanent: true },
+    { source: "/produkt/breville-barista-express-impress", destination: "/produkt/sage-barista-express-impress", permanent: true },
     { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
     { source: "/kategorie/kueche-und-kochen", destination: "/kategorie/kueche", permanent: true },
     { source: "/kaffee", destination: "/kategorie/kaffee", permanent: true },
