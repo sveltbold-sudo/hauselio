@@ -598,3 +598,67 @@ export async function sendPaymentReceipt(data: PaymentReceiptData) {
     html,
   });
 }
+
+export interface ReviewRequestData {
+  orderNumber: string;
+  customerEmail: string;
+  customerName: string;
+  items: { name: string; slug: string }[];
+  isReminder: boolean;
+}
+
+export async function sendReviewRequest(data: ReviewRequestData) {
+  const safeOrderNumber = escapeHtml(data.orderNumber);
+  const safeName = escapeHtml(data.customerName);
+  const title = data.isReminder ? "Ihre Meinung zählt noch immer" : "Wie zufrieden sind Sie?";
+  const intro = data.isReminder
+    ? `Hallo <strong style="color:#0A2540;">${safeName}</strong>, vor Kurzem haben wir Sie um eine Bewertung Ihrer Bestellung <strong>${safeOrderNumber}</strong> gebeten. Falls Sie noch keine Zeit hatten \u2013 hier ist Ihre zweite Chance, anderen Kunden zu helfen.`
+    : `Hallo <strong style="color:#0A2540;">${safeName}</strong>, Ihre Bestellung <strong>${safeOrderNumber}</strong> wurde geliefert. Wir hoffen, Sie sind zufrieden! Ihre ehrliche Bewertung hilft anderen Kunden bei der Kaufentscheidung \u2013 und uns, noch besser zu werden.`;
+
+  const itemsHtml = data.items
+    .map((item, i) => {
+      const safeItemName = escapeHtml(item.name);
+      const reviewUrl = `${SITE}/produkt/${encodeURIComponent(item.slug)}#kundenbewertungen`;
+      const cta = i === 0 ? "Jetzt bewerten" : "Bewerten";
+      return `
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #E5E7EB;">
+          <p style="color:#0A2540;font-size:14px;font-weight:700;margin:0 0 8px 0;">${safeItemName}</p>
+          <a href="${reviewUrl}" style="display:inline-block;background-color:#0A2540;color:#FFFFFF;font-size:13px;font-weight:700;text-decoration:none;padding:10px 24px;border-radius:10px;">
+            ${cta} \u2605
+          </a>
+        </td>
+      </tr>`;
+    })
+    .join("");
+
+  const html = await baseTemplate(`
+    ${headerBanner(title, `Bestellung ${safeOrderNumber}`, "#059669")}
+    <div style="padding:36px 40px;">
+      <p style="color:#4B5563;font-size:15px;margin:0 0 24px 0;line-height:1.6;">
+        ${intro}
+      </p>
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
+        ${itemsHtml}
+      </table>
+      <div style="background-color:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:16px 20px;margin:24px 0;">
+        <p style="color:#166534;font-size:13px;margin:0;line-height:1.6;">
+          \u2713 Ihre Bewertung erscheint mit dem Hinweis &bdquo;Verifizierter Kauf&ldquo; \u2013 sie wird von uns kurz gepr\u00fcft und dann ver\u00f6ffentlicht. Vielen Dank!
+        </p>
+      </div>
+      ${divider()}
+      <p style="color:#9CA3AF;font-size:12px;margin:16px 0 0 0;line-height:1.6;">
+        Sie erhalten maximal 2 E-Mails zu dieser Bestellung. Bei Fragen antworten Sie einfach auf diese E-Mail.
+      </p>
+    </div>
+  `);
+
+  return sendEmail({
+    from: FROM_EMAIL,
+    to: data.customerEmail,
+    subject: data.isReminder
+      ? `Noch keine Bewertung? ${safeOrderNumber} \u2013 HAUSAURA`
+      : `Ihre Meinung zu ${safeOrderNumber} \u2013 HAUSAURA`,
+    html,
+  });
+}

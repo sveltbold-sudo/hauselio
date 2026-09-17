@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
       data: {
         status,
         ...(paymentStatusUpdate ? { paymentStatus: paymentStatusUpdate } : {}),
+        ...(status === "DELIVERED" ? { deliveredAt: new Date() } : {}),
       },
     });
 

@@ -157,6 +157,10 @@ model Order {
   paymentProofUrl   String?
   reminderCount     Int           @default(0)
   lastReminderAt    DateTime?
+  // Avis clients: date de livraison + suivi des demandes automatiques post-livraison
+  deliveredAt         DateTime?
+  reviewRequestCount  Int           @default(0)
+  lastReviewRequestAt DateTime?
   invoiceNumber     String?       @unique
   paidAt            DateTime?
   shippingMethod    String?

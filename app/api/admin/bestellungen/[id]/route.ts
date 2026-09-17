@@ -101,6 +101,7 @@ export async function PUT(
         status,
         paymentStatus: paymentStatusUpdate,
         trackingNumber: trackingNumber || null,
+        ...(status === "DELIVERED" ? { deliveredAt: new Date() } : {}),
       },
       select: {
         id: true,
