@@ -775,6 +775,10 @@ export default function BestellungPage() {
                   )}
                 </span>
               </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-[var(--color-text-secondary)]">Zahlung</span>
+                <span className="font-semibold">Überweisung (Vorkasse)</span>
+              </div>
               {coupon && (
                 <div className="flex justify-between text-sm">
                   <span className="text-[var(--color-success)]">Rabatt ({coupon.label})</span>

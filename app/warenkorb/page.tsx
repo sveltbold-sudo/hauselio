@@ -439,6 +439,9 @@ export default function WarenkorbPage() {
                 Zur Kasse
               </Button>
             </Link>
+            <p className="text-xs text-center text-[var(--color-text-muted)] mt-3">
+              Zahlung per Überweisung (Vorkasse) · Keine Kreditkarte nötig · 30 Tage Rückgaberecht
+            </p>
 
             {/* Trust badges */}
             <ul className="mt-6 space-y-3 list-none">
@@ -489,6 +492,9 @@ export default function WarenkorbPage() {
             Zur Kasse
           </Button>
         </Link>
+        <p className="text-xs text-center text-[var(--color-text-muted)] mt-2">
+          Überweisung (Vorkasse) · 30 Tage Rückgaberecht
+        </p>
       </div>
     </main>
   );
