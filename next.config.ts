@@ -84,6 +84,8 @@ const nextConfig: NextConfig = {
     { source: "/produkt/lg-instaview-range-lsel6337f", destination: "/kategorie/haushaltsgeraete", permanent: true },
     { source: "/produkt/samsung-bespoke-slide-in-range-nx60bb871112", destination: "/kategorie/haushaltsgeraete", permanent: true },
     { source: "/produkt/vzug-rq4601-kuhlschrank", destination: "/kategorie/haushaltsgeraete", permanent: true },
+    { source: "/produkt/midea-air-cool-maw08v1qwt", destination: "/kategorie/klima", permanent: true },
+    { source: "/produkt/stadler-form-airgoing-kne01", destination: "/kategorie/klima", permanent: true },
     { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
     { source: "/kategorie/kueche-und-kochen", destination: "/kategorie/kueche", permanent: true },
     { source: "/kaffee", destination: "/kategorie/kaffee", permanent: true },
