@@ -90,6 +90,7 @@ const nextConfig: NextConfig = {
     { source: "/produkt/philips-hue-starter-kit-e27-neu", destination: "/produkt/philips-hue-starter-kit-e27", permanent: true },
     { source: "/produkt/tado-smart-thermostat-v3plus-neu", destination: "/produkt/tado-smart-thermostat-v3plus", permanent: true },
     { source: "/produkt/tado-smart-thermostat-v3plus-extension", destination: "/produkt/tado-smart-thermostat-v3plus-single", permanent: true },
+    { source: "/produkt/philips-8000-series-led", destination: "/kategorie/reinigung", permanent: true },
     { source: "/kueche", destination: "/kategorie/kueche", permanent: true },
     { source: "/kategorie/kueche-und-kochen", destination: "/kategorie/kueche", permanent: true },
     { source: "/kaffee", destination: "/kategorie/kaffee", permanent: true },
