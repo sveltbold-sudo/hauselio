@@ -5,7 +5,7 @@ export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "HAUSAURA";
 export const FREE_SHIPPING_THRESHOLD = 50;
 export const SHIPPING_COST = 4.99;
 
-export const TRUST_BAR_RATING = 4.8;
+export const TRUST_BAR_RATING = 4.4;
 
 // Per-country shipping config: { threshold, cost }
 const SHIPPING_BY_COUNTRY: Record<string, { threshold: number; cost: number }> = {

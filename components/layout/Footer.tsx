@@ -79,7 +79,7 @@ export default async function Footer() {
           <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-4 sm:gap-6">
             <span className="text-xs text-white/60">Kundenbewertung:</span>
             <div className="flex items-center gap-1.5">
-              <span className="text-sm font-semibold text-[var(--color-accent)]">4,8/5</span>
+              <span className="text-sm font-semibold text-[var(--color-accent)]">4,4/5</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-[var(--color-accent)]">9,2/10</span>
@@ -94,11 +94,11 @@ export default async function Footer() {
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Shield className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />
-              <span className="text-xs font-medium">TÜV-geprüft</span>
+              <span className="text-xs font-medium">Deutsches Unternehmen</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Award className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-              <span className="text-xs font-medium">Geprüfter Shop</span>
+              <span className="text-xs font-medium">Persönlicher Support</span>
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <BadgeCheck className="w-4 h-4 text-[var(--color-success)]" aria-hidden="true" />

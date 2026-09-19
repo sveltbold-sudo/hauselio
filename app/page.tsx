@@ -400,8 +400,8 @@ export default async function HomePage() {
                   </svg>
                 ))}
               </div>
-              <span className="text-sm font-bold text-[var(--color-text-primary)]">4,8/5</span>
-              <span className="text-xs text-[var(--color-text-muted)]">· 2.500+ Bewertungen</span>
+              <span className="text-sm font-bold text-[var(--color-text-primary)]">4,4/5</span>
+              <span className="text-xs text-[var(--color-text-muted)]">· 470+ Bewertungen</span>
             </div>
             <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
             <div className="flex items-center gap-2">

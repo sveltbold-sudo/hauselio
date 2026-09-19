@@ -14,7 +14,7 @@ const THERMOMIX_SLUGS = ["thermomix-tm7", "thermomix-tm6", "vorwerk-thermomix-tm
 export const metadata: Metadata = {
   title: "Thermomix kaufen — TM7, TM6 & Zubehör | HAUSAURA",
   description:
-    "Thermomix zum Bestpreis kaufen. TM7, TM6 & Zubehör. Kostenloser Versand, 2 Jahre Garantie, 30 Tage Rückgaberecht. Offizieller Händler.",
+    "Thermomix zum Bestpreis kaufen. TM7, TM6 & Zubehör. Kostenloser Versand, 2 Jahre Gewährleistung, 30 Tage Rückgaberecht. Unabhängiger Online-Händler.",
   alternates: { canonical: `${SITE_URL}/thermomix` },
   openGraph: {
     title: "Thermomix kaufen — Bestpreis bei HAUSAURA",
@@ -52,9 +52,9 @@ async function getThermomixProducts() {
 
 const usps = [
   { icon: Truck, label: "Kostenloser Versand", desc: "Ab 50€ — auch bei Thermomix" },
-  { icon: Shield, label: "2 Jahre Garantie", desc: "Vollständige Herstellergarantie" },
+  { icon: Shield, label: "2 Jahre Gewährleistung", desc: "Gesetzliche Gewährleistung auf Neugeräte" },
   { icon: RotateCcw, label: "30 Tage Rückgabe", desc: "Risikolos bestellen & testen" },
-  { icon: Star, label: "4,8/5 Bewertung", desc: "Über 300 zufriedene Kunden" },
+  { icon: Star, label: "4,4/5 Bewertung", desc: "Über 470 verifizierte Bewertungen" },
 ];
 
 const features = [
@@ -67,8 +67,8 @@ const features = [
 ];
 
 const faqs = [
-  { q: "Was kostet ein Thermomix bei HAUSAURA?", a: "Der Thermomix TM7 ist ab 1.295€ bei uns erhältlich. Der TM6 ist ab 899€ verfügbar. Alle Preise sind inklusive MwSt. und der Versand ist kostenlos." },
-  { q: "Bekomme ich eine Garantie?", a: "Ja, alle Thermomix-Geräte werden mit der vollen 2 Jahre Herstellergarantie geliefert." },
+  { q: "Was kostet ein Thermomix bei HAUSAURA?", a: "Der Thermomix TM7 ist ab 1.295€ bei uns erhältlich. Der TM6 ist ab 1.133€ verfügbar. Alle Preise sind inklusive MwSt. und der Versand ist kostenlos." },
+  { q: "Bekomme ich eine Garantie?", a: "Ja, auf alle Thermomix-Neugeräte gilt die gesetzliche 2 Jahre Gewährleistung." },
   { q: "Kann ich den Thermomix zurückgeben?", a: "Ja, Sie haben 30 Tage Rückgaberecht. Das Gerät muss in der Originalverpackung sein." },
   { q: "Unterschied TM7 vs TM6?", a: "Der TM7 bietet mehr Leistung (1800W), ein größeres Display und zusätzliche Funktionen. Der TM6 bleibt ein exzellenter Allrounder zum besseren Preis." },
 ];
@@ -89,7 +89,7 @@ export default async function ThermomixPage() {
           <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 70% 20%, rgba(232,120,5,0.06), transparent 60%)" }} />
           <div className="relative container-hausaura py-12 md:py-20">
             <div className="max-w-3xl">
-              <p className="caption text-[var(--color-accent)] mb-3">Offizieller Thermomix-Händler</p>
+              <p className="caption text-[var(--color-accent)] mb-3">Original Thermomix-Neugeräte</p>
               <h1 className="heading-1 mb-4">
                 Thermomix <span className="text-[var(--color-accent)]">kaufen</span>
               </h1>
