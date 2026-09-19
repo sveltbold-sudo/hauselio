@@ -34,7 +34,7 @@ const fallbackSettings = {
   companyName: "HAUSAURA GmbH",
   contactEmail: "info@hausaura.de",
   contactPhone: "+49 (0)1525 9140453",
-  contactAddress: "Kastanienallee 42, 10435 Berlin",
+  contactAddress: "Musterstraße 12, 10115 Berlin",
 };
 
 async function getSettings() {
@@ -67,8 +67,8 @@ export default async function KontaktPage() {
       email: settings.contactEmail,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Kastanienallee 42",
-        postalCode: "10435",
+        streetAddress: "Musterstraße 12",
+        postalCode: "10115",
         addressLocality: "Berlin",
         addressCountry: "DE",
       },

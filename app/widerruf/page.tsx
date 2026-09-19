@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 const fallback = {
   companyName: "HAUSAURA GmbH",
-  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  companyAddress: "Musterstraße 12, 10115 Berlin",
   contactPhone: "+49 (0)1525 9140453",
   contactEmail: "widerruf@hausaura.de",
 };

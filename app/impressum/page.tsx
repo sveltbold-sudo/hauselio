@@ -22,14 +22,14 @@ export const metadata: Metadata = {
 };
 
 const fallback = {
-  companyName: "HAUSAURA GmbH",
-  companyAddress: "Kastanienallee 42, 10435 Berlin",
-  contactPhone: "+49 (0)1525 9140453",
+  companyName: "Musterfirma GmbH",
+  companyAddress: "Musterstraße 12, 10115 Berlin",
+  contactPhone: "+49 1525 9140453",
   contactEmail: "info@hausaura.de",
-  vatId: "DE 312 847 609",
+  vatId: "DE 4521365897",
   managingDirector: "Max Mustermann",
   registerCourt: "Amtsgericht Charlottenburg",
-  registerNumber: "HRB 123456 B",
+  registerNumber: "HRB 254685 B",
 };
 
 async function getSettings() {

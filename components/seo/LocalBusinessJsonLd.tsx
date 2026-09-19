@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/constants";
 
 const fallback = {
   companyName: "HAUSAURA GmbH",
-  companyAddress: "Kastanienallee 42, 10435 Berlin",
+  companyAddress: "Musterstraße 12, 10115 Berlin",
   contactPhone: "+4915259140453",
   contactEmail: "info@hausaura.de",
 };
@@ -26,9 +26,9 @@ async function getSettings() {
 export default async function LocalBusinessJsonLd() {
   const s = await getSettings();
   const addrParts = s.companyAddress.split(",").map((p) => p.trim());
-  const street = addrParts[0] || "Kastanienallee 42";
-  const postalCode = (addrParts[1] || "10435 Berlin").split(" ")[0] || "10435";
-  const city = (addrParts[1] || "10435 Berlin").split(" ").slice(1).join(" ") || "Berlin";
+  const street = addrParts[0] || "Musterstraße 12";
+  const postalCode = (addrParts[1] || "10115 Berlin").split(" ")[0] || "10115";
+  const city = (addrParts[1] || "10115 Berlin").split(" ").slice(1).join(" ") || "Berlin";
 
   const jsonLd = {
     "@context": "https://schema.org",

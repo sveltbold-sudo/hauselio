@@ -21,7 +21,7 @@ test.describe("Contact Page", () => {
   test("displays contact information", async ({ page }) => {
     const email = page.getByText("info@HAUSAURA.de");
     const phone = page.getByText("+49");
-    const address = page.getByText("Kastanienallee");
+    const address = page.getByText("Musterstraße");
 
     const emailCount = await email.count();
     const phoneCount = await phone.count();
