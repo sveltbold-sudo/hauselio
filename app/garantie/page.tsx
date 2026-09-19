@@ -57,7 +57,7 @@ const guaranteeTiers = [
   {
     title: "Erweiterte Garantie",
     duration: "Bis zu 3 Jahre",
-    description: "Optional buchbar bei ausgewählten Produkten. Erweitert die Standard-Garantie um ein weiteres Jahr.",
+    description: "Auf Anfrage für ausgewählte Produkte. Erweitert die Standard-Garantie um ein weiteres Jahr.",
     icon: Clock,
     color: "text-[var(--color-accent)]",
     bgColor: "bg-[var(--color-accent)]/10",
@@ -65,7 +65,7 @@ const guaranteeTiers = [
   {
     title: "Premium-Garantie",
     duration: "Bis zu 5 Jahre",
-    description: "Für Premium-Geräte von Miele, Gaggenau und V-ZUG. Umfassender Schutz für Ihre Investition.",
+    description: "Für Premium-Geräte von Miele und Gaggenau. Auf Anfrage — umfassender Schutz für Ihre Investition.",
     icon: CheckCircle,
     color: "text-[var(--color-success)]",
     bgColor: "bg-[var(--color-success)]/10",

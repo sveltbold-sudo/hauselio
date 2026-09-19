@@ -15,8 +15,8 @@ const valueProps = [
   },
   {
     icon: Shield,
-    title: "Garantie bis 5 J.",
-    description: "Erweiterte Option",
+    title: "2 Jahre Gewährleistung",
+    description: "Gesetzlich garantiert",
     color: "text-[var(--color-success)]",
   },
   {

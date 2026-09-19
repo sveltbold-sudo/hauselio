@@ -91,7 +91,7 @@ const faqSections = [
       },
       {
         q: "Welche Garantie bieten Sie?",
-        a: "Alle Produkte unterliegen der gesetzlichen Gewährleistung von 24 Monaten. Für ausgewählte Premium-Produkte (Miele, Gaggenau, V-ZUG) bieten wir eine optionale Premium-Garantie bis zu 5 Jahre an. Diese kann direkt beim Kauf gebucht werden.",
+        a: "Alle Produkte unterliegen der gesetzlichen Gewährleistung von 24 Monaten. Für ausgewählte Premium-Produkte (Miele, Gaggenau) ist auf Anfrage eine erweiterte Garantie bis zu 5 Jahre möglich. Kontaktieren Sie uns einfach.",
       },
       {
         q: "Was tun bei einem Defekt oder Garantiefall?",

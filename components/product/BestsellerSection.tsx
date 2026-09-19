@@ -23,7 +23,7 @@ export default function BestsellerSection({ products, title = "Am besten verkauf
             </div>
             <h2 className="heading-2">{title}</h2>
             <p className="body-large mt-2 line-clamp-2">
-              Unsere meistverkauften Produkte — vertrauen Sie auf die Wahl tausender Kunden
+              Beliebte Produkte — ausgewählt von unseren Kunden
             </p>
           </div>
           <Link
