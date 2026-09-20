@@ -198,7 +198,7 @@ export default async function ThermomixPage() {
           <div className="container-hausaura">
             <h2 className="heading-2 text-white mb-4">Bereit für Ihren Thermomix?</h2>
             <p className="body-large text-white/80 mb-6 max-w-xl mx-auto">
-              Bestellen Sie jetzt und erhalten Sie kostenlosen Versand, 2 Jahre Garantie und 30 Tage Rückgaberecht.
+              Bestellen Sie jetzt und erhalten Sie kostenlosen Versand, 2 Jahre Gewährleistung und 30 Tage Rückgaberecht.
             </p>
             <Link
               href="#produkte"
