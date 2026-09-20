@@ -35,6 +35,7 @@ export default function BestellungPage() {
   const [orderError, setOrderError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const orderSubmitted = useRef(false);
+  const beginCheckoutFired = useRef(false);
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -256,8 +257,6 @@ export default function BestellungPage() {
       try {
         sessionStorage.setItem(`order_${data.order.orderNumber}`, formData.email);
       } catch {}
-      const checkoutItems: { id: string; name: string; price: number; quantity: number }[] = items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity }));
-      trackBeginCheckout(finalTotal, checkoutItems);
       clearCart();
       router.push(`/bestellung/erfolg?order=${data.order.orderNumber}`);
     } catch (error) {
@@ -273,6 +272,16 @@ export default function BestellungPage() {
       router.replace("/warenkorb");
     }
   }, [mounted, items.length, isValidating, router]);
+
+  // Begin checkout: fire once when the buyer ENTERS checkout (not after ordering)
+  useEffect(() => {
+    if (!mounted || items.length === 0 || beginCheckoutFired.current || isValidating) return;
+    beginCheckoutFired.current = true;
+    const entryItems = items.map((item) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity }));
+    const entryTotal = entryItems.reduce((s, i) => s + i.price * i.quantity, 0);
+    trackBeginCheckout(entryTotal, entryItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted, items.length, isValidating]);
 
   if (!mounted) {
     return (
