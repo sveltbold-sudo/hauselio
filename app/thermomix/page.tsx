@@ -94,7 +94,7 @@ export default async function ThermomixPage() {
                 Thermomix <span className="text-[var(--color-accent)]">kaufen</span>
               </h1>
               <p className="body-large mb-6 max-w-xl">
-                Entdecken Sie den Thermomix bei HAUSAURA — zum Bestpreis, mit kostenlosem Versand und 2 Jahre Garantie.
+                Entdecken Sie den Thermomix bei HAUSAURA — zum Bestpreis, mit kostenlosem Versand und 2 Jahren Gewährleistung.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
