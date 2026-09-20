@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface CategoryBrandFilterProps {
@@ -11,6 +12,8 @@ interface CategoryBrandFilterProps {
 export default function CategoryBrandFilter({ brands, selectedBrand, slug }: CategoryBrandFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // Collapsed on mobile so the chip cloud doesn't push products off-screen
+  const [expanded, setExpanded] = useState(false);
 
   const handleBrandChange = (brandSlug: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -39,20 +42,38 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
       >
         Alle
       </button>
-      {brands.map((brand) => (
+      {brands.map((brand) => {
+        const isSelected = selectedBrand === brand.slug;
+        return (
+          <button
+            key={brand.slug}
+            onClick={() => handleBrandChange(brand.slug)}
+            aria-pressed={isSelected}
+            aria-expanded={expanded}
+            className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              // On mobile only "Alle" + selected brand stay visible unless expanded
+              !isSelected && !expanded ? "hidden sm:inline-flex sm:items-center" : "inline-flex items-center"
+            } ${
+              isSelected
+                ? "bg-[var(--color-primary)] text-white"
+                : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10"
+            }`}
+          >
+            {brand.name} ({brand.count})
+          </button>
+        );
+      })}
+      {/* Mobile toggle — hidden on desktop where all chips show */}
+      {brands.length > 1 && (
         <button
-          key={brand.slug}
-          onClick={() => handleBrandChange(brand.slug)}
-          aria-pressed={selectedBrand === brand.slug}
-        className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-            selectedBrand === brand.slug
-              ? "bg-[var(--color-primary)] text-white"
-              : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10"
-          }`}
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className="sm:hidden min-h-[44px] px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-bg-secondary)] text-[var(--color-primary)]"
         >
-          {brand.name} ({brand.count})
+          {expanded ? "Weniger ▲" : `Marken (${brands.length}) ▼`}
         </button>
-      ))}
+      )}
     </div>
   );
 }
