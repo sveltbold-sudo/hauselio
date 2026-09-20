@@ -178,16 +178,16 @@ export default function CookieConsent() {
         onKeyDown={handleKeyDown}
         className="fixed bottom-0 left-0 right-0 z-[96] p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-6">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-[var(--color-accent)]/10 rounded-xl flex items-center justify-center">
+        <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-4 sm:p-6">
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex-shrink-0 w-10 h-10 bg-[var(--color-accent)]/10 rounded-xl hidden sm:flex items-center justify-center">
               <Cookie className="w-5 h-5 text-[var(--color-accent)]" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-[var(--color-text-primary)] mb-1 sm:mb-2">
                 Cookie-Einstellungen
               </h3>
-              <p id="cookie-desc" className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+              <p id="cookie-desc" className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-3 sm:mb-4">
                 Wir verwenden Cookies, um das Nutzererlebnis zu verbessern.
                 Sie können wählen, welche Cookies Sie zulassen möchten.
                 Weitere Informationen finden Sie in unserer <a href="/datenschutz" className="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a>.
@@ -227,13 +227,13 @@ export default function CookieConsent() {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {showDetails ? (
                   <Button
                     ref={firstButtonRef}
                     onClick={handleSaveSelection}
                     variant="primary"
-                    className="w-full sm:w-auto bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
+                    className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
                   >
                     Auswahl speichern
                   </Button>
@@ -242,7 +242,7 @@ export default function CookieConsent() {
                     ref={firstButtonRef}
                     onClick={handleAcceptAll}
                     variant="primary"
-                    className="w-full sm:w-auto bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
+                    className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] min-h-[48px]"
                   >
                     Akzeptieren
                   </Button>
@@ -250,7 +250,7 @@ export default function CookieConsent() {
                 <Button
                   onClick={handleRejectAll}
                   variant="outline"
-                  className="w-full sm:w-auto border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-border-light)] min-h-[48px]"
+                  className="w-full border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-border-light)] min-h-[48px]"
                 >
                   Ablehnen
                 </Button>
@@ -261,7 +261,7 @@ export default function CookieConsent() {
                       setPrefs({ essential: true, functional: false, analytics: false });
                     }}
                     variant="ghost"
-                    className="w-full sm:w-auto text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] min-h-[48px]"
+                    className="col-span-2 w-full text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] min-h-[40px] text-xs"
                   >
                     <Settings className="w-4 h-4 mr-1" />
                     Einstellungen
