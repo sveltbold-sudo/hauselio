@@ -42,6 +42,17 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
       >
         Alle
       </button>
+      {/* Collapse button at TOP when expanded — no need to scroll down */}
+      {expanded && (
+        <button
+          type="button"
+          onClick={() => setExpanded(false)}
+          aria-expanded={true}
+          className="sm:hidden min-h-[44px] px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary)] text-white"
+        >
+          Weniger ▲
+        </button>
+      )}
       {brands.map((brand) => {
         const isSelected = selectedBrand === brand.slug;
         return (
@@ -63,15 +74,15 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
           </button>
         );
       })}
-      {/* Mobile toggle — hidden on desktop where all chips show */}
-      {brands.length > 1 && (
+      {/* Mobile expand button — hidden on desktop where all chips show */}
+      {!expanded && brands.length > 1 && (
         <button
           type="button"
-          onClick={() => setExpanded((v) => !v)}
-          aria-expanded={expanded}
+          onClick={() => setExpanded(true)}
+          aria-expanded={false}
           className="sm:hidden min-h-[44px] px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-bg-secondary)] text-[var(--color-primary)]"
         >
-          {expanded ? "Weniger ▲" : `Marken (${brands.length}) ▼`}
+          {`Marken (${brands.length}) ▼`}
         </button>
       )}
     </div>
