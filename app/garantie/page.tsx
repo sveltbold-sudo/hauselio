@@ -156,9 +156,9 @@ export default async function GarantiePage() {
           <section>
             <h2 className="heading-3 mb-3">Details zur erweiterten Garantie</h2>
             <p className="text-[var(--color-text-secondary)]">
-              Für ausgewählte Produkte bieten wir eine optionale erweiterte Garantie an. Diese kann direkt beim Kauf
-              für 1-3 weitere Jahre gebucht werden. Die erweiterte Garantie deckt die gleichen Mängel ab wie die
-              gesetzliche Gewährleistung und verlängert deren Laufzeit.
+              Für ausgewählte Produkte ist auf Anfrage eine optionale erweiterte Garantie möglich — für 1-3 weitere
+              Jahre. Die erweiterte Garantie deckt die gleichen Mängel ab wie die gesetzliche Gewährleistung und
+              verlängert deren Laufzeit. Kontaktieren Sie uns einfach.
             </p>
           </section>
 
