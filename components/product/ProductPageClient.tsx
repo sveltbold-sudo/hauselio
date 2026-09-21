@@ -293,7 +293,7 @@ export default function ProductPageClient({ product, relatedProducts = [], ratge
 
       <FrequentlyBoughtTogether
         currentProduct={{ id: product.id, name: product.name, slug: product.slug, price: product.price, image: product.images[0] || "/images/placeholder-product.svg", categorySlug: product.categorySlug }}
-        products={relatedProducts}
+        products={relatedProducts.filter((p) => p.price <= product.price * 3)}
       />
 
       <RecentlyViewedSection currentProductId={product.id} />

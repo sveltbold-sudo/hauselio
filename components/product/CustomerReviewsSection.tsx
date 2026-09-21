@@ -68,19 +68,8 @@ export default async function CustomerReviewsSection({ productId }: CustomerRevi
   }
 
   if (error) {
-    return (
-      <section id="kundenbewertungen" className="section-py bg-white" aria-label="Kundenbewertungen">
-        <div className="container-hausaura">
-          <div className="text-center py-12">
-            <p className="caption text-[var(--color-primary)] mb-3">Bewertungen</p>
-            <h2 className="heading-2 mb-4">{productId ? "Produktbewertungen" : "Was unsere Kunden sagen"}</h2>
-            <p className="text-[var(--color-text-muted)] mb-6">
-              Bewertungen werden gerade geladen. Bitte aktualisieren Sie die Seite.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
+    // Fail silently — a stuck loader harms trust more than missing reviews
+    return null;
   }
 
   if (reviews.length === 0) {
