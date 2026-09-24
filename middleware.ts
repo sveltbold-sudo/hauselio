@@ -18,7 +18,9 @@ export async function middleware(request: NextRequest) {
   const isApiRoute = pathname.startsWith("/api/");
 
   // CSRF on ALL non-safe API routes (not just admin)
-  if (isApiRoute && !SAFE_METHODS.includes(request.method)) {
+  // Exception: external webhooks (Stripe) — secured by signature verification instead
+  const isExternalWebhook = pathname.startsWith("/api/webhooks/");
+  if (isApiRoute && !isExternalWebhook && !SAFE_METHODS.includes(request.method)) {
     if (!validateEdgeCsrfOrigin(request)) {
       return NextResponse.json(
         { error: "CSRF-Schutz: Ungültige Herkunft" },
