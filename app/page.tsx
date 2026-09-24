@@ -476,7 +476,7 @@ export default async function HomePage() {
               { q: "Wie lang ist die Lieferzeit?", a: "2-5 Werktage nach Zahlungseingang." },
               { q: "Versandkostenfrei ab 50€?", a: "Ja, innerhalb Deutschlands ab 50€." },
               { q: "30 Tage Rückgaberecht?", a: "Ja, unbenutzte Ware in Originalverpackung." },
-              { q: "Welche Zahlungsarten?", a: "Überweisung (Vorkasse)." },
+              { q: "Welche Zahlungsarten?", a: "Kreditkarte (Visa, Mastercard) und Überweisung (Vorkasse)." },
             ].map((faq) => (
               <div key={faq.q} className="bg-white rounded-xl p-4 border border-[var(--color-border-light)]">
                 <p className="font-semibold text-sm text-[var(--color-text-primary)] mb-1">{faq.q}</p>

@@ -337,6 +337,8 @@ export async function GET(request: NextRequest) {
         couponDiscount: true,
         shippingCost: true,
         status: true,
+        paymentMethod: true,
+        paymentStatus: true,
         createdAt: true,
         items: {
           select: {
@@ -365,6 +367,8 @@ export async function GET(request: NextRequest) {
         couponDiscount: Number(order.couponDiscount),
         shippingCost: Number(order.shippingCost),
         status: order.status,
+        paymentMethod: order.paymentMethod,
+        paymentStatus: order.paymentStatus,
         createdAt: order.createdAt.toISOString(),
         items: order.items.map((item) => ({
           id: item.productId,

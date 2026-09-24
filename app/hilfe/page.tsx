@@ -70,7 +70,7 @@ function getFaqs(s: typeof fallback) {
   },
   {
     question: "Welche Zahlungsarten stehen zur Verfügung?",
-    answer: "Wir bieten ausschließlich die Zahlungsart Überweisung (Vorkasse) an. Nach Ihrer Bestellung erhalten Sie eine E-Mail mit unseren Bankverbindungsdaten. Die Zahlungsfrist beträgt 5 Werktage nach Abschluss des Vertrages.",
+    answer: "Sie können per Kreditkarte (Visa, Mastercard — empfohlen, schnellster Versand) oder per Überweisung (Vorkasse) zahlen. Bei Vorkasse erhalten Sie eine E-Mail mit unseren Bankverbindungsdaten. Die Zahlungsfrist beträgt 5 Werktage nach Abschluss des Vertrages.",
   },
   {
     question: "Versanden Sie auch nach Österreich und in die Schweiz?",
@@ -82,7 +82,7 @@ function getFaqs(s: typeof fallback) {
   },
   {
     question: "Bieten Sie Ratenzahlung an?",
-    answer: "Derzeit bieten wir ausschließlich Zahlung per Überweisung (Vorkasse) an. Eine Ratenzahlung ist leider noch nicht möglich. Wir arbeiten daran, Ihnen weitere Zahlungsmethoden anzubieten.",
+    answer: "Neben Überweisung (Vorkasse) akzeptieren wir auch Kreditkarte (Visa, Mastercard). Eine Ratenzahlung ist leider noch nicht möglich.",
   },
   {
     question: "Wie kann ich meinen Newsletter abbestellen?",

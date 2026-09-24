@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Truck, Package, Landmark } from "lucide-react";
+import { Truck, Package, Landmark, CreditCard } from "lucide-react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL } from "@/lib/constants";
@@ -194,7 +194,21 @@ export default async function VersandPage() {
         <h2 className="heading-3 mb-6">
           Zahlungsarten
         </h2>
-        <div className="bg-[var(--color-bg)] rounded-xl p-6">
+        <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-6">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 bg-[var(--color-success)]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <CreditCard className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
+                Kreditkarte (Visa, Mastercard) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
+              </h3>
+              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                Sichere Zahlung per Karte über Stripe (3D Secure). Ihre Bestellung
+                wird <strong>sofort bearbeitet</strong> und am schnellsten versendet.
+              </p>
+            </div>
+          </div>
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-[var(--color-primary-50)] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
               <Landmark className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />

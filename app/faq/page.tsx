@@ -53,7 +53,7 @@ const faqSections = [
       },
       {
         q: "Welche Zahlungsarten stehen zur Verfügung?",
-        a: "Wir bieten ausschließlich die Zahlungsart Überweisung (Vorkasse) an. Nach Ihrer Bestellung erhalten Sie eine E-Mail mit unseren Bankverbindungsdaten. Die Zahlungsfrist beträgt 5 Werktage nach Abschluss des Vertrages.",
+        a: "Sie können per Kreditkarte (Visa, Mastercard — empfohlen, schnellster Versand) oder per Überweisung (Vorkasse) zahlen. Bei Vorkasse erhalten Sie eine E-Mail mit unseren Bankverbindungsdaten. Die Zahlungsfrist beträgt 5 Werktage nach Abschluss des Vertrages.",
       },
       {
         q: "Kann ich meine Bestellung stornieren?",

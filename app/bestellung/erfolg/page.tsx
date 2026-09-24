@@ -27,6 +27,8 @@ interface Order {
   orderNumber: string;
   invoiceNumber: string | null;
   status: string;
+  paymentMethod?: string;
+  paymentStatus?: string;
   trackingNumber?: string | null;
   total: number;
   shippingCost: number;
@@ -51,7 +53,7 @@ const faqItems = [
   },
   {
     q: "Kann ich eine andere Zahlungsmethode verwenden?",
-    a: "Derzeit bieten wir ausschließlich die Zahlung per Überweisung (Vorkasse) an – für maximale Sicherheit Ihrer Daten.",
+    a: "Ja — neben Überweisung (Vorkasse) akzeptieren wir auch Kreditkarte (Visa, Mastercard) via Stripe. Wählen Sie Ihre bevorzugte Zahlungsart im Checkout.",
   },
   {
     q: "Wann wird mein Paket versendet?",
@@ -108,6 +110,8 @@ function OrderSuccessContent() {
             orderNumber: data.order.orderNumber,
             invoiceNumber: data.order.invoiceNumber || null,
             status: data.order.status,
+            paymentMethod: data.order.paymentMethod,
+            paymentStatus: data.order.paymentStatus,
             total: data.order.total,
             shippingCost: data.order.shippingCost,
             trackingNumber: data.order.trackingNumber || null,
@@ -220,8 +224,8 @@ function OrderSuccessContent() {
         </p>
       </div>
 
-      {/* Payment reminder */}
-      {order && order.status === "PENDING_PAYMENT" && remaining > 0 && (
+      {/* Payment reminder (Vorkasse only) */}
+      {order && order.status === "PENDING_PAYMENT" && order.paymentMethod !== "card" && remaining > 0 && (
         <div
           role="status"
           aria-live="off"
@@ -345,7 +349,12 @@ function OrderSuccessContent() {
               <p className="font-bold text-blue-700">📦 Versendet{order.trackingNumber ? ` — ${order.trackingNumber}` : ""}</p>
               <p className="text-sm text-[var(--color-text-secondary)] mt-1">Ihre Bestellung ist unterwegs.</p>
             </div>
-          ) : bankDetails && (
+          ) : order.paymentMethod === "card" && order.status === "PENDING_PAYMENT" ? (
+            <div className="bg-[var(--color-primary-50)] border-2 border-[var(--color-primary)]/20 rounded-2xl p-6 mb-6 text-center">
+              <p className="font-bold text-[var(--color-primary)]">💳 Kartenzahlung wird verarbeitet…</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mt-1">Einen Moment bitte — wir bestätigen Ihre Zahlung.</p>
+            </div>
+          ) : bankDetails && order.paymentMethod !== "card" && (
             <div className="bg-white rounded-2xl border-2 border-[var(--color-primary)]/20 p-4 sm:p-6 mb-6 text-left">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)] flex items-center justify-center">

@@ -153,6 +153,8 @@ model Order {
   adminNotes        String?
   paymentMethod     String        @default("sepa_transfer")
   paymentStatus     PaymentStatus @default(PENDING)
+  stripeSessionId   String?       @unique
+  stripePaymentIntentId String?
   bankReference     String?
   paymentProofUrl   String?
   reminderCount     Int           @default(0)

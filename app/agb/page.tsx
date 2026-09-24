@@ -83,8 +83,9 @@ export default function AGBPage() {
             jeweiligen Produktseite im &quot;Warenkorb&quot; vor Abschluss des Bestellvorgangs mitgeteilt werden.
           </p>
           <p className="text-[var(--color-text-secondary)] mt-3">
-            (2) Die Zahlung erfolgt ausschließlich per Überweisung (Vorkasse). Die Zahlungsfrist beträgt 5
-            Werktage nach Abschluss des Vertrages.
+            (2) Die Zahlung erfolgt per Überweisung (Vorkasse) oder per Kreditkarte (Visa, Mastercard) über unseren
+            Zahlungsdienstleister Stripe. Bei Überweisung beträgt die Zahlungsfrist 5 Werktage nach Abschluss des
+            Vertrages. Bei Kartenzahlung erfolgt die Belastung sofort und die Bestellung wird umgehend bearbeitet.
           </p>
         </section>
 

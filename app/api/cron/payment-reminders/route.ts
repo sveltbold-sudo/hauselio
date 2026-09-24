@@ -143,6 +143,7 @@ export async function GET(request: NextRequest) {
       where: {
         status: "PENDING_PAYMENT",
         paymentStatus: "PENDING",
+        paymentMethod: "sepa_transfer",
         reminderCount: { lt: MAX_REMINDERS_TOTAL },
       },
       select: {

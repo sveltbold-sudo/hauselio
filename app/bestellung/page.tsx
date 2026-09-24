@@ -36,6 +36,7 @@ export default function BestellungPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const orderSubmitted = useRef(false);
   const beginCheckoutFired = useRef(false);
+  const [paymentMethod, setPaymentMethod] = useState<"vorkasse" | "karte">("vorkasse");
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -223,29 +224,47 @@ export default function BestellungPage() {
 
     try {
       const clickIds = getClickIds();
+      const payload = {
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone || undefined,
+        address: formData.address,
+        city: formData.city,
+        zip: formData.zip,
+        country: formData.country,
+        notes: formData.notes || undefined,
+        items: items.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        couponCode: coupon?.code || undefined,
+        gclid: clickIds.gclid || undefined,
+        gbraid: clickIds.gbraid || undefined,
+        wbraid: clickIds.wbraid || undefined,
+      };
+
+      // Kartenzahlung via Stripe Checkout
+      if (paymentMethod === "karte") {
+        const stripeRes = await fetch("/api/checkout/stripe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const stripeData = await stripeRes.json();
+        if (!stripeRes.ok || !stripeData.url) {
+          throw new Error(stripeData.error || "Kartenzahlung konnte nicht gestartet werden");
+        }
+        sessionStorage.setItem(`order_${stripeData.orderNumber}`, formData.email);
+        window.location.href = stripeData.url;
+        return;
+      }
+
       const response = await fetch("/api/bestellungen", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.phone || undefined,
-          address: formData.address,
-          city: formData.city,
-          zip: formData.zip,
-          country: formData.country,
-          notes: formData.notes || undefined,
-          items: items.map((item) => ({
-            id: item.id,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          couponCode: coupon?.code || undefined,
-          gclid: clickIds.gclid || undefined,
-          gbraid: clickIds.gbraid || undefined,
-          wbraid: clickIds.wbraid || undefined,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -630,9 +649,60 @@ export default function BestellungPage() {
                   <CreditCard className="w-5 h-5 text-[var(--color-primary)]" />
                   Zahlungsart
                 </h2>
-                <div className="bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl p-4">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--color-primary)] flex items-center justify-center">
+                {/* Karte */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("karte")}
+                  aria-pressed={paymentMethod === "karte"}
+                  className={`w-full text-left rounded-xl p-4 mb-3 border-2 transition-colors ${paymentMethod === "karte" ? "bg-[var(--color-success)]/5 border-[var(--color-success)]" : "bg-white border-[var(--color-border-light)] hover:border-[var(--color-border)]"}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "karte" ? "border-[var(--color-success)]" : "border-[var(--color-border)]"}`}>
+                      {paymentMethod === "karte" && <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-success)]" />}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--color-success)] flex items-center justify-center shrink-0">
+                      <CreditCard className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-[var(--color-text-primary)]">
+                        Kreditkarte <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
+                      </p>
+                      <p className="text-sm text-[var(--color-text-secondary)]">
+                        Visa, Mastercard · Sicher via Stripe · Sofortiger Versand
+                      </p>
+                    </div>
+                  </div>
+                  {paymentMethod === "karte" && (
+                    <div className="bg-white rounded-lg p-4 mt-3 border border-[var(--color-border-light)]">
+                      <div className="space-y-3">
+                        {[
+                          { step: "1", text: "Weiter zur sicheren Kartenzahlung", icon: CheckIcon },
+                          { step: "2", text: "Karte eingeben (3D Secure geschützt)", icon: Lock },
+                          { step: "3", text: "Sofortige Bestätigung & schnellster Versand", icon: Truck },
+                        ].map((item) => (
+                          <div key={item.step} className="flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                              {item.step}
+                            </span>
+                            <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </button>
+                {/* Vorkasse */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("vorkasse")}
+                  aria-pressed={paymentMethod === "vorkasse"}
+                  className={`w-full text-left rounded-xl p-4 border-2 transition-colors ${paymentMethod === "vorkasse" ? "bg-[var(--color-primary-50)] border-[var(--color-primary)]" : "bg-white border-[var(--color-border-light)] hover:border-[var(--color-border)]"}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "vorkasse" ? "border-[var(--color-primary)]" : "border-[var(--color-border)]"}`}>
+                      {paymentMethod === "vorkasse" && <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" />}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--color-primary)] flex items-center justify-center shrink-0">
                       <CreditCard className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -644,25 +714,27 @@ export default function BestellungPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-4 mt-3">
-                    <p className="text-xs text-[var(--color-text-muted)] mb-3 font-medium uppercase tracking-wider">So geht es weiter:</p>
-                    <div className="space-y-3">
-                      {[
-                        { step: "1", text: "Bestellung abschließen", icon: CheckIcon },
-                        { step: "2", text: "Bankverbindung per E-Mail erhalten", icon: HelpCircle },
-                        { step: "3", text: "Überweisung tätigen (innerhalb 5 Werktagen)", icon: Clock },
-                        { step: "4", text: "Versand nach Zahlungseingang", icon: Truck },
-                      ].map((item) => (
-                        <div key={item.step} className="flex items-center gap-3">
-                          <span className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs font-bold shrink-0">
-                            {item.step}
-                          </span>
-                          <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
-                        </div>
-                      ))}
+                  {paymentMethod === "vorkasse" && (
+                    <div className="bg-white rounded-lg p-4 mt-3 border border-[var(--color-border-light)]">
+                      <p className="text-xs text-[var(--color-text-muted)] mb-3 font-medium uppercase tracking-wider">So geht es weiter:</p>
+                      <div className="space-y-3">
+                        {[
+                          { step: "1", text: "Bestellung abschließen", icon: CheckIcon },
+                          { step: "2", text: "Bankverbindung per E-Mail erhalten", icon: HelpCircle },
+                          { step: "3", text: "Überweisung tätigen (innerhalb 5 Werktagen)", icon: Clock },
+                          { step: "4", text: "Versand nach Zahlungseingang", icon: Truck },
+                        ].map((item) => (
+                          <div key={item.step} className="flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                              {item.step}
+                            </span>
+                            <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )}
+                </button>
                 <div className="mt-4 flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
                   <Truck className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
                   <span>Voraussichtliche Lieferung: <strong>2-5 Werktage</strong> nach Zahlungseingang</span>
@@ -695,7 +767,7 @@ export default function BestellungPage() {
                 </div>
                 <div className="mt-3 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                   <CreditCard className="w-4 h-4 text-[var(--color-success)]" />
-                  <span>Kein Konto erforderlich · Keine Kreditkarte nötig</span>
+                  <span>Kein Konto erforderlich · Sichere Zahlung</span>
                 </div>
               </div>
 
@@ -708,7 +780,9 @@ export default function BestellungPage() {
                 disabled={isValidating}
               >
                 <CheckIcon className="w-5 h-5 mr-2" />
-                Jetzt verbindlich bestellen · {formatPrice(finalTotal)}
+                {paymentMethod === "karte"
+                  ? `Weiter zur Kartenzahlung · ${formatPrice(finalTotal)}`
+                  : `Jetzt verbindlich bestellen · ${formatPrice(finalTotal)}`}
               </Button>
               <p className="text-xs text-center text-[var(--color-text-muted)] mt-3">
                 Mit der Bestellung akzeptieren Sie unsere{" "}
@@ -786,7 +860,7 @@ export default function BestellungPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-[var(--color-text-secondary)]">Zahlung</span>
-                <span className="font-semibold">Überweisung (Vorkasse)</span>
+                <span className="font-semibold">{paymentMethod === "karte" ? "Kreditkarte" : "Überweisung (Vorkasse)"}</span>
               </div>
               {coupon && (
                 <div className="flex justify-between text-sm">
