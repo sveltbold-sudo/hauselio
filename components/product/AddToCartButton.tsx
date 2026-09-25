@@ -7,6 +7,7 @@ import { useCartStore } from "@/lib/store";
 import { trackAddToCart } from "@/lib/analytics";
 
 interface AddToCartButtonProps {
+  compact?: boolean;
   product: {
     id: string;
     name: string;
@@ -22,7 +23,7 @@ interface AddToCartButtonProps {
   };
 }
 
-export default function AddToCartButton({ product }: AddToCartButtonProps) {
+export default function AddToCartButton({ product, compact = false }: AddToCartButtonProps) {
   const addItem = useCartStore((state) => state.addItem);
   const [added, setAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -65,7 +66,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       onClick={handleAdd}
       aria-live="polite"
       aria-label={`${added ? "Hinzugefügt" : "In den Warenkorb"}: ${product.name}`}
-      className={`flex-1 ${
+      className={`flex-1 ${compact ? "px-0 sm:px-5" : ""} ${
         added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""
       }`}
       size="md"
@@ -73,12 +74,12 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       {added ? (
         <>
           <Check className="w-4 h-4" />
-          Hinzugefügt!
+          <span className={compact ? "hidden sm:inline" : undefined}>Hinzugefügt!</span>
         </>
       ) : (
         <>
           <ShoppingBag className="w-4 h-4" />
-          In den Warenkorb
+          <span className={compact ? "hidden sm:inline" : undefined}>In den Warenkorb</span>
         </>
       )}
     </Button>

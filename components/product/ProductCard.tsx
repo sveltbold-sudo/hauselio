@@ -19,7 +19,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group relative bg-white rounded-2xl border border-[var(--color-border-light)] transition-colors transition-shadow duration-300 hover:border-[var(--color-border)] hover:shadow-lg flex flex-col h-full">
       {/* Wishlist button — top right */}
-      <div className="absolute top-3 right-3 z-10" role="presentation">
+      <div className="absolute top-1.5 right-1.5 sm:top-3 sm:right-3 z-10" role="presentation">
         <WishlistButton
           item={{
             id: product.id,
@@ -43,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         aria-label={`${product.name} - ${formatPrice(product.price)}`}
       >
         {/* Image Container */}
-        <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden p-4">
+        <div className="relative aspect-square bg-[var(--color-bg-secondary)] overflow-hidden p-2 sm:p-4">
           <ProductImage
             src={product.image}
             alt={`${product.name}`}
@@ -51,14 +51,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             size="md"
           />
           {/* Badges — top left */}
-          <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10" aria-hidden="true">
+          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 sm:gap-1.5 z-10 items-start" aria-hidden="true">
             {product.isNew && <Badge variant="primary">Neu</Badge>}
             {product.isPromo && <Badge variant="danger">Angebot</Badge>}
             {product.isPromo && discount > 0 && (
               <Badge variant="promo">-{discount}%</Badge>
             )}
             {product.reviewCount > 50 && (
-              <Badge variant="accent">Meistverkauft</Badge>
+              <Badge variant="accent" className="hidden sm:inline-flex">Meistverkauft</Badge>
             )}
           </div>
         </div>
@@ -79,12 +79,12 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Price + Cart button — pinned at bottom */}
       <div className="px-3 pb-3 pt-1 flex flex-col gap-1.5">
-        <div className="flex items-baseline gap-2">
-          <span className="text-lg sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
+        <div className="flex items-baseline gap-x-2 gap-y-0.5 flex-wrap">
+          <span className="text-base sm:text-xl font-extrabold text-[var(--color-text-primary)] tabular-nums">
             {formatPrice(product.price)}
           </span>
           {product.isPromo && product.originalPrice && (
-            <span className="text-xs text-[var(--color-text-muted)] line-through">
+            <span className="text-[11px] sm:text-xs text-[var(--color-text-muted)] line-through">
               UVP {formatPrice(product.originalPrice)}
             </span>
           )}
@@ -95,6 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           onMouseDown={(e) => e.stopPropagation()}
         >
           <AddToCartButton
+            compact
             product={{
               id: product.id,
               name: product.name,

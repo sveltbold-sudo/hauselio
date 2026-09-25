@@ -152,7 +152,7 @@ export default async function AngebotePage() {
                   <p className="text-[var(--color-text-muted)]">Die besten Deals — solange der Vorrat reicht</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 {promoProducts.map((product) => (
                   <ProductCard key={product.id} product={mapProduct(product)} />
                 ))}
@@ -180,7 +180,7 @@ export default async function AngebotePage() {
                   <p className="text-[var(--color-text-muted)]">Beliebte Produkte mit Top-Bewertungen</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 {bestsellers.map((product) => (
                   <ProductCard key={product.id} product={mapProduct(product)} />
                 ))}
@@ -199,7 +199,7 @@ export default async function AngebotePage() {
                   <p className="text-[var(--color-text-muted)]">Entdecken Sie unsere neuesten Produkte</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 {newProducts.map((product) => (
                   <ProductCard key={product.id} product={mapProduct(product)} />
                 ))}
