@@ -81,32 +81,38 @@ export default function CategoryPage({
         <p className="body-large mt-2">{sub ? `${sub} in ${title}` : description}</p>
       </div>
 
-      {/* Subcategory pills */}
+      {/* Subcategory pills — scroll horizontal sur mobile, grille dès sm */}
       {subCategories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
-          <Link
-            href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}${sort !== "newest" ? `${brand ? "&" : "?"}sort=${sort}` : ""}`}
-            className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
-              !sub
-                ? "bg-[var(--color-primary)] text-white"
-                : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
-            }`}
+        <div className="mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div
+            className="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0"
+            role="group"
+            aria-label="Unterkategorien"
           >
-            Alle
-          </Link>
-          {subCategories.map((sc) => (
             <Link
-              key={sc.name}
-              href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-              className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
-                sub === sc.name
+              href={`/kategorie/${slug}${brand ? `?brand=${brand}` : ""}${sort !== "newest" ? `${brand ? "&" : "?"}sort=${sort}` : ""}`}
+              className={`shrink-0 snap-start px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
+                !sub
                   ? "bg-[var(--color-primary)] text-white"
                   : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
               }`}
             >
-              {sc.name} ({sc.count})
+              Alle
             </Link>
-          ))}
+            {subCategories.map((sc) => (
+              <Link
+                key={sc.name}
+                href={`/kategorie/${slug}?sub=${encodeURIComponent(sc.name)}${brand ? `&brand=${brand}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
+                className={`shrink-0 snap-start px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors ${
+                  sub === sc.name
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] hover:text-[var(--color-text-primary)]"
+                }`}
+              >
+                {sc.name} ({sc.count})
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

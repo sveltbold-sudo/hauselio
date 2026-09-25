@@ -362,50 +362,61 @@ export default function BestellungPage() {
 
   return (
     <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-[calc(12rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
-      {/* Header */}
+      {/* Header — compact à l'étape 2 pour atteindre le paiement plus vite */}
       <div className="mb-6 sm:mb-10">
         <Link
           href="/warenkorb"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mb-4"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mb-4 min-h-[44px]"
         >
           <ArrowLeft className="w-4 h-4" />
           Zurück zum Warenkorb
         </Link>
-        <p className="caption text-[var(--color-primary)] mb-3">Checkout</p>
-        <h1 className="heading-1 mb-4">Sicher bestellen</h1>
-        <p className="text-sm text-[var(--color-text-muted)] mt-1 flex items-center gap-1.5">
-          <User className="w-4 h-4" />
-          Kein Konto erforderlich · Schnell & einfach
-        </p>
+        {step === "address" ? (
+          <>
+            <p className="caption text-[var(--color-primary)] mb-3">Checkout</p>
+            <h1 className="heading-1 mb-4">Sicher bestellen</h1>
+            <p className="text-sm text-[var(--color-text-muted)] mt-1 flex items-center gap-1.5">
+              <User className="w-4 h-4" />
+              Kein Konto erforderlich · Schnell & einfach
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-text-primary)] mb-1">Bestellung bestätigen</h1>
+            <p className="text-sm text-[var(--color-text-muted)]">
+              Prüfen Sie Ihre Daten und wählen Sie die Zahlungsart.
+            </p>
+          </>
+        )}
       </div>
 
       {/* Step indicator */}
-      <nav className="flex items-center justify-center gap-2 mb-6 sm:mb-10" aria-label="Bestellschritte">
+      <nav className="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-10" aria-label="Bestellschritte">
         <Link
           href="/warenkorb"
-          className="flex items-center gap-2 text-sm text-[var(--color-success)] font-semibold"
+          className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm text-[var(--color-success)] font-semibold"
         >
           <span className="w-8 h-8 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs">
             <CheckIcon className="w-4 h-4" />
           </span>
-          <span className="hidden sm:inline">Warenkorb</span>
+          <span className="whitespace-nowrap">Warenkorb</span>
         </Link>
         <div className="w-4 sm:w-8 h-px bg-[var(--color-border)]" />
         <span
-          className={`flex items-center gap-2 text-sm font-bold ${step === "address" ? "text-[var(--color-primary)]" : "text-[var(--color-success)]"}`}
+          className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-bold ${step === "address" ? "text-[var(--color-primary)]" : "text-[var(--color-success)]"}`}
           aria-current={step === "address" ? "step" : undefined}
         >
           <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${step === "address" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-success)] text-white"}`}>
             {step === "review" ? <CheckIcon className="w-4 h-4" /> : "2"}
           </span>
-          <span className="hidden sm:inline">Adresse</span>
+          <span className="whitespace-nowrap">Adresse</span>
         </span>
         <div className="w-4 sm:w-8 h-px bg-[var(--color-border)]" />
-        <span className={`flex items-center gap-2 text-sm font-bold ${step === "review" ? "text-[var(--color-primary)]" : "text-[var(--color-text-muted)]"}`}>
+        <span className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-bold ${step === "review" ? "text-[var(--color-primary)]" : "text-[var(--color-text-muted)]"}`}>
           <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${step === "review" ? "bg-[var(--color-primary)] text-white" : "bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]"}`}>
             3
           </span>
-          <span className="hidden sm:inline">Bestätigung</span>
+          <span className="whitespace-nowrap">Bestätigung</span>
         </span>
       </nav>
 
