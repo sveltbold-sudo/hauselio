@@ -1,9 +1,9 @@
 import { Landmark, Shield, RotateCcw, Lock } from "lucide-react";
 
 const STEPS = [
-  "Jetzt bestellen \u2013 per Karte oder \u00dcberweisung",
-  "Bei Karte: sofortige Zahlung & schnellster Versand",
-  "Bei Vorkasse: Bankdaten per E-Mail & \u00fcberweisen",
+  "Jetzt bestellen – bequem per Überweisung",
+  "Bankdaten erhalten Sie direkt per E-Mail",
+  "Überweisen – wir versenden nach Zahlungseingang",
 ];
 
 export default function ProductPaymentInfo() {
@@ -12,7 +12,7 @@ export default function ProductPaymentInfo() {
       <div className="flex items-center gap-2 mb-3">
         <Landmark className="w-4 h-4 text-[var(--color-primary)]" aria-hidden="true" />
         <p className="text-sm font-bold text-[var(--color-text-primary)]">
-          Sicher kaufen: Karte oder \u00DCberweisung
+          Sicher kaufen: Überweisung (Vorkasse)
         </p>
       </div>
       <ol className="space-y-2 mb-3 list-none">

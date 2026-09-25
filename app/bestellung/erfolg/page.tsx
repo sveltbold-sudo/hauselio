@@ -53,7 +53,7 @@ const faqItems = [
   },
   {
     q: "Kann ich eine andere Zahlungsmethode verwenden?",
-    a: "Ja — neben Überweisung (Vorkasse) akzeptieren wir auch Kreditkarte (Visa, Mastercard) via Stripe. Wählen Sie Ihre bevorzugte Zahlungsart im Checkout.",
+    a: "Zahlung erfolgt per Überweisung (Vorkasse). Sie erhalten die Bankverbindungen direkt per E-Mail. Kreditkartenzahlung (Visa, Mastercard) ist in Vorbereitung und folgt in Kürze.",
   },
   {
     q: "Wann wird mein Paket versendet?",

@@ -196,16 +196,16 @@ export default async function VersandPage() {
         </h2>
         <div className="bg-[var(--color-bg)] rounded-xl p-6 space-y-6">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 bg-[var(--color-success)]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-              <CreditCard className="w-5 h-5 text-[var(--color-success)]" aria-hidden="true" />
+            <div className="w-10 h-10 bg-[var(--color-border-light)] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <CreditCard className="w-5 h-5 text-[var(--color-text-muted)]" aria-hidden="true" />
             </div>
             <div>
-              <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
-                Kreditkarte (Visa, Mastercard) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
+              <h3 className="font-semibold text-[var(--color-text-muted)] mb-2">
+                Kreditkarte (Visa, Mastercard) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">Bald verfügbar</span>
               </h3>
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                Sichere Zahlung per Karte über Stripe (3D Secure). Ihre Bestellung
-                wird <strong>sofort bearbeitet</strong> und am schnellsten versendet.
+              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                Unsere Kartenzahlung wird gerade eingerichtet und steht Ihnen in Kürze zur Verfügung.
+                Bis dahin können Sie Ihre Bestellung per Überweisung (Vorkasse) bezahlen.
               </p>
             </div>
           </div>
@@ -215,7 +215,7 @@ export default async function VersandPage() {
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
-                Überweisung (Vorkasse)
+                Überweisung (Vorkasse) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">Aktuell verfügbar</span>
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 Nach Ihrer Bestellung erhalten Sie eine Bestätigungs-E-Mail mit

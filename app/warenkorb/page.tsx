@@ -440,7 +440,7 @@ export default function WarenkorbPage() {
               </Button>
             </Link>
             <p className="text-xs text-center text-[var(--color-text-muted)] mt-3">
-              Kreditkarte oder Überweisung · 30 Tage Rückgaberecht
+              Überweisung (Vorkasse) · Kreditkarte folgt in Kürze
             </p>
 
             {/* Trust badges */}
@@ -463,7 +463,7 @@ export default function WarenkorbPage() {
             <div className="mt-4 pt-4 border-t border-[var(--color-border-light)]">
               <p className="text-xs text-[var(--color-text-muted)] mb-2">Sicher bezahlen mit:</p>
               <div className="flex flex-wrap gap-2">
-                {["Kreditkarte (Visa/Mastercard)", "Überweisung (Vorkasse)"].map((method) => (
+                {["Überweisung (Vorkasse)", "Kreditkarte (bald verfügbar)"].map((method) => (
                   <span
                     key={method}
                     className="px-2 py-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-light)] rounded text-xs font-medium text-[var(--color-text-muted)]"

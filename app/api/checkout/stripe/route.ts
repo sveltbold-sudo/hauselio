@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils";
 import { CreateOrderSchema } from "@/lib/validations";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import { getShippingCost } from "@/lib/constants";
+import { getShippingCost, CARD_PAYMENT_ENABLED } from "@/lib/constants";
 import { SITE_URL } from "@/lib/constants";
 import { validateCsrfOrigin, validateContentType, handleApiError } from "@/lib/api-helpers";
 import { ValidationError } from "@/lib/errors";
@@ -14,6 +14,13 @@ import { getStripe } from "@/lib/stripe";
 // POST /api/checkout/stripe — crée la commande (paiement carte) + session Stripe Checkout
 export async function POST(request: NextRequest) {
   try {
+    if (!CARD_PAYMENT_ENABLED) {
+      return NextResponse.json(
+        { error: "Kartenzahlung ist derzeit vorübergehend nicht verfügbar. Bitte wählen Sie Überweisung (Vorkasse)." },
+        { status: 503 }
+      );
+    }
+
     const ctError = validateContentType(request, "application/json");
     if (ctError) return ctError;
 

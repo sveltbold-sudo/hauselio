@@ -154,10 +154,11 @@ export default async function DatenschutzPage() {
         <section>
           <h2 className="heading-3 mb-3">7. Zahlungsabwicklung</h2>
           <p className="text-[var(--color-text-secondary)]">
-            Wir bieten die Zahlungsarten Kreditkarte (Visa, Mastercard) und Überweisung (Vorkasse) an. Die
-            Kartenzahlung erfolgt über unseren Zahlungsdienstleister Stripe (Stripe Payments Europe Ltd.).
-            Ihre Kartendaten werden direkt an Stripe übertragen und nicht von uns gespeichert. Bei Überweisung
-            werden Ihre Zahlungsdaten ausschließlich zur Durchführung der Überweisung verwendet.
+            Aktuell bieten wir die Zahlung per Überweisung (Vorkasse) an; Ihre Zahlungsdaten werden
+            ausschließlich zur Durchführung der Überweisung verwendet. Die Kartenzahlung (Visa, Mastercard)
+            über unseren Zahlungsdienstleister Stripe (Stripe Payments Europe Ltd.) wird derzeit vorbereitet
+            und steht ab ihrer Freischaltung zur Verfügung. Eine Übertragung Ihrer Kartendaten an Stripe
+            bzw. eine Speicherung bei uns findet dann nicht statt.
           </p>
         </section>
 

@@ -7,6 +7,10 @@ export const SHIPPING_COST = 4.99;
 
 export const TRUST_BAR_RATING = 4.4;
 
+// Kartenzahlung (Stripe) ist vorübergehend deaktiviert (Stripe-Konto gesperrt).
+// Auf "true" setzen, sobald Stripe die Zahlungen wieder freigibt.
+export const CARD_PAYMENT_ENABLED = false;
+
 // Per-country shipping config: { threshold, cost }
 const SHIPPING_BY_COUNTRY: Record<string, { threshold: number; cost: number }> = {
   DE: { threshold: 50, cost: 4.99 },

@@ -10,7 +10,7 @@ import Textarea from "@/components/ui/Textarea";
 import ProductImage from "@/components/product/ProductImage";
 import { formatPrice, getVatLabel } from "@/lib/utils";
 import { useCartStore, selectTotal } from "@/lib/store";
-import { getShippingCost, getShippingThreshold } from "@/lib/constants";
+import { getShippingCost, getShippingThreshold, CARD_PAYMENT_ENABLED } from "@/lib/constants";
 import { trackBeginCheckout } from "@/lib/analytics";
 import { getClickIds } from "@/lib/click-ids";
 
@@ -246,7 +246,7 @@ export default function BestellungPage() {
       };
 
       // Kartenzahlung via Stripe Checkout
-      if (paymentMethod === "karte") {
+      if (paymentMethod === "karte" && CARD_PAYMENT_ENABLED) {
         const stripeRes = await fetch("/api/checkout/stripe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -650,47 +650,69 @@ export default function BestellungPage() {
                   Zahlungsart
                 </h2>
                 {/* Karte */}
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod("karte")}
-                  aria-pressed={paymentMethod === "karte"}
-                  className={`w-full text-left rounded-xl p-4 mb-3 border-2 transition-colors ${paymentMethod === "karte" ? "bg-[var(--color-success)]/5 border-[var(--color-success)]" : "bg-white border-[var(--color-border-light)] hover:border-[var(--color-border)]"}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "karte" ? "border-[var(--color-success)]" : "border-[var(--color-border)]"}`}>
-                      {paymentMethod === "karte" && <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-success)]" />}
-                    </span>
-                    <div className="w-10 h-10 rounded-lg bg-[var(--color-success)] flex items-center justify-center shrink-0">
-                      <CreditCard className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-[var(--color-text-primary)]">
-                        Kreditkarte <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
-                      </p>
-                      <p className="text-sm text-[var(--color-text-secondary)]">
-                        Visa, Mastercard · Sicher via Stripe · Sofortiger Versand
-                      </p>
-                    </div>
-                  </div>
-                  {paymentMethod === "karte" && (
-                    <div className="bg-white rounded-lg p-4 mt-3 border border-[var(--color-border-light)]">
-                      <div className="space-y-3">
-                        {[
-                          { step: "1", text: "Weiter zur sicheren Kartenzahlung", icon: CheckIcon },
-                          { step: "2", text: "Karte eingeben (3D Secure geschützt)", icon: Lock },
-                          { step: "3", text: "Sofortige Bestätigung & schnellster Versand", icon: Truck },
-                        ].map((item) => (
-                          <div key={item.step} className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs font-bold shrink-0">
-                              {item.step}
-                            </span>
-                            <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
-                          </div>
-                        ))}
+                {CARD_PAYMENT_ENABLED ? (
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("karte")}
+                    aria-pressed={paymentMethod === "karte"}
+                    className={`w-full text-left rounded-xl p-4 mb-3 border-2 transition-colors ${paymentMethod === "karte" ? "bg-[var(--color-success)]/5 border-[var(--color-success)]" : "bg-white border-[var(--color-border-light)] hover:border-[var(--color-border)]"}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "karte" ? "border-[var(--color-success)]" : "border-[var(--color-border)]"}`}>
+                        {paymentMethod === "karte" && <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-success)]" />}
+                      </span>
+                      <div className="w-10 h-10 rounded-lg bg-[var(--color-success)] flex items-center justify-center shrink-0">
+                        <CreditCard className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-[var(--color-text-primary)]">
+                          Kreditkarte <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
+                        </p>
+                        <p className="text-sm text-[var(--color-text-secondary)]">
+                          Visa, Mastercard · Sicher via Stripe · Sofortiger Versand
+                        </p>
                       </div>
                     </div>
-                  )}
-                </button>
+                    {paymentMethod === "karte" && (
+                      <div className="bg-white rounded-lg p-4 mt-3 border border-[var(--color-border-light)]">
+                        <div className="space-y-3">
+                          {[
+                            { step: "1", text: "Weiter zur sicheren Kartenzahlung", icon: CheckIcon },
+                            { step: "2", text: "Karte eingeben (3D Secure geschützt)", icon: Lock },
+                            { step: "3", text: "Sofortige Bestätigung & schnellster Versand", icon: Truck },
+                          ].map((item) => (
+                            <div key={item.step} className="flex items-center gap-3">
+                              <span className="w-6 h-6 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                                {item.step}
+                              </span>
+                              <span className="text-sm text-[var(--color-text-secondary)]">{item.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </button>
+                ) : (
+                  <div className="w-full rounded-xl p-4 mb-3 border-2 border-dashed border-[var(--color-border)] bg-[var(--color-bg-secondary)] opacity-90">
+                    <div className="flex items-center gap-3">
+                      <span className="w-5 h-5 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0" aria-hidden="true" />
+                      <div className="w-10 h-10 rounded-lg bg-[var(--color-border)] flex items-center justify-center shrink-0">
+                        <CreditCard className="w-5 h-5 text-white" aria-hidden="true" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-[var(--color-text-muted)]">
+                          Kreditkarte{" "}
+                          <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">
+                            Bald verfügbar
+                          </span>
+                        </p>
+                        <p className="text-sm text-[var(--color-text-muted)]">
+                          Unsere Kartenzahlung wird gerade freigeschaltet. Bis dahin: Überweisung.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {/* Vorkasse */}
                 <button
                   type="button"
@@ -707,7 +729,10 @@ export default function BestellungPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-[var(--color-text-primary)]">
-                        Überweisung (Vorkasse)
+                        Überweisung (Vorkasse){" "}
+                        <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">
+                          Empfohlen
+                        </span>
                       </p>
                       <p className="text-sm text-[var(--color-text-secondary)]">
                         Sicher & datenschutzkonform
