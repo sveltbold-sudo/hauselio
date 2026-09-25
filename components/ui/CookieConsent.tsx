@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Cookie, X, Settings } from "lucide-react";
+import { Cookie, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useScrollLock } from "@/hooks/useScrollLock";
 
@@ -178,19 +178,32 @@ export default function CookieConsent() {
         onKeyDown={handleKeyDown}
         className="fixed bottom-0 left-0 right-0 z-[96] p-4 sm:p-6 pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-4 sm:p-6">
+        <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[var(--color-border-light)] shadow-[var(--shadow-2xl)] p-3 sm:p-6 max-h-[92vh] overflow-y-auto">
           <div className="flex items-start gap-3 sm:gap-4">
             <div className="flex-shrink-0 w-10 h-10 bg-[var(--color-accent)]/10 rounded-xl hidden sm:flex items-center justify-center">
               <Cookie className="w-5 h-5 text-[var(--color-accent)]" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-[var(--color-text-primary)] mb-1 sm:mb-2">
-                Cookie-Einstellungen
-              </h3>
-              <p id="cookie-desc" className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-3 sm:mb-4">
-                Wir verwenden Cookies, um das Nutzererlebnis zu verbessern.
-                Sie können wählen, welche Cookies Sie zulassen möchten.
-                Weitere Informationen finden Sie in unserer <a href="/datenschutz" className="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a>.
+              <div className="flex items-center justify-between gap-2 mb-1 sm:mb-2">
+                <h3 className="text-sm sm:text-lg font-bold text-[var(--color-text-primary)]">
+                  Cookie-Einstellungen
+                </h3>
+                {!showDetails && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowDetails(true);
+                      setPrefs({ essential: true, functional: false, analytics: false });
+                    }}
+                    className="shrink-0 min-h-[32px] px-2 py-1 text-[11px] sm:text-xs font-semibold text-[var(--color-text-primary)] underline underline-offset-2 hover:text-[var(--color-primary)] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                  >
+                    Einstellungen
+                  </button>
+                )}
+              </div>
+              <p id="cookie-desc" className="text-xs sm:text-sm leading-snug sm:leading-relaxed text-[var(--color-text-secondary)] mb-2 sm:mb-4">
+                Wir verwenden Cookies für ein besseres Nutzererlebnis. Sie entscheiden, welche wir nutzen dürfen — Details in der{" "}
+                <a href="/datenschutz" className="underline hover:text-[var(--color-primary)]">Datenschutzerklärung</a>.
               </p>
 
               {showDetails && (
@@ -254,24 +267,11 @@ export default function CookieConsent() {
                 >
                   Ablehnen
                 </Button>
-                {!showDetails && (
-                  <Button
-                    onClick={() => {
-                      setShowDetails(true);
-                      setPrefs({ essential: true, functional: false, analytics: false });
-                    }}
-                    variant="ghost"
-                    className="col-span-2 w-full text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] min-h-[40px] text-xs"
-                  >
-                    <Settings className="w-4 h-4 mr-1" />
-                    Einstellungen
-                  </Button>
-                )}
               </div>
             </div>
             <button
               onClick={handleRejectAll}
-              className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+              className="flex-shrink-0 w-8 h-8 sm:w-11 sm:h-11 -mt-1 -mr-1 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
               aria-label="Schließen"
             >
               <X className="w-5 h-5" />
