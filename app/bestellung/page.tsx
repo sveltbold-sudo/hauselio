@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText, Lock, Clock, HelpCircle } from "lucide-react";
+import { CreditCard, AlertTriangle, ArrowLeft, ArrowRight, Check as CheckIcon, Truck, Shield, User, FileText, Lock, Clock, HelpCircle, Info } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
@@ -649,6 +649,26 @@ export default function BestellungPage() {
                   <CreditCard className="w-5 h-5 text-[var(--color-primary)]" />
                   Zahlungsart
                 </h2>
+                {/* Info: Kartenzahlung vorübergehend nicht verfügbar */}
+                {!CARD_PAYMENT_ENABLED && (
+                  <div
+                    role="status"
+                    className="flex items-start gap-3 rounded-xl bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 p-4 mb-4"
+                  >
+                    <Info className="w-5 h-5 text-[var(--color-primary)] shrink-0 mt-0.5" aria-hidden="true" />
+                    <div>
+                      <p className="font-bold text-[var(--color-text-primary)] text-sm">
+                        Kartenzahlung derzeit nicht verfügbar
+                      </p>
+                      <p className="text-sm text-[var(--color-text-secondary)] mt-1">
+                        Unsere Kreditkartenzahlung wird gerade freigeschaltet und steht Ihnen bald zur
+                        Verfügung. Bitte wählen Sie bis dahin{" "}
+                        <strong className="text-[var(--color-text-primary)]">Überweisung (Vorkasse)</strong> —
+                        Sie erhalten die Bankverbindungen sofort per E-Mail.
+                      </p>
+                    </div>
+                  </div>
+                )}
                 {/* Karte */}
                 {CARD_PAYMENT_ENABLED ? (
                   <button
@@ -705,9 +725,6 @@ export default function BestellungPage() {
                           <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">
                             Bald verfügbar
                           </span>
-                        </p>
-                        <p className="text-sm text-[var(--color-text-muted)]">
-                          Unsere Kartenzahlung wird gerade freigeschaltet. Bis dahin: Überweisung.
                         </p>
                       </div>
                     </div>
