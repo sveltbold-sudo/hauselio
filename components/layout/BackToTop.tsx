@@ -25,10 +25,16 @@ export default function BackToTop() {
     window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
   };
 
+  // Sur le checkout, la barre CTA fixe est plus haute : on décale le bouton pour éviter le chevauchement
+  const isCheckout = pathname.startsWith("/bestellung");
+  const mobileBottom = isCheckout
+    ? "bottom-[calc(196px+env(safe-area-inset-bottom,0px))]"
+    : "bottom-[calc(56px+64px+env(safe-area-inset-bottom,0px))]";
+
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-[calc(56px+64px+env(safe-area-inset-bottom,0px))] lg:bottom-6 right-4 lg:right-6 z-[85] w-11 h-11 lg:w-12 lg:h-12 bg-[var(--color-primary)] text-white rounded-full shadow-lg hover:bg-[var(--color-primary-hover)] transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] ${prefersReduced ? "" : "transition-transform duration-300 animate-fade-in-up hover:scale-110"}`}
+      className={`fixed ${mobileBottom} lg:bottom-6 right-4 lg:right-6 z-[85] w-11 h-11 lg:w-12 lg:h-12 bg-[var(--color-primary)] text-white rounded-full shadow-lg hover:bg-[var(--color-primary-hover)] transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] ${prefersReduced ? "" : "transition-transform duration-300 animate-fade-in-up hover:scale-110"}`}
       aria-label="Nach oben scrollen"
     >
       <ArrowUp className="w-5 h-5" />
