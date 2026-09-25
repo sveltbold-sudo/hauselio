@@ -91,6 +91,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
         <div
           role="presentation"
+          className="w-full"
           onClick={(e) => e.stopPropagation()}
           onMouseDown={(e) => e.stopPropagation()}
         >

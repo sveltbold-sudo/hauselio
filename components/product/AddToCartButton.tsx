@@ -66,7 +66,7 @@ export default function AddToCartButton({ product, compact = false }: AddToCartB
       onClick={handleAdd}
       aria-live="polite"
       aria-label={`${added ? "Hinzugefügt" : "In den Warenkorb"}: ${product.name}`}
-      className={`flex-1 ${compact ? "px-0 sm:px-5" : ""} ${
+      className={`flex-1 ${compact ? "w-full px-0 sm:px-5" : ""} ${
         added ? "bg-[var(--color-success)] hover:bg-[var(--color-success)]" : ""
       }`}
       size="md"
