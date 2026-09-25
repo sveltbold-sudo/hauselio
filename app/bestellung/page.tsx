@@ -361,7 +361,7 @@ export default function BestellungPage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-6 sm:py-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-[calc(12rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
       {/* Header */}
       <div className="mb-6 sm:mb-10">
         <Link
@@ -787,8 +787,40 @@ export default function BestellungPage() {
                 </div>
               </div>
 
+              {/* Order button */}
+              <Button
+                onClick={handleSubmit}
+                className="w-full shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl max-lg:hidden"
+                size="lg"
+                isLoading={isLoading}
+                disabled={isValidating}
+              >
+                <CheckIcon className="w-5 h-5 mr-2" />
+                {paymentMethod === "karte" && CARD_PAYMENT_ENABLED
+                  ? `Weiter zur Kartenzahlung · ${formatPrice(finalTotal)}`
+                  : `Jetzt verbindlich bestellen · ${formatPrice(finalTotal)}`}
+              </Button>
+              <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
+                Mit der Bestellung akzeptieren Sie unsere{" "}
+                <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
+                und{" "}
+                <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+              </p>
+
+              {orderError && (
+                <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">
+                  {orderError}
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="ml-2 underline font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] min-h-[44px] min-w-[44px] inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
+                  >
+                    Neu laden
+                  </button>
+                </div>
+              )}
+
               {/* Trust signals */}
-              <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-4 sm:p-5 mb-6">
+              <div className="bg-[var(--color-bg-secondary)] rounded-2xl p-4 sm:p-5 mt-6 mb-6">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                     <Shield className="w-4 h-4 text-[var(--color-success)]" />
@@ -811,39 +843,13 @@ export default function BestellungPage() {
                   <CreditCard className="w-4 h-4 text-[var(--color-success)]" />
                   <span>Kein Konto erforderlich · Sichere Zahlung</span>
                 </div>
+                <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
+                  Mit der Bestellung akzeptieren Sie unsere{" "}
+                  <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
+                  und{" "}
+                  <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+                </p>
               </div>
-
-              {/* Order button */}
-              <Button
-                onClick={handleSubmit}
-                className="w-full shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl"
-                size="lg"
-                isLoading={isLoading}
-                disabled={isValidating}
-              >
-                <CheckIcon className="w-5 h-5 mr-2" />
-                {paymentMethod === "karte"
-                  ? `Weiter zur Kartenzahlung · ${formatPrice(finalTotal)}`
-                  : `Jetzt verbindlich bestellen · ${formatPrice(finalTotal)}`}
-              </Button>
-              <p className="text-xs text-center text-[var(--color-text-muted)] mt-3">
-                Mit der Bestellung akzeptieren Sie unsere{" "}
-                <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
-                und{" "}
-                <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
-              </p>
-
-              {orderError && (
-                <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">
-                  {orderError}
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="ml-2 underline font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] min-h-[44px] min-w-[44px] inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
-                  >
-                    Neu laden
-                  </button>
-                </div>
-              )}
             </>
           )}
         </div>
@@ -934,6 +940,56 @@ export default function BestellungPage() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Sticky mobile CTA — au-dessus de la navigation basse */}
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-3 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
+        {step === "address" ? (
+          <>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
+              <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
+                {formatPrice(finalTotal)}
+              </span>
+            </div>
+            <Button
+              type="button"
+              onClick={handleNextStep}
+              className="w-full py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
+              size="lg"
+            >
+              Weiter zur Bestätigung
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </>
+        ) : (
+          <>
+            <p className="text-[10px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5">
+              Mit der Bestellung akzeptieren Sie unsere{" "}
+              <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link> und{" "}
+              <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+            </p>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
+              <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
+                {formatPrice(finalTotal)}
+              </span>
+            </div>
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              className="w-full py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
+              size="lg"
+              isLoading={isLoading}
+              disabled={isValidating}
+            >
+              <CheckIcon className="w-5 h-5 mr-2" />
+              {paymentMethod === "karte" && CARD_PAYMENT_ENABLED
+                ? "Weiter zur Kartenzahlung"
+                : "Jetzt verbindlich bestellen"}
+            </Button>
+          </>
+        )}
       </div>
     </main>
   );
