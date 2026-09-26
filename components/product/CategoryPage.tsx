@@ -123,8 +123,7 @@ export default function CategoryPage({
 
       {/* Toolbar with sort + brand filter */}
       <Suspense fallback={<div className="h-12 bg-[var(--color-bg-secondary)] rounded-xl animate-pulse" />}>
-        <div className="sticky top-20 z-30 flex flex-row items-center justify-between gap-2 sm:gap-4 mb-6 bg-white/95 backdrop-blur-sm rounded-xl border border-[var(--color-border-light)] px-2 sm:px-5 py-2 sm:py-3 shadow-sm">
-          <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
+        <div className="sticky top-20 z-30 flex flex-row items-center justify-between gap-2 sm:gap-4 mb-6 bg-white/95 backdrop-blur-sm rounded-xl border border-[var(--color-border-light)] px-2 sm:px-5 py-2 sm:py-3 shadow-sm">          <CategoryBrandFilter brands={brands} selectedBrand={brand} slug={slug} />
           <CategorySortSelect sort={sort} slug={slug} />
         </div>
       </Suspense>
