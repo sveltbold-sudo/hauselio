@@ -221,7 +221,7 @@ function OrderSuccessContent() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto pb-[calc(10rem+env(safe-area-inset-bottom,0px))] lg:pb-16">
+    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto pb-[calc(10rem+env(safe-area-inset-bottom,0px))] lg:pb-28">
       {/* Success Icon */}
       <div className="text-center mb-8">
         <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-6 animate-scale-in">
@@ -614,32 +614,23 @@ function OrderSuccessContent() {
         </>
       )}
 
-      {/* CTAs */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-lg:hidden">
-        <Link
-          href="/shop"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
-        >
-          Weiter einkaufen
-          <ArrowRight className="w-5 h-5" />
-        </Link>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
-        >
-          Zurück zur Startseite
-        </Link>
-      </div>
-
-      {/* Sticky mobile action bar — prochaine action toujours accessible */}
-      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-3 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
-        <Link
-          href="/shop"
-          className="w-full min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
-        >
-          Weiter einkaufen
-          <ArrowRight className="w-5 h-5" />
-        </Link>
+      {/* Sticky action bar — mobile : au-dessus de la navigation basse / desktop : en bas d'écran */}
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] lg:bottom-0 left-0 right-0 z-[80] bg-white border-t border-[var(--color-border-light)] p-3 lg:px-6 lg:py-3.5 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
+        <div className="mx-auto max-w-3xl flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-4">
+          <Link
+            href="/shop"
+            className="w-full min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors lg:w-auto lg:min-w-[280px]"
+          >
+            Weiter einkaufen
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+          <Link
+            href="/"
+            className="hidden lg:inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
+          >
+            Zurück zur Startseite
+          </Link>
+        </div>
       </div>
     </main>
   );

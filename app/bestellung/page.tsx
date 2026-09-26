@@ -361,7 +361,7 @@ export default function BestellungPage() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-[calc(12rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
+    <main id="main-content" className="container-hausaura py-6 sm:py-8 pb-[calc(12rem+env(safe-area-inset-bottom,0px))] lg:pb-28">
       {/* Header — compact à l'étape 2 pour atteindre le paiement plus vite */}
       <div className="mb-6 sm:mb-10">
         <Link
@@ -953,11 +953,12 @@ export default function BestellungPage() {
         </div>
       </div>
 
-      {/* Sticky mobile CTA — au-dessus de la navigation basse */}
-      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-3 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
+      {/* Barre CTA fixe — mobile : au-dessus de la navigation basse / desktop : en bas d'écran */}
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] lg:bottom-0 left-0 right-0 z-[80] bg-white border-t border-[var(--color-border-light)] p-3 lg:px-6 lg:py-3.5 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
+        <div className="mx-auto max-w-6xl flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-6">
         {step === "address" ? (
           <>
-            <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center justify-between mb-1.5 lg:mb-0 lg:gap-6">
               <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
               <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
                 {formatPrice(finalTotal)}
@@ -966,7 +967,7 @@ export default function BestellungPage() {
             <Button
               type="button"
               onClick={handleNextStep}
-              className="w-full py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
+              className="w-full lg:w-auto lg:min-w-[320px] py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
               size="lg"
             >
               Weiter zur Bestätigung
@@ -975,12 +976,12 @@ export default function BestellungPage() {
           </>
         ) : (
           <>
-            <p className="text-[11px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5">
+            <p className="text-[11px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5 lg:text-xs lg:order-1 lg:mb-0 lg:mr-auto lg:max-w-md lg:text-left">
               Mit der Bestellung akzeptieren Sie unsere{" "}
               <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link> und{" "}
               <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
             </p>
-            <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center justify-between mb-1.5 lg:mb-0 lg:gap-6 lg:order-2">
               <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
               <span className="font-bold text-lg text-[var(--color-text-primary)] tabular-nums">
                 {formatPrice(finalTotal)}
@@ -989,7 +990,7 @@ export default function BestellungPage() {
             <Button
               type="button"
               onClick={handleSubmit}
-              className="w-full py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
+              className="w-full lg:w-auto lg:min-w-[320px] py-3.5 text-base shadow-lg shadow-[var(--color-primary)]/20"
               size="lg"
               isLoading={isLoading}
               disabled={isValidating}
@@ -1001,6 +1002,7 @@ export default function BestellungPage() {
             </Button>
           </>
         )}
+        </div>
       </div>
     </main>
   );

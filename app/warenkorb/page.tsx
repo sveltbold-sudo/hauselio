@@ -282,7 +282,7 @@ export default function WarenkorbPage() {
           {/* Continue shopping */}
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
+            className="inline-flex items-center gap-2 min-h-[44px] text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
           >
             <ArrowLeft className="w-4 h-4" />
             Weiter einkaufen
