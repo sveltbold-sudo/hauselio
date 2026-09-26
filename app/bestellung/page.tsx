@@ -851,12 +851,6 @@ export default function BestellungPage() {
                   <CreditCard className="w-4 h-4 text-[var(--color-success)]" />
                   <span>Kein Konto erforderlich · Sichere Zahlung</span>
                 </div>
-                <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
-                  Mit der Bestellung akzeptieren Sie unsere{" "}
-                  <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
-                  und{" "}
-                  <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
-                </p>
               </div>
             </>
           )}
