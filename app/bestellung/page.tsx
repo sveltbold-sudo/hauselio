@@ -798,25 +798,22 @@ export default function BestellungPage() {
                 </div>
               </div>
 
-              {/* Order button */}
-              <Button
-                onClick={handleSubmit}
-                className="w-full shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-[var(--color-primary)]/30 hover:shadow-xl max-lg:hidden"
-                size="lg"
-                isLoading={isLoading}
-                disabled={isValidating}
-              >
-                <CheckIcon className="w-5 h-5 mr-2" />
-                {paymentMethod === "karte" && CARD_PAYMENT_ENABLED
-                  ? `Weiter zur Kartenzahlung · ${formatPrice(finalTotal)}`
-                  : `Jetzt verbindlich bestellen · ${formatPrice(finalTotal)}`}
-              </Button>
-              <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
-                Mit der Bestellung akzeptieren Sie unsere{" "}
-                <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
-                und{" "}
-                <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
-              </p>
+              {/* Order button — masqué : la barre CTA fixe ci-dessous le remplace (mobile + desktop) */}
+              <span className="hidden" aria-hidden="true">
+                <Button
+                  onClick={handleSubmit}
+                  tabIndex={-1}
+                  className="w-full"
+                  size="lg"
+                  isLoading={isLoading}
+                  disabled={isValidating}
+                >
+                  <CheckIcon className="w-5 h-5 mr-2" />
+                  {paymentMethod === "karte" && CARD_PAYMENT_ENABLED
+                    ? `Weiter zur Kartenzahlung · ${formatPrice(finalTotal)}`
+                    : `Jetzt verbindlich bestellen · ${formatPrice(finalTotal)}`}
+                </Button>
+              </span>
 
               {orderError && (
                 <div aria-live="polite" className="mt-4 bg-[var(--color-danger-light)] border border-[var(--color-danger)]/20 rounded-xl p-4 text-sm text-[var(--color-text-secondary)]">
