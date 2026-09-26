@@ -83,7 +83,7 @@ export default function CategoryPage({
 
       {/* Subcategory pills — scroll horizontal sur mobile, grille dès sm */}
       {subCategories.length > 0 && (
-        <div className="mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="relative mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             className="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0"
             role="group"
@@ -113,6 +113,11 @@ export default function CategoryPage({
               </Link>
             ))}
           </div>
+          {/* Indicateur de scroll : dégradé sur le bord droit (mobile uniquement) */}
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[var(--color-bg)] via-[var(--color-bg)]/70 to-transparent sm:hidden"
+            aria-hidden="true"
+          />
         </div>
       )}
 
