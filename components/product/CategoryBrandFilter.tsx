@@ -34,7 +34,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
       <button
         onClick={() => handleBrandChange(null)}
         aria-pressed={!selectedBrand}
-          className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+          className={`min-h-[44px] px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium transition-colors ${
           !selectedBrand
             ? "bg-[var(--color-primary)] text-white"
             : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-primary)]/10"
@@ -61,7 +61,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
             onClick={() => handleBrandChange(brand.slug)}
             aria-pressed={isSelected}
             aria-expanded={expanded}
-            className={`min-h-[44px] px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            className={`min-h-[44px] px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium transition-colors ${
               // On mobile only "Alle" + selected brand stay visible unless expanded
               !isSelected && !expanded ? "hidden sm:inline-flex sm:items-center" : "inline-flex items-center"
             } ${
@@ -80,7 +80,7 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
           type="button"
           onClick={() => setExpanded(true)}
           aria-expanded={false}
-          className="sm:hidden min-h-[44px] px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-bg-secondary)] text-[var(--color-primary)]"
+          className="sm:hidden min-h-[44px] px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-bg-secondary)] text-[var(--color-primary)]"
         >
           {`Marken (${brands.length}) ▼`}
         </button>
