@@ -29,8 +29,8 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
   if (brands.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs text-[var(--color-text-muted)] whitespace-nowrap">Marke:</span>
+    <div className="flex items-center gap-2 flex-wrap min-w-0">
+      <span className="hidden sm:inline text-xs text-[var(--color-text-muted)] whitespace-nowrap">Marke:</span>
       <button
         onClick={() => handleBrandChange(null)}
         aria-pressed={!selectedBrand}

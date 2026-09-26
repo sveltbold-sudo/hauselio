@@ -26,7 +26,7 @@ export default function QuantitySelector({ quantity, onChange }: QuantitySelecto
           const v = parseInt(e.target.value, 10);
           if (!isNaN(v) && v >= 1 && v <= 99) onChange(v);
         }}
-        className="px-3 sm:px-4 py-2.5 sm:py-3 font-bold tabular-nums min-w-[48px] text-center text-sm bg-transparent border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-lg [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] font-bold tabular-nums min-w-[48px] text-center text-sm bg-transparent border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-lg [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         aria-label="Artikelmenge"
         aria-valuenow={quantity}
         aria-valuemin={1}

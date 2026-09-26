@@ -281,7 +281,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
         {/* Pause/Play toggle */}
         <button
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="absolute bottom-3 right-4 z-20 flex items-center justify-center w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors focus-visible:ring-2 focus-visible:ring-white"
+          className="absolute bottom-3 right-4 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors focus-visible:ring-2 focus-visible:ring-white"
           aria-label={isAutoPlaying ? "Karussell pausieren" : "Karussell abspielen"}
         >
           {isAutoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}

@@ -813,9 +813,9 @@ export default function BestellungPage() {
               </Button>
               <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
                 Mit der Bestellung akzeptieren Sie unsere{" "}
-                <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
+                <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
                 und{" "}
-                <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+                <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
               </p>
 
               {orderError && (
@@ -856,9 +856,9 @@ export default function BestellungPage() {
                 </div>
                 <p className="text-xs text-center text-[var(--color-text-muted)] mt-3 max-lg:hidden">
                   Mit der Bestellung akzeptieren Sie unsere{" "}
-                  <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
+                  <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link>{" "}
                   und{" "}
-                  <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+                  <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
                 </p>
               </div>
             </>
@@ -977,8 +977,8 @@ export default function BestellungPage() {
           <>
             <p className="text-[10px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5">
               Mit der Bestellung akzeptieren Sie unsere{" "}
-              <Link href="/agb" className="text-[var(--color-primary)] hover:underline">AGB</Link> und{" "}
-              <Link href="/widerruf" className="text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
+              <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link> und{" "}
+              <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.
             </p>
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-sm text-[var(--color-text-muted)]">Gesamt:</span>
