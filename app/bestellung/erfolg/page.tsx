@@ -86,7 +86,6 @@ function OrderSuccessContent() {
   const [emailInput, setEmailInput] = useState("");
   const [showEmailForm, setShowEmailForm] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [remaining, setRemaining] = useState(5 * 24 * 60 * 60);
   const [proofFile, setProofFile] = useState<File | null>(null);
   const [proofUploading, setProofUploading] = useState(false);
   const [proofUploaded, setProofUploaded] = useState(false);
@@ -102,12 +101,6 @@ function OrderSuccessContent() {
       setShowEmailForm(false);
     }
   }, [orderId]);
-
-  useEffect(() => {
-    if (!orderId || orderLoading) return;
-    const timer = setInterval(() => setRemaining((r) => (r > 0 ? r - 1 : 0)), 1000);
-    return () => clearInterval(timer);
-  }, [orderId, orderLoading]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -131,12 +124,6 @@ function OrderSuccessContent() {
             createdAt: data.order.createdAt,
             items: data.order.items,
           });
-          // Calculate remaining time from order creation
-          const orderDate = new Date(data.order.createdAt);
-          const deadline = new Date(orderDate.getTime() + 5 * 24 * 60 * 60 * 1000);
-          const now = new Date();
-          const diff = Math.max(0, Math.floor((deadline.getTime() - now.getTime()) / 1000));
-          setRemaining(diff);
           trackPurchase(data.order.orderNumber, data.order.total, data.order.items.map((item: OrderItem) => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })));
         })
         .catch(() => {
