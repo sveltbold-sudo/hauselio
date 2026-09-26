@@ -29,7 +29,8 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
   if (brands.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 flex-nowrap overflow-x-auto pb-1 min-w-0 flex-1">
+    <div className="relative flex-1 min-w-0">
+      <div className="flex items-center gap-2 flex-nowrap overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <span className="hidden sm:inline text-xs text-[var(--color-text-muted)] whitespace-nowrap shrink-0">Marke:</span>
       <button
         onClick={() => handleBrandChange(null)}
@@ -85,6 +86,12 @@ export default function CategoryBrandFilter({ brands, selectedBrand, slug }: Cat
           {`Marken (${brands.length}) ▼`}
         </button>
       )}
+      </div>
+      {/* Indicateur de scroll : dégradé sur le bord droit */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[var(--color-bg)] via-[var(--color-bg)]/70 to-transparent"
+        aria-hidden="true"
+      />
     </div>
   );
 }
