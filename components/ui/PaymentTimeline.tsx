@@ -53,7 +53,7 @@ export default function PaymentTimeline({ currentStep }: PaymentTimelineProps) {
               <p className={`text-xs font-semibold mt-2 text-center ${isCurrent ? "text-[var(--color-primary)]" : isCompleted ? "text-[var(--color-success)]" : "text-[var(--color-text-muted)]"}`}>
                 {step.label}
               </p>
-              <p className="text-[10px] text-[var(--color-text-muted)] text-center mt-0.5">
+              <p className="text-[11px] text-[var(--color-text-muted)] text-center mt-0.5">
                 {step.description}
               </p>
             </div>

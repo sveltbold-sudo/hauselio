@@ -338,7 +338,7 @@ export default function WarenkorbPage() {
                           aria-label="Gutscheincode"
                           aria-invalid={!!couponError}
                           aria-describedby={couponError ? "coupon-error" : undefined}
-                          className="w-full pl-9 pr-3 py-2.5 border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors"
+                          className="w-full pl-9 pr-3 py-2.5 min-h-[44px] border border-[var(--color-border)] rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors"
                         />
                       </div>
                       <button

@@ -207,7 +207,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
             {/* Content — bottom section on dark gradient */}
             <div className="absolute bottom-0 left-0 right-0 z-20 px-5 pb-14">
               {/* Brand */}
-              <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-2" translate="no">
+              <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[11px] font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-2" translate="no">
                 {s.brand}
               </span>
 
@@ -238,7 +238,7 @@ export default function HeroCarousel({ slides: propSlides }: HeroCarouselProps) 
               </Link>
 
               {/* Trust — compact single line */}
-              <div className="flex items-center gap-3 mt-3 text-[10px] text-white/50">
+              <div className="flex items-center gap-3 mt-3 text-[11px] text-white/50">
                 <span className="flex items-center gap-1">
                   <Truck className="w-3 h-3" aria-hidden="true" />
                   Gratis

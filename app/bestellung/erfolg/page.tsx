@@ -32,6 +32,7 @@ interface Order {
   trackingNumber?: string | null;
   total: number;
   shippingCost: number;
+  createdAt: string;
   items: OrderItem[];
 }
 
@@ -40,6 +41,18 @@ function getOrderCouponDiscount(order: Order): number {
   const expectedTotal = itemsSubtotal + order.shippingCost;
   const diff = expectedTotal - order.total;
   return diff > 0.01 ? Math.round(diff * 100) / 100 : 0;
+}
+
+// Addiert Werktage (Mo–Fr). Samstage/Sonntage zählen nicht mit.
+function addWorkingDays(from: Date, days: number): Date {
+  const d = new Date(from.getTime());
+  let added = 0;
+  while (added < days) {
+    d.setDate(d.getDate() + 1);
+    const day = d.getDay();
+    if (day !== 0 && day !== 6) added++;
+  }
+  return d;
 }
 
 const faqItems = [
@@ -115,6 +128,7 @@ function OrderSuccessContent() {
             total: data.order.total,
             shippingCost: data.order.shippingCost,
             trackingNumber: data.order.trackingNumber || null,
+            createdAt: data.order.createdAt,
             items: data.order.items,
           });
           // Calculate remaining time from order creation
@@ -189,9 +203,17 @@ function OrderSuccessContent() {
     }
   };
 
-  const timerDays = Math.floor(remaining / (24 * 60 * 60));
-  const timerHours = String(Math.floor((remaining % (24 * 60 * 60)) / (60 * 60))).padStart(2, "0");
-  const timerMin = String(Math.floor((remaining % (60 * 60)) / 60)).padStart(2, "0");
+  // Zahlungsfrist = 5 Werktage (Werktage, nicht 24-h-Tage) — als Kalenderdatum anzeigen
+  const paymentDeadline = order
+    ? addWorkingDays(new Date(order.createdAt), 5)
+    : null;
+  const deadlineLabel = paymentDeadline
+    ? paymentDeadline.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })
+    : "";
+  const deadlineWeekday = paymentDeadline
+    ? paymentDeadline.toLocaleDateString("de-DE", { weekday: "long" })
+    : "";
+  const deadlinePassed = paymentDeadline ? paymentDeadline.getTime() < Date.now() : false;
 
   if (!orderId) {
     return (
@@ -212,7 +234,7 @@ function OrderSuccessContent() {
   }
 
   return (
-    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto">
+    <main id="main-content" className="container-hausaura py-12 sm:py-16 max-w-3xl mx-auto pb-[calc(10rem+env(safe-area-inset-bottom,0px))] lg:pb-16">
       {/* Success Icon */}
       <div className="text-center mb-8">
         <div className="w-20 h-20 bg-[var(--color-success-light)] rounded-full flex items-center justify-center mx-auto mb-6 animate-scale-in">
@@ -224,17 +246,18 @@ function OrderSuccessContent() {
         </p>
       </div>
 
-      {/* Payment reminder (Vorkasse only) */}
-      {order && order.status === "PENDING_PAYMENT" && order.paymentMethod !== "card" && remaining > 0 && (
+      {/* Zahlungsfrist (nur Vorkasse) — konkretes Datum statt Countdown */}
+      {order && order.status === "PENDING_PAYMENT" && order.paymentMethod !== "card" && !deadlinePassed && (
         <div
           role="status"
           aria-live="off"
-          className="flex items-center justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6"
+          className="flex items-start justify-center gap-2 px-5 py-3 bg-[var(--color-primary-50)] border border-[var(--color-primary)]/20 rounded-xl mb-6 text-left"
         >
-          <Clock className="w-4 h-4 text-[var(--color-primary)]" />
-          <span className="text-sm font-medium text-[var(--color-primary)]">
-            Bitte bezahlen Sie innerhalb von {timerDays} {timerDays === 1 ? "Tag" : "Tagen"}, {timerHours} Stunden und {timerMin} Minuten
-          </span>
+          <Clock className="w-4 h-4 text-[var(--color-primary)] shrink-0 mt-0.5" />
+          <p className="text-sm text-[var(--color-text-primary)] leading-snug">
+            Bitte überweisen Sie den Betrag innerhalb von <strong>5 Werktagen</strong>, also bis{" "}
+            <strong>{deadlineWeekday}, {deadlineLabel}</strong>.
+          </p>
         </div>
       )}
 
@@ -605,7 +628,7 @@ function OrderSuccessContent() {
       )}
 
       {/* CTAs */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-lg:hidden">
         <Link
           href="/shop"
           className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
@@ -618,6 +641,17 @@ function OrderSuccessContent() {
           className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[var(--color-border)] text-[var(--color-text-secondary)] font-semibold rounded-xl hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
         >
           Zurück zur Startseite
+        </Link>
+      </div>
+
+      {/* Sticky mobile action bar — prochaine action toujours accessible */}
+      <div className="fixed bottom-[calc(56px+env(safe-area-inset-bottom,0px))] left-0 right-0 z-[80] lg:hidden bg-white border-t border-[var(--color-border-light)] p-3 shadow-[0_-4px_14px_rgba(10,37,64,0.08)]">
+        <Link
+          href="/shop"
+          className="w-full min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base bg-[var(--color-accent)] text-white font-semibold rounded-xl hover:bg-[var(--color-accent-hover)] transition-colors"
+        >
+          Weiter einkaufen
+          <ArrowRight className="w-5 h-5" />
         </Link>
       </div>
     </main>

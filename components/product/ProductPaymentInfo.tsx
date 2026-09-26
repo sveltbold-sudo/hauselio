@@ -18,7 +18,7 @@ export default function ProductPaymentInfo() {
       <ol className="space-y-2 mb-3 list-none">
         {STEPS.map((text, i) => (
           <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-text-secondary)]">
-            <span className="w-4 h-4 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5" aria-hidden="true">
+            <span className="w-4 h-4 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5" aria-hidden="true">
               {i + 1}
             </span>
             {text}

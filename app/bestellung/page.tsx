@@ -460,7 +460,7 @@ export default function BestellungPage() {
 
           {/* ===== STEP 1: ADDRESS ===== */}
           {step === "address" && (
-            <form onSubmit={(e) => { e.preventDefault(); handleNextStep(); }} aria-label="Adressformular">
+            <form onSubmit={(e) => { e.preventDefault(); handleNextStep(); }} aria-label="Adressformular" noValidate>
               {/* Contact */}
               <div className="bg-white rounded-2xl border border-[var(--color-border-light)] p-4 sm:p-6 mb-6">
                 <h2 className="heading-3 mb-5 flex items-center gap-2">
@@ -697,7 +697,7 @@ export default function BestellungPage() {
                       </div>
                       <div className="flex-1">
                         <p className="font-semibold text-[var(--color-text-primary)]">
-                          Kreditkarte <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
+                          Kreditkarte <span className="ml-1 text-[11px] font-bold uppercase tracking-wide bg-[var(--color-success)] text-white rounded px-1.5 py-0.5">Empfohlen</span>
                         </p>
                         <p className="text-sm text-[var(--color-text-secondary)]">
                           Visa, Mastercard · Sicher via Stripe · Sofortiger Versand
@@ -733,7 +733,7 @@ export default function BestellungPage() {
                       <div className="flex-1">
                         <p className="font-semibold text-[var(--color-text-muted)]">
                           Kreditkarte{" "}
-                          <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">
+                          <span className="ml-1 text-[11px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">
                             Bald verfügbar
                           </span>
                         </p>
@@ -758,7 +758,7 @@ export default function BestellungPage() {
                     <div>
                       <p className="font-semibold text-[var(--color-text-primary)]">
                         Überweisung (Vorkasse){" "}
-                        <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">
+                        <span className="ml-1 text-[11px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">
                           Empfohlen
                         </span>
                       </p>
@@ -975,7 +975,7 @@ export default function BestellungPage() {
           </>
         ) : (
           <>
-            <p className="text-[10px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5">
+            <p className="text-[11px] leading-snug text-center text-[var(--color-text-muted)] mb-1.5">
               Mit der Bestellung akzeptieren Sie unsere{" "}
               <Link href="/agb" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">AGB</Link> und{" "}
               <Link href="/widerruf" className="inline-flex items-center min-h-[24px] px-1 -mx-1 text-[var(--color-primary)] hover:underline">Widerrufsrecht</Link>.

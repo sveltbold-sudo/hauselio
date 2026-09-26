@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { MessageCircle, X, Clock } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -13,6 +14,12 @@ export default function WhatsAppChat() {
   const [pulse, setPulse] = useState(true);
   const [phone, setPhone] = useState(FALLBACK_NUMBER);
   const prefersReduced = useReducedMotion();
+  const pathname = usePathname();
+
+  // Pendant le tunnel de commande, pas de popup : il masquerait la timeline
+  // et la barre CTA fixe du checkout.
+  const inCheckoutFlow = pathname.startsWith("/bestellung");
+  const blocked = inCheckoutFlow || pathname.startsWith("/admin");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,6 +49,13 @@ export default function WhatsAppChat() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (blocked) {
+      setVisible(false);
+      setDismissed(true);
+    }
+  }, [blocked]);
 
   useEffect(() => {
     if (!visible) return;
@@ -81,7 +95,7 @@ export default function WhatsAppChat() {
         <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-2">
           Schnelle Hilfe per WhatsApp — wir antworten innerhalb weniger Stunden.
         </p>
-        <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-text-muted)]">
+        <div className="flex items-center gap-1.5 text-[11px] text-[var(--color-text-muted)]">
           <Clock className="w-3 h-3" />
           <span>Mo–Fr 9–18 Uhr</span>
         </div>

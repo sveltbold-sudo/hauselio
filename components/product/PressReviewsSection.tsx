@@ -73,7 +73,7 @@ function PublicationLogo({ logoText, accentColor }: { logoText: string; accentCo
         }}
       />
       <span
-        className="text-[9px] font-black uppercase tracking-wider leading-[1.15] text-center whitespace-pre-line relative z-10"
+        className="text-[11px] font-black uppercase tracking-wider leading-[1.15] text-center whitespace-pre-line relative z-10"
         style={{ color: accentColor }}
       >
         {logoText}
@@ -129,7 +129,7 @@ function ReviewCard({ review, index }: { review: PressReview; index: number }) {
             {review.product}
           </span>
           <span
-            className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md"
+            className="text-[11px] font-bold uppercase tracking-widest px-2 py-1 rounded-md"
             style={{
               backgroundColor: `color-mix(in srgb, ${review.accentColor} 6%, white)`,
               color: `color-mix(in srgb, ${review.accentColor} 70%, var(--color-text-muted))`,
@@ -155,7 +155,7 @@ function ReviewCardMobile({ review }: { review: PressReview }) {
           <div className="flex items-center justify-between mb-3">
             <PublicationLogo logoText={review.logoText} accentColor={review.accentColor} />
             <span
-              className="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-wide"
+              className="px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide"
               style={{
                 backgroundColor: `color-mix(in srgb, ${review.accentColor} 10%, white)`,
                 color: review.accentColor,
@@ -227,7 +227,7 @@ export default function PressReviewsSection({
 
           {/* Disclaimer + CTA */}
           <div className="mt-8 md:mt-12 flex flex-col items-center gap-4">
-            <p className="text-[10px] text-[var(--color-text-muted)] text-center max-w-md">
+            <p className="text-[11px] text-[var(--color-text-muted)] text-center max-w-md">
               Redaktionelle Zusammenstellung — Quellen siehe einzelne Bewertungen
             </p>
             <Link

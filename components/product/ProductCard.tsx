@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Content */}
         <div className="px-3 pb-2 pt-2.5 flex flex-col gap-0.5">
           {product.brand && (
-            <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]" translate="no">
               {product.brand}
             </p>
           )}

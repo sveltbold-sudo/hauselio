@@ -201,7 +201,7 @@ export default async function VersandPage() {
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-muted)] mb-2">
-                Kreditkarte (Visa, Mastercard) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">Bald verfügbar</span>
+                Kreditkarte (Visa, Mastercard) <span className="ml-1 text-[11px] font-bold uppercase tracking-wide bg-[var(--color-accent)] text-white rounded px-1.5 py-0.5">Bald verfügbar</span>
               </h3>
               <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
                 Unsere Kartenzahlung wird gerade eingerichtet und steht Ihnen in Kürze zur Verfügung.
@@ -215,7 +215,7 @@ export default async function VersandPage() {
             </div>
             <div>
               <h3 className="font-semibold text-[var(--color-text-primary)] mb-2">
-                Überweisung (Vorkasse) <span className="ml-1 text-[10px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">Aktuell verfügbar</span>
+                Überweisung (Vorkasse) <span className="ml-1 text-[11px] font-bold uppercase tracking-wide bg-[var(--color-primary)] text-white rounded px-1.5 py-0.5">Aktuell verfügbar</span>
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 Nach Ihrer Bestellung erhalten Sie eine Bestätigungs-E-Mail mit
