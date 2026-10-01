@@ -120,7 +120,7 @@ export default async function Footer() {
                 width={110}
                 height={33}
                 sizes="110px"
-                className="h-8 w-auto brightness-0 invert"
+                className="w-[110px] h-auto brightness-0 invert"
                 loading="lazy"
               />
             </Link>
@@ -248,7 +248,7 @@ export default async function Footer() {
                   alt={method.name}
                   width={32}
                   height={20}
-                  className="h-4 w-auto opacity-80"
+                  className="h-4 w-[26px] object-contain opacity-80"
                   loading="lazy"
                 />
               </div>

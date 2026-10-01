@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function VergleichPage() {
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[75vh]">
         <h1 className="sr-only">Produktvergleich</h1>
         <div className="h-20 w-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse mx-auto mb-6" aria-hidden="true" />
         <div className="h-8 w-64 bg-[var(--color-bg-secondary)] rounded animate-pulse mx-auto mb-4" aria-hidden="true" />
@@ -33,7 +33,7 @@ export default function VergleichPage() {
 
   if (items.length === 0) {
     return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[75vh]">
         <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
         <h1 className="heading-2 mb-4">Keine Produkte zum Vergleichen</h1>
         <p className="body-large mb-10">
@@ -51,7 +51,7 @@ export default function VergleichPage() {
 
   if (items.length < 2) {
     return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[75vh]">
         <BarChart3 className="w-20 h-20 text-[var(--color-border)] mx-auto mb-6" />
         <h1 className="heading-2 mb-4">Mindestens 2 Produkte benÃ¶tigt</h1>
         <p className="body-large mb-10">
