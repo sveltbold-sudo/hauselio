@@ -68,7 +68,7 @@ export default function WarenkorbPage() {
 
   if (!mounted) {
     return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[75vh]">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[calc(100vh-2rem)]">
         <h1 className="heading-2 mb-4">Warenkorb</h1>
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-48 bg-[var(--color-bg-secondary)] rounded-xl mx-auto" />
@@ -80,7 +80,7 @@ export default function WarenkorbPage() {
 
   if (items.length === 0) {
     return (
-      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[75vh]">
+      <main id="main-content" className="container-hausaura py-24 text-center max-w-2xl mx-auto min-h-[calc(100vh-2rem)]">
         <Image
           src="/images/illustrations/empty-cart.svg"
           alt="Leerer Warenkorb"

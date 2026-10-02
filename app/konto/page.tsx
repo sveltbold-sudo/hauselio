@@ -227,7 +227,7 @@ export default function KontoPage() {
 
   if (isAuthLoading) {
     return (
-      <main id="main-content" className="container-hausaura py-20 text-center">
+      <main id="main-content" className="container-hausaura py-20 text-center min-h-[calc(100vh-2rem)]">
         <h1 className="sr-only">Mein Konto</h1>
         <div className="w-8 h-8 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto" />
       </main>
