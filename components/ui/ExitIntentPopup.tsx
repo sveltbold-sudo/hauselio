@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { X, Percent, ArrowRight, Clock, Mail } from "lucide-react";
 import { useScrollLock } from "@/hooks/useScrollLock";
+import { NEWSLETTER_COUPON_CODE } from "@/lib/constants";
 
 const EXIT_INTENT_KEY = "HAUSAURA-exit-intent-shown";
-const COUPON_CODE = "HAUSAURA10";
+const COUPON_CODE = NEWSLETTER_COUPON_CODE;
 const COUNTDOWN_MINUTES = 10;
 
 export default function ExitIntentPopup() {

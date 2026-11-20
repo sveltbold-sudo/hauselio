@@ -125,6 +125,22 @@ export default async function WiderrufPage() {
         </section>
 
         <section>
+          <h2 className="heading-3 mb-3">Freiwilliges 30-tägiges Rückgaberecht</h2>
+          <p className="text-[var(--color-text-secondary)]">
+            Unabhängig von Ihrem gesetzlichen Widerrufsrecht gewähren wir Ihnen ein freiwilliges
+            Rückgaberecht von 30 Tagen ab Erhalt der Ware. Voraussetzung ist, dass die Ware unbenutzt,
+            vollständig und in der Originalverpackung an uns zurückgesandt wird. Ausgenommen sind
+            versiegelte Waren, deren Versiegelung nach der Lieferung entfernt wurde, sowie individuell
+            angefertigte Waren. Die unmittelbaren Kosten der Rücksendung tragen Sie.
+          </p>
+          <p className="text-[var(--color-text-secondary)] mt-3">
+            Das gesetzliche Widerrufsrecht nach den vorstehenden Abschnitten bleibt hiervon unberührt.
+            Es gilt unabhängig von diesem freiwilligen Rückgaberecht und ohne die vorgenannten
+            Voraussetzungen.
+          </p>
+        </section>
+
+        <section>
           <h2 className="heading-3 mb-3" style={{ textWrap: "pretty" }}>Ausschluss bzw. vorzeitiges Erlöschen des Widerrufsrechts</h2>
           <p className="text-[var(--color-text-secondary)]">
             Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung versiegelter Waren, die aus
@@ -155,7 +171,7 @@ export default async function WiderrufPage() {
         </section>
 
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
-          Stand: August 2026
+          Stand: November 2026
         </p>
       </div>
     </main>

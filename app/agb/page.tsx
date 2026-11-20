@@ -150,6 +150,15 @@ export default function AGBPage() {
           <p className="text-[var(--color-text-secondary)] mt-3">
             (3) Im Einzelnen regelt sich das Widerrufsrecht nach den Bestimmungen im Widerrufsbogen.
           </p>
+          <p className="text-[var(--color-text-secondary)] mt-3">
+            (4) Unabhängig vom gesetzlichen Widerrufsrecht gewähren wir Ihnen ein freiwilliges
+            Rückgaberecht von 30 Tagen. Die Frist beginnt mit dem Tag, an dem Sie die Ware in Besitz
+            genommen haben. Voraussetzung ist, dass die Ware unbenutzt, vollständig und in der
+            Originalverpackung an uns zurückgesandt wird. Ausgenommen sind versiegelte Waren, deren
+            Versiegelung nach der Lieferung entfernt wurde, sowie individuell angefertigte Waren.
+            Die unmittelbaren Kosten der Rücksendung tragen Sie. Das gesetzliche Widerrufsrecht nach
+            Absatz 1 bleibt von diesem freiwilligen Rückgaberecht unberührt.
+          </p>
         </section>
 
         <section>
@@ -197,7 +206,7 @@ export default function AGBPage() {
         </section>
 
         <p className="text-xs text-[var(--color-text-muted)] mt-8 pt-4 border-t border-[var(--color-border)]">
-          Stand: August 2026
+          Stand: November 2026
         </p>
       </div>
     </main>

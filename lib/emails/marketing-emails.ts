@@ -1,6 +1,6 @@
 import { FROM_EMAIL } from "@/lib/resend";
 import { escapeHtml } from "@/lib/html";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, NEWSLETTER_COUPON_CODE, NEWSLETTER_COUPON_PERCENT } from "@/lib/constants";
 import { createUnsubscribeToken } from "@/lib/auth";
 import { sendEmail, baseTemplate, headerBanner, divider } from "./helpers";
 
@@ -23,6 +23,20 @@ export async function sendNewsletterConfirmation(email: string, confirmToken: st
       <div style="text-align:center;padding:16px 0 24px 0;">
         <a href="${confirmUrl}" style="display:inline-block;background-color:#D14A0C;color:#FFFFFF;font-size:15px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:10px;">
           E-Mail best\u00e4tigen
+        </a>
+      </div>
+      <div style="background-color:#FFF7ED;border:1px dashed #D14A0C;border-radius:10px;padding:20px;text-align:center;margin:0 0 24px 0;">
+        <p style="color:#9CA3AF;font-size:11px;margin:0 0 6px 0;letter-spacing:1px;text-transform:uppercase;">
+          Ihr Willkommensrabatt
+        </p>
+        <p style="color:#D14A0C;font-size:24px;font-weight:700;letter-spacing:3px;margin:0 0 6px 0;">
+          ${NEWSLETTER_COUPON_CODE}
+        </p>
+        <p style="color:#4B5563;font-size:13px;margin:0 0 12px 0;line-height:1.5;">
+          ${NEWSLETTER_COUPON_PERCENT}\u00a0% auf Ihre erste Bestellung \u2013 einfach im Warenkorb einl\u00f6sen.
+        </p>
+        <a href="${SITE}" style="display:inline-block;color:#D14A0C;font-size:13px;font-weight:700;text-decoration:underline;">
+          Jetzt im Shop einl\u00f6sen
         </a>
       </div>
       <div style="border-top:1px solid #E8ECF1;padding-top:20px;">

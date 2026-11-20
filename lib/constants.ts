@@ -9,6 +9,10 @@ export const SHIPPING_COST = 4.99;
 // Auf "true" setzen, sobald Stripe die Zahlungen wieder freigibt.
 export const CARD_PAYMENT_ENABLED = false;
 
+// Willkommensrabatt für neue Newsletter-Abonnenten (10 % auf die erste Bestellung).
+export const NEWSLETTER_COUPON_CODE = "HAUSAURA10";
+export const NEWSLETTER_COUPON_PERCENT = 10;
+
 // Per-country shipping config: { threshold, cost }
 const SHIPPING_BY_COUNTRY: Record<string, { threshold: number; cost: number }> = {
   DE: { threshold: 50, cost: 4.99 },
