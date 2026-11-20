@@ -7,7 +7,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import { SITE_URL } from "@/lib/constants";
 import { buildFaqJsonLd } from "@/lib/faq";
 
-export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Kontakt — E-Mail, Telefon & Beratung",
