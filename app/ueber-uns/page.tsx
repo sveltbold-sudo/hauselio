@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -61,7 +62,9 @@ const values = [
   },
 ];
 
-export default function UeberUnsPage() {
+export default async function UeberUnsPage() {
+  const productCount = await prisma.product.count().catch(() => 0);
+
   const aboutJsonLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -205,7 +208,7 @@ export default function UeberUnsPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
-            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">279+</div>
+            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">{productCount}</div>
             <p className="text-sm text-[var(--color-text-secondary)]">Premium-Produkte von Top-Marken</p>
           </div>
           <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">

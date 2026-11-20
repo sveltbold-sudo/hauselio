@@ -31,6 +31,9 @@ export default async function LocalBusinessJsonLd() {
   const postalCode = zipCity.split(" ")[0] || "";
   const city = zipCity.split(" ").slice(1).join(" ") || "";
 
+  // A LocalBusiness entry without a real address is invalid structured data.
+  if (!street) return null;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
