@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 const fallback = {
   companyName: "HAUSAURA GmbH",
-  companyAddress: "Musterstraße 12, 10115 Berlin",
+  companyAddress: "",
   contactPhone: "+4915259140453",
   contactEmail: "info@hausaura.de",
 };
@@ -25,10 +25,11 @@ async function getSettings() {
 
 export default async function OrganizationJsonLd() {
   const s = await getSettings();
-  const addrParts = s.companyAddress.split(",").map((p) => p.trim());
-  const street = addrParts[0] || "Musterstraße 12";
-  const postalCode = (addrParts[1] || "10115 Berlin").split(" ")[0] || "10115";
-  const city = (addrParts[1] || "10115 Berlin").split(" ").slice(1).join(" ") || "Berlin";
+  const addrParts = s.companyAddress.split(",").map((p) => p.trim()).filter(Boolean);
+  const street = addrParts[0] || "";
+  const zipCity = addrParts[1] || "";
+  const postalCode = zipCity.split(" ")[0] || "";
+  const city = zipCity.split(" ").slice(1).join(" ") || "";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -38,24 +39,23 @@ export default async function OrganizationJsonLd() {
     logo: `${SITE_URL}/logos/logoprincipale.png`,
     description: "Premium Haushaltsgeräte online kaufen. Miele, Bosch, Siemens, Dyson und weitere Top-Marken.",
     email: s.contactEmail,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: street,
-      addressLocality: city,
-      postalCode: postalCode,
-      addressCountry: "DE",
-    },
+    ...(street
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: street,
+            addressLocality: city,
+            postalCode: postalCode,
+            addressCountry: "DE",
+          },
+        }
+      : {}),
     contactPoint: {
       "@type": "ContactPoint",
       telephone: s.contactPhone,
       contactType: "customer service",
       availableLanguage: "German",
     },
-    sameAs: [
-      "https://www.instagram.com/HAUSAURA",
-      "https://www.facebook.com/HAUSAURA",
-      "https://www.linkedin.com/company/HAUSAURA",
-    ],
   };
 
   return (

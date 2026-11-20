@@ -339,6 +339,16 @@ export default async function HomePage() {
   const bestsellerSlugs = new Set(bestsellersValue.map((b) => b.slug));
   recommendedValue = recommendedValue.filter((r) => !bestsellerSlugs.has(r.slug));
 
+  // Only show a rating when real, verified customer reviews exist.
+  const reviewStats = await prisma.review
+    .aggregate({
+      _count: true,
+      _avg: { rating: true },
+      where: { isApproved: true, isVerified: true },
+    })
+    .then((r) => (r._count > 0 && r._avg.rating ? { count: r._count, average: r._avg.rating } : null))
+    .catch(() => null);
+
   return (
     <main id="main-content">
       <script
@@ -388,27 +398,26 @@ export default async function HomePage() {
         <ThermomixSection />
       </Suspense>
 
-      {/* Trust scores — like Coolblue */}
+      {/* Trust scores — only real, verified customer reviews are displayed */}
       <section className="py-6 lg:py-8 border-b border-[var(--color-border-light)]">
         <div className="container-hausaura">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-4 h-4 text-[var(--color-success)]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <span className="text-sm font-bold text-[var(--color-text-primary)]">4,4/5</span>
-              <span className="text-xs text-[var(--color-text-muted)]">· 470+ Bewertungen</span>
-            </div>
-            <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-[var(--color-text-primary)]">9,2/10</span>
-              <span className="text-xs text-[var(--color-text-muted)]">· KiyoBewertungen</span>
-            </div>
-            <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
+            {reviewStats && (
+              <>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-[var(--color-success)]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="text-sm font-bold text-[var(--color-text-primary)]">{reviewStats.average.toFixed(1).replace(".", ",")}/5</span>
+                  <span className="text-xs text-[var(--color-text-muted)]">· {reviewStats.count} Bewertungen</span>
+                </div>
+                <div className="w-px h-6 bg-[var(--color-border-light)] hidden sm:block" />
+              </>
+            )}
             <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
               <svg className="w-5 h-5 text-[var(--color-success)]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />

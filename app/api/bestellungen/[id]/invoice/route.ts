@@ -84,7 +84,7 @@ export async function GET(
       orderNumber: order.orderNumber,
       paidAt: (order.paidAt || order.updatedAt).toISOString(),
       companyName: settings?.companyName || "HAUSAURA GmbH",
-      companyAddress: settings?.companyAddress || "Musterstraße 12, 10115 Berlin",
+      companyAddress: settings?.companyAddress || "",
       vatId: settings?.vatId || "",
       defaultVatRate: settings?.defaultVatRate ?? 19,
       customerName,

@@ -356,9 +356,11 @@ model SiteSettings {
   contactPhone     String?
   contactAddress   String?
   companyName      String? @default("HAUSAURA GmbH")
-  companyAddress   String? @default("Kastanienallee 42, 10435 Berlin")
+  companyAddress   String?
   vatId            String?
   managingDirector String?
+  registerCourt    String?
+  registerNumber   String?
   defaultVatRate   Float? @default(19)
   invoicePrefix    String? @default("RE")
   invoiceCounter   Int?    @default(0)

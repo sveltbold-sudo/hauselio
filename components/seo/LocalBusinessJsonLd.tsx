@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/constants";
 
 const fallback = {
   companyName: "HAUSAURA GmbH",
-  companyAddress: "Musterstraße 12, 10115 Berlin",
+  companyAddress: "",
   contactPhone: "+4915259140453",
   contactEmail: "info@hausaura.de",
 };
@@ -25,10 +25,11 @@ async function getSettings() {
 
 export default async function LocalBusinessJsonLd() {
   const s = await getSettings();
-  const addrParts = s.companyAddress.split(",").map((p) => p.trim());
-  const street = addrParts[0] || "Musterstraße 12";
-  const postalCode = (addrParts[1] || "10115 Berlin").split(" ")[0] || "10115";
-  const city = (addrParts[1] || "10115 Berlin").split(" ").slice(1).join(" ") || "Berlin";
+  const addrParts = s.companyAddress.split(",").map((p) => p.trim()).filter(Boolean);
+  const street = addrParts[0] || "";
+  const zipCity = addrParts[1] || "";
+  const postalCode = zipCity.split(" ")[0] || "";
+  const city = zipCity.split(" ").slice(1).join(" ") || "";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -40,32 +41,17 @@ export default async function LocalBusinessJsonLd() {
     description: "Premium Haushaltsgeräte online kaufen — Miele, Bosch, Siemens, Dyson und weitere Top-Marken mit kostenlosem Versand ab 50€.",
     email: s.contactEmail,
     telephone: s.contactPhone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: street,
-      addressLocality: city,
-      postalCode: postalCode,
-      addressCountry: "DE",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 52.5461,
-      longitude: 13.4047,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "18:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "10:00",
-        closes: "14:00",
-      },
-    ],
+    ...(street
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: street,
+            addressLocality: city,
+            postalCode: postalCode,
+            addressCountry: "DE",
+          },
+        }
+      : {}),
     priceRange: "€€",
     paymentAccepted: "Banküberweisung, Vorkasse",
     currenciesAccepted: "EUR",

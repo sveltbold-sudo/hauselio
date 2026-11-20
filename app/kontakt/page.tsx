@@ -34,7 +34,7 @@ const fallbackSettings = {
   companyName: "HAUSAURA GmbH",
   contactEmail: "info@hausaura.de",
   contactPhone: "+49 (0)1525 9140453",
-  contactAddress: "Musterstraße 12, 10115 Berlin",
+  contactAddress: "",
 };
 
 async function getSettings() {
@@ -54,6 +54,11 @@ async function getSettings() {
 
 export default async function KontaktPage() {
   const settings = await getSettings();
+  const addrParts = settings.contactAddress.split(",").map((p) => p.trim());
+  const street = addrParts[0] || "";
+  const zipCity = addrParts[1] || "";
+  const postalCode = zipCity.split(" ")[0] || "";
+  const city = zipCity.split(" ").slice(1).join(" ") || "";
 
   const contactJsonLd = {
     "@context": "https://schema.org",
@@ -65,13 +70,17 @@ export default async function KontaktPage() {
       name: settings.companyName,
       telephone: settings.contactPhone,
       email: settings.contactEmail,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Musterstraße 12",
-        postalCode: "10115",
-        addressLocality: "Berlin",
-        addressCountry: "DE",
-      },
+      ...(street
+        ? {
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: street,
+              postalCode,
+              addressLocality: city,
+              addressCountry: "DE",
+            },
+          }
+        : {}),
     },
   };
 

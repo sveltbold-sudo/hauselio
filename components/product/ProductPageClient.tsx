@@ -189,26 +189,28 @@ export default function ProductPageClient({ product, relatedProducts = [], ratge
             {product.name}
           </h1>
 
-          <div className="flex items-center gap-2 mb-5">
-            <StarRating rating={product.liveRating} size="md" />
-            <span className="text-sm text-[var(--color-text-secondary)]">{product.liveRating}</span>
-            <span className="text-[var(--color-border)]">·</span>
-            <a
-              href="#kundenbewertungen"
-              className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:underline transition-colors"
-              onClick={(e) => {
-                e.preventDefault();
-                const target = document.getElementById("kundenbewertungen");
-                if (target) {
-                  history.replaceState(null, "", "#kundenbewertungen");
-                  target.scrollIntoView({ behavior: "smooth" });
-                  target.focus({ preventScroll: true });
-                }
-              }}
-            >
-              {product.reviewCount} Bewertungen
-            </a>
-          </div>
+          {product.reviewCount > 0 && product.liveRating > 0 && (
+            <div className="flex items-center gap-2 mb-5">
+              <StarRating rating={product.liveRating} size="md" />
+              <span className="text-sm text-[var(--color-text-secondary)]">{product.liveRating}</span>
+              <span className="text-[var(--color-border)]">·</span>
+              <a
+                href="#kundenbewertungen"
+                className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:underline transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById("kundenbewertungen");
+                  if (target) {
+                    history.replaceState(null, "", "#kundenbewertungen");
+                    target.scrollIntoView({ behavior: "smooth" });
+                    target.focus({ preventScroll: true });
+                  }
+                }}
+              >
+                {product.reviewCount} Bewertungen
+              </a>
+            </div>
+          )}
 
 
 

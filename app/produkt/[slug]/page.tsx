@@ -31,7 +31,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
         images: { orderBy: { position: "asc" as const }, select: { url: true } },
         specs: { orderBy: { position: "asc" as const }, select: { key: true, value: true } },
         reviews: {
-          where: { isApproved: true },
+          where: { isApproved: true, isVerified: true },
           select: { authorName: true, rating: true, title: true, content: true, createdAt: true },
           orderBy: { createdAt: "desc" as const },
           take: 10,
@@ -43,10 +43,10 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
 
     const [realReviewCount, liveAggregate, relatedProducts] = await Promise.all([
       prisma.review.count({
-        where: { productId: product.id, isApproved: true },
+        where: { productId: product.id, isApproved: true, isVerified: true },
       }),
       prisma.review.aggregate({
-        where: { productId: product.id, isApproved: true },
+        where: { productId: product.id, isApproved: true, isVerified: true },
         _avg: { rating: true },
       }),
       prisma.product.findMany({
@@ -62,7 +62,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
       }),
     ]);
 
-    const liveRating = realReviewCount > 0 ? Number(liveAggregate._avg.rating ?? product.rating) : 0;
+    const liveRating = realReviewCount > 0 ? Number(liveAggregate._avg.rating ?? 0) : 0;
 
     return {
       product: {
@@ -207,8 +207,8 @@ export default async function ProductPage({ params }: PageProps) {
         category={product.category?.name || undefined}
         sku={product.sku || undefined}
         gtin={product.barcode || undefined}
-        rating={product.liveRating || Number(product.rating)}
-        reviewCount={product.reviewCount}
+        rating={product.liveRating || undefined}
+        reviewCount={product.reviewCount || undefined}
         shippingRate={Number(product.price) >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST}
         specs={(product.specs || []).map((s: { key: string; value: string }) => ({ key: s.key, value: s.value }))}
         reviews={(product.reviews || []).map((r: { authorName: string; rating: number; title: string | null; content: string | null; createdAt: string }) => ({

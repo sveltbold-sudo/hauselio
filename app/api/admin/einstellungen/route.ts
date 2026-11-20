@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { handleApiError, validateContentType } from "@/lib/api-helpers";
@@ -94,6 +95,25 @@ export async function PUT(request: NextRequest) {
       logger.info("settings-updated", `Site settings updated by ${admin.email}`);
     } catch (auditErr) {
       logger.error("settings-update-audit-failed", auditErr);
+    }
+
+    // Legal pages are ISR-cached: refresh them immediately so corrected
+    // company data is visible without waiting for the 24h revalidation.
+    for (const path of [
+      "/",
+      "/impressum",
+      "/kontakt",
+      "/datenschutz",
+      "/agb",
+      "/widerruf",
+      "/hilfe",
+      "/ueber-uns",
+    ]) {
+      try {
+        revalidatePath(path);
+      } catch {
+        // Never fail the save because of cache revalidation.
+      }
     }
 
     return NextResponse.json({ settings });

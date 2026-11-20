@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const fallback = {
   contactPhone: "+49 (0)1525 9140453",
   contactEmail: "info@hausaura.de",
-  companyAddress: "Musterstraße 12, 10115 Berlin",
+  companyAddress: "",
 };
 
 async function getSettings() {
@@ -152,7 +152,7 @@ export default async function HilfePage() {
         <div className="space-y-2 text-[var(--color-text-secondary)]">
           <p>Telefon: {s.contactPhone}</p>
           <p>E-Mail: {s.contactEmail}</p>
-          <p>Adresse: {s.companyAddress}</p>
+          {s.companyAddress && <p>Adresse: {s.companyAddress}</p>}
           <p>Mo-Fr: 9:00-18:00, Sa: 10:00-14:00</p>
         </div>
         <Link

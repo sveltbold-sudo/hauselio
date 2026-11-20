@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       {
         contactEmail: settings?.contactEmail || "info@hausaura.de",
         contactPhone: settings?.contactPhone || "+49 (0)1525 9140453",
-        contactAddress: settings?.contactAddress || "Musterstraße 12, 10115 Berlin",
+        contactAddress: settings?.contactAddress || "",
       },
       {
         headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },

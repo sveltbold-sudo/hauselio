@@ -54,7 +54,7 @@ async function getCachedSettings() {
     if (settings) {
       _settingsCache = {
         companyName: settings.companyName || "HAUSAURA GmbH",
-        companyAddress: settings.companyAddress || "Musterstraße 12, 10115 Berlin",
+        companyAddress: settings.companyAddress || "",
         contactEmail: settings.contactEmail || "info@hausaura.de",
       };
     }
@@ -62,7 +62,7 @@ async function getCachedSettings() {
   if (!_settingsCache) {
     _settingsCache = {
       companyName: "HAUSAURA GmbH",
-      companyAddress: "Musterstraße 12, 10115 Berlin",
+      companyAddress: "",
       contactEmail: "info@hausaura.de",
     };
   }

@@ -14,63 +14,6 @@ interface Testimonial {
   avatar: string | null;
 }
 
-const fallbackTestimonials: Testimonial[] = [
-  {
-    id: "1",
-    name: "Michael W.",
-    location: "Frankfurt",
-    rating: 5,
-    content: "Der Thermomix TM7 ist ein Traum. HAUSAURA hatte den besten Preis und die Lieferung war innerhalb von 24 Stunden da. Top!",
-    product: "Thermomix TM7",
-    avatar: "/images/testimonials/michael.jpg",
-  },
-  {
-    id: "2",
-    name: "Stefan M.",
-    location: "Berlin",
-    rating: 5,
-    content: "Hervorragende Beratung und blitzschnelle Lieferung. Der Thermomix funktioniert einwandfrei. Kann HAUSAURA nur empfehlen!",
-    product: "Thermomix TM6",
-    avatar: "/images/testimonials/stefan.jpg",
-  },
-  {
-    id: "3",
-    name: "Anna K.",
-    location: "München",
-    rating: 5,
-    content: "Der Thermomix TM7 wurde problemlos geliefert. Das Gerät läuft super und überzeugt mit 80+ Funktionen. Top Service!",
-    product: "Thermomix TM7",
-    avatar: "/images/testimonials/anna.jpg",
-  },
-  {
-    id: "4",
-    name: "Julia H.",
-    location: "Köln",
-    rating: 5,
-    content: "Das Thermomix Zubehör passt perfekt. Preis war unschlagbar, Versand schnell. Gerne wieder bei HAUSAURA!",
-    product: "Thermomix Zubehör",
-    avatar: "/images/testimonials/julia.jpg",
-  },
-  {
-    id: "5",
-    name: "Thomas B.",
-    location: "Hamburg",
-    rating: 5,
-    content: "Sehr kompetenter Kundendienst. Hatte eine Frage zur Thermomix-Installation und wurde sofort freundlich beraten. Top Service!",
-    product: "Thermomix TM7",
-    avatar: "/images/testimonials/thomas.jpg",
-  },
-  {
-    id: "6",
-    name: "Lisa S.",
-    location: "Stuttgart",
-    rating: 5,
-    content: "Endlich ein Shop der hält was er verspricht. Der Thermomix kam genau wie beschrieben. Vielen Dank HAUSAURA!",
-    product: "Thermomix TM7",
-    avatar: "/images/testimonials/sandra.jpg",
-  },
-];
-
 async function getTestimonials(): Promise<Testimonial[]> {
   try {
     const testimonials = await prisma.testimonial.findMany({
@@ -79,7 +22,7 @@ async function getTestimonials(): Promise<Testimonial[]> {
       take: 6,
     });
 
-    if (testimonials.length === 0) return fallbackTestimonials;
+    if (testimonials.length === 0) return [];
 
     return testimonials.map((t) => ({
       id: t.id,
@@ -91,7 +34,7 @@ async function getTestimonials(): Promise<Testimonial[]> {
       avatar: t.avatar,
     }));
   } catch {
-    return fallbackTestimonials;
+    return [];
   }
 }
 
@@ -125,6 +68,8 @@ const avatarColors = [
 export default async function TestimonialsSection() {
   const testimonials = await getTestimonials();
 
+  if (testimonials.length === 0) return null;
+
   return (
     <section className="section-py" aria-label="Kundenstimmen">
       <div className="container-hausaura">
@@ -132,13 +77,10 @@ export default async function TestimonialsSection() {
         <div className="text-center mb-8 md:mb-12">
           <p className="caption text-[var(--color-accent)] mb-3">Vertrauen</p>
           <h2 className="heading-2 mb-3">
-            Was die Experten <span className="text-[var(--color-accent)]">&</span> Kunden sagen
+            Was unsere <span className="text-[var(--color-accent)]">Kunden</span> sagen
           </h2>
           <p className="body-large max-w-2xl mx-auto mb-3">
-            Von unabhängigen Instituten getestet, von Kunden geliebt
-          </p>
-          <p className="text-xs text-[var(--color-text-muted)] italic">
-            Redaktionelle Zusammenstellung — Quellen siehe einzelne Bewertungen
+            Echte Rückmeldungen von Kundinnen und Kunden
           </p>
         </div>
 

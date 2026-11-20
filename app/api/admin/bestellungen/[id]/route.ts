@@ -190,7 +190,7 @@ export async function PUT(
           customerCountry: order.customerCountry,
           paidAt: paidAt.toISOString(),
           companyName: settings?.companyName || "HAUSAURA GmbH",
-          companyAddress: settings?.companyAddress || "Musterstraße 12, 10115 Berlin",
+          companyAddress: settings?.companyAddress || "",
           vatId: settings?.vatId || "",
           defaultVatRate: settings?.defaultVatRate ?? 19,
         });

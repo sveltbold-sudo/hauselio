@@ -20,6 +20,8 @@ interface Settings {
   companyAddress: string;
   vatId: string;
   managingDirector: string;
+  registerCourt: string;
+  registerNumber: string;
   defaultVatRate: string;
   invoicePrefix: string;
 }
@@ -39,6 +41,8 @@ export default function EinstellungenPage() {
     companyAddress: "",
     vatId: "",
     managingDirector: "",
+    registerCourt: "",
+    registerNumber: "",
     defaultVatRate: "19",
     invoicePrefix: "RE",
   });
@@ -84,6 +88,8 @@ export default function EinstellungenPage() {
             companyAddress: (raw.companyAddress as string) ?? "",
             vatId: (raw.vatId as string) ?? "",
             managingDirector: (raw.managingDirector as string) ?? "",
+            registerCourt: (raw.registerCourt as string) ?? "",
+            registerNumber: (raw.registerNumber as string) ?? "",
             defaultVatRate: String(raw.defaultVatRate ?? "19"),
             invoicePrefix: (raw.invoicePrefix as string) ?? "RE",
           };
@@ -302,7 +308,7 @@ export default function EinstellungenPage() {
               type="text"
               value={settings.vatId}
               onChange={(e) => handleChange("vatId", e.target.value)}
-              placeholder="DE 312 847 609"
+              placeholder="DE123456789"
             />
             <div className="md:col-span-2">
               <Input
@@ -311,7 +317,7 @@ export default function EinstellungenPage() {
                 type="text"
                 value={settings.companyAddress}
                 onChange={(e) => handleChange("companyAddress", e.target.value)}
-                placeholder="Kastanienallee 42, 10435 Berlin"
+                placeholder="Straße und Hausnummer, PLZ und Ort"
               />
             </div>
             <Input
@@ -320,7 +326,23 @@ export default function EinstellungenPage() {
               type="text"
               value={settings.managingDirector}
               onChange={(e) => handleChange("managingDirector", e.target.value)}
-              placeholder="Max Mustermann"
+              placeholder="Vor- und Nachname"
+            />
+            <Input
+              label="Registergericht"
+              id="registerCourt"
+              type="text"
+              value={settings.registerCourt}
+              onChange={(e) => handleChange("registerCourt", e.target.value)}
+              placeholder="z. B. Amtsgericht Berlin-Charlottenburg"
+            />
+            <Input
+              label="Registernummer"
+              id="registerNumber"
+              type="text"
+              value={settings.registerNumber}
+              onChange={(e) => handleChange("registerNumber", e.target.value)}
+              placeholder="z. B. HRB 123456 B"
             />
             <Input
               label="Standard-MwSt-Satz (%)"

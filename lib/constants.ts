@@ -5,8 +5,6 @@ export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "HAUSAURA";
 export const FREE_SHIPPING_THRESHOLD = 50;
 export const SHIPPING_COST = 4.99;
 
-export const TRUST_BAR_RATING = 4.4;
-
 // Kartenzahlung (Stripe) ist vorübergehend deaktiviert (Stripe-Konto gesperrt).
 // Auf "true" setzen, sobald Stripe die Zahlungen wieder freigibt.
 export const CARD_PAYMENT_ENABLED = false;

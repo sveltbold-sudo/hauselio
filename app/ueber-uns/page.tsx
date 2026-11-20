@@ -209,8 +209,8 @@ export default function UeberUnsPage() {
             <p className="text-sm text-[var(--color-text-secondary)]">Premium-Produkte von Top-Marken</p>
           </div>
           <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
-            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">4,4/5</div>
-            <p className="text-sm text-[var(--color-text-secondary)]">Durchschnittliche Kundenbewertung</p>
+            <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">30 Tage</div>
+            <p className="text-sm text-[var(--color-text-secondary)]">Rückgaberecht auf alle Bestellungen</p>
           </div>
           <div className="bg-[var(--color-bg)] rounded-2xl p-6 text-center">
             <div className="text-3xl font-extrabold text-[var(--color-primary)] mb-2">24h</div>

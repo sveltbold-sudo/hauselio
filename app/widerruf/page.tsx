@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 const fallback = {
   companyName: "HAUSAURA GmbH",
-  companyAddress: "Musterstraße 12, 10115 Berlin",
+  companyAddress: "",
   contactPhone: "+49 (0)1525 9140453",
   contactEmail: "widerruf@hausaura.de",
 };
@@ -45,7 +45,7 @@ async function getSettings() {
 
 export default async function WiderrufPage() {
   const s = await getSettings();
-  const addressLines = s.companyAddress.split(",").map((l) => l.trim());
+  const addressLines = s.companyAddress.split(",").map((l) => l.trim()).filter(Boolean);
 
   return (
     <main id="main-content" className="container-hausaura py-8 sm:py-12 max-w-3xl">

@@ -8,7 +8,10 @@ interface CustomerReviewsSectionProps {
 }
 
 export default async function CustomerReviewsSection({ productId }: CustomerReviewsSectionProps) {
-  const where = productId ? { productId, isApproved: true } : { isApproved: true };
+  // Only verified reviews from real customers are shown.
+  const where = productId
+    ? { productId, isApproved: true, isVerified: true }
+    : { isApproved: true, isVerified: true };
 
   let reviews: Array<{
     id: string;

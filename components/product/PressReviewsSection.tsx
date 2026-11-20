@@ -13,48 +13,8 @@ interface PressReview {
   accentColor: string;
 }
 
-const defaultPressReviews: PressReview[] = [
-  {
-    publication: "Stiftung Warentest",
-    logoText: "STIFTUNG\nWARENTEST",
-    rating: "GUT (1,8)",
-    headline: "Testsieger Küchenmaschinen 2025",
-    excerpt: "Die Küchenmaschinen von HAUSAURA überzeugen mit erstklassiger Verarbeitung und überzeugendem Preis-Leistungs-Verhältnis.",
-    category: "Küchenmaschinen",
-    product: "Thermomix TM7",
-    accentColor: "var(--color-info)",
-  },
-  {
-    publication: "CHIP",
-    logoText: "CHIP",
-    rating: "SEHR GUT",
-    headline: "Bester Online-Shop für Haushaltsgeräte",
-    excerpt: "HAUSAURA punktet mit breitem Sortiment, schneller Lieferung und kompetenter Kundenbetreuung.",
-    category: "Online-Shop",
-    product: "HAUSAURA Shop",
-    accentColor: "var(--color-accent)",
-  },
-  {
-    publication: "Computer BILD",
-    logoText: "COMPUTER\nBILD",
-    rating: "GUT (1,9)",
-    headline: "Preis-Leistungs-Sieger Smart Home",
-    excerpt: "Das Smart-Home-Sortiment bei HAUSAURA überzeugt mit namenhaften Marken und fairen Preisen.",
-    category: "Smart Home",
-    product: "tado° Smart Thermostat",
-    accentColor: "var(--color-success)",
-  },
-  {
-    publication: "Focus Money",
-    logoText: "FOCUS\nMONEY",
-    rating: "KAUFEN",
-    headline: "Bester Kundenservice",
-    excerpt: "HAUSAURA bietet erstklassigen Service von der Beratung bis zur Garantie – transparent und zuverlässig.",
-    category: "Kundenservice",
-    product: "HAUSAURA Service",
-    accentColor: "var(--color-primary)",
-  },
-];
+// Nur echte, belegbare Pressezitate eintragen. Leer = Sektion wird nicht gerendert.
+const defaultPressReviews: PressReview[] = [];
 
 interface PressReviewsSectionProps {
   pressReviews?: PressReview[];
@@ -190,6 +150,8 @@ function ReviewCardMobile({ review }: { review: PressReview }) {
 export default function PressReviewsSection({
   pressReviews = defaultPressReviews,
 }: PressReviewsSectionProps) {
+  if (!pressReviews.length) return null;
+
   return (
     <section className="relative overflow-hidden" aria-label="Pressestimmen">
       {/* Background */}

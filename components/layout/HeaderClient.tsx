@@ -12,7 +12,7 @@ import { trackSearch } from "@/lib/analytics";
 import { useWishlistStore } from "@/lib/wishlist";
 import CategoryIcon from "@/components/ui/CategoryIcon";
 import { navCategories } from "@/lib/navigation";
-import { TRUST_BAR_RATING, FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function HeaderClient() {
@@ -473,9 +473,6 @@ export default function HeaderClient() {
               <span className="hidden lg:flex items-center gap-1">
                 <RotateCcw className="w-3 h-3 text-[var(--color-success)]" />
                 2 Jahre Garantie
-              </span>
-              <span className="hidden xl:flex items-center gap-1">
-                <span className="font-semibold text-[var(--color-accent)]">{TRUST_BAR_RATING.toString().replace(".", ",")}/5</span>
               </span>
               {/* Payment icons */}
               <span className="hidden 2xl:flex items-center gap-1.5 pl-3 border-l border-[var(--color-border-light)]">

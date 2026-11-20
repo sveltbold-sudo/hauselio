@@ -88,8 +88,18 @@ export const UpdateSettingsSchema = z.object({
   contactAddress: z.string().max(500).optional(),
   companyName: z.string().max(200).optional(),
   companyAddress: z.string().max(500).optional(),
-  vatId: z.string().max(50).optional(),
+  vatId: z.preprocess(
+    (v) => (typeof v === "string" ? v.replace(/\s/g, "").toUpperCase() : v),
+    z
+      .string()
+      .max(50)
+      .regex(/^DE\d{9}$/, "USt-IdNr. muss dem deutschen Format entsprechen: DE + 9 Ziffern (z. B. DE123456789)")
+      .optional()
+      .or(z.literal(""))
+  ),
   managingDirector: z.string().max(200).optional(),
+  registerCourt: z.string().max(200).optional(),
+  registerNumber: z.string().max(100).optional(),
   defaultVatRate: z.number().min(0).max(100).optional(),
   invoicePrefix: z.string().min(1, "Rechnungspräfix ist erforderlich").max(10).regex(/^[A-Za-z0-9_-]+$/, "Nur alphanumerische Zeichen erlaubt").optional(),
 });

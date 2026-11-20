@@ -191,12 +191,6 @@ export default function AGBPage() {
         <section>
           <h2 className="heading-3 mb-3">§ 9 Streitschlichtung</h2>
           <p className="text-[var(--color-text-secondary)]">
-            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-            <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline ml-1 break-all">
-              https://ec.europa.eu/consumers/odr
-            </a>
-          </p>
-          <p className="text-[var(--color-text-secondary)] mt-2">
             Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
             teilzunehmen.
           </p>

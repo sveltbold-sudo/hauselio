@@ -54,7 +54,7 @@ const usps = [
   { icon: Truck, label: "Kostenloser Versand", desc: "Ab 50€ — auch bei Thermomix" },
   { icon: Shield, label: "2 Jahre Gewährleistung", desc: "Gesetzliche Gewährleistung auf Neugeräte" },
   { icon: RotateCcw, label: "30 Tage Rückgabe", desc: "Risikolos bestellen & testen" },
-  { icon: Star, label: "4,4/5 Bewertung", desc: "Über 470 verifizierte Bewertungen" },
+  { icon: Star, label: "Sichere Zahlung", desc: "Vorkasse per Banküberweisung" },
 ];
 
 const features = [

@@ -75,17 +75,6 @@ export default async function Footer() {
               </li>
             ))}
           </ul>
-          {/* Trustpilot / Kiyoh scores */}
-          <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-4 sm:gap-6">
-            <span className="text-xs text-white/60">Kundenbewertung:</span>
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm font-semibold text-[var(--color-accent)]">4,4/5</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm font-semibold text-[var(--color-accent)]">9,2/10</span>
-              <span className="text-xs text-white/60">— KiyoBewertungen</span>
-            </div>
-          </div>
           {/* Trust seals */}
           <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-6">
             <div className="flex items-center gap-2 text-white/60">
