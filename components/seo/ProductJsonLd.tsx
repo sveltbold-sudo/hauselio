@@ -1,4 +1,4 @@
-import { SITE_URL, SHIPPING_COST } from "@/lib/constants";
+import { SITE_URL, SHIPPING_COST, SHIPPING_BASE_RATES } from "@/lib/constants";
 
 interface Review {
   author: string;
@@ -59,6 +59,19 @@ export default function ProductJsonLd({
   const productUrl = url || `${SITE_URL}/produkt/${slug}`;
   const absoluteImage = image.startsWith("http") ? image : `${SITE_URL}${image}`;
 
+  // Google expects a typed GTIN (gtin8/12/13/14), not the generic `gtin`.
+  const gtinKey = !gtin
+    ? null
+    : gtin.length === 8
+      ? "gtin8"
+      : gtin.length === 12
+        ? "gtin12"
+        : gtin.length === 13
+          ? "gtin13"
+          : gtin.length === 14
+            ? "gtin14"
+            : "gtin";
+
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -66,11 +79,8 @@ export default function ProductJsonLd({
     description,
     image: absoluteImage,
     ...(sku ? { sku } : {}),
-    brand: {
-      "@type": "Brand",
-      name: brand,
-    },
-    ...(gtin ? { gtin } : {}),
+    ...(brand ? { brand: { "@type": "Brand", name: brand } } : {}),
+    ...(gtin && gtinKey ? { [gtinKey]: gtin } : {}),
     ...(category ? { category } : {}),
     offers: {
       "@type": "Offer",
@@ -83,16 +93,16 @@ export default function ProductJsonLd({
         "@type": "Organization",
         name: sellerName,
       },
-      shippingDetails: {
+      shippingDetails: (["DE", "AT", "CH"] as const).map((country) => ({
         "@type": "OfferShippingDetails",
         shippingRate: {
           "@type": "MonetaryAmount",
-          value: shippingRate.toFixed(2),
+          value: (SHIPPING_BASE_RATES[country] ?? shippingRate).toFixed(2),
           currency: shippingCurrency,
         },
         shippingDestination: {
           "@type": "DefinedRegion",
-          addressCountry: ["DE", "AT", "CH"],
+          addressCountry: country,
         },
         deliveryTime: {
           "@type": "ShippingDeliveryTime",
@@ -109,14 +119,22 @@ export default function ProductJsonLd({
             unitCode: "DAY",
           },
         },
-      },
+      })),
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         applicableCountry: ["DE", "AT", "CH"],
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: 30,
         returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
+        // The 30-day return window is a voluntary extra. Return shipping is
+        // paid by the customer, so this must not be advertised as FreeReturn.
+        returnFees: "https://schema.org/ReturnShippingFees",
+        returnShippingFees: {
+          "@type": "MonetaryAmount",
+          value: SHIPPING_COST.toFixed(2),
+          currency: "EUR",
+        },
+        merchantReturnLink: `${SITE_URL}/widerruf`,
       },
     },
   };

@@ -177,7 +177,11 @@ export default function ProductPageClient({ product, relatedProducts = [], ratge
         <div className="animate-fade-in-up delay-100 lg:sticky lg:top-24 lg:self-start">
           {product.brand && (
             <Link
-              href={`/shop?brand=${encodeURIComponent(product.brandSlug || product.brand?.toLowerCase() || "")}`}
+              href={
+                product.brandProductCount && product.brandProductCount >= 2 && product.brandSlug
+                  ? `/marken/${product.brandSlug}`
+                  : `/shop?brand=${encodeURIComponent(product.brandSlug || product.brand?.toLowerCase() || "")}`
+              }
               className="inline-block text-xs font-bold text-[var(--color-primary)] uppercase tracking-widest mb-2 hover:underline"
               translate="no"
             >

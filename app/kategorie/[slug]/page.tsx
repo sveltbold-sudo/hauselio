@@ -8,6 +8,8 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getArticlesByCategory } from "@/lib/ratgeber";
 import { logger } from "@/lib/logger";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
+import { CATEGORY_CONTENT } from "@/lib/category-content";
+import { metaDescription } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -22,6 +24,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const { slug } = await params;
   const sp = await searchParams;
   const sub = sp.sub || undefined;
+  const pageNumber = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
   const category = await prisma.category.findUnique({
     where: { slug },
@@ -35,30 +38,39 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const pageTitle = sub
     ? `${sub} | ${category.name}`
     : `${category.name} online kaufen`;
-  const pageDescription = sub
-    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`
-    : category.description || `Hochwertige ${category.name} bei ${SITE_NAME} entdecken. Kostenloser Versand ab 50\u20AC, 30 Tage R\u00FCckgaberecht.`;
-  const canonical = sub
-    ? `${SITE_URL}/kategorie/${slug}?sub=${encodeURIComponent(sub)}`
-    : `${SITE_URL}/kategorie/${slug}`;
+  const baseDescription = sub
+    ? `Entdecken Sie unsere ${sub} Auswahl in der Kategorie ${category.name}.`
+    : category.description || `Hochwertige ${category.name} bei ${SITE_NAME} entdecken.`;
+  const pageDescription = metaDescription(
+    `${baseDescription} Kostenloser Versand ab 50 €, 30 Tage Rückgaberecht.`,
+  );
+
+  // Keep pagination self-referencing. Sort and brand filters canonicalise to the
+  // clean category URL so they never compete with /marken pages.
+  const canonicalParams = new URLSearchParams();
+  if (sub) canonicalParams.set("sub", sub);
+  if (pageNumber > 1) canonicalParams.set("page", String(pageNumber));
+  const canonicalQuery = canonicalParams.toString();
+  const canonical = `${SITE_URL}/kategorie/${slug}${canonicalQuery ? `?${canonicalQuery}` : ""}`;
 
   return {
     title: pageTitle,
     description: pageDescription,
     alternates: { canonical },
+    robots: sp.sort || sp.brand ? { index: false, follow: true } : { index: true, follow: true },
     openGraph: {
       title: pageTitle,
       description: pageDescription,
       url: canonical,
       siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
-      images: [{ url: category.image ? (category.image.startsWith("http") ? category.image : `${SITE_URL}${category.image}`) : `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+      images: [{ url: category.image ? (category.image.startsWith("http") ? category.image : `${SITE_URL}${category.image}`) : `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
       description: pageDescription,
-      images: [`${SITE_URL}/logos/logoprincipale.png`],
+      images: [`${SITE_URL}/og/hausaura-og.png`],
     },
   };
 }
@@ -199,9 +211,29 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
     logger.error("kategorie-ratgeber", error);
   }
 
+  const editorial = CATEGORY_CONTENT[slug];
+  const longDescription = category.longDescription || editorial?.longDescription;
+  const faqs = editorial?.faqs ?? [];
+
   return (
     <>
       <BreadcrumbJsonLd items={breadcrumbItems} />
+      {!sub && faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: { "@type": "Answer", text: faq.answer },
+              })),
+            }).replace(/</g, "\\u003C"),
+          }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -250,7 +282,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           title={category.name}
           sub={sub}
           description={category.description || ""}
-          longDescription={category.longDescription || undefined}
+          longDescription={longDescription}
           page={page}
           sort={sort}
           brand={brand}
@@ -259,6 +291,7 @@ export default async function CategorySlugPage({ params, searchParams }: PagePro
           brands={brands}
           subCategories={subCategories}
           ratgeberArticles={ratgeberArticles}
+          faqs={faqs}
         />
       </main>
     </>

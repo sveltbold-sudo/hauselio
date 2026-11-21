@@ -27,7 +27,7 @@ const getProductFromDb = cache(async function getProductFromDb(slug: string) {
         description: true, longDescription: true, price: true, originalPrice: true,
         isPromo: true, isNew: true, rating: true, reviewCount: true, stockQuantity: true,
         category: { select: { name: true, slug: true } },
-        brand: { select: { name: true, slug: true } },
+        brand: { select: { name: true, slug: true, _count: { select: { products: true } } } },
         images: { orderBy: { position: "asc" as const }, select: { url: true } },
         specs: { orderBy: { position: "asc" as const }, select: { key: true, value: true } },
         reviews: {
@@ -109,7 +109,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const desc = product.description
     ? product.description.slice(0, 155).replace(/\s+\S*$/, "") + "\u2026"
     : `Jetzt ${product.name} bei ${SITE_NAME} kaufen. Ab ${priceStr} \u20AC.`;
-  const titleSuffix = brandName ? ` — ${brandName}` : "";
+  const titleSuffix = brandName && !product.name.toLowerCase().includes(brandName.toLowerCase())
+    ? ` — ${brandName}`
+    : "";
 
   return {
     title: `${product.name}${titleSuffix}`,
@@ -180,6 +182,7 @@ export default async function ProductPage({ params }: PageProps) {
     isNew: product.isNew,
     brand: product.brand?.name || null,
     brandSlug: product.brand?.slug || null,
+    brandProductCount: product.brand?._count.products ?? 0,
     categoryName: product.category?.name || "",
     categorySlug: product.category?.slug || "",
     specs: product.specs || [],

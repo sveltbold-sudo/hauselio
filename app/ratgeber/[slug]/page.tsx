@@ -42,13 +42,13 @@ export async function generateMetadata({ params }: RatgeberArticlePageProps): Pr
       authors: [article.authorName],
       images: article.coverImage
         ? [{ url: article.coverImage.startsWith("http") ? article.coverImage : `${SITE_URL}${article.coverImage}`, width: 1200, height: 630 }]
-        : [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+        : [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: desc.slice(0, 155),
-      images: [article.coverImage || `${SITE_URL}/logos/logoprincipale.png`],
+      images: [article.coverImage || `${SITE_URL}/og/hausaura-og.png`],
     },
   };
 }
@@ -98,16 +98,28 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
               ? article.coverImage.startsWith("http")
                 ? article.coverImage
                 : `${SITE_URL}${article.coverImage}`
-              : `${SITE_URL}/logos/logoprincipale.png`,
-            author: { "@type": "Organization", name: article.authorName },
+              : `${SITE_URL}/og/hausaura-og.png`,
+            author: {
+              "@type": "Organization",
+              name: article.authorName,
+              url: `${SITE_URL}/ueber-uns`,
+            },
             publisher: {
               "@type": "Organization",
               name: SITE_NAME,
-              logo: { "@type": "ImageObject", url: `${SITE_URL}/logos/logoprincipale.png` },
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/logos/logoprincipale.png`,
+                width: 1478,
+                height: 323,
+              },
             },
             datePublished: article.publishedAt?.toISOString(),
             dateModified: article.updatedAt.toISOString(),
             mainEntityOfPage: `${SITE_URL}/ratgeber/${slug}`,
+            inLanguage: "de-DE",
+            isAccessibleForFree: true,
+            articleSection: categoryLabel,
           }),
         }}
       />
@@ -146,6 +158,11 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
                 <Calendar className="w-4 h-4" />
                 {formatDate(article.publishedAt)}
               </span>
+              {article.updatedAt.getTime() - (article.publishedAt?.getTime() ?? 0) > 24 * 60 * 60 * 1000 && (
+                <span className="flex items-center gap-1.5">
+                  Aktualisiert: {formatDate(article.updatedAt)}
+                </span>
+              )}
               {article.readingTime && (
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4" />
@@ -196,6 +213,19 @@ export default async function RatgeberArticlePage({ params }: RatgeberArticlePag
               </div>
             </div>
           )}
+
+          {/* Editorial note (E-E-A-T) */}
+          <aside className="mt-8 rounded-xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-5">
+            <p className="font-semibold text-[var(--color-text-primary)]">{article.authorName}</p>
+            <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+              Unsere Ratgeber entstehen auf Basis von Herstellerangaben, technischen Daten und den
+              Rückmeldungen aus unserem Kundenservice. Preise und Verfügbarkeit prüfen wir
+              regelmäßig.{" "}
+              <Link href="/ueber-uns" className="font-semibold text-[var(--color-primary)] hover:underline">
+                Mehr über HAUSAURA
+              </Link>
+            </p>
+          </aside>
         </article>
 
         {/* Related Products */}

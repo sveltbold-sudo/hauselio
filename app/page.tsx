@@ -78,14 +78,14 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,    locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} — Moderne Haushaltsgeräte` }],
+    images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630, alt: `${SITE_NAME} — Moderne Haushaltsgeräte` }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Haushaltsgeräte online kaufen — Miele, Bosch & Siemens | HAUSAURA",
     description:
       "Hochwertige Haushaltsgeräte von Top-Marken. Kostenloser Versand ab 50€, 30 Tage Rückgaberecht.",
-    images: [`${SITE_URL}/logos/logoprincipale.png`],
+    images: [`${SITE_URL}/og/hausaura-og.png`],
   },
 };
 

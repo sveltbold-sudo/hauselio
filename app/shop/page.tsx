@@ -68,35 +68,64 @@ export async function generateMetadata({ searchParams }: ShopPageProps): Promise
     desc = `Alle ${brand} Haushaltsgeräte bei ${SITE_NAME} — von Küchengeräten bis Smart Home. Kostenloser Versand ab 50€.`;
   }
 
-  const searchParamsObj = new URLSearchParams();
-  if (category) searchParamsObj.set("category", category);
-  if (brand) searchParamsObj.set("brand", brand);
-  if (q) searchParamsObj.set("q", q);
-  if (params.sort && params.sort !== "newest") searchParamsObj.set("sort", params.sort);
-  if (params.price) searchParamsObj.set("price", params.price);
-  if (params.promo) searchParamsObj.set("promo", params.promo);
-  if (params.rating) searchParamsObj.set("rating", params.rating);
-  if (params.page && params.page !== "1") searchParamsObj.set("page", params.page);
-  const queryString = searchParamsObj.toString();
-  const canonical = `${baseUrl}/shop${queryString ? `?${queryString}` : ""}`;
+  // Filter combinations create near-duplicates: canonicalise them to the
+  // matching category/brand page and keep only clean pages in the index.
+  const hasFilters = Boolean(
+    (params.sort && params.sort !== "newest") || params.price || params.promo || params.rating,
+  );
+  const [categoryExists, brandData] = await Promise.all([
+    category
+      ? prisma.category.findUnique({ where: { slug: category }, select: { slug: true } }).catch(() => null)
+      : Promise.resolve(null),
+    brand
+      ? prisma.brand
+          .findUnique({
+            where: { slug: brand },
+            select: { _count: { select: { products: true } } },
+          })
+          .catch(() => null)
+      : Promise.resolve(null),
+  ]);
+
+  let canonical = `${baseUrl}/shop`;
+  let shouldIndex = true;
+  const pageParam = params.page && params.page !== "1" ? `?page=${params.page}` : "";
+
+  if (q) {
+    canonical = `${baseUrl}/shop?q=${encodeURIComponent(q)}`;
+    shouldIndex = false;
+  } else if (category && categoryExists) {
+    canonical = `${baseUrl}/kategorie/${category}${pageParam}`;
+  } else if (brand && brandData && brandData._count.products >= 2) {
+    canonical = `${baseUrl}/marken/${brand}`;
+    if (pageParam) shouldIndex = false;
+  } else if (brand) {
+    shouldIndex = false;
+  } else if (pageParam) {
+    canonical = `${baseUrl}/shop${pageParam}`;
+  }
+
+  // Category + brand together is a filter combination, not a landing page.
+  if (hasFilters || (category && brand)) shouldIndex = false;
 
   return {
     title,
     description: desc,
     alternates: { canonical },
+    robots: shouldIndex ? { index: true, follow: true } : { index: false, follow: true },
     openGraph: {
       title,
       description: desc,
       url: canonical,
       siteName: SITE_NAME,      locale: "de_DE",
       type: "website",
-      images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: `${SITE_NAME} Shop` }],
+      images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630, alt: `${SITE_NAME} Shop` }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: desc,
-      images: [`${SITE_URL}/logos/logoprincipale.png`],
+      images: [`${SITE_URL}/og/hausaura-og.png`],
     },
   };
 }

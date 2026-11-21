@@ -19,7 +19,7 @@ function isAllowedUrl(urlString: string): boolean {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const ip = getClientIp(request);
@@ -28,7 +28,8 @@ export async function GET(
       return NextResponse.json({ error: "Zu viele Anfragen" }, { status: 429, headers: { "Retry-After": "60" } });
     }
 
-    const { id } = await params;
+    // The admin UI passes the product id in this segment.
+    const { slug: id } = await params;
 
     const product = await prisma.product.findUnique({
       where: { id },

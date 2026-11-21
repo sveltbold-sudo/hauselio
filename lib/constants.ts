@@ -22,6 +22,11 @@ const SHIPPING_BY_COUNTRY: Record<string, { threshold: number; cost: number }> =
 
 const DEFAULT_SHIPPING = { threshold: FREE_SHIPPING_THRESHOLD, cost: SHIPPING_COST };
 
+/** Standard shipping cost per country (before the free-shipping threshold). */
+export const SHIPPING_BASE_RATES: Record<string, number> = Object.fromEntries(
+  Object.entries(SHIPPING_BY_COUNTRY).map(([country, config]) => [country, config.cost]),
+);
+
 export function getShippingCost(subtotal: number, country: string = "DE"): number {
   const config = SHIPPING_BY_COUNTRY[country.toUpperCase()] || DEFAULT_SHIPPING;
   return subtotal >= config.threshold ? 0 : config.cost;

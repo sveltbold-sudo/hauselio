@@ -33,6 +33,7 @@ export interface ProductDetail {
   isNew: boolean;
   brand: string | null;
   brandSlug: string | null;
+  brandProductCount?: number;
   categoryName: string;
   categorySlug: string;
   specs: ProductSpec[];

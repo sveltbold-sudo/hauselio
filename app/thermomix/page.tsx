@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630, alt: "Thermomix bei HAUSAURA kaufen" }],
+    images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630, alt: "Thermomix bei HAUSAURA kaufen" }],
   },
 };
 

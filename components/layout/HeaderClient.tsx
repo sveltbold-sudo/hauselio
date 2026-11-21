@@ -460,6 +460,14 @@ export default function HeaderClient() {
               Tipps & Ratgeber
             </Link>
 
+            <Link
+              href="/marken"
+              aria-current={pathname === "/marken" || pathname.startsWith("/marken/") ? "page" : undefined}
+              className={`header-nav-tab shrink-0 ${pathname === "/marken" || pathname.startsWith("/marken/") ? "active" : ""}`}
+            >
+              Marken
+            </Link>
+
             {/* Trust signals — compact, right-aligned */}
             <div className="ml-auto flex items-center gap-4 text-xs text-[var(--color-text-muted)] shrink-0 pl-4 border-l border-[var(--color-border-light)]">
               <span className="flex items-center gap-1">
@@ -725,6 +733,14 @@ export default function HeaderClient() {
               >
                 <ArrowRight className="w-4 h-4" />
                 Tipps & Ratgeber
+              </Link>
+              <Link
+                href="/marken"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] rounded-lg hover:bg-[var(--color-primary-50)]"
+              >
+                <ArrowRight className="w-4 h-4" />
+                Marken
               </Link>
               <Link
                 href="/impressum"

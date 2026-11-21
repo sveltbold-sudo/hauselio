@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Produkte vergleichen | HAUSAURA",
     description: "Vergleichen Sie Produkte Seiten an Seite \u2014 Preise, Bewertungen und Funktionen im direkten Vergleich.",
-    images: [`${SITE_URL}/logos/logoprincipale.png`],
+    images: [`${SITE_URL}/og/hausaura-og.png`],
   },
 };
 

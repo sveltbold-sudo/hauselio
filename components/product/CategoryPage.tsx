@@ -8,6 +8,9 @@ import MobileShopBar from "@/components/product/MobileShopBar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import RatgeberOnProductPage from "@/components/product/RatgeberOnProductPage";
 import CategoryCrossLinks from "@/components/product/CategoryCrossLinks";
+import CategoryContent from "@/components/product/CategoryContent";
+import CategoryFaq from "@/components/product/CategoryFaq";
+import type { CategoryFaq as CategoryFaqItem } from "@/lib/category-content";
 import type { ProductListItem, CategoryBrand } from "@/lib/product-types";
 import type { RatgeberArticleListItem } from "@/lib/ratgeber";
 
@@ -30,6 +33,7 @@ interface CategoryPageProps {
   brands: CategoryBrand[];
   subCategories: { name: string; count: number }[];
   ratgeberArticles?: RatgeberArticleListItem[];
+  faqs?: CategoryFaqItem[];
 }
 
 export default function CategoryPage({
@@ -46,6 +50,7 @@ export default function CategoryPage({
   brands,
   subCategories,
   ratgeberArticles = [],
+  faqs = [],
 }: CategoryPageProps) {
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -77,7 +82,7 @@ export default function CategoryPage({
 
       {/* Header */}
       <div className="mb-6 sm:mb-8">
-        <h1 className="heading-1">{sub ? `${sub}` : title}</h1>
+        <h1 className="heading-1">{sub ? `${sub}` : `${title} online kaufen`}</h1>
         <p className="body-large mt-2">{sub ? `${sub} in ${title}` : description}</p>
       </div>
 
@@ -219,12 +224,12 @@ export default function CategoryPage({
       {/* SEO Content Section */}
       {longDescription && !sub && (
         <section className="mt-12 sm:mt-16 border-t border-[var(--color-border-light)] pt-8 sm:pt-12">
-          <h2 className="heading-2 mb-4">{title} — Unsere Auswahl</h2>
-          <div className="prose prose-sm sm:prose-base max-w-none text-[var(--color-text-secondary)] leading-relaxed whitespace-pre-line">
-            {longDescription}
-          </div>
+          <CategoryContent text={longDescription} />
         </section>
       )}
+
+      {/* Category FAQ (also emitted as FAQPage structured data) */}
+      {!sub && <CategoryFaq faqs={faqs} />}
 
       {/* Ratgeber articles for this category */}
       {!sub && ratgeberArticles.length > 0 && (

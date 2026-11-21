@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "HAUSAURA",
     locale: "de_DE",
     type: "website",
-    images: [`${SITE_URL}/logos/logoprincipale.png`],
+    images: [`${SITE_URL}/og/hausaura-og.png`],
   },
   twitter: {
     card: "summary_large_image",

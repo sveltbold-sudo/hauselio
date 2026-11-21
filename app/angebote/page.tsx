@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Angebote & Sale — Bis zu 40% sparen | HAUSAURA",
     description: "Premium-Haushaltsgeräte mit Rabatt. Sparen Sie bis zu 40%.",
     url: `${SITE_URL}/angebote`,
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630 }],
   },
 };
 

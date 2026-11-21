@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: "de_DE",
     type: "website",
-    images: [{ url: `${SITE_URL}/logos/logoprincipale.png`, width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/og/hausaura-og.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: `FAQ — Häufig gestellte Fragen | ${SITE_NAME}`,
     description: "Antworten zu Bestellung, Versand, Zahlung, Garantie und Rückgabe.",
-    images: [`${SITE_URL}/logos/logoprincipale.png`],
+    images: [`${SITE_URL}/og/hausaura-og.png`],
   },
 };
 
