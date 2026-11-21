@@ -31,6 +31,7 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    // Yandex expects a bare hostname here, not a full URL.
+    host: SITE_URL.replace(/^https?:\/\//, ""),
   };
 }
